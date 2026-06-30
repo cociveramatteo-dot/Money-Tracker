@@ -1,0 +1,437 @@
+/* ── Date helpers ────────────────────────── */
+"Oggi" = "Today";
+"Ieri" = "Yesterday";
+
+/* ── Tab bar ─────────────────────────────── */
+"Home"       = "Home";
+"Movimenti"  = "Transactions";
+"Budget"     = "Budget";
+"Obiettivi"  = "Goals";
+"Conti"      = "Accounts";
+
+/* ── Common ──────────────────────────────── */
+"Modifica"   = "Edit";
+"Elimina"    = "Delete";
+"Annulla"    = "Cancel";
+"Salva"      = "Save";
+"Aggiungi"   = "Add";
+"Aggiorna"   = "Update";
+"Chiudi"     = "Close";
+"Importo"    = "Amount";
+"Nome"       = "Name";
+"Tipo"       = "Type";
+"Data"       = "Date";
+"Note"       = "Notes";
+"Opzioni"    = "Options";
+"Categoria"  = "Category";
+"Conto"      = "Account";
+"Info"       = "Info";
+
+/* ── Dashboard ───────────────────────────── */
+"Saldo attuale"              = "Current balance";
+"A conti fatti"              = "Net balance";
+"A conti fatti:"             = "Net balance:";
+"in entrata pianificate"     = "in planned income";
+"in uscite pianificate"      = "in planned expenses";
+"Nessuna spesa pianificata"  = "No planned expenses";
+"Statistiche del mese"       = "Monthly statistics";
+"Vedi tutte"                 = "View all";
+"Uscite totali"              = "Total expenses";
+"Nessuna spesa questo mese." = "No expenses this month.";
+"Fissi del mese"             = "Monthly fixed items";
+"da pagare"                  = "to pay";
+"da ricevere"                = "to receive";
+"Nessuna voce fissa.\nPremi + → aggiungi una spesa o entrata → attiva 'Voce fissa'." = "No fixed items.\nTap + → add an expense or income → enable 'Fixed item'.";
+"Ultimi movimenti"           = "Recent transactions";
+"Nessun movimento ancora.\nPremi + per aggiungere una spesa." = "No transactions yet.\nTap + to add an expense.";
+"Totale attuale"             = "Current total";
+
+/* ── Accounts ────────────────────────────── */
+"Nessun conto."              = "No accounts.";
+"+ Aggiungi conto"           = "+ Add account";
+"escluso"                    = "excluded";
+"Archiviati"                 = "Archived";
+"Includi nel totale"         = "Include in total";
+"Escludi dal totale"         = "Exclude from total";
+"Archivia"                   = "Archive";
+"Ripristina"                 = "Restore";
+"Elimina definitivamente"    = "Delete permanently";
+"Nuovo conto"                = "New account";
+"Modifica conto"             = "Edit account";
+"es. Carta Unicredit, Portafoglio..." = "e.g. Unicredit Card, Wallet...";
+"Inserisci il saldo che hai adesso su questo conto." = "Enter the current balance of this account.";
+"Non viene contato nel saldo totale dei conti" = "Not counted in the total account balance";
+
+/* ── Account types ───────────────────────── */
+"Contanti"       = "Cash";
+"Carta"          = "Card";
+"Conto Bancario" = "Bank account";
+"Risparmio"      = "Savings";
+"Investimento"   = "Investment";
+
+/* ── Transactions ────────────────────────── */
+"Tutti"    = "All";
+"Fisse"    = "Fixed";
+"Trasf."   = "Transfer";
+"Uscite"   = "Expenses";
+"Entrate"  = "Income";
+"Uscita"   = "Expense";
+"Entrata"  = "Income";
+"Nessun movimento"       = "No transactions";
+"Cerca..."               = "Search...";
+"Segna come pianificato" = "Mark as planned";
+"Segna come fatto"       = "Mark as done";
+
+/* ── Fixed items row ─────────────────────── */
+"Da pagare"  = "To pay";
+"Da ricevere"= "To receive";
+"Pagata"     = "Paid";
+"Ricevuta"   = "Received";
+
+/* ── Add transaction ─────────────────────── */
+"Descrizione"  = "Description";
+"es. Affitto, Netflix, Pizza..." = "e.g. Rent, Netflix, Pizza...";
+"Scegli..."    = "Choose...";
+"· suggerita"  = "· suggested";
+"Già effettuato" = "Already done";
+"Togli la spunta se è pianificata ma non ancora fatta" = "Uncheck if planned but not yet done";
+"Spesa fissa"  = "Fixed expense";
+"Entrata fissa"= "Fixed income";
+"Appare in 'Fissi del mese' nella home" = "Appears in 'Monthly fixed' on home";
+"Ricorrenza"   = "Recurrence";
+"Crea automaticamente al prossimo periodo" = "Automatically creates at the next period";
+"Aggiungi una nota..." = "Add a note...";
+"Nessuna"      = "None";
+"Settimanale"  = "Weekly";
+"Mensile"      = "Monthly";
+"Annuale"      = "Annual";
+
+/* ── Categories ──────────────────────────── */
+"Predefinite"  = "Default";
+"Personalizzate" = "Custom";
+"Nessuna categoria personalizzata.\nPremi + per aggiungerne una." = "No custom categories.\nTap + to add one.";
+"predefinita"  = "default";
+"Nuova categoria"   = "New category";
+"Modifica categoria"= "Edit category";
+"Icona"        = "Icon";
+"Cambia icona" = "Change icon";
+"es. Musica, Sport, Palestra..." = "e.g. Music, Sport, Gym...";
+"Categorie"    = "Categories";
+"Gestisci"     = "Manage";
+
+/* ── Transfer ────────────────────────────── */
+"Trasferimento"    = "Transfer";
+"Da"               = "From";
+"A"                = "To";
+"Note (opzionale)" = "Notes (optional)";
+"Trasferisci"      = "Transfer";
+"Nessun altro conto" = "No other accounts";
+
+/* ── Settings ────────────────────────────── */
+"Impostazioni"   = "Settings";
+"Tema"           = "Theme";
+"Esportazione dati" = "Data export";
+"Esporta tutte le transazioni in formato CSV, compatibile con Excel e Numbers." = "Export all transactions in CSV format, compatible with Excel and Numbers.";
+"Condividi CSV"  = "Share CSV";
+"Genera CSV"     = "Generate CSV";
+"Versione"       = "Version";
+"Transazioni totali" = "Total transactions";
+
+/* ── Budget ──────────────────────────────── */
+"Budget usato"     = "Budget used";
+"+ Aggiungi budget"= "+ Add budget";
+
+/* ── Goals ───────────────────────────────── */
+"Progresso totale"     = "Total progress";
+"Nessun obiettivo."    = "No goals.";
+"+ Aggiungi obiettivo" = "+ Add goal";
+
+/* ── FAB menu ─────────────────────────────── */
+"Spesa / Entrata"          = "Expense / Income";
+"Trasferimento tra conti"  = "Transfer between accounts";
+
+/* ── Theme names ─────────────────────────── */
+"Classico" = "Classic";
+"Notte"    = "Night";
+"Foresta"  = "Forest";
+"Oceano"   = "Ocean";
+"Rosso"    = "Red";
+"Rosa"     = "Rose";
+"Viola"    = "Violet";
+"Sabbia"   = "Sand";
+"Menta"    = "Mint";
+"Autunno"  = "Autumn";
+
+/* ── Budget ──────────────────────────────── */
+"Nessun budget impostato."  = "No budget set.";
+"Nuovo budget"              = "New budget";
+"Scegli categoria..."       = "Choose category...";
+"Conto (opzionale)"         = "Account (optional)";
+"Lascia vuoto per applicarlo a tutti i conti." = "Leave empty to apply to all accounts.";
+"Categoria (opzionale)"    = "Category (optional)";
+"Lascia vuoto per un budget globale sul conto." = "Leave empty for an account-wide budget.";
+"Seleziona almeno una categoria o un conto." = "Select at least one category or account.";
+"Limite mensile"            = "Monthly limit";
+"Sforato di"                = "Exceeded by";
+"rimasti"                   = "remaining";
+
+/* ── Goals ───────────────────────────────── */
+"Nuovo obiettivo"           = "New goal";
+"Obiettivo raggiunto"       = "Goal reached";
+"Entro"                     = "By";
+"Già risparmiato"           = "Already saved";
+"Aggiungi risparmio"        = "Add savings";
+"Scadenza"                  = "Deadline";
+"Imposta scadenza"          = "Set deadline";
+"es. Vacanza, Auto nuova..."= "e.g. Vacation, New car...";
+"Obiettivo"                 = "Target";
+
+/* ── Language settings ───────────────────── */
+"Lingua"                    = "Language";
+"Lingua aggiornata"         = "Language updated";
+"Chiudi e riapri l'app per applicare la nuova lingua." = "Close and reopen the app to apply the new language.";
+"Chiudi l'app"             = "Close app";
+"Dopo"                      = "Later";
+
+/* ── Default category names ──────────────── */
+"Cibo"          = "Food";
+"Trasporti"     = "Transport";
+"Svago"         = "Entertainment";
+"Shopping"      = "Shopping";
+"Salute"        = "Health";
+"Casa"          = "Home";
+"Abbonamenti"   = "Subscriptions";
+"Lavoro"        = "Work";
+"Istruzione"    = "Education";
+"Viaggi"        = "Travel";
+"Regali"        = "Gifts";
+"Giroconto"     = "Internal Transfer";
+"Altro"         = "Other";
+
+/* ── Statistics ───────────────────────────── */
+"Riepilogo"                     = "Summary";
+"rispetto al mese scorso"       = "vs last month";
+"Andamento 6 mesi"              = "6-month trend";
+"Uscite per categoria"          = "Expenses by category";
+"Nessuna uscita questo mese."   = "No expenses this month.";
+"Nessun dato disponibile."      = "No data available.";
+
+/* ── Additions ──────────────────────────── */
+"Fatto" = "Done";
+"Categoria predefinita" = "Default category";
+"Le categorie predefinite non possono essere modificate o eliminate." = "Default categories cannot be modified or deleted.";
+"💸 %.2f€ per %@ — salvato!" = "💸 %.2f€ for %@ — saved!";
+"💰 +%.2f€ %@ — salvato!" = "💰 +%.2f€ %@ — saved!";
+"Sì" = "Yes";
+"No" = "No";
+"Cambia emoji" = "Change emoji";
+
+"Statistiche" = "Statistics";
+
+/* ── Settings (additions) ────────────────── */
+"La lingua dell'app segue le preferenze di sistema." = "The app language follows your system preferences.";
+"Apri Impostazioni iOS" = "Open iOS Settings";
+"Valuta" = "Currency";
+"Notifiche" = "Notifications";
+"Avvisi automatici" = "Automatic alerts";
+"Budget quasi esaurito, fissi in scadenza, obiettivi vicini" = "Budget nearly spent, fixed items due, goals approaching";
+"Report mensile PDF" = "Monthly PDF report";
+"Promemoria il 1° di ogni mese per generare il report PDF" = "Reminder on the 1st of every month to generate the PDF report";
+"Generazione in corso…" = "Generating…";
+"Modalità Demo" = "Demo Mode";
+"Mostra l'app con dati di esempio senza esporre i tuoi dati reali. Utile per mostrare MoneyTracker ad amici o colleghi." = "Show the app with sample data without exposing your real data. Useful for showing MoneyTracker to friends or colleagues.";
+"Attiva modalità demo" = "Enable demo mode";
+"I tuoi dati reali restano intatti e privati" = "Your real data remains intact and private";
+"L'app si riavvierà con dati demo. Per tornare ai tuoi dati basta disattivare il toggle." = "The app will restart with demo data. To return to your data, simply toggle this off.";
+"Conferma" = "Confirm";
+"Il simbolo verrà aggiornato ovunque nell'app. Gli importi restano invariati." = "The symbol will be updated everywhere in the app. Amounts remain unchanged.";
+
+/* ── Transactions (additions) ─────────────── */
+"I movimenti di questo periodo appariranno qui." = "Transactions from this period will appear here.";
+"Minimo" = "Minimum";
+"Massimo" = "Maximum";
+"Periodo personalizzato" = "Custom period";
+"Sostituisce il filtro mese" = "Replaces the month filter";
+"Rimuovi tutti i filtri" = "Remove all filters";
+"Filtri" = "Filters";
+"Fine" = "Done";
+"Elimina trasferimento" = "Delete transfer";
+"Elimina entrambi i movimenti" = "Delete both transactions";
+"Questo trasferimento è composto da due movimenti collegati. Verranno eliminati entrambi." = "This transfer consists of two linked transactions. Both will be deleted.";
+"Pianificato" = "Planned";
+
+/* ── Dashboard (additions) ───────────────── */
+"Conti in home" = "Home accounts";
+"Premi + per aggiungere la tua prima spesa." = "Tap + to add your first expense.";
+
+/* ── Accessibility ────────────────────────── */
+"Saldo nascosto" = "Balance hidden";
+"Tocca per segnare come da pagare" = "Tap to mark as to pay";
+"Tocca per segnare come pagata" = "Tap to mark as paid";
+
+/* ── Accounts (additions) ────────────────── */
+"Nessun conto" = "No accounts";
+"Aggiungi un conto per iniziare a tracciare le tue finanze." = "Add an account to start tracking your finances.";
+"Aggiungi conto" = "Add account";
+"Avviso saldo basso" = "Low balance alert";
+"Ricevi una notifica quando il saldo scende sotto questa soglia" = "Receive a notification when the balance drops below this threshold";
+
+/* ── Planning (additions) ────────────────── */
+"Nessun budget" = "No budget";
+"Imposta un limite mensile per categoria o conto." = "Set a monthly limit by category or account.";
+"Aggiungi budget" = "Add budget";
+"Nessun obiettivo" = "No goals";
+"Imposta un obiettivo di risparmio e tieni traccia dei tuoi progressi." = "Set a savings goal and track your progress.";
+"Aggiungi obiettivo" = "Add goal";
+
+/* ── Tab bar (additions) ─────────────────── */
+"Pianifica" = "Plan";
+
+/* ── Tour / Onboarding ──────────────────── */
+"tour.saldoAttuale.title" = "Current balance";
+"tour.saldoAttuale.body" = "Confirmed liquidity. Only transactions marked as done contribute to this figure — everything planned is excluded.";
+
+"tour.hideBalance.title" = "Hide amounts";
+"tour.hideBalance.body" = "Tap the eye icon at the top right to hide all amounts on every screen. The setting persists between sessions — useful in public environments.";
+
+"tour.accountOrder.title" = "Panel composition";
+"tour.accountOrder.body" = "Tap the slider icon to choose which accounts appear here and in what order. Drag to reorder, use the checkmark to include or exclude.";
+
+"tour.saldoAtteso.title" = "Expected balance";
+"tour.saldoAtteso.body" = "Projection after all pending planned transactions. Only appears when there are future items not yet marked as done.";
+
+"tour.recentMovements.title" = "Recent transactions";
+"tour.recentMovements.body" = "The latest non-fixed transactions. Tap the header to collapse the section, tap a row to open the detail view.";
+
+"tour.addButton.title" = "Add transaction";
+"tour.addButton.body" = "The + button is available from every tab. Tap to add an expense, income, or transfer between accounts. Hold to choose the type.";
+
+"tour.filters.title" = "Category filters";
+"tour.filters.body" = "Filters are cumulative — type and category combine. Select multiple categories to narrow the analysis. Filter state resets when changing period.";
+
+"tour.swipeAction.title" = "Quick actions";
+"tour.swipeAction.body" = "Swipe right on a fixed item to confirm it and update the balance. Swipe left to delete. On regular transactions, swipe right to edit.";
+
+"tour.accountSwipe.title" = "Account management";
+"tour.accountSwipe.body" = "Swipe right to edit an account, left to delete. Long press for advanced options: exclude from total and archive.";
+
+"tour.budgetBar.title" = "Progress bar";
+"tour.budgetBar.body" = "Green means you are within the limit. Red means the threshold has been exceeded. The calculation includes only completed transactions for the current month.";
+
+"tour.goalProgress.title" = "Savings goal";
+"tour.goalProgress.body" = "Tap the update button to record your progress. The bar shows the percentage reached relative to the target. The deadline is shown below the name.";
+
+"tour.accountTotal.title" = "Total net worth";
+"tour.accountTotal.body" = "The combined balance of all active, included accounts. 'Net balance' below shows the projection after all pending planned transactions.";
+
+"tour.budgetHero.title" = "Budget usage";
+"tour.budgetHero.body" = "Percentage of total monthly budget already consumed. The line fills progressively — stay under 100% to remain within your limits.";
+
+"tour.goalHero.title" = "Total progress";
+"tour.goalHero.body" = "Weighted average progress across all active goals. Each goal contributes proportionally to its target amount.";
+
+/* ── Statistics (additional) ─────────────── */
+"Dati insufficienti."   = "Insufficient data.";
+"Uscite medie"          = "Average expenses";
+"Entrate medie"         = "Average income";
+
+/* ── Budget history ──────────────────────── */
+"Storico Budget"        = "Budget History";
+
+/* ── Demo banner ─────────────────────────── */
+"MODALITÀ DEMO"         = "DEMO MODE";
+
+/* ── Transfer form ───────────────────────── */
+"Togli la spunta se il trasferimento è pianificato" = "Uncheck if the transfer is planned but not yet done";
+
+/* ── PDF labels ──────────────────────────── */
+"Netto"                         = "Net";
+"rispetto al mese precedente" = "vs previous month";
+"Eliminare \"%@\"?"  = "Delete \"%@\"?";
+
+/* ── Statistics section labels ───────────────── */
+"Saldo atteso"                    = "Expected balance";
+"Media mensile — ultimi 12 mesi"  = "Monthly average — last 12 months";
+"Andamento 12 mesi"               = "12-month trend";
+"Anno %lld vs %lld"               = "%lld vs %lld";
+
+/* ── Demo accounts ───────────────────────────── */
+"demo.account.conto"    = "Checking Account";
+"demo.account.risparmi" = "Savings";
+"demo.account.carta"    = "Credit Card";
+"demo.account.contanti" = "Cash";
+
+/* ── Demo transactions ───────────────────────── */
+"demo.tx.stipendio"   = "Salary";
+"demo.tx.affitto"     = "Rent";
+"demo.tx.bolletta"    = "Electric bill";
+"demo.tx.carburante"  = "Fuel";
+"demo.tx.farmacia"    = "Pharmacy";
+"demo.tx.regalo"      = "Birthday gift";
+"demo.tx.supermercato"= "Supermarket";
+"demo.tx.volo"        = "Flight Milan–Rome";
+"demo.tx.hotel"       = "Hotel Rome 2 nights";
+"demo.tx.dentista"    = "Dentist";
+"demo.tx.cinema"      = "Cinema + dinner";
+"demo.tx.ristorante"  = "Japanese restaurant";
+"demo.tx.risparmio"   = "Monthly savings";
+
+/* ── Demo goals ──────────────────────────────── */
+"demo.goal.vacanza"    = "Sardinia holiday";
+"demo.goal.emergenza"  = "Emergency fund";
+"demo.goal.fotografia" = "Photography course";
+
+/* ── App Intents / Shortcuts ──────────────────── */
+"Aggiungi spesa" = "Add Expense";
+"Aggiunge rapidamente una spesa al Money Tracker" = "Quickly adds an expense to Money Tracker";
+"Cosa hai comprato?" = "What did you buy?";
+"Quanto hai speso?" = "How much did you spend?";
+"Quale conto hai usato?" = "Which account did you use?";
+"Lascia vuoto per auto-detect" = "Leave empty for auto-detect";
+"Quale categoria per questa spesa?" = "What category for this expense?";
+"L'importo deve essere un numero positivo (max 1 miliardo)" = "Amount must be a positive number (max 1 billion)";
+"Inserisci una descrizione per la spesa" = "Enter a description for the expense";
+"Il database non è disponibile. Apri l'app per risolvere il problema." = "The database is unavailable. Open the app to fix the issue.";
+"%.2f per %@ — salvato!" = "%.2f for %@ — saved!";
+"Aggiungi entrata" = "Add Income";
+"Aggiunge rapidamente un'entrata al Money Tracker" = "Quickly adds income to Money Tracker";
+"Descrizione entrata" = "Income description";
+"Quanto hai ricevuto?" = "How much did you receive?";
+"Su quale conto?" = "Which account?";
+"Inserisci una descrizione per l'entrata" = "Enter a description for the income";
+"+%.2f %@ — salvato!" = "+%.2f %@ — saved!";
+"Controlla saldo" = "Check Balance";
+"Mostra il saldo attuale di tutti i conti" = "Shows the current balance of all accounts";
+"Saldo conti" = "Account Balance";
+"Nessun conto trovato. Apri l'app per aggiungerne uno." = "No accounts found. Open the app to add one.";
+"💰 Saldo totale: %@" = "💰 Total balance: %@";
+
+/* ── Onboarding tour — new steps ─────────────── */
+"tour.welcome.title"    = "Welcome to MoneyTracker";
+"tour.welcome.body"     = "This guide walks you through every feature. You can stop at any time and resume from Settings → Review Tour.";
+"tour.tabBar.title"     = "Main navigation";
+"tour.tabBar.body"      = "Five areas always within reach: Dashboard, Transactions, Statistics, Plan and Accounts. Designed for the minimum number of taps.";
+"tour.statistics.title" = "Financial analysis";
+"tour.statistics.body"  = "Compare monthly spending, view 12-month trends and year-over-year comparisons. Charts update automatically.";
+"tour.shortcuts.title"  = "Siri automation";
+"tour.shortcuts.body"   = "Log expenses, income and check your balance with a voice command. Say «Add expense to MoneyTracker» or explore Settings → Siri & Search to add shortcuts.";
+"tour.done.title"       = "You're all set";
+"tour.done.body"        = "You've completed the MoneyTracker tour. Every feature is designed to be powerful and immediate. You can revisit this guide anytime from Settings.";
+"tour.startButton"      = "Start tour";
+"tour.doneButton"       = "Start using the app";
+"tour.skipButton"       = "Skip tour";
+"Avanti"                = "Next";
+"Fine"                  = "Done";
+"Rivedi tour"           = "Review Tour";
+
+/* ── Settings / Siri section & accessibility ─── */
+"Siri & Shortcut" = "Siri & Shortcuts";
+"Aggiungi spese senza aprire l'app: con la voce, un widget o una scorciatoia rapida." = "Add expenses without opening the app: by voice, widget, or quick shortcut.";
+"Apri Shortcut" = "Open Shortcuts";
+"Configura tocco sul retro" = "Set up Back Tap";
+"Crea una Shortcut in Shortcut, poi vai in Impostazioni → Accessibilità → Tocco → Tocca sul retro → Doppio tocco e scegli la tua scorciatoia per accesso istantaneo." = "Create a Shortcut in the Shortcuts app, then go to Settings → Accessibility → Touch → Back Tap → Double Tap and choose your shortcut for instant access.";
+"meno " = "minus ";
+"più " = "plus ";
+"pianificato" = "planned";
+"escluso dal totale" = "excluded from total";
+"saldo" = "balance";

@@ -1,0 +1,436 @@
+/* ── Date helpers ────────────────────────── */
+"Oggi" = "Heute";
+"Ieri" = "Gestern";
+
+/* ── Tab bar ─────────────────────────────── */
+"Home"       = "Startseite";
+"Movimenti"  = "Bewegungen";
+"Budget"     = "Budget";
+"Obiettivi"  = "Ziele";
+"Conti"      = "Konten";
+
+/* ── Common ──────────────────────────────── */
+"Modifica"   = "Bearbeiten";
+"Elimina"    = "Löschen";
+"Annulla"    = "Abbrechen";
+"Salva"      = "Speichern";
+"Aggiungi"   = "Hinzufügen";
+"Aggiorna"   = "Aktualisieren";
+"Chiudi"     = "Schließen";
+"Importo"    = "Betrag";
+"Nome"       = "Name";
+"Tipo"       = "Typ";
+"Data"       = "Datum";
+"Note"       = "Notizen";
+"Opzioni"    = "Optionen";
+"Categoria"  = "Kategorie";
+"Conto"      = "Konto";
+"Info"       = "Info";
+
+/* ── Dashboard ───────────────────────────── */
+"Saldo attuale"              = "Aktueller Saldo";
+"A conti fatti"              = "Nettosaldo";
+"A conti fatti:"             = "Nettosaldo:";
+"in entrata pianificate"     = "geplante Einnahmen";
+"in uscite pianificate"      = "geplante Ausgaben";
+"Nessuna spesa pianificata"  = "Keine geplanten Ausgaben";
+"Statistiche del mese"       = "Monatsstatistik";
+"Vedi tutte"                 = "Alle anzeigen";
+"Uscite totali"              = "Gesamtausgaben";
+"Nessuna spesa questo mese." = "Keine Ausgaben diesen Monat.";
+"Fissi del mese"             = "Monatliche Fixkosten";
+"da pagare"                  = "zu zahlen";
+"da ricevere"                = "zu erhalten";
+"Nessuna voce fissa.\nPremi + → aggiungi una spesa o entrata → attiva 'Voce fissa'." = "Keine Fixposten.\nTippe + → füge eine Ausgabe oder Einnahme hinzu → aktiviere 'Fix'.";
+"Ultimi movimenti"           = "Letzte Bewegungen";
+"Nessun movimento ancora.\nPremi + per aggiungere una spesa." = "Keine Bewegungen.\nTippe + um eine Ausgabe hinzuzufügen.";
+"Totale attuale"             = "Gesamtsaldo";
+
+/* ── Accounts ────────────────────────────── */
+"Nessun conto."              = "Keine Konten.";
+"+ Aggiungi conto"           = "+ Konto hinzufügen";
+"escluso"                    = "ausgeschlossen";
+"Archiviati"                 = "Archiviert";
+"Includi nel totale"         = "In Gesamtsumme einschließen";
+"Escludi dal totale"         = "Von Gesamtsumme ausschließen";
+"Archivia"                   = "Archivieren";
+"Ripristina"                 = "Wiederherstellen";
+"Elimina definitivamente"    = "Endgültig löschen";
+"Nuovo conto"                = "Neues Konto";
+"Modifica conto"             = "Konto bearbeiten";
+"es. Carta Unicredit, Portafoglio..." = "z.B. DKB-Karte, Bargeld...";
+"Inserisci il saldo che hai adesso su questo conto." = "Gib den aktuellen Kontostand ein.";
+"Non viene contato nel saldo totale dei conti" = "Wird nicht in der Gesamtsumme gezählt";
+
+/* ── Account types ───────────────────────── */
+"Contanti"       = "Bargeld";
+"Carta"          = "Karte";
+"Conto Bancario" = "Bankkonto";
+"Risparmio"      = "Sparkonto";
+"Investimento"   = "Investition";
+
+/* ── Transactions ────────────────────────── */
+"Tutti"    = "Alle";
+"Fisse"    = "Fix";
+"Trasf."   = "Überw.";
+"Uscite"   = "Ausgaben";
+"Entrate"  = "Einnahmen";
+"Uscita"   = "Ausgabe";
+"Entrata"  = "Einnahme";
+"Nessun movimento"       = "Keine Bewegungen";
+"Cerca..."               = "Suchen...";
+"Segna come pianificato" = "Als geplant markieren";
+"Segna come fatto"       = "Als erledigt markieren";
+
+/* ── Fixed items row ─────────────────────── */
+"Da pagare"  = "Zu zahlen";
+"Da ricevere"= "Zu erhalten";
+"Pagata"     = "Bezahlt";
+"Ricevuta"   = "Erhalten";
+
+/* ── Add transaction ─────────────────────── */
+"Descrizione"  = "Beschreibung";
+"es. Affitto, Netflix, Pizza..." = "z.B. Miete, Netflix, Pizza...";
+"Scegli..."    = "Auswählen...";
+"· suggerita"  = "· vorgeschlagen";
+"Già effettuato" = "Bereits erledigt";
+"Togli la spunta se è pianificata ma non ancora fatta" = "Deaktivieren wenn geplant aber noch nicht erledigt";
+"Spesa fissa"  = "Fixausgabe";
+"Entrata fissa"= "Fixeinnahme";
+"Appare in 'Fissi del mese' nella home" = "Erscheint unter 'Monatliche Fixkosten' auf der Startseite";
+"Ricorrenza"   = "Wiederholung";
+"Crea automaticamente al prossimo periodo" = "Wird automatisch für die nächste Periode erstellt";
+"Aggiungi una nota..." = "Notiz hinzufügen...";
+"Nessuna"      = "Keine";
+"Settimanale"  = "Wöchentlich";
+"Mensile"      = "Monatlich";
+"Annuale"      = "Jährlich";
+
+/* ── Categories ──────────────────────────── */
+"Predefinite"  = "Standard";
+"Personalizzate" = "Benutzerdefiniert";
+"Nessuna categoria personalizzata.\nPremi + per aggiungerne una." = "Keine benutzerdefinierten Kategorien.\nTippe + um eine hinzuzufügen.";
+"predefinita"  = "Standard";
+"Nuova categoria"   = "Neue Kategorie";
+"Modifica categoria"= "Kategorie bearbeiten";
+"Icona"        = "Symbol";
+"Cambia icona" = "Symbol ändern";
+"es. Musica, Sport, Palestra..." = "z.B. Musik, Sport, Fitnessstudio...";
+"Categorie"    = "Kategorien";
+"Gestisci"     = "Verwalten";
+
+/* ── Transfer ────────────────────────────── */
+"Trasferimento"    = "Überweisung";
+"Da"               = "Von";
+"A"                = "An";
+"Note (opzionale)" = "Notizen (optional)";
+"Trasferisci"      = "Überweisen";
+"Nessun altro conto" = "Keine weiteren Konten";
+
+/* ── Settings ────────────────────────────── */
+"Impostazioni"   = "Einstellungen";
+"Tema"           = "Design";
+"Esportazione dati" = "Datenexport";
+"Esporta tutte le transazioni in formato CSV, compatibile con Excel e Numbers." = "Exportiert alle Transaktionen als CSV-Datei, kompatibel mit Excel und Numbers.";
+"Condividi CSV"  = "CSV teilen";
+"Genera CSV"     = "CSV erstellen";
+"Versione"       = "Version";
+"Transazioni totali" = "Transaktionen gesamt";
+
+/* ── Budget ──────────────────────────────── */
+"Budget usato"     = "Budget verbraucht";
+"+ Aggiungi budget"= "+ Budget hinzufügen";
+
+/* ── Goals ───────────────────────────────── */
+"Progresso totale"     = "Gesamtfortschritt";
+"Nessun obiettivo."    = "Keine Ziele.";
+"+ Aggiungi obiettivo" = "+ Ziel hinzufügen";
+/* ── FAB menu ─────────────────────────────── */
+"Spesa / Entrata"          = "Ausgabe / Einnahme";
+"Trasferimento tra conti"  = "Überweisung zwischen Konten";
+
+/* ── Theme names ─────────────────────────── */
+"Classico" = "Klassisch";
+"Notte"    = "Nacht";
+"Foresta"  = "Wald";
+"Oceano"   = "Ozean";
+"Rosso"    = "Rot";
+"Rosa"     = "Rosa";
+"Viola"    = "Violett";
+"Sabbia"   = "Sand";
+"Menta"    = "Minze";
+"Autunno"  = "Herbst";
+
+/* ── Budget ──────────────────────────────── */
+"Nessun budget impostato."  = "Kein Budget festgelegt.";
+"Nuovo budget"              = "Neues Budget";
+"Scegli categoria..."       = "Kategorie wählen...";
+"Conto (opzionale)"         = "Konto (optional)";
+"Lascia vuoto per applicarlo a tutti i conti." = "Leer lassen, um es auf alle Konten anzuwenden.";
+"Categoria (opzionale)"    = "Kategorie (optional)";
+"Lascia vuoto per un budget globale sul conto." = "Leer lassen für ein kontoweites Budget.";
+"Seleziona almeno una categoria o un conto." = "Wähle mindestens eine Kategorie oder ein Konto.";
+"Limite mensile"            = "Monatslimit";
+"Sforato di"                = "Überschritten um";
+"rimasti"                   = "übrig";
+
+/* ── Goals ───────────────────────────────── */
+"Nuovo obiettivo"           = "Neues Ziel";
+"Obiettivo raggiunto"       = "Ziel erreicht";
+"Entro"                     = "Bis";
+"Già risparmiato"           = "Bereits gespart";
+"Aggiungi risparmio"        = "Ersparnisse hinzufügen";
+"Scadenza"                  = "Fälligkeit";
+"Imposta scadenza"          = "Fälligkeit festlegen";
+"es. Vacanza, Auto nuova..."= "z.B. Urlaub, Neues Auto...";
+"Obiettivo"                 = "Ziel";
+
+/* ── Language settings ───────────────────── */
+"Lingua"                    = "Sprache";
+"Lingua aggiornata"         = "Sprache aktualisiert";
+"Chiudi e riapri l'app per applicare la nuova lingua." = "App schließen und erneut öffnen, um die neue Sprache zu übernehmen.";
+"Chiudi l'app"             = "App schließen";
+"Dopo"                      = "Später";
+
+/* ── Default category names ──────────────── */
+"Cibo"          = "Essen";
+"Trasporti"     = "Transport";
+"Svago"         = "Freizeit";
+"Shopping"      = "Einkaufen";
+"Salute"        = "Gesundheit";
+"Casa"          = "Zuhause";
+"Abbonamenti"   = "Abonnements";
+"Lavoro"        = "Arbeit";
+"Istruzione"    = "Bildung";
+"Viaggi"        = "Reisen";
+"Regali"        = "Geschenke";
+"Giroconto"     = "Interne Überweisung";
+"Altro"         = "Sonstiges";
+
+/* ── Statistics ───────────────────────────── */
+"Riepilogo"                     = "Zusammenfassung";
+"rispetto al mese scorso"       = "vs letzten Monat";
+"Andamento 6 mesi"              = "6-Monats-Trend";
+"Uscite per categoria"          = "Ausgaben nach Kategorie";
+"Nessuna uscita questo mese."   = "Keine Ausgaben diesen Monat.";
+"Nessun dato disponibile."      = "Keine Daten verfügbar.";
+
+/* ── Additions ──────────────────────────── */
+"Fatto" = "Erledigt";
+"Categoria predefinita" = "Standardkategorie";
+"Le categorie predefinite non possono essere modificate o eliminate." = "Standardkategorien können nicht geändert oder gelöscht werden.";
+"💸 %.2f€ per %@ — salvato!" = "💸 %.2f€ für %@ — gespeichert!";
+"💰 +%.2f€ %@ — salvato!" = "💰 +%.2f€ %@ — gespeichert!";
+"Sì" = "Ja";
+"No" = "Nein";
+"Cambia emoji" = "Emoji ändern";
+
+"Statistiche" = "Statistiken";
+
+/* ── Settings (additions) ────────────────── */
+"La lingua dell'app segue le preferenze di sistema." = "Die App-Sprache folgt den Systemeinstellungen.";
+"Apri Impostazioni iOS" = "iOS-Einstellungen öffnen";
+"Valuta" = "Währung";
+"Notifiche" = "Benachrichtigungen";
+"Avvisi automatici" = "Automatische Benachrichtigungen";
+"Budget quasi esaurito, fissi in scadenza, obiettivi vicini" = "Budget fast aufgebraucht, Fixkosten fällig, Ziele nah";
+"Report mensile PDF" = "Monatlicher PDF-Bericht";
+"Promemoria il 1° di ogni mese per generare il report PDF" = "Erinnerung am 1. jeden Monats zur Erstellung des PDF-Berichts";
+"Generazione in corso…" = "Wird erstellt…";
+"Modalità Demo" = "Demo-Modus";
+"Mostra l'app con dati di esempio senza esporre i tuoi dati reali. Utile per mostrare MoneyTracker ad amici o colleghi." = "Zeigt die App mit Beispieldaten, ohne echte Daten preiszugeben. Nützlich für Vorführungen bei Freunden oder Kollegen.";
+"Attiva modalità demo" = "Demo-Modus aktivieren";
+"I tuoi dati reali restano intatti e privati" = "Deine echten Daten bleiben unberührt und privat";
+"L'app si riavvierà con dati demo. Per tornare ai tuoi dati basta disattivare il toggle." = "Die App wird mit Demo-Daten neu gestartet. Um zu deinen Daten zurückzukehren, schalte die Option einfach aus.";
+"Conferma" = "Bestätigen";
+"Il simbolo verrà aggiornato ovunque nell'app. Gli importi restano invariati." = "Das Symbol wird überall in der App aktualisiert. Beträge bleiben unverändert.";
+
+/* ── Transactions (additions) ─────────────── */
+"I movimenti di questo periodo appariranno qui." = "Buchungen aus diesem Zeitraum erscheinen hier.";
+"Minimo" = "Minimum";
+"Massimo" = "Maximum";
+"Periodo personalizzato" = "Benutzerdefinierter Zeitraum";
+"Sostituisce il filtro mese" = "Ersetzt den Monatsfilter";
+"Rimuovi tutti i filtri" = "Alle Filter entfernen";
+"Filtri" = "Filter";
+"Fine" = "Fertig";
+"Elimina trasferimento" = "Überweisung löschen";
+"Elimina entrambi i movimenti" = "Beide Buchungen löschen";
+"Questo trasferimento è composto da due movimenti collegati. Verranno eliminati entrambi." = "Diese Überweisung besteht aus zwei verknüpften Buchungen. Beide werden gelöscht.";
+"Pianificato" = "Geplant";
+
+/* ── Dashboard (additions) ───────────────── */
+"Conti in home" = "Startseite-Konten";
+"Premi + per aggiungere la tua prima spesa." = "Tippe + um deine erste Ausgabe hinzuzufügen.";
+
+/* ── Accessibility ────────────────────────── */
+"Saldo nascosto" = "Saldo ausgeblendet";
+"Tocca per segnare come da pagare" = "Tippen um als zu zahlen zu markieren";
+"Tocca per segnare come pagata" = "Tippen um als bezahlt zu markieren";
+
+/* ── Accounts (additions) ────────────────── */
+"Nessun conto" = "Keine Konten";
+"Aggiungi un conto per iniziare a tracciare le tue finanze." = "Füge ein Konto hinzu, um deine Finanzen zu verfolgen.";
+"Aggiungi conto" = "Konto hinzufügen";
+"Avviso saldo basso" = "Niedrigsaldo-Warnung";
+"Ricevi una notifica quando il saldo scende sotto questa soglia" = "Benachrichtigung erhalten, wenn der Saldo unter diese Schwelle fällt";
+
+/* ── Planning (additions) ────────────────── */
+"Nessun budget" = "Kein Budget";
+"Imposta un limite mensile per categoria o conto." = "Lege ein monatliches Limit nach Kategorie oder Konto fest.";
+"Aggiungi budget" = "Budget hinzufügen";
+"Nessun obiettivo" = "Keine Ziele";
+"Imposta un obiettivo di risparmio e tieni traccia dei tuoi progressi." = "Lege ein Sparziel fest und verfolge deinen Fortschritt.";
+"Aggiungi obiettivo" = "Ziel hinzufügen";
+
+/* ── Tab bar (additions) ─────────────────── */
+"Pianifica" = "Planen";
+
+/* ── Tour / Onboarding ──────────────────── */
+"tour.saldoAttuale.title" = "Aktueller Kontostand";
+"tour.saldoAttuale.body" = "Bestätigte Liquidität. Nur als erledigt markierte Transaktionen fließen in diesen Wert ein — alles Geplante bleibt ausgeschlossen.";
+
+"tour.hideBalance.title" = "Beträge ausblenden";
+"tour.hideBalance.body" = "Tippe auf das Augensymbol oben rechts, um alle Beträge auf jedem Bildschirm auszublenden. Die Einstellung bleibt sitzungsübergreifend erhalten.";
+
+"tour.accountOrder.title" = "Panel-Zusammensetzung";
+"tour.accountOrder.body" = "Tippe auf das Reglersymbol, um festzulegen, welche Konten hier erscheinen und in welcher Reihenfolge. Ziehen zum Sortieren, Häkchen zum Ein- oder Ausschließen.";
+
+"tour.saldoAtteso.title" = "Erwarteter Kontostand";
+"tour.saldoAtteso.body" = "Prognose nach allen ausstehenden geplanten Transaktionen. Erscheint nur, wenn zukünftige noch nicht erledigte Einträge vorhanden sind.";
+
+"tour.recentMovements.title" = "Letzte Transaktionen";
+"tour.recentMovements.body" = "Die neuesten nicht festen Transaktionen. Tippe auf die Überschrift, um den Bereich einzuklappen, tippe auf eine Zeile für die Detailansicht.";
+
+"tour.addButton.title" = "Transaktion hinzufügen";
+"tour.addButton.body" = "Die +-Schaltfläche ist in jedem Tab verfügbar. Tippe, um eine Ausgabe, Einnahme oder Überweisung hinzuzufügen. Gedrückt halten, um den Typ zu wählen.";
+
+"tour.filters.title" = "Kategoriefilter";
+"tour.filters.body" = "Filter sind kumulativ — Typ und Kategorie werden kombiniert. Wähle mehrere Kategorien aus, um die Analyse einzugrenzen. Der Filterstatus wird beim Perioden­wechsel zurückgesetzt.";
+
+"tour.swipeAction.title" = "Schnellaktionen";
+"tour.swipeAction.body" = "Wische bei einem festen Eintrag nach rechts, um ihn zu bestätigen und den Kontostand zu aktualisieren. Nach links wischen zum Löschen. Bei normalen Transaktionen nach rechts wischen zum Bearbeiten.";
+
+"tour.accountSwipe.title" = "Kontoverwaltung";
+"tour.accountSwipe.body" = "Nach rechts wischen zum Bearbeiten, nach links zum Löschen. Gedrückt halten für erweiterte Optionen: vom Gesamtbetrag ausschließen und archivieren.";
+
+"tour.budgetBar.title" = "Fortschrittsbalken";
+"tour.budgetBar.body" = "Grün bedeutet innerhalb des Limits. Rot bedeutet, dass das Limit überschritten wurde. Die Berechnung umfasst nur erledigte Transaktionen des aktuellen Monats.";
+
+"tour.goalProgress.title" = "Sparziel";
+"tour.goalProgress.body" = "Tippe auf die Aktualisierungsschaltfläche, um den Fortschritt zu erfassen. Der Balken zeigt den erreichten Prozentsatz relativ zum Ziel. Die Frist steht unter dem Namen.";
+
+"tour.accountTotal.title" = "Gesamtvermögen";
+"tour.accountTotal.body" = "Die Summe aller aktiven, einbezogenen Kontosalden. 'Nettosaldo' darunter zeigt die Prognose nach allen ausstehenden geplanten Transaktionen.";
+
+"tour.budgetHero.title" = "Budgetauslastung";
+"tour.budgetHero.body" = "Prozentsatz des bereits verbrauchten monatlichen Gesamtbudgets. Die Linie füllt sich schrittweise — bleibe unter 100%, um im Rahmen zu bleiben.";
+
+"tour.goalHero.title" = "Gesamtfortschritt";
+"tour.goalHero.body" = "Gewichteter Durchschnittsfortschritt über alle aktiven Ziele. Jedes Ziel trägt proportional zu seinem Zielbetrag bei.";
+
+/* ── Statistics (additional) ─────────────── */
+"Dati insufficienti."   = "Unzureichende Daten.";
+"Uscite medie"          = "Ø Ausgaben";
+"Entrate medie"         = "Ø Einnahmen";
+
+/* ── Budget history ──────────────────────── */
+"Storico Budget"        = "Budget-Verlauf";
+
+/* ── Demo banner ─────────────────────────── */
+"MODALITÀ DEMO"         = "DEMO-MODUS";
+
+/* ── Transfer form ───────────────────────── */
+"Togli la spunta se il trasferimento è pianificato" = "Haken entfernen, wenn die Überweisung noch nicht ausgeführt wurde";
+
+/* ── PDF labels ──────────────────────────── */
+"Netto"                         = "Netto";
+"rispetto al mese precedente" = "ggü. Vormonat";
+"Eliminare \"%@\"?"  = "\"%@\" löschen?";
+
+/* ── Statistics section labels ───────────────── */
+"Saldo atteso"                    = "Erwartetes Guthaben";
+"Media mensile — ultimi 12 mesi"  = "Monatsdurchschnitt — letzte 12 Monate";
+"Andamento 12 mesi"               = "12-Monats-Verlauf";
+"Anno %lld vs %lld"               = "%lld vs. %lld";
+
+/* ── Demo accounts ───────────────────────────── */
+"demo.account.conto"    = "Girokonto";
+"demo.account.risparmi" = "Ersparnisse";
+"demo.account.carta"    = "Kreditkarte";
+"demo.account.contanti" = "Bargeld";
+
+/* ── Demo transactions ───────────────────────── */
+"demo.tx.stipendio"   = "Gehalt";
+"demo.tx.affitto"     = "Miete";
+"demo.tx.bolletta"    = "Stromrechnung";
+"demo.tx.carburante"  = "Kraftstoff";
+"demo.tx.farmacia"    = "Apotheke";
+"demo.tx.regalo"      = "Geburtstagsgeschenk";
+"demo.tx.supermercato"= "Supermarkt";
+"demo.tx.volo"        = "Flug Mailand–Rom";
+"demo.tx.hotel"       = "Hotel Rom 2 Nächte";
+"demo.tx.dentista"    = "Zahnarzt";
+"demo.tx.cinema"      = "Kino + Abendessen";
+"demo.tx.ristorante"  = "Japanisches Restaurant";
+"demo.tx.risparmio"   = "Monatliche Ersparnisse";
+
+/* ── Demo goals ──────────────────────────────── */
+"demo.goal.vacanza"    = "Sardinien Urlaub";
+"demo.goal.emergenza"  = "Notfallfonds";
+"demo.goal.fotografia" = "Fotografiekurs";
+
+/* ── App Intents / Shortcuts ──────────────────── */
+"Aggiungi spesa" = "Ausgabe hinzufügen";
+"Aggiunge rapidamente una spesa al Money Tracker" = "Fügt schnell eine Ausgabe zu Money Tracker hinzu";
+"Cosa hai comprato?" = "Was hast du gekauft?";
+"Quanto hai speso?" = "Wie viel hast du ausgegeben?";
+"Quale conto hai usato?" = "Welches Konto hast du verwendet?";
+"Lascia vuoto per auto-detect" = "Leer lassen für automatische Erkennung";
+"Quale categoria per questa spesa?" = "Welche Kategorie für diese Ausgabe?";
+"L'importo deve essere un numero positivo (max 1 miliardo)" = "Der Betrag muss eine positive Zahl sein (max. 1 Milliarde)";
+"Inserisci una descrizione per la spesa" = "Gib eine Beschreibung für die Ausgabe ein";
+"Il database non è disponibile. Apri l'app per risolvere il problema." = "Die Datenbank ist nicht verfügbar. Öffne die App, um das Problem zu beheben.";
+"%.2f per %@ — salvato!" = "%.2f für %@ — gespeichert!";
+"Aggiungi entrata" = "Einnahme hinzufügen";
+"Aggiunge rapidamente un'entrata al Money Tracker" = "Fügt schnell eine Einnahme zu Money Tracker hinzu";
+"Descrizione entrata" = "Einnahmebeschreibung";
+"Quanto hai ricevuto?" = "Wie viel hast du erhalten?";
+"Su quale conto?" = "Auf welches Konto?";
+"Inserisci una descrizione per l'entrata" = "Gib eine Beschreibung für die Einnahme ein";
+"+%.2f %@ — salvato!" = "+%.2f %@ — gespeichert!";
+"Controlla saldo" = "Kontostand prüfen";
+"Mostra il saldo attuale di tutti i conti" = "Zeigt den aktuellen Kontostand aller Konten";
+"Saldo conti" = "Kontostand";
+"Nessun conto trovato. Apri l'app per aggiungerne uno." = "Kein Konto gefunden. Öffne die App, um eines hinzuzufügen.";
+"💰 Saldo totale: %@" = "💰 Gesamtstand: %@";
+
+/* ── Onboarding tour — new steps ─────────────── */
+"tour.welcome.title"    = "Willkommen bei MoneyTracker";
+"tour.welcome.body"     = "Diese Führung zeigt dir alle Funktionen. Du kannst jederzeit unterbrechen und über Einstellungen → Tour wiederholen fortfahren.";
+"tour.tabBar.title"     = "Hauptnavigation";
+"tour.tabBar.body"      = "Fünf Bereiche immer erreichbar: Dashboard, Transaktionen, Statistiken, Planung und Konten. Für minimale Tipp-Schritte ausgelegt.";
+"tour.statistics.title" = "Finanzanalyse";
+"tour.statistics.body"  = "Vergleiche monatliche Ausgaben, sieh 12-Monats-Trends und Jahresvergleiche. Diagramme werden automatisch aktualisiert.";
+"tour.shortcuts.title"  = "Siri-Automatisierung";
+"tour.shortcuts.body"   = "Erfasse Ausgaben, Einnahmen und prüfe deinen Kontostand per Sprachbefehl. Sage «Ausgabe zu MoneyTracker hinzufügen» oder gehe zu Einstellungen → Siri.";
+"tour.done.title"       = "Alles bereit";
+"tour.done.body"        = "Du hast die MoneyTracker-Tour abgeschlossen. Jede Funktion ist leistungsstark und sofort nutzbar. Du kannst diese Führung jederzeit in den Einstellungen erneut aufrufen.";
+"tour.startButton"      = "Tour starten";
+"tour.doneButton"       = "App verwenden";
+"tour.skipButton"       = "Tour überspringen";
+"Avanti"                = "Weiter";
+"Fine"                  = "Fertig";
+"Rivedi tour"           = "Tour wiederholen";
+
+/* ── Settings / Siri section & accessibility ─── */
+"Siri & Shortcut" = "Siri & Kurzbefehle";
+"Aggiungi spese senza aprire l'app: con la voce, un widget o una scorciatoia rapida." = "Ausgaben hinzufügen ohne die App zu öffnen: per Sprache, Widget oder Kurzbefehl.";
+"Apri Shortcut" = "Kurzbefehle öffnen";
+"Configura tocco sul retro" = "Tippen auf Rückseite einrichten";
+"Crea una Shortcut in Shortcut, poi vai in Impostazioni → Accessibilità → Tocco → Tocca sul retro → Doppio tocco e scegli la tua scorciatoia per accesso istantaneo." = "Erstelle einen Kurzbefehl in der Kurzbefehle-App, dann gehe zu Einstellungen → Bedienungshilfen → Tippen → Tippen auf Rückseite → Zweimal tippen und wähle deinen Kurzbefehl für sofortigen Zugriff.";
+"meno " = "minus ";
+"più " = "plus ";
+"pianificato" = "geplant";
+"escluso dal totale" = "aus dem Gesamt ausgeschlossen";
+"saldo" = "Kontostand";

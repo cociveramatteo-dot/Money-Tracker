@@ -1,0 +1,436 @@
+/* ── Date helpers ────────────────────────── */
+"Oggi" = "今日";
+"Ieri" = "昨日";
+
+/* ── Tab bar ─────────────────────────────── */
+"Home"       = "ホーム";
+"Movimenti"  = "取引";
+"Budget"     = "予算";
+"Obiettivi"  = "目標";
+"Conti"      = "口座";
+
+/* ── Common ──────────────────────────────── */
+"Modifica"   = "編集";
+"Elimina"    = "削除";
+"Annulla"    = "キャンセル";
+"Salva"      = "保存";
+"Aggiungi"   = "追加";
+"Aggiorna"   = "更新";
+"Chiudi"     = "閉じる";
+"Importo"    = "金額";
+"Nome"       = "名前";
+"Tipo"       = "種類";
+"Data"       = "日付";
+"Note"       = "メモ";
+"Opzioni"    = "オプション";
+"Categoria"  = "カテゴリ";
+"Conto"      = "口座";
+"Info"       = "情報";
+
+/* ── Dashboard ───────────────────────────── */
+"Saldo attuale"              = "現在の残高";
+"A conti fatti"              = "純残高";
+"A conti fatti:"             = "純残高：";
+"in entrata pianificate"     = "予定収入";
+"in uscite pianificate"      = "予定支出";
+"Nessuna spesa pianificata"  = "予定支出なし";
+"Statistiche del mese"       = "今月の統計";
+"Vedi tutte"                 = "すべて表示";
+"Uscite totali"              = "支出合計";
+"Nessuna spesa questo mese." = "今月の支出はありません。";
+"Fissi del mese"             = "今月の固定項目";
+"da pagare"                  = "支払い待ち";
+"da ricevere"                = "受取り待ち";
+"Nessuna voce fissa.\nPremi + → aggiungi una spesa o entrata → attiva 'Voce fissa'." = "固定項目がありません。\n+ をタップ → 支出または収入を追加 → 「固定」を有効にする。";
+"Ultimi movimenti"           = "最近の取引";
+"Nessun movimento ancora.\nPremi + per aggiungere una spesa." = "取引がありません。\n+ をタップして支出を追加してください。";
+"Totale attuale"             = "現在の合計";
+
+/* ── Accounts ────────────────────────────── */
+"Nessun conto."              = "口座がありません。";
+"+ Aggiungi conto"           = "+ 口座を追加";
+"escluso"                    = "除外";
+"Archiviati"                 = "アーカイブ済み";
+"Includi nel totale"         = "合計に含める";
+"Escludi dal totale"         = "合計から除外";
+"Archivia"                   = "アーカイブ";
+"Ripristina"                 = "復元";
+"Elimina definitivamente"    = "完全に削除";
+"Nuovo conto"                = "新しい口座";
+"Modifica conto"             = "口座を編集";
+"es. Carta Unicredit, Portafoglio..." = "例：三菱UFJカード、財布...";
+"Inserisci il saldo che hai adesso su questo conto." = "この口座の現在の残高を入力してください。";
+"Non viene contato nel saldo totale dei conti" = "口座合計には含まれません";
+
+/* ── Account types ───────────────────────── */
+"Contanti"       = "現金";
+"Carta"          = "カード";
+"Conto Bancario" = "銀行口座";
+"Risparmio"      = "貯蓄";
+"Investimento"   = "投資";
+
+/* ── Transactions ────────────────────────── */
+"Tutti"    = "すべて";
+"Fisse"    = "固定";
+"Trasf."   = "振替";
+"Uscite"   = "支出";
+"Entrate"  = "収入";
+"Uscita"   = "支出";
+"Entrata"  = "収入";
+"Nessun movimento"       = "取引なし";
+"Cerca..."               = "検索...";
+"Segna come pianificato" = "予定としてマーク";
+"Segna come fatto"       = "完了としてマーク";
+
+/* ── Fixed items row ─────────────────────── */
+"Da pagare"  = "支払い待ち";
+"Da ricevere"= "受取り待ち";
+"Pagata"     = "支払済み";
+"Ricevuta"   = "受取済み";
+
+/* ── Add transaction ─────────────────────── */
+"Descrizione"  = "説明";
+"es. Affitto, Netflix, Pizza..." = "例：家賃、Netflix、ピザ...";
+"Scegli..."    = "選択...";
+"· suggerita"  = "· 提案";
+"Già effettuato" = "実行済み";
+"Togli la spunta se è pianificata ma non ancora fatta" = "予定だが未完了の場合はチェックを外してください";
+"Spesa fissa"  = "固定支出";
+"Entrata fissa"= "固定収入";
+"Appare in 'Fissi del mese' nella home" = "ホームの「今月の固定項目」に表示";
+"Ricorrenza"   = "繰り返し";
+"Crea automaticamente al prossimo periodo" = "次の期間に自動作成";
+"Aggiungi una nota..." = "メモを追加...";
+"Nessuna"      = "なし";
+"Settimanale"  = "毎週";
+"Mensile"      = "毎月";
+"Annuale"      = "毎年";
+
+/* ── Categories ──────────────────────────── */
+"Predefinite"  = "デフォルト";
+"Personalizzate" = "カスタム";
+"Nessuna categoria personalizzata.\nPremi + per aggiungerne una." = "カスタムカテゴリがありません。\n+ をタップして追加してください。";
+"predefinita"  = "デフォルト";
+"Nuova categoria"   = "新しいカテゴリ";
+"Modifica categoria"= "カテゴリを編集";
+"Icona"        = "アイコン";
+"Cambia icona" = "アイコンを変更";
+"es. Musica, Sport, Palestra..." = "例：音楽、スポーツ、ジム...";
+"Categorie"    = "カテゴリ";
+"Gestisci"     = "管理";
+
+/* ── Transfer ────────────────────────────── */
+"Trasferimento"    = "振替";
+"Da"               = "送金元";
+"A"                = "送金先";
+"Note (opzionale)" = "メモ（任意）";
+"Trasferisci"      = "振替する";
+"Nessun altro conto" = "他の口座なし";
+
+/* ── Settings ────────────────────────────── */
+"Impostazioni"   = "設定";
+"Tema"           = "テーマ";
+"Esportazione dati" = "データエクスポート";
+"Esporta tutte le transazioni in formato CSV, compatibile con Excel e Numbers." = "すべての取引をCSV形式でエクスポート（ExcelおよびNumbers対応）。";
+"Condividi CSV"  = "CSVを共有";
+"Genera CSV"     = "CSVを生成";
+"Versione"       = "バージョン";
+"Transazioni totali" = "取引合計数";
+
+/* ── Budget ──────────────────────────────── */
+"Budget usato"     = "使用予算";
+"+ Aggiungi budget"= "+ 予算を追加";
+
+/* ── Goals ───────────────────────────────── */
+"Progresso totale"     = "全体の進捗";
+"Nessun obiettivo."    = "目標がありません。";
+"+ Aggiungi obiettivo" = "+ 目標を追加";
+/* ── FAB menu ─────────────────────────────── */
+"Spesa / Entrata"          = "支出 / 収入";
+"Trasferimento tra conti"  = "口座間振替";
+
+/* ── Theme names ─────────────────────────── */
+"Classico" = "クラシック";
+"Notte"    = "ナイト";
+"Foresta"  = "フォレスト";
+"Oceano"   = "オーシャン";
+"Rosso"    = "レッド";
+"Rosa"     = "ローズ";
+"Viola"    = "バイオレット";
+"Sabbia"   = "サンド";
+"Menta"    = "ミント";
+"Autunno"  = "オータム";
+
+/* ── Budget ──────────────────────────────── */
+"Nessun budget impostato."  = "予算が設定されていません。";
+"Nuovo budget"              = "新しい予算";
+"Scegli categoria..."       = "カテゴリを選択...";
+"Conto (opzionale)"         = "口座（任意）";
+"Lascia vuoto per applicarlo a tutti i conti." = "空白のままにするとすべての口座に適用されます。";
+"Categoria (opzionale)"    = "カテゴリ（任意）";
+"Lascia vuoto per un budget globale sul conto." = "空白のままにすると口座全体の予算になります。";
+"Seleziona almeno una categoria o un conto." = "カテゴリまたは口座を少なくとも1つ選択してください。";
+"Limite mensile"            = "月次上限";
+"Sforato di"                = "超過";
+"rimasti"                   = "残り";
+
+/* ── Goals ───────────────────────────────── */
+"Nuovo obiettivo"           = "新しい目標";
+"Obiettivo raggiunto"       = "目標達成";
+"Entro"                     = "期限";
+"Già risparmiato"           = "既に貯蓄済み";
+"Aggiungi risparmio"        = "貯蓄を追加";
+"Scadenza"                  = "期限";
+"Imposta scadenza"          = "期限を設定";
+"es. Vacanza, Auto nuova..."= "例：旅行、新しい車...";
+"Obiettivo"                 = "目標";
+
+/* ── Language settings ───────────────────── */
+"Lingua"                    = "言語";
+"Lingua aggiornata"         = "言語を更新しました";
+"Chiudi e riapri l'app per applicare la nuova lingua." = "新しい言語を適用するには、アプリを閉じて再起動してください。";
+"Chiudi l'app"             = "アプリを閉じる";
+"Dopo"                      = "後で";
+
+/* ── Default category names ──────────────── */
+"Cibo"          = "食費";
+"Trasporti"     = "交通";
+"Svago"         = "娯楽";
+"Shopping"      = "ショッピング";
+"Salute"        = "健康";
+"Casa"          = "住居";
+"Abbonamenti"   = "サブスク";
+"Lavoro"        = "仕事";
+"Istruzione"    = "教育";
+"Viaggi"        = "旅行";
+"Regali"        = "ギフト";
+"Giroconto"     = "内部振替";
+"Altro"         = "その他";
+
+/* ── Statistics ───────────────────────────── */
+"Riepilogo"                     = "概要";
+"rispetto al mese scorso"       = "先月比";
+"Andamento 6 mesi"              = "6ヶ月の推移";
+"Uscite per categoria"          = "カテゴリ別支出";
+"Nessuna uscita questo mese."   = "今月の支出はありません。";
+"Nessun dato disponibile."      = "データなし。";
+
+/* ── Additions ──────────────────────────── */
+"Fatto" = "完了";
+"Categoria predefinita" = "デフォルトカテゴリ";
+"Le categorie predefinite non possono essere modificate o eliminate." = "デフォルトカテゴリは変更・削除できません。";
+"💸 %.2f€ per %@ — salvato!" = "💸 %.2f€ %@ — 保存しました！";
+"💰 +%.2f€ %@ — salvato!" = "💰 +%.2f€ %@ — 保存しました！";
+"Sì" = "はい";
+"No" = "いいえ";
+"Cambia emoji" = "絵文字を変更";
+
+"Statistiche" = "統計";
+
+/* ── Settings (additions) ────────────────── */
+"La lingua dell'app segue le preferenze di sistema." = "アプリの言語はシステム設定に従います。";
+"Apri Impostazioni iOS" = "iOS設定を開く";
+"Valuta" = "通貨";
+"Notifiche" = "通知";
+"Avvisi automatici" = "自動アラート";
+"Budget quasi esaurito, fissi in scadenza, obiettivi vicini" = "予算ほぼ消化・固定費期限近・目標接近";
+"Report mensile PDF" = "月次PDFレポート";
+"Promemoria il 1° di ogni mese per generare il report PDF" = "毎月1日にPDFレポート作成のリマインダー";
+"Generazione in corso…" = "生成中…";
+"Modalità Demo" = "デモモード";
+"Mostra l'app con dati di esempio senza esporre i tuoi dati reali. Utile per mostrare MoneyTracker ad amici o colleghi." = "実データを公開せずにサンプルデータでアプリを表示。友人や同僚にMoneyTrackerを見せるときに便利。";
+"Attiva modalità demo" = "デモモードを有効にする";
+"I tuoi dati reali restano intatti e privati" = "実データはそのまま安全に保たれます";
+"L'app si riavvierà con dati demo. Per tornare ai tuoi dati basta disattivare il toggle." = "デモデータでアプリが再起動します。元のデータに戻すにはスイッチをオフにしてください。";
+"Conferma" = "確認";
+"Il simbolo verrà aggiornato ovunque nell'app. Gli importi restano invariati." = "記号はアプリ全体で更新されます。金額は変わりません。";
+
+/* ── Transactions (additions) ─────────────── */
+"I movimenti di questo periodo appariranno qui." = "この期間の取引がここに表示されます。";
+"Minimo" = "最小";
+"Massimo" = "最大";
+"Periodo personalizzato" = "カスタム期間";
+"Sostituisce il filtro mese" = "月フィルターを置き換えます";
+"Rimuovi tutti i filtri" = "すべてのフィルターを削除";
+"Filtri" = "フィルター";
+"Fine" = "完了";
+"Elimina trasferimento" = "振替を削除";
+"Elimina entrambi i movimenti" = "両方の取引を削除";
+"Questo trasferimento è composto da due movimenti collegati. Verranno eliminati entrambi." = "この振替は2つのリンクされた取引で構成されています。両方が削除されます。";
+"Pianificato" = "予定";
+
+/* ── Dashboard (additions) ───────────────── */
+"Conti in home" = "ホーム口座";
+"Premi + per aggiungere la tua prima spesa." = "+ をタップして最初の支出を追加しましょう。";
+
+/* ── Accessibility ────────────────────────── */
+"Saldo nascosto" = "残高非表示";
+"Tocca per segnare come da pagare" = "タップして支払い予定としてマーク";
+"Tocca per segnare come pagata" = "タップして支払い済としてマーク";
+
+/* ── Accounts (additions) ────────────────── */
+"Nessun conto" = "口座なし";
+"Aggiungi un conto per iniziare a tracciare le tue finanze." = "口座を追加して家計管理を始めましょう。";
+"Aggiungi conto" = "口座を追加";
+"Avviso saldo basso" = "残高不足アラート";
+"Ricevi una notifica quando il saldo scende sotto questa soglia" = "残高がこのしきい値を下回ったときに通知を受け取る";
+
+/* ── Planning (additions) ────────────────── */
+"Nessun budget" = "予算なし";
+"Imposta un limite mensile per categoria o conto." = "カテゴリーまたは口座別の月次上限を設定しましょう。";
+"Aggiungi budget" = "予算を追加";
+"Nessun obiettivo" = "目標なし";
+"Imposta un obiettivo di risparmio e tieni traccia dei tuoi progressi." = "貯蓄目標を設定して進捗を追跡しましょう。";
+"Aggiungi obiettivo" = "目標を追加";
+
+/* ── Tab bar (additions) ─────────────────── */
+"Pianifica" = "計画";
+
+/* ── Tour / Onboarding ──────────────────── */
+"tour.saldoAttuale.title" = "現在の残高";
+"tour.saldoAttuale.body" = "確認済みの流動性。完了としてマークされた取引のみがこの値に含まれます — 計画中のすべては除外されます。";
+
+"tour.hideBalance.title" = "金額を非表示";
+"tour.hideBalance.body" = "右上の目のアイコンをタップすると、すべての画面で金額が非表示になります。設定はセッション間で持続します。";
+
+"tour.accountOrder.title" = "パネルの構成";
+"tour.accountOrder.body" = "スライダーアイコンをタップして、ここに表示するアカウントと順序を選択します。ドラッグで並べ替え、チェックマークで含める・除外するを設定します。";
+
+"tour.saldoAtteso.title" = "予想残高";
+"tour.saldoAtteso.body" = "保留中の予定取引をすべて反映した予測値。未完了の将来の項目がある場合にのみ表示されます。";
+
+"tour.recentMovements.title" = "最近の取引";
+"tour.recentMovements.body" = "最新の非固定取引一覧。ヘッダーをタップしてセクションを折りたたみ、行をタップして詳細を開きます。";
+
+"tour.addButton.title" = "取引を追加";
+"tour.addButton.body" = "+ボタンはすべてのタブから利用できます。タップして支出、収入、または口座間の振替を追加します。長押しでタイプを選択します。";
+
+"tour.filters.title" = "カテゴリフィルター";
+"tour.filters.body" = "フィルターは累積的です — タイプとカテゴリが組み合わさります。複数のカテゴリを選択して分析を絞り込めます。期間を変更するとフィルター状態がリセットされます。";
+
+"tour.swipeAction.title" = "クイックアクション";
+"tour.swipeAction.body" = "固定項目を右にスワイプすると確認され残高が更新されます。左にスワイプすると削除されます。通常の取引では、右スワイプで編集できます。";
+
+"tour.accountSwipe.title" = "アカウント管理";
+"tour.accountSwipe.body" = "右にスワイプして編集、左にスワイプして削除します。長押しで高度なオプション：合計から除外、アーカイブ。";
+
+"tour.budgetBar.title" = "進捗バー";
+"tour.budgetBar.body" = "緑は上限内であることを示します。赤は閾値を超えたことを示します。計算には当月の完了した取引のみが含まれます。";
+
+"tour.goalProgress.title" = "貯蓄目標";
+"tour.goalProgress.body" = "更新ボタンをタップして進捗を記録します。バーは目標に対して達成したパーセンテージを示します。期限は名前の下に表示されます。";
+
+"tour.accountTotal.title" = "総資産";
+"tour.accountTotal.body" = "除外されていないすべてのアクティブな口座の残高合計。下の「正味残高」は保留中の予定取引をすべて反映した予測値を示します。";
+
+"tour.budgetHero.title" = "予算使用率";
+"tour.budgetHero.body" = "月次総予算のうち既に消費した割合。ラインが徐々に増加します — 100%を超えないよう管理しましょう。";
+
+"tour.goalHero.title" = "全体の進捗";
+"tour.goalHero.body" = "すべてのアクティブな目標の加重平均進捗率。各目標は目標額に比例して全体に貢献します。";
+
+/* ── Statistics (additional) ─────────────── */
+"Dati insufficienti."   = "データ不足。";
+"Uscite medie"          = "平均支出";
+"Entrate medie"         = "平均収入";
+
+/* ── Budget history ──────────────────────── */
+"Storico Budget"        = "予算履歴";
+
+/* ── Demo banner ─────────────────────────── */
+"MODALITÀ DEMO"         = "デモモード";
+
+/* ── Transfer form ───────────────────────── */
+"Togli la spunta se il trasferimento è pianificato" = "予定中で未実行の場合はチェックを外してください";
+
+/* ── PDF labels ──────────────────────────── */
+"Netto"                         = "純額";
+"rispetto al mese precedente" = "前月比";
+"Eliminare \"%@\"?"  = "「%@」を削除しますか？";
+
+/* ── Statistics section labels ───────────────── */
+"Saldo atteso"                    = "予想残高";
+"Media mensile — ultimi 12 mesi"  = "月次平均 — 直近12ヶ月";
+"Andamento 12 mesi"               = "12ヶ月トレンド";
+"Anno %lld vs %lld"               = "%lld年 vs %lld年";
+
+/* ── Demo accounts ───────────────────────────── */
+"demo.account.conto"    = "普通預金口座";
+"demo.account.risparmi" = "貯蓄";
+"demo.account.carta"    = "クレジットカード";
+"demo.account.contanti" = "現金";
+
+/* ── Demo transactions ───────────────────────── */
+"demo.tx.stipendio"   = "給料";
+"demo.tx.affitto"     = "家賃";
+"demo.tx.bolletta"    = "電気代";
+"demo.tx.carburante"  = "ガソリン";
+"demo.tx.farmacia"    = "薬局";
+"demo.tx.regalo"      = "誕生日プレゼント";
+"demo.tx.supermercato"= "スーパー";
+"demo.tx.volo"        = "ミラノ–ローマ便";
+"demo.tx.hotel"       = "ローマホテル2泊";
+"demo.tx.dentista"    = "歯医者";
+"demo.tx.cinema"      = "映画＋夕食";
+"demo.tx.ristorante"  = "日本料理レストラン";
+"demo.tx.risparmio"   = "月次積立";
+
+/* ── Demo goals ──────────────────────────────── */
+"demo.goal.vacanza"    = "サルデーニャ旅行";
+"demo.goal.emergenza"  = "緊急積立金";
+"demo.goal.fotografia" = "写真コース";
+
+/* ── App Intents / Shortcuts ──────────────────── */
+"Aggiungi spesa" = "支出を追加";
+"Aggiunge rapidamente una spesa al Money Tracker" = "Money Trackerに支出をすばやく追加します";
+"Cosa hai comprato?" = "何を購入しましたか？";
+"Quanto hai speso?" = "いくら使いましたか？";
+"Quale conto hai usato?" = "どのアカウントを使いましたか？";
+"Lascia vuoto per auto-detect" = "自動検出するには空白のままにしてください";
+"Quale categoria per questa spesa?" = "この支出のカテゴリは何ですか？";
+"L'importo deve essere un numero positivo (max 1 miliardo)" = "金額は正の数にしてください（最大10億）";
+"Inserisci una descrizione per la spesa" = "支出の説明を入力してください";
+"Il database non è disponibile. Apri l'app per risolvere il problema." = "データベースが利用できません。アプリを開いて問題を解決してください。";
+"%.2f per %@ — salvato!" = "%.2f（%@）— 保存されました！";
+"Aggiungi entrata" = "収入を追加";
+"Aggiunge rapidamente un'entrata al Money Tracker" = "Money Trackerに収入をすばやく追加します";
+"Descrizione entrata" = "収入の説明";
+"Quanto hai ricevuto?" = "いくら受け取りましたか？";
+"Su quale conto?" = "どのアカウントに？";
+"Inserisci una descrizione per l'entrata" = "収入の説明を入力してください";
+"+%.2f %@ — salvato!" = "+%.2f %@ — 保存されました！";
+"Controlla saldo" = "残高を確認";
+"Mostra il saldo attuale di tutti i conti" = "すべてのアカウントの現在の残高を表示します";
+"Saldo conti" = "口座残高";
+"Nessun conto trovato. Apri l'app per aggiungerne uno." = "アカウントが見つかりません。アプリを開いて追加してください。";
+"💰 Saldo totale: %@" = "💰 合計残高: %@";
+
+/* ── Onboarding tour — new steps ─────────────── */
+"tour.welcome.title"    = "MoneyTrackerへようこそ";
+"tour.welcome.body"     = "このガイドはすべての機能をご案内します。いつでも中断でき、設定→ツアーを見直すから再開できます。";
+"tour.tabBar.title"     = "メインナビゲーション";
+"tour.tabBar.body"      = "常にアクセス可能な5つのエリア：ダッシュボード、取引、統計、計画、口座。最小限のタップで操作できます。";
+"tour.statistics.title" = "財務分析";
+"tour.statistics.body"  = "月ごとの支出を比較し、12か月のトレンドや年間比較を確認できます。グラフは自動的に更新されます。";
+"tour.shortcuts.title"  = "Siriオートメーション";
+"tour.shortcuts.body"   = "音声コマンドで支出・収入を記録し、残高を確認できます。「MoneyTrackerに支出を追加」と言うか、設定→SiriとSearchを探索してください。";
+"tour.done.title"       = "準備完了";
+"tour.done.body"        = "MoneyTrackerのツアーが完了しました。すべての機能は強力かつ即時に使えるよう設計されています。設定からいつでもこのガイドを見直せます。";
+"tour.startButton"      = "ツアーを開始";
+"tour.doneButton"       = "アプリを使い始める";
+"tour.skipButton"       = "ツアーをスキップ";
+"Avanti"                = "次へ";
+"Fine"                  = "完了";
+"Rivedi tour"           = "ツアーを見直す";
+
+/* ── Settings / Siri section & accessibility ─── */
+"Siri & Shortcut" = "Siri & ショートカット";
+"Aggiungi spese senza aprire l'app: con la voce, un widget o una scorciatoia rapida." = "アプリを開かずに支出を追加：音声、ウィジェット、またはクイックショートカットで。";
+"Apri Shortcut" = "ショートカットを開く";
+"Configura tocco sul retro" = "背面タップを設定";
+"Crea una Shortcut in Shortcut, poi vai in Impostazioni → Accessibilità → Tocco → Tocca sul retro → Doppio tocco e scegli la tua scorciatoia per accesso istantaneo." = "ショートカットアプリでショートカットを作成し、設定 → アクセシビリティ → タッチ → 背面タップ → ダブルタップ を開いてショートカットを選択すると、即座にアクセスできます。";
+"meno " = "マイナス";
+"più " = "プラス";
+"pianificato" = "予定";
+"escluso dal totale" = "合計から除外";
+"saldo" = "残高";

@@ -1,0 +1,437 @@
+/* ── Date helpers ────────────────────────── */
+"Oggi" = "今天";
+"Ieri" = "昨天";
+
+/* ── Tab bar ─────────────────────────────── */
+"Home"       = "首页";
+"Movimenti"  = "交易";
+"Budget"     = "预算";
+"Obiettivi"  = "目标";
+"Conti"      = "账户";
+
+/* ── Common ──────────────────────────────── */
+"Modifica"   = "编辑";
+"Elimina"    = "删除";
+"Annulla"    = "取消";
+"Salva"      = "保存";
+"Aggiungi"   = "添加";
+"Aggiorna"   = "更新";
+"Chiudi"     = "关闭";
+"Importo"    = "金额";
+"Nome"       = "名称";
+"Tipo"       = "类型";
+"Data"       = "日期";
+"Note"       = "备注";
+"Opzioni"    = "选项";
+"Categoria"  = "类别";
+"Conto"      = "账户";
+"Info"       = "信息";
+
+/* ── Dashboard ───────────────────────────── */
+"Saldo attuale"              = "当前余额";
+"A conti fatti"              = "净余额";
+"A conti fatti:"             = "净余额：";
+"in entrata pianificate"     = "计划收入";
+"in uscite pianificate"      = "计划支出";
+"Nessuna spesa pianificata"  = "无计划支出";
+"Statistiche del mese"       = "本月统计";
+"Vedi tutte"                 = "查看全部";
+"Uscite totali"              = "总支出";
+"Nessuna spesa questo mese." = "本月暂无支出。";
+"Fissi del mese"             = "每月固定项目";
+"da pagare"                  = "待支付";
+"da ricevere"                = "待收取";
+"Nessuna voce fissa.\nPremi + → aggiungi una spesa o entrata → attiva 'Voce fissa'." = "暂无固定项目。\n点击 + 添加支出或收入并启用固定选项。";
+"Ultimi movimenti"           = "最近交易";
+"Nessun movimento ancora.\nPremi + per aggiungere una spesa." = "暂无交易。\n点击 + 添加支出。";
+"Totale attuale"             = "当前总计";
+
+/* ── Accounts ────────────────────────────── */
+"Nessun conto."              = "暂无账户。";
+"+ Aggiungi conto"           = "+ 添加账户";
+"escluso"                    = "已排除";
+"Archiviati"                 = "已归档";
+"Includi nel totale"         = "纳入总计";
+"Escludi dal totale"         = "从总计中排除";
+"Archivia"                   = "归档";
+"Ripristina"                 = "恢复";
+"Elimina definitivamente"    = "永久删除";
+"Nuovo conto"                = "新账户";
+"Modifica conto"             = "编辑账户";
+"es. Carta Unicredit, Portafoglio..." = "如：招商银行卡、现金...";
+"Inserisci il saldo che hai adesso su questo conto." = "输入该账户的当前余额。";
+"Non viene contato nel saldo totale dei conti" = "不计入账户总余额";
+
+/* ── Account types ───────────────────────── */
+"Contanti"       = "现金";
+"Carta"          = "银行卡";
+"Conto Bancario" = "银行账户";
+"Risparmio"      = "储蓄";
+"Investimento"   = "投资";
+
+/* ── Transactions ────────────────────────── */
+"Tutti"    = "全部";
+"Fisse"    = "固定";
+"Trasf."   = "转账";
+"Uscite"   = "支出";
+"Entrate"  = "收入";
+"Uscita"   = "支出";
+"Entrata"  = "收入";
+"Nessun movimento"       = "暂无交易";
+"Cerca..."               = "搜索...";
+"Segna come pianificato" = "标为计划中";
+"Segna come fatto"       = "标为已完成";
+
+/* ── Fixed items row ─────────────────────── */
+"Da pagare"  = "待支付";
+"Da ricevere"= "待收取";
+"Pagata"     = "已支付";
+"Ricevuta"   = "已收取";
+
+/* ── Add transaction ─────────────────────── */
+"Descrizione"  = "描述";
+"es. Affitto, Netflix, Pizza..." = "如：房租、Netflix、披萨...";
+"Scegli..."    = "选择...";
+"· suggerita"  = "· 推荐";
+"Già effettuato" = "已完成";
+"Togli la spunta se è pianificata ma non ancora fatta" = "如已计划但未完成请取消勾选";
+"Spesa fissa"  = "固定支出";
+"Entrata fissa"= "固定收入";
+"Appare in 'Fissi del mese' nella home" = "显示在首页每月固定项目中";
+"Ricorrenza"   = "重复";
+"Crea automaticamente al prossimo periodo" = "下个周期自动创建";
+"Aggiungi una nota..." = "添加备注...";
+"Nessuna"      = "无";
+"Settimanale"  = "每周";
+"Mensile"      = "每月";
+"Annuale"      = "每年";
+
+/* ── Categories ──────────────────────────── */
+"Predefinite"  = "默认";
+"Personalizzate" = "自定义";
+"Nessuna categoria personalizzata.\nPremi + per aggiungerne una." = "暂无自定义类别。\n点击 + 添加。";
+"predefinita"  = "默认";
+"Nuova categoria"   = "新类别";
+"Modifica categoria"= "编辑类别";
+"Icona"        = "图标";
+"Cambia icona" = "更换图标";
+"es. Musica, Sport, Palestra..." = "如：音乐、运动、健身房...";
+"Categorie"    = "类别";
+"Gestisci"     = "管理";
+
+/* ── Transfer ────────────────────────────── */
+"Trasferimento"    = "转账";
+"Da"               = "从";
+"A"                = "到";
+"Note (opzionale)" = "备注（可选）";
+"Trasferisci"      = "转账";
+"Nessun altro conto" = "无其他账户";
+
+/* ── Settings ────────────────────────────── */
+"Impostazioni"   = "设置";
+"Tema"           = "主题";
+"Esportazione dati" = "数据导出";
+"Esporta tutte le transazioni in formato CSV, compatibile con Excel e Numbers." = "将所有交易导出为 CSV 格式，兼容 Excel 和 Numbers。";
+"Condividi CSV"  = "分享 CSV";
+"Genera CSV"     = "生成 CSV";
+"Versione"       = "版本";
+"Transazioni totali" = "总交易数";
+
+/* ── Budget ──────────────────────────────── */
+"Budget usato"     = "已用预算";
+"+ Aggiungi budget"= "+ 添加预算";
+
+/* ── Goals ───────────────────────────────── */
+"Progresso totale"     = "总进度";
+"Nessun obiettivo."    = "暂无目标。";
+"+ Aggiungi obiettivo" = "+ 添加目标";
+
+/* ── FAB menu ─────────────────────────────── */
+"Spesa / Entrata"          = "支出 / 收入";
+"Trasferimento tra conti"  = "账户间转账";
+
+/* ── Theme names ─────────────────────────── */
+"Classico" = "经典";
+"Notte"    = "夜间";
+"Foresta"  = "森林";
+"Oceano"   = "海洋";
+"Rosso"    = "红色";
+"Rosa"     = "玫瑰";
+"Viola"    = "紫罗兰";
+"Sabbia"   = "沙滩";
+"Menta"    = "薄荷";
+"Autunno"  = "秋天";
+
+/* ── Budget ──────────────────────────────── */
+"Nessun budget impostato."  = "暂无预算。";
+"Nuovo budget"              = "新预算";
+"Scegli categoria..."       = "选择类别...";
+"Conto (opzionale)"         = "账户（可选）";
+"Lascia vuoto per applicarlo a tutti i conti." = "留空则应用于所有账户。";
+"Categoria (opzionale)"    = "类别（可选）";
+"Lascia vuoto per un budget globale sul conto." = "留空则为账户全局预算。";
+"Seleziona almeno una categoria o un conto." = "请至少选择一个类别或账户。";
+"Limite mensile"            = "月度限额";
+"Sforato di"                = "超支";
+"rimasti"                   = "剩余";
+
+/* ── Goals ───────────────────────────────── */
+"Nuovo obiettivo"           = "新目标";
+"Obiettivo raggiunto"       = "目标达成";
+"Entro"                     = "截止";
+"Già risparmiato"           = "已储蓄";
+"Aggiungi risparmio"        = "添加储蓄";
+"Scadenza"                  = "截止日期";
+"Imposta scadenza"          = "设置截止日期";
+"es. Vacanza, Auto nuova..."= "如：旅行、新车...";
+"Obiettivo"                 = "目标";
+
+/* ── Language settings ───────────────────── */
+"Lingua"                    = "语言";
+"Lingua aggiornata"         = "语言已更新";
+"Chiudi e riapri l'app per applicare la nuova lingua." = "关闭并重新打开应用以应用新语言。";
+"Chiudi l'app"             = "关闭应用";
+"Dopo"                      = "稍后";
+
+/* ── Default category names ──────────────── */
+"Cibo"          = "食物";
+"Trasporti"     = "交通";
+"Svago"         = "娱乐";
+"Shopping"      = "购物";
+"Salute"        = "健康";
+"Casa"          = "家庭";
+"Abbonamenti"   = "订阅";
+"Lavoro"        = "工作";
+"Istruzione"    = "教育";
+"Viaggi"        = "旅行";
+"Regali"        = "礼物";
+"Giroconto"     = "内部转账";
+"Altro"         = "其他";
+
+/* ── Statistics ───────────────────────────── */
+"Riepilogo"                     = "摘要";
+"rispetto al mese scorso"       = "与上月相比";
+"Andamento 6 mesi"              = "6个月趋势";
+"Uscite per categoria"          = "按类别支出";
+"Nessuna uscita questo mese."   = "本月暂无支出。";
+"Nessun dato disponibile."      = "暂无数据。";
+
+/* ── Additions ──────────────────────────── */
+"Fatto" = "完成";
+"Categoria predefinita" = "默认类别";
+"Le categorie predefinite non possono essere modificate o eliminate." = "默认类别无法修改或删除。";
+"💸 %.2f€ per %@ — salvato!" = "💸 %.2f€ 用于 %@ — 已保存！";
+"💰 +%.2f€ %@ — salvato!" = "💰 +%.2f€ %@ — 已保存！";
+"Sì" = "是";
+"No" = "否";
+"Cambia emoji" = "更改表情符号";
+
+"Statistiche" = "统计";
+
+/* ── Settings (additions) ────────────────── */
+"La lingua dell'app segue le preferenze di sistema." = "应用语言遵循系统偏好设置。";
+"Apri Impostazioni iOS" = "打开iOS设置";
+"Valuta" = "货币";
+"Notifiche" = "通知";
+"Avvisi automatici" = "自动提醒";
+"Budget quasi esaurito, fissi in scadenza, obiettivi vicini" = "预算快用完、固定支出即将到期、目标接近";
+"Report mensile PDF" = "每月PDF报告";
+"Promemoria il 1° di ogni mese per generare il report PDF" = "每月1日生成PDF报告的提醒";
+"Generazione in corso…" = "生成中…";
+"Modalità Demo" = "演示模式";
+"Mostra l'app con dati di esempio senza esporre i tuoi dati reali. Utile per mostrare MoneyTracker ad amici o colleghi." = "使用示例数据展示应用，不暴露真实数据。适合向朋友或同事展示MoneyTracker。";
+"Attiva modalità demo" = "启用演示模式";
+"I tuoi dati reali restano intatti e privati" = "您的真实数据保持完整且私密";
+"L'app si riavvierà con dati demo. Per tornare ai tuoi dati basta disattivare il toggle." = "应用将以演示数据重启。要恢复真实数据，只需关闭开关。";
+"Conferma" = "确认";
+"Il simbolo verrà aggiornato ovunque nell'app. Gli importi restano invariati." = "符号将在整个应用中更新。金额保持不变。";
+
+/* ── Transactions (additions) ─────────────── */
+"I movimenti di questo periodo appariranno qui." = "此期间的交易将显示在这里。";
+"Minimo" = "最小";
+"Massimo" = "最大";
+"Periodo personalizzato" = "自定义期间";
+"Sostituisce il filtro mese" = "替换月份筛选";
+"Rimuovi tutti i filtri" = "清除所有筛选";
+"Filtri" = "筛选";
+"Fine" = "完成";
+"Elimina trasferimento" = "删除转账";
+"Elimina entrambi i movimenti" = "删除两笔交易";
+"Questo trasferimento è composto da due movimenti collegati. Verranno eliminati entrambi." = "此转账由两笔关联交易组成。两笔将一并删除。";
+"Pianificato" = "已计划";
+
+/* ── Dashboard (additions) ───────────────── */
+"Conti in home" = "主页账户";
+"Premi + per aggiungere la tua prima spesa." = "点击 + 添加您的第一笔支出。";
+
+/* ── Accessibility ────────────────────────── */
+"Saldo nascosto" = "余额已隐藏";
+"Tocca per segnare come da pagare" = "点击标记为待支付";
+"Tocca per segnare come pagata" = "点击标记为已支付";
+
+/* ── Accounts (additions) ────────────────── */
+"Nessun conto" = "没有账户";
+"Aggiungi un conto per iniziare a tracciare le tue finanze." = "添加账户以开始追踪您的财务。";
+"Aggiungi conto" = "添加账户";
+"Avviso saldo basso" = "低余额提醒";
+"Ricevi una notifica quando il saldo scende sotto questa soglia" = "当余额低于此阈值时收到通知";
+
+/* ── Planning (additions) ────────────────── */
+"Nessun budget" = "没有预算";
+"Imposta un limite mensile per categoria o conto." = "按类别或账户设置月度限额。";
+"Aggiungi budget" = "添加预算";
+"Nessun obiettivo" = "没有目标";
+"Imposta un obiettivo di risparmio e tieni traccia dei tuoi progressi." = "设定储蓄目标并追踪您的进度。";
+"Aggiungi obiettivo" = "添加目标";
+
+/* ── Tab bar (additions) ─────────────────── */
+"Pianifica" = "计划";
+
+/* ── Tour / Onboarding ──────────────────── */
+"tour.saldoAttuale.title" = "当前余额";
+"tour.saldoAttuale.body" = "已确认的流动资金。只有标记为已完成的交易才计入此值——所有计划中的项目均排除在外。";
+
+"tour.hideBalance.title" = "隐藏金额";
+"tour.hideBalance.body" = "点击右上角的眼睛图标可在每个屏幕上隐藏所有金额。该设置在会话之间保持不变。";
+
+"tour.accountOrder.title" = "面板构成";
+"tour.accountOrder.body" = "点击滑块图标选择此处显示哪些账户及其顺序。拖动以重新排序，使用勾选标记来包含或排除账户。";
+
+"tour.saldoAtteso.title" = "预计余额";
+"tour.saldoAtteso.body" = "所有待处理计划交易后的预测值。仅在存在尚未标记为已完成的未来项目时显示。";
+
+"tour.recentMovements.title" = "最近交易";
+"tour.recentMovements.body" = "最新的非固定交易列表。点击标题可折叠该部分，点击行可打开详情视图。";
+
+"tour.addButton.title" = "添加交易";
+"tour.addButton.body" = "+按钮在每个标签页均可使用。点击以添加支出、收入或账户间转账。长按以选择类型。";
+
+"tour.filters.title" = "类别筛选器";
+"tour.filters.body" = "筛选器是累积的——类型和类别相结合。选择多个类别可缩小分析范围。切换期间时筛选器状态将重置。";
+
+"tour.swipeAction.title" = "快捷操作";
+"tour.swipeAction.body" = "向右滑动固定项目可确认并更新余额。向左滑动可删除。对于普通交易，向右滑动可编辑。";
+
+"tour.accountSwipe.title" = "账户管理";
+"tour.accountSwipe.body" = "向右滑动以编辑账户，向左滑动以删除。长按可获取高级选项：从总计中排除和存档。";
+
+"tour.budgetBar.title" = "进度条";
+"tour.budgetBar.body" = "绿色表示在限额内。红色表示已超过阈值。计算仅包含当月已完成的交易。";
+
+"tour.goalProgress.title" = "储蓄目标";
+"tour.goalProgress.body" = "点击更新按钮记录进度。进度条显示相对于目标已达到的百分比。截止日期显示在名称下方。";
+
+"tour.accountTotal.title" = "总资产";
+"tour.accountTotal.body" = "所有未排除的活跃账户余额之和。下方的「净余额」显示所有待处理计划交易后的预测值。";
+
+"tour.budgetHero.title" = "预算使用率";
+"tour.budgetHero.body" = "当月总预算已消耗的百分比。进度线逐步填充——保持在100%以下以不超出预算。";
+
+"tour.goalHero.title" = "总进度";
+"tour.goalHero.body" = "所有活跃目标的加权平均进度。每个目标按其目标金额按比例贡献总进度。";
+
+/* ── Statistics (additional) ─────────────── */
+"Dati insufficienti."   = "数据不足。";
+"Uscite medie"          = "平均支出";
+"Entrate medie"         = "平均收入";
+
+/* ── Budget history ──────────────────────── */
+"Storico Budget"        = "预算历史";
+
+/* ── Demo banner ─────────────────────────── */
+"MODALITÀ DEMO"         = "演示模式";
+
+/* ── Transfer form ───────────────────────── */
+"Togli la spunta se il trasferimento è pianificato" = "如转账尚未完成，请取消勾选";
+
+/* ── PDF labels ──────────────────────────── */
+"Netto"                         = "净额";
+"rispetto al mese precedente" = "较上月";
+"Eliminare \"%@\"?"  = "删除「%@」？";
+
+/* ── Statistics section labels ───────────────── */
+"Saldo atteso"                    = "预期余额";
+"Media mensile — ultimi 12 mesi"  = "月均支出 — 近12个月";
+"Andamento 12 mesi"               = "12个月趋势";
+"Anno %lld vs %lld"               = "%lld vs %lld";
+
+/* ── Demo accounts ───────────────────────────── */
+"demo.account.conto"    = "活期账户";
+"demo.account.risparmi" = "储蓄账户";
+"demo.account.carta"    = "信用卡";
+"demo.account.contanti" = "现金";
+
+/* ── Demo transactions ───────────────────────── */
+"demo.tx.stipendio"   = "工资";
+"demo.tx.affitto"     = "房租";
+"demo.tx.bolletta"    = "电费";
+"demo.tx.carburante"  = "燃油";
+"demo.tx.farmacia"    = "药店";
+"demo.tx.regalo"      = "生日礼物";
+"demo.tx.supermercato"= "超市";
+"demo.tx.volo"        = "米兰–罗马航班";
+"demo.tx.hotel"       = "罗马酒店2晚";
+"demo.tx.dentista"    = "牙医";
+"demo.tx.cinema"      = "电影＋晚餐";
+"demo.tx.ristorante"  = "日本料理";
+"demo.tx.risparmio"   = "每月储蓄";
+
+/* ── Demo goals ──────────────────────────────── */
+"demo.goal.vacanza"    = "撒丁岛假期";
+"demo.goal.emergenza"  = "应急基金";
+"demo.goal.fotografia" = "摄影课程";
+
+/* ── App Intents / Shortcuts ──────────────────── */
+"Aggiungi spesa" = "添加支出";
+"Aggiunge rapidamente una spesa al Money Tracker" = "快速向 Money Tracker 添加支出";
+"Cosa hai comprato?" = "您购买了什么？";
+"Quanto hai speso?" = "花费了多少？";
+"Quale conto hai usato?" = "使用了哪个账户？";
+"Lascia vuoto per auto-detect" = "留空以自动检测";
+"Quale categoria per questa spesa?" = "这笔支出属于哪个类别？";
+"L'importo deve essere un numero positivo (max 1 miliardo)" = "金额必须是正数（最大10亿）";
+"Inserisci una descrizione per la spesa" = "请输入支出描述";
+"Il database non è disponibile. Apri l'app per risolvere il problema." = "数据库不可用。请打开应用程序解决问题。";
+"%.2f per %@ — salvato!" = "%.2f（%@）— 已保存！";
+"Aggiungi entrata" = "添加收入";
+"Aggiunge rapidamente un'entrata al Money Tracker" = "快速向 Money Tracker 添加收入";
+"Descrizione entrata" = "收入描述";
+"Quanto hai ricevuto?" = "收到了多少？";
+"Su quale conto?" = "哪个账户？";
+"Inserisci una descrizione per l'entrata" = "请输入收入描述";
+"+%.2f %@ — salvato!" = "+%.2f %@ — 已保存！";
+"Controlla saldo" = "查看余额";
+"Mostra il saldo attuale di tutti i conti" = "显示所有账户的当前余额";
+"Saldo conti" = "账户余额";
+"Nessun conto trovato. Apri l'app per aggiungerne uno." = "未找到账户。请打开应用程序添加一个。";
+"💰 Saldo totale: %@" = "💰 总余额：%@";
+
+/* ── Onboarding tour — new steps ─────────────── */
+"tour.welcome.title"    = "欢迎使用MoneyTracker";
+"tour.welcome.body"     = "本指南将引导您了解每项功能。您可以随时中断，并从设置→重看导览继续。";
+"tour.tabBar.title"     = "主导航";
+"tour.tabBar.body"      = "始终可访问的五个区域：仪表板、交易、统计、规划和账户。专为最少点击次数设计。";
+"tour.statistics.title" = "财务分析";
+"tour.statistics.body"  = "比较月度支出，查看12个月趋势及年度对比。图表自动更新。";
+"tour.shortcuts.title"  = "Siri自动化";
+"tour.shortcuts.body"   = "通过语音命令记录支出、收入并查询余额。说「向MoneyTracker添加支出」或在设置→Siri与搜索中添加快捷指令。";
+"tour.done.title"       = "准备就绪";
+"tour.done.body"        = "您已完成MoneyTracker导览。每项功能都经过精心设计，强大而即时可用。您可以随时在设置中重看本指南。";
+"tour.startButton"      = "开始导览";
+"tour.doneButton"       = "开始使用应用";
+"tour.skipButton"       = "跳过导览";
+"Avanti"                = "下一步";
+"Fine"                  = "完成";
+"Rivedi tour"           = "重看导览";
+
+/* ── Settings / Siri section & accessibility ─── */
+"Siri & Shortcut" = "Siri 与快捷指令";
+"Aggiungi spese senza aprire l'app: con la voce, un widget o una scorciatoia rapida." = "无需打开应用即可添加支出：通过语音、小组件或快速快捷方式。";
+"Apri Shortcut" = "打开快捷指令";
+"Configura tocco sul retro" = "设置轻点背面";
+"Crea una Shortcut in Shortcut, poi vai in Impostazioni → Accessibilità → Tocco → Tocca sul retro → Doppio tocco e scegli la tua scorciatoia per accesso istantaneo." = "在快捷指令应用中创建快捷方式，然后前往设置 → 辅助功能 → 触控 → 轻点背面 → 连按两下，选择您的快捷方式以实现即时访问。";
+"meno " = "减";
+"più " = "加";
+"pianificato" = "计划中";
+"escluso dal totale" = "不计入总额";
+"saldo" = "余额";

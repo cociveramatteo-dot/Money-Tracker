@@ -1,32 +1,154 @@
-//
-//  MoneyTrackerApp.swift
-//  MoneyTracker
-//
-//  Created by Matteo Cocivera on 21/06/26.
-//
-
 import SwiftUI
 import SwiftData
 
 @main
 struct MoneyTrackerApp: App {
-    var sharedModelContainer: ModelContainer = {
+
+    let realContainer: ModelContainer
+    let demoContainer: ModelContainer
+
+    @StateObject  private var themeManager = ThemeManager()
+    @AppStorage("demoModeEnabled") private var demoModeEnabled = false
+    // Tour overlay is rendered HERE (app level) so it sits above UITabBarController
+    // and UITabBar — the only z-position from which the tab bar can be highlighted.
+    @ObservedObject private var tourManager = TourManager.shared
+
+    // MARK: - Init
+
+    init() {
         let schema = Schema([
-            Item.self,
+            Account.self,
+            Transaction.self,
+            Budget.self,
+            Goal.self,
+            Category.self
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+        let realConfig = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: false
+            // cloudKitDatabase: .automatic   ← decommentare dopo aver abilitato iCloud
+        )
+
+        FormatterCache.registerLocaleObserver()
 
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            realContainer = try ModelContainer(for: schema, configurations: realConfig)
+
+            // SEC-02: protezione crittografica del db reale
+            applyFileProtection(to: realConfig.url, level: .complete)
+
+            let ctx = realContainer.mainContext
+            Category.seedIfNeeded(context: ctx)
+
+            let notifEnabled = UserDefaults.standard.object(forKey: "notificationsEnabled") == nil
+            if notifEnabled { NotificationManager.shared.requestPermission() }
+            NotificationManager.shared.scheduleFixedReminderIfNeeded(context: ctx)
+
         } catch {
-            fatalError("Could not create ModelContainer: \(error)")
+            let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+            realContainer = (try? ModelContainer(for: schema, configurations: fallback))
+                ?? { fatalError("Impossibile creare ModelContainer: \(error)") }()
         }
-    }()
+
+        // "demo" come nome → SwiftData crea demo.store nella sua cartella standard.
+        // url è una proprietà read-only calcolata da ModelConfiguration, non un parametro init.
+        let demoConfig = ModelConfiguration("demo", schema: schema, isStoredInMemoryOnly: false)
+
+        do {
+            demoContainer = try ModelContainer(for: schema, configurations: demoConfig)
+            // Proteggi il file demo (accessibile dopo il primo sblocco post-riavvio)
+            applyFileProtection(to: demoConfig.url, level: .completeUntilFirstUserAuthentication)
+            let demoCtx = demoContainer.mainContext
+            Category.seedIfNeeded(context: demoCtx)
+            // Semina tutti i dati demo subito in init() — in modo sincrono, prima che
+            // qualsiasi @Query si abboni al container. Così quando l'utente attiva la
+            // modalità demo i dati sono già presenti e non serve nessun .task asincrono.
+            DemoDataSeeder.seedIfNeeded(context: demoCtx)
+        } catch {
+            // Fallback sicuro: in-memory (la demo funziona ma non persiste tra i lanci)
+            let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+            demoContainer = (try? ModelContainer(for: schema, configurations: fallback))
+                ?? realContainer
+        }
+    }
+
+    // MARK: - Body
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            let activeContainer = demoModeEnabled ? demoContainer : realContainer
+
+            // Outer ZStack so overlayPreferenceValue is applied at the ROOT of the
+            // UIHostingController — above UITabBarController and UITabBar in z-order.
+            ZStack {
+                ContentView()
+                    .environmentObject(themeManager)
+                    .modelContainer(activeContainer)
+                    .preferredColorScheme(themeManager.current.preferredColorScheme)
+                    // .id() forza la ricreazione completa dell'albero di viste al cambio
+                    // di modalità, garantendo che @Query e @Environment siano agganciati
+                    // al container giusto senza residui del precedente.
+                    .id(demoModeEnabled ? "demo" : "real")
+                    // Banner "DEMO" — in cima, sotto la status bar / Dynamic Island.
+                    .overlay(alignment: .top) {
+                        if demoModeEnabled { demoBanner }
+                    }
+                    .task {
+                        // Il seeding demo avviene in init() — qui processiamo solo le ricorrenti.
+                        Transaction.processRecurring(context: activeContainer.mainContext)
+                    }
+            }
+            // Tour overlay — collects .tourAnchor() preferences from all descendants
+            // and renders the spotlight ABOVE everything including UITabBar.
+            // Quando il tour si attiva, resetta il container demo allo stato
+            // originale — così il tour non mostra mai dati modificati dall'utente.
+            // forceReset agisce sempre sul demoContainer (mai sul reale)
+            // indipendentemente da quale container sia correntemente attivo.
+            .onChange(of: tourManager.isActive) { _, active in
+                guard active else { return }
+                DemoDataSeeder.forceReset(context: demoContainer.mainContext)
+            }
+            .overlayPreferenceValue(TourAnchorKey.self) { anchors in
+                if tourManager.isActive {
+                    TourOverlayView(anchors: anchors)
+                        .ignoresSafeArea()
+                        .transition(.opacity)
+                }
+            }
         }
-        .modelContainer(sharedModelContainer)
+    }
+
+    // MARK: - Demo banner
+
+    @ViewBuilder private var demoBanner: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "eye.fill")
+                .font(.system(size: 10, weight: .bold))
+            Text("MODALITÀ DEMO", comment: "Demo mode banner label")
+                .font(.system(size: 11, weight: .bold, design: .monospaced))
+                .kerning(0.5)
+        }
+        .foregroundStyle(.white)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 5)
+        .background(Color.orange.opacity(0.92), in: Capsule())
+        .shadow(color: .black.opacity(0.18), radius: 6, y: 2)
+        .padding(.top, 8) // dentro la safe area top, sotto Dynamic Island / notch
+        .allowsHitTesting(false)
+        .transition(.move(edge: .top).combined(with: .opacity))
+        .animation(.spring(response: 0.4, dampingFraction: 0.75), value: demoModeEnabled)
+    }
+}
+
+// MARK: - File protection helper
+
+/// Applica la protezione crittografica al file SQLite + WAL + SHM indicati dall'URL.
+/// Silenziosamente ignora i file non ancora esistenti (es. al primo avvio).
+private func applyFileProtection(to url: URL, level: FileProtectionType) {
+    for ext in ["", "-wal", "-shm"] {
+        let path = url.path + ext
+        guard FileManager.default.fileExists(atPath: path) else { continue }
+        try? FileManager.default.setAttributes([.protectionKey: level], ofItemAtPath: path)
     }
 }
