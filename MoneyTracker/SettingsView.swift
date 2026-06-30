@@ -357,7 +357,10 @@ struct SettingsView: View {
                     Spacer(minLength: DS.Space.xxl)
                 }
                 .padding(.horizontal, DS.Layout.margin)
-                .padding(.top, DS.Space.xl)
+                // MARK: Profilo / Account
+                accountSection
+                    .padding(.top, DS.Space.xl)
+                    .padding(.horizontal, DS.Layout.margin)
             }
             .background(DS.paper)
             .scrollIndicators(.hidden)
@@ -371,6 +374,55 @@ struct SettingsView: View {
             .onAppear {
                 // PERF-04: fetch only the count, not all rows
                 transactionCount = (try? context.fetchCount(FetchDescriptor<Transaction>())) ?? 0
+            }
+        }
+    }
+
+    // MARK: - Account / Profilo
+
+    @State private var showLogoutConfirm = false
+
+    @ViewBuilder private var accountSection: some View {
+        let auth = SupabaseManager.shared
+        VStack(alignment: .leading, spacing: DS.Space.l) {
+            SectionLabel(text: "Account")
+
+            // Email utente
+            if let email = auth.userEmail {
+                HStack(spacing: DS.Space.m) {
+                    Image(systemName: "person.circle")
+                        .font(.system(size: 20))
+                        .foregroundStyle(DS.smoke)
+                    Text(email)
+                        .font(.system(size: 15))
+                        .foregroundStyle(DS.ink)
+                }
+                ThinDivider()
+            }
+
+            // Logout
+            Button {
+                showLogoutConfirm = true
+            } label: {
+                HStack {
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                        .font(.system(size: 15))
+                    Text("Esci dall'account")
+                        .font(.system(size: 15, weight: .medium))
+                    Spacer()
+                }
+                .foregroundStyle(.red)
+            }
+            .buttonStyle(.plain)
+            .confirmationDialog("Esci dall'account?",
+                                isPresented: $showLogoutConfirm,
+                                titleVisibility: .visible) {
+                Button("Esci", role: .destructive) {
+                    Task { try? await auth.signOut() }
+                }
+                Button("Annulla", role: .cancel) { }
+            } message: {
+                Text("Dovrai effettuare di nuovo il login la prossima volta.")
             }
         }
     }

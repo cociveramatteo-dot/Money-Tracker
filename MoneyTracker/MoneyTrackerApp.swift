@@ -73,48 +73,125 @@ struct MoneyTrackerApp: App {
         }
     }
 
+    // Osserva lo stato di autenticazione per mostrare login / app.
+    @ObservedObject private var auth = SupabaseManager.shared
+    // Permette di rilevare quando l'app va in background o torna in foreground.
+    @Environment(\.scenePhase) private var scenePhase
+
     // MARK: - Body
 
     var body: some Scene {
         WindowGroup {
-            let activeContainer = demoModeEnabled ? demoContainer : realContainer
-
-            // Outer ZStack so overlayPreferenceValue is applied at the ROOT of the
-            // UIHostingController — above UITabBarController and UITabBar in z-order.
-            ZStack {
-                ContentView()
-                    .environmentObject(themeManager)
-                    .modelContainer(activeContainer)
-                    .preferredColorScheme(themeManager.current.preferredColorScheme)
-                    // .id() forza la ricreazione completa dell'albero di viste al cambio
-                    // di modalità, garantendo che @Query e @Environment siano agganciati
-                    // al container giusto senza residui del precedente.
-                    .id(demoModeEnabled ? "demo" : "real")
-                    // Banner "DEMO" — in cima, sotto la status bar / Dynamic Island.
-                    .overlay(alignment: .top) {
-                        if demoModeEnabled { demoBanner }
-                    }
-                    .task {
-                        // Il seeding demo avviene in init() — qui processiamo solo le ricorrenti.
-                        Transaction.processRecurring(context: activeContainer.mainContext)
-                    }
-            }
-            // Tour overlay — collects .tourAnchor() preferences from all descendants
-            // and renders the spotlight ABOVE everything including UITabBar.
-            // Quando il tour si attiva, resetta il container demo allo stato
-            // originale — così il tour non mostra mai dati modificati dall'utente.
-            // forceReset agisce sempre sul demoContainer (mai sul reale)
-            // indipendentemente da quale container sia correntemente attivo.
-            .onChange(of: tourManager.isActive) { _, active in
-                guard active else { return }
-                DemoDataSeeder.forceReset(context: demoContainer.mainContext)
-            }
-            .overlayPreferenceValue(TourAnchorKey.self) { anchors in
-                if tourManager.isActive {
-                    TourOverlayView(anchors: anchors)
-                        .ignoresSafeArea()
-                        .transition(.opacity)
+            Group {
+                if auth.isLoading {
+                    // Splash — visibile solo per il tempo necessario a controllare
+                    // la sessione salvata nel Keychain (di solito < 0.5 s).
+                    splashView
+                } else if !auth.isLoggedIn {
+                    LoginView()
+                        .environmentObject(themeManager)
+                        .preferredColorScheme(themeManager.current.preferredColorScheme)
+                } else {
+                    mainAppView
                 }
+            }
+            .animation(.easeInOut(duration: 0.25), value: auth.isLoggedIn)
+            // Sync al login / logout.
+            .onChange(of: auth.isLoggedIn) { _, loggedIn in
+                if loggedIn {
+                    guard !demoModeEnabled else { return }
+                    Task { await SyncService.shared.syncOnLogin(context: realContainer.mainContext) }
+                } else {
+                    // Logout: svuota subito il real store locale.
+                    // Così il prossimo utente che accede non vede i dati del precedente.
+                    SyncService.shared.clearLocalData(context: realContainer.mainContext)
+                }
+            }
+            // Sync su lifecycle app (solo se loggato e non in demo).
+            .onChange(of: scenePhase) { _, phase in
+                guard auth.isLoggedIn, !demoModeEnabled else { return }
+                switch phase {
+                case .background:
+                    // Push quando l'app va in background — garantisce che i dati
+                    // siano su Supabase prima che l'utente chiuda l'app.
+                    Task { await SyncService.shared.push(context: realContainer.mainContext) }
+                case .active:
+                    // Prima push: assicura che Supabase abbia i dati più recenti.
+                    // Poi pull (se passati ≥5 min): porta eventuali modifiche da altri dispositivi.
+                    // L'ordine push→pull è fondamentale: evita che il pull cancelli dati
+                    // locali non ancora caricati su Supabase.
+                    Task {
+                        await SyncService.shared.push(context: realContainer.mainContext)
+                        if SyncService.shared.shouldPull {
+                            await SyncService.shared.pull(context: realContainer.mainContext)
+                        }
+                    }
+                default:
+                    break
+                }
+            }
+        }
+    }
+
+    // MARK: - Splash
+
+    private var splashView: some View {
+        ZStack {
+            DS.paper.ignoresSafeArea()
+            VStack(spacing: DS.Space.m) {
+                Image(systemName: "chart.pie.fill")
+                    .font(.system(size: 52, weight: .ultraLight))
+                    .foregroundStyle(DS.ink)
+                Text("MoneyTracker")
+                    .font(.system(size: 22, weight: .semibold))
+                    .foregroundStyle(DS.ink)
+            }
+        }
+    }
+
+    // MARK: - Main app (utente loggato)
+
+    private var mainAppView: some View {
+        let activeContainer = demoModeEnabled ? demoContainer : realContainer
+
+        return ZStack {
+            ContentView()
+                .environmentObject(themeManager)
+                .modelContainer(activeContainer)
+                .preferredColorScheme(themeManager.current.preferredColorScheme)
+                // .id() forza la ricreazione completa dell'albero di viste al cambio
+                // di modalità, garantendo che @Query e @Environment siano agganciati
+                // al container giusto senza residui del precedente.
+                .id(demoModeEnabled ? "demo" : "real")
+                // Banner "DEMO" — in cima, sotto la status bar / Dynamic Island.
+                .overlay(alignment: .top) {
+                    if demoModeEnabled { demoBanner }
+                }
+                .task {
+                    // Il seeding demo avviene in init() — qui processiamo solo le ricorrenti.
+                    Transaction.processRecurring(context: activeContainer.mainContext)
+                }
+        }
+        // Real-time sync: ogni volta che il real store salva, triggera un push
+        // con debounce 1.5s. Così i dati arrivano su Supabase subito dopo l'inserimento.
+        // Ignorato in demo mode (demoContainer ha il suo context separato).
+        .onReceive(NotificationCenter.default.publisher(for: ModelContext.didSave)) { notification in
+            guard !demoModeEnabled, auth.isLoggedIn else { return }
+            guard let ctx = notification.object as? ModelContext,
+                  ctx === realContainer.mainContext else { return }
+            SyncService.shared.schedulePush(context: realContainer.mainContext)
+        }
+        // Tour overlay — collects .tourAnchor() preferences from all descendants
+        // and renders the spotlight ABOVE everything including UITabBar.
+        .onChange(of: tourManager.isActive) { _, active in
+            guard active else { return }
+            DemoDataSeeder.forceReset(context: demoContainer.mainContext)
+        }
+        .overlayPreferenceValue(TourAnchorKey.self) { anchors in
+            if tourManager.isActive {
+                TourOverlayView(anchors: anchors)
+                    .ignoresSafeArea()
+                    .transition(.opacity)
             }
         }
     }

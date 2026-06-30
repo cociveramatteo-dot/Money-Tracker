@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		95E0EB252FF3E413008854B1 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 95E0EB242FF3E413008854B1 /* Auth */; };
+		95E0EB272FF3E413008854B1 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 95E0EB262FF3E413008854B1 /* Supabase */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		9595B1AA2FEA7EE800BDCD2A /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -49,6 +54,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95E0EB272FF3E413008854B1 /* Supabase in Frameworks */,
+				95E0EB252FF3E413008854B1 /* Auth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +99,8 @@
 			);
 			name = MoneyTracker;
 			packageProductDependencies = (
+				95E0EB242FF3E413008854B1 /* Auth */,
+				95E0EB262FF3E413008854B1 /* Supabase */,
 			);
 			productName = MoneyTracker;
 			productReference = 95A2A6EB2FE7F5E10086EF0A /* MoneyTracker.app */;
@@ -128,6 +137,9 @@
 			);
 			mainGroup = 95A2A6E22FE7F5E10086EF0A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				95E0EB232FF3E413008854B1 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 95A2A6EC2FE7F5E10086EF0A /* Products */;
 			projectDirPath = "";
@@ -383,6 +395,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		95E0EB232FF3E413008854B1 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		95E0EB242FF3E413008854B1 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95E0EB232FF3E413008854B1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		95E0EB262FF3E413008854B1 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95E0EB232FF3E413008854B1 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 95A2A6E32FE7F5E10086EF0A /* Project object */;
 }
