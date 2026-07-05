@@ -85,7 +85,8 @@ struct AddExpenseIntent: AppIntent {
 
         let tx = Transaction(
             name:         name,
-            amount:       amount,
+            // Quantizza al centesimo: Siri può passare valori tipo 12.345678
+            amount:       (amount * 100).rounded() / 100,
             type:         .uscita,
             category:     catName,
             categoryIcon: catIcon,
@@ -157,7 +158,8 @@ struct AddIncomeIntent: AppIntent {
                       ?? DS.categoryIcon(for: incCatName)
         let tx = Transaction(
             name:         name,
-            amount:       amount,
+            // Quantizza al centesimo: Siri può passare valori tipo 12.345678
+            amount:       (amount * 100).rounded() / 100,
             type:         .entrata,
             category:     incCatName,
             categoryIcon: incCatIcon,

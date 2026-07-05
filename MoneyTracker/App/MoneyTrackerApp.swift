@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import Supabase
 
 @main
 struct MoneyTrackerApp: App {
@@ -7,7 +8,6 @@ struct MoneyTrackerApp: App {
     let realContainer: ModelContainer
     let demoContainer: ModelContainer
 
-    @StateObject  private var themeManager = ThemeManager()
     @AppStorage("demoModeEnabled") private var demoModeEnabled = false
     // Tour overlay is rendered HERE (app level) so it sits above UITabBarController
     // and UITabBar — the only z-position from which the tab bar can be highlighted.
@@ -89,13 +89,23 @@ struct MoneyTrackerApp: App {
                     splashView
                 } else if !auth.isLoggedIn {
                     LoginView()
-                        .environmentObject(themeManager)
-                        .preferredColorScheme(themeManager.current.preferredColorScheme)
                 } else {
                     mainAppView
                 }
             }
             .animation(.easeInOut(duration: 0.25), value: auth.isLoggedIn)
+            // Tema chiaro/scuro: nessuna gestione manuale. I colori DS sono adattivi
+            // (dynamic provider UIKit) e seguono il sistema automaticamente — inclusi
+            // navbar, tastiera e tabbar. Non forzare mai preferredColorScheme qui:
+            // creerebbe un feedback loop che blocca l'app sul tema iniziale.
+            // Deep link handler: gestisce i link nelle email di Supabase
+            // (conferma account, reset password). Il SDK estrae automaticamente
+            // i token dall'URL e aggiorna la sessione.
+            .onOpenURL { url in
+                Task {
+                    try? await SupabaseManager.shared.client.auth.session(from: url)
+                }
+            }
             // Sync al login / logout.
             .onChange(of: auth.isLoggedIn) { _, loggedIn in
                 if loggedIn {
@@ -156,9 +166,7 @@ struct MoneyTrackerApp: App {
 
         return ZStack {
             ContentView()
-                .environmentObject(themeManager)
                 .modelContainer(activeContainer)
-                .preferredColorScheme(themeManager.current.preferredColorScheme)
                 // .id() forza la ricreazione completa dell'albero di viste al cambio
                 // di modalità, garantendo che @Query e @Environment siano agganciati
                 // al container giusto senza residui del precedente.

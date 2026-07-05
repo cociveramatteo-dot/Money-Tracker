@@ -288,25 +288,17 @@
 
 /* ── Tour / Onboarding ──────────────────── */
 "tour.saldoAttuale.title" = "Solde actuel";
-"tour.saldoAttuale.body" = "Liquidités confirmées. Seules les transactions marquées comme effectuées contribuent à cette valeur — tout ce qui est planifié est exclu.";
+"tour.saldoAttuale.body" = "C'est ce que vous avez vraiment : seuls les mouvements confirmés comptent, pas ceux planifiés.";
 
-"tour.hideBalance.title" = "Masquer les montants";
-"tour.hideBalance.body" = "Appuyez sur l'icône d'œil en haut à droite pour masquer tous les montants sur chaque écran. Le paramètre persiste entre les sessions.";
 
-"tour.accountOrder.title" = "Composition du panneau";
-"tour.accountOrder.body" = "Appuyez sur l'icône de curseur pour choisir quels comptes apparaissent ici et dans quel ordre. Faites glisser pour réorganiser, utilisez la coche pour inclure ou exclure.";
 
 "tour.saldoAtteso.title" = "Solde prévu";
 "tour.saldoAtteso.body" = "Projection après toutes les transactions planifiées en attente. N'apparaît que lorsqu'il y a des éléments futurs pas encore marqués comme effectués.";
 
-"tour.recentMovements.title" = "Dernières transactions";
-"tour.recentMovements.body" = "Les transactions non fixes les plus récentes. Appuyez sur l'en-tête pour réduire la section, appuyez sur une ligne pour ouvrir le détail.";
 
 "tour.addButton.title" = "Ajouter une transaction";
-"tour.addButton.body" = "Le bouton + est disponible depuis chaque onglet. Appuyez pour ajouter une dépense, un revenu ou un transfert. Maintenez appuyé pour choisir le type.";
+"tour.addButton.body" = "Ajoutez ici dépenses, revenus et virements, depuis n'importe quel écran.";
 
-"tour.filters.title" = "Filtres par catégorie";
-"tour.filters.body" = "Les filtres sont cumulatifs — type et catégorie se combinent. Sélectionnez plusieurs catégories pour affiner l'analyse. L'état des filtres se réinitialise en changeant de période.";
 
 "tour.swipeAction.title" = "Actions rapides";
 "tour.swipeAction.body" = "Glissez à droite sur un élément fixe pour le confirmer et mettre à jour le solde. Glissez à gauche pour le supprimer. Sur les transactions normales, glissez à droite pour modifier.";
@@ -314,14 +306,8 @@
 "tour.accountSwipe.title" = "Gestion du compte";
 "tour.accountSwipe.body" = "Glissez à droite pour modifier un compte, à gauche pour le supprimer. Appui long pour les options avancées : exclure du total et archiver.";
 
-"tour.budgetBar.title" = "Barre de progression";
-"tour.budgetBar.body" = "Vert signifie que vous êtes dans la limite. Rouge signifie que le seuil a été dépassé. Le calcul inclut uniquement les transactions complétées du mois en cours.";
 
-"tour.goalProgress.title" = "Objectif d'épargne";
-"tour.goalProgress.body" = "Appuyez sur le bouton de mise à jour pour enregistrer les progrès. La barre affiche le pourcentage atteint par rapport à l'objectif. L'échéance est indiquée sous le nom.";
 
-"tour.accountTotal.title" = "Patrimoine total";
-"tour.accountTotal.body" = "La somme des soldes de tous les comptes actifs non exclus. 'Solde net' en dessous montre la projection après toutes les transactions planifiées en attente.";
 
 "tour.budgetHero.title" = "Utilisation du budget";
 "tour.budgetHero.body" = "Pourcentage du budget mensuel total déjà consommé. La ligne se remplit progressivement — restez sous 100% pour respecter vos limites.";
@@ -407,17 +393,16 @@
 
 /* ── Onboarding tour — new steps ─────────────── */
 "tour.welcome.title"    = "Bienvenue sur MoneyTracker";
-"tour.welcome.body"     = "Ce guide vous présente toutes les fonctionnalités. Vous pouvez l'interrompre à tout moment et le reprendre depuis Réglages → Revoir le tour.";
+"tour.welcome.body"     = "Une minute pour vous repérer. Quittez quand vous voulez, ou passez tout et commencez tout de suite.";
 "tour.tabBar.title"     = "Navigation principale";
-"tour.tabBar.body"      = "Cinq espaces toujours accessibles : Tableau de bord, Mouvements, Statistiques, Planifier et Comptes. Conçus pour le minimum de gestes.";
+"tour.tabBar.body"      = "Cinq espaces : Accueil, Mouvements, Statistiques, Planifier et Comptes. Tout est à un geste.";
 "tour.statistics.title" = "Analyse financière";
 "tour.statistics.body"  = "Comparez les dépenses mensuelles, visualisez les tendances sur 12 mois et analysez les comparaisons annuelles. Les graphiques se mettent à jour automatiquement.";
-"tour.shortcuts.title"  = "Automatisation Siri";
-"tour.shortcuts.body"   = "Enregistrez dépenses, revenus et vérifiez votre solde par commande vocale. Dites «Ajouter une dépense à MoneyTracker» ou explorez Réglages → Siri.";
 "tour.done.title"       = "Vous êtes prêt";
-"tour.done.body"        = "Vous avez terminé le tour MoneyTracker. Chaque fonctionnalité est conçue pour être puissante et immédiate. Vous pouvez revoir ce guide à tout moment depuis Réglages.";
+"tour.done.body"        = "Le reste, on vous le montre en chemin, écran par écran.";
 "tour.startButton"      = "Commencer le tour";
-"tour.doneButton"       = "Commencer à utiliser l'app";
+"tour.doneButton"       = "Ajoutez votre première dépense";
+"tour.laterButton"   = "Plus tard";
 "tour.skipButton"       = "Passer le tour";
 "Avanti"                = "Suivant";
 "Fine"                  = "Terminer";

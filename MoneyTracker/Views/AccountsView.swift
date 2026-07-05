@@ -160,7 +160,7 @@ struct AccountsView: View {
             }
             .sheet(isPresented: $showAdd) { AddAccountView() }
             .sheet(item: $editing)        { AddAccountView(editing: $0) }
-            .themePickerButton()
+            .themedNavBar()
             .sheet(isPresented: $showSettings) { SettingsView() }
             .alert(
                 accountToDelete.map { String(format: NSLocalizedString("Eliminare \"%@\"?", comment: "Delete account alert title"), $0.name) } ?? "",
@@ -395,8 +395,8 @@ struct AddAccountView: View {
     }
 
     private func save() {
-        let b = Double(balance.replacingOccurrences(of: ",", with: ".")) ?? 0
-        let threshold = Double(alertThresholdStr.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let b = Double.parseAmount(balance) ?? 0
+        let threshold = Double.parseAmount(alertThresholdStr) ?? 0
         if let a = editing {
             a.name                  = name
             a.type                  = type.rawValue

@@ -272,10 +272,10 @@ struct AddGoalView: View {
     }
 
     private func save() {
-        let t = Double(target.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let t = Double.parseAmount(target) ?? 0
         guard t > 0 else { return }
-        let c = Double(current.replacingOccurrences(of: ",", with: ".")) ?? 0
-        let extra = Double(addSavings.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let c = Double.parseAmount(current) ?? 0
+        let extra = Double.parseAmount(addSavings) ?? 0
 
         if let g = editing {
             g.name          = name

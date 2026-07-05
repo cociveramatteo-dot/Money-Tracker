@@ -289,25 +289,17 @@
 
 /* ── Tour / Onboarding ──────────────────── */
 "tour.saldoAttuale.title" = "当前余额";
-"tour.saldoAttuale.body" = "已确认的流动资金。只有标记为已完成的交易才计入此值——所有计划中的项目均排除在外。";
+"tour.saldoAttuale.body" = "这是你真正拥有的金额：只计入已确认的交易，不含计划中的。";
 
-"tour.hideBalance.title" = "隐藏金额";
-"tour.hideBalance.body" = "点击右上角的眼睛图标可在每个屏幕上隐藏所有金额。该设置在会话之间保持不变。";
 
-"tour.accountOrder.title" = "面板构成";
-"tour.accountOrder.body" = "点击滑块图标选择此处显示哪些账户及其顺序。拖动以重新排序，使用勾选标记来包含或排除账户。";
 
 "tour.saldoAtteso.title" = "预计余额";
 "tour.saldoAtteso.body" = "所有待处理计划交易后的预测值。仅在存在尚未标记为已完成的未来项目时显示。";
 
-"tour.recentMovements.title" = "最近交易";
-"tour.recentMovements.body" = "最新的非固定交易列表。点击标题可折叠该部分，点击行可打开详情视图。";
 
 "tour.addButton.title" = "添加交易";
-"tour.addButton.body" = "+按钮在每个标签页均可使用。点击以添加支出、收入或账户间转账。长按以选择类型。";
+"tour.addButton.body" = "在任何页面都可以从这里添加支出、收入和转账。";
 
-"tour.filters.title" = "类别筛选器";
-"tour.filters.body" = "筛选器是累积的——类型和类别相结合。选择多个类别可缩小分析范围。切换期间时筛选器状态将重置。";
 
 "tour.swipeAction.title" = "快捷操作";
 "tour.swipeAction.body" = "向右滑动固定项目可确认并更新余额。向左滑动可删除。对于普通交易，向右滑动可编辑。";
@@ -315,14 +307,8 @@
 "tour.accountSwipe.title" = "账户管理";
 "tour.accountSwipe.body" = "向右滑动以编辑账户，向左滑动以删除。长按可获取高级选项：从总计中排除和存档。";
 
-"tour.budgetBar.title" = "进度条";
-"tour.budgetBar.body" = "绿色表示在限额内。红色表示已超过阈值。计算仅包含当月已完成的交易。";
 
-"tour.goalProgress.title" = "储蓄目标";
-"tour.goalProgress.body" = "点击更新按钮记录进度。进度条显示相对于目标已达到的百分比。截止日期显示在名称下方。";
 
-"tour.accountTotal.title" = "总资产";
-"tour.accountTotal.body" = "所有未排除的活跃账户余额之和。下方的「净余额」显示所有待处理计划交易后的预测值。";
 
 "tour.budgetHero.title" = "预算使用率";
 "tour.budgetHero.body" = "当月总预算已消耗的百分比。进度线逐步填充——保持在100%以下以不超出预算。";
@@ -408,17 +394,16 @@
 
 /* ── Onboarding tour — new steps ─────────────── */
 "tour.welcome.title"    = "欢迎使用MoneyTracker";
-"tour.welcome.body"     = "本指南将引导您了解每项功能。您可以随时中断，并从设置→重看导览继续。";
+"tour.welcome.body"     = "一分钟带你了解全局。随时可以退出，也可以跳过直接开始。";
 "tour.tabBar.title"     = "主导航";
-"tour.tabBar.body"      = "始终可访问的五个区域：仪表板、交易、统计、规划和账户。专为最少点击次数设计。";
+"tour.tabBar.body"      = "五个区域：主页、交易、统计、规划和账户。一切都触手可及。";
 "tour.statistics.title" = "财务分析";
 "tour.statistics.body"  = "比较月度支出，查看12个月趋势及年度对比。图表自动更新。";
-"tour.shortcuts.title"  = "Siri自动化";
-"tour.shortcuts.body"   = "通过语音命令记录支出、收入并查询余额。说「向MoneyTracker添加支出」或在设置→Siri与搜索中添加快捷指令。";
 "tour.done.title"       = "准备就绪";
-"tour.done.body"        = "您已完成MoneyTracker导览。每项功能都经过精心设计，强大而即时可用。您可以随时在设置中重看本指南。";
+"tour.done.body"        = "其余功能会在你使用时逐屏为你展示。";
 "tour.startButton"      = "开始导览";
-"tour.doneButton"       = "开始使用应用";
+"tour.doneButton"       = "添加你的第一笔支出";
+"tour.laterButton"   = "稍后";
 "tour.skipButton"       = "跳过导览";
 "Avanti"                = "下一步";
 "Fine"                  = "完成";

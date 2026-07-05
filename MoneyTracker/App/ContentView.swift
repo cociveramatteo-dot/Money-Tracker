@@ -2,8 +2,8 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @EnvironmentObject var themeManager: ThemeManager
     @ObservedObject private var tourManager = TourManager.shared
+    @ObservedObject private var tipManager  = TipManager.shared
     @State private var selectedTab          = 0
     @State private var showAdd              = false
     @State private var showTransfer         = false
@@ -71,6 +71,13 @@ struct ContentView: View {
                 .scaleEffect(fabHidden ? 0.7 : 1)
                 .animation(.spring(response: 0.25, dampingFraction: 0.8), value: fabHidden)
                 .allowsHitTesting(!fabHidden)
+
+            // ── Tip contestuale (just-in-time, uno per schermata) ──────────────
+            // Sopra FAB e tab bar, senza overlay scuro: informa, non interrompe.
+            if let tip = tipManager.visibleTip {
+                TipCard(tip: tip)
+                    .padding(.bottom, 152)
+            }
         }
         // ── Tour-driven tab / segment switching ───────────────────────────────
         .onChange(of: tourManager.requiredTab) { _, tab in
@@ -86,9 +93,42 @@ struct ContentView: View {
         .onAppear {
             guard !TourManager.shared.isActive else { return }
             TourManager.shared.startIfNeeded()
+            // CTA finale del tour ("Aggiungi la tua prima spesa"): se il tour ha
+            // ripristinato la modalità reale, ContentView è stata ricreata e il
+            // flag va consumato qui. Breve attesa per presentare lo sheet a
+            // gerarchia assestata.
+            if TourManager.shared.consumePendingAddRequest() {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { showAdd = true }
+            }
+        }
+        // Caso senza ricreazione (demo già attiva prima del tour): il flag
+        // arriva via @Published sulla STESSA istanza di ContentView.
+        .onChange(of: tourManager.pendingAddRequest) { _, pending in
+            guard pending, TourManager.shared.consumePendingAddRequest() else { return }
+            showAdd = true
+        }
+        // ── Trigger dei tip contestuali ─────────────────────────────────────
+        .onChange(of: selectedTab) { _, tab in
+            tipManager.hide()   // il tip della schermata precedente non c'entra più
+            showTipIfNeeded(for: tab)
+        }
+        .onChange(of: planningSegment) { _, seg in
+            guard selectedTab == 3 else { return }
+            tipManager.hide()
+            tipManager.showIfNeeded(seg == 0 ? .budget : .goals)
         }
         .sheet(isPresented: $showAdd)      { AddTransactionView() }
         .sheet(isPresented: $showTransfer) { AddTransferView() }
+    }
+
+    private func showTipIfNeeded(for tab: Int) {
+        switch tab {
+        case 1:  tipManager.showIfNeeded(.swipeActions)
+        case 2:  tipManager.showIfNeeded(.statistics)
+        case 3:  tipManager.showIfNeeded(planningSegment == 0 ? .budget : .goals)
+        case 4:  tipManager.showIfNeeded(.accounts)
+        default: break
+        }
     }
 
     // MARK: - FAB

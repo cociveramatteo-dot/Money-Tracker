@@ -247,24 +247,27 @@ struct StatisticsView: View {
                             .foregroundStyle(DS.smoke)
                             .padding(.horizontal, DS.Layout.margin)
                     } else {
+                        // Barre affiancate per mese: uscite (ink) ed entrate (smoke).
+                        // position(by:) evita qualsiasi sovrapposizione tra le due serie
+                        // — la vecchia LineMark condizionale creava segmenti fluttuanti
+                        // che attraversavano le barre e saltavano i mesi senza entrate.
                         Chart {
                             ForEach(trend) { stat in
                                 BarMark(
                                     x: .value("Mese", stat.label),
-                                    y: .value("Uscite", stat.expenses)
+                                    y: .value("Importo", stat.expenses)
                                 )
+                                .position(by: .value("Tipo", "Uscite"))
                                 .foregroundStyle(DS.ink.opacity(0.85))
                                 .cornerRadius(4)
 
-                                if stat.income > 0 {
-                                    LineMark(
-                                        x: .value("Mese", stat.label),
-                                        y: .value("Entrate", stat.income)
-                                    )
-                                    .foregroundStyle(DS.smoke)
-                                    .symbol(Circle().strokeBorder(lineWidth: 1.5))
-                                    .symbolSize(30)
-                                }
+                                BarMark(
+                                    x: .value("Mese", stat.label),
+                                    y: .value("Importo", stat.income)
+                                )
+                                .position(by: .value("Tipo", "Entrate"))
+                                .foregroundStyle(DS.smoke.opacity(0.55))
+                                .cornerRadius(4)
                             }
                         }
                         .frame(height: 180)
@@ -294,7 +297,7 @@ struct StatisticsView: View {
 
                         HStack(spacing: DS.Space.l) {
                             legendItem(color: DS.ink.opacity(0.85), label: "Uscite")
-                            legendItem(color: DS.smoke, label: "Entrate", isDot: true)
+                            legendItem(color: DS.smoke.opacity(0.55), label: "Entrate")
                         }
                         .padding(.horizontal, DS.Layout.margin)
                         .padding(.top, DS.Space.xs)
@@ -479,7 +482,7 @@ struct StatisticsView: View {
         .sheet(isPresented: $showShareSheet, onDismiss: { pdfURL = nil }) {
             if let url = pdfURL { ShareSheet(items: [url]) }
         }
-        .themePickerButton()
+        .themedNavBar()
         .onChange(of: pdfURL) { _, url in if url != nil { showShareSheet = true } }
         .onChange(of: selectedMonth) { _, _ in pdfURL = nil }
         // PERF-02: rebuild the byMonth dictionary only when the transaction list changes
@@ -525,13 +528,9 @@ struct StatisticsView: View {
 
     // MARK: - Helper
 
-    private func legendItem(color: Color, label: String, isDot: Bool = false) -> some View {
+    private func legendItem(color: Color, label: String) -> some View {
         HStack(spacing: DS.Space.xs) {
-            if isDot {
-                Circle().fill(color).frame(width: 8, height: 8)
-            } else {
-                RoundedRectangle(cornerRadius: 2).fill(color).frame(width: 12, height: 8)
-            }
+            RoundedRectangle(cornerRadius: 2).fill(color).frame(width: 12, height: 8)
             Text(LocalizedStringKey(label))
                 .font(.system(size: 11))
                 .foregroundStyle(DS.smoke)

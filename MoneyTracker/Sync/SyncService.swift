@@ -202,6 +202,15 @@ final class SyncService {
     // Task di debounce per il push real-time (annullato e ricreato ad ogni salvataggio)
     private var debounceTask: Task<Void, Never>?
 
+    // Guardie di rientranza: pull()/push() possono essere richiesti da più trigger
+    // quasi simultanei (login + scenePhase.active al lancio con sessione già salvata).
+    // Senza questo lock, due pull() in overlap leggono lo stesso snapshot locale
+    // prima che l'altro finisca di inserire, e creano righe locali duplicate per
+    // lo stesso record remoto. @Attribute(.unique) su Model.id fa da rete di
+    // sicurezza, ma evitare l'overlap alla radice è più corretto ed efficiente.
+    private var isPulling = false
+    private var isPushing = false
+
     /// true se è passato abbastanza tempo dall'ultimo pull.
     var shouldPull: Bool {
         guard let last = UserDefaults.standard.object(forKey: lastPullKey) as? Date else { return true }
@@ -275,6 +284,9 @@ final class SyncService {
 
     func push(context: ModelContext) async {
         guard let userId = auth.session?.user.id else { return }
+        guard !isPushing else { return }
+        isPushing = true
+        defer { isPushing = false }
         Logger.persistence.info("SyncService: push started")
 
         do {
@@ -329,6 +341,9 @@ final class SyncService {
 
     func pull(context: ModelContext) async {
         guard let userId = auth.session?.user.id else { return }
+        guard !isPulling else { return }
+        isPulling = true
+        defer { isPulling = false }
         Logger.persistence.info("SyncService: pull started")
 
         do {

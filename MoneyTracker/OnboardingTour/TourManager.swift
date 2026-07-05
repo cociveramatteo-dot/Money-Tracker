@@ -57,6 +57,10 @@ final class TourManager: ObservableObject {
         requiredTab     = nil
         requiredSegment = nil
 
+        // "Rivedi tour" azzera anche i tip contestuali: l'utente che rivede
+        // la guida vuole ripartire da zero. Nasconde anche un tip a schermo.
+        TipManager.shared.resetAll()
+
         // Enable demo mode for the tour so the user sees realistic sample data.
         // Save the previous state so we can restore it when the tour ends.
         demoStateBeforeTour = UserDefaults.standard.bool(forKey: demoModeKey)
@@ -95,7 +99,20 @@ final class TourManager: ObservableObject {
 
     func skip() { complete() }
 
-    func complete() {
+    // ── "Aggiungi la tua prima spesa" ──────────────────────────────────────
+    // Il CTA finale del tour converte la motivazione in azione: chiude il tour
+    // e apre AddTransactionView sul container REALE (dopo il ripristino della
+    // demo). Il flag è consume-once: ContentView lo consuma sia in onAppear
+    // (caso ricreazione via .id()) sia in onChange (caso demo già attiva).
+    @Published private(set) var pendingAddRequest = false
+
+    func consumePendingAddRequest() -> Bool {
+        guard pendingAddRequest else { return false }
+        pendingAddRequest = false
+        return true
+    }
+
+    func complete(andAddTransaction: Bool = false) {
         withAnimation(.easeOut(duration: 0.3)) { isActive = false }
         hasCompleted = true
 
@@ -105,6 +122,11 @@ final class TourManager: ObservableObject {
         let restore = demoStateBeforeTour
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             UserDefaults.standard.set(restore, forKey: self.demoModeKey)
+            if andAddTransaction {
+                // Impostato DOPO il ripristino: se ContentView viene ricreata,
+                // il nuovo onAppear troverà il flag già pronto da consumare.
+                self.pendingAddRequest = true
+            }
         }
     }
 

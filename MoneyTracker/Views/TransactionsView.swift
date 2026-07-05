@@ -13,9 +13,6 @@ struct TransactionsView: View {
     @Query(sort: \Transaction.date, order: .reverse) private var all: [Transaction]
     @Query(sort: \Category.sortOrder) private var categories: [Category]
     @Environment(\.modelContext) private var context
-    // Osserva themeManager: garantisce che la view si re-renda ad ogni cambio tema
-    // e che DS.ink/paper/smoke vengano riletti con i valori aggiornati.
-    @EnvironmentObject private var themeManager: ThemeManager
 
     var isSearchActive: Binding<Bool>? = nil
 
@@ -48,8 +45,8 @@ struct TransactionsView: View {
     // MARK: - Filtering
 
     private var filtered: [Transaction] {
-        let minAmt = Double(filterMinAmount.replacingOccurrences(of: ",", with: "."))
-        let maxAmt = Double(filterMaxAmount.replacingOccurrences(of: ",", with: "."))
+        let minAmt = Double.parseAmount(filterMinAmount)
+        let maxAmt = Double.parseAmount(filterMaxAmount)
         return all.filter { t in
             if filterUseCustomDates {
                 let from = Calendar.current.startOfDay(for: filterFromDate)
@@ -295,7 +292,7 @@ struct TransactionsView: View {
             // Fix iOS 26: .tint(DS.ink) sovrascrive il tint di sistema (verde di default
             // in alcune versioni di iOS 26) per List, search bar e swipe actions.
             .tint(DS.ink)
-            .themePickerButton()
+            .themedNavBar()
             .sheet(isPresented: $showSettings) { SettingsView() }
             // BUG-04: confirm before deleting both legs of a transfer
             .confirmationDialog(

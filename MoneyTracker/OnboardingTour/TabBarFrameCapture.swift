@@ -110,7 +110,7 @@ struct TabBarFrameCapture: UIViewRepresentable {
                 guard (isNarrower || hasRadius), r.height >= 20 else { continue }
 
                 let area = r.width * r.height
-                if best == nil || area > best!.area {
+                if area > (best?.area ?? -.infinity) {
                     best = (r, radius, area)
                 }
             }

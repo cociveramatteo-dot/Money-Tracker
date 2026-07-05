@@ -98,7 +98,7 @@ struct AddBudgetView: View {
 
     /// Almeno una categoria OPPURE un conto deve essere selezionato
     private var canSave: Bool {
-        let l = Double(limit.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let l = Double.parseAmount(limit) ?? 0
         return l > 0 && (!selectedCatNames.isEmpty || selectedAccount != nil)
     }
 
@@ -247,8 +247,7 @@ struct AddBudgetView: View {
     }
 
     private func save() {
-        let raw = limit.replacingOccurrences(of: ",", with: ".")
-        guard let l = Double(raw), l > 0 else { return }
+        guard let l = Double.parseAmount(limit), l > 0 else { return }
         let cal = Calendar.current
         let m = cal.component(.month, from: month)
         let y = cal.component(.year, from: month)

@@ -40,7 +40,7 @@ struct AddTransactionView: View {
     private var activeAccounts: [Account] { accounts.filter { !$0.isArchived } }
 
     private var isSaveDisabled: Bool {
-        let v = Double(amount.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let v = Double.parseAmount(amount) ?? 0
         return name.isEmpty || v <= 0 || v > 1_000_000_000
     }
 
@@ -77,7 +77,7 @@ struct AddTransactionView: View {
                             .submitLabel(.done)
                             .onSubmit {
                                 focus = nil
-                                let v = Double(amount.replacingOccurrences(of: ",", with: ".")) ?? 0
+                                let v = Double.parseAmount(amount) ?? 0
                                 if !name.isEmpty && v > 0 && v <= 1_000_000_000 { save() }
                             }
                             .onChange(of: name) { _, v in
@@ -297,7 +297,7 @@ struct AddTransactionView: View {
     }
 
     private func save() {
-        let amt = Double(amount.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let amt = Double.parseAmount(amount) ?? 0
         guard amt > 0 else { return }
 
         let catName = selectedCat?.name ?? "Altro"

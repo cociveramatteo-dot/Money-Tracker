@@ -17,7 +17,18 @@ final class SupabaseManager: ObservableObject {
 
     let client = SupabaseClient(
         supabaseURL: URL(string: "https://zblpzufsikxhuzdtcucg.supabase.co")!,
-        supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpibHB6dWZzaWt4aHV6ZHRjdWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MTE1MzcsImV4cCI6MjA5ODM4NzUzN30.lezj5CD6yYjSK2-HeGSjU1kaE29G3B_ojiFhSz-8pgg"
+        supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpibHB6dWZzaWt4aHV6ZHRjdWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MTE1MzcsImV4cCI6MjA5ODM4NzUzN30.lezj5CD6yYjSK2-HeGSjU1kaE29G3B_ojiFhSz-8pgg",
+        options: SupabaseClientOptions(
+            auth: .init(
+                // Opt-in al comportamento che diventerà default nella v3 del SDK
+                // (PR supabase-swift #822/#844): la sessione salvata nel Keychain
+                // viene emessa SUBITO come .initialSession, anche se scaduta —
+                // il SDK la rinfresca in background ed emette .tokenRefreshed o
+                // .signedOut. Vantaggi: splash istantaneo (niente attesa di rete)
+                // e l'utente offline non viene buttato al login.
+                emitLocalSessionAsInitialSession: true
+            )
+        )
     )
 
     // MARK: - State
@@ -34,15 +45,15 @@ final class SupabaseManager: ObservableObject {
         Task { await bootstrap() }
     }
 
-    /// Carica la sessione persistita e avvia il listener di cambio stato.
+    /// Unico punto di verità: il flusso authStateChanges.
+    /// Con emitLocalSessionAsInitialSession la sessione locale arriva
+    /// immediatamente come .initialSession (anche se scaduta: verrà
+    /// rinfrescata in background). Se il refresh fallisce definitivamente
+    /// il SDK emette .signedOut → session = nil → schermata di login.
     private func bootstrap() async {
-        // Prova a recuperare la sessione salvata nel Keychain.
-        session = try? await client.auth.session
-        isLoading = false
-
-        // Ascolta tutti i cambi di stato futuri (login, logout, token refresh...).
-        for await (_, newSession) in client.auth.authStateChanges {
+        for await (event, newSession) in client.auth.authStateChanges {
             session = newSession
+            if event == .initialSession { isLoading = false }
         }
     }
 
@@ -55,11 +66,16 @@ final class SupabaseManager: ObservableObject {
 
     // MARK: - Auth actions
 
+    // URL scheme dell'app — deve corrispondere a quello configurato in
+    // Xcode (Info → URL Types) e in Supabase (Authentication → URL Configuration).
+    private static let redirectURL = URL(string: "moneytracker://login-callback")!
+
     /// Registrazione con email e password.
     /// Se Supabase ha la conferma email attiva, `session` sarà nil finché
     /// l'utente non clicca il link. In quel caso mostrare un messaggio all'utente.
     func signUp(email: String, password: String) async throws {
-        try await client.auth.signUp(email: email, password: password)
+        try await client.auth.signUp(email: email, password: password,
+                                     redirectTo: Self.redirectURL)
     }
 
     /// Login con email e password.
@@ -74,6 +90,7 @@ final class SupabaseManager: ObservableObject {
 
     /// Invia email di reset password.
     func resetPassword(email: String) async throws {
-        try await client.auth.resetPasswordForEmail(email)
+        try await client.auth.resetPasswordForEmail(email,
+                                                    redirectTo: Self.redirectURL)
     }
 }

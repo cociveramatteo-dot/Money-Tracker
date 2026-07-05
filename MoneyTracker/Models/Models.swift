@@ -53,7 +53,7 @@ enum AccountType: String, Codable, CaseIterable {
 
 @Model
 final class Category {
-    var id: UUID
+    @Attribute(.unique) var id: UUID
     var name: String
     var icon: String        // SF Symbol name
     var isDefault: Bool     // default categories non eliminabili
@@ -74,7 +74,7 @@ final class Category {
 
 @Model
 final class Account {
-    var id: UUID
+    @Attribute(.unique) var id: UUID
     var name: String
     var type: String
     var initialBalance: Double
@@ -131,7 +131,7 @@ final class Account {
 
 @Model
 final class Transaction {
-    var id: UUID
+    @Attribute(.unique) var id: UUID
     var name: String
     var amount: Double
     var type: String            // TransactionType.rawValue
@@ -194,7 +194,7 @@ final class Transaction {
 
 @Model
 final class Budget {
-    var id: UUID
+    @Attribute(.unique) var id: UUID
     var category: String        // nome categoria (o "Tutti" per budget globale conto)
     var categoryIcon: String    // icona per display
     var monthlyLimit: Double
@@ -223,7 +223,7 @@ final class Budget {
 
 @Model
 final class Goal {
-    var id: UUID
+    @Attribute(.unique) var id: UUID
     var name: String
     var emoji: String
     var targetAmount: Double
@@ -379,6 +379,57 @@ enum FormatterCache {
 
 extension Double {
 
+    /// Parsing blindato di un importo digitato dall'utente. Unico punto di
+    /// ingresso per QUALSIASI stringa che diventa denaro nell'app.
+    ///
+    /// - Accetta virgola o punto come separatore decimale ("12,50" e "12.50").
+    /// - Gestisce i separatori delle migliaia in entrambe le convenzioni:
+    ///   "1.234,56" → 1234.56, "1,234.56" → 1234.56, "1.234.567" → 1234567.
+    /// - Scarta qualunque altro carattere (simboli di valuta, spazi, segni,
+    ///   notazione scientifica): un importo è sempre positivo e finito.
+    /// - Quantizza al centesimo con arrotondamento aritmetico via Decimal
+    ///   (nessun artefatto binario del floating point nel rounding).
+    /// - Rifiuta importi oltre 999.999.999: protegge grafici e aggregazioni.
+    ///
+    /// Ritorna nil se l'input non contiene un importo valido.
+    static func parseAmount(_ raw: String) -> Double? {
+        // Lettere nell'input (es. testo incollato, "1e15") = non è un importo:
+        // meglio rifiutare che indovinare un numero sbagliato.
+        guard !raw.contains(where: \.isLetter) else { return nil }
+        let s = raw.filter { $0.isNumber || $0 == "," || $0 == "." }
+        guard s.contains(where: \.isNumber) else { return nil }
+
+        // Separatore decimale: se compaiono entrambi, è quello più a destra
+        // (l'altro fa da migliaia); se uno solo ma ripetuto, è solo migliaia.
+        var decimalSeparator: Character? = nil
+        if let c = s.lastIndex(of: ","), let d = s.lastIndex(of: ".") {
+            decimalSeparator = c > d ? "," : "."
+        } else if s.contains(",") {
+            decimalSeparator = s.filter { $0 == "," }.count == 1 ? "," : nil
+        } else if s.contains(".") {
+            decimalSeparator = s.filter { $0 == "." }.count == 1 ? "." : nil
+        }
+
+        let intPart: String
+        let fracPart: String
+        if let sep = decimalSeparator, let idx = s.lastIndex(of: sep) {
+            intPart  = s[s.startIndex..<idx].filter(\.isNumber)
+            fracPart = s[s.index(after: idx)...].filter(\.isNumber)
+        } else {
+            intPart  = s.filter(\.isNumber)
+            fracPart = ""
+        }
+
+        guard var value = Decimal(string: "\(intPart).\(fracPart)",
+                                  locale: Locale(identifier: "en_US_POSIX")) else { return nil }
+        var quantized = Decimal()
+        NSDecimalRound(&quantized, &value, 2, .plain)
+
+        let result = (quantized as NSDecimalNumber).doubleValue
+        guard result.isFinite, result >= 0, result <= 999_999_999 else { return nil }
+        return result
+    }
+
     static var activeCurrencyCode: String {
         UserDefaults.standard.string(forKey: "currencyCode") ?? "EUR"
     }
@@ -395,7 +446,8 @@ extension Double {
     @MainActor var currencyCompact: String {
         guard abs(self) >= 1000 else { return currencyFormatted }
         let sign = self < 0 ? "-" : ""
-        return "\(sign)\(Double.currencySymbol)\(Int(abs(self) / 1000))k"
+        // .rounded(): 1.950 € → "2k", non "1k" (il troncamento mentiva di quasi 1000 €)
+        return "\(sign)\(Double.currencySymbol)\(Int((abs(self) / 1000).rounded()))k"
     }
 }
 

@@ -193,10 +193,10 @@ private struct ModalCard: View {
                 .lineSpacing(4)
                 .padding(.bottom, DS.Space.xl)
 
-            // Primary CTA
+            // Primary CTA — sullo step finale converte: apre subito AddTransactionView
             Button {
-                if tour.currentStep == .done { tour.complete() }
-                else                         { tour.next()     }
+                if tour.currentStep == .done { tour.complete(andAddTransaction: true) }
+                else                         { tour.next()                            }
             } label: {
                 Text(tour.currentStep.ctaKey)
                     .font(.system(size: 15, weight: .semibold))
@@ -207,12 +207,19 @@ private struct ModalCard: View {
                     .clipShape(RoundedRectangle(cornerRadius: 13))
             }
 
-            // Skip link (welcome step only)
+            // Secondary link: welcome = salta il tour, done = chiudi senza aggiungere
             if tour.currentStep == .welcome {
                 Button { tour.skip() } label: {
                     Text("tour.skipButton", comment: "Skip tour button label")
-                        .font(.system(size: 13))
-                        .foregroundStyle(DS.smoke.opacity(0.55))
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(DS.smoke)
+                        .padding(.top, 14)
+                }
+            } else if tour.currentStep == .done {
+                Button { tour.complete() } label: {
+                    Text("tour.laterButton", comment: "Close tour without adding a transaction")
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(DS.smoke)
                         .padding(.top, 14)
                 }
             }
@@ -234,25 +241,9 @@ private struct StepCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
 
-            // Section breadcrumb — shown only for cross-tab steps so the user
-            // always knows which area of the app the tour is currently describing.
-            if let tab = tour.currentStep.tabLabel {
-                HStack(spacing: 4) {
-                    Image(systemName: tab.icon)
-                        .font(.system(size: 10, weight: .medium))
-                    Text(tab.name)
-                        .font(.system(size: 10, weight: .medium))
-                }
-                .foregroundStyle(DS.smoke)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(DS.fog)
-                .clipShape(Capsule())
-                .padding(.bottom, DS.Space.s)
-                .transition(.opacity.combined(with: .scale(scale: 0.92)))
-            }
-
-            // Header: icon + title
+            // Header: icon + title + uscita SEMPRE visibile.
+            // Un tour senza via di fuga a metà strada è la prima fonte di
+            // frustrazione: la X chiude da qualunque step.
             HStack(spacing: DS.Space.s) {
                 Image(systemName: tour.currentStep.icon)
                     .font(.system(size: 13, weight: .medium))
@@ -264,6 +255,18 @@ private struct StepCard: View {
                 Text(tour.currentStep.titleKey)
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(DS.ink)
+
+                Spacer()
+
+                Button { tour.skip() } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundStyle(DS.smoke)
+                        .frame(width: 26, height: 26)
+                        .background(DS.fog)
+                        .clipShape(Circle())
+                }
+                .accessibilityLabel(Text("tour.skipButton"))
             }
             .padding(.bottom, DS.Space.s)
 

@@ -288,25 +288,17 @@
 
 /* ── Tour / Onboarding ──────────────────── */
 "tour.saldoAttuale.title" = "Aktueller Kontostand";
-"tour.saldoAttuale.body" = "Bestätigte Liquidität. Nur als erledigt markierte Transaktionen fließen in diesen Wert ein — alles Geplante bleibt ausgeschlossen.";
+"tour.saldoAttuale.body" = "Das ist, was du wirklich hast: Nur bestätigte Bewegungen zählen, keine geplanten.";
 
-"tour.hideBalance.title" = "Beträge ausblenden";
-"tour.hideBalance.body" = "Tippe auf das Augensymbol oben rechts, um alle Beträge auf jedem Bildschirm auszublenden. Die Einstellung bleibt sitzungsübergreifend erhalten.";
 
-"tour.accountOrder.title" = "Panel-Zusammensetzung";
-"tour.accountOrder.body" = "Tippe auf das Reglersymbol, um festzulegen, welche Konten hier erscheinen und in welcher Reihenfolge. Ziehen zum Sortieren, Häkchen zum Ein- oder Ausschließen.";
 
 "tour.saldoAtteso.title" = "Erwarteter Kontostand";
 "tour.saldoAtteso.body" = "Prognose nach allen ausstehenden geplanten Transaktionen. Erscheint nur, wenn zukünftige noch nicht erledigte Einträge vorhanden sind.";
 
-"tour.recentMovements.title" = "Letzte Transaktionen";
-"tour.recentMovements.body" = "Die neuesten nicht festen Transaktionen. Tippe auf die Überschrift, um den Bereich einzuklappen, tippe auf eine Zeile für die Detailansicht.";
 
 "tour.addButton.title" = "Transaktion hinzufügen";
-"tour.addButton.body" = "Die +-Schaltfläche ist in jedem Tab verfügbar. Tippe, um eine Ausgabe, Einnahme oder Überweisung hinzuzufügen. Gedrückt halten, um den Typ zu wählen.";
+"tour.addButton.body" = "Hier fügst du Ausgaben, Einnahmen und Überweisungen hinzu – auf jedem Bildschirm.";
 
-"tour.filters.title" = "Kategoriefilter";
-"tour.filters.body" = "Filter sind kumulativ — Typ und Kategorie werden kombiniert. Wähle mehrere Kategorien aus, um die Analyse einzugrenzen. Der Filterstatus wird beim Perioden­wechsel zurückgesetzt.";
 
 "tour.swipeAction.title" = "Schnellaktionen";
 "tour.swipeAction.body" = "Wische bei einem festen Eintrag nach rechts, um ihn zu bestätigen und den Kontostand zu aktualisieren. Nach links wischen zum Löschen. Bei normalen Transaktionen nach rechts wischen zum Bearbeiten.";
@@ -314,14 +306,8 @@
 "tour.accountSwipe.title" = "Kontoverwaltung";
 "tour.accountSwipe.body" = "Nach rechts wischen zum Bearbeiten, nach links zum Löschen. Gedrückt halten für erweiterte Optionen: vom Gesamtbetrag ausschließen und archivieren.";
 
-"tour.budgetBar.title" = "Fortschrittsbalken";
-"tour.budgetBar.body" = "Grün bedeutet innerhalb des Limits. Rot bedeutet, dass das Limit überschritten wurde. Die Berechnung umfasst nur erledigte Transaktionen des aktuellen Monats.";
 
-"tour.goalProgress.title" = "Sparziel";
-"tour.goalProgress.body" = "Tippe auf die Aktualisierungsschaltfläche, um den Fortschritt zu erfassen. Der Balken zeigt den erreichten Prozentsatz relativ zum Ziel. Die Frist steht unter dem Namen.";
 
-"tour.accountTotal.title" = "Gesamtvermögen";
-"tour.accountTotal.body" = "Die Summe aller aktiven, einbezogenen Kontosalden. 'Nettosaldo' darunter zeigt die Prognose nach allen ausstehenden geplanten Transaktionen.";
 
 "tour.budgetHero.title" = "Budgetauslastung";
 "tour.budgetHero.body" = "Prozentsatz des bereits verbrauchten monatlichen Gesamtbudgets. Die Linie füllt sich schrittweise — bleibe unter 100%, um im Rahmen zu bleiben.";
@@ -407,17 +393,16 @@
 
 /* ── Onboarding tour — new steps ─────────────── */
 "tour.welcome.title"    = "Willkommen bei MoneyTracker";
-"tour.welcome.body"     = "Diese Führung zeigt dir alle Funktionen. Du kannst jederzeit unterbrechen und über Einstellungen → Tour wiederholen fortfahren.";
+"tour.welcome.body"     = "Eine Minute zur Orientierung. Du kannst jederzeit aussteigen oder alles überspringen und sofort loslegen.";
 "tour.tabBar.title"     = "Hauptnavigation";
-"tour.tabBar.body"      = "Fünf Bereiche immer erreichbar: Dashboard, Transaktionen, Statistiken, Planung und Konten. Für minimale Tipp-Schritte ausgelegt.";
+"tour.tabBar.body"      = "Fünf Bereiche: Home, Bewegungen, Statistiken, Planung und Konten. Alles ist nur einen Tipp entfernt.";
 "tour.statistics.title" = "Finanzanalyse";
 "tour.statistics.body"  = "Vergleiche monatliche Ausgaben, sieh 12-Monats-Trends und Jahresvergleiche. Diagramme werden automatisch aktualisiert.";
-"tour.shortcuts.title"  = "Siri-Automatisierung";
-"tour.shortcuts.body"   = "Erfasse Ausgaben, Einnahmen und prüfe deinen Kontostand per Sprachbefehl. Sage «Ausgabe zu MoneyTracker hinzufügen» oder gehe zu Einstellungen → Siri.";
 "tour.done.title"       = "Alles bereit";
-"tour.done.body"        = "Du hast die MoneyTracker-Tour abgeschlossen. Jede Funktion ist leistungsstark und sofort nutzbar. Du kannst diese Führung jederzeit in den Einstellungen erneut aufrufen.";
+"tour.done.body"        = "Den Rest zeigen wir dir unterwegs, Bildschirm für Bildschirm.";
 "tour.startButton"      = "Tour starten";
-"tour.doneButton"       = "App verwenden";
+"tour.doneButton"       = "Füge deine erste Ausgabe hinzu";
+"tour.laterButton"   = "Später";
 "tour.skipButton"       = "Tour überspringen";
 "Avanti"                = "Weiter";
 "Fine"                  = "Fertig";

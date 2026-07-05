@@ -113,7 +113,7 @@ struct PianificaView: View {
             .sheet(isPresented: $showHistory)   {
                 BudgetHistorySheet(budgets: budgets, transactions: transactions)
             }
-            .themePickerButton()
+            .themedNavBar()
             .sheet(isPresented: $showSettings) { SettingsView() }
         }
     }

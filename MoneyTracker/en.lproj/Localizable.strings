@@ -289,25 +289,17 @@
 
 /* ── Tour / Onboarding ──────────────────── */
 "tour.saldoAttuale.title" = "Current balance";
-"tour.saldoAttuale.body" = "Confirmed liquidity. Only transactions marked as done contribute to this figure — everything planned is excluded.";
+"tour.saldoAttuale.body" = "This is what you really have: only confirmed transactions count, not planned ones.";
 
-"tour.hideBalance.title" = "Hide amounts";
-"tour.hideBalance.body" = "Tap the eye icon at the top right to hide all amounts on every screen. The setting persists between sessions — useful in public environments.";
 
-"tour.accountOrder.title" = "Panel composition";
-"tour.accountOrder.body" = "Tap the slider icon to choose which accounts appear here and in what order. Drag to reorder, use the checkmark to include or exclude.";
 
 "tour.saldoAtteso.title" = "Expected balance";
 "tour.saldoAtteso.body" = "Projection after all pending planned transactions. Only appears when there are future items not yet marked as done.";
 
-"tour.recentMovements.title" = "Recent transactions";
-"tour.recentMovements.body" = "The latest non-fixed transactions. Tap the header to collapse the section, tap a row to open the detail view.";
 
 "tour.addButton.title" = "Add transaction";
-"tour.addButton.body" = "The + button is available from every tab. Tap to add an expense, income, or transfer between accounts. Hold to choose the type.";
+"tour.addButton.body" = "Add expenses, income and transfers from here, on any screen.";
 
-"tour.filters.title" = "Category filters";
-"tour.filters.body" = "Filters are cumulative — type and category combine. Select multiple categories to narrow the analysis. Filter state resets when changing period.";
 
 "tour.swipeAction.title" = "Quick actions";
 "tour.swipeAction.body" = "Swipe right on a fixed item to confirm it and update the balance. Swipe left to delete. On regular transactions, swipe right to edit.";
@@ -315,14 +307,8 @@
 "tour.accountSwipe.title" = "Account management";
 "tour.accountSwipe.body" = "Swipe right to edit an account, left to delete. Long press for advanced options: exclude from total and archive.";
 
-"tour.budgetBar.title" = "Progress bar";
-"tour.budgetBar.body" = "Green means you are within the limit. Red means the threshold has been exceeded. The calculation includes only completed transactions for the current month.";
 
-"tour.goalProgress.title" = "Savings goal";
-"tour.goalProgress.body" = "Tap the update button to record your progress. The bar shows the percentage reached relative to the target. The deadline is shown below the name.";
 
-"tour.accountTotal.title" = "Total net worth";
-"tour.accountTotal.body" = "The combined balance of all active, included accounts. 'Net balance' below shows the projection after all pending planned transactions.";
 
 "tour.budgetHero.title" = "Budget usage";
 "tour.budgetHero.body" = "Percentage of total monthly budget already consumed. The line fills progressively — stay under 100% to remain within your limits.";
@@ -408,17 +394,16 @@
 
 /* ── Onboarding tour — new steps ─────────────── */
 "tour.welcome.title"    = "Welcome to MoneyTracker";
-"tour.welcome.body"     = "This guide walks you through every feature. You can stop at any time and resume from Settings → Review Tour.";
+"tour.welcome.body"     = "One minute to find your way around. Leave anytime, or skip it all and start right away.";
 "tour.tabBar.title"     = "Main navigation";
-"tour.tabBar.body"      = "Five areas always within reach: Dashboard, Transactions, Statistics, Plan and Accounts. Designed for the minimum number of taps.";
+"tour.tabBar.body"      = "Five areas: Home, Transactions, Statistics, Planning and Accounts. Everything is one tap away.";
 "tour.statistics.title" = "Financial analysis";
 "tour.statistics.body"  = "Compare monthly spending, view 12-month trends and year-over-year comparisons. Charts update automatically.";
-"tour.shortcuts.title"  = "Siri automation";
-"tour.shortcuts.body"   = "Log expenses, income and check your balance with a voice command. Say «Add expense to MoneyTracker» or explore Settings → Siri & Search to add shortcuts.";
 "tour.done.title"       = "You're all set";
-"tour.done.body"        = "You've completed the MoneyTracker tour. Every feature is designed to be powerful and immediate. You can revisit this guide anytime from Settings.";
+"tour.done.body"        = "We'll show you the rest as you go, one screen at a time.";
 "tour.startButton"      = "Start tour";
-"tour.doneButton"       = "Start using the app";
+"tour.doneButton"       = "Add your first expense";
+"tour.laterButton"   = "Later";
 "tour.skipButton"       = "Skip tour";
 "Avanti"                = "Next";
 "Fine"                  = "Done";
