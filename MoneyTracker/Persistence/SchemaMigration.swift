@@ -230,9 +230,12 @@ enum MoneyTrackerMigrationPlan: SchemaMigrationPlan {
 
 /// Buffer thread-safe usato solo durante la migrazione V1→V2: vive per la durata della
 /// singola custom stage, non è mai esposto fuori da SchemaMigration.swift.
-private final class DecimalMigrationBuffer: @unchecked Sendable {
-    static let shared = DecimalMigrationBuffer()
-    private init() {}
+/// nonisolated: richiamato dalle closure willMigrate/didMigrate di MigrationStage, che
+/// girano fuori dal main actor — con SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor questo
+/// tipo sarebbe altrimenti implicitamente @MainActor.
+private nonisolated final class DecimalMigrationBuffer: @unchecked Sendable {
+    nonisolated static let shared = DecimalMigrationBuffer()
+    private nonisolated init() {}
 
     private let lock = NSLock()
     private var accountInitialBalances: [UUID: Double] = [:]
@@ -240,33 +243,33 @@ private final class DecimalMigrationBuffer: @unchecked Sendable {
     private var budgetMonthlyLimits:    [UUID: Double] = [:]
     private var goalAmountPairs:        [UUID: (target: Double, current: Double)] = [:]
 
-    func stashAccountInitialBalance(id: UUID, value: Double) {
+    nonisolated func stashAccountInitialBalance(id: UUID, value: Double) {
         lock.lock(); accountInitialBalances[id] = value; lock.unlock()
     }
-    func stashTransactionAmount(id: UUID, value: Double) {
+    nonisolated func stashTransactionAmount(id: UUID, value: Double) {
         lock.lock(); transactionAmounts[id] = value; lock.unlock()
     }
-    func stashBudgetMonthlyLimit(id: UUID, value: Double) {
+    nonisolated func stashBudgetMonthlyLimit(id: UUID, value: Double) {
         lock.lock(); budgetMonthlyLimits[id] = value; lock.unlock()
     }
-    func stashGoalAmounts(id: UUID, target: Double, current: Double) {
+    nonisolated func stashGoalAmounts(id: UUID, target: Double, current: Double) {
         lock.lock(); goalAmountPairs[id] = (target, current); lock.unlock()
     }
 
-    func accountInitialBalance(id: UUID) -> Double? {
+    nonisolated func accountInitialBalance(id: UUID) -> Double? {
         lock.lock(); defer { lock.unlock() }; return accountInitialBalances[id]
     }
-    func transactionAmount(id: UUID) -> Double? {
+    nonisolated func transactionAmount(id: UUID) -> Double? {
         lock.lock(); defer { lock.unlock() }; return transactionAmounts[id]
     }
-    func budgetMonthlyLimit(id: UUID) -> Double? {
+    nonisolated func budgetMonthlyLimit(id: UUID) -> Double? {
         lock.lock(); defer { lock.unlock() }; return budgetMonthlyLimits[id]
     }
-    func goalAmounts(id: UUID) -> (target: Double, current: Double)? {
+    nonisolated func goalAmounts(id: UUID) -> (target: Double, current: Double)? {
         lock.lock(); defer { lock.unlock() }; return goalAmountPairs[id]
     }
 
-    func clear() {
+    nonisolated func clear() {
         lock.lock()
         accountInitialBalances.removeAll()
         transactionAmounts.removeAll()

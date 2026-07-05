@@ -5,7 +5,9 @@ import OSLog
 
 // MARK: - SystemNotificationManager
 
-private let notifLog = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "notifications")
+// nonisolated: letto dai completion handler di UNUserNotificationCenter.add(...), che
+// girano su una coda di sistema arbitraria, non sul main actor.
+private nonisolated let notifLog = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "notifications")
 
 /// Implementazione di produzione di `NotificationScheduling`, basata su
 /// `UNUserNotificationCenter`. Vedi Domain/NotificationScheduling.swift per il contratto
