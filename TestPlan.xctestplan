@@ -12,7 +12,13 @@
     "testTimeoutsEnabled" : true
   },
   "testTargets" : [
-
+    {
+      "target" : {
+        "containerPath" : "container:MoneyTracker.xcodeproj",
+        "identifier" : "397573C26CAA0BCB058D31D4",
+        "name" : "MoneyTrackerTests"
+      }
+    }
   ],
   "version" : 1
 }

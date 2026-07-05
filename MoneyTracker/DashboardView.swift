@@ -42,9 +42,9 @@ struct DashboardView: View {
 
     // MARK: - Totals
 
-    private var totalCurrent: Double { includedAccounts.reduce(0) { $0 + $1.currentBalance } }
-    private var totalFuture:  Double { includedAccounts.reduce(0) { $0 + $1.futureBalance } }
-    private var totalDelta:   Double { totalFuture - totalCurrent }
+    private var totalCurrent: Decimal { includedAccounts.reduce(0) { $0 + $1.currentBalance } }
+    private var totalFuture:  Decimal { includedAccounts.reduce(0) { $0 + $1.futureBalance } }
+    private var totalDelta:   Decimal { totalFuture - totalCurrent }
 
     private var recentNormal: [Transaction] {
         Array(transactions.filter { !$0.isFixed && !$0.isTransfer && $0.recurringFrequency.isEmpty }.prefix(4))

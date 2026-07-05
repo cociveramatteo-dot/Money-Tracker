@@ -5,10 +5,15 @@ import SwiftData
 
 struct BudgetRow: View {
     let budget: Budget
-    let spentAmount: Double
+    let spentAmount: Decimal
 
-    private var pct:       Double { guard budget.monthlyLimit > 0 else { return 0 }; return min(spentAmount / budget.monthlyLimit, 1.0) }
-    private var remaining: Double { budget.monthlyLimit - spentAmount }
+    // pct alimenta solo la larghezza della barra e il testo accessibilità: Double
+    // resta appropriato qui, il calcolo del rapporto avviene comunque in Decimal.
+    private var pct: Double {
+        guard budget.monthlyLimit > 0 else { return 0 }
+        return min((spentAmount / budget.monthlyLimit).asDouble, 1.0)
+    }
+    private var remaining: Decimal { budget.monthlyLimit - spentAmount }
     private var over:      Bool   { spentAmount > budget.monthlyLimit }
 
     var body: some View {
@@ -247,8 +252,7 @@ struct AddBudgetView: View {
     }
 
     private func save() {
-        let raw = limit.replacingOccurrences(of: ",", with: ".")
-        guard let l = Double(raw), l > 0 else { return }
+        guard let l = Decimal.parseAmount(limit), l > 0 else { return }
         let cal = Calendar.current
         let m = cal.component(.month, from: month)
         let y = cal.component(.year, from: month)
@@ -278,12 +282,34 @@ struct BudgetHistorySheet: View {
     let budgets: [Budget]
     let transactions: [Transaction]
 
-    private let months: [Date] = {
+    private let months: [Date]
+
+    // PERF-06: precalcolato una sola volta in init invece di essere una computed var
+    // letta da `body`. `budgets`/`transactions` sono fissi per tutta la vita della sheet,
+    // ma SwiftUI rivaluta `body` ad ogni frame di scroll/animazione — la vecchia
+    // `outflowsByMonth` era quindi un O(n) su tutte le transazioni ripetuto senza motivo
+    // ad ogni render, invece che una volta sola alla creazione della view.
+    private let cachedOutflowsByMonth: [Date: [Transaction]]
+
+    init(budgets: [Budget], transactions: [Transaction]) {
+        self.budgets = budgets
+        self.transactions = transactions
+
         let cal = Calendar.current
-        return (0..<6).reversed().compactMap { offset in
+        let months: [Date] = (0..<6).reversed().compactMap { offset in
             cal.date(byAdding: .month, value: -offset, to: Date())
         }
-    }()
+        self.months = months
+
+        let window: Set<Date> = Set(months.compactMap { cal.dateInterval(of: .month, for: $0)?.start })
+        var dict: [Date: [Transaction]] = [:]
+        for t in transactions where t.isDone && t.transactionType == .uscita {
+            let key = cal.dateInterval(of: .month, for: t.date)?.start ?? t.date
+            guard window.contains(key) else { continue }
+            dict[key, default: []].append(t)
+        }
+        self.cachedOutflowsByMonth = dict
+    }
 
     private func budgetsFor(_ month: Date) -> [Budget] {
         let cal = Calendar.current
@@ -292,23 +318,11 @@ struct BudgetHistorySheet: View {
         return budgets.filter { $0.month == m && $0.year == y }
     }
 
-    private var outflowsByMonth: [Date: [Transaction]] {
-        let cal = Calendar.current
-        let window: Set<Date> = Set(months.compactMap { cal.dateInterval(of: .month, for: $0)?.start })
-        var dict: [Date: [Transaction]] = [:]
-        for t in transactions where t.isDone && t.transactionType == .uscita {
-            let key = cal.dateInterval(of: .month, for: t.date)?.start ?? t.date
-            guard window.contains(key) else { continue }
-            dict[key, default: []].append(t)
-        }
-        return dict
-    }
-
     private func spent(
         in month: Date,
         for budget: Budget,
         precomputed: [Date: [Transaction]]
-    ) -> Double {
+    ) -> Decimal {
         let key      = Calendar.current.dateInterval(of: .month, for: month)?.start ?? month
         let outflows = precomputed[key] ?? []
         let cats: Set<String> = budget.category == "Tutti"
@@ -317,14 +331,13 @@ struct BudgetHistorySheet: View {
         return outflows.filter {
             (cats.isEmpty || cats.contains($0.category))
             && (budget.account == nil || $0.account?.id == budget.account?.id)
-        }.reduce(0.0) { $0 + $1.amount }
+        }.reduce(Decimal(0)) { $0 + $1.amount }
     }
 
     var body: some View {
-        // Calcola outflowsByMonth una sola volta per tutto il body.
-        // In precedenza spent(in:for:) accedeva outflowsByMonth come computed var,
-        // riscansionando transactions ad ogni chiamata → O(mesi × budget × transazioni).
-        let precomputed = outflowsByMonth
+        // PERF-06: cachedOutflowsByMonth è calcolato una sola volta in init (vedi sopra),
+        // non ad ogni valutazione di body.
+        let precomputed = cachedOutflowsByMonth
         return NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
@@ -347,8 +360,8 @@ struct BudgetHistorySheet: View {
                                     .padding(.bottom, DS.Space.m)
                             } else {
                                 ForEach(monthBudgets) { budget in
-                                    let s     = spent(in: month, for: budget, precomputed: precomputed)
-                                    let pct   = budget.monthlyLimit > 0 ? min(s / budget.monthlyLimit, 1.0) : 0
+                                    let s: Decimal = spent(in: month, for: budget, precomputed: precomputed)
+                                    let pct: Double = budget.monthlyLimit > 0 ? min((s / budget.monthlyLimit).asDouble, 1.0) : 0
                                     let over  = s > budget.monthlyLimit
 
                                     let catLabel: String = {

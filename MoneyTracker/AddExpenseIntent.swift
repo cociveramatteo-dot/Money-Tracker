@@ -12,9 +12,12 @@ import Foundation
 
 private enum IntentContainer {
     static let shared: ModelContainer? = {
-        let schema = Schema([Account.self, Transaction.self, Budget.self, Goal.self, Category.self])
+        // Stesso schema versionato dell'app principale (Domain/SchemaMigration.swift):
+        // l'extension Shortcuts apre lo stesso store e deve poter applicare la stessa
+        // migrazione Double→Decimal se non è già stata eseguita dall'app host.
+        let schema = Schema(versionedSchema: SchemaV2.self)
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-        return try? ModelContainer(for: schema, configurations: config)
+        return try? ModelContainer(for: schema, migrationPlan: MoneyTrackerMigrationPlan.self, configurations: config)
     }()
 }
 
@@ -69,7 +72,7 @@ struct AddExpenseIntent: AppIntent {
         // 1. Classifier has priority when it finds a specific match (not "Altro")
         // 2. Explicit user-provided category overrides the "Altro" fallback
         // 3. If neither matches, default to "Altro" — never block with a throw
-        let detected = CategoryClassifier.classify(name)
+        let detected = KeywordCategoryClassifier.shared.classify(name)
         let catName: String
         if detected != "Altro" && !detected.isEmpty {
             catName = detected
@@ -85,7 +88,7 @@ struct AddExpenseIntent: AppIntent {
 
         let tx = Transaction(
             name:         name,
-            amount:       amount,
+            amount:       Decimal(amount),
             type:         .uscita,
             category:     catName,
             categoryIcon: catIcon,
@@ -96,6 +99,7 @@ struct AddExpenseIntent: AppIntent {
         )
         ctx.insert(tx)
         try ctx.save()
+        AccountBalanceCache.shared.invalidateAll()   // PERF-04: fuori dal choke point di safeSave(), va invalidata a mano
 
         let accStr  = account.map { " su \($0.name)" } ?? ""
         let msgBody = String(format: NSLocalizedString("%.2f per %@ — salvato!", comment: ""), amount, name + accStr)
@@ -144,7 +148,7 @@ struct AddIncomeIntent: AppIntent {
         let account  = accounts.first { $0.name == accountName } ?? accounts.first
 
         let categories = (try? ctx.fetch(FetchDescriptor<Category>())) ?? []
-        let suggestedName = CategoryClassifier.classify(name)
+        let suggestedName = KeywordCategoryClassifier.shared.classify(name)
         let incCatName: String
         if suggestedName != "Altro" && !suggestedName.isEmpty {
             incCatName = suggestedName
@@ -157,7 +161,7 @@ struct AddIncomeIntent: AppIntent {
                       ?? DS.categoryIcon(for: incCatName)
         let tx = Transaction(
             name:         name,
-            amount:       amount,
+            amount:       Decimal(amount),
             type:         .entrata,
             category:     incCatName,
             categoryIcon: incCatIcon,
@@ -168,6 +172,7 @@ struct AddIncomeIntent: AppIntent {
         )
         ctx.insert(tx)
         try ctx.save()
+        AccountBalanceCache.shared.invalidateAll()   // PERF-04: fuori dal choke point di safeSave(), va invalidata a mano
 
         let accStr  = account.map { " su \($0.name)" } ?? ""
         let incBody = String(format: NSLocalizedString("+%.2f %@ — salvato!", comment: ""), amount, name + accStr)
@@ -202,7 +207,7 @@ struct CheckBalanceIntent: AppIntent {
         }
 
         let included = accounts.filter { !$0.isExcludedFromTotal }
-        let total    = included.reduce(0.0) { $0 + $1.currentBalance }
+        let total    = included.reduce(Decimal(0)) { $0 + $1.currentBalance }
         let header   = String(format: NSLocalizedString("💰 Saldo totale: %@", comment: ""), total.currencyFormatted)
         var lines    = header + "\n"
         for acc in accounts {

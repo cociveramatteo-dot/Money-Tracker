@@ -48,8 +48,8 @@ struct TransactionsView: View {
     // MARK: - Filtering
 
     private var filtered: [Transaction] {
-        let minAmt = Double(filterMinAmount.replacingOccurrences(of: ",", with: "."))
-        let maxAmt = Double(filterMaxAmount.replacingOccurrences(of: ",", with: "."))
+        let minAmt = Decimal.parseAmount(filterMinAmount)
+        let maxAmt = Decimal.parseAmount(filterMaxAmount)
         return all.filter { t in
             if filterUseCustomDates {
                 let from = Calendar.current.startOfDay(for: filterFromDate)
@@ -84,12 +84,12 @@ struct TransactionsView: View {
         return order.compactMap { key in dict[key].map { (key: key, value: $0) } }
     }
 
-    private func monthIncome(from snapshot: [Transaction]) -> Double {
-        snapshot.filter { $0.transactionType == .entrata && $0.isDone }.reduce(0) { $0 + $1.amount }
+    private func monthIncome(from snapshot: [Transaction]) -> Decimal {
+        snapshot.filter { $0.transactionType == .entrata && $0.isDone }.reduce(Decimal(0)) { $0 + $1.amount }
     }
 
-    private func monthExpenses(from snapshot: [Transaction]) -> Double {
-        snapshot.filter { $0.transactionType == .uscita && $0.isDone }.reduce(0) { $0 + $1.amount }
+    private func monthExpenses(from snapshot: [Transaction]) -> Decimal {
+        snapshot.filter { $0.transactionType == .uscita && $0.isDone }.reduce(Decimal(0)) { $0 + $1.amount }
     }
 
     // MARK: - Body

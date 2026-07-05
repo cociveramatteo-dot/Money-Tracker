@@ -9,9 +9,9 @@ struct StatisticsView: View {
 
     // MARK: - Data per il mese selezionato
 
-    private var monthPartitioned: (expenses: [Transaction], incomeTotal: Double) {
+    private var monthPartitioned: (expenses: [Transaction], incomeTotal: Decimal) {
         var expenses: [Transaction] = []
-        var incomeTotal = 0.0
+        var incomeTotal = Decimal(0)
         for t in transactions where t.isDone && t.date.isSameMonth(as: selectedMonth) {
             if t.transactionType == .uscita  { expenses.append(t) }
             else                             { incomeTotal += t.amount }
@@ -23,7 +23,7 @@ struct StatisticsView: View {
     // Funzione invece di computed var: riceve le spese già estratte da monthPartitioned,
     // evitando di richiamare monthPartitioned una terza volta (PERF-03).
     private func buildCategoryData(from expenses: [Transaction]) -> [CategoryStat] {
-        var dict: [String: (icon: String, amount: Double)] = [:]
+        var dict: [String: (icon: String, amount: Decimal)] = [:]
         for t in expenses {
             let cur = dict[t.category] ?? (t.categoryIcon, 0)
             dict[t.category] = (cur.icon, cur.amount + t.amount)
@@ -32,25 +32,28 @@ struct StatisticsView: View {
             .sorted { $0.amount > $1.amount }
     }
 
+    // MonthStat resta in Double: alimenta Swift Charts (BarMark/LineMark), che richiede
+    // un tipo Plottable — Decimal non conforma. La somma avviene comunque in Decimal,
+    // convertita a Double solo alla fine (asDouble), non nei modelli.
     private func monthlyTrend(byMonth: [Date: [Transaction]]) -> [MonthStat] {
         let cal = Calendar.current
         return (0..<trendMonths).reversed().compactMap { offset -> MonthStat? in
             guard let month = cal.date(byAdding: .month, value: -offset, to: selectedMonth) else { return nil }
             let key      = cal.dateInterval(of: .month, for: month)?.start ?? month
             let ts       = byMonth[key] ?? []
-            let expenses = ts.filter { $0.transactionType == .uscita  }.reduce(0) { $0 + $1.amount }
-            let income   = ts.filter { $0.transactionType == .entrata }.reduce(0) { $0 + $1.amount }
-            return MonthStat(label: month.shortMonthFormatted, expenses: expenses, income: income, date: month)
+            let expenses = ts.filter { $0.transactionType == .uscita  }.reduce(Decimal(0)) { $0 + $1.amount }
+            let income   = ts.filter { $0.transactionType == .entrata }.reduce(Decimal(0)) { $0 + $1.amount }
+            return MonthStat(label: month.shortMonthFormatted, expenses: expenses.asDouble, income: income.asDouble, date: month)
         }
     }
 
-    private func prevMonthSpent(byMonth: [Date: [Transaction]]) -> Double {
+    private func prevMonthSpent(byMonth: [Date: [Transaction]]) -> Decimal {
         let cal = Calendar.current
         guard let prev = cal.date(byAdding: .month, value: -1, to: selectedMonth) else { return 0 }
         let key = cal.dateInterval(of: .month, for: prev)?.start ?? prev
         return (byMonth[key] ?? [])
             .filter { $0.transactionType == .uscita }
-            .reduce(0) { $0 + $1.amount }
+            .reduce(Decimal(0)) { $0 + $1.amount }
     }
 
     private func last12Stats(byMonth: [Date: [Transaction]]) -> [MonthStat] {
@@ -59,9 +62,9 @@ struct StatisticsView: View {
             guard let month = cal.date(byAdding: .month, value: -offset, to: Date()) else { return nil }
             let key      = cal.dateInterval(of: .month, for: month)?.start ?? month
             let ts       = byMonth[key] ?? []
-            let expenses = ts.filter { $0.transactionType == .uscita  }.reduce(0) { $0 + $1.amount }
-            let income   = ts.filter { $0.transactionType == .entrata }.reduce(0) { $0 + $1.amount }
-            return MonthStat(label: month.shortMonthFormatted, expenses: expenses, income: income, date: month)
+            let expenses = ts.filter { $0.transactionType == .uscita  }.reduce(Decimal(0)) { $0 + $1.amount }
+            let income   = ts.filter { $0.transactionType == .entrata }.reduce(Decimal(0)) { $0 + $1.amount }
+            return MonthStat(label: month.shortMonthFormatted, expenses: expenses.asDouble, income: income.asDouble, date: month)
         }
     }
 
@@ -82,9 +85,9 @@ struct StatisticsView: View {
     // MARK: - Confronto anno corrente vs anno precedente
 
     // PERF-02: takes byMonth as parameter to avoid re-computing transactionsByMonth
-    private func yearTotals(year: Int, byMonth: [Date: [Transaction]]) -> (expenses: Double, income: Double) {
+    private func yearTotals(year: Int, byMonth: [Date: [Transaction]]) -> (expenses: Decimal, income: Decimal) {
         let cal = Calendar.current
-        var expenses = 0.0, income = 0.0
+        var expenses = Decimal(0), income = Decimal(0)
         for (key, ts) in byMonth {
             guard cal.component(.year, from: key) == year else { continue }
             for t in ts {
@@ -159,7 +162,7 @@ struct StatisticsView: View {
         let mp           = monthPartitioned
         let monthExpenses = mp.expenses
         let monthIncome   = mp.incomeTotal
-        let monthSpent    = monthExpenses.reduce(0.0) { $0 + $1.amount }
+        let monthSpent    = monthExpenses.reduce(Decimal(0)) { $0 + $1.amount }
         let categoryData  = buildCategoryData(from: monthExpenses)
         let byMonth      = cachedByMonth           // O(1) — dict already built in rebuildByMonth()
         let prevSpent    = prevMonthSpent(byMonth: byMonth)
@@ -330,7 +333,7 @@ struct StatisticsView: View {
                                         Text(cat.amount.currencyFormatted)
                                             .font(.system(size: 13, weight: .medium))
                                             .foregroundStyle(DS.ink)
-                                        Text(monthSpent > 0 ? String(format: "%.0f%%", cat.amount / monthSpent * 100) : "0%")
+                                        Text(monthSpent > 0 ? String(format: "%.0f%%", (cat.amount / monthSpent).asDouble * 100) : "0%")
                                             .font(.system(size: 11))
                                             .foregroundStyle(DS.smoke)
                                             .frame(width: 30, alignment: .trailing)
@@ -341,7 +344,7 @@ struct StatisticsView: View {
                                             Rectangle().fill(DS.fog).frame(height: 2)
                                             Rectangle()
                                                 .fill(DS.ink)
-                                                .frame(width: monthSpent > 0 ? geo.size.width * (cat.amount / monthSpent) : 0, height: 2)
+                                                .frame(width: monthSpent > 0 ? geo.size.width * (cat.amount / monthSpent).asDouble : 0, height: 2)
                                         }
                                     }
                                     .frame(height: 2)
@@ -491,7 +494,7 @@ struct StatisticsView: View {
 
     // MARK: - Anno compare row helper
 
-    private func yearCompareRow(label: LocalizedStringKey, current: Double, prev: Double, invertSign: Bool) -> some View {
+    private func yearCompareRow(label: LocalizedStringKey, current: Decimal, prev: Decimal, invertSign: Bool) -> some View {
         HStack {
             Text(label)
                 .font(.system(size: 14))
@@ -507,7 +510,7 @@ struct StatisticsView: View {
                     // Bug fix: always use the positive percentage; the sign prefix and
                     // arrow icon already convey direction. Previously "-pct" produced
                     // "↓ -30%" (double negative) when delta was negative.
-                    let pct   = abs(delta / prev * 100)
+                    let pct   = abs((delta / prev).asDouble * 100)
                     let good  = invertSign ? delta < 0 : delta > 0
                     HStack(spacing: 2) {
                         Image(systemName: delta >= 0 ? "arrow.up" : "arrow.down")
@@ -545,7 +548,7 @@ struct CategoryStat: Identifiable {
     var id: String { name }   // stabile: i nomi categoria sono unici nel dataset
     let name: String
     let icon: String
-    let amount: Double
+    let amount: Decimal
 }
 
 struct MonthStat: Identifiable {

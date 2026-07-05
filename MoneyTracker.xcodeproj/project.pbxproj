@@ -11,6 +11,16 @@
 		95E0EB272FF3E413008854B1 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 95E0EB262FF3E413008854B1 /* Supabase */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		98279C2A44647D4B1FE5648B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95A2A6E32FE7F5E10086EF0A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95A2A6EA2FE7F5E10086EF0A;
+			remoteInfo = MoneyTracker;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		9595B1AA2FEA7EE800BDCD2A /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -26,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		95A2A6EB2FE7F5E10086EF0A /* MoneyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		54746ECE08715CA8E613154A /* MoneyTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -47,6 +58,11 @@
 			path = MoneyTracker;
 			sourceTree = "<group>";
 		};
+		24CF7F58C5C0B5E697E059B0 /* MoneyTrackerTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MoneyTrackerTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +75,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9DE0CC110267C4E515D66562 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -66,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				95A2A6ED2FE7F5E10086EF0A /* MoneyTracker */,
+				24CF7F58C5C0B5E697E059B0 /* MoneyTrackerTests */,
 				95A2A6EC2FE7F5E10086EF0A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				95A2A6EB2FE7F5E10086EF0A /* MoneyTracker.app */,
+				54746ECE08715CA8E613154A /* MoneyTrackerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +131,27 @@
 			productReference = 95A2A6EB2FE7F5E10086EF0A /* MoneyTracker.app */;
 			productType = "com.apple.product-type.application";
 		};
+		397573C26CAA0BCB058D31D4 /* MoneyTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF0E60E43662C888E103B8A5 /* Build configuration list for PBXNativeTarget "MoneyTrackerTests" */;
+			buildPhases = (
+				C85EC05C229515B96F3BE61D /* Sources */,
+				9DE0CC110267C4E515D66562 /* Frameworks */,
+				FA68A65E4A9C20EF31928790 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08C613FA11A160E1BF47653C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				24CF7F58C5C0B5E697E059B0 /* MoneyTrackerTests */,
+			);
+			name = MoneyTrackerTests;
+			productName = MoneyTrackerTests;
+			productReference = 54746ECE08715CA8E613154A /* MoneyTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -119,6 +165,10 @@
 					95A2A6EA2FE7F5E10086EF0A = {
 						CreatedOnToolsVersion = 26.5;
 						LastSwiftMigration = 2650;
+					};
+					397573C26CAA0BCB058D31D4 = {
+						CreatedOnToolsVersion = 26.5;
+						TestTargetID = 95A2A6EA2FE7F5E10086EF0A;
 					};
 				};
 			};
@@ -146,6 +196,7 @@
 			projectRoot = "";
 			targets = (
 				95A2A6EA2FE7F5E10086EF0A /* MoneyTracker */,
+				397573C26CAA0BCB058D31D4 /* MoneyTrackerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -158,10 +209,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA68A65E4A9C20EF31928790 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		95A2A6E72FE7F5E10086EF0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C85EC05C229515B96F3BE61D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -185,6 +250,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoneyTracker/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "MoneyTracker usa Face ID per proteggere l'accesso ai tuoi dati finanziari.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -205,7 +271,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "MoneyTracker/MoneyTracker-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -224,6 +290,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoneyTracker/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "MoneyTracker usa Face ID per proteggere l'accesso ai tuoi dati finanziari.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -243,7 +310,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MoneyTracker/MoneyTracker-Bridging-Header.h";
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -373,6 +440,44 @@
 			};
 			name = Release;
 		};
+		F7D33389E3A1DE8CA4FE8BC8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KWX3UQA25F;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matteo.moneytracker.MoneyTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoneyTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoneyTracker";
+			};
+			name = Debug;
+		};
+		994F1D8E8698DC467C40E050 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KWX3UQA25F;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matteo.moneytracker.MoneyTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoneyTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoneyTracker";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -394,7 +499,24 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		FF0E60E43662C888E103B8A5 /* Build configuration list for PBXNativeTarget "MoneyTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F7D33389E3A1DE8CA4FE8BC8 /* Debug */,
+				994F1D8E8698DC467C40E050 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin PBXTargetDependency section */
+		08C613FA11A160E1BF47653C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95A2A6EA2FE7F5E10086EF0A /* MoneyTracker */;
+			targetProxy = 98279C2A44647D4B1FE5648B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		95E0EB232FF3E413008854B1 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {

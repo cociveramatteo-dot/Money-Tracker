@@ -3,12 +3,16 @@ import UserNotifications
 import SwiftData
 import OSLog
 
-// MARK: - NotificationManager
+// MARK: - SystemNotificationManager
 
 private let notifLog = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "notifications")
 
-final class NotificationManager {
-    static let shared = NotificationManager()
+/// Implementazione di produzione di `NotificationScheduling`, basata su
+/// `UNUserNotificationCenter`. Vedi Domain/NotificationScheduling.swift per il contratto
+/// e la motivazione dell'estrazione a protocollo (DI/testabilità).
+@MainActor
+final class SystemNotificationManager: NotificationScheduling {
+    static let shared: NotificationScheduling = SystemNotificationManager()
     private init() {}
 
     var isEnabled: Bool {
@@ -65,9 +69,9 @@ final class NotificationManager {
             let spent = outflows.filter {
                 (cats.isEmpty || cats.contains($0.category))
                 && (budget.account == nil || $0.account?.id == budget.account?.id)
-            }.reduce(0.0) { $0 + $1.amount }
+            }.reduce(Decimal(0)) { $0 + $1.amount }
 
-            let pct = budget.monthlyLimit > 0 ? spent / budget.monthlyLimit : 0
+            let pct: Decimal = budget.monthlyLimit > 0 ? spent / budget.monthlyLimit : 0
             guard pct >= 0.8 else { continue }
 
             let catLabel: String = {
@@ -77,7 +81,9 @@ final class NotificationManager {
                     .joined(separator: " + ")
             }()
 
-            scheduleBudgetWarning(name: catLabel, pct: pct, id: budget.id.uuidString)
+            // pct alimenta solo il testo della notifica → conversione a Double isolata qui,
+            // il calcolo finanziario sopra resta in Decimal.
+            scheduleBudgetWarning(name: catLabel, pct: pct.asDouble, id: budget.id.uuidString)
         }
     }
 

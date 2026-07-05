@@ -40,7 +40,7 @@ struct AddTransactionView: View {
     private var activeAccounts: [Account] { accounts.filter { !$0.isArchived } }
 
     private var isSaveDisabled: Bool {
-        let v = Double(amount.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let v = Decimal.parseAmount(amount) ?? 0
         return name.isEmpty || v <= 0 || v > 1_000_000_000
     }
 
@@ -77,7 +77,7 @@ struct AddTransactionView: View {
                             .submitLabel(.done)
                             .onSubmit {
                                 focus = nil
-                                let v = Double(amount.replacingOccurrences(of: ",", with: ".")) ?? 0
+                                let v = Decimal.parseAmount(amount) ?? 0
                                 if !name.isEmpty && v > 0 && v <= 1_000_000_000 { save() }
                             }
                             .onChange(of: name) { _, v in
@@ -87,7 +87,7 @@ struct AddTransactionView: View {
                                 classifyTask = Task {
                                     try? await Task.sleep(nanoseconds: 280_000_000)
                                     guard !Task.isCancelled else { return }
-                                    let suggestion = v.count > 2 ? CategoryClassifier.classify(v) : "Altro"
+                                    let suggestion = v.count > 2 ? KeywordCategoryClassifier.shared.classify(v) : "Altro"
                                     await MainActor.run {
                                         if suggestion != "Altro" {
                                             suggestedCat = suggestion
@@ -281,10 +281,7 @@ struct AddTransactionView: View {
             return
         }
         name            = t.name
-        let raw = t.amount
-        amount = raw.truncatingRemainder(dividingBy: 1) == 0
-            ? String(Int(raw))
-            : String(format: "%.2f", raw)
+        amount          = t.amount.editableString
         type            = t.transactionType
         selectedCat     = categories.first { $0.name == t.category }
         selectedAccount = t.account
@@ -297,7 +294,7 @@ struct AddTransactionView: View {
     }
 
     private func save() {
-        let amt = Double(amount.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let amt = Decimal.parseAmount(amount) ?? 0
         guard amt > 0 else { return }
 
         let catName = selectedCat?.name ?? "Altro"
@@ -333,15 +330,15 @@ struct AddTransactionView: View {
         context.safeSave()
 
         if type == .uscita && isDone {
-            NotificationManager.shared.checkBudgets(context: context, forMonth: date)
+            SystemNotificationManager.shared.checkBudgets(context: context, forMonth: date)
         }
 
         // Check balance threshold for the affected account
         if let acc = selectedAccount, isDone {
-            NotificationManager.shared.checkBalanceThreshold(
+            SystemNotificationManager.shared.checkBalanceThreshold(
                 accountId: acc.id.uuidString,
                 accountName: acc.name,
-                currentBalance: acc.currentBalance
+                currentBalance: acc.currentBalance.asDouble
             )
         }
 

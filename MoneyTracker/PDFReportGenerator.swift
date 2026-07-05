@@ -12,7 +12,7 @@ private let pdfLogger = Logger(subsystem: Bundle.main.bundleIdentifier!, categor
 
 struct PDFTxSnapshot: Sendable {
     let name:     String
-    let amount:   Double
+    let amount:   Decimal
     let date:     Date
     let isIncome: Bool   // true = entrata, false = uscita
     let isDone:   Bool
@@ -40,7 +40,7 @@ struct PDFReportGenerator {
     static func generate(
         month: Date,
         transactions: [PDFTxSnapshot],
-        prevMonthSpent: Double
+        prevMonthSpent: Decimal
     ) -> URL? {
 
         // Local formatters — created per-call so they're safe on any thread.
@@ -111,16 +111,16 @@ struct PDFReportGenerator {
         ctx: UIGraphicsPDFRendererContext,
         month: Date,
         transactions: [PDFTxSnapshot],
-        prevSpent: Double,
+        prevSpent: Decimal,
         currFmt: NumberFormatter,
         dayMonthFmt: DateFormatter,
         monthYearFmt: DateFormatter
     ) {
         let done    = transactions.filter { $0.isDone }
-        let uscite  = done.filter { !$0.isIncome }.reduce(0) { $0 + $1.amount }
-        let entrate = done.filter {  $0.isIncome }.reduce(0) { $0 + $1.amount }
+        let uscite  = done.filter { !$0.isIncome }.reduce(Decimal(0)) { $0 + $1.amount }
+        let entrate = done.filter {  $0.isIncome }.reduce(Decimal(0)) { $0 + $1.amount }
 
-        var catMap: [String: Double] = [:]
+        var catMap: [String: Decimal] = [:]
         for t in done where !t.isIncome {
             catMap[t.category, default: 0] += t.amount
         }
@@ -177,7 +177,7 @@ struct PDFReportGenerator {
 
     // MARK: - Summary
 
-    private static func drawSummary(cg: CGContext, uscite: Double, entrate: Double, prevSpent: Double, y: CGFloat, currFmt: NumberFormatter) -> CGFloat {
+    private static func drawSummary(cg: CGContext, uscite: Decimal, entrate: Decimal, prevSpent: Decimal, y: CGFloat, currFmt: NumberFormatter) -> CGFloat {
         let colW = contentW / 3
         var curY = y
 
@@ -204,7 +204,7 @@ struct PDFReportGenerator {
         if prevSpent > 0 {
             let delta = uscite - prevSpent
             let sign  = delta >= 0 ? "+" : "−"
-            let pct   = abs(delta / prevSpent * 100)
+            let pct   = abs((delta / prevSpent).asDouble * 100)
             let label = "\(sign)\(String(format: "%.0f", pct))% \(String(localized: "rispetto al mese precedente"))"
             drawText(label, at: CGPoint(x: margin, y: curY),
                      font: .systemFont(ofSize: 11), color: smokeColor)
@@ -219,8 +219,8 @@ struct PDFReportGenerator {
     private static func drawCategorySection(
         cg: CGContext,
         ctx: UIGraphicsPDFRendererContext,
-        cats: [(key: String, value: Double)],
-        total: Double,
+        cats: [(key: String, value: Decimal)],
+        total: Decimal,
         y: CGFloat,
         currFmt: NumberFormatter
     ) -> CGFloat {
@@ -236,7 +236,8 @@ struct PDFReportGenerator {
 
         for i in 0..<maxBars {
             let cat = cats[i]
-            let pct = total > 0 ? min(cat.value / total, 1.0) : 0
+            // pct alimenta solo geometria (CGFloat) e testo — conversione a Double isolata qui.
+            let pct: Double = total > 0 ? min((cat.value / total).asDouble, 1.0) : 0
 
             if curY + rowH > pageH - margin {
                 ctx.beginPage()
@@ -376,7 +377,7 @@ struct PDFReportGenerator {
 // MARK: - NumberFormatter helper (local to PDF — not shared, so thread-safe)
 
 private extension NumberFormatter {
-    func fmt(_ value: Double) -> String {
-        string(from: NSNumber(value: value)) ?? "\(value)"
+    func fmt(_ value: Decimal) -> String {
+        string(from: value as NSDecimalNumber) ?? "\(value)"
     }
 }

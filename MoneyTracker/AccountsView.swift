@@ -23,8 +23,8 @@ struct AccountsView: View {
     private var included: [Account] { active.filter { !$0.isExcludedFromTotal } }
     private var excluded: [Account] { active.filter {  $0.isExcludedFromTotal } }
 
-    private var totalCurrent: Double { included.reduce(0) { $0 + $1.currentBalance } }
-    private var totalFuture:  Double { included.reduce(0) { $0 + $1.futureBalance } }
+    private var totalCurrent: Decimal { included.reduce(0) { $0 + $1.currentBalance } }
+    private var totalFuture:  Decimal { included.reduce(0) { $0 + $1.futureBalance } }
 
     var body: some View {
         NavigationStack {
@@ -384,10 +384,7 @@ struct AddAccountView: View {
         }
         name             = a.name
         type             = a.accountType
-        let raw = a.initialBalance
-        balance = raw == 0 ? "" : (raw.truncatingRemainder(dividingBy: 1) == 0
-            ? String(Int(raw))
-            : String(format: "%.2f", raw))
+        balance = a.initialBalance == 0 ? "" : a.initialBalance.editableString
         excludeFromTotal = a.isExcludedFromTotal
         // Load existing threshold from UserDefaults
         let t = UserDefaults.standard.double(forKey: "balanceThreshold_\(a.id.uuidString)")
@@ -395,7 +392,7 @@ struct AddAccountView: View {
     }
 
     private func save() {
-        let b = Double(balance.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let b = Decimal.parseAmount(balance) ?? 0
         let threshold = Double(alertThresholdStr.replacingOccurrences(of: ",", with: ".")) ?? 0
         if let a = editing {
             a.name                  = name

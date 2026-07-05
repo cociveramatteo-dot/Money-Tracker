@@ -18,7 +18,7 @@ struct AddTransferView: View {
     private var active: [Account] { accounts.filter { !$0.isArchived } }
 
     private var canSave: Bool {
-        let v = Double(amount.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let v = Decimal.parseAmount(amount) ?? 0
         return v > 0 && v <= 1_000_000_000 && fromAccount != nil && toAccount != nil
             && fromAccount?.id != toAccount?.id
     }
@@ -169,7 +169,7 @@ struct AddTransferView: View {
 
     private func save() {
         guard let from = fromAccount, let to = toAccount else { return }
-        let amt = Double(amount.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let amt = Decimal.parseAmount(amount) ?? 0
         guard amt > 0 else { return }
 
         let groupId = UUID().uuidString

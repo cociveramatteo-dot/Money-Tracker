@@ -13,7 +13,7 @@ private struct SBAccount: Codable {
     let userId:               UUID
     let name:                 String
     let type:                 String
-    let initialBalance:       Double
+    let initialBalance:       Decimal
     let colorHex:             String
     let createdAt:            Date
     let isArchived:           Bool
@@ -48,7 +48,7 @@ private struct SBTransaction: Codable {
     let userId:             UUID
     let accountId:          UUID?
     let name:               String
-    let amount:             Double
+    let amount:             Decimal
     let type:               String
     let category:           String
     let categoryIcon:       String
@@ -106,7 +106,7 @@ private struct SBBudget: Codable {
     let accountId:    UUID?
     let category:     String
     let categoryIcon: String
-    let monthlyLimit: Double
+    let monthlyLimit: Decimal
     let month:        Int
     let year:         Int
     let createdAt:    Date
@@ -140,8 +140,8 @@ private struct SBGoal: Codable {
     let userId:        UUID
     let name:          String
     let emoji:         String
-    let targetAmount:  Double
-    let currentAmount: Double
+    let targetAmount:  Decimal
+    let currentAmount: Decimal
     let deadline:      Date?
     let isCompleted:   Bool
     let createdAt:     Date

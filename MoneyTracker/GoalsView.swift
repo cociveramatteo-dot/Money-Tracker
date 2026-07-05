@@ -257,12 +257,8 @@ struct AddGoalView: View {
             return
         }
         name          = g.name
-        target        = g.targetAmount.truncatingRemainder(dividingBy: 1) == 0
-            ? String(Int(g.targetAmount))
-            : String(format: "%.2f", g.targetAmount)
-        current       = g.currentAmount.truncatingRemainder(dividingBy: 1) == 0
-            ? String(Int(g.currentAmount))
-            : String(format: "%.2f", g.currentAmount)
+        target        = g.targetAmount.editableString
+        current       = g.currentAmount.editableString
         addSavings    = ""
         let stored = g.emoji
         selectedEmoji = (!stored.isEmpty && stored.unicodeScalars.allSatisfy { $0.value < 128 }) ? stored : "target"
@@ -272,10 +268,10 @@ struct AddGoalView: View {
     }
 
     private func save() {
-        let t = Double(target.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let t = Decimal.parseAmount(target) ?? 0
         guard t > 0 else { return }
-        let c = Double(current.replacingOccurrences(of: ",", with: ".")) ?? 0
-        let extra = Double(addSavings.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let c = Decimal.parseAmount(current) ?? 0
+        let extra = Decimal.parseAmount(addSavings) ?? 0
 
         if let g = editing {
             g.name          = name
@@ -285,9 +281,9 @@ struct AddGoalView: View {
             g.deadline      = hasDeadline ? deadline : nil
             g.isCompleted   = g.currentAmount >= t
             if hasDeadline {
-                NotificationManager.shared.scheduleGoalDeadline(name: name, goalId: g.id.uuidString, deadline: deadline)
+                SystemNotificationManager.shared.scheduleGoalDeadline(name: name, goalId: g.id.uuidString, deadline: deadline)
             } else {
-                NotificationManager.shared.cancelGoalDeadline(goalId: g.id.uuidString)
+                SystemNotificationManager.shared.cancelGoalDeadline(goalId: g.id.uuidString)
             }
         } else {
             let goal = Goal(
@@ -299,7 +295,7 @@ struct AddGoalView: View {
             )
             context.insert(goal)
             if hasDeadline {
-                NotificationManager.shared.scheduleGoalDeadline(name: name, goalId: goal.id.uuidString, deadline: deadline)
+                SystemNotificationManager.shared.scheduleGoalDeadline(name: name, goalId: goal.id.uuidString, deadline: deadline)
             }
         }
         context.safeSave()

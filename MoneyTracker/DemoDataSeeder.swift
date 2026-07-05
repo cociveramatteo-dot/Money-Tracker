@@ -78,7 +78,7 @@ struct DemoDataSeeder {
         // MARK: Transazioni — 3 mesi
         // Tupla: (nome, importo, tipo, categoria, icona, giorni fa, conto, isFixed, isDone)
 
-        typealias TxRow = (String, Double, TransactionType, String, String, Int, Account, Bool, Bool)
+        typealias TxRow = (String, Decimal, TransactionType, String, String, Int, Account, Bool, Bool)
 
         // isFixed: true SOLO su Affitto e abbonamenti digitali — gli unici che in una vera app
         // sarebbero segnati come "spesa fissa". Tutto il resto a false per evitare che il
@@ -156,7 +156,7 @@ struct DemoDataSeeder {
         // ma non al saldoAttuale, rendendo visibile la differenza nella Home e nel tour.
         // date(daysAgo: negativo) = data futura.
 
-        let planned: [(String, Double, String, String, Int, Account)] = [
+        let planned: [(String, Decimal, String, String, Int, Account)] = [
             (lAffitto,    650,   "Casa",        "house.fill",           -5, conto),
             ("Netflix",    17.99, "Abbonamenti", "repeat.circle.fill",  -8, carta),
             (lBolletta,    78,    "Casa",        "bolt.fill",           -12, conto),
@@ -194,7 +194,7 @@ struct DemoDataSeeder {
         let m = cal.component(.month, from: now)
         let y = cal.component(.year,  from: now)
 
-        let budgets: [(String, String, Double)] = [
+        let budgets: [(String, String, Decimal)] = [
             ("Cibo",        "fork.knife",          280),   // ~90% utilizzato
             ("Svago",       "gamecontroller.fill",  150),   // ~70%
             ("Abbonamenti", "repeat.circle.fill",    40),   // ~80%
@@ -208,7 +208,7 @@ struct DemoDataSeeder {
         // Budget mese precedente (per lo storico)
         let prevM = m == 1 ? 12 : m - 1
         let prevY = m == 1 ? y - 1 : y
-        let prevBudgets: [(String, String, Double)] = [
+        let prevBudgets: [(String, String, Decimal)] = [
             ("Cibo",        "fork.knife",          280),
             ("Svago",       "gamecontroller.fill",  150),
             ("Abbonamenti", "repeat.circle.fill",    40),

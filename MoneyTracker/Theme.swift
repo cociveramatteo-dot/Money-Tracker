@@ -421,7 +421,7 @@ struct SectionLabel: View {
 }
 
 struct HeroAmount: View {
-    let amount: Double
+    let amount: Decimal
     var size:   CGFloat = 56
     var hidden: Bool    = false
     @EnvironmentObject private var themeManager: ThemeManager

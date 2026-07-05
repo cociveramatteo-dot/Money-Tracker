@@ -16,13 +16,10 @@ struct MoneyTrackerApp: App {
     // MARK: - Init
 
     init() {
-        let schema = Schema([
-            Account.self,
-            Transaction.self,
-            Budget.self,
-            Goal.self,
-            Category.self
-        ])
+        // Schema(versionedSchema:) invece di Schema([...]): necessario perché
+        // MoneyTrackerMigrationPlan sappia riconoscere/convertire uno store SchemaV1
+        // (importi Double) esistente verso SchemaV2 (Decimal). Vedi Domain/SchemaMigration.swift.
+        let schema = Schema(versionedSchema: SchemaV2.self)
 
         let realConfig = ModelConfiguration(
             schema: schema,
@@ -33,7 +30,11 @@ struct MoneyTrackerApp: App {
         FormatterCache.registerLocaleObserver()
 
         do {
-            realContainer = try ModelContainer(for: schema, configurations: realConfig)
+            realContainer = try ModelContainer(
+                for: schema,
+                migrationPlan: MoneyTrackerMigrationPlan.self,
+                configurations: realConfig
+            )
 
             // SEC-02: protezione crittografica del db reale
             applyFileProtection(to: realConfig.url, level: .complete)
@@ -42,8 +43,8 @@ struct MoneyTrackerApp: App {
             Category.seedIfNeeded(context: ctx)
 
             let notifEnabled = UserDefaults.standard.object(forKey: "notificationsEnabled") == nil
-            if notifEnabled { NotificationManager.shared.requestPermission() }
-            NotificationManager.shared.scheduleFixedReminderIfNeeded(context: ctx)
+            if notifEnabled { SystemNotificationManager.shared.requestPermission() }
+            SystemNotificationManager.shared.scheduleFixedReminderIfNeeded(context: ctx)
 
         } catch {
             let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
@@ -56,7 +57,11 @@ struct MoneyTrackerApp: App {
         let demoConfig = ModelConfiguration("demo", schema: schema, isStoredInMemoryOnly: false)
 
         do {
-            demoContainer = try ModelContainer(for: schema, configurations: demoConfig)
+            demoContainer = try ModelContainer(
+                for: schema,
+                migrationPlan: MoneyTrackerMigrationPlan.self,
+                configurations: demoConfig
+            )
             // Proteggi il file demo (accessibile dopo il primo sblocco post-riavvio)
             applyFileProtection(to: demoConfig.url, level: .completeUntilFirstUserAuthentication)
             let demoCtx = demoContainer.mainContext
@@ -92,7 +97,11 @@ struct MoneyTrackerApp: App {
                         .environmentObject(themeManager)
                         .preferredColorScheme(themeManager.current.preferredColorScheme)
                 } else {
+                    // Face ID/Touch ID/passcode gate — applicato solo al contenuto
+                    // autenticato: protegge i dati finanziari già caricati quando
+                    // l'app torna in foreground, non la sola sessione Supabase.
                     mainAppView
+                        .appLockGate()
                 }
             }
             .animation(.easeInOut(duration: 0.25), value: auth.isLoggedIn)
@@ -169,7 +178,10 @@ struct MoneyTrackerApp: App {
                 }
                 .task {
                     // Il seeding demo avviene in init() — qui processiamo solo le ricorrenti.
-                    Transaction.processRecurring(context: activeContainer.mainContext)
+                    // PERF-05: gira su un @ModelActor in background, non sul main actor,
+                    // così il primo render dopo il login non aspetta il fetch+confronto+save.
+                    let engine = RecurringTransactionActor(modelContainer: activeContainer)
+                    await engine.processRecurring()
                 }
         }
         // Real-time sync: ogni volta che il real store salva, triggera un push

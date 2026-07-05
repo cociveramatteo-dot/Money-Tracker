@@ -43,38 +43,39 @@ struct PianificaView: View {
         }
     }
 
-    private func spent(for budget: Budget) -> Double {
+    private func spent(for budget: Budget) -> Decimal {
         let cats: Set<String> = budget.category == "Tutti"
             ? []
             : Set(budget.category.split(separator: ",").map(String.init))
         return monthOutflows.filter {
             (cats.isEmpty || cats.contains($0.category))
             && (budget.account == nil || $0.account?.id == budget.account?.id)
-        }.reduce(0.0) { $0 + $1.amount }
+        }.reduce(Decimal(0)) { $0 + $1.amount }
     }
 
     /// Calcola la mappa speso-per-budget in un'unica passata O(B×T).
     /// Non chiamare direttamente in body: usare `let map = spentMap` per evitare
     /// computazioni ripetute all'interno dello stesso render cycle.
-    private var spentMap: [PersistentIdentifier: Double] {
+    private var spentMap: [PersistentIdentifier: Decimal] {
         Dictionary(uniqueKeysWithValues: currentBudgets.map { ($0.id, spent(for: $0)) })
     }
 
-    private func overallBudgetPct(map: [PersistentIdentifier: Double]) -> Double {
-        let total = currentBudgets.reduce(0.0) { $0 + $1.monthlyLimit }
-        let used  = map.values.reduce(0.0, +)
+    // Ritorna un Double: alimenta solo la barra di progresso complessiva.
+    private func overallBudgetPct(map: [PersistentIdentifier: Decimal]) -> Double {
+        let total = currentBudgets.reduce(Decimal(0)) { $0 + $1.monthlyLimit }
+        let used  = map.values.reduce(Decimal(0), +)
         guard total > 0 else { return 0 }
-        return min(used / total, 1.0)
+        return min((used / total).asDouble, 1.0)
     }
 
     // MARK: - Goals computed
 
     private var overallGoalProgress: Double {
         guard !goals.isEmpty else { return 0 }
-        let total   = goals.reduce(0.0) { $0 + $1.targetAmount }
-        let current = goals.reduce(0.0) { $0 + $1.currentAmount }
+        let total   = goals.reduce(Decimal(0)) { $0 + $1.targetAmount }
+        let current = goals.reduce(Decimal(0)) { $0 + $1.currentAmount }
         guard total > 0 else { return 0 }
-        return min(current / total, 1.0)
+        return min((current / total).asDouble, 1.0)
     }
 
     // MARK: - Body

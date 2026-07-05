@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import UniformTypeIdentifiers
+import LocalAuthentication
 
 // MARK: - In-memory CSV file (SEC-03: no temp file on disk; SEC-05: safe to share)
 struct CSVFile: Transferable {
@@ -26,6 +27,11 @@ struct SettingsView: View {
     @AppStorage("notificationsEnabled")  private var notificationsEnabled: Bool = true
     @AppStorage("monthlyReportEnabled")  private var monthlyReportEnabled: Bool = false
     @AppStorage("demoModeEnabled")       private var demoModeEnabled:      Bool = false
+    @AppStorage("appLockEnabled")        private var appLockEnabled:       Bool = false
+
+    // Letto una volta: cambia solo se l'utente aggiunge/rimuove Face ID o il codice
+    // dispositivo mentre l'app è aperta, caso limite non ricontrollato ad ogni render.
+    private let biometricAvailable = LAContextAuthenticator().isAvailable
 
     @State private var pickerCurrency: String = UserDefaults.standard.string(forKey: "currencyCode") ?? "EUR"
     @State private var pendingCurrency: String = ""
@@ -136,9 +142,9 @@ struct SettingsView: View {
                                 .labelsHidden()
                                 .onChange(of: notificationsEnabled) { _, enabled in
                                     if enabled {
-                                        NotificationManager.shared.requestPermission()
+                                        SystemNotificationManager.shared.requestPermission()
                                     } else {
-                                        NotificationManager.shared.cancelAll()
+                                        SystemNotificationManager.shared.cancelAll()
                                         monthlyReportEnabled = false
                                     }
                                 }
@@ -159,10 +165,33 @@ struct SettingsView: View {
                                 .labelsHidden()
                                 .disabled(!notificationsEnabled)
                                 .onChange(of: monthlyReportEnabled) { _, enabled in
-                                    NotificationManager.shared.scheduleMonthlyReportReminder(enabled: enabled)
+                                    SystemNotificationManager.shared.scheduleMonthlyReportReminder(enabled: enabled)
                                 }
                         }
                         .opacity(notificationsEnabled ? 1 : 0.4)
+                    }
+
+                    ThinDivider()
+
+                    VStack(alignment: .leading, spacing: DS.Space.l) {
+                        SectionLabel(text: "Sicurezza")
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Blocco con Face ID")
+                                    .font(.system(size: 15))
+                                    .foregroundStyle(DS.ink)
+                                Text(biometricAvailable
+                                     ? "Richiede Face ID, Touch ID o il codice del dispositivo all'apertura"
+                                     : "Nessun metodo di sblocco configurato su questo dispositivo")
+                                    .font(.system(size: 11))
+                                    .foregroundStyle(DS.smoke)
+                            }
+                            Spacer()
+                            Toggle("", isOn: $appLockEnabled)
+                                .tint(DS.ink)
+                                .labelsHidden()
+                                .disabled(!biometricAvailable)
+                        }
                     }
 
                     ThinDivider()
@@ -460,7 +489,7 @@ struct SettingsView: View {
         for t in allTransactions {
             let date   = csvEscape(FormatterCache.csvDate.string(from: t.date))
             let name   = csvEscape(t.name)
-            let amount = csvEscape(String(format: "%.2f", t.amount))
+            let amount = csvEscape(t.amount.fixedFractionString)
             let tipo   = csvEscape(NSLocalizedString(t.transactionType == .uscita ? "Uscita" : "Entrata", comment: ""))
             let cat    = csvEscape(NSLocalizedString(t.category, comment: ""))
             let acc    = csvEscape(t.account?.name ?? "")
