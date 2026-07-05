@@ -482,7 +482,7 @@ struct StatisticsView: View {
         .sheet(isPresented: $showShareSheet, onDismiss: { pdfURL = nil }) {
             if let url = pdfURL { ShareSheet(items: [url]) }
         }
-        .themePickerButton()
+        .themedNavBar()
         .onChange(of: pdfURL) { _, url in if url != nil { showShareSheet = true } }
         .onChange(of: selectedMonth) { _, _ in pdfURL = nil }
         // PERF-02: rebuild the byMonth dictionary only when the transaction list changes

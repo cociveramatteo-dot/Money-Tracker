@@ -8,10 +8,6 @@ struct DashboardView: View {
     @Query(sort: \Transaction.date, order: .reverse) private var transactions: [Transaction]
     @Environment(\.modelContext) private var context
     @Binding var showAdd: Bool
-    // Osserva themeManager per garantire che DS.ink/paper vengano riletti ad ogni cambio
-    // tema. Senza questa dipendenza SwiftUI può ottimizzare il re-render e lasciare
-    // colori stantii (es. ink bianco da Notte su sfondo chiaro di un tema successivo).
-    @EnvironmentObject private var themeManager: ThemeManager
 
     @AppStorage("hideBalance")              private var hideBalance: Bool   = false
     @AppStorage("homeAccountOrderedShown") private var homeAccountOrderedShown: String = ""
@@ -89,7 +85,7 @@ struct DashboardView: View {
                     }
                 }
             }
-            .themePickerButton()
+            .themedNavBar()
             .sheet(isPresented: $showSettings)     { SettingsView() }
             .sheet(item: $editingTransaction)       { AddTransactionView(editing: $0) }
             .sheet(isPresented: $showAccountOrder)  {

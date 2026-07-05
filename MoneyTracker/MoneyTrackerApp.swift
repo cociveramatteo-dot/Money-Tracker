@@ -7,7 +7,6 @@ struct MoneyTrackerApp: App {
     let realContainer: ModelContainer
     let demoContainer: ModelContainer
 
-    @StateObject  private var themeManager = ThemeManager()
     @AppStorage("demoModeEnabled") private var demoModeEnabled = false
     // Tour overlay is rendered HERE (app level) so it sits above UITabBarController
     // and UITabBar — the only z-position from which the tab bar can be highlighted.
@@ -94,8 +93,6 @@ struct MoneyTrackerApp: App {
                     splashView
                 } else if !auth.isLoggedIn {
                     LoginView()
-                        .environmentObject(themeManager)
-                        .preferredColorScheme(themeManager.current.preferredColorScheme)
                 } else {
                     // Face ID/Touch ID/passcode gate — applicato solo al contenuto
                     // autenticato: protegge i dati finanziari già caricati quando
@@ -165,9 +162,7 @@ struct MoneyTrackerApp: App {
 
         return ZStack {
             ContentView()
-                .environmentObject(themeManager)
                 .modelContainer(activeContainer)
-                .preferredColorScheme(themeManager.current.preferredColorScheme)
                 // .id() forza la ricreazione completa dell'albero di viste al cambio
                 // di modalità, garantendo che @Query e @Environment siano agganciati
                 // al container giusto senza residui del precedente.

@@ -2,7 +2,6 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @EnvironmentObject var themeManager: ThemeManager
     @ObservedObject private var tourManager = TourManager.shared
     @State private var selectedTab          = 0
     @State private var showAdd              = false

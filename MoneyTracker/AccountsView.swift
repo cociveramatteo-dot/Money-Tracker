@@ -160,7 +160,7 @@ struct AccountsView: View {
             }
             .sheet(isPresented: $showAdd) { AddAccountView() }
             .sheet(item: $editing)        { AddAccountView(editing: $0) }
-            .themePickerButton()
+            .themedNavBar()
             .sheet(isPresented: $showSettings) { SettingsView() }
             .alert(
                 accountToDelete.map { String(format: NSLocalizedString("Eliminare \"%@\"?", comment: "Delete account alert title"), $0.name) } ?? "",
