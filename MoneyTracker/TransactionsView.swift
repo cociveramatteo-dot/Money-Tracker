@@ -26,6 +26,9 @@ struct TransactionsView: View {
     @FocusState private var searchFocused: Bool
     // BUG-04: pending transfer delete — shows confirmationDialog before removing both legs
     @State private var transferToDelete: Transaction? = nil
+    // Tap su un trasferimento: spiega perché non è modificabile invece di aprire
+    // l'editor generico (che modificherebbe una sola gamba del trasferimento).
+    @State private var transferBeingEdited: Transaction? = nil
 
     // Filtri avanzati — le stringhe importo e il flag date sono persistiti via AppStorage
     @AppStorage("txFilterMin")      private var filterMinAmount:      String = ""
@@ -81,12 +84,14 @@ struct TransactionsView: View {
         return order.compactMap { key in dict[key].map { (key: key, value: $0) } }
     }
 
+    // !isTransfer: il riepilogo +/-/netto in cima è la spesa/entrata reale del mese —
+    // uno spostamento tra i propri conti non deve gonfiarlo (vedi anche StatisticsView).
     private func monthIncome(from snapshot: [Transaction]) -> Decimal {
-        snapshot.filter { $0.transactionType == .entrata && $0.isDone }.reduce(Decimal(0)) { $0 + $1.amount }
+        snapshot.filter { $0.transactionType == .entrata && $0.isDone && !$0.isTransfer }.reduce(Decimal(0)) { $0 + $1.amount }
     }
 
     private func monthExpenses(from snapshot: [Transaction]) -> Decimal {
-        snapshot.filter { $0.transactionType == .uscita && $0.isDone }.reduce(Decimal(0)) { $0 + $1.amount }
+        snapshot.filter { $0.transactionType == .uscita && $0.isDone && !$0.isTransfer }.reduce(Decimal(0)) { $0 + $1.amount }
     }
 
     // MARK: - Body
@@ -250,6 +255,7 @@ struct TransactionsView: View {
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
                     .scrollIndicators(.hidden)
+                    .refreshable { await SyncService.shared.manualRefresh(context: context) }
                     .tourAnchor("movimentiList")
                 }
             }
@@ -310,6 +316,17 @@ struct TransactionsView: View {
                 Button("Annulla", role: .cancel) { transferToDelete = nil }
             } message: {
                 Text("Questo trasferimento è composto da due movimenti collegati. Verranno eliminati entrambi.")
+            }
+            .alert(
+                "Trasferimento non modificabile",
+                isPresented: Binding(
+                    get: { transferBeingEdited != nil },
+                    set: { if !$0 { transferBeingEdited = nil } }
+                )
+            ) {
+                Button("OK", role: .cancel) { transferBeingEdited = nil }
+            } message: {
+                Text("Un trasferimento è composto da due movimenti collegati su due conti diversi: per cambiarlo, eliminalo (swipe verso sinistra) e creane uno nuovo.")
             }
         }
     }
@@ -461,7 +478,16 @@ struct TransactionsView: View {
             }
         }
         .contentShape(Rectangle())
-        .onTapGesture { editing = t }
+        .onTapGesture {
+            // I trasferimenti sono 2 transazioni collegate (transferGroupId): l'editor
+            // generico modificherebbe solo una delle due gambe, disallineando in modo
+            // silenzioso i saldi dei due conti coinvolti. Vanno eliminati e ricreati.
+            if t.isTransfer {
+                transferBeingEdited = t
+            } else {
+                editing = t
+            }
+        }
         // long press → solo elimina
         .contextMenu {
             Button(role: .destructive) {

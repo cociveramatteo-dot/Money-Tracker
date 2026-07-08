@@ -64,6 +64,7 @@ struct DashboardView: View {
             }
             .background(DS.paper)
             .scrollIndicators(.hidden)
+            .refreshable { await SyncService.shared.manualRefresh(context: context) }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

@@ -35,10 +35,13 @@ struct PianificaView: View {
         return budgets.filter { $0.month == m && $0.year == y }
     }
 
+    // !isTransfer: coerente con NotificationManager.checkBudgets — uno spostamento tra i
+    // propri conti non deve consumare il budget di spesa di una categoria.
     private var monthOutflows: [Transaction] {
         transactions.filter {
             $0.transactionType == .uscita
             && $0.isDone
+            && !$0.isTransfer
             && $0.date.isSameMonth(as: selectedMonth)
         }
     }
@@ -105,6 +108,7 @@ struct PianificaView: View {
             }
             .background(DS.paper)
             .scrollIndicators(.hidden)
+            .refreshable { await SyncService.shared.manualRefresh(context: context) }
             .navigationTitle(segment == 0 ? "Budget" : "Obiettivi")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { toolbarContent }

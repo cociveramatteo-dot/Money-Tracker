@@ -17,7 +17,12 @@ final class SupabaseManager: ObservableObject {
 
     let client = SupabaseClient(
         supabaseURL: URL(string: "https://zblpzufsikxhuzdtcucg.supabase.co")!,
-        supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpibHB6dWZzaWt4aHV6ZHRjdWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MTE1MzcsImV4cCI6MjA5ODM4NzUzN30.lezj5CD6yYjSK2-HeGSjU1kaE29G3B_ojiFhSz-8pgg"
+        supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpibHB6dWZzaWt4aHV6ZHRjdWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MTE1MzcsImV4cCI6MjA5ODM4NzUzN30.lezj5CD6yYjSK2-HeGSjU1kaE29G3B_ojiFhSz-8pgg",
+        options: SupabaseClientOptions(
+            auth: SupabaseClientOptions.AuthOptions(
+                emitLocalSessionAsInitialSession: true
+            )
+        )
     )
 
     // MARK: - State
@@ -41,8 +46,10 @@ final class SupabaseManager: ObservableObject {
         isLoading = false
 
         // Ascolta tutti i cambi di stato futuri (login, logout, token refresh...).
+        // MainActor.run garantisce che session venga aggiornato sul main thread
+        // anche se il SDK Supabase consegna l'evento su un thread background.
         for await (_, newSession) in client.auth.authStateChanges {
-            session = newSession
+            await MainActor.run { session = newSession }
         }
     }
 

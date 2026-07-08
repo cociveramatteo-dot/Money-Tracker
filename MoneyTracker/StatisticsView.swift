@@ -4,6 +4,7 @@ import Charts
 
 struct StatisticsView: View {
     @Query(sort: \Transaction.date, order: .reverse) private var transactions: [Transaction]
+    @Environment(\.modelContext) private var context
     @State private var selectedMonth = Date()
     @State private var trendMonths: Int = 6   // toggle 6 / 12
 
@@ -12,7 +13,10 @@ struct StatisticsView: View {
     private var monthPartitioned: (expenses: [Transaction], incomeTotal: Decimal) {
         var expenses: [Transaction] = []
         var incomeTotal = Decimal(0)
-        for t in transactions where t.isDone && t.date.isSameMonth(as: selectedMonth) {
+        // !isTransfer: spostare soldi tra i propri conti non è una spesa né un'entrata
+        // reale — includerli gonfierebbe uscite/entrate con importi che si annullano
+        // a vicenda nel totale complessivo (vedi anche NotificationManager.checkBudgets).
+        for t in transactions where t.isDone && !t.isTransfer && t.date.isSameMonth(as: selectedMonth) {
             if t.transactionType == .uscita  { expenses.append(t) }
             else                             { incomeTotal += t.amount }
         }
@@ -107,7 +111,9 @@ struct StatisticsView: View {
     private func rebuildByMonth() {
         let cal = Calendar.current
         var dict: [Date: [Transaction]] = [:]
-        for t in transactions where t.isDone {
+        // !isTransfer: alimenta trend, confronto anno su anno e medie mensili —
+        // gli stessi motivi di monthPartitioned sopra.
+        for t in transactions where t.isDone && !t.isTransfer {
             let key = cal.dateInterval(of: .month, for: t.date)?.start ?? t.date
             dict[key, default: []].append(t)
         }
@@ -130,12 +136,13 @@ struct StatisticsView: View {
         let snapshots = transactions
             .filter { $0.isDone && $0.date.isSameMonth(as: selectedMonth) }
             .map { PDFTxSnapshot(
-                name:     $0.name,
-                amount:   $0.amount,
-                date:     $0.date,
-                isIncome: $0.transactionType == .entrata,
-                isDone:   $0.isDone,
-                category: $0.category
+                name:       $0.name,
+                amount:     $0.amount,
+                date:       $0.date,
+                isIncome:   $0.transactionType == .entrata,
+                isDone:     $0.isDone,
+                isTransfer: $0.isTransfer,
+                category:   $0.category
             ) }
         let prevSpent = prevMonthSpent(byMonth: cachedByMonth)
         let month     = selectedMonth
@@ -448,6 +455,7 @@ struct StatisticsView: View {
         }
         .background(DS.paper)
         .scrollIndicators(.hidden)
+        .refreshable { await SyncService.shared.manualRefresh(context: context) }
         .navigationTitle("Statistiche")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

@@ -129,7 +129,6 @@ actor RecurringTransactionActor {
                 Logger.recurring.info("processRecurring: saved new recurring instances")
             } catch {
                 Logger.recurring.error("processRecurring save failed: \(error.localizedDescription, privacy: .public)")
-                assertionFailure("processRecurring save failed: \(error)")
             }
         } else {
             // Nessuna nuova transazione da creare, ma marchiamo comunque il giorno

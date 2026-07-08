@@ -208,6 +208,17 @@ final class SyncService {
         return Date().timeIntervalSince(last) > pullCooldown
     }
 
+    // MARK: - Manual refresh (pull-to-refresh)
+
+    /// Refresh esplicito dell'utente (tirare giù per aggiornare). A differenza del pull
+    /// automatico su foreground, ignora il cooldown di 5 minuti perché è un'azione
+    /// intenzionale. No-op se non loggato o in modalità demo (la demo ha un container
+    /// locale separato, non collegato a Supabase).
+    func manualRefresh(context: ModelContext) async {
+        guard auth.isLoggedIn, !UserDefaults.standard.bool(forKey: "demoModeEnabled") else { return }
+        await pull(context: context)
+    }
+
     // MARK: - Sync on login
 
     /// Primo sync dopo il login:
@@ -346,7 +357,7 @@ final class SyncService {
             }
 
             let localAccounts    = (try? context.fetch(FetchDescriptor<Account>())) ?? []
-            let localAccountById = Dictionary(uniqueKeysWithValues: localAccounts.map { ($0.id, $0) })
+            let localAccountById = Dictionary(localAccounts.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
             var accountMap       = [UUID: Account]()
             var pulledAccountIds = Set<UUID>()
 
@@ -354,12 +365,12 @@ final class SyncService {
                 pulledAccountIds.insert(sb.id)
                 let acc: Account
                 if let existing = localAccountById[sb.id] {
-                    existing.name                = sb.name
-                    existing.type                = sb.type
-                    existing.initialBalance      = sb.initialBalance
-                    existing.colorHex            = sb.colorHex
-                    existing.isArchived          = sb.isArchived
-                    existing.isExcludedFromTotal = sb.isExcludedFromTotal
+                    if existing.name                != sb.name                { existing.name                = sb.name }
+                    if existing.type                != sb.type                { existing.type                = sb.type }
+                    if existing.initialBalance      != sb.initialBalance      { existing.initialBalance      = sb.initialBalance }
+                    if existing.colorHex            != sb.colorHex            { existing.colorHex            = sb.colorHex }
+                    if existing.isArchived          != sb.isArchived          { existing.isArchived          = sb.isArchived }
+                    if existing.isExcludedFromTotal != sb.isExcludedFromTotal { existing.isExcludedFromTotal = sb.isExcludedFromTotal }
                     acc = existing
                 } else {
                     let a = Account(name: sb.name,
@@ -385,26 +396,26 @@ final class SyncService {
                 .select().eq("user_id", value: userId.uuidString).execute().value
 
             let localTx    = (try? context.fetch(FetchDescriptor<Transaction>())) ?? []
-            let localTxMap = Dictionary(uniqueKeysWithValues: localTx.map { ($0.id, $0) })
+            let localTxMap = Dictionary(localTx.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
             var pulledTxIds = Set<UUID>()
 
             for sb in sbTx {
                 pulledTxIds.insert(sb.id)
                 if let existing = localTxMap[sb.id] {
-                    existing.name               = sb.name
-                    existing.amount             = sb.amount
-                    existing.type               = sb.type
-                    existing.category           = sb.category
-                    existing.categoryIcon       = sb.categoryIcon
-                    existing.date               = sb.date
-                    existing.isDone             = sb.isDone
-                    existing.isFixed            = sb.isFixed
-                    existing.isTransfer         = sb.isTransfer
-                    existing.transferGroupId    = sb.transferGroupId
-                    existing.notes              = sb.notes
-                    existing.recurringFrequency = sb.recurringFrequency
-                    existing.templateId         = sb.templateId
-                    if let accId = sb.accountId { existing.account = accountMap[accId] }
+                    if existing.name               != sb.name               { existing.name               = sb.name }
+                    if existing.amount             != sb.amount             { existing.amount             = sb.amount }
+                    if existing.type               != sb.type               { existing.type               = sb.type }
+                    if existing.category           != sb.category           { existing.category           = sb.category }
+                    if existing.categoryIcon       != sb.categoryIcon       { existing.categoryIcon       = sb.categoryIcon }
+                    if existing.date               != sb.date               { existing.date               = sb.date }
+                    if existing.isDone             != sb.isDone             { existing.isDone             = sb.isDone }
+                    if existing.isFixed            != sb.isFixed            { existing.isFixed            = sb.isFixed }
+                    if existing.isTransfer         != sb.isTransfer         { existing.isTransfer         = sb.isTransfer }
+                    if existing.transferGroupId    != sb.transferGroupId    { existing.transferGroupId    = sb.transferGroupId }
+                    if existing.notes              != sb.notes              { existing.notes              = sb.notes }
+                    if existing.recurringFrequency != sb.recurringFrequency { existing.recurringFrequency = sb.recurringFrequency }
+                    if existing.templateId         != sb.templateId         { existing.templateId         = sb.templateId }
+                    if let accId = sb.accountId, existing.account?.id != accId { existing.account = accountMap[accId] }
                 } else {
                     let t = Transaction(
                         name:               sb.name,
@@ -436,18 +447,18 @@ final class SyncService {
                 .select().eq("user_id", value: userId.uuidString).execute().value
 
             let localBudgets    = (try? context.fetch(FetchDescriptor<Budget>())) ?? []
-            let localBudgetMap  = Dictionary(uniqueKeysWithValues: localBudgets.map { ($0.id, $0) })
+            let localBudgetMap  = Dictionary(localBudgets.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
             var pulledBudgetIds = Set<UUID>()
 
             for sb in sbBudgets {
                 pulledBudgetIds.insert(sb.id)
                 if let existing = localBudgetMap[sb.id] {
-                    existing.category     = sb.category
-                    existing.categoryIcon = sb.categoryIcon
-                    existing.monthlyLimit = sb.monthlyLimit
-                    existing.month        = sb.month
-                    existing.year         = sb.year
-                    if let accId = sb.accountId { existing.account = accountMap[accId] }
+                    if existing.category     != sb.category     { existing.category     = sb.category }
+                    if existing.categoryIcon != sb.categoryIcon { existing.categoryIcon = sb.categoryIcon }
+                    if existing.monthlyLimit != sb.monthlyLimit { existing.monthlyLimit = sb.monthlyLimit }
+                    if existing.month        != sb.month        { existing.month        = sb.month }
+                    if existing.year         != sb.year         { existing.year         = sb.year }
+                    if let accId = sb.accountId, existing.account?.id != accId { existing.account = accountMap[accId] }
                 } else {
                     let b = Budget(category: sb.category,
                                    categoryIcon: sb.categoryIcon,
@@ -469,18 +480,18 @@ final class SyncService {
                 .select().eq("user_id", value: userId.uuidString).execute().value
 
             let localGoals    = (try? context.fetch(FetchDescriptor<Goal>())) ?? []
-            let localGoalMap  = Dictionary(uniqueKeysWithValues: localGoals.map { ($0.id, $0) })
+            let localGoalMap  = Dictionary(localGoals.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
             var pulledGoalIds = Set<UUID>()
 
             for sb in sbGoals {
                 pulledGoalIds.insert(sb.id)
                 if let existing = localGoalMap[sb.id] {
-                    existing.name          = sb.name
-                    existing.emoji         = sb.emoji
-                    existing.targetAmount  = sb.targetAmount
-                    existing.currentAmount = sb.currentAmount
-                    existing.deadline      = sb.deadline
-                    existing.isCompleted   = sb.isCompleted
+                    if existing.name          != sb.name          { existing.name          = sb.name }
+                    if existing.emoji         != sb.emoji         { existing.emoji         = sb.emoji }
+                    if existing.targetAmount  != sb.targetAmount  { existing.targetAmount  = sb.targetAmount }
+                    if existing.currentAmount != sb.currentAmount { existing.currentAmount = sb.currentAmount }
+                    if existing.deadline      != sb.deadline      { existing.deadline      = sb.deadline }
+                    if existing.isCompleted   != sb.isCompleted   { existing.isCompleted   = sb.isCompleted }
                 } else {
                     let g = Goal(name: sb.name,
                                  targetAmount: sb.targetAmount,

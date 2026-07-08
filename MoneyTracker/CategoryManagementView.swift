@@ -195,6 +195,7 @@ struct CategoryRow: View {
 struct AddCategoryView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @Query private var allCategories: [Category]
 
     var editing: Category? = nil
 
@@ -203,6 +204,16 @@ struct AddCategoryView: View {
     @State private var showIconGrid: Bool   = false
 
     private let columns = Array(repeating: GridItem(.flexible()), count: 6)
+
+    /// true se un'altra categoria (diversa da quella in modifica) ha già questo nome,
+    /// a meno di maiuscole/minuscole — evita doppioni che confonderebbero filtri e budget.
+    private var isDuplicateName: Bool {
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else { return false }
+        return allCategories.contains {
+            $0.id != editing?.id && $0.name.localizedCaseInsensitiveCompare(trimmed) == .orderedSame
+        }
+    }
 
     var body: some View {
         NavigationStack {
@@ -267,10 +278,15 @@ struct AddCategoryView: View {
                             .font(.system(size: 22, weight: .light))
                             .foregroundStyle(DS.ink)
                         ThinDivider()
+                        if isDuplicateName {
+                            Text("Esiste già una categoria con questo nome.")
+                                .font(.system(size: 12))
+                                .foregroundStyle(DS.smoke)
+                        }
                     }
 
                     PrimaryButton(title: editing == nil ? "Salva" : "Aggiorna") { save() }
-                        .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
+                        .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty || isDuplicateName)
                 }
                 .padding(.horizontal, DS.Layout.margin)
                 .padding(.top, DS.Space.xl)
@@ -303,12 +319,35 @@ struct AddCategoryView: View {
         let trimmed = name.trimmingCharacters(in: .whitespaces)
         guard !trimmed.isEmpty else { return }
         if let c = editing {
+            let oldName = c.name
             c.name = trimmed
             c.icon = selectedIcon
+            // Rinominare una categoria non deve "orfanizzare" i dati già salvati:
+            // Transaction.category e Budget.category sono stringhe indipendenti
+            // (non una relazione), quindi vanno aggiornate esplicitamente qui.
+            if oldName != trimmed {
+                renameCategoryEverywhere(from: oldName, to: trimmed)
+            }
         } else {
             context.insert(Category(name: trimmed, icon: selectedIcon, isDefault: false))
         }
         context.safeSave()
         dismiss()
+    }
+
+    private func renameCategoryEverywhere(from oldName: String, to newName: String) {
+        let transactions = (try? context.fetch(FetchDescriptor<Transaction>(
+            predicate: #Predicate { $0.category == oldName }
+        ))) ?? []
+        for t in transactions { t.category = newName }
+
+        // budget.category è "Tutti" oppure un elenco separato da virgola di nomi
+        // categoria (vedi AddBudgetView.save()) — va aggiornato token per token.
+        let budgets = (try? context.fetch(FetchDescriptor<Budget>())) ?? []
+        for b in budgets where b.category != "Tutti" {
+            let names = b.category.split(separator: ",").map(String.init)
+            guard names.contains(oldName) else { continue }
+            b.category = names.map { $0 == oldName ? newName : $0 }.sorted().joined(separator: ",")
+        }
     }
 }

@@ -146,6 +146,7 @@ struct AccountsView: View {
             .scrollContentBackground(.hidden)
             .background(DS.paper)
             .scrollIndicators(.hidden)
+            .refreshable { await SyncService.shared.manualRefresh(context: context) }
             .tourAnchor("accountList")
             .navigationTitle("Conti")
             .navigationBarTitleDisplayMode(.inline)

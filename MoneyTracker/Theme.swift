@@ -10,7 +10,7 @@ import SwiftData
 // manuale: il cambio tema è istantaneo e gestito interamente da SwiftUI/UIKit.
 
 private extension Color {
-    init(lightHex: UInt32, darkHex: UInt32) {
+    nonisolated init(lightHex: UInt32, darkHex: UInt32) {
         self.init(uiColor: UIColor { trait in
             let hex = trait.userInterfaceStyle == .dark ? darkHex : lightHex
             return UIColor(

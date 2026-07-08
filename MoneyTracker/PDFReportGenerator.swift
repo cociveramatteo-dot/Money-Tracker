@@ -11,12 +11,13 @@ private let pdfLogger = Logger(subsystem: Bundle.main.bundleIdentifier!, categor
 // SwiftData models across actor boundaries into the background PDF renderer.
 
 struct PDFTxSnapshot: Sendable {
-    let name:     String
-    let amount:   Decimal
-    let date:     Date
-    let isIncome: Bool   // true = entrata, false = uscita
-    let isDone:   Bool
-    let category: String
+    let name:       String
+    let amount:     Decimal
+    let date:       Date
+    let isIncome:   Bool   // true = entrata, false = uscita
+    let isDone:     Bool
+    let isTransfer: Bool
+    let category:   String
 }
 
 // MARK: - PDFReportGenerator
@@ -116,7 +117,11 @@ struct PDFReportGenerator {
         dayMonthFmt: DateFormatter,
         monthYearFmt: DateFormatter
     ) {
-        let done    = transactions.filter { $0.isDone }
+        // I trasferimenti tra i propri conti restano nell'elenco movimenti qui sotto
+        // (l'utente vuole vederli), ma non contano come spesa/entrata reale nei totali
+        // e nella ripartizione per categoria — altrimenti "Giroconto" comparirebbe
+        // come voce di spesa e i totali del mese risulterebbero gonfiati.
+        let done    = transactions.filter { $0.isDone && !$0.isTransfer }
         let uscite  = done.filter { !$0.isIncome }.reduce(Decimal(0)) { $0 + $1.amount }
         let entrate = done.filter {  $0.isIncome }.reduce(Decimal(0)) { $0 + $1.amount }
 

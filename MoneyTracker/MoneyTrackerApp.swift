@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import Combine
 
 @main
 struct MoneyTrackerApp: App {
@@ -182,7 +183,10 @@ struct MoneyTrackerApp: App {
         // Real-time sync: ogni volta che il real store salva, triggera un push
         // con debounce 1.5s. Così i dati arrivano su Supabase subito dopo l'inserimento.
         // Ignorato in demo mode (demoContainer ha il suo context separato).
-        .onReceive(NotificationCenter.default.publisher(for: ModelContext.didSave)) { notification in
+        .onReceive(
+            NotificationCenter.default.publisher(for: ModelContext.didSave)
+                .receive(on: RunLoop.main)
+        ) { notification in
             guard !demoModeEnabled, auth.isLoggedIn else { return }
             guard let ctx = notification.object as? ModelContext,
                   ctx === realContainer.mainContext else { return }
