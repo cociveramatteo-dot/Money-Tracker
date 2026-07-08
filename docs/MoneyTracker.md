@@ -137,7 +137,7 @@ docs/
 graphify-out/                    ← Knowledge graph del progetto
 ```
 
-**Automazione notturna** (fuori dal repo, in `~/Desktop/MoneyTrackerNightlyAutomation/`):
+**Automazione notturna** (fuori dal repo, in `~/Desktop/NightTestApp/`):
 uno script (`run_nightly_tests.sh`) lanciato ogni notte alle 4:00 da un
 LaunchAgent (`~/Library/LaunchAgents/com.moneytracker.nightlytests.plist`)
 esegue gli XCUITest su simulatore; se falliscono, invoca Claude Code headless
@@ -508,7 +508,7 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 - Aggiunto hook `MoneyTrackerApp.isUITesting` (`--uitesting` come launch argument): bypassa login Supabase, Face ID e tour di onboarding, forza la modalità demo con dati deterministici — nessuna chiamata di rete durante i test
 - Aggiunti `accessibilityIdentifier` su tutti gli elementi interattivi chiave (campi, bottoni, swipe actions) in AddTransactionView, AccountsView, CategoryManagementView, SettingsView, TransactionsView, ContentView (FAB), BudgetView, GoalsView
 - `TestPlan.xctestplan` aggiornato per includere il nuovo target
-- **Routine notturna**: script `run_nightly_tests.sh` + LaunchAgent `com.moneytracker.nightlytests.plist` (fuori dal repo, in `~/Desktop/MoneyTrackerNightlyAutomation/`) — esegue i test ogni notte alle 4:00, corregge automaticamente il codice con Claude Code headless in caso di fallimento (fino a 5 tentativi), scrive `report_notturno.md` e apre una PR
+- **Routine notturna**: script `run_nightly_tests.sh` + LaunchAgent `com.moneytracker.nightlytests.plist` (fuori dal repo, in `~/Desktop/NightTestApp/`) — esegue i test ogni notte alle 4:00, corregge automaticamente il codice con Claude Code headless in caso di fallimento (fino a 5 tentativi), scrive `report_notturno.md` e apre una PR
 
 ### v3.x (luglio 2026) — Riorganizzazione e documentazione
 
