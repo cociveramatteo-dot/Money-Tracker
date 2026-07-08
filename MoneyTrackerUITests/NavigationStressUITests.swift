@@ -46,8 +46,10 @@ final class NavigationStressUITests: MoneyTrackerUITestCase {
             let name = "\(baseName)_\(i)"
             names.append(name)
             tapFAB(menuItem: "fabMenu_addTransaction")
-            app.textFields["tf_amount"].tap()
-            app.textFields["tf_amount"].typeText("\(10 + i)")
+            let amountField = app.textFields["tf_amount"]
+            XCTAssertTrue(amountField.waitForExistence(timeout: 5), "Campo importo non comparso per \(name)")
+            amountField.tap()
+            amountField.typeText("\(10 + i)")
             app.textFields["tf_name"].tap()
             app.textFields["tf_name"].typeText(name)
             app.buttons["btn_saveTransaction"].tap()
