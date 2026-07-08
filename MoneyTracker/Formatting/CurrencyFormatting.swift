@@ -58,6 +58,17 @@ extension Decimal {
         return Decimal(string: normalized, locale: Locale(identifier: "en_US_POSIX"))
     }
 
+    /// Converte un Double proveniente da una sorgente esterna che non garantisce
+    /// precisione decimale (es. il parametro `Double` richiesto da AppIntents/Siri) in
+    /// un Decimal esatto a 2 cifre. `Decimal(_ value: Double)` erediterebbe il rumore
+    /// binario del Double (es. 19.99 non è rappresentabile esattamente in base 2);
+    /// passando da una stringa formattata a 2 decimali (arrotondamento corretto
+    /// garantito da `%.2f`) il risultato è invece l'esatto valore in centesimi.
+    init(roundedFromDouble value: Double) {
+        self = Decimal(string: String(format: "%.2f", value), locale: Locale(identifier: "en_US_POSIX"))
+            ?? Decimal(value)
+    }
+
     /// Conversione esplicita a Double, isolata ai punti che la richiedono davvero
     /// (es. Swift Charts). Da non usare per nuovi calcoli finanziari.
     var asDouble: Double { NSDecimalNumber(decimal: self).doubleValue }

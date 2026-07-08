@@ -83,4 +83,13 @@ final class SupabaseManager: ObservableObject {
     func resetPassword(email: String) async throws {
         try await client.auth.resetPasswordForEmail(email)
     }
+
+    /// Diritto all'oblio (GDPR art. 17): elimina definitivamente l'account Supabase
+    /// dell'utente loggato e tutti i suoi dati (conti, movimenti, budget, obiettivi).
+    /// Esegue una funzione lato database che opera solo sull'utente della sessione
+    /// corrente (vedi migrazione `gdpr_right_to_erasure`) — irreversibile.
+    /// Il chiamante deve poi ripulire lo store locale e disconnettersi.
+    func deleteAccount() async throws {
+        try await client.rpc("delete_own_account").execute()
+    }
 }

@@ -80,6 +80,7 @@ struct MoneyTrackerApp: App {
 
     // Osserva lo stato di autenticazione per mostrare login / app.
     @ObservedObject private var auth = SupabaseManager.shared
+    @ObservedObject private var syncService = SyncService.shared
     // Permette di rilevare quando l'app va in background o torna in foreground.
     @Environment(\.scenePhase) private var scenePhase
 
@@ -120,19 +121,14 @@ struct MoneyTrackerApp: App {
                 switch phase {
                 case .background:
                     // Push quando l'app va in background — garantisce che i dati
-                    // siano su Supabase prima che l'utente chiuda l'app.
-                    Task { await SyncService.shared.push(context: realContainer.mainContext) }
+                    // siano su Supabase prima che l'utente chiuda l'app. Resiliente:
+                    // se fallisce (rete assente proprio ora), resta in coda e riparte
+                    // da solo al prossimo ritorno in foreground o al rientro della rete.
+                    Task { await SyncService.shared.pushResilient(context: realContainer.mainContext) }
                 case .active:
-                    // Prima push: assicura che Supabase abbia i dati più recenti.
-                    // Poi pull (se passati ≥5 min): porta eventuali modifiche da altri dispositivi.
-                    // L'ordine push→pull è fondamentale: evita che il pull cancelli dati
-                    // locali non ancora caricati su Supabase.
-                    Task {
-                        await SyncService.shared.push(context: realContainer.mainContext)
-                        if SyncService.shared.shouldPull {
-                            await SyncService.shared.pull(context: realContainer.mainContext)
-                        }
-                    }
+                    // Push resiliente (retry automatico con backoff se fallisce) e poi
+                    // pull solo se il push è andato a buon fine — vedi SyncService.syncOnForeground.
+                    Task { await SyncService.shared.syncOnForeground(context: realContainer.mainContext) }
                 default:
                     break
                 }
@@ -172,6 +168,13 @@ struct MoneyTrackerApp: App {
                 .overlay(alignment: .top) {
                     if demoModeEnabled { demoBanner }
                 }
+                // Indicatore di sync silenzioso — mai un alert: se la rete manca o il
+                // cloud non risponde, l'utente vede "in corso"/"in sospeso", mai un
+                // errore. Il retry automatico (SyncService) risolve da solo appena possibile.
+                .overlay(alignment: .top) {
+                    if !demoModeEnabled { syncStatusBanner }
+                }
+                .animation(.spring(response: 0.4, dampingFraction: 0.75), value: syncService.status)
                 .task {
                     // Il seeding demo avviene in init() — qui processiamo solo le ricorrenti.
                     // PERF-05: gira su un @ModelActor in background, non sul main actor,
@@ -190,7 +193,13 @@ struct MoneyTrackerApp: App {
             guard !demoModeEnabled, auth.isLoggedIn else { return }
             guard let ctx = notification.object as? ModelContext,
                   ctx === realContainer.mainContext else { return }
+            // Registra QUALI transazioni sono cambiate in questo salvataggio, prima di
+            // schedulare il push — permette a push() di caricare solo le righe toccate
+            // invece dell'intera tabella (PROP-01, vedi SyncService.recordChanges).
+            SyncService.shared.recordChanges(from: notification, context: ctx)
             SyncService.shared.schedulePush(context: realContainer.mainContext)
+            // Registro immutabile di ogni creazione/modifica/cancellazione (PROP-02).
+            AuditLogger.shared.record(from: notification, context: ctx)
         }
         // Tour overlay — collects .tourAnchor() preferences from all descendants
         // and renders the spotlight ABOVE everything including UITabBar.
@@ -226,6 +235,47 @@ struct MoneyTrackerApp: App {
         .allowsHitTesting(false)
         .transition(.move(edge: .top).combined(with: .opacity))
         .animation(.spring(response: 0.4, dampingFraction: 0.75), value: demoModeEnabled)
+    }
+
+    // MARK: - Sync status banner
+    //
+    // Deliberatamente minimale e mai rosso/allarmante: anche "in sospeso" (retry
+    // pianificato) è comunicato come stato normale, non come errore dell'utente.
+
+    @ViewBuilder private var syncStatusBanner: some View {
+        if let (icon, label, showSpinner) = syncStatusContent {
+            HStack(spacing: 6) {
+                if showSpinner {
+                    ProgressView().tint(DS.paper).scaleEffect(0.65)
+                } else {
+                    Image(systemName: icon)
+                        .font(.system(size: 10, weight: .semibold))
+                }
+                Text(label)
+                    .font(.system(size: 11, weight: .medium))
+            }
+            .foregroundStyle(DS.paper)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 5)
+            .background(DS.ink.opacity(0.85), in: Capsule())
+            .shadow(color: .black.opacity(0.14), radius: 5, y: 2)
+            .padding(.top, 8)
+            .allowsHitTesting(false)
+            .transition(.move(edge: .top).combined(with: .opacity))
+        }
+    }
+
+    private var syncStatusContent: (icon: String, label: String, showSpinner: Bool)? {
+        switch syncService.status {
+        case .idle:
+            return nil
+        case .syncing:
+            return ("", String(localized: "Sincronizzazione…"), true)
+        case .waitingForRetry:
+            return ("clock.arrow.circlepath", String(localized: "Sincronizzazione in sospeso"), false)
+        case .offline:
+            return ("wifi.slash", String(localized: "Offline — riprenderà automaticamente"), false)
+        }
     }
 }
 

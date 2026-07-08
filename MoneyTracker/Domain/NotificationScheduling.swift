@@ -20,7 +20,7 @@ protocol NotificationScheduling: AnyObject {
     func scheduleGoalDeadline(name: String, goalId: String, deadline: Date)
     func cancelGoalDeadline(goalId: String)
 
-    func checkBalanceThreshold(accountId: String, accountName: String, currentBalance: Double)
+    func checkBalanceThreshold(accountId: String, accountName: String, currentBalance: Decimal)
 
     func scheduleMonthlyReportReminder(enabled: Bool)
 }

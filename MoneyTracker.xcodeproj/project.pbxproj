@@ -35,8 +35,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		95A2A6EB2FE7F5E10086EF0A /* MoneyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54746ECE08715CA8E613154A /* MoneyTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		95A2A6EB2FE7F5E10086EF0A /* MoneyTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -50,17 +50,17 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		24CF7F58C5C0B5E697E059B0 /* MoneyTrackerTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MoneyTrackerTests;
+			sourceTree = "<group>";
+		};
 		95A2A6ED2FE7F5E10086EF0A /* MoneyTracker */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				95A2A6F82FE7F5E30086EF0A /* Exceptions for "MoneyTracker" folder in "MoneyTracker" target */,
 			);
 			path = MoneyTracker;
-			sourceTree = "<group>";
-		};
-		24CF7F58C5C0B5E697E059B0 /* MoneyTrackerTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MoneyTrackerTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -106,6 +106,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		397573C26CAA0BCB058D31D4 /* MoneyTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF0E60E43662C888E103B8A5 /* Build configuration list for PBXNativeTarget "MoneyTrackerTests" */;
+			buildPhases = (
+				C85EC05C229515B96F3BE61D /* Sources */,
+				9DE0CC110267C4E515D66562 /* Frameworks */,
+				FA68A65E4A9C20EF31928790 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08C613FA11A160E1BF47653C /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				24CF7F58C5C0B5E697E059B0 /* MoneyTrackerTests */,
+			);
+			name = MoneyTrackerTests;
+			productName = MoneyTrackerTests;
+			productReference = 54746ECE08715CA8E613154A /* MoneyTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		95A2A6EA2FE7F5E10086EF0A /* MoneyTracker */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 95A2A6F92FE7F5E30086EF0A /* Build configuration list for PBXNativeTarget "MoneyTracker" */;
@@ -131,27 +152,6 @@
 			productReference = 95A2A6EB2FE7F5E10086EF0A /* MoneyTracker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		397573C26CAA0BCB058D31D4 /* MoneyTrackerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FF0E60E43662C888E103B8A5 /* Build configuration list for PBXNativeTarget "MoneyTrackerTests" */;
-			buildPhases = (
-				C85EC05C229515B96F3BE61D /* Sources */,
-				9DE0CC110267C4E515D66562 /* Frameworks */,
-				FA68A65E4A9C20EF31928790 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				08C613FA11A160E1BF47653C /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				24CF7F58C5C0B5E697E059B0 /* MoneyTrackerTests */,
-			);
-			name = MoneyTrackerTests;
-			productName = MoneyTrackerTests;
-			productReference = 54746ECE08715CA8E613154A /* MoneyTrackerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -162,13 +162,13 @@
 				LastSwiftUpdateCheck = 2650;
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
-					95A2A6EA2FE7F5E10086EF0A = {
-						CreatedOnToolsVersion = 26.5;
-						LastSwiftMigration = 2650;
-					};
 					397573C26CAA0BCB058D31D4 = {
 						CreatedOnToolsVersion = 26.5;
 						TestTargetID = 95A2A6EA2FE7F5E10086EF0A;
+					};
+					95A2A6EA2FE7F5E10086EF0A = {
+						CreatedOnToolsVersion = 26.5;
+						LastSwiftMigration = 2650;
 					};
 				};
 			};
@@ -234,6 +234,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		08C613FA11A160E1BF47653C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95A2A6EA2FE7F5E10086EF0A /* MoneyTracker */;
+			targetProxy = 98279C2A44647D4B1FE5648B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		95A2A6FA2FE7F5E30086EF0A /* Debug */ = {
@@ -440,25 +448,6 @@
 			};
 			name = Release;
 		};
-		F7D33389E3A1DE8CA4FE8BC8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KWX3UQA25F;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.matteo.moneytracker.MoneyTrackerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoneyTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoneyTracker";
-			};
-			name = Debug;
-		};
 		994F1D8E8698DC467C40E050 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -477,6 +466,25 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoneyTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoneyTracker";
 			};
 			name = Release;
+		};
+		F7D33389E3A1DE8CA4FE8BC8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KWX3UQA25F;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matteo.moneytracker.MoneyTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoneyTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoneyTracker";
+			};
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -509,14 +517,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin PBXTargetDependency section */
-		08C613FA11A160E1BF47653C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 95A2A6EA2FE7F5E10086EF0A /* MoneyTracker */;
-			targetProxy = 98279C2A44647D4B1FE5648B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		95E0EB232FF3E413008854B1 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
