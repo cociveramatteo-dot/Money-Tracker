@@ -13,9 +13,28 @@ struct MoneyTrackerApp: App {
     // and UITabBar — the only z-position from which the tab bar can be highlighted.
     @ObservedObject private var tourManager = TourManager.shared
 
+    // MARK: - UI testing hook
+    //
+    // XCUITest lancia l'app con l'argomento "--uitesting" (vedi MoneyTrackerUITests/UITestLaunchHelper.swift).
+    // In questo modo bypassiamo login Supabase/Face ID e forziamo la modalità demo,
+    // ottenendo dati deterministici senza chiamate di rete durante i test.
+    static var isUITesting: Bool {
+        ProcessInfo.processInfo.arguments.contains("--uitesting")
+    }
+
     // MARK: - Init
 
     init() {
+        if Self.isUITesting {
+            UserDefaults.standard.set(true, forKey: "demoModeEnabled")
+            UserDefaults.standard.set(false, forKey: "appLockEnabled")
+            UserDefaults.standard.set(true, forKey: "notificationsEnabled")
+            // Il tour di onboarding intercetterebbe ogni tap sulla tab bar: va
+            // marcato come già completato così gli XCUITest partono direttamente
+            // sull'app, senza dover gestire l'overlay del tour.
+            UserDefaults.standard.set(true, forKey: "onboarding.tour.completed.v1")
+        }
+
         // Schema(versionedSchema:) invece di Schema([...]): necessario perché
         // MoneyTrackerMigrationPlan sappia riconoscere/convertire uno store SchemaV1
         // (importi Double) esistente verso SchemaV2 (Decimal). Vedi Domain/SchemaMigration.swift.
@@ -70,6 +89,11 @@ struct MoneyTrackerApp: App {
             // qualsiasi @Query si abboni al container. Così quando l'utente attiva la
             // modalità demo i dati sono già presenti e non serve nessun .task asincrono.
             DemoDataSeeder.seedIfNeeded(context: demoCtx)
+            // Stato demo sempre pulito e deterministico a ogni lancio dei test UI —
+            // altrimenti transazioni/conti aggiunti dal test precedente si accumulerebbero.
+            if Self.isUITesting {
+                DemoDataSeeder.forceReset(context: demoCtx)
+            }
         } catch {
             // Fallback sicuro: in-memory (la demo funziona ma non persiste tra i lanci)
             let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
@@ -89,7 +113,12 @@ struct MoneyTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if auth.isLoading {
+                if Self.isUITesting {
+                    // Bypassa login/splash: gli XCUITest devono partire già dentro
+                    // l'app, su dati demo deterministici, senza rete.
+                    mainAppView
+                        .appLockGate()
+                } else if auth.isLoading {
                     // Splash — visibile solo per il tempo necessario a controllare
                     // la sessione salvata nel Keychain (di solito < 0.5 s).
                     splashView

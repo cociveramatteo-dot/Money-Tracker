@@ -99,12 +99,15 @@ struct ContentView: View {
                 Button { showAdd = true } label: {
                     Label("Spesa / Entrata", systemImage: "plus.circle")
                 }
+                .accessibilityIdentifier("fabMenu_addTransaction")
                 Button { showTransfer = true } label: {
                     Label("Trasferimento tra conti", systemImage: "arrow.left.arrow.right")
                 }
+                .accessibilityIdentifier("fabMenu_addTransfer")
             } label: {
                 fabCircle
             }
+            .accessibilityIdentifier("fabButton")
             .simultaneousGesture(TapGesture().onEnded { haptic(.medium) })
         } else if selectedTab != 2 {
             Button {
@@ -119,6 +122,7 @@ struct ContentView: View {
             } label: {
                 fabCircle
             }
+            .accessibilityIdentifier("fabButton")
         }
     }
 

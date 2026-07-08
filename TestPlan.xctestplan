@@ -18,6 +18,13 @@
         "identifier" : "397573C26CAA0BCB058D31D4",
         "name" : "MoneyTrackerTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MoneyTracker.xcodeproj",
+        "identifier" : "8EC36365BD4495BF3D8A3C17",
+        "name" : "MoneyTrackerUITests"
+      }
     }
   ],
   "version" : 1

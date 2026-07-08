@@ -224,6 +224,7 @@ struct AddBudgetView: View {
                                 .font(.system(size: 56, weight: .black))
                                 .foregroundStyle(DS.ink)
                                 .keyboardType(.decimalPad)
+                                .accessibilityIdentifier("tf_budgetLimit")
                         }
                         ThinDivider()
                     }
@@ -236,6 +237,7 @@ struct AddBudgetView: View {
 
                     PrimaryButton(title: "Salva") { save() }
                         .disabled(!canSave)
+                        .accessibilityIdentifier("btn_saveBudget")
                 }
                 .padding(.horizontal, DS.Layout.margin)
                 .padding(.top, DS.Space.xl)
@@ -246,6 +248,7 @@ struct AddBudgetView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     GhostButton(title: "Annulla") { dismiss() }
+                        .accessibilityIdentifier("btn_cancelAddBudget")
                 }
             }
         }

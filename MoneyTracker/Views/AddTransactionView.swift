@@ -64,6 +64,7 @@ struct AddTransactionView: View {
                                 .focused($focus, equals: .importo)
                                 .submitLabel(.next)
                                 .onSubmit { focus = .nome }
+                                .accessibilityIdentifier("tf_amount")
                         }
                         ThinDivider()
                     }
@@ -99,6 +100,7 @@ struct AddTransactionView: View {
                                     }
                                 }
                             }
+                            .accessibilityIdentifier("tf_name")
                         ThinDivider()
                     }
 
@@ -124,6 +126,7 @@ struct AddTransactionView: View {
                                     .foregroundStyle(DS.smoke)
                             }
                         }
+                        .accessibilityIdentifier("btn_categoryPicker")
                         ThinDivider()
                     }
 
@@ -146,6 +149,7 @@ struct AddTransactionView: View {
                                                     .frame(height: 1)
                                             }
                                         }
+                                        .accessibilityIdentifier("accountChip_\(acc.name)")
                                     }
                                 }
                             }
@@ -171,6 +175,7 @@ struct AddTransactionView: View {
                                 .onChange(of: isFixed) { _, v in
                                     if v { isDone = false } else { isDone = true }
                                 }
+                                .accessibilityIdentifier("toggle_isFixed")
                         }
 
                         // "Già effettuato" appare solo per le voci fisse
@@ -189,6 +194,7 @@ struct AddTransactionView: View {
                                 Toggle("", isOn: $isDone)
                                     .tint(DS.ink)
                                     .labelsHidden()
+                                    .accessibilityIdentifier("toggle_isDone")
                             }
                         }
 
@@ -232,11 +238,13 @@ struct AddTransactionView: View {
                             .font(.system(size: 15, weight: .light))
                             .foregroundStyle(DS.ink)
                             .lineLimit(3, reservesSpace: false)
+                            .accessibilityIdentifier("tf_notes")
                         ThinDivider()
                     }
 
                     PrimaryButton(title: editing == nil ? "Salva" : "Aggiorna") { save() }
                         .disabled(isSaveDisabled)
+                        .accessibilityIdentifier("btn_saveTransaction")
                 }
                 .padding(.horizontal, DS.Layout.margin)
                 .padding(.top, DS.Space.xl)
@@ -247,6 +255,7 @@ struct AddTransactionView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     GhostButton(title: "Annulla") { dismiss() }
+                        .accessibilityIdentifier("btn_cancelAddTransaction")
                 }
             }
             .sheet(isPresented: $showCatPicker) {
@@ -381,6 +390,7 @@ struct CategoryPickerView: View {
                             .padding(.horizontal, DS.Layout.margin)
                             .padding(.vertical, DS.Layout.rowVPad)
                         }
+                        .accessibilityIdentifier("categoryRow_\(cat.name)")
                         ThinDivider()
                             .padding(.leading, DS.Layout.margin + 20 + DS.Space.m)
                     }
@@ -395,6 +405,7 @@ struct CategoryPickerView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     GhostButton(title: "Chiudi") { dismiss() }
+                        .accessibilityIdentifier("btn_closeCategoryPicker")
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
@@ -404,6 +415,7 @@ struct CategoryPickerView: View {
                             .font(.system(size: 15))
                             .foregroundStyle(DS.smoke)
                     }
+                    .accessibilityIdentifier("btn_manageCategories")
                 }
             }
         }

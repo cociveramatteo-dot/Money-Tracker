@@ -114,6 +114,7 @@ struct TransactionsView: View {
                         .focused($searchFocused)
                         .submitLabel(.done)
                         .onSubmit { searchFocused = false }
+                        .accessibilityIdentifier("tf_searchTransactions")
                     if !search.isEmpty {
                         Button {
                             search = ""
@@ -228,6 +229,7 @@ struct TransactionsView: View {
                                         } label: {
                                             Label("Elimina", systemImage: "trash")
                                         }
+                                        .accessibilityIdentifier("btn_deleteTransaction")
                                     }
                                 }
                             } header: {
@@ -285,11 +287,13 @@ struct TransactionsView: View {
                                 }
                             }
                         }
+                        .accessibilityIdentifier("btn_advancedFilter")
                         Button { showSettings = true } label: {
                             Image(systemName: "gearshape")
                                 .font(.system(size: 16))
                                 .foregroundStyle(DS.ink)
                         }
+                        .accessibilityIdentifier("btn_openSettings")
                     }
                 }
             }
@@ -478,6 +482,7 @@ struct TransactionsView: View {
             }
         }
         .contentShape(Rectangle())
+        .accessibilityIdentifier("txRow_\(t.id.uuidString)")
         .onTapGesture {
             // I trasferimenti sono 2 transazioni collegate (transferGroupId): l'editor
             // generico modificherebbe solo una delle due gambe, disallineando in modo

@@ -126,10 +126,24 @@ MoneyTracker/                    ← Source principale
 ├── [*.lproj]                    ← Localizzazioni (it/en/de/fr/es/ja/zh-Hans)
 └── Assets.xcassets/
 MoneyTrackerTests/               ← Unit test (XCTest)
+MoneyTrackerUITests/             ← UI test (XCUITest, simula uso reale)
+├── UITestSupport.swift          ← Classe base, helper navigazione/FAB
+├── TransactionFlowUITests.swift ← Aggiungi/modifica/elimina movimento
+├── AccountFlowUITests.swift     ← Aggiungi/modifica/elimina conto
+├── CategoryFlowUITests.swift    ← Aggiungi/modifica/elimina categoria
+└── NavigationStressUITests.swift ← Uso intensivo: tab switching, sheet ripetuti
 docs/
 └── MoneyTracker.pdf             ← Questo documento (unico riferimento)
 graphify-out/                    ← Knowledge graph del progetto
 ```
+
+**Automazione notturna** (fuori dal repo, in `~/Desktop/MoneyTrackerNightlyAutomation/`):
+uno script (`run_nightly_tests.sh`) lanciato ogni notte alle 4:00 da un
+LaunchAgent (`~/Library/LaunchAgents/com.moneytracker.nightlytests.plist`)
+esegue gli XCUITest su simulatore; se falliscono, invoca Claude Code headless
+per analizzare e correggere il codice, riprova fino a 5 volte, scrive
+`report_notturno.md` nella root del progetto e apre una Pull Request con le
+correzioni. Vedi sezione 10 per i dettagli del funzionamento.
 
 ---
 
@@ -486,6 +500,15 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ---
 
 ## 10. Changelog
+
+### v3.x (luglio 2026) — XCUITest e automazione notturna
+
+- Nuovo target **MoneyTrackerUITests** (XCUITest) nel progetto Xcode, creato via script Ruby (`xcodeproj` gem) sul `project.pbxproj`
+- 12 test UI in 4 classi: flusso movimenti, conti, categorie, e uno stress test di navigazione (tab switching rapido, apertura/chiusura ripetuta di fogli, aggiunta/eliminazione multipla)
+- Aggiunto hook `MoneyTrackerApp.isUITesting` (`--uitesting` come launch argument): bypassa login Supabase, Face ID e tour di onboarding, forza la modalità demo con dati deterministici — nessuna chiamata di rete durante i test
+- Aggiunti `accessibilityIdentifier` su tutti gli elementi interattivi chiave (campi, bottoni, swipe actions) in AddTransactionView, AccountsView, CategoryManagementView, SettingsView, TransactionsView, ContentView (FAB), BudgetView, GoalsView
+- `TestPlan.xctestplan` aggiornato per includere il nuovo target
+- **Routine notturna**: script `run_nightly_tests.sh` + LaunchAgent `com.moneytracker.nightlytests.plist` (fuori dal repo, in `~/Desktop/MoneyTrackerNightlyAutomation/`) — esegue i test ogni notte alle 4:00, corregge automaticamente il codice con Claude Code headless in caso di fallimento (fino a 5 tentativi), scrive `report_notturno.md` e apre una PR
 
 ### v3.x (luglio 2026) — Riorganizzazione e documentazione
 

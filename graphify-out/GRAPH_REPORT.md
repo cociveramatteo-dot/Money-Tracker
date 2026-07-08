@@ -1,223 +1,283 @@
 # Graph Report - /Users/matteo/Desktop/MoneyTracker  (2026-07-08)
 
 ## Corpus Check
-- 62 files · ~56,644 words
+- 24 files · ~50,913 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 700 nodes · 1346 edges · 35 communities (31 shown, 4 thin omitted)
-- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 46 edges (avg confidence: 0.8)
+- 844 nodes · 1440 edges · 111 communities (27 shown, 84 thin omitted)
+- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 39 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
-- Intents & Balance Computation
-- Data Seeding & Logging
-- Audit & Changelog Docs
+- Accounts View
+- Project Documentation
+- App Core & Utilities
 - Account Data Model
-- Schema Migration & Decimal
-- Design System & Theme
-- Currency Formatting & Notifications
-- Add Transaction UI
-- Onboarding Tour Manager
-- Biometric App Lock
-- PDF Export & Formatter Cache
-- Supabase Sync Coding Keys
-- Supabase Auth & Cloud Sync
-- App Entry & Domain Services
-- Keyword Category Classifier
+- Supabase Sync Layer
+- Notification Scheduling
+- Budget View
+- Balance Cache
+- App Lock / Biometrics
+- Onboarding Tour Engine
+- Schema Migration & Formatting
+- Sync Serialization
+- Auth Login UI
+- App Intents & Shortcuts
+- PDF Export
+- Category Classifier
+- Settings & CSV Export
+- Audit Logger
 - Tab Bar Frame Capture
-- Apple Shortcuts Integration
-- Budget UI
-- Planning View (Pianifica)
-- Dashboard & Account Order
-- Accounts Management UI
-- Transfer Between Accounts
-- Login View
-- Tour Highlight Anchoring
-- Tour Overlay Geometry
-- Share Sheet & Export
-- Budget Data Model
-- App Root & Navigation
-- Sign Up View
-- Tour Overlay Cards
-- App Branding & Icon
-- Italian Market Vision
-- Audit Report Snapshot
-- QA Debug Cleanup
+- Demo Data Seeder
+- Planning View
+- Category Management
+- Dashboard View
+- Tour Highlight System
+- Share Sheet UI
+- Visual Assets & Branding
+- Isolated Type Node 26
+- Isolated Type Node 27
+- Isolated Type Node 28
+- Isolated Type Node 29
+- Isolated Type Node 30
+- Isolated Type Node 31
+- Isolated Type Node 32
+- Isolated Type Node 33
+- Isolated Type Node 34
+- Isolated Type Node 35
+- Isolated Type Node 36
+- Isolated Type Node 37
+- Isolated Type Node 38
+- Isolated Type Node 39
+- Isolated Type Node 40
+- Isolated Type Node 41
+- Isolated Type Node 42
+- Isolated Type Node 43
+- Isolated Type Node 44
+- Isolated Type Node 45
+- Isolated Type Node 46
+- Isolated Type Node 47
+- Isolated Type Node 48
+- Isolated Type Node 49
+- Isolated Type Node 50
+- Isolated Type Node 51
+- Isolated Type Node 52
+- Isolated Type Node 53
+- Isolated Type Node 54
+- Isolated Type Node 55
+- Isolated Type Node 56
+- Isolated Type Node 57
+- Isolated Type Node 58
+- Isolated Type Node 59
+- Isolated Type Node 60
+- Isolated Type Node 61
+- Isolated Type Node 62
+- Isolated Type Node 63
+- Isolated Type Node 64
+- Isolated Type Node 66
+- Isolated Type Node 67
+- Isolated Type Node 68
+- Isolated Type Node 69
+- Isolated Type Node 70
+- Isolated Type Node 71
+- Isolated Type Node 72
+- Isolated Type Node 73
+- Isolated Type Node 74
+- Isolated Type Node 75
+- Isolated Type Node 76
+- Isolated Type Node 77
+- Isolated Type Node 78
+- Isolated Type Node 79
+- Isolated Type Node 80
+- Isolated Type Node 81
+- Isolated Type Node 82
+- Isolated Type Node 83
+- Isolated Type Node 84
+- Isolated Type Node 85
+- Isolated Type Node 86
+- Isolated Type Node 87
+- Isolated Type Node 88
+- Isolated Type Node 89
+- Isolated Type Node 90
+- Isolated Type Node 91
+- Isolated Type Node 92
+- Isolated Type Node 93
+- Isolated Type Node 94
+- Isolated Type Node 95
+- Isolated Type Node 96
+- Isolated Type Node 97
+- Isolated Type Node 98
+- Isolated Type Node 99
+- Isolated Type Node 100
+- Isolated Type Node 101
+- Isolated Type Node 102
+- Isolated Type Node 103
+- Isolated Type Node 104
+- Isolated Type Node 105
+- Isolated Type Node 106
+- Isolated Type Node 107
+- Isolated Type Node 108
+- Isolated Type Node 109
+- Isolated Type Node 110
 
 ## God Nodes (most connected - your core abstractions)
-1. `Decimal` - 53 edges
-2. `Double` - 33 edges
+1. `View` - 44 edges
+2. `Date` - 33 edges
 3. `CodingKeys` - 32 edges
-4. `SwiftData` - 29 edges
+4. `SwiftData` - 30 edges
 5. `TourStep` - 27 edges
-6. `Foundation` - 23 edges
-7. `SwiftUI` - 22 edges
-8. `Category` - 20 edges
-9. `StatisticsView` - 19 edges
-10. `SyncService` - 17 edges
+6. `SyncService` - 27 edges
+7. `Foundation` - 24 edges
+8. `Double` - 24 edges
+9. `Decimal` - 21 edges
+10. `StatisticsView` - 19 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `AI Financial Coach (Planned - Claude Haiku API)` --semantically_similar_to--> `'Me lo posso permettere?' Conversational Shortcut`  [INFERRED] [semantically similar]
-  STATO_APP.md → VISIONE.md
-- `MoneyTracker Project File Structure` --references--> `MoneyTracker App`  [EXTRACTED]
-  MoneyTracker/SETUP.md → AUDIT_E_CHANGELOG.md
-- `Custom Category Management` --conceptually_related_to--> `CategoryClassifier (Keyword Matching Engine)`  [INFERRED]
-  MoneyTracker/SETUP.md → AUDIT_E_CHANGELOG.md
-- `VoiceOver Accessibility Coverage` --conceptually_related_to--> `i18n BUG-02: Accessibility Labels Non-Localized`  [INFERRED]
-  AUDIT_E_CHANGELOG.md → QA_Report.md
-- `BUG-01: CategoryStat.id UUID Instability` --conceptually_related_to--> `DashboardView (Home Screen)`  [INFERRED]
-  QA_Report.md → STATO_APP.md
+- `Checkpoint Workflow` --references--> `MoneyTracker App`  [EXTRACTED]
+  CLAUDE.md → docs/MoneyTracker.md
+- `MoneyTrackerMigrationPlan` --calls--> `Decimal`  [INFERRED]
+  MoneyTracker/Persistence/SchemaMigration.swift → MoneyTracker/Formatting/CurrencyFormatting.swift
+- `ContentView` --references--> `View`  [EXTRACTED]
+  MoneyTracker/Views/ContentView.swift → MoneyTracker/Views/Theme.swift
+- `MoneyTracker Project (CLAUDE.md)` --references--> `MoneyTracker App`  [EXTRACTED]
+  CLAUDE.md → docs/MoneyTracker.md
+- `Goal` --references--> `Double`  [EXTRACTED]
+  MoneyTracker/Models/Goal.swift → MoneyTracker/Formatting/CurrencyFormatting.swift
 
 ## Import Cycles
 - None detected.
 
 ## Hyperedges (group relationships)
-- **Core SwiftData Models (Account, Transaction, Budget, Goal, Category)** — audit_e_changelog_account_model, audit_e_changelog_transaction_model, audit_e_changelog_budget_model, audit_e_changelog_goal_model, audit_e_changelog_category_model [EXTRACTED 1.00]
-- **Security Architecture (NSFileProtection, SEC-01 Fix, Swift6 Concurrency)** — audit_e_changelog_nsfileprotection, audit_e_changelog_sec01_try_bang_fix, audit_e_changelog_swift6_concurrency, audit_e_changelog_add_expense_intent [EXTRACTED 0.95]
-- **Planned Premium Features (Open Banking, AI Coach, Supabase Sync)** — stato_app_open_banking, stato_app_ai_financial_coach, stato_app_supabase_sync, stato_app_business_model [INFERRED 0.85]
+- **Offline-First Privacy Architecture (no server, on-device AI, NSFileProtection, no temp files)** — docs_moneytracker_md_privacy_radical, docs_moneytracker_md_category_classifier, docs_moneytracker_md_db_security, docs_moneytracker_md_transferable [INFERRED 0.85]
+- **SwiftData Persistence Layer (Models + Schema Migration + Security)** — docs_moneytracker_md_swiftdata, docs_moneytracker_md_model_account, docs_moneytracker_md_model_transaction, docs_moneytracker_md_schema_migration, docs_moneytracker_md_db_security [EXTRACTED 0.95]
+- **Performance Optimization via Singletons (FormatterCache, AccountBalanceCache, CategoryClassifier NSCache)** — docs_moneytracker_md_singleton_pattern, docs_moneytracker_md_formattercache, docs_moneytracker_md_account_balance_cache, docs_moneytracker_md_category_classifier [INFERRED 0.85]
 
-## Communities (35 total, 4 thin omitted)
+## Communities (111 total, 84 thin omitted)
 
-### Community 0 - "Intents & Balance Computation"
-Cohesion: 0.08
-Nodes (25): Charts, Identifiable, IntentResult, AccountBalanceCache, Account, PersistentIdentifier, Decimal, Goal (+17 more)
+### Community 0 - "Accounts View"
+Cohesion: 0.06
+Nodes (49): AccountType, Content, AccountRow, AccountsView, AddAccountView, Account, Bool, Decimal (+41 more)
 
-### Community 1 - "Data Seeding & Logging"
-Cohesion: 0.10
-Nodes (27): Codable, DemoDataSeeder, Logger, ModelContext, Bool, Int, String, date (+19 more)
-
-### Community 2 - "Audit & Changelog Docs"
+### Community 1 - "Project Documentation"
 Cohesion: 0.05
-Nodes (45): Account Data Model, AddExpenseIntent (Shortcuts Extension), Budget Data Model, CategoryClassifier (Keyword Matching Engine), Category Data Model, EmptyStateView Reusable Component, Enterprise Readiness Roadmap, FormatterCache Singleton (+37 more)
+Nodes (54): Checkpoint Workflow, Graphify Knowledge Graph Workflow, MoneyTracker Project (CLAUDE.md), AccountBalanceCache, AddTransactionView, AddTransferView, AI Financial Coach (Claude Haiku API, on-device), MoneyTracker App (+46 more)
+
+### Community 2 - "App Core & Utilities"
+Cohesion: 0.07
+Nodes (23): AnyObject, Foundation, MoneyTracker, NotificationScheduling, RecurringTransactionActor, FormatterCache, DateFormatter, String (+15 more)
 
 ### Community 3 - "Account Data Model"
 Cohesion: 0.07
-Nodes (34): CaseIterable, Account, AccountType, carta, contanti, conto, investimento, risparmio (+26 more)
+Nodes (36): CaseIterable, Account, AccountType, carta, contanti, conto, investimento, risparmio (+28 more)
 
-### Community 4 - "Schema Migration & Decimal"
-Cohesion: 0.13
-Nodes (22): MigrationStage, Double, Account, Budget, DecimalMigrationBuffer, Goal, MoneyTrackerMigrationPlan, SchemaV1 (+14 more)
+### Community 4 - "Supabase Sync Layer"
+Cohesion: 0.10
+Nodes (29): Equatable, SBAccount, SBBudget, SBGoal, SBTransaction, Account, Bool, Budget (+21 more)
 
-### Community 5 - "Design System & Theme"
-Cohesion: 0.09
-Nodes (36): Color, DS, DSIcon, DSTransactionRow, EmptyStateView, FixedExpenseRow, GhostButton, haptic() (+28 more)
+### Community 5 - "Notification Scheduling"
+Cohesion: 0.07
+Nodes (27): Hashable, Bool, Decimal, Double, Int, ModelContext, String, SystemNotificationManager (+19 more)
 
-### Community 6 - "Currency Formatting & Notifications"
-Cohesion: 0.09
-Nodes (16): AnyObject, Transaction, NotificationScheduling, Date, Bool, String, AddGoalView, GoalRow (+8 more)
+### Community 6 - "Budget View"
+Cohesion: 0.11
+Nodes (24): Identifiable, AddBudgetView, BudgetHistorySheet, BudgetRow, Account, Bool, Budget, Category (+16 more)
 
-### Community 7 - "Add Transaction UI"
+### Community 7 - "Balance Cache"
 Cohesion: 0.08
-Nodes (26): Hashable, AddTransactionView, AddTxFocus, importo, nome, CategoryPickerView, Account, Bool (+18 more)
+Nodes (21): AccountBalanceCache, Account, PersistentIdentifier, Date, Decimal, Bool, String, Budget (+13 more)
 
-### Community 8 - "Onboarding Tour Manager"
+### Community 8 - "App Lock / Biometrics"
+Cohesion: 0.08
+Nodes (19): Combine, AppLockGate, AppLockState, LockOverlay, Bool, Content, View, Void (+11 more)
+
+### Community 9 - "Onboarding Tour Engine"
 Cohesion: 0.07
 Nodes (26): Int, Bool, CGFloat, CGRect, Int, TourManager, Bool, CGFloat (+18 more)
 
-### Community 9 - "Biometric App Lock"
-Cohesion: 0.09
-Nodes (22): LocalAuthentication, AppLockGate, AppLockState, LockOverlay, Bool, Content, View, Void (+14 more)
+### Community 10 - "Schema Migration & Formatting"
+Cohesion: 0.17
+Nodes (20): MigrationStage, Double, Account, Budget, DecimalMigrationBuffer, Goal, MoneyTrackerMigrationPlan, SchemaV1 (+12 more)
 
-### Community 10 - "PDF Export & Formatter Cache"
-Cohesion: 0.18
-Nodes (17): CGContext, CGPoint, FormatterCache, DateFormatter, String, NumberFormatter, PDFReportGenerator, PDFTxSnapshot (+9 more)
-
-### Community 11 - "Supabase Sync Coding Keys"
+### Community 11 - "Sync Serialization"
 Cohesion: 0.07
 Nodes (30): CodingKey, CodingKeys, accountId, amount, category, categoryIcon, colorHex, createdAt (+22 more)
 
-### Community 12 - "Supabase Auth & Cloud Sync"
-Cohesion: 0.08
-Nodes (16): App, Combine, FileProtectionType, SupabaseManager, Bool, String, applyFileProtection(), MoneyTrackerApp (+8 more)
+### Community 12 - "Auth Login UI"
+Cohesion: 0.11
+Nodes (19): Anchor, GeometryProxy, AuthField, LoginView, Bool, Error, String, SignUpView (+11 more)
 
-### Community 13 - "App Entry & Domain Services"
-Cohesion: 0.15
-Nodes (7): Foundation, MoneyTracker, RecurringTransactionActor, OSLog, SwiftData, Testing, UserNotifications
+### Community 13 - "App Intents & Shortcuts"
+Cohesion: 0.13
+Nodes (19): AppIntent, AppShortcut, AppShortcutsProvider, DynamicOptionsProvider, IntentResult, LocalizedStringResource, AccountOptionsProvider, AddExpenseIntent (+11 more)
 
-### Community 14 - "Keyword Category Classifier"
+### Community 14 - "PDF Export"
+Cohesion: 0.26
+Nodes (14): CGContext, CGPoint, DateFormatter, NumberFormatter, PDFReportGenerator, PDFTxSnapshot, Bool, CGFloat (+6 more)
+
+### Community 15 - "Category Classifier"
 Cohesion: 0.18
 Nodes (9): Bundle, CategoryClassifying, KeywordCategoryClassifier, Int, String, KeywordCategoryClassifierTests, NSCache, NSString (+1 more)
 
-### Community 15 - "Tab Bar Frame Capture"
-Cohesion: 0.18
-Nodes (12): CapView, CGFloat, CGRect, Context, Void, TabBarFrameCapture, NSCoder, UIKit (+4 more)
+### Community 16 - "Settings & CSV Export"
+Cohesion: 0.23
+Nodes (17): Codable, AccountExport, BudgetExport, CSVFile, CurrencyConfirmSheet, GDPRExport, GoalExport, JSONExportFile (+9 more)
 
-### Community 16 - "Apple Shortcuts Integration"
+### Community 17 - "Audit Logger"
+Cohesion: 0.17
+Nodes (10): AuditLogger, Entry, ModelContext, Notification, PersistentIdentifier, String, URL, UUID (+2 more)
+
+### Community 18 - "Tab Bar Frame Capture"
+Cohesion: 0.20
+Nodes (11): CapView, CGFloat, CGRect, Context, Void, TabBarFrameCapture, NSCoder, UITabBar (+3 more)
+
+### Community 19 - "Demo Data Seeder"
 Cohesion: 0.16
-Nodes (17): AppIntent, AppIntents, AppShortcut, AppShortcutsProvider, DynamicOptionsProvider, LocalizedStringResource, AccountOptionsProvider, AddExpenseIntent (+9 more)
+Nodes (12): App, FileProtectionType, DemoDataSeeder, ModelContext, applyFileProtection(), MoneyTrackerApp, Bool, ModelContainer (+4 more)
 
-### Community 17 - "Budget UI"
+### Community 20 - "Planning View"
+Cohesion: 0.19
+Nodes (11): PianificaView, Bool, Budget, Decimal, Double, Goal, Int, LocalizedStringKey (+3 more)
+
+### Community 21 - "Category Management"
 Cohesion: 0.24
-Nodes (10): AddBudgetView, BudgetHistorySheet, BudgetRow, Account, Bool, Budget, Date, Set (+2 more)
+Nodes (8): AddCategoryView, CategoryManagementView, CategoryRow, Bool, Category, Int, String, Transaction
 
-### Community 18 - "Planning View (Pianifica)"
-Cohesion: 0.21
-Nodes (9): PianificaView, Bool, Budget, Goal, Int, LocalizedStringKey, PersistentIdentifier, Transaction (+1 more)
+### Community 22 - "Dashboard View"
+Cohesion: 0.22
+Nodes (8): DashboardView, HomeAccountOrderSheet, Account, Bool, Decimal, Set, String, Transaction
 
-### Community 19 - "Dashboard & Account Order"
-Cohesion: 0.24
-Nodes (7): DashboardView, HomeAccountOrderSheet, Account, Bool, Set, String, Transaction
-
-### Community 20 - "Accounts Management UI"
-Cohesion: 0.33
-Nodes (6): AccountRow, AccountsView, AddAccountView, Account, Bool, String
-
-### Community 21 - "Transfer Between Accounts"
-Cohesion: 0.25
-Nodes (6): AddTransferView, Account, Binding, Bool, Date, String
-
-### Community 22 - "Login View"
-Cohesion: 0.31
-Nodes (6): AuthField, LoginView, Bool, Error, String, UIKeyboardType
-
-### Community 23 - "Tour Highlight Anchoring"
+### Community 23 - "Tour Highlight System"
 Cohesion: 0.29
 Nodes (5): String, TourAnchorKey, View, PreferenceKey, Value
 
-### Community 24 - "Tour Overlay Geometry"
-Cohesion: 0.43
-Nodes (6): Anchor, GeometryProxy, CGFloat, CGRect, String, TourOverlayView
-
-### Community 25 - "Share Sheet & Export"
+### Community 24 - "Share Sheet UI"
 Cohesion: 0.38
-Nodes (5): Any, ShareSheet, Context, UIActivityViewController, UIViewControllerRepresentable
+Nodes (5): Any, Context, ShareSheet, UIActivityViewController, UIViewControllerRepresentable
 
-### Community 26 - "Budget Data Model"
-Cohesion: 0.48
-Nodes (6): Budget, Account, Date, Int, String, UUID
-
-### Community 28 - "Sign Up View"
-Cohesion: 0.47
-Nodes (4): SignUpView, Bool, Error, String
-
-### Community 29 - "Tour Overlay Cards"
-Cohesion: 0.67
-Nodes (3): ModalCard, StepCard, View
-
-### Community 30 - "App Branding & Icon"
+### Community 25 - "Visual Assets & Branding"
 Cohesion: 1.00
 Nodes (3): AppIcon Light 1024 — App Icon (Light Variant), Light Theme Branding — white/grey palette, minimalist design language, Visual Metaphor: Combined Bar + Line Chart with dot markers
 
 ## Knowledge Gaps
-- **91 isolated node(s):** `AppIntents`, `importo`, `nome`, `contanti`, `carta` (+86 more)
+- **79 isolated node(s):** `contanti`, `carta`, `conto`, `risparmio`, `investimento` (+74 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **84 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Decimal` connect `Intents & Balance Computation` to `Data Seeding & Logging`, `Account Data Model`, `Schema Migration & Decimal`, `Design System & Theme`, `Currency Formatting & Notifications`, `PDF Export & Formatter Cache`, `Budget UI`, `Planning View (Pianifica)`, `Dashboard & Account Order`, `Accounts Management UI`, `Budget Data Model`?**
-  _High betweenness centrality (0.229) - this node is a cross-community bridge._
-- **Why does `SwiftData` connect `App Entry & Domain Services` to `Intents & Balance Computation`, `Data Seeding & Logging`, `Account Data Model`, `Schema Migration & Decimal`, `Design System & Theme`, `Currency Formatting & Notifications`, `Add Transaction UI`, `Biometric App Lock`, `Supabase Auth & Cloud Sync`, `Apple Shortcuts Integration`, `Budget UI`, `Dashboard & Account Order`, `Accounts Management UI`, `Transfer Between Accounts`, `App Root & Navigation`?**
-  _High betweenness centrality (0.161) - this node is a cross-community bridge._
-- **Why does `SwiftUI` connect `App Root & Navigation` to `Intents & Balance Computation`, `Account Data Model`, `Design System & Theme`, `Currency Formatting & Notifications`, `Add Transaction UI`, `Biometric App Lock`, `Supabase Auth & Cloud Sync`, `Tab Bar Frame Capture`, `Budget UI`, `Dashboard & Account Order`, `Accounts Management UI`, `Transfer Between Accounts`, `Login View`, `Tour Highlight Anchoring`, `Tour Overlay Cards`?**
-  _High betweenness centrality (0.143) - this node is a cross-community bridge._
-- **Are the 8 inferred relationships involving `Decimal` (e.g. with `.perform()` and `.perform()`) actually correct?**
-  _`Decimal` has 8 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `AppIntents`, `importo`, `nome` to the rest of the system?**
-  _95 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Intents & Balance Computation` be split into smaller, more focused modules?**
-  _Cohesion score 0.08421985815602837 - nodes in this community are weakly interconnected._
-- **Should `Data Seeding & Logging` be split into smaller, more focused modules?**
-  _Cohesion score 0.10083256244218317 - nodes in this community are weakly interconnected._
+- **Why does `SwiftData` connect `App Core & Utilities` to `Accounts View`, `Account Data Model`, `Supabase Sync Layer`, `Notification Scheduling`, `Budget View`, `Schema Migration & Formatting`, `App Intents & Shortcuts`, `Settings & CSV Export`, `Demo Data Seeder`, `Planning View`, `Category Management`, `Dashboard View`?**
+  _High betweenness centrality (0.190) - this node is a cross-community bridge._
+- **Why does `Foundation` connect `App Core & Utilities` to `Account Data Model`, `Supabase Sync Layer`, `Balance Cache`, `App Lock / Biometrics`, `Schema Migration & Formatting`, `App Intents & Shortcuts`, `Category Classifier`?**
+  _High betweenness centrality (0.111) - this node is a cross-community bridge._
+- **Why does `View` connect `Accounts View` to `App Core & Utilities`, `Account Data Model`, `Notification Scheduling`, `Budget View`, `Settings & CSV Export`, `Audit Logger`, `Demo Data Seeder`, `Planning View`, `Category Management`, `Dashboard View`?**
+  _High betweenness centrality (0.108) - this node is a cross-community bridge._
+- **Are the 2 inferred relationships involving `TourStep` (e.g. with `.next()` and `.previous()`) actually correct?**
+  _`TourStep` has 2 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `contanti`, `carta`, `conto` to the rest of the system?**
+  _81 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Accounts View` be split into smaller, more focused modules?**
+  _Cohesion score 0.05536723163841808 - nodes in this community are weakly interconnected._
+- **Should `Project Documentation` be split into smaller, more focused modules?**
+  _Cohesion score 0.053109713487071976 - nodes in this community are weakly interconnected._

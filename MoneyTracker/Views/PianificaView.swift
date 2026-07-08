@@ -219,6 +219,7 @@ struct PianificaView: View {
                 ForEach(Array(currentBudgets.enumerated()), id: \.element.id) { _, budget in
                     BudgetRow(budget: budget, spentAmount: map[budget.id] ?? 0)
                         .padding(.horizontal, DS.Layout.margin)
+                        .accessibilityIdentifier("budgetRow_\(budget.id.uuidString)")
                         .contextMenu {
                             Button(role: .destructive) {
                                 context.delete(budget)
@@ -226,6 +227,7 @@ struct PianificaView: View {
                             } label: {
                                 Label("Elimina", systemImage: "trash")
                             }
+                            .accessibilityIdentifier("btn_deleteBudget")
                         }
                     ThinDivider().padding(.leading, DS.Layout.margin)
                 }
@@ -282,17 +284,20 @@ struct PianificaView: View {
                     GoalRow(goal: goal)
                         .padding(.horizontal, DS.Layout.margin)
                         .contentShape(Rectangle())
+                        .accessibilityIdentifier("goalRow_\(goal.id.uuidString)")
                         .onTapGesture { editingGoal = goal }
                         .contextMenu {
                             Button { editingGoal = goal } label: {
                                 Label("Modifica", systemImage: "pencil")
                             }
+                            .accessibilityIdentifier("btn_editGoal")
                             Button(role: .destructive) {
                                 context.delete(goal)
                                 context.safeSave()
                             } label: {
                                 Label("Elimina", systemImage: "trash")
                             }
+                            .accessibilityIdentifier("btn_deleteGoal")
                         }
                     ThinDivider().padding(.leading, DS.Layout.margin)
                 }

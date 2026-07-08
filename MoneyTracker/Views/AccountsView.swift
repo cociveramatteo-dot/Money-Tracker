@@ -63,6 +63,7 @@ struct AccountsView: View {
                     ForEach(included + excluded) { acc in
                         AccountRow(account: acc)
                             .contentShape(Rectangle())
+                            .accessibilityIdentifier("accountRow_\(acc.name)")
                             .onTapGesture { editing = acc }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
@@ -71,6 +72,7 @@ struct AccountsView: View {
                                 } label: {
                                     Label("Elimina", systemImage: "trash")
                                 }
+                                .accessibilityIdentifier("btn_deleteAccount")
                             }
                             .contextMenu {
                                 Button {
@@ -177,6 +179,7 @@ struct AccountsView: View {
                         context.safeSave()
                         accountToDelete = nil
                     }
+                    .accessibilityIdentifier("btn_confirmDeleteAccount")
                     Button("Annulla", role: .cancel) { accountToDelete = nil }
                 }
             }
@@ -291,6 +294,7 @@ struct AddAccountView: View {
                         TextField("es. Carta Unicredit, Portafoglio...", text: $name)
                             .font(.system(size: 22, weight: .light))
                             .foregroundStyle(DS.ink)
+                            .accessibilityIdentifier("tf_accountName")
                         ThinDivider()
                     }
 
@@ -307,6 +311,7 @@ struct AddAccountView: View {
                                 .font(.system(size: 56, weight: .black))
                                 .foregroundStyle(DS.ink)
                                 .keyboardType(.decimalPad)
+                                .accessibilityIdentifier("tf_accountBalance")
                         }
                         ThinDivider()
                     }
@@ -358,6 +363,7 @@ struct AddAccountView: View {
 
                     PrimaryButton(title: editing == nil ? "Aggiungi" : "Salva") { save() }
                         .disabled(name.isEmpty)
+                        .accessibilityIdentifier("btn_saveAccount")
                 }
                 .padding(.horizontal, DS.Layout.margin)
                 .padding(.top, DS.Space.xl)
@@ -368,6 +374,7 @@ struct AddAccountView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     GhostButton(title: "Annulla") { dismiss() }
+                        .accessibilityIdentifier("btn_cancelAddAccount")
                 }
             }
             .onAppear { load() }

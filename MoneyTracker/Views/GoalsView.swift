@@ -181,6 +181,7 @@ struct AddGoalView: View {
                         TextField("es. Vacanza, Auto nuova...", text: $name)
                             .font(.system(size: 22, weight: .light))
                             .foregroundStyle(DS.ink)
+                            .accessibilityIdentifier("tf_goalName")
                         ThinDivider()
                     }
 
@@ -194,6 +195,7 @@ struct AddGoalView: View {
                                 .font(.system(size: 56, weight: .black))
                                 .foregroundStyle(DS.ink)
                                 .keyboardType(.decimalPad)
+                                .accessibilityIdentifier("tf_goalTarget")
                         }
                         ThinDivider()
                     }
@@ -229,6 +231,7 @@ struct AddGoalView: View {
 
                     PrimaryButton(title: editing == nil ? "Salva" : "Aggiorna") { save() }
                         .disabled(name.isEmpty || target.isEmpty)
+                        .accessibilityIdentifier("btn_saveGoal")
                 }
                 .padding(.horizontal, DS.Layout.margin)
                 .padding(.top, DS.Space.xl)
@@ -239,6 +242,7 @@ struct AddGoalView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     GhostButton(title: "Annulla") { dismiss() }
+                        .accessibilityIdentifier("btn_cancelAddGoal")
                 }
             }
             .onAppear { load() }

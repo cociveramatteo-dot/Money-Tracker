@@ -64,6 +64,7 @@ struct CategoryManagementView: View {
                                 CategoryRow(cat: cat, isDefault: false)
                                     .padding(.horizontal, DS.Layout.margin)
                                     .contentShape(Rectangle())
+                                    .accessibilityIdentifier("categoryManageRow_\(cat.name)")
                                     .onTapGesture { editing = cat }
                                     .contextMenu {
                                         Button { editing = cat } label: {
@@ -95,6 +96,7 @@ struct CategoryManagementView: View {
                     Button { showAdd = true } label: {
                         Image(systemName: "plus").foregroundStyle(DS.ink)
                     }
+                    .accessibilityIdentifier("btn_addCategory")
                 }
             }
             .sheet(isPresented: $showAdd) { AddCategoryView() }
@@ -125,6 +127,7 @@ struct CategoryManagementView: View {
                     }
                     categoryToDelete = nil
                 }
+                .accessibilityIdentifier("btn_confirmDeleteCategory")
             } message: {
                 Text(deleteAlertMessage)
             }
@@ -277,6 +280,7 @@ struct AddCategoryView: View {
                         TextField("es. Musica, Sport, Palestra...", text: $name)
                             .font(.system(size: 22, weight: .light))
                             .foregroundStyle(DS.ink)
+                            .accessibilityIdentifier("tf_categoryName")
                         ThinDivider()
                         if isDuplicateName {
                             Text("Esiste già una categoria con questo nome.")
@@ -287,6 +291,7 @@ struct AddCategoryView: View {
 
                     PrimaryButton(title: editing == nil ? "Salva" : "Aggiorna") { save() }
                         .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty || isDuplicateName)
+                        .accessibilityIdentifier("btn_saveCategory")
                 }
                 .padding(.horizontal, DS.Layout.margin)
                 .padding(.top, DS.Space.xl)
@@ -297,6 +302,7 @@ struct AddCategoryView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     GhostButton(title: "Annulla") { dismiss() }
+                        .accessibilityIdentifier("btn_cancelAddCategory")
                 }
             }
             .onAppear { load() }

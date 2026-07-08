@@ -419,6 +419,7 @@ struct SettingsView: View {
                             Toggle("", isOn: $demoModeEnabled)
                                 .tint(.orange)
                                 .labelsHidden()
+                                .accessibilityIdentifier("toggle_demoMode")
                         }
 
                         if demoModeEnabled {
@@ -548,6 +549,7 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     GhostButton(title: "Chiudi") { dismiss() }
+                        .accessibilityIdentifier("btn_closeSettings")
                 }
             }
             .sheet(isPresented: $showAuditLog) { AuditLogView() }
