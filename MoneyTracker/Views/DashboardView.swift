@@ -58,7 +58,6 @@ struct DashboardView: View {
                     ThinDivider()
                         .padding(.top, abs(totalDelta) > 0.001 ? DS.Space.l : DS.Space.xl)
                     ultimiMovimentiSection
-                        .tourAnchor("transactionList")
                     Spacer(minLength: 100)
                 }
             }
@@ -103,7 +102,7 @@ struct DashboardView: View {
         VStack(alignment: .leading, spacing: DS.Space.s) {
             SectionLabel(text: "Saldo attuale")
                 .padding(.top, DS.Space.xl)
-            HeroAmount(amount: totalCurrent, hidden: hideBalance)
+            HeroAmount(amount: totalCurrent, hidden: hideBalance, colorBySign: true)
                 .tourAnchor("balanceHero")
 
             if !topAccounts.isEmpty {
@@ -117,7 +116,7 @@ struct DashboardView: View {
                                         .foregroundStyle(DS.smoke)
                                     Text(hideBalance ? "• • •" : acc.currentBalance.currencyFormatted)
                                         .font(.system(size: 13, weight: .medium))
-                                        .foregroundStyle(DS.ink)
+                                        .foregroundStyle(hideBalance ? DS.ink : DS.signColor(acc.currentBalance))
                                 }
                             }
                         }
@@ -145,7 +144,7 @@ struct DashboardView: View {
                 SectionLabel(text: "Saldo atteso")
                     .padding(.top, DS.Space.l)
 
-                HeroAmount(amount: totalFuture, size: 48, hidden: hideBalance)
+                HeroAmount(amount: totalFuture, size: 48, hidden: hideBalance, colorBySign: true)
 
                 if totalDelta != 0 {
                     HStack(spacing: DS.Space.xs) {
@@ -156,7 +155,7 @@ struct DashboardView: View {
                         Text(LocalizedStringKey(totalDelta >= 0 ? "in entrata pianificate" : "in uscite pianificate"))
                             .font(.system(size: 13))
                     }
-                    .foregroundStyle(DS.smoke)
+                    .foregroundStyle(totalDelta >= 0 ? DS.positive : DS.negative)
                 }
 
                 if topAccounts.count > 1 {
@@ -172,7 +171,7 @@ struct DashboardView: View {
                                         .foregroundStyle(DS.smoke)
                                     Text(hideBalance ? "• • •" : acc.futureBalance.currencyFormatted)
                                         .font(.system(size: 11, weight: .medium))
-                                        .foregroundStyle(DS.ink)
+                                        .foregroundStyle(hideBalance ? DS.ink : DS.signColor(acc.futureBalance))
                                 }
                             }
                         }

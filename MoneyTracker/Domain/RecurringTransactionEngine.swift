@@ -53,6 +53,18 @@ actor RecurringTransactionActor {
         for tmpl in templates {
             let freq = tmpl.recurringFrequency
 
+            // Il template stesso è una transazione vera e propria (compare
+            // normalmente in Tutti/Uscite/Entrate come qualsiasi altra) — se la
+            // sua data ricade già nel periodo corrente, quel periodo è coperto:
+            // senza questo controllo il motore lo ignora (recurringFrequency non
+            // è vuoto, quindi resta fuori dal fetch `all` qui sotto) e genera una
+            // copia duplicata per lo stesso mese/settimana/anno del template.
+            let templateCoversCurrentPeriod: Bool =
+                (freq == "mensile"     && tmpl.date.isSameMonth(as: now)) ||
+                (freq == "settimanale" && tmpl.date.isSameWeek(as: now))  ||
+                (freq == "annuale"     && tmpl.date.isSameYear(as: now))
+            if templateCoversCurrentPeriod { continue }
+
             let tmplId = tmpl.id.uuidString
             let alreadyExists = all.contains { t in
                 t.recurringFrequency.isEmpty

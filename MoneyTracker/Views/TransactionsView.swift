@@ -2,14 +2,16 @@ import SwiftUI
 import SwiftData
 
 enum TxFilter: String, CaseIterable {
-    case tutti    = "Tutti"
-    case fisse    = "Fisse"
-    case trasf    = "Trasf."
-    case uscite   = "Uscite"
-    case entrate  = "Entrate"
+    case tutti      = "Tutti"
+    case fisse      = "Fisse"
+    case ricorrenti = "Ricorrenti"
+    case trasf      = "Trasf."
+    case uscite     = "Uscite"
+    case entrate    = "Entrate"
 }
 
 struct TransactionsView: View {
+    @ObservedObject private var tourManager = TourManager.shared
     @Query(sort: \Transaction.date, order: .reverse) private var all: [Transaction]
     @Query(sort: \Category.sortOrder) private var categories: [Category]
     @Environment(\.modelContext) private var context
@@ -17,12 +19,19 @@ struct TransactionsView: View {
     var isSearchActive: Binding<Bool>? = nil
 
     @State private var selectedMonth  = Date()
-    @State private var txFilter       = TxFilter.tutti
     @State private var selectedCat    = ""
-    @State private var search         = ""
+    // Testo digitato sull'hub: alimenta solo la tendina `searchResults` (tutti i
+    // movimenti, di qualunque sezione). Distinto da `sectionSearch`, che filtra
+    // localmente la lista quando si è già dentro una sezione.
+    @State private var hubSearchQuery = ""
+    @State private var sectionSearch  = ""
     @State private var editing: Transaction? = nil
     @State private var showSettings        = false
     @State private var showAdvancedFilter  = false
+    @State private var selectedSeries: RecurringSeries? = nil
+    // Pilotato dal tour (step "movimenti.block"): apre la sezione "Tutti" per
+    // mostrarne il contenuto mentre lo spiega, la richiude quando si avanza.
+    @State private var navPath: [TxFilter] = []
     @FocusState private var searchFocused: Bool
     // BUG-04: pending transfer delete — shows confirmationDialog before removing both legs
     @State private var transferToDelete: Transaction? = nil
@@ -47,7 +56,7 @@ struct TransactionsView: View {
 
     // MARK: - Filtering
 
-    private var filtered: [Transaction] {
+    private func filtered(for f: TxFilter) -> [Transaction] {
         let minAmt = Decimal.parseAmount(filterMinAmount)
         let maxAmt = Decimal.parseAmount(filterMaxAmount)
         return all.filter { t in
@@ -58,19 +67,40 @@ struct TransactionsView: View {
             } else {
                 guard t.date.isSameMonth(as: selectedMonth) else { return false }
             }
-            guard search.isEmpty || t.name.localizedCaseInsensitiveContains(search) else { return false }
-            switch txFilter {
-            case .tutti:   break
-            case .fisse:   if !t.isFixed    { return false }
-            case .trasf:   if !t.isTransfer { return false }
-            case .uscite:  if t.transactionType != .uscita  { return false }
-            case .entrate: if t.transactionType != .entrata { return false }
+            guard sectionSearch.isEmpty || t.name.localizedCaseInsensitiveContains(sectionSearch) else { return false }
+            switch f {
+            case .tutti:      break
+            case .fisse:      if !t.isFixed    { return false }
+            case .ricorrenti: return false   // non passa da qui, vedi recurringSeries(matchingCategory:)
+            case .trasf:      if !t.isTransfer { return false }
+            // Una gamba di trasferimento ha comunque type .uscita/.entrata (serve a far
+            // quadrare i due conti), ma non è una spesa/entrata reale — va in Trasf., non qui.
+            case .uscite:     if t.transactionType != .uscita  || t.isTransfer { return false }
+            case .entrate:    if t.transactionType != .entrata || t.isTransfer { return false }
             }
             if !selectedCat.isEmpty && t.category != selectedCat { return false }
             if let min = minAmt, t.amount < min { return false }
             if let max = maxAmt, t.amount > max { return false }
             return true
         }
+    }
+
+    // "Ricorrenti" è all-time (ignora il mese) e usa il rilevamento automatico
+    // invece del filtro per tipo/mese di `filtered(for:)`.
+    private func recurringSeries(matchingCategory: String) -> [RecurringSeries] {
+        let detected = RecurringSeriesDetector.detect(from: all)
+        let bySearch = sectionSearch.isEmpty
+            ? detected
+            : detected.filter { $0.name.localizedCaseInsensitiveContains(sectionSearch) }
+        return matchingCategory.isEmpty ? bySearch : bySearch.filter { $0.category == matchingCategory }
+    }
+
+    // Tendina di ricerca sull'hub: TUTTI i movimenti (qualunque tipo/sezione, inclusi
+    // i trasferimenti) il cui nome corrisponde — a differenza di `filtered(for:)`/
+    // `recurringSeries`, nessuna esclusione per tipo, isFixed, isTransfer o mese.
+    private var searchResults: [Transaction] {
+        guard !hubSearchQuery.isEmpty else { return [] }
+        return all.filter { $0.name.localizedCaseInsensitiveContains(hubSearchQuery) }
     }
 
     private func grouped(from snapshot: [Transaction]) -> [(key: String, value: [Transaction])] {
@@ -84,181 +114,65 @@ struct TransactionsView: View {
         return order.compactMap { key in dict[key].map { (key: key, value: $0) } }
     }
 
-    // !isTransfer: il riepilogo +/-/netto in cima è la spesa/entrata reale del mese —
-    // uno spostamento tra i propri conti non deve gonfiarlo (vedi anche StatisticsView).
-    private func monthIncome(from snapshot: [Transaction]) -> Decimal {
-        snapshot.filter { $0.transactionType == .entrata && $0.isDone && !$0.isTransfer }.reduce(Decimal(0)) { $0 + $1.amount }
-    }
-
-    private func monthExpenses(from snapshot: [Transaction]) -> Decimal {
-        snapshot.filter { $0.transactionType == .uscita && $0.isDone && !$0.isTransfer }.reduce(Decimal(0)) { $0 + $1.amount }
-    }
-
     // MARK: - Body
 
     var body: some View {
-        let snapshot = filtered
-        return NavigationStack {
+        NavigationStack(path: $navPath) {
             VStack(spacing: 0) {
-
-                // Implementata nel VStack anziché con .searchable() per evitare
-                // che iOS 26 espanda la navigation bar creando un blocco visibile
-                // sopra MonthBar (specialmente in tema Notte con nav bar nera).
-                HStack(spacing: DS.Space.s) {
-                    Image(systemName: "magnifyingglass")
-                        .font(.system(size: 14))
-                        .foregroundStyle(DS.smoke)
-                    TextField("Cerca...", text: $search)
-                        .font(.system(size: 15))
-                        .foregroundStyle(DS.ink)
-                        .focused($searchFocused)
-                        .submitLabel(.done)
-                        .onSubmit { searchFocused = false }
-                        .accessibilityIdentifier("tf_searchTransactions")
-                    if !search.isEmpty {
-                        Button {
-                            search = ""
-                            searchFocused = false
-                        } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .font(.system(size: 14))
-                                .foregroundStyle(DS.smoke)
-                        }
-                    }
-                }
-                .padding(.horizontal, DS.Space.m)
-                .padding(.vertical, DS.Space.s + 2)
-                .background(DS.fog.opacity(0.45))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(.horizontal, DS.Layout.margin)
-                .padding(.top, DS.Space.s)
-                .padding(.bottom, DS.Space.xs)
-
-                MonthBar(month: $selectedMonth)
+                searchField($hubSearchQuery, identifier: "tf_searchTransactions")
+                    .tourAnchor("searchField")
                     .padding(.horizontal, DS.Layout.margin)
-                    .padding(.vertical, DS.Space.m)
+                    .padding(.top, DS.Space.s)
+                    .padding(.bottom, DS.Space.xs)
+                    .focused($searchFocused)
 
-                if !snapshot.isEmpty {
-                    let income   = monthIncome(from: snapshot)
-                    let expenses = monthExpenses(from: snapshot)
-                    HStack {
-                        statsLabel("+" + income.currencyFormatted)
-                        Spacer()
-                        statsLabel("−" + expenses.currencyFormatted)
-                        Spacer()
-                        let net = income - expenses
-                        statsLabel((net >= 0 ? "+" : "−") + abs(net).currencyFormatted)
-                    }
-                    .padding(.horizontal, DS.Layout.margin)
-                    .padding(.bottom, DS.Space.m)
-                }
-
-                ThinDivider()
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: DS.Space.xl) {
-                        ForEach(TxFilter.allCases, id: \.self) { f in
-                            filterChip(f.rawValue, active: txFilter == f) {
-                                txFilter = f
-                                if f != .tutti { selectedCat = "" }
-                            }
-                        }
-                    }
-                    .padding(.horizontal, DS.Layout.margin)
-                    .padding(.vertical, DS.Space.m)
-                }
-                .tourAnchor("filterChips")
-
-                if !categories.isEmpty {
-                    ThinDivider()
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: DS.Space.xl) {
-                            ForEach(categories) { cat in
-                                filterChip(cat.name, active: selectedCat == cat.name) {
-                                    selectedCat = selectedCat == cat.name ? "" : cat.name
-                                }
-                            }
-                        }
+                if hubSearchQuery.isEmpty {
+                    MonthBar(month: $selectedMonth)
                         .padding(.horizontal, DS.Layout.margin)
-                        .padding(.vertical, DS.Space.s)
-                    }
-                }
+                        .padding(.vertical, DS.Space.m)
+                    ThinDivider()
 
-                ThinDivider()
-
-                if snapshot.isEmpty {
-                    EmptyStateView(
-                        icon: "tray",
-                        title: "Nessun movimento",
-                        subtitle: "I movimenti di questo periodo appariranno qui."
-                    )
-                    Spacer()
-                } else {
-                    List {
-                        ForEach(Array(grouped(from: snapshot).enumerated()), id: \.element.key) { groupIndex, group in
-                            Section {
-                                ForEach(group.value) { t in
-                                    transactionCell(t)
-                                    .listRowInsets(EdgeInsets())
-                                    .listRowBackground(DS.paper)
-                                    .listRowSeparatorTint(DS.fog)
-                                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                                        if t.isFixed || !t.isDone {
-                                            Button {
-                                                haptic(.soft)
-                                                withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {
-                                                    toggleTransferOrFixed(t)
-                                                }
-                                            } label: {
-                                                Label(
-                                                    t.isDone ? "Pianificato" : "Fatto",
-                                                    systemImage: t.isDone ? "clock" : "checkmark.circle.fill"
-                                                )
-                                            }
-                                            .tint(DS.smoke)
-                                        }
-                                    }
-                                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                        Button(role: .destructive) {
-                                            haptic(.medium)
-                                            if t.isTransfer && !t.transferGroupId.isEmpty {
-                                                transferToDelete = t
-                                            } else {
-                                                deleteTransactionOrPair(t)
-                                            }
-                                        } label: {
-                                            Label("Elimina", systemImage: "trash")
-                                        }
-                                        .accessibilityIdentifier("btn_deleteTransaction")
-                                    }
-                                }
-                            } header: {
-                                Text(LocalizedStringKey(group.key))
-                                    .font(.system(size: 11, weight: .medium))
-                                    .foregroundStyle(DS.smoke)
-                                    .tracking(1.5)
-                                    .padding(.horizontal, DS.Layout.margin)
-                                    .padding(.top, DS.Space.l)
-                                    .padding(.bottom, DS.Space.xs)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(DS.paper)
-                                    .listRowInsets(EdgeInsets())
+                    ScrollView {
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: DS.Space.m) {
+                            ForEach(TxFilter.allCases, id: \.self) { f in
+                                NavigationLink(value: f) { sectionBlock(f) }
+                                    .buttonStyle(.plain)
+                                    .accessibilityIdentifier("txFilterBlock_\(f.rawValue)")
                             }
                         }
-                        // Spacer per non coprire il FAB.
-                        // 60pt = FAB (52pt) + margine (8pt) − inset auto iOS per tab bar.
-                        // 80pt era troppo → gap vuoto visibile sopra la tab bar.
-                        Section {
-                            Color.clear.frame(height: 60)
-                                .listRowBackground(Color.clear)
-                                .listRowSeparator(.hidden)
-                        }
+                        // L'anchor va sulla griglia stessa, non sullo ScrollView che la
+                        // contiene: uno ScrollView riporta il proprio frame (che riempie
+                        // lo spazio disponibile), non l'altezza reale del contenuto —
+                        // altrimenti lo spotlight si estenderebbe ben oltre i 6 blocchi.
+                        .tourAnchor("filterChips")
+                        .padding(.horizontal, DS.Layout.margin)
+                        .padding(.top, DS.Space.m)
+                        .padding(.bottom, DS.Space.xxl)
                     }
-                    .listStyle(.plain)
-                    .scrollContentBackground(.hidden)
-                    .scrollIndicators(.hidden)
-                    .refreshable { await SyncService.shared.manualRefresh(context: context) }
-                    .tourAnchor("movimentiList")
+                } else {
+                    ThinDivider()
+                    // Tendina di ricerca: tutti i movimenti corrispondenti, di qualunque
+                    // sezione — riusa transactionCell (tap = modifica/alert trasferimento,
+                    // tieni premuto = elimina), nessuna funzionalità nuova da scrivere.
+                    if searchResults.isEmpty {
+                        Text("Nessun risultato")
+                            .font(.system(size: 13))
+                            .foregroundStyle(DS.smoke)
+                            .padding(.top, DS.Space.xl)
+                        Spacer()
+                    } else {
+                        ScrollView {
+                            LazyVStack(spacing: 0) {
+                                ForEach(searchResults) { t in
+                                    transactionCell(t)
+                                    ThinDivider()
+                                }
+                                Color.clear.frame(height: 60)
+                            }
+                            .padding(.top, DS.Space.s)
+                        }
+                        .scrollIndicators(.hidden)
+                    }
                 }
             }
             .background(DS.paper)
@@ -266,8 +180,28 @@ struct TransactionsView: View {
             .navigationBarTitleDisplayMode(.inline)
             // isSearchActive aggiornato tramite onChange: nasconde il FAB in ContentView
             // durante la ricerca (prima gestito da SearchActiveObserver + .searchable).
-            .onChange(of: search)        { _, v in isSearchActive?.wrappedValue = !v.isEmpty || searchFocused }
-            .onChange(of: searchFocused) { _, f in isSearchActive?.wrappedValue = f || !search.isEmpty }
+            .onChange(of: hubSearchQuery) { _, v in
+                isSearchActive?.wrappedValue = !v.isEmpty || searchFocused
+            }
+            .onChange(of: searchFocused)  { _, f in isSearchActive?.wrappedValue = f || !hubSearchQuery.isEmpty }
+            // Aprire una sezione non chiude da solo il focus sulla ricerca
+            // dell'hub (onDisappear non è affidabile su un push di
+            // NavigationStack) — lo resettiamo esplicitamente qui, altrimenti la
+            // tastiera ricompare da sola al ritorno sull'hub.
+            .onChange(of: navPath) { _, path in
+                if !path.isEmpty { searchFocused = false }
+            }
+            // Il tour (step "movimenti.block") apre la sezione "Tutti" per spiegarne
+            // il contenuto e la richiude non appena si avanza/torna indietro — vedi
+            // OverviewStep.usesNavigationPush in TourStep.swift.
+            .onChange(of: tourManager.currentStep) { _, step in
+                if step.id == "movimenti.block" {
+                    if navPath.isEmpty { navPath.append(.tutti) }
+                } else if !navPath.isEmpty {
+                    navPath.removeLast(navPath.count)
+                }
+            }
+            .navigationDestination(for: TxFilter.self) { f in subListContent(for: f) }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack(spacing: DS.Space.m) {
@@ -304,6 +238,7 @@ struct TransactionsView: View {
             .tint(DS.ink)
             .themedNavBar()
             .sheet(isPresented: $showSettings) { SettingsView() }
+            .sheet(item: $selectedSeries) { s in RecurringSeriesDetailView(seriesID: s.id) }
             // BUG-04: confirm before deleting both legs of a transfer
             .confirmationDialog(
                 "Elimina trasferimento",
@@ -333,6 +268,164 @@ struct TransactionsView: View {
                 Text("Un trasferimento è composto da due movimenti collegati su due conti diversi: per cambiarlo, eliminalo (swipe verso sinistra) e creane uno nuovo.")
             }
         }
+    }
+
+    // MARK: - Search bar (riusata sull'hub e dentro ogni sezione)
+
+    private func searchField(_ text: Binding<String>, identifier: String) -> some View {
+        HStack(spacing: DS.Space.s) {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 14))
+                .foregroundStyle(DS.smoke)
+            TextField("Cerca...", text: text)
+                .font(.system(size: 15))
+                .foregroundStyle(DS.ink)
+                .submitLabel(.done)
+                .accessibilityIdentifier(identifier)
+            if !text.wrappedValue.isEmpty {
+                Button {
+                    text.wrappedValue = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 14))
+                        .foregroundStyle(DS.smoke)
+                }
+            }
+        }
+        .padding(.horizontal, DS.Layout.margin)
+        .padding(.vertical, DS.Space.s + 2)
+        .background(DS.fog.opacity(0.45))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+
+    // MARK: - Hub blocks
+
+    private func sectionBlock(_ f: TxFilter) -> some View {
+        VStack(spacing: DS.Space.s) {
+            Image(systemName: iconFor(f))
+                .font(.system(size: 20, weight: .light))
+                .foregroundStyle(DS.ink)
+            Text(LocalizedStringKey(f.rawValue))
+                .font(.system(size: 14, weight: .medium))
+                .foregroundStyle(DS.ink)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, DS.Space.xl)
+        .background(DS.fog.opacity(0.5))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    private func iconFor(_ f: TxFilter) -> String {
+        switch f {
+        case .tutti:      return "square.grid.2x2"
+        case .fisse:      return "pin.fill"
+        case .ricorrenti: return "arrow.triangle.2.circlepath"
+        case .trasf:      return "arrow.left.arrow.right"
+        case .uscite:     return "minus.circle"
+        case .entrate:    return "plus.circle"
+        }
+    }
+
+    // MARK: - Sezione (pagina di destinazione per ciascun blocco)
+
+    @ViewBuilder
+    private func subListContent(for f: TxFilter) -> some View {
+        VStack(spacing: 0) {
+            searchField($sectionSearch, identifier: "tf_sectionSearch")
+                .padding(.horizontal, DS.Layout.margin)
+                .padding(.top, DS.Space.s)
+                .padding(.bottom, DS.Space.xs)
+
+            if f != .trasf && !categories.isEmpty {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: DS.Space.xl) {
+                        ForEach(categories) { cat in
+                            filterChip(cat.name, active: selectedCat == cat.name) {
+                                selectedCat = selectedCat == cat.name ? "" : cat.name
+                            }
+                        }
+                    }
+                    .padding(.horizontal, DS.Layout.margin)
+                    .padding(.vertical, DS.Space.m)
+                }
+                ThinDivider()
+            }
+
+            if f == .ricorrenti {
+                let series = recurringSeries(matchingCategory: selectedCat)
+                if series.isEmpty {
+                    EmptyStateView(
+                        icon: "arrow.triangle.2.circlepath",
+                        title: "Nessuna serie ricorrente",
+                        subtitle: "I pagamenti che si ripetono per almeno 2 mesi appariranno qui."
+                    )
+                    Spacer()
+                } else {
+                    ScrollView {
+                        LazyVStack(spacing: DS.Space.m) {
+                            ForEach(series) { s in
+                                RecurringSeriesCard(series: s)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture { selectedSeries = s }
+                            }
+                            Color.clear.frame(height: 60)
+                        }
+                        .padding(.horizontal, DS.Layout.margin)
+                        .padding(.top, DS.Space.m)
+                    }
+                    .scrollIndicators(.hidden)
+                }
+            } else {
+                let snapshot = filtered(for: f)
+                if snapshot.isEmpty {
+                    EmptyStateView(
+                        icon: "tray",
+                        title: "Nessun movimento",
+                        subtitle: "I movimenti di questo periodo appariranno qui."
+                    )
+                    Spacer()
+                } else {
+                    List {
+                        ForEach(Array(grouped(from: snapshot).enumerated()), id: \.element.key) { _, group in
+                            Section {
+                                ForEach(group.value) { t in swipeableRow(t) }
+                            } header: {
+                                Text(LocalizedStringKey(group.key))
+                                    .font(.system(size: 11, weight: .medium))
+                                    .foregroundStyle(DS.smoke)
+                                    .tracking(1.5)
+                                    .padding(.horizontal, DS.Layout.margin)
+                                    .padding(.top, DS.Space.l)
+                                    .padding(.bottom, DS.Space.xs)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(DS.paper)
+                                    .listRowInsets(EdgeInsets())
+                            }
+                        }
+                        // Spacer per non coprire il FAB.
+                        Section {
+                            Color.clear.frame(height: 60)
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
+                        }
+                    }
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
+                    .scrollIndicators(.hidden)
+                    .refreshable { await SyncService.shared.manualRefresh(context: context) }
+                    .tourAnchor("sectionContent")
+                }
+            }
+        }
+        .background(DS.paper)
+        .navigationTitle(f.rawValue)
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if f != .ricorrenti { TourManager.shared.showHintIfNeeded(.movimentiSection) }
+        }
+        // Filtro categoria e ricerca sono locali alla sezione: uscendo si azzerano,
+        // così la prossima sezione aperta parte sempre senza stato ereditato per errore.
+        .onDisappear { selectedCat = ""; sectionSearch = "" }
     }
 
     // MARK: - Advanced filter sheet
@@ -508,6 +601,50 @@ struct TransactionsView: View {
         }
     }
 
+    // MARK: - Riga con swipe actions (riusata da tutte le sezioni non-Ricorrenti)
+
+    @ViewBuilder
+    private func swipeableRow(_ t: Transaction) -> some View {
+        transactionCell(t)
+            .listRowInsets(EdgeInsets())
+            .listRowBackground(DS.paper)
+            .listRowSeparatorTint(DS.fog)
+            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                if t.isFixed || !t.isDone {
+                    Button {
+                        haptic(.soft)
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {
+                            toggleTransferOrFixed(t)
+                        }
+                    } label: {
+                        Label(
+                            t.isDone ? "Pianificato" : "Fatto",
+                            systemImage: t.isDone ? "clock" : "checkmark.circle.fill"
+                        )
+                    }
+                    .tint(DS.smoke)
+                }
+            }
+            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                Button(role: .destructive) {
+                    haptic(.medium)
+                    if t.isTransfer && !t.transferGroupId.isEmpty {
+                        transferToDelete = t
+                    } else {
+                        deleteTransactionOrPair(t)
+                    }
+                } label: {
+                    Label("Elimina", systemImage: "trash")
+                }
+                // Senza tint esplicito eredita l'ambient .tint(DS.ink) impostato più
+                // sotto sul NavigationStack (fix del tint verde di sistema iOS 26) —
+                // DS.ink è quasi bianco in tema scuro, quindi lo sfondo dello swipe
+                // "Elimina" diventava bianco con l'icona scura invece che rosso.
+                .tint(.red)
+                .accessibilityIdentifier("btn_deleteTransaction")
+            }
+    }
+
     // MARK: - Helpers
 
     private func filterChip(_ label: String, active: Bool, action: @escaping () -> Void) -> some View {
@@ -521,12 +658,6 @@ struct TransactionsView: View {
                     .frame(height: 1)
             }
         }
-    }
-
-    private func statsLabel(_ text: String) -> some View {
-        Text(text)
-            .font(.system(size: 11, weight: .medium))
-            .foregroundStyle(DS.smoke)
     }
 
     private func toggleTransferOrFixed(_ t: Transaction) {

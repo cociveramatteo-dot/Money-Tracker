@@ -5,6 +5,7 @@ final class TransactionFlowUITests: MoneyTrackerUITestCase {
 
     func testAddEditDeleteTransaction() throws {
         goToTab("Movimenti")
+        openTransactionsSection("Tutti")
 
         let name = uniqueName("SpesaTest")
 
@@ -47,17 +48,14 @@ final class TransactionFlowUITests: MoneyTrackerUITestCase {
         XCTAssertTrue(app.staticTexts[name].waitForExistence(timeout: 5), "La transazione modificata non è più visibile")
 
         // --- Elimina (swipe + conferma) ---
-        let updatedRow = app.staticTexts[name]
-        updatedRow.swipeLeft()
-        let deleteButton = app.buttons["btn_deleteTransaction"]
-        XCTAssertTrue(deleteButton.waitForExistence(timeout: 5))
-        deleteButton.tap()
+        swipeToDeleteTransaction(named: name)
 
         XCTAssertFalse(app.staticTexts[name].waitForExistence(timeout: 3), "La transazione eliminata è ancora visibile")
     }
 
     func testAddTransactionWithoutCategoryDefaultsToAltro() throws {
         goToTab("Movimenti")
+        openTransactionsSection("Tutti")
         let name = uniqueName("SenzaCategoria")
 
         tapFAB(menuItem: "fabMenu_addTransaction")
@@ -70,12 +68,12 @@ final class TransactionFlowUITests: MoneyTrackerUITestCase {
         XCTAssertTrue(app.staticTexts[name].waitForExistence(timeout: 5))
 
         // Pulizia: elimina la transazione appena creata
-        app.staticTexts[name].swipeLeft()
-        app.buttons["btn_deleteTransaction"].tap()
+        swipeToDeleteTransaction(named: name)
     }
 
     func testCancelAddTransactionDiscardsInput() throws {
         goToTab("Movimenti")
+        openTransactionsSection("Tutti")
         let name = uniqueName("Annullata")
 
         tapFAB(menuItem: "fabMenu_addTransaction")

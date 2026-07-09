@@ -72,6 +72,7 @@
 /* ── Transactions ────────────────────────── */
 "Tutti"    = "全部";
 "Fisse"    = "固定";
+"Ricorrenti" = "定期";
 "Trasf."   = "转账";
 "Uscite"   = "支出";
 "Entrate"  = "收入";
@@ -81,6 +82,23 @@
 "Cerca..."               = "搜索...";
 "Segna come pianificato" = "标为计划中";
 "Segna come fatto"       = "标为已完成";
+
+/* ── Recurring series ────────────────────── */
+"Irregolare"       = "不定期";
+"Speso finora"     = "已花费";
+"Ricevuto finora"  = "已收到";
+"Media"            = "平均";
+"Ultimo"           = "上次";
+"Settimana"        = "周";
+"Mese"             = "月";
+"Anno"             = "年";
+"volte"            = "次";
+"dal"              = "自";
+"Storico"          = "历史记录";
+"Nessuna serie ricorrente" = "暂无定期项目";
+"I pagamenti che si ripetono per almeno 2 mesi appariranno qui." = "至少连续2个月重复的付款将显示在此处。";
+"Serie eliminata"  = "系列已删除";
+"Tutte le occorrenze di questo pagamento ricorrente sono state cancellate." = "此定期付款的所有记录均已删除。";
 
 /* ── Fixed items row ─────────────────────── */
 "Da pagare"  = "待支付";
@@ -288,47 +306,6 @@
 "Pianifica" = "计划";
 
 /* ── Tour / Onboarding ──────────────────── */
-"tour.saldoAttuale.title" = "当前余额";
-"tour.saldoAttuale.body" = "已确认的流动资金。只有标记为已完成的交易才计入此值——所有计划中的项目均排除在外。";
-
-"tour.hideBalance.title" = "隐藏金额";
-"tour.hideBalance.body" = "点击右上角的眼睛图标可在每个屏幕上隐藏所有金额。该设置在会话之间保持不变。";
-
-"tour.accountOrder.title" = "面板构成";
-"tour.accountOrder.body" = "点击滑块图标选择此处显示哪些账户及其顺序。拖动以重新排序，使用勾选标记来包含或排除账户。";
-
-"tour.saldoAtteso.title" = "预计余额";
-"tour.saldoAtteso.body" = "所有待处理计划交易后的预测值。仅在存在尚未标记为已完成的未来项目时显示。";
-
-"tour.recentMovements.title" = "最近交易";
-"tour.recentMovements.body" = "最新的非固定交易列表。点击标题可折叠该部分，点击行可打开详情视图。";
-
-"tour.addButton.title" = "添加交易";
-"tour.addButton.body" = "+按钮在每个标签页均可使用。点击以添加支出、收入或账户间转账。长按以选择类型。";
-
-"tour.filters.title" = "类别筛选器";
-"tour.filters.body" = "筛选器是累积的——类型和类别相结合。选择多个类别可缩小分析范围。切换期间时筛选器状态将重置。";
-
-"tour.swipeAction.title" = "快捷操作";
-"tour.swipeAction.body" = "向右滑动固定项目可确认并更新余额。向左滑动可删除。对于普通交易，向右滑动可编辑。";
-
-"tour.accountSwipe.title" = "账户管理";
-"tour.accountSwipe.body" = "向右滑动以编辑账户，向左滑动以删除。长按可获取高级选项：从总计中排除和存档。";
-
-"tour.budgetBar.title" = "进度条";
-"tour.budgetBar.body" = "绿色表示在限额内。红色表示已超过阈值。计算仅包含当月已完成的交易。";
-
-"tour.goalProgress.title" = "储蓄目标";
-"tour.goalProgress.body" = "点击更新按钮记录进度。进度条显示相对于目标已达到的百分比。截止日期显示在名称下方。";
-
-"tour.accountTotal.title" = "总资产";
-"tour.accountTotal.body" = "所有未排除的活跃账户余额之和。下方的「净余额」显示所有待处理计划交易后的预测值。";
-
-"tour.budgetHero.title" = "预算使用率";
-"tour.budgetHero.body" = "当月总预算已消耗的百分比。进度线逐步填充——保持在100%以下以不超出预算。";
-
-"tour.goalHero.title" = "总进度";
-"tour.goalHero.body" = "所有活跃目标的加权平均进度。每个目标按其目标金额按比例贡献总进度。";
 
 /* ── Statistics (additional) ─────────────── */
 "Dati insufficienti."   = "数据不足。";
@@ -409,10 +386,6 @@
 /* ── Onboarding tour — new steps ─────────────── */
 "tour.welcome.title"    = "欢迎使用MoneyTracker";
 "tour.welcome.body"     = "本指南将引导您了解每项功能。您可以随时中断，并从设置→重看导览继续。";
-"tour.tabBar.title"     = "主导航";
-"tour.tabBar.body"      = "始终可访问的五个区域：仪表板、交易、统计、规划和账户。专为最少点击次数设计。";
-"tour.statistics.title" = "财务分析";
-"tour.statistics.body"  = "比较月度支出，查看12个月趋势及年度对比。图表自动更新。";
 "tour.shortcuts.title"  = "Siri自动化";
 "tour.shortcuts.body"   = "通过语音命令记录支出、收入并查询余额。说「向MoneyTracker添加支出」或在设置→Siri与搜索中添加快捷指令。";
 "tour.done.title"       = "准备就绪";
@@ -435,3 +408,46 @@
 "pianificato" = "计划中";
 "escluso dal totale" = "不计入总额";
 "saldo" = "余额";
+
+/* ── Tour：每个标签页的元素步骤（第一级）─── */
+"tour.stepProgress" = "%d / %d";
+
+"tour.home.balance.title" = "当前余额";
+"tour.home.balance.body" = "已确认的资金：只有已完成的交易才计入此数值。";
+"tour.home.hide.title" = "隐藏余额";
+"tour.home.hide.body" = "点击眼睛图标可模糊所有金额——当屏幕可能被他人看到时很实用。";
+"tour.home.expected.title" = "预计余额";
+"tour.home.expected.body" = "包含尚未发生的计划固定支出的未来余额。";
+"tour.home.accounts.title" = "你的账户";
+"tour.home.accounts.body" = "点击图标可选择在此显示哪些账户，以及显示顺序。";
+
+"tour.movimenti.sections.title" = "分类区块";
+"tour.movimenti.sections.body" = "每个区块归类一种交易：全部、固定、定期、转账。";
+"tour.movimenti.block.title" = "全部交易";
+"tour.movimenti.block.body" = "打开完整列表，可按类别和账户筛选。";
+"tour.movimenti.search.title" = "全局搜索";
+"tour.movimenti.search.body" = "只需输入一个词，即可在任意分类中找到任意交易。";
+
+"tour.statistiche.summary.title" = "本月摘要";
+"tour.statistiche.summary.body" = "本月的支出与收入，并与上月对比。";
+"tour.statistiche.trend.title" = "趋势变化";
+"tour.statistiche.trend.body" = "在一张图表中对比最近6或12个月。";
+"tour.statistiche.category.title" = "分类支出";
+"tour.statistiche.category.body" = "了解每月大部分资金的去向。";
+
+"tour.pianifica.budget.title" = "分类预算";
+"tour.pianifica.budget.body" = "设置每月支出限额，并跟踪已使用的额度。";
+"tour.pianifica.history.title" = "预算历史";
+"tour.pianifica.history.body" = "回顾过去几个月，了解你的消费习惯是如何变化的。";
+"tour.pianifica.goals.title" = "储蓄目标";
+"tour.pianifica.goals.body" = "为每个目标设置目标金额，并记录目前已储蓄的金额。";
+
+"tour.conti.list.title" = "你的账户";
+"tour.conti.list.body" = "每个账户的余额、类型和操作选项。右滑编辑，左滑删除。";
+
+/* ── Tour: mini-tour contestuali (Livello 2) ─── */
+"hint.movimentiSection.title" = "快捷操作";
+"hint.movimentiSection.body" = "右滑固定项目可确认，左滑可删除。长按查看更多选项。";
+"hint.settings.title" = "设置";
+"hint.settings.body" = "语言、货币、安全性、数据导出等。随时可在此处重新查看引导教程。";
+"hint.gotIt" = "知道了";

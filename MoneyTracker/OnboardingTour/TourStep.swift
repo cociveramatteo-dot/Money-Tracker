@@ -1,221 +1,211 @@
 import SwiftUI
 
-// MARK: - TourStep
+// MARK: - OverviewStep
+//
+// Livello 1 del tour: un'unica sequenza lineare che, tab per tab, mette in
+// evidenza le funzioni chiave dell'app — stesso motore di spotlight
+// millimetrico (anchor-based) dei mini-tour contestuali di Livello 2 (vedi
+// ContextualHint.swift), non più un semplice "spotlight sull'icona della tab".
+// Ogni tab espone un numero variabile di step (max 4-5, vedi `all`); la
+// sequenza è dichiarata una sola volta e pilota sia la navigazione (tab e,
+// per Pianifica, segmento richiesti) sia il contenuto della card.
+struct OverviewStep: Identifiable, Equatable {
 
-/// Ordered sequence of onboarding steps.
-/// Modal steps (`.welcome`, `.siriShortcuts`, `.done`) fill the full screen.
-/// Element steps use a spotlight cutout + tooltip card.
-enum TourStep: Int, CaseIterable, Identifiable {
+    /// Stabile e univoco: Identifiable.id e confronto in TourManager.
+    let id: String
 
-    // ── Modal steps ────────────────────────────────────────────────────────
-    case welcome
+    /// Tab index da attivare prima di mostrare questo step (pilotato da
+    /// ContentView tramite TourManager.requiredTab). nil per gli step modali
+    /// a schermo intero (welcome/siriShortcuts/done) — nessun cambio tab.
+    let requiredTab: Int?
 
-    // ── Element steps — Home tab ───────────────────────────────────────────
-    case tabBar
-    case balance
-    case expectedBalance    // saldo atteso — appare subito dopo il saldo attuale
-    case eyeButton
-    case accountPanel
-    case addButton
+    /// Segmento da attivare dentro Pianifica (0 = Budget, 1 = Obiettivi) prima
+    /// di mostrare questo step. nil = non applicabile.
+    let requiredSegment: Int?
 
-    // ── Element steps — other tabs ─────────────────────────────────────────
-    case filters        // Movimenti
-    case swipeActions   // Movimenti — azioni swipe sulla lista transazioni
-    case statistics     // Statistiche
-    case budget         // Pianifica / Budget
-    case goals          // Pianifica / Obiettivi
-    case accounts       // Conti
+    /// ID registrato via `.tourAnchor(_:)` sull'elemento da spotlightare.
+    /// nil per gli step modali.
+    let anchorID: String?
 
-    // ── Modal steps ────────────────────────────────────────────────────────
-    case siriShortcuts
-    case done
+    let isModal: Bool
 
-    var id: Int { rawValue }
+    /// La card va sopra lo spotlight quando l'elemento evidenziato è in basso
+    /// nello schermo (es. il FAB) — altrimenti resta in basso, sotto al
+    /// contenuto (hero, grafici, liste) che di norma occupa la parte alta.
+    let cardAtTop: Bool
 
-    // ── Navigation ─────────────────────────────────────────────────────────
+    let icon: String
+    let titleKey: LocalizedStringKey
+    let bodyKey: LocalizedStringKey
+    /// CTA per gli step modali (welcome/done). Per gli step-elemento la card
+    /// usa sempre `Avanti`/`Fine` (vedi TourOverlayView.StepCard).
+    let ctaKey: LocalizedStringKey
+    let spotlightCornerRadius: CGFloat
 
-    /// Tab index that must be active before showing this step.
-    /// Home-tab element steps return 0 explicitly so that going backwards
-    /// from another tab correctly switches back to the home tab.
-    /// Modal steps (welcome / siriShortcuts / done) return nil — no tab switch.
-    var requiredTab: Int? {
-        switch self {
-        case .tabBar, .balance, .expectedBalance,
-             .eyeButton, .accountPanel, .addButton:  return 0
-        case .filters, .swipeActions:               return 1
-        case .statistics:                           return 2
-        case .budget, .goals:                       return 3
-        case .accounts:                             return 4
-        default:                                    return nil   // modal steps
-        }
+    /// Espande (positivo) il rettangolo dello spotlight oltre i bounds esatti
+    /// dell'anchor — usato per elementi piccoli (icone) dove un ritaglio
+    /// perfettamente aderente risulta visivamente troppo stretto.
+    let spotlightPadding: CGFloat
+    /// Sposta verticalmente lo spotlight (positivo = più in basso) senza
+    /// alterarne le dimensioni — corregge un padding interno asimmetrico
+    /// dell'elemento anchorato senza toccarne il layout reale.
+    let spotlightYOffset: CGFloat
+    /// Se presente, il bordo INFERIORE dello spotlight non è quello
+    /// dell'anchor principale ma quello di questo secondo anchor (+ un margine)
+    /// — usato per contenuti scrollabili (List/ScrollView) il cui anchor
+    /// primario riporta l'intero frame invece della sola altezza del contenuto.
+    let secondaryAnchorID: String?
+    let secondaryBottomMargin: CGFloat
+    /// Lo step richiede una navigazione push/pop (non solo un cambio tab o
+    /// segmento) perché il suo anchor diventi disponibile — TourOverlayView
+    /// applica lo stesso delay di rendering usato per i cambi tab.
+    let usesNavigationPush: Bool
+
+    static func == (lhs: OverviewStep, rhs: OverviewStep) -> Bool { lhs.id == rhs.id }
+
+    // MARK: - Sequenza completa
+
+    static let all: [OverviewStep] = [
+        .modal(
+            id: "welcome", icon: "chart.pie.fill",
+            title: "tour.welcome.title", body: "tour.welcome.body", cta: "tour.startButton"
+        ),
+
+        // ── Home ─────────────────────────────────────────────────────────
+        .element(
+            id: "home.balance", tab: 0, anchor: "balanceHero",
+            icon: "eurosign.circle.fill", title: "tour.home.balance.title", body: "tour.home.balance.body"
+        ),
+        .element(
+            id: "home.hide", tab: 0, anchor: "eyeButton", cornerRadius: 10,
+            icon: "eye.slash.fill", title: "tour.home.hide.title", body: "tour.home.hide.body"
+        ),
+        .element(
+            id: "home.expected", tab: 0, anchor: "saldoAtteso",
+            icon: "calendar.badge.clock", title: "tour.home.expected.title", body: "tour.home.expected.body"
+        ),
+        .element(
+            id: "home.accounts", tab: 0, anchor: "accountPanel", cornerRadius: 10, spotlightPadding: 6,
+            icon: "slider.horizontal.3", title: "tour.home.accounts.title", body: "tour.home.accounts.body"
+        ),
+
+        // ── Movimenti ────────────────────────────────────────────────────
+        .element(
+            id: "movimenti.sections", tab: 1, anchor: "filterChips", spotlightPadding: 14,
+            icon: "square.grid.2x2", title: "tour.movimenti.sections.title", body: "tour.movimenti.sections.body"
+        ),
+        // Anchor "sectionContent": lo step apre davvero la sezione "Tutti" (push
+        // di navigazione pilotato da TransactionsView in base a questo id) e
+        // spotlighta il suo contenuto — richiude la sezione appena si avanza.
+        .element(
+            id: "movimenti.block", tab: 1, anchor: "sectionContent", cornerRadius: 14, cardAtTop: true, usesNavigationPush: true,
+            icon: "list.bullet", title: "tour.movimenti.block.title", body: "tour.movimenti.block.body"
+        ),
+        .element(
+            id: "movimenti.search", tab: 1, anchor: "searchField", cornerRadius: 12,
+            icon: "magnifyingglass", title: "tour.movimenti.search.title", body: "tour.movimenti.search.body"
+        ),
+
+        // ── Statistiche ──────────────────────────────────────────────────
+        .element(
+            id: "statistiche.summary", tab: 2, anchor: "monthSummary", spotlightYOffset: 8,
+            icon: "chart.bar.fill", title: "tour.statistiche.summary.title", body: "tour.statistiche.summary.body"
+        ),
+        .element(
+            id: "statistiche.trend", tab: 2, anchor: "trendChart", spotlightYOffset: 8,
+            icon: "chart.xyaxis.line", title: "tour.statistiche.trend.title", body: "tour.statistiche.trend.body"
+        ),
+        .element(
+            id: "statistiche.category", tab: 2, anchor: "categoryBreakdown", cardAtTop: true,
+            icon: "chart.pie", title: "tour.statistiche.category.title", body: "tour.statistiche.category.body"
+        ),
+
+        // ── Pianifica ────────────────────────────────────────────────────
+        .element(
+            id: "pianifica.budget", tab: 3, anchor: "budgetList", segment: 0, cardAtTop: true,
+            icon: "chart.bar.doc.horizontal.fill", title: "tour.pianifica.budget.title", body: "tour.pianifica.budget.body"
+        ),
+        .element(
+            id: "pianifica.history", tab: 3, anchor: "historyButton", segment: 0, cornerRadius: 10,
+            icon: "clock.arrow.circlepath", title: "tour.pianifica.history.title", body: "tour.pianifica.history.body"
+        ),
+        .element(
+            id: "pianifica.goals", tab: 3, anchor: "goalsList", segment: 1, cardAtTop: true,
+            icon: "target", title: "tour.pianifica.goals.title", body: "tour.pianifica.goals.body"
+        ),
+
+        // ── Conti ────────────────────────────────────────────────────────
+        // secondaryAnchor "accountListEnd": il bordo inferiore dello spotlight
+        // segue l'ultimo conto attivo invece del frame dell'intera List (che
+        // si estenderebbe ben oltre l'ultimo elemento reale).
+        .element(
+            id: "conti.list", tab: 4, anchor: "accountList",
+            secondaryAnchor: "accountListEnd",
+            icon: "creditcard.fill", title: "tour.conti.list.title", body: "tour.conti.list.body"
+        ),
+
+        .modal(
+            id: "siriShortcuts", icon: "mic.fill",
+            title: "tour.shortcuts.title", body: "tour.shortcuts.body", cta: "Avanti"
+        ),
+        .modal(
+            id: "done", icon: "checkmark.circle.fill",
+            title: "tour.done.title", body: "tour.done.body", cta: "tour.doneButton"
+        ),
+    ]
+
+    /// Comodo per il valore iniziale di `TourManager.currentStep` e per i
+    /// confronti diretti (`tour.currentStep == .welcome/.done`) in TourOverlayView.
+    static var welcome: OverviewStep { all[0] }
+    static var done:    OverviewStep { all[all.count - 1] }
+
+    // MARK: - Factory
+
+    private static func modal(
+        id: String, icon: String,
+        title: LocalizedStringKey, body: LocalizedStringKey, cta: LocalizedStringKey
+    ) -> OverviewStep {
+        OverviewStep(
+            id: id, requiredTab: nil, requiredSegment: nil, anchorID: nil,
+            isModal: true, cardAtTop: false,
+            icon: icon, titleKey: title, bodyKey: body, ctaKey: cta, spotlightCornerRadius: 0,
+            spotlightPadding: 0, spotlightYOffset: 0,
+            secondaryAnchorID: nil, secondaryBottomMargin: 0, usesNavigationPush: false
+        )
     }
 
-    /// PianificaView segment (0 = Budget, 1 = Obiettivi).
-    var requiredSegment: Int? {
-        switch self {
-        case .budget: return 0
-        case .goals:  return 1
-        default:      return nil
-        }
+    private static func element(
+        id: String, tab: Int, anchor: String, segment: Int? = nil,
+        cornerRadius: CGFloat = 16, cardAtTop: Bool = false,
+        spotlightPadding: CGFloat = 0, spotlightYOffset: CGFloat = 0,
+        secondaryAnchor: String? = nil, secondaryBottomMargin: CGFloat = 16,
+        usesNavigationPush: Bool = false,
+        icon: String, title: LocalizedStringKey, body: LocalizedStringKey
+    ) -> OverviewStep {
+        OverviewStep(
+            id: id, requiredTab: tab, requiredSegment: segment, anchorID: anchor,
+            isModal: false, cardAtTop: cardAtTop,
+            icon: icon, titleKey: title, bodyKey: body, ctaKey: "Avanti", spotlightCornerRadius: cornerRadius,
+            spotlightPadding: spotlightPadding, spotlightYOffset: spotlightYOffset,
+            secondaryAnchorID: secondaryAnchor, secondaryBottomMargin: secondaryBottomMargin,
+            usesNavigationPush: usesNavigationPush
+        )
     }
 
-    // ── Spotlight anchor ───────────────────────────────────────────────────
+    // MARK: - Progress
 
-    /// ID that must be registered via `.tourAnchor(_:)` on the target view.
-    var anchorID: String? {
-        switch self {
-        // Overlay is now rendered at App level (MoneyTrackerApp) — above UITabBar.
-        // The cutout reveals the real UITabBar through the dark overlay. ✓
-        case .tabBar:           return "tabBar"
-        case .balance:          return "balanceHero"
-        case .expectedBalance:  return "saldoAtteso"
-        case .eyeButton:        return "eyeButton"
-        case .accountPanel:     return "accountPanel"
-        case .addButton:        return "addButton"
-        case .swipeActions:     return "movimentiList"
-        case .filters:          return "filterChips"
-        case .statistics:       return "statisticsContent"
-        case .budget:           return "budgetList"
-        case .goals:            return "goalsList"
-        case .accounts:         return "accountList"
-        default:                return nil
-        }
+    static var elementSteps: [OverviewStep] { all.filter { !$0.isModal } }
+
+    /// Posizione (1-based) e conteggio dello step corrente ALL'INTERNO della
+    /// sua tab — alimenta l'indicatore "2 di 4" nella StepCard, più leggibile
+    /// di una fila di puntini ora che gli step totali sono ~15.
+    var tabProgress: (index: Int, count: Int)? {
+        guard let tab = requiredTab else { return nil }
+        let siblings = Self.elementSteps.filter { $0.requiredTab == tab }
+        guard let idx = siblings.firstIndex(where: { $0.id == id }) else { return nil }
+        return (idx + 1, siblings.count)
     }
 
-    /// Outward padding applied to the anchor rect before drawing the cutout.
-    var spotlightPadding: CGFloat {
-        switch self {
-        case .eyeButton, .accountPanel: return 4
-        case .addButton:                return 4
-        default:                        return 0
-        }
-    }
-
-    var spotlightCornerRadius: CGFloat {
-        switch self {
-        case .addButton:                            return 30
-        case .eyeButton, .accountPanel:            return 10
-        case .balance, .expectedBalance:           return 16
-        case .swipeActions:                        return 12
-        case .filters:                             return 20
-        case .statistics, .budget,
-             .goals, .accounts:                    return 12
-        case .tabBar:                              return 28
-        default:                                   return 0
-        }
-    }
-
-    // ── Section breadcrumb ─────────────────────────────────────────────────
-
-    /// Human-readable tab label shown in StepCard when the tour is NOT on the Home tab.
-    /// `nil` = Home tab (no breadcrumb shown).
-    var tabLabel: (icon: String, name: String)? {
-        switch self {
-        case .filters,
-             .swipeActions:     return ("list.bullet",      "Movimenti")
-        case .statistics:       return ("chart.bar.fill",   "Statistiche")
-        case .budget:           return ("chart.pie",        "Pianifica › Budget")
-        case .goals:            return ("chart.pie",        "Pianifica › Obiettivi")
-        case .accounts:         return ("creditcard",       "Conti")
-        default:                return nil
-        }
-    }
-
-    // ── Card position hint ─────────────────────────────────────────────────
-
-    var cardAtTop: Bool {
-        switch self {
-        case .tabBar, .addButton:
-            return true
-        default:
-            return false
-        }
-    }
-
-    // ── Presentation ───────────────────────────────────────────────────────
-
-    var isModal: Bool {
-        switch self {
-        case .welcome, .siriShortcuts, .done: return true
-        default:                              return false
-        }
-    }
-
-    var icon: String {
-        switch self {
-        case .welcome:          return "chart.pie.fill"
-        case .tabBar:           return "rectangle.bottomthird.inset.filled"
-        case .balance:          return "eurosign.circle.fill"
-        case .expectedBalance:  return "clock.badge.fill"
-        case .eyeButton:        return "eye.slash.fill"
-        case .accountPanel:     return "slider.horizontal.3"
-        case .addButton:        return "plus.circle.fill"
-        case .swipeActions:     return "hand.point.right.fill"
-        case .filters:          return "line.3.horizontal.decrease.circle.fill"
-        case .statistics:       return "chart.bar.fill"
-        case .budget:           return "chart.bar.doc.horizontal.fill"
-        case .goals:            return "target"
-        case .accounts:         return "creditcard.fill"
-        case .siriShortcuts:    return "mic.fill"
-        case .done:             return "checkmark.circle.fill"
-        }
-    }
-
-    // Keys must be present in every Localizable.strings (see tour.* section).
-    var titleKey: LocalizedStringKey {
-        switch self {
-        case .welcome:          return "tour.welcome.title"
-        case .tabBar:           return "tour.tabBar.title"
-        case .balance:          return "tour.saldoAttuale.title"
-        case .expectedBalance:  return "tour.saldoAtteso.title"
-        case .eyeButton:        return "tour.hideBalance.title"
-        case .accountPanel:     return "tour.accountOrder.title"
-        case .addButton:        return "tour.addButton.title"
-        case .swipeActions:     return "tour.swipeAction.title"
-        case .filters:          return "tour.filters.title"
-        case .statistics:       return "tour.statistics.title"
-        case .budget:           return "tour.budgetHero.title"
-        case .goals:            return "tour.goalHero.title"
-        case .accounts:         return "tour.accountSwipe.title"
-        case .siriShortcuts:    return "tour.shortcuts.title"
-        case .done:             return "tour.done.title"
-        }
-    }
-
-    var bodyKey: LocalizedStringKey {
-        switch self {
-        case .welcome:          return "tour.welcome.body"
-        case .tabBar:           return "tour.tabBar.body"
-        case .balance:          return "tour.saldoAttuale.body"
-        case .expectedBalance:  return "tour.saldoAtteso.body"
-        case .eyeButton:        return "tour.hideBalance.body"
-        case .accountPanel:     return "tour.accountOrder.body"
-        case .addButton:        return "tour.addButton.body"
-        case .swipeActions:     return "tour.swipeAction.body"
-        case .filters:          return "tour.filters.body"
-        case .statistics:       return "tour.statistics.body"
-        case .budget:           return "tour.budgetHero.body"
-        case .goals:            return "tour.goalHero.body"
-        case .accounts:         return "tour.accountSwipe.body"
-        case .siriShortcuts:    return "tour.shortcuts.body"
-        case .done:             return "tour.done.body"
-        }
-    }
-
-    var ctaKey: LocalizedStringKey {
-        switch self {
-        case .welcome: return "tour.startButton"
-        case .done:    return "tour.doneButton"
-        default:       return "Avanti"
-        }
-    }
-
-    // ── Progress ───────────────────────────────────────────────────────────
-
-    static var elementSteps: [TourStep] {
-        allCases.filter { !$0.isModal }
-    }
-
-    var isFirstElementStep: Bool { self == Self.elementSteps.first }
-    var isLastElementStep:  Bool { self == Self.elementSteps.last  }
+    var isFirstElementStep: Bool { id == Self.elementSteps.first?.id }
+    var isLastElementStep:  Bool { id == Self.elementSteps.last?.id }
 }

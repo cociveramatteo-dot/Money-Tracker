@@ -156,6 +156,7 @@ struct PianificaView: View {
                             .font(.system(size: 16))
                             .foregroundStyle(DS.ink)
                     }
+                    .tourAnchor("historyButton")
                 }
                 Button { showSettings = true } label: {
                     Image(systemName: "gearshape")

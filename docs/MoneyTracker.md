@@ -96,7 +96,7 @@ MoneyTracker/                    ← Source principale
 │   └── Transaction.swift
 ├── OnboardingTour/
 │   ├── TabBarFrameCapture.swift
-│   ├── TourHighlight.swift
+│   ├── ContextualHint.swift
 │   ├── TourManager.swift
 │   ├── TourOverlayView.swift
 │   └── TourStep.swift
@@ -349,9 +349,13 @@ Full support Light/Dark mode nativo SwiftUI, senza override manuali.
 
 ### Onboarding Tour (OnboardingTour/)
 
-- `TourManager`: gestione step, completamento, avanzamento
-- `TourOverlayView`: overlay con card modale (ModalCard, StepCard)
-- `TourHighlight`: sistema di highlight con anchor key
+Due livelli:
+- **Livello 1 — panoramica** (`TourStep`/`OverviewStep`): sequenza lineare mostrata una volta sola al primo avvio, uno step per tab con spotlight sulla sola icona della tab bar.
+- **Livello 2 — mini-tour contestuali** (`ContextualHint`): un singolo spotlight + card con "Ho capito", mostrato una sola volta la prima volta che l'utente arriva davvero su un elemento (dopo aver completato la panoramica).
+
+Altri componenti:
+- `TourManager`: stato pubblicato per entrambi i livelli, persistenza (UserDefaults) di "panoramica completata" e "hint visti"
+- `TourOverlayView`: overlay unico (ModalCard, StepCard, HintCard) che disegna sia la panoramica sia gli hint contestuali — montato in `MoneyTrackerApp` quando `isActive` **oppure** `activeHint != nil`
 - `TabBarFrameCapture`: cattura frame tab bar per posizionamento overlay
 
 ### Ricorrenze Automatiche
@@ -500,6 +504,36 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ---
 
 ## 10. Changelog
+
+### v3.x (luglio 2026) — Colori semantici positivo/negativo, fix ricorrenze, tour a due livelli riscritto
+
+**Colori (verde/rosso), indipendenti dal tema attivo:**
+- Nuovi `DS.positive`/`DS.negative` in `Theme.swift` (toni smorzati, adattivi chiaro/scuro) + `DS.signColor(_:)` come unica fonte di verità per "colora in base al segno"
+- Saldi (Home, Conti) colorati per segno; uscite/entrate colorate ovunque appaiano come riga (Movimenti, Home, storico ricorrenze) tranne i trasferimenti (restano neutri: non sono un guadagno/perdita reale)
+- Statistiche: "Uscite"/"Entrate" e relativi grafici (barre, linea, legenda, barre per categoria), confronto mese su mese e anno su anno colorati in base a miglioramento/peggioramento
+- Budget: resta neutro entro il limite, rosso solo se sforato
+- Rimosso un flag morto (`FixedExpenseRow.colorCoded`) mai attivato da nessuna parte che avrebbe dovuto occuparsi di questo
+
+**Bug fix — motore ricorrenze automatiche (`RecurringTransactionEngine.swift`):**
+- **Bug**: quando una transazione con `recurringFrequency` impostata (Settimanale/Mensile/Annuale) veniva creata, il motore che genera le occorrenze future non considerava che il template stesso copre già il proprio periodo (mensile/settimanale/annuale) — perché il template è escluso dal fetch delle transazioni "normali" (`recurringFrequency.isEmpty`). Risultato: al lancio successivo dell'app veniva generata una copia duplicata per lo stesso mese/settimana/anno del template.
+- **Fix**: aggiunto un controllo esplicito che salta la generazione se la data del template ricade già nel periodo corrente.
+- Verificato separatamente che il rilevamento passivo delle ricorrenze (`RecurringSeriesDetector`, tab "Ricorrenti") **non** esclude le transazioni da Tutti/Uscite/Entrate/Trasf. — sono due sistemi distinti, il secondo è solo di lettura/analisi.
+
+**Tour onboarding — riscritto da "un'icona per tab" a step sui singoli elementi:**
+- Livello 1 (panoramica) ora ha 16 step-elemento (Home ×4, Movimenti ×3, Statistiche ×3, Pianifica ×3, Conti ×1) invece di un semplice spotlight sull'icona della tab bar; motore di spotlight anchor-based condiviso col Livello 2
+- Aggiunti campi di tuning per-step (`spotlightPadding`, `spotlightYOffset`, `secondaryAnchorID`, `cardAtTop`) per correggere ritagli troppo piccoli/grandi, margini asimmetrici e card che coprivano il contenuto spiegato
+- Lo step "Tutti i movimenti" ora naviga davvero dentro la sezione e ne mostra il contenuto reale mentre lo spiega, richiudendola quando si avanza
+- Fine tour: torna sempre alla Home (prima restava sull'ultima tab visitata)
+- Rimossa la spiegazione del FAB "+" ovunque (sia il mini-tour post-tour sia lo step dedicato in Conti) e i mini-tour per barra di ricerca/spese ricorrenti — giudicati poco chiari
+- Bug fix: bottone "Elimina" nello swipe (Movimenti) ereditava un tint ambientale pensato per altro, mostrando sfondo bianco/icona nera in tema scuro invece del rosso di sistema
+- Bug fix: la tastiera della ricerca in Movimenti ricompariva da sola tornando all'hub dopo aver aperto una sezione — il focus non veniva mai resettato
+
+### v3.x (luglio 2026) — Fix mini-tour contestuali che non comparivano mai
+
+- **Bug**: `MoneyTrackerApp` montava `TourOverlayView` solo quando `tourManager.isActive` era vero (panoramica in corso). I mini-tour contestuali di Livello 2 (`ContextualHint`, il tooltip "Ho capito" tab per tab) scattano invece **dopo** che la panoramica è finita — la view che li disegna non esisteva più in quel momento, quindi non comparivano mai.
+- **Fix**: la condizione di montaggio ora è `tourManager.isActive || tourManager.activeHint != nil` (`MoneyTrackerApp.swift`).
+- **Bug correlato**: al termine della panoramica l'utente resta sull'ultima tab visitata durante il tour; il trigger dei mini-tour in `ContentView` scattava solo su `onChange(of: selectedTab)`, quindi l'hint di quella tab non partiva mai finché non se ne usciva e vi si tornava. Aggiunto un secondo trigger su `onChange(of: tourManager.isActive)` che controlla subito la tab corrente a fine tour.
+- **Contenuto**: aggiunto il mini-tour `hint.goalsList` (anchor `goalsList`, già presente in `PianificaView` ma orfano) per spiegare gli obiettivi di risparmio quando si passa al segmento "Obiettivi" — prima quella sezione non aveva alcuna spiegazione contestuale. Rifiniti alcuni testi italiani per un tono più professionale (`hint.tabStatistiche.body`, `hint.movimentiHub.body`, `hint.fab.body`).
 
 ### v3.x (luglio 2026) — Fix tocco posteriore/Siri: transazioni che sparivano dopo il salvataggio
 

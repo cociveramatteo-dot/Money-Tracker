@@ -29,10 +29,14 @@ struct MoneyTrackerApp: App {
             UserDefaults.standard.set(true, forKey: "demoModeEnabled")
             UserDefaults.standard.set(false, forKey: "appLockEnabled")
             UserDefaults.standard.set(true, forKey: "notificationsEnabled")
-            // Il tour di onboarding intercetterebbe ogni tap sulla tab bar: va
-            // marcato come già completato così gli XCUITest partono direttamente
-            // sull'app, senza dover gestire l'overlay del tour.
-            UserDefaults.standard.set(true, forKey: "onboarding.tour.completed.v1")
+            // Il tour di onboarding (panoramica + mini-tour contestuali) intercetterebbe
+            // i tap degli XCUITest: vanno marcati come già visti così i test partono
+            // direttamente sull'app, senza dover gestire nessun overlay del tour.
+            UserDefaults.standard.set(true, forKey: "onboarding.tour.overview.completed.v1")
+            for hint in ContextualHint.allCases {
+                UserDefaults.standard.set(true, forKey: "hint.\(hint.rawValue).seen")
+            }
+            UserDefaults.standard.set(true, forKey: "hint.settings.seen")
         }
 
         // Schema(versionedSchema:) invece di Schema([...]): necessario perché
@@ -237,7 +241,11 @@ struct MoneyTrackerApp: App {
             DemoDataSeeder.forceReset(context: demoContainer.mainContext)
         }
         .overlayPreferenceValue(TourAnchorKey.self) { anchors in
-            if tourManager.isActive {
+            // I mini-tour contestuali (Livello 2) vivono in questa stessa view ma
+            // scattano DOPO che la panoramica è finita (isActive == false) — vanno
+            // montati anche in quel caso, altrimenti activeHint non ha mai una view
+            // che lo disegni e "Ho capito" non si vede mai.
+            if tourManager.isActive || tourManager.activeHint != nil {
                 TourOverlayView(anchors: anchors)
                     .ignoresSafeArea()
                     .transition(.opacity)

@@ -31,7 +31,7 @@ struct AccountsView: View {
             List {
                 VStack(alignment: .leading, spacing: DS.Space.s) {
                     SectionLabel(text: "Totale attuale")
-                    HeroAmount(amount: totalCurrent)
+                    HeroAmount(amount: totalCurrent, colorBySign: true)
                     HStack(spacing: DS.Space.xs) {
                         Text("A conti fatti:")
                             .font(.system(size: 13))
@@ -60,7 +60,8 @@ struct AccountsView: View {
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: DS.Space.xl, leading: DS.Layout.margin, bottom: 0, trailing: DS.Layout.margin))
                 } else {
-                    ForEach(included + excluded) { acc in
+                    let activeAccounts = included + excluded
+                    ForEach(Array(activeAccounts.enumerated()), id: \.element.id) { index, acc in
                         AccountRow(account: acc)
                             .contentShape(Rectangle())
                             .accessibilityIdentifier("accountRow_\(acc.name)")
@@ -109,6 +110,10 @@ struct AccountsView: View {
                             .listRowBackground(DS.paper)
                             .listRowSeparatorTint(DS.fog)
                             .listRowInsets(EdgeInsets(top: 0, leading: DS.Layout.margin, bottom: 0, trailing: DS.Layout.margin))
+                            // Bordo inferiore del tour (Livello 1, step "conti.list"):
+                            // lo spotlight si ferma qui invece che al frame dell'intera
+                            // List, che si estenderebbe ben oltre l'ultimo conto reale.
+                            .tourAnchor(index == activeAccounts.count - 1 ? "accountListEnd" : "accountListRow")
                     }
                 }
 
@@ -192,6 +197,12 @@ struct AccountsView: View {
 struct AccountRow: View {
     let account: Account
 
+    private var balanceColor: Color {
+        if account.currentBalance > 0 { return DS.positive }
+        if account.currentBalance < 0 { return DS.negative }
+        return DS.ink
+    }
+
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: DS.Space.xs) {
@@ -217,7 +228,7 @@ struct AccountRow: View {
             VStack(alignment: .trailing, spacing: DS.Space.xs) {
                 Text(account.currentBalance.currencyFormatted)
                     .font(.system(size: 17, weight: .semibold))
-                    .foregroundStyle(DS.ink)
+                    .foregroundStyle(balanceColor)
                 if abs(account.futureBalance - account.currentBalance) > 0.001 {
                     HStack(spacing: 3) {
                         Text("→")

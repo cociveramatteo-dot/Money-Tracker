@@ -43,25 +43,6 @@ struct ContentView: View {
             .tint(DS.ink)
             .toolbarBackground(DS.paper, for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)
-            // Captures the UITabBar's exact frame via window-hierarchy traversal.
-            // More reliable than responder-chain search on iOS 26.
-            .background(
-                TabBarFrameCapture { frame, radius in
-                    TourManager.shared.tabBarFrame        = frame
-                    TourManager.shared.tabBarCornerRadius = radius
-                }
-                .allowsHitTesting(false)
-            )
-
-            // Tour anchor: iOS 26 liquid-glass tab bar is visually taller than
-            // the classic 49 pt items strip — the floating pill is ~60 pt.
-            // ZStack(alignment: .bottom) anchors this at the safe-area bottom edge
-            // so it lines up with the tab bar items without touching the home indicator.
-            Color.clear
-                .frame(maxWidth: .infinity)
-                .frame(height: 60)
-                .tourAnchor("tabBar")
-                .allowsHitTesting(false)
 
             let fabHidden = selectedTab == 1 && isSearchingTransactions
             fabButton
@@ -71,20 +52,26 @@ struct ContentView: View {
                 .animation(.spring(response: 0.25, dampingFraction: 0.8), value: fabHidden)
                 .allowsHitTesting(!fabHidden)
         }
-        // ── Tour-driven tab / segment switching ───────────────────────────────
+        // ── Tour-driven tab/segment switching (panoramica, Livello 1) ─────────
         .onChange(of: tourManager.requiredTab) { _, tab in
             if let tab { selectedTab = tab }
         }
-        .onChange(of: tourManager.requiredSegment) { _, seg in
-            if let seg { planningSegment = seg }
+        .onChange(of: tourManager.requiredSegment) { _, segment in
+            if let segment { planningSegment = segment }
         }
-        // ── Tour trigger ──────────────────────────────────────────────────────
+        // ── Tour trigger (panoramica) ──────────────────────────────────────────
         // ContentView is recreated when demoModeEnabled changes (via .id()).
         // Guard: don't restart if tour is already active (TourManager.start() caused
         // this re-creation by toggling demoModeEnabled).
         .onAppear {
             guard !TourManager.shared.isActive else { return }
-            TourManager.shared.startIfNeeded()
+            // "--forceTour": hook di QA per rivedere il tour in automazione senza
+            // passare da Impostazioni (stessa idea di "--uitesting", vedi MoneyTrackerApp).
+            if ProcessInfo.processInfo.arguments.contains("--forceTour") {
+                TourManager.shared.start()
+            } else {
+                TourManager.shared.startIfNeeded()
+            }
         }
         .sheet(isPresented: $showAdd)      { AddTransactionView() }
         .sheet(isPresented: $showTransfer) { AddTransferView() }
@@ -108,7 +95,9 @@ struct ContentView: View {
                 fabCircle
             }
             .accessibilityIdentifier("fabButton")
-            .simultaneousGesture(TapGesture().onEnded { haptic(.medium) })
+            .simultaneousGesture(TapGesture().onEnded {
+                haptic(.medium)
+            })
         } else if selectedTab != 2 {
             Button {
                 haptic(.medium)

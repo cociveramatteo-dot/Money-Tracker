@@ -3,47 +3,7 @@
    Its presence tells iOS to recognise "it" as a valid locale. */
 
 /* ── Tour / Onboarding ──────────────────── */
-"tour.saldoAttuale.title" = "Saldo attuale";
-"tour.saldoAttuale.body" = "Liquidità confermata. Solo i movimenti con stato 'effettuato' concorrono a questo valore — tutto il pianificato è escluso.";
 
-"tour.hideBalance.title" = "Oscura importi";
-"tour.hideBalance.body" = "Tocca l'occhio in alto a destra per nascondere tutti gli importi in ogni schermata. Lo stato persiste tra le sessioni — utile in ambienti pubblici.";
-
-"tour.accountOrder.title" = "Composizione del pannello";
-"tour.accountOrder.body" = "Tocca il cursore per scegliere quali conti appaiono qui e in che sequenza. Trascina per riordinare, usa il segno di spunta per includere o escludere.";
-
-"tour.saldoAtteso.title" = "Saldo atteso";
-"tour.saldoAtteso.body" = "Proiezione al netto di ogni voce pianificata non ancora effettuata. Appare solo quando esistono movimenti futuri in sospeso.";
-
-"tour.recentMovements.title" = "Ultimi movimenti";
-"tour.recentMovements.body" = "Gli ultimi movimenti non fissi. Tocca l'intestazione per collassare la sezione, tocca una riga per aprire il dettaglio.";
-
-"tour.addButton.title" = "Aggiungi movimento";
-"tour.addButton.body" = "Il pulsante + è disponibile da ogni tab. Tocca per aggiungere una spesa, un'entrata o un trasferimento tra conti. Tienilo premuto per scegliere il tipo.";
-
-"tour.filters.title" = "Filtri per categoria";
-"tour.filters.body" = "I filtri sono cumulativi — tipo e categoria si combinano. Seleziona più categorie per restringere l'analisi. Lo stato dei filtri si azzera cambiando periodo.";
-
-"tour.swipeAction.title" = "Azioni rapide";
-"tour.swipeAction.body" = "Scorri a destra su una voce fissa per confermarla e aggiornare il saldo. Scorri a sinistra per eliminarla. Sulle voci normali, scorri a destra per modificarle.";
-
-"tour.accountSwipe.title" = "Gestione conto";
-"tour.accountSwipe.body" = "Scorri a destra per modificare un conto, a sinistra per eliminarlo. Tieni premuto per opzioni avanzate: esclusione dal totale e archiviazione.";
-
-"tour.budgetBar.title" = "Barra di avanzamento";
-"tour.budgetBar.body" = "Verde indica che sei entro la soglia. Rosso indica che il limite è stato superato. Il calcolo include solo i movimenti effettuati nel mese corrente.";
-
-"tour.goalProgress.title" = "Obiettivo di risparmio";
-"tour.goalProgress.body" = "Premi il pulsante di aggiornamento per registrare i progressi. La barra mostra la percentuale raggiunta rispetto al target. La scadenza è indicata sotto il nome.";
-
-"tour.accountTotal.title" = "Patrimonio totale";
-"tour.accountTotal.body" = "La somma dei saldi di tutti i conti attivi non esclusi. 'A conti fatti' sotto mostra la proiezione dopo tutte le voci pianificate in sospeso.";
-
-"tour.budgetHero.title" = "Utilizzo del budget";
-"tour.budgetHero.body" = "Percentuale del budget mensile totale già consumata. La linea si riempie progressivamente — resta sotto il 100% per non sforare.";
-
-"tour.goalHero.title" = "Progresso complessivo";
-"tour.goalHero.body" = "Media ponderata del progresso su tutti gli obiettivi attivi. Ogni obiettivo contribuisce in proporzione al suo importo target.";
 /* ── Demo accounts ───────────────────────────── */
 "demo.account.conto"    = "Conto Corrente";
 "demo.account.risparmi" = "Risparmi";
@@ -73,10 +33,6 @@
 /* ── Onboarding tour — new steps ─────────────── */
 "tour.welcome.title"  = "Benvenuto in MoneyTracker";
 "tour.welcome.body"   = "Questa guida ti accompagna nella scoperta di ogni funzione. Puoi interromperla in qualsiasi momento e riprenderla da Impostazioni → Rivedi tour.";
-"tour.tabBar.title"   = "Navigazione principale";
-"tour.tabBar.body"    = "Cinque aree sempre accessibili: Dashboard, Movimenti, Statistiche, Pianifica e Conti. Progettate per il minimo numero di tap.";
-"tour.statistics.title" = "Analisi finanziaria";
-"tour.statistics.body"  = "Confronta le uscite mensili, visualizza i trend su 12 mesi e analizza il confronto anno su anno. I grafici si aggiornano automaticamente.";
 "tour.shortcuts.title" = "Aggiungi spese senza aprire l'app";
 "tour.shortcuts.body"  = "Puoi registrare una spesa direttamente con Siri o con una Shortcut personalizzata. Consiglio: crea una scorciatoia e assegnala al doppio tocco sul retro del telefono. Trovi tutto in Impostazioni → Siri & Shortcut.";
 "tour.done.title"     = "Sei pronto";
@@ -87,3 +43,46 @@
 "Avanti"              = "Avanti";
 "Fine"                = "Fine";
 "Rivedi tour"         = "Rivedi tour";
+
+/* ── Tour: step-elemento per tab (Livello 1) ─── */
+"tour.stepProgress" = "%d di %d";
+
+"tour.home.balance.title" = "Saldo attuale";
+"tour.home.balance.body" = "Liquidità confermata: solo i movimenti effettuati concorrono a questo valore.";
+"tour.home.hide.title" = "Nascondi il saldo";
+"tour.home.hide.body" = "Tocca l'occhio per oscurare tutti gli importi, utile quando lo schermo è visibile ad altri.";
+"tour.home.expected.title" = "Saldo atteso";
+"tour.home.expected.body" = "Il saldo futuro, comprese le spese fisse pianificate non ancora avvenute.";
+"tour.home.accounts.title" = "I tuoi conti";
+"tour.home.accounts.body" = "Tocca l'icona per scegliere quali conti mostrare qui e in che ordine.";
+
+"tour.movimenti.sections.title" = "Sezioni";
+"tour.movimenti.sections.body" = "Ogni blocco raccoglie un tipo di movimento: tutti, fissi, ricorrenti, trasferimenti.";
+"tour.movimenti.block.title" = "Tutti i movimenti";
+"tour.movimenti.block.body" = "Apre l'elenco completo, con filtri per categoria e conto.";
+"tour.movimenti.search.title" = "Cerca ovunque";
+"tour.movimenti.search.body" = "Trova qualsiasi movimento, in qualunque sezione, digitando anche solo una parola.";
+
+"tour.statistiche.summary.title" = "Riepilogo del mese";
+"tour.statistiche.summary.body" = "Uscite ed entrate del mese, a confronto con quello precedente.";
+"tour.statistiche.trend.title" = "Andamento nel tempo";
+"tour.statistiche.trend.body" = "Confronta gli ultimi 6 o 12 mesi in un solo grafico.";
+"tour.statistiche.category.title" = "Uscite per categoria";
+"tour.statistiche.category.body" = "Scopri dove va la maggior parte dei tuoi soldi ogni mese.";
+
+"tour.pianifica.budget.title" = "Budget per categoria";
+"tour.pianifica.budget.body" = "Imposta un limite di spesa mensile e monitora quanto ne hai già usato.";
+"tour.pianifica.history.title" = "Storico budget";
+"tour.pianifica.history.body" = "Rivedi i mesi passati per capire come sono cambiate le tue abitudini di spesa.";
+"tour.pianifica.goals.title" = "Obiettivi di risparmio";
+"tour.pianifica.goals.body" = "Imposta un importo target per ogni obiettivo e aggiorna quanto hai già risparmiato.";
+
+"tour.conti.list.title" = "I tuoi conti";
+"tour.conti.list.body" = "Saldo, tipo e opzioni per ogni conto. Scorri a destra per modificarlo, a sinistra per eliminarlo.";
+
+/* ── Tour: mini-tour contestuali (Livello 2) ─── */
+"hint.movimentiSection.title" = "Azioni rapide";
+"hint.movimentiSection.body" = "Scorri a destra su una voce fissa per confermarla, a sinistra per eliminarla. Tieni premuto per altre opzioni.";
+"hint.settings.title" = "Impostazioni";
+"hint.settings.body" = "Lingua, valuta, sicurezza, esportazione dati e altro. Rivedi questo tour in qualsiasi momento da qui.";
+"hint.gotIt" = "Ho capito";

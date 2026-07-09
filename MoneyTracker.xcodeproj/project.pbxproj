@@ -61,15 +61,11 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		24CF7F58C5C0B5E697E059B0 /* MoneyTrackerTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = MoneyTrackerTests;
 			sourceTree = "<group>";
 		};
 		45CA6D8C319591A1F0320FBE /* MoneyTrackerUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
 			path = MoneyTrackerUITests;
 			sourceTree = "<group>";
 		};

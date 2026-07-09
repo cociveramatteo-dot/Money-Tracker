@@ -39,6 +39,7 @@ final class NavigationStressUITests: MoneyTrackerUITestCase {
 
     func testAddMultipleTransactionsThenDeleteAll() throws {
         goToTab("Movimenti")
+        openTransactionsSection("Tutti")
         let baseName = uniqueName("Stress")
         var names: [String] = []
 
@@ -61,10 +62,7 @@ final class NavigationStressUITests: MoneyTrackerUITestCase {
         for name in names.reversed() {
             let row = app.staticTexts[name]
             XCTAssertTrue(row.waitForExistence(timeout: 5))
-            row.swipeLeft()
-            let deleteButton = app.buttons["btn_deleteTransaction"]
-            XCTAssertTrue(deleteButton.waitForExistence(timeout: 5))
-            deleteButton.tap()
+            swipeToDeleteTransaction(named: name)
             XCTAssertFalse(app.staticTexts[name].waitForExistence(timeout: 3))
         }
 

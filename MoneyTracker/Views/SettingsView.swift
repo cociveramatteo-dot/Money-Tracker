@@ -70,6 +70,10 @@ struct SettingsView: View {
     @Environment(\.dismiss)      private var dismiss
 
     // PERF-04: replaced @Query (keeps all rows in memory) with lazy fetch for count + CSV
+    // hint.settings vive qui come banner inline invece che come spotlight del tour:
+    // SettingsView è un .sheet, presentato SOPRA il TourOverlayView (che sta alla
+    // radice della app) — un cutout disegnato lì sotto non sarebbe mai visibile.
+    @State private var showSettingsHint = !TourManager.shared.hasSeenSettingsHint
     @State private var transactionCount: Int = 0
     @State private var csvData: CSVFile? = nil
     @State private var isGeneratingCSV: Bool = false
@@ -112,6 +116,10 @@ struct SettingsView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: DS.Space.xxl) {
+
+                    if showSettingsHint {
+                        settingsHintBanner
+                    }
 
                     VStack(alignment: .leading, spacing: DS.Space.l) {
                         SectionLabel(text: "Lingua")
@@ -491,7 +499,9 @@ struct SettingsView: View {
                         Button {
                             dismiss()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                                TourManager.shared.start()
+                                // Un vero ricomincia-da-capo: azzera anche i mini-tour
+                                // contestuali già visti, non solo la panoramica.
+                                TourManager.shared.resetAll()
                             }
                         } label: {
                             HStack {
@@ -558,6 +568,42 @@ struct SettingsView: View {
                 transactionCount = (try? context.fetchCount(FetchDescriptor<Transaction>())) ?? 0
             }
         }
+    }
+
+    // MARK: - Mini-tour "Impostazioni" (hint.settings)
+
+    private var settingsHintBanner: some View {
+        HStack(alignment: .top, spacing: DS.Space.m) {
+            Image(systemName: "gearshape.fill")
+                .font(.system(size: 13, weight: .medium))
+                .foregroundStyle(DS.ink)
+                .frame(width: 30, height: 30)
+                .background(DS.fog)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+
+            VStack(alignment: .leading, spacing: DS.Space.xs) {
+                Text("hint.settings.title")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(DS.ink)
+                Text("hint.settings.body")
+                    .font(.system(size: 12))
+                    .foregroundStyle(DS.smoke)
+                    .lineSpacing(3)
+                Button {
+                    withAnimation(.easeOut(duration: 0.2)) { showSettingsHint = false }
+                    TourManager.shared.markSettingsHintSeen()
+                } label: {
+                    Text("hint.gotIt")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(DS.ink)
+                }
+                .padding(.top, 2)
+            }
+        }
+        .padding(DS.Space.m)
+        .background(DS.fog.opacity(0.5))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .transition(.opacity)
     }
 
     // MARK: - Account / Profilo

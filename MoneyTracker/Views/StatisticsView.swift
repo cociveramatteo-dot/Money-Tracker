@@ -192,13 +192,13 @@ struct StatisticsView: View {
                             Text("Uscite")
                                 .font(.system(size: 11))
                                 .foregroundStyle(DS.smoke)
-                            HeroAmount(amount: monthSpent, size: 44)
+                            HeroAmount(amount: monthSpent, size: 44, forceColor: DS.negative)
                         }
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Entrate")
                                 .font(.system(size: 11))
                                 .foregroundStyle(DS.smoke)
-                            HeroAmount(amount: monthIncome, size: 44)
+                            HeroAmount(amount: monthIncome, size: 44, forceColor: DS.positive)
                         }
                     }
 
@@ -211,11 +211,13 @@ struct StatisticsView: View {
                             Text("rispetto al mese scorso")
                                 .font(.system(size: 13))
                         }
-                        .foregroundStyle(monthSpent - prevSpent >= 0 ? DS.ink : DS.smoke)
+                        // Più spese del mese scorso = peggioramento (rosso), meno = miglioramento (verde).
+                        .foregroundStyle(monthSpent - prevSpent >= 0 ? DS.negative : DS.positive)
                     }
 
                 }
                 .padding(.horizontal, DS.Layout.margin)
+                .tourAnchor("monthSummary")
 
                 MonthBar(month: $selectedMonth)
                     .padding(.horizontal, DS.Layout.margin)
@@ -263,7 +265,7 @@ struct StatisticsView: View {
                                     x: .value("Mese", stat.label),
                                     y: .value("Uscite", stat.expenses)
                                 )
-                                .foregroundStyle(DS.ink.opacity(0.85))
+                                .foregroundStyle(DS.negative.opacity(0.85))
                                 .cornerRadius(4)
 
                                 if stat.income > 0 {
@@ -271,7 +273,7 @@ struct StatisticsView: View {
                                         x: .value("Mese", stat.label),
                                         y: .value("Entrate", stat.income)
                                     )
-                                    .foregroundStyle(DS.smoke)
+                                    .foregroundStyle(DS.positive)
                                     .symbol(Circle().strokeBorder(lineWidth: 1.5))
                                     .symbolSize(30)
                                 }
@@ -303,13 +305,14 @@ struct StatisticsView: View {
                         .padding(.horizontal, DS.Layout.margin)
 
                         HStack(spacing: DS.Space.l) {
-                            legendItem(color: DS.ink.opacity(0.85), label: "Uscite")
-                            legendItem(color: DS.smoke, label: "Entrate", isDot: true)
+                            legendItem(color: DS.negative.opacity(0.85), label: "Uscite")
+                            legendItem(color: DS.positive, label: "Entrate", isDot: true)
                         }
                         .padding(.horizontal, DS.Layout.margin)
                         .padding(.top, DS.Space.xs)
                     }
                 }
+                .tourAnchor("trendChart")
 
                 ThinDivider().padding(.top, DS.Space.l)
 
@@ -350,7 +353,7 @@ struct StatisticsView: View {
                                         ZStack(alignment: .leading) {
                                             Rectangle().fill(DS.fog).frame(height: 2)
                                             Rectangle()
-                                                .fill(DS.ink)
+                                                .fill(DS.negative)
                                                 .frame(width: monthSpent > 0 ? geo.size.width * (cat.amount / monthSpent).asDouble : 0, height: 2)
                                         }
                                     }
@@ -366,6 +369,7 @@ struct StatisticsView: View {
                         }
                     }
                 }
+                .tourAnchor("categoryBreakdown")
 
                 ThinDivider().padding(.top, DS.Space.l)
 
@@ -388,7 +392,7 @@ struct StatisticsView: View {
                                     .foregroundStyle(DS.smoke)
                                 Text(avgExp.currencyFormatted)
                                     .font(.system(size: 22, weight: .semibold))
-                                    .foregroundStyle(DS.ink)
+                                    .foregroundStyle(DS.negative)
                                     .minimumScaleFactor(0.7)
                                     .lineLimit(1)
                             }
@@ -406,7 +410,7 @@ struct StatisticsView: View {
                                     .foregroundStyle(DS.smoke)
                                 Text(avgInc.currencyFormatted)
                                     .font(.system(size: 22, weight: .semibold))
-                                    .foregroundStyle(DS.ink)
+                                    .foregroundStyle(DS.positive)
                                     .minimumScaleFactor(0.7)
                                     .lineLimit(1)
                             }
@@ -496,7 +500,6 @@ struct StatisticsView: View {
         // PERF-02: rebuild the byMonth dictionary only when the transaction list changes
         .onAppear { rebuildByMonth() }
         .onChange(of: transactions) { _, _ in rebuildByMonth() }
-        .tourAnchor("statisticsContent")
         } // NavigationStack
     }
 
@@ -526,7 +529,7 @@ struct StatisticsView: View {
                         Text("\(sign)\(String(format: "%.0f", pct))% vs \(currentYear - 1)")
                             .font(.system(size: 11))
                     }
-                    .foregroundStyle(good ? DS.smoke : DS.ink)
+                    .foregroundStyle(good ? DS.positive : DS.negative)
                 }
             }
         }

@@ -2,8 +2,11 @@ import SwiftUI
 
 // MARK: - TourOverlayView
 
-/// Full-screen overlay that renders the spotlight + step card / modal card.
-/// Instantiated by ContentView via `overlayPreferenceValue(TourAnchorKey.self)`.
+/// Full-screen overlay che disegna sia il tour di panoramica (Livello 1,
+/// `OverviewStep`) sia i mini-tour contestuali (Livello 2, `ContextualHint`) —
+/// stesso motore di spotlight/tap-absorbing, stesso stile di card, cambia solo
+/// cosa/quando viene mostrato. Instantiated by MoneyTrackerApp via
+/// `overlayPreferenceValue(TourAnchorKey.self)`.
 struct TourOverlayView: View {
 
     @ObservedObject var tour = TourManager.shared
@@ -25,36 +28,69 @@ struct TourOverlayView: View {
     // Storing them in @State ensures the task always reads the freshest snapshot.
     @State private var liveAnchors: [String: Anchor<CGRect>] = [:]
 
+    private var cardAtTop: Bool {
+        if let hint = tour.activeHint { return hint.cardAtTop }
+        return tour.currentStep.cardAtTop
+    }
+
+    private var showsSpotlight: Bool {
+        if tour.activeHint != nil { return true }
+        return tour.isActive && !tour.currentStep.isModal
+    }
+
+    /// Lo step-elemento richiede un cambio di tab o di segmento (Pianifica)
+    /// rispetto allo step precedente nella sequenza? Se sì, la vista di
+    /// destinazione ha bisogno di un istante per renderizzare e registrare i
+    /// propri `.tourAnchor(_:)` prima che lo spotlight possa posizionarcisi.
+    private var needsTransitionDelay: Bool {
+        let all = OverviewStep.all
+        guard let idx = all.firstIndex(where: { $0.id == tour.currentStep.id }), idx > 0 else { return false }
+        let previous = all[idx - 1]
+        let current  = tour.currentStep
+        return current.requiredTab != previous.requiredTab
+            || current.requiredSegment != previous.requiredSegment
+            || current.usesNavigationPush || previous.usesNavigationPush
+    }
+
     var body: some View {
         GeometryReader { geo in
 
-            ZStack(alignment: tour.currentStep.cardAtTop ? .top : .bottom) {
+            ZStack(alignment: cardAtTop ? .top : .bottom) {
 
                 // ── 1. Dark overlay + animated spotlight cutout ────────────
-                if !tour.currentStep.isModal {
+                if showsSpotlight {
                     spotlightOverlay
                         .ignoresSafeArea()
                 }
 
-                // ── 2a. Full-screen modal (welcome / siri / done) ─────────
-                if tour.currentStep.isModal {
-                    Color.black.opacity(0.85)
-                        .ignoresSafeArea()
-                        .transition(.opacity)
-                    ModalCard()
-                        .padding(.horizontal, 28)
-                        .frame(maxHeight: .infinity, alignment: .center)
-                        .transition(.scale(scale: 0.92).combined(with: .opacity))
-
-                // ── 2b. Tooltip card (element steps) ──────────────────────
-                } else {
-                    StepCard()
+                if let hint = tour.activeHint {
+                    // ── 2a. Mini-tour contestuale (Livello 2) ───────────────
+                    HintCard(hint: hint)
                         .padding(.horizontal, 12)
-                        .padding(tour.currentStep.cardAtTop ? .top : .bottom, 72)
+                        .padding(hint.cardAtTop ? .top : .bottom, 72)
                         .transition(.opacity)
+
+                } else if tour.isActive {
+                    if tour.currentStep.isModal {
+                        // ── 2b. Modale a schermo intero (welcome/siri/done) ──
+                        Color.black.opacity(0.85)
+                            .ignoresSafeArea()
+                            .transition(.opacity)
+                        ModalCard()
+                            .padding(.horizontal, 28)
+                            .frame(maxHeight: .infinity, alignment: .center)
+                            .transition(.scale(scale: 0.92).combined(with: .opacity))
+                    } else {
+                        // ── 2c. Card dello step-elemento (Livello 1) ────────
+                        StepCard()
+                            .padding(.horizontal, 12)
+                            .padding(tour.currentStep.cardAtTop ? .top : .bottom, 72)
+                            .transition(.opacity)
+                    }
                 }
             }
             .animation(.spring(response: 0.4, dampingFraction: 0.85), value: tour.currentStep)
+            .animation(.spring(response: 0.4, dampingFraction: 0.85), value: tour.activeHint)
 
             // Keep liveAnchors in sync — fires whenever SwiftUI re-collects
             // anchors (new view appears, tab switches, layout changes, etc.)
@@ -68,24 +104,28 @@ struct TourOverlayView: View {
                     updateSpot(geo: geo, from: fresh)
                 }
             }
-            // Re-position when TabBarFrameCapture delivers the UIKit frame.
-            // Fires once shortly after the view appears (async UIKit layout).
-            .onChange(of: tour.tabBarFrame) { _, _ in
-                withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
-                    updateSpot(geo: geo, from: liveAnchors)
-                }
-            }
 
-            // Primary driver: re-runs each time the current step changes.
-            // Delay SOLO quando si cambia tab (requiredTab > 0) per dare tempo a:
-            //   (a) ContentView.onChange di switchare il tab
-            //   (b) La nuova tab di renderizzare e registrare i propri anchor
+            // Primary driver per la panoramica: re-runs ad ogni cambio di step.
+            // Delay SOLO quando lo step richiede un cambio tab/segmento rispetto
+            // al precedente, per dare tempo a:
+            //   (a) ContentView/PianificaView di applicare il cambio
+            //   (b) La nuova vista di renderizzare e registrare i propri anchor
             //   (c) liveAnchors di aggiornarsi via onChange(of: anchors)
-            // Tab Home (requiredTab == 0) e step modali (nil) → nessuna attesa.
+            // Step successivi nella STESSA tab/segmento → nessuna attesa.
             .task(id: tour.currentStep) {
-                if let tab = tour.currentStep.requiredTab, tab > 0 {
+                if needsTransitionDelay {
                     try? await Task.sleep(nanoseconds: 480_000_000)   // 480 ms
                 }
+                let snapshot = liveAnchors
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.88)) {
+                    updateSpot(geo: geo, from: snapshot)
+                }
+            }
+            // Primary driver per i mini-tour: re-runs ad ogni nuovo hint mostrato.
+            // Nessun cambio tab coinvolto (l'hint scatta quando l'utente è già
+            // sulla schermata giusta), quindi nessuna attesa necessaria.
+            .task(id: tour.activeHint) {
+                guard tour.activeHint != nil else { return }
                 let snapshot = liveAnchors
                 withAnimation(.spring(response: 0.3, dampingFraction: 0.88)) {
                     updateSpot(geo: geo, from: snapshot)
@@ -131,38 +171,56 @@ struct TourOverlayView: View {
     }
 
     // MARK: - Spotlight positioning
+    //
+    // Motore unico, anchor-based, condiviso da Livello 1 (step-elemento) e
+    // Livello 2 (hint contestuali) — entrambi si riducono a "un anchorID e un
+    // corner radius", la precisione del ritaglio è quella nativa di
+    // GeometryReader/Anchor<CGRect>, quindi millimetrica sull'elemento reale.
 
     private func updateSpot(geo: GeometryProxy, from a: [String: Anchor<CGRect>]) {
-        // Special case: tab bar step uses the UIKit frame captured by TabBarFrameCapture.
-        // This gives pixel-perfect alignment regardless of iOS version.
-        // The UIKit frame is in screen-point coordinates, which matches the GeometryReader
-        // at the App root (with .ignoresSafeArea) — same origin, no conversion needed.
-        if tour.currentStep == .tabBar, tour.tabBarFrame != .zero {
-            spotX = tour.tabBarFrame.minX
-            spotY = tour.tabBarFrame.minY
-            spotW = tour.tabBarFrame.width
-            spotH = tour.tabBarFrame.height
-            // Always use our tuned constant — UIKit reports the container's
-            // cornerRadius, not the iOS 26 visual pill's actual corner radius.
-            spotR = tour.currentStep.spotlightCornerRadius
+        if let hint = tour.activeHint {
+            applySpot(anchorID: hint.anchorID, cornerRadius: hint.spotlightCornerRadius, geo: geo, from: a)
             return
         }
-
-        // All other steps — use SwiftUI anchor preferences.
-        guard
-            let id     = tour.currentStep.anchorID,
-            let anchor = a[id]
-        else {
+        guard tour.isActive, !tour.currentStep.isModal, let anchorID = tour.currentStep.anchorID else {
             spotW = 0; spotH = 0
             return
         }
-        let rect = geo[anchor]
-        let pad  = tour.currentStep.spotlightPadding
-        spotX = rect.minX  - pad
-        spotY = rect.minY  - pad
-        spotW = rect.width + pad * 2
-        spotH = rect.height + pad * 2
-        spotR = tour.currentStep.spotlightCornerRadius
+        let step = tour.currentStep
+        applySpot(
+            anchorID: anchorID, cornerRadius: step.spotlightCornerRadius, geo: geo, from: a,
+            padding: step.spotlightPadding, yOffset: step.spotlightYOffset,
+            secondaryAnchorID: step.secondaryAnchorID, secondaryBottomMargin: step.secondaryBottomMargin
+        )
+    }
+
+    private func applySpot(
+        anchorID: String, cornerRadius: CGFloat, geo: GeometryProxy, from a: [String: Anchor<CGRect>],
+        padding: CGFloat = 0, yOffset: CGFloat = 0,
+        secondaryAnchorID: String? = nil, secondaryBottomMargin: CGFloat = 0
+    ) {
+        guard let anchor = a[anchorID] else {
+            spotW = 0; spotH = 0
+            return
+        }
+        var rect = geo[anchor]
+
+        // Bordo inferiore preso da un secondo anchor (es. l'ultima riga di una
+        // List, il cui anchor primario riporterebbe l'intero frame scrollabile
+        // invece della sola altezza del contenuto reale).
+        if let secondaryID = secondaryAnchorID, let secondaryAnchor = a[secondaryID] {
+            let secondaryRect = geo[secondaryAnchor]
+            rect.size.height = (secondaryRect.maxY + secondaryBottomMargin) - rect.minY
+        }
+
+        if padding != 0 { rect = rect.insetBy(dx: -padding, dy: -padding) }
+        rect.origin.y += yOffset
+
+        spotX = rect.minX
+        spotY = rect.minY
+        spotW = rect.width
+        spotH = rect.height
+        spotR = cornerRadius
     }
 }
 
@@ -226,31 +284,12 @@ private struct ModalCard: View {
 
 // MARK: - StepCard
 
-/// Compact tooltip card shown alongside the spotlight for element steps.
+/// Compact tooltip card per gli step-elemento della panoramica (Livello 1).
 private struct StepCard: View {
     @ObservedObject private var tour = TourManager.shared
-    private var elementSteps: [TourStep] { TourStep.elementSteps }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-
-            // Section breadcrumb — shown only for cross-tab steps so the user
-            // always knows which area of the app the tour is currently describing.
-            if let tab = tour.currentStep.tabLabel {
-                HStack(spacing: 4) {
-                    Image(systemName: tab.icon)
-                        .font(.system(size: 10, weight: .medium))
-                    Text(tab.name)
-                        .font(.system(size: 10, weight: .medium))
-                }
-                .foregroundStyle(DS.smoke)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(DS.fog)
-                .clipShape(Capsule())
-                .padding(.bottom, DS.Space.s)
-                .transition(.opacity.combined(with: .scale(scale: 0.92)))
-            }
 
             // Header: icon + title
             HStack(spacing: DS.Space.s) {
@@ -275,17 +314,15 @@ private struct StepCard: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.bottom, 14)
 
-            // Footer: progress dots + navigation buttons
+            // Footer: progresso "X di Y" (nella tab corrente) + navigazione
             HStack(spacing: 0) {
-                // Dot indicators
-                HStack(spacing: 4) {
-                    ForEach(elementSteps) { step in
-                        let active = (step == tour.currentStep)
-                        RoundedRectangle(cornerRadius: 2.5)
-                            .fill(active ? DS.ink : DS.fog)
-                            .frame(width: active ? 14 : 5, height: 5)
-                            .animation(.spring(response: 0.35), value: active)
-                    }
+                if let progress = tour.currentStep.tabProgress {
+                    Text(String(
+                        format: NSLocalizedString("tour.stepProgress", comment: "Step progress within a tab, e.g. \"2 of 4\""),
+                        progress.index, progress.count
+                    ))
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(DS.smoke)
                 }
                 Spacer()
 
@@ -305,7 +342,7 @@ private struct StepCard: View {
                     Button {
                         tour.next()
                     } label: {
-                        Text(tour.currentStep.isLastElementStep ? "Fine" : "Avanti")
+                        Text(tour.currentStep.isLastElementStep ? "Fine" : tour.currentStep.ctaKey)
                             .font(.system(size: 12, weight: .semibold))
                             .foregroundStyle(DS.paper)
                             .padding(.horizontal, 16)
@@ -314,6 +351,57 @@ private struct StepCard: View {
                             .clipShape(RoundedRectangle(cornerRadius: 7))
                     }
                 }
+            }
+        }
+        .padding(14)
+        .background(DS.paper)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .shadow(color: .black.opacity(0.12), radius: 16, x: 0, y: 4)
+    }
+}
+
+// MARK: - HintCard
+
+/// Card di un singolo mini-tour contestuale (Livello 2): niente indietro/avanti,
+/// niente pallini di progresso — solo un pulsante "Ho capito" che chiude e marca
+/// l'hint come visto.
+private struct HintCard: View {
+    @ObservedObject private var tour = TourManager.shared
+    let hint: ContextualHint
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: DS.Space.s) {
+                Image(systemName: hint.icon)
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundStyle(DS.ink)
+                    .frame(width: 30, height: 30)
+                    .background(DS.fog)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                Text(hint.titleKey)
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(DS.ink)
+            }
+            .padding(.bottom, DS.Space.s)
+
+            Text(hint.bodyKey)
+                .font(.system(size: 12))
+                .foregroundStyle(DS.smoke)
+                .lineSpacing(3)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.bottom, 14)
+
+            Button {
+                tour.dismissHint()
+            } label: {
+                Text("hint.gotIt")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(DS.paper)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 32)
+                    .background(DS.ink)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }
         .padding(14)

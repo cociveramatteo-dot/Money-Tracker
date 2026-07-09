@@ -64,6 +64,20 @@ enum DS {
     static let fog   = Color(lightHex: 0xE0E0E0, darkHex: 0x2A2A2A)
     static let smoke = Color(lightHex: 0x888888, darkHex: 0x909090)
 
+    // Semantico, fisso a prescindere dal tema attivo (i 10 temi colorano solo
+    // gli accenti/tint) — usato solo sui saldi (positivo/negativo), non su
+    // ogni importo: toni smorzati per restare coerenti con l'estetica minimale.
+    static let positive = Color(lightHex: 0x2E7D32, darkHex: 0x66BB6A)
+    static let negative = Color(lightHex: 0xC62828, darkHex: 0xEF5350)
+
+    /// Verde/rosso in base al segno di un saldo, DS.ink se zero — unica fonte di
+    /// verità per la colorazione "positivo/negativo" (HeroAmount, mini-saldi Home).
+    static func signColor(_ amount: Decimal) -> Color {
+        if amount > 0 { return positive }
+        if amount < 0 { return negative }
+        return ink
+    }
+
     // MARK: Available icons for category picker
     static let availableIcons: [DSIcon] = [
         // Cibo & bevande
@@ -218,11 +232,26 @@ struct HeroAmount: View {
     let amount: Decimal
     var size:   CGFloat = 56
     var hidden: Bool    = false
+    /// Se true, colora il testo in verde/rosso in base al segno di `amount`
+    /// invece del solito DS.ink — riservato ai saldi (Home, Conti), non ai
+    /// totali di categoria (es. "Uscite"/"Entrate" in Statistiche).
+    var colorBySign: Bool = false
+    /// Colore esplicito, ha priorità su colorBySign — per i casi in cui il
+    /// significato positivo/negativo non dipende dal segno del numero (es.
+    /// "Uscite"/"Entrate": sempre valori positivi, ma semanticamente l'una è
+    /// una perdita e l'altra un guadagno).
+    var forceColor: Color? = nil
+
+    private var color: Color {
+        if let forceColor { return hidden ? DS.ink : forceColor }
+        guard colorBySign, !hidden else { return DS.ink }
+        return DS.signColor(amount)
+    }
 
     var body: some View {
         Text(hidden ? "• • •" : amount.currencyFormatted)
             .font(.system(size: size, weight: .black))
-            .foregroundStyle(DS.ink)
+            .foregroundStyle(color)
             .minimumScaleFactor(0.6)
             .lineLimit(1)
             .accessibilityLabel(hidden ? String(localized: "Saldo nascosto") : amount.currencyFormatted)
@@ -365,6 +394,13 @@ struct MonthBar: View {
 struct DSTransactionRow: View {
     let transaction: Transaction
 
+    // I trasferimenti tra propri conti non sono né un guadagno né una perdita
+    // reale — restano neutri, solo uscite/entrate vere prendono colore.
+    private var amountColor: Color {
+        guard !transaction.isTransfer else { return DS.ink }
+        return transaction.transactionType == .uscita ? DS.negative : DS.positive
+    }
+
     var body: some View {
         HStack(spacing: DS.Space.m) {
             // Category icon
@@ -390,7 +426,7 @@ struct DSTransactionRow: View {
                      ? "−\(transaction.amount.currencyFormatted)"
                      : "+\(transaction.amount.currencyFormatted)")
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(DS.ink)
+                    .foregroundStyle(amountColor)
                 Text(transaction.date.dayMonthFormatted)
                     .font(.system(size: 11))
                     .foregroundStyle(DS.smoke)
@@ -420,7 +456,6 @@ struct FixedExpenseRow: View {
     let transaction: Transaction
     var paid:       Bool = false
     var isIncome:   Bool = false
-    var colorCoded: Bool = false   // true solo in "Fissi del mese"
     let action: () -> Void
 
     private var statusText: String {
@@ -434,20 +469,12 @@ struct FixedExpenseRow: View {
     }
 
     private var amountText: String {
-        if colorCoded {
-            return isIncome
-                ? "+\(transaction.amount.currencyFormatted)"
-                : "−\(transaction.amount.currencyFormatted)"
-        }
-        return transaction.amount.currencyFormatted
+        isIncome
+            ? "+\(transaction.amount.currencyFormatted)"
+            : "−\(transaction.amount.currencyFormatted)"
     }
 
-    private var amountColor: Color {
-        guard colorCoded else { return DS.ink }
-        // Usa colori semantici del tema: entrate = ink pieno, uscite = smoke
-        // Per distinguere visivamente senza hardcodare verde/rosso
-        return isIncome ? DS.ink : DS.smoke
-    }
+    private var amountColor: Color { isIncome ? DS.positive : DS.negative }
 
     var body: some View {
         HStack(spacing: DS.Space.m) {
@@ -496,5 +523,83 @@ struct FixedExpenseRow: View {
         }())
         .accessibilityAddTraits(.isButton)
         .accessibilityHint(paid ? "Tocca per segnare come da pagare" : "Tocca per segnare come pagata")
+    }
+}
+
+// MARK: - RecurringSeriesCard
+// Card riassuntiva per una serie ricorrente rilevata automaticamente (vedi
+// RecurringSeriesDetector): conteggio/storico + proiezione di costo se l'importo
+// è costante, media/ultimo/totale se varia (es. lo stipendio).
+
+struct RecurringSeriesCard: View {
+    let series: RecurringSeries
+
+    private var frequencyLabel: String {
+        switch series.frequency {
+        case "settimanale": return String(localized: "Settimanale")
+        case "mensile":     return String(localized: "Mensile")
+        case "annuale":     return String(localized: "Annuale")
+        default:            return String(localized: "Irregolare")
+        }
+    }
+
+    private var isExpense: Bool { series.transactionType == .uscita }
+
+    // "Speso"/"Ricevuto" comunica già la direzione — il prefisso +/- sarebbe ridondante.
+    private var totalLine: String {
+        let label = isExpense ? String(localized: "Speso finora") : String(localized: "Ricevuto finora")
+        return "\(label): \(series.totalAmount.currencyFormatted)"
+    }
+
+    @ViewBuilder
+    private var detailLine: some View {
+        if series.isVariableAmount {
+            Text("\(String(localized: "Media")): \(series.average.currencyFormatted) · \(String(localized: "Ultimo")): \(series.lastAmount.currencyFormatted)")
+        } else {
+            let amt = series.average
+            switch series.frequency {
+            case "settimanale":
+                Text("\(String(localized: "Settimana")) \(amt.currencyFormatted) · \(String(localized: "Mese")) ≈\((amt * 4.33).currencyFormatted) · \(String(localized: "Anno")) \((amt * 52).currencyFormatted)")
+            case "mensile":
+                Text("\(String(localized: "Mese")) \(amt.currencyFormatted) · \(String(localized: "Anno")) \((amt * 12).currencyFormatted)")
+            case "annuale":
+                Text("\(String(localized: "Anno")) \(amt.currencyFormatted)")
+            default:
+                EmptyView()
+            }
+        }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: DS.Space.xs) {
+            HStack(spacing: DS.Space.m) {
+                Image(systemName: series.categoryIcon.isEmpty ? "arrow.triangle.2.circlepath" : series.categoryIcon)
+                    .font(.system(size: 14))
+                    .foregroundStyle(DS.smoke)
+                    .frame(width: 18)
+                Text(series.name)
+                    .font(.system(size: 15))
+                    .foregroundStyle(DS.ink)
+                    .lineLimit(1)
+                Spacer()
+                Text(frequencyLabel)
+                    .font(.system(size: 11))
+                    .foregroundStyle(DS.smoke)
+            }
+            Text("\(series.count) \(String(localized: "volte")) · \(String(localized: "dal")) \(series.firstDate.dayMonthFormatted)")
+                .font(.system(size: 12))
+                .foregroundStyle(DS.smoke)
+            Text(totalLine)
+                .font(.system(size: 14, weight: .medium))
+                .foregroundStyle(isExpense ? DS.negative : DS.positive)
+            detailLine
+                .font(.system(size: 12))
+                .foregroundStyle(DS.smoke)
+        }
+        .padding(DS.Space.l)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(DS.fog.opacity(0.5))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .accessibilityElement(children: .combine)
     }
 }

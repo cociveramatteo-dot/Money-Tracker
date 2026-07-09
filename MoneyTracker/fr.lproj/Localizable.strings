@@ -72,6 +72,7 @@
 /* ── Transactions ────────────────────────── */
 "Tutti"    = "Tous";
 "Fisse"    = "Fixes";
+"Ricorrenti" = "Récurrents";
 "Trasf."   = "Vir.";
 "Uscite"   = "Dépenses";
 "Entrate"  = "Revenus";
@@ -81,6 +82,23 @@
 "Cerca..."               = "Rechercher...";
 "Segna come pianificato" = "Marquer comme planifié";
 "Segna come fatto"       = "Marquer comme effectué";
+
+/* ── Recurring series ────────────────────── */
+"Irregolare"       = "Irrégulier";
+"Speso finora"     = "Dépensé jusqu'ici";
+"Ricevuto finora"  = "Reçu jusqu'ici";
+"Media"            = "Moyenne";
+"Ultimo"           = "Dernier";
+"Settimana"        = "Semaine";
+"Mese"             = "Mois";
+"Anno"             = "Année";
+"volte"            = "fois";
+"dal"              = "depuis";
+"Storico"          = "Historique";
+"Nessuna serie ricorrente" = "Aucune série récurrente";
+"I pagamenti che si ripetono per almeno 2 mesi appariranno qui." = "Les paiements qui se répètent pendant au moins 2 mois apparaîtront ici.";
+"Serie eliminata"  = "Série supprimée";
+"Tutte le occorrenze di questo pagamento ricorrente sono state cancellate." = "Toutes les occurrences de ce paiement récurrent ont été supprimées.";
 
 /* ── Fixed items row ─────────────────────── */
 "Da pagare"  = "À payer";
@@ -287,47 +305,6 @@
 "Pianifica" = "Planifier";
 
 /* ── Tour / Onboarding ──────────────────── */
-"tour.saldoAttuale.title" = "Solde actuel";
-"tour.saldoAttuale.body" = "Liquidités confirmées. Seules les transactions marquées comme effectuées contribuent à cette valeur — tout ce qui est planifié est exclu.";
-
-"tour.hideBalance.title" = "Masquer les montants";
-"tour.hideBalance.body" = "Appuyez sur l'icône d'œil en haut à droite pour masquer tous les montants sur chaque écran. Le paramètre persiste entre les sessions.";
-
-"tour.accountOrder.title" = "Composition du panneau";
-"tour.accountOrder.body" = "Appuyez sur l'icône de curseur pour choisir quels comptes apparaissent ici et dans quel ordre. Faites glisser pour réorganiser, utilisez la coche pour inclure ou exclure.";
-
-"tour.saldoAtteso.title" = "Solde prévu";
-"tour.saldoAtteso.body" = "Projection après toutes les transactions planifiées en attente. N'apparaît que lorsqu'il y a des éléments futurs pas encore marqués comme effectués.";
-
-"tour.recentMovements.title" = "Dernières transactions";
-"tour.recentMovements.body" = "Les transactions non fixes les plus récentes. Appuyez sur l'en-tête pour réduire la section, appuyez sur une ligne pour ouvrir le détail.";
-
-"tour.addButton.title" = "Ajouter une transaction";
-"tour.addButton.body" = "Le bouton + est disponible depuis chaque onglet. Appuyez pour ajouter une dépense, un revenu ou un transfert. Maintenez appuyé pour choisir le type.";
-
-"tour.filters.title" = "Filtres par catégorie";
-"tour.filters.body" = "Les filtres sont cumulatifs — type et catégorie se combinent. Sélectionnez plusieurs catégories pour affiner l'analyse. L'état des filtres se réinitialise en changeant de période.";
-
-"tour.swipeAction.title" = "Actions rapides";
-"tour.swipeAction.body" = "Glissez à droite sur un élément fixe pour le confirmer et mettre à jour le solde. Glissez à gauche pour le supprimer. Sur les transactions normales, glissez à droite pour modifier.";
-
-"tour.accountSwipe.title" = "Gestion du compte";
-"tour.accountSwipe.body" = "Glissez à droite pour modifier un compte, à gauche pour le supprimer. Appui long pour les options avancées : exclure du total et archiver.";
-
-"tour.budgetBar.title" = "Barre de progression";
-"tour.budgetBar.body" = "Vert signifie que vous êtes dans la limite. Rouge signifie que le seuil a été dépassé. Le calcul inclut uniquement les transactions complétées du mois en cours.";
-
-"tour.goalProgress.title" = "Objectif d'épargne";
-"tour.goalProgress.body" = "Appuyez sur le bouton de mise à jour pour enregistrer les progrès. La barre affiche le pourcentage atteint par rapport à l'objectif. L'échéance est indiquée sous le nom.";
-
-"tour.accountTotal.title" = "Patrimoine total";
-"tour.accountTotal.body" = "La somme des soldes de tous les comptes actifs non exclus. 'Solde net' en dessous montre la projection après toutes les transactions planifiées en attente.";
-
-"tour.budgetHero.title" = "Utilisation du budget";
-"tour.budgetHero.body" = "Pourcentage du budget mensuel total déjà consommé. La ligne se remplit progressivement — restez sous 100% pour respecter vos limites.";
-
-"tour.goalHero.title" = "Progression totale";
-"tour.goalHero.body" = "Moyenne pondérée de la progression sur tous les objectifs actifs. Chaque objectif contribue proportionnellement à son montant cible.";
 
 /* ── Statistics (additional) ─────────────── */
 "Dati insufficienti."   = "Données insuffisantes.";
@@ -408,10 +385,6 @@
 /* ── Onboarding tour — new steps ─────────────── */
 "tour.welcome.title"    = "Bienvenue sur MoneyTracker";
 "tour.welcome.body"     = "Ce guide vous présente toutes les fonctionnalités. Vous pouvez l'interrompre à tout moment et le reprendre depuis Réglages → Revoir le tour.";
-"tour.tabBar.title"     = "Navigation principale";
-"tour.tabBar.body"      = "Cinq espaces toujours accessibles : Tableau de bord, Mouvements, Statistiques, Planifier et Comptes. Conçus pour le minimum de gestes.";
-"tour.statistics.title" = "Analyse financière";
-"tour.statistics.body"  = "Comparez les dépenses mensuelles, visualisez les tendances sur 12 mois et analysez les comparaisons annuelles. Les graphiques se mettent à jour automatiquement.";
 "tour.shortcuts.title"  = "Automatisation Siri";
 "tour.shortcuts.body"   = "Enregistrez dépenses, revenus et vérifiez votre solde par commande vocale. Dites «Ajouter une dépense à MoneyTracker» ou explorez Réglages → Siri.";
 "tour.done.title"       = "Vous êtes prêt";
@@ -434,3 +407,46 @@
 "pianificato" = "planifié";
 "escluso dal totale" = "exclu du total";
 "saldo" = "solde";
+
+/* ── Tour : étapes par élément et par onglet (Niveau 1) ─── */
+"tour.stepProgress" = "%d sur %d";
+
+"tour.home.balance.title" = "Solde actuel";
+"tour.home.balance.body" = "Fonds confirmés : seules les transactions effectuées comptent dans cette valeur.";
+"tour.home.hide.title" = "Masquer le solde";
+"tour.home.hide.body" = "Touchez l'œil pour flouter tous les montants — pratique quand votre écran est visible par d'autres.";
+"tour.home.expected.title" = "Solde prévu";
+"tour.home.expected.body" = "Votre solde futur, y compris les dépenses fixes planifiées qui n'ont pas encore eu lieu.";
+"tour.home.accounts.title" = "Vos comptes";
+"tour.home.accounts.body" = "Touchez l'icône pour choisir quels comptes afficher ici, et dans quel ordre.";
+
+"tour.movimenti.sections.title" = "Sections";
+"tour.movimenti.sections.body" = "Chaque bloc regroupe un type de transaction : toutes, fixes, récurrentes, virements.";
+"tour.movimenti.block.title" = "Toutes les transactions";
+"tour.movimenti.block.body" = "Ouvre la liste complète, avec des filtres par catégorie et par compte.";
+"tour.movimenti.search.title" = "Rechercher partout";
+"tour.movimenti.search.body" = "Trouvez n'importe quelle transaction, dans n'importe quelle section, en tapant simplement un mot.";
+
+"tour.statistiche.summary.title" = "Résumé du mois";
+"tour.statistiche.summary.body" = "Dépenses et revenus de ce mois, comparés au précédent.";
+"tour.statistiche.trend.title" = "Évolution dans le temps";
+"tour.statistiche.trend.body" = "Comparez les 6 ou 12 derniers mois sur un seul graphique.";
+"tour.statistiche.category.title" = "Dépenses par catégorie";
+"tour.statistiche.category.body" = "Découvrez où va la majorité de votre argent chaque mois.";
+
+"tour.pianifica.budget.title" = "Budgets par catégorie";
+"tour.pianifica.budget.body" = "Définissez une limite de dépense mensuelle et suivez ce que vous avez déjà utilisé.";
+"tour.pianifica.history.title" = "Historique des budgets";
+"tour.pianifica.history.body" = "Consultez les mois passés pour voir comment vos habitudes de dépense ont évolué.";
+"tour.pianifica.goals.title" = "Objectifs d'épargne";
+"tour.pianifica.goals.body" = "Définissez un montant cible pour chaque objectif et notez ce que vous avez déjà épargné.";
+
+"tour.conti.list.title" = "Vos comptes";
+"tour.conti.list.body" = "Solde, type et options pour chaque compte. Glissez à droite pour modifier, à gauche pour supprimer.";
+
+/* ── Tour: mini-tour contestuali (Livello 2) ─── */
+"hint.movimentiSection.title" = "Actions rapides";
+"hint.movimentiSection.body" = "Glissez à droite sur un élément fixe pour le confirmer, à gauche pour le supprimer. Appui long pour plus d'options.";
+"hint.settings.title" = "Réglages";
+"hint.settings.body" = "Langue, devise, sécurité, export des données et plus encore. Revoyez ce tour à tout moment depuis ici.";
+"hint.gotIt" = "Compris";

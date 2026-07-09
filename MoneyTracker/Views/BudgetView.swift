@@ -48,7 +48,7 @@ struct BudgetRow: View {
                          ? NSLocalizedString("Sforato di", comment: "") + " " + abs(remaining).currencyFormatted
                          : remaining.currencyFormatted + " " + NSLocalizedString("rimasti", comment: ""))
                         .font(.system(size: 11))
-                        .foregroundStyle(over ? DS.ink : DS.smoke)
+                        .foregroundStyle(over ? DS.negative : DS.smoke)
                 }
             }
 
@@ -56,7 +56,7 @@ struct BudgetRow: View {
                 ZStack(alignment: .leading) {
                     Rectangle().fill(DS.fog).frame(height: 2)
                     Rectangle()
-                        .fill(over ? DS.ink : DS.smoke)
+                        .fill(over ? DS.negative : DS.smoke)
                         .frame(width: geo.size.width * pct, height: 2)
                         .animation(.spring(response: 0.5, dampingFraction: 0.8), value: pct)
                 }
@@ -306,7 +306,9 @@ struct BudgetHistorySheet: View {
 
         let window: Set<Date> = Set(months.compactMap { cal.dateInterval(of: .month, for: $0)?.start })
         var dict: [Date: [Transaction]] = [:]
-        for t in transactions where t.isDone && t.transactionType == .uscita {
+        // !isTransfer: uno spostamento tra i propri conti non è una spesa reale — non deve
+        // gonfiare "speso" nel budget (coerente con StatisticsView/NotificationManager).
+        for t in transactions where t.isDone && !t.isTransfer && t.transactionType == .uscita {
             let key = cal.dateInterval(of: .month, for: t.date)?.start ?? t.date
             guard window.contains(key) else { continue }
             dict[key, default: []].append(t)
@@ -391,14 +393,14 @@ struct BudgetHistorySheet: View {
                                                 .foregroundStyle(DS.smoke)
                                             Text(String(format: "%.0f%%", pct * 100))
                                                 .font(.system(size: 12, weight: .semibold))
-                                                .foregroundStyle(over ? DS.ink : DS.smoke)
+                                                .foregroundStyle(over ? DS.negative : DS.smoke)
                                                 .frame(width: 36, alignment: .trailing)
                                         }
                                         GeometryReader { geo in
                                             ZStack(alignment: .leading) {
                                                 Rectangle().fill(DS.fog).frame(height: 2)
                                                 Rectangle()
-                                                    .fill(over ? DS.ink : DS.smoke)
+                                                    .fill(over ? DS.negative : DS.smoke)
                                                     .frame(width: geo.size.width * pct, height: 2)
                                             }
                                         }
