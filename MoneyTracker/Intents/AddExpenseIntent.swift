@@ -100,6 +100,10 @@ struct AddExpenseIntent: AppIntent {
         ctx.insert(tx)
         try ctx.save()
         AccountBalanceCache.shared.invalidateAll()   // PERF-04: fuori dal choke point di safeSave(), va invalidata a mano
+        // Girando in un processo separato, questo save() non genera la notifica
+        // osservata da recordChanges() nel processo principale — va marcata a mano,
+        // altrimenti il prossimo pull la considera orfana e la cancella (vedi SyncService).
+        SyncService.shared.markTransactionDirty(tx.id)
 
         let accStr  = account.map { " su \($0.name)" } ?? ""
         let msgBody = String(format: NSLocalizedString("%.2f per %@ — salvato!", comment: ""), amount, name + accStr)
@@ -173,6 +177,9 @@ struct AddIncomeIntent: AppIntent {
         ctx.insert(tx)
         try ctx.save()
         AccountBalanceCache.shared.invalidateAll()   // PERF-04: fuori dal choke point di safeSave(), va invalidata a mano
+        // Vedi commento in AddExpenseIntent: senza questa marcatura esplicita, il
+        // prossimo pull tratterebbe questa transazione come cancellata altrove.
+        SyncService.shared.markTransactionDirty(tx.id)
 
         let accStr  = account.map { " su \($0.name)" } ?? ""
         let incBody = String(format: NSLocalizedString("+%.2f %@ — salvato!", comment: ""), amount, name + accStr)

@@ -356,6 +356,20 @@ final class SyncService: ObservableObject {
         if addedAny { dirtyTransactionIds = ids }
     }
 
+    /// Marca esplicitamente una transazione come "da sincronizzare".
+    /// Usato dagli App Intent (es. tocco posteriore/Siri, vedi Intents/AddExpenseIntent.swift):
+    /// girano in un processo separato dall'app, quindi il loro ctx.save() non genera
+    /// mai la notifica ModelContext.didSave osservata da recordChanges() nel processo
+    /// principale. Senza questa marcatura esplicita, la transazione resta fuori dal
+    /// prossimo push e il pull successivo la considera orfana (cancellata altrove) e
+    /// la elimina anche in locale — pur essendo stata salvata correttamente.
+    func markTransactionDirty(_ id: UUID) {
+        var ids = dirtyTransactionIds
+        ids.insert(id)
+        dirtyTransactionIds = ids
+        hasPendingChanges = true
+    }
+
     /// true se è passato abbastanza tempo dall'ultimo pull.
     var shouldPull: Bool {
         guard let last = UserDefaults.standard.object(forKey: lastPullKey) as? Date else { return true }
