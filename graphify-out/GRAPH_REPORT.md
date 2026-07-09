@@ -1,350 +1,425 @@
-# Graph Report - .  (2026-07-08)
+# Graph Report - .  (2026-07-10)
 
 ## Corpus Check
-- 18 files · ~52,557 words
+- 27 files · ~56,801 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 922 nodes · 1570 edges · 130 communities (39 shown, 91 thin omitted)
-- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 67 edges (avg confidence: 0.79)
-- Token cost: 90,000 input · 8,979 output
+- 993 nodes · 1690 edges · 169 communities (48 shown, 121 thin omitted)
+- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 69 edges (avg confidence: 0.81)
+- Token cost: 90,000 input · 14,435 output
 
 ## Community Hubs (Navigation)
-- Views Theme
-- Views Transactionsview
-- Sync Syncservice
-- Models
-- Persistence Schemamigration
-- Onboardingtour Tourstep
-- Auth Applockgate
-- Sync Syncservice
-- Uitestsupport Moneyt
-- Models
-- Views Statisticsview
-- Moneytracker Accountsview
-- Intents Addexpenseintent
-- Export Pdfreportgenerator
-- Views Settingsview
-- Domain Keywordcategoryclass
-- Domain Auditlogger
-- Auth Loginview
-- Onboardingtour Tabbarframec
-- Views Addtransactionview
-- Domain Notificationmanager
-- Views Budgetview
-- Views Pianificaview
-- Views Categorymanagementvie
-- Moneytracker Nightly
-- Views Accountsview
-- Onboardingtour Touroverlayv
-- Moneytracker Model
-- Moneytracker Applockgate
-- Moneytracker Model
-- Onboardingtour Tourhighligh
-- Views Goalsview
-- Auth Signupview
-- Views Contentview
-- Claude Md Checkpoint
-- Moneytracker Bug01
-- Moneytracker Bug03
-- Moneytracker I18n01
-- Assets Xcassets
-- Accountsview
-- Accountsview
-- Accountsview
-- Addexpenseintent
-- Addexpenseintent Modelconta
-- Addexpenseintent
-- Addtransactionview
-- Addtransactionview
-- Addtransactionview
-- Addtransactionview
-- Addtransactionview
-- Addtransactionview
-- Addtransactionview
-- Addtransactionview
-- Addtransferview
-- Addtransferview Binding
-- Addtransferview
-- Addtransferview
-- Addtransferview
-- Budgetview
-- Budgetview
-- Budgetview
-- Budgetview
-- Budgetview
-- Budgetview
-- Budgetview
-- Categorymanagementview
-- Categorymanagementview
-- Categorymanagementview
-- Categorymanagementview
-- Dashboardview
-- Dashboardview
-- Dashboardview
-- Dashboardview
-- Dashboardview
-- Goalsview
-- Goalsview
-- Goalsview
-- Moneytrackerapp Modelcontai
-- Moneytrackerapp Url
-- Notificationmanager
-- Notificationmanager
-- Notificationmanager
-- Notificationmanager
-- Pdfreportgenerator
-- Pdfreportgenerator Cgfloat
-- Pdfreportgenerator
-- Pdfreportgenerator Dateform
-- Pdfreportgenerator
-- Pdfreportgenerator Url
-- Pianificaview
-- Pianificaview
-- Pianificaview
-- Pianificaview
-- Pianificaview Localizedstri
-- Pianificaview Persistentide
-- Pianificaview
-- Settingsview
-- Settingsview
-- Settingsview
-- Settingsview
-- Statisticsview
-- Statisticsview Context
-- Statisticsview
-- Statisticsview
-- Statisticsview Localizedstr
-- Statisticsview
-- Statisticsview
-- Statisticsview Url
-- Sync Syncservice
-- Theme
-- Theme Cgfloat
-- Theme Content
-- Theme
-- Theme Localizedstringkey
-- Theme
-- Theme
-- Theme View
-- Theme
-- Transactionsview Binding
-- Transactionsview
-- Transactionsview
-- Transactionsview
-- Transactionsview
-- Views Addtransactionview
-- Views Addtransactionview
-- Views Budgetview
-- Views Pianificaview
-- Views Pianificaview
-- Views Transactionsview
+- Onboarding Tour Overlay & Cards
+- Supabase Sync Models (SB*)
+- Budget View & History
+- XCUITest Suites (Account/Category)
+- Demo Data Seeding
+- SwiftData Schema Migration
+- Contextual Hints (Level 2 tour)
+- Recurring Series Detection
+- Siri/Shortcuts App Intents
+- Supabase Manager & Auth Bootstrap
+- Product Vision & Roadmap Features
+- PDF Report Generation
+- Category Auto-Classification
+- Settings & Data Export
+- Audit Logger
+- Core Domain Utilities
+- App Lock Gate (Face ID/Touch ID)
+- Transaction Core Types
+- Add Transaction Flow
+- Account Balance Cache
+- Pianifica (Budget+Goals) View
+- Account Model & Types
+- Semantic Colors & Home Feature Notes
+- Category Model & Seeding
+- Category Management View
+- Enterprise Audit Bug Fixes v3
+- Feature Complete Changelog v2
+- Changelog v3.x Colors & Recurring Fix
+- Login View
+- Transaction Model
+- Tour Anchor Geometry
+- Unit Test Suites (Balance/Category/Migration)
+- Siri Intent Sync Fix
+- Changelog v1 & Core Models
+- Onboarding Tour Fix Changelog
+- Tour Anchor Preference Key
+- Add Transfer Flow
+- Goals View
+- Share Sheet (CSV export)
+- Project Docs & Checkpoint Workflow
+- Sign Up View
+- Budget Model
+- Currency/Date Formatting Helpers
+- Formatter Cache Singleton
+- Goal Model
+- Commissione Suprema & Nightly Test Automation
+- Statistics & PDF Export Feature
+- App Icon & Branding Assets
+- Add Transaction Feature Note
+- AppStorage per preferenze UI (hideBalance, filtri)
+- Changelog v3.x: riorganizzazione cartelle e documentazione consolidata
+- Feature: Haptic Feedback
+- Feature: Localizzazione (7 lingue, 340 chiavi)
+- Roadmap Livello 4 — Futuro
+- UserDefaults per soglie saldo keyed by account UUID (evita migration SwiftData)
+- Int
+- LocalizedStringKey
+- ModelContainer
+- Account
+- Bool
+- String
+- Bool
+- ModelContainer
+- String
+- Account
+- Bool
+- Date
+- Never
+- String
+- Task
+- Transaction
+- Void
+- Account
+- Binding
+- Bool
+- Date
+- String
+- Account
+- Bool
+- Budget
+- Date
+- Set
+- String
+- Transaction
+- Bool
+- Int
+- String
+- Transaction
+- Account
+- Bool
+- Set
+- String
+- Transaction
+- Date
+- Goal
+- String
+- View
+- Bool
+- Date
+- Int
+- String
+- CGFloat
+- CGRect
+- Context
+- Void
+- CGFloat
+- CGRect
+- CGRect
+- Bool
+- CGFloat
+- Date
+- DateFormatter
+- String
+- URL
+- Bool
+- Budget
+- Goal
+- Int
+- LocalizedStringKey
+- PersistentIdentifier
+- Transaction
+- Bool
+- Int
+- String
+- Void
+- Bool
+- Context
+- Date
+- Int
+- LocalizedStringKey
+- String
+- Transaction
+- URL
+- Date
+- ModelContext
+- Never
+- Notification
+- Task
+- UUID
+- Bool
+- CGFloat
+- Content
+- Date
+- LocalizedStringKey
+- String
+- Transaction
+- View
+- Void
+- Binding
+- Bool
+- Int
+- Transaction
+- Void
+- Never
+- Task
+- Date
+- PersistentIdentifier
+- Date
+- Binding
+- Decimal
+- NSCoder
+- Report Notturno 09/07/2026
+- Set
+- UITabBar
+- UIView
+- UIViewRepresentable
+- UIWindow
+- URL
 
 ## God Nodes (most connected - your core abstractions)
-1. `MoneyTracker — Documento Completo` - 73 edges
-2. `CodingKeys` - 32 edges
-3. `SwiftData` - 30 edges
-4. `TourStep` - 27 edges
-5. `SyncService` - 27 edges
-6. `Foundation` - 24 edges
+1. `View` - 46 edges
+2. `Date` - 33 edges
+3. `CodingKeys` - 32 edges
+4. `SwiftData` - 31 edges
+5. `SyncService` - 28 edges
+6. `Foundation` - 25 edges
 7. `Double` - 24 edges
-8. `Date` - 22 edges
+8. `TransactionsView` - 22 edges
 9. `Decimal` - 21 edges
-10. `View` - 21 edges
+10. `TourManager` - 20 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `MoneyTrackerMigrationPlan` --calls--> `Decimal`  [INFERRED]
-  MoneyTracker/Persistence/SchemaMigration.swift → MoneyTracker/Formatting/CurrencyFormatting.swift
-- `Goal` --references--> `Double`  [EXTRACTED]
-  MoneyTracker/Models/Goal.swift → MoneyTracker/Formatting/CurrencyFormatting.swift
-- `Account` --references--> `Decimal`  [EXTRACTED]
-  MoneyTracker/Models/Account.swift → MoneyTracker/Formatting/CurrencyFormatting.swift
-- `Transaction` --references--> `Decimal`  [EXTRACTED]
-  MoneyTracker/Models/Transaction.swift → MoneyTracker/Formatting/CurrencyFormatting.swift
-- `StepCard` --references--> `TourStep`  [EXTRACTED]
-  MoneyTracker/OnboardingTour/TourOverlayView.swift → MoneyTracker/OnboardingTour/TourStep.swift
+- `Audit Qualità — Score 7.2/10 (5 aree valutate)` --semantically_similar_to--> `Commissione Suprema — 6 giudici, tolleranza zero, 10/10 richiesto prima del commit`  [INFERRED] [semantically similar]
+  docs/MoneyTracker.md → CLAUDE.md
+- `Workflow Checkpoint (sezione 11, MoneyTracker.md)` --semantically_similar_to--> `Workflow checkpoint (CLAUDE.md, 5 step: audit → doc → PDF → commit → graphify)`  [INFERRED] [semantically similar]
+  docs/MoneyTracker.md → CLAUDE.md
+- `Automazione notturna (run_nightly_tests.sh + LaunchAgent, fix automatico via Claude Code headless, report_notturno.md + PR)` --semantically_similar_to--> `Commissione Suprema — 6 giudici, tolleranza zero, 10/10 richiesto prima del commit`  [INFERRED] [semantically similar]
+  docs/MoneyTracker.md → CLAUDE.md
+- `Struttura cartella immutabile (regola)` --references--> `MoneyTracker.pdf — Documento Distribuibile`  [EXTRACTED]
+  CLAUDE.md → docs/MoneyTracker.pdf
+- `CLAUDE.md — Istruzioni per Claude` --references--> `MoneyTracker.pdf — Documento Distribuibile`  [EXTRACTED]
+  CLAUDE.md → docs/MoneyTracker.pdf
 
 ## Import Cycles
 - None detected.
 
 ## Hyperedges (group relationships)
-- **Routine di test notturna automatizzata** — docs_moneytracker_nightly_script, docs_moneytracker_launchagent, docs_moneytracker_claude_code_headless, docs_moneytracker_report_notturno, docs_moneytracker_nightly_pr, docs_moneytracker_xcuitest_target [EXTRACTED 1.00]
-- **Suite XCUITest MoneyTrackerUITests** — docs_moneytracker_uitestsupport, docs_moneytracker_transactionflowuitests, docs_moneytracker_accountflowuitests, docs_moneytracker_categoryflowuitests, docs_moneytracker_navigationstressuitests [EXTRACTED 1.00]
-- **Ecosistema sync cross-device e famiglia** — docs_moneytracker_supabase, docs_moneytracker_sync_crossdevice, docs_moneytracker_modalita_coppia, docs_moneytracker_syncservice [INFERRED 0.75]
+- **Fix duplicazione occorrenze motore ricorrenze vs detector passivo** — docs_moneytracker_model_transaction, docs_moneytracker_file_recurringtransactionengine, docs_moneytracker_file_recurringseriesdetector, docs_moneytracker_changelog_v3x_colori_ricorrenze_tour [EXTRACTED 1.00]
+- **Fix sync dirty-flag cross-process (Intents Siri/tocco posteriore)** — docs_moneytracker_file_addexpenseintent, docs_moneytracker_file_syncservice, docs_moneytracker_feature_shortcuts, docs_moneytracker_changelog_v3x_sync_dirty_fix [EXTRACTED 1.00]
+- **Fix montaggio overlay tour a due livelli (panoramica + hint contestuali)** — docs_moneytracker_file_touroverlayview, docs_moneytracker_file_contextualhint, docs_moneytracker_file_tourmanager, docs_moneytracker_file_moneytrackerapp, docs_moneytracker_changelog_v3x_minitour_fix [EXTRACTED 1.00]
 
-## Communities (130 total, 91 thin omitted)
+## Communities (169 total, 121 thin omitted)
 
-### Community 0 - "Views Theme"
-Cohesion: 0.06
-Nodes (48): Content, AddTransferView, Account, Binding, Bool, String, DashboardView, HomeAccountOrderSheet (+40 more)
+### Community 0 - "Onboarding Tour Overlay & Cards"
+Cohesion: 0.05
+Nodes (62): AccountType, Binding, Content, HintCard, ModalCard, StepCard, AccountRow, AccountsView (+54 more)
 
-### Community 1 - "Views Transactionsview"
-Cohesion: 0.07
-Nodes (36): Binding, CaseIterable, Account, AccountType, carta, contanti, conto, investimento (+28 more)
-
-### Community 2 - "Sync Syncservice"
+### Community 1 - "Supabase Sync Models (SB*)"
 Cohesion: 0.10
-Nodes (29): Equatable, SBAccount, SBBudget, SBGoal, SBTransaction, Account, Bool, Budget (+21 more)
+Nodes (28): Equatable, ModelContext, SBAccount, SBBudget, SBGoal, SBTransaction, Account, Bool (+20 more)
 
-### Community 3 - "Models"
-Cohesion: 0.07
-Nodes (22): AnyObject, Foundation, MoneyTracker, NotificationScheduling, RecurringTransactionActor, FormatterCache, DateFormatter, String (+14 more)
+### Community 2 - "Budget View & History"
+Cohesion: 0.09
+Nodes (27): Charts, Identifiable, AddBudgetView, BudgetHistorySheet, BudgetRow, Account, Bool, Budget (+19 more)
 
-### Community 4 - "Persistence Schemamigration"
-Cohesion: 0.14
-Nodes (22): MigrationStage, Double, Account, Budget, DecimalMigrationBuffer, Goal, MoneyTrackerMigrationPlan, SchemaV1 (+14 more)
+### Community 3 - "XCUITest Suites (Account/Category)"
+Cohesion: 0.13
+Nodes (11): AccountFlowUITests, CategoryFlowUITests, NavigationStressUITests, TransactionFlowUITests, MoneyTrackerUITestCase, String, StaticString, UInt (+3 more)
 
-### Community 5 - "Onboardingtour Tourstep"
-Cohesion: 0.07
-Nodes (27): Int, Bool, CGFloat, CGRect, Int, TourManager, Bool, CGFloat (+19 more)
-
-### Community 6 - "Auth Applockgate"
-Cohesion: 0.08
-Nodes (23): App, Combine, FileProtectionType, ModelContainer, AppLockGate, AppLockState, LockOverlay, Bool (+15 more)
-
-### Community 7 - "Sync Syncservice"
+### Community 4 - "Demo Data Seeding"
 Cohesion: 0.06
 Nodes (33): CodingKey, DemoDataSeeder, ModelContext, CodingKeys, accountId, amount, category, categoryIcon (+25 more)
 
-### Community 8 - "Uitestsupport Moneyt"
-Cohesion: 0.12
-Nodes (11): AccountFlowUITests, CategoryFlowUITests, NavigationStressUITests, TransactionFlowUITests, MoneyTrackerUITestCase, String, StaticString, UInt (+3 more)
+### Community 5 - "SwiftData Schema Migration"
+Cohesion: 0.17
+Nodes (20): MigrationStage, Double, Account, Budget, DecimalMigrationBuffer, Goal, MoneyTrackerMigrationPlan, SchemaV1 (+12 more)
 
-### Community 9 - "Models"
+### Community 6 - "Contextual Hints (Level 2 tour)"
 Cohesion: 0.10
-Nodes (19): AccountBalanceCache, Account, PersistentIdentifier, Date, Decimal, Bool, String, Budget (+11 more)
+Nodes (16): ContextualHint, movimentiSection, Bool, CGFloat, LocalizedStringKey, Bool, Int, String (+8 more)
 
-### Community 10 - "Views Statisticsview"
-Cohesion: 0.14
-Nodes (18): Any, Context, Identifiable, CategoryStat, Date, MonthStat, ShareSheet, StatisticsView (+10 more)
+### Community 7 - "Recurring Series Detection"
+Cohesion: 0.09
+Nodes (20): RecurringSeries, RecurringSeriesDetector, Bool, Decimal, Int, String, Transaction, ContentView (+12 more)
 
-### Community 11 - "Moneytracker Accountsview"
-Cohesion: 0.08
-Nodes (30): AccountsView (Conti), AddExpenseIntent (Shortcuts Apple), AddTransactionView, AddTransferView, MoneyTracker App, AppIntents Framework (Shortcuts/Siri), Audit Qualità (Score 7.2/10), BudgetView (+22 more)
+### Community 8 - "Siri/Shortcuts App Intents"
+Cohesion: 0.12
+Nodes (20): AppIntent, AppIntents, AppShortcut, AppShortcutsProvider, DynamicOptionsProvider, IntentResult, LocalizedStringResource, AccountOptionsProvider (+12 more)
 
-### Community 12 - "Intents Addexpenseintent"
-Cohesion: 0.13
-Nodes (19): AppIntent, AppShortcut, AppShortcutsProvider, DynamicOptionsProvider, IntentResult, LocalizedStringResource, AccountOptionsProvider, AddExpenseIntent (+11 more)
+### Community 9 - "Supabase Manager & Auth Bootstrap"
+Cohesion: 0.10
+Nodes (16): App, Combine, FileProtectionType, SupabaseManager, Bool, String, applyFileProtection(), MoneyTrackerApp (+8 more)
 
-### Community 13 - "Export Pdfreportgenerator"
-Cohesion: 0.24
+### Community 10 - "Product Vision & Roadmap Features"
+Cohesion: 0.09
+Nodes (26): MoneyTracker (app iOS finanza personale), AppIntents framework (Shortcuts/Siri), Modello di business: una tantum €4,99, no abbonamenti al lancio, Claude Haiku API (sintesi opzionale AI Coach), Feature WOW: AI Financial Coach (report mensile on-device, opzionale Claude Haiku API), Feature WOW: Connessione bancaria automatica (GoCardless/Nordigen), Feature WOW: Calendario flusso di cassa (proiezione saldo giorno per giorno), Feature WOW: Feature fiscali italiane (F24, 730, TFR, bollette) (+18 more)
+
+### Community 11 - "PDF Report Generation"
+Cohesion: 0.26
 Nodes (14): CGContext, CGPoint, DateFormatter, NumberFormatter, PDFReportGenerator, PDFTxSnapshot, Bool, CGFloat (+6 more)
 
-### Community 14 - "Views Settingsview"
+### Community 12 - "Category Auto-Classification"
+Cohesion: 0.17
+Nodes (10): Bundle, CategoryClassifying, KeywordCategoryClassifier, Int, String, Logger, KeywordCategoryClassifierTests, NSCache (+2 more)
+
+### Community 13 - "Settings & Data Export"
 Cohesion: 0.21
-Nodes (20): Codable, LocalAuthentication, AccountExport, BudgetExport, CSVFile, CurrencyConfirmSheet, GDPRExport, GoalExport (+12 more)
+Nodes (19): Codable, LocalAuthentication, AccountExport, BudgetExport, CSVFile, CurrencyConfirmSheet, GDPRExport, GoalExport (+11 more)
 
-### Community 15 - "Domain Keywordcategoryclass"
-Cohesion: 0.18
-Nodes (9): Bundle, CategoryClassifying, KeywordCategoryClassifier, Int, String, KeywordCategoryClassifierTests, NSCache, NSString (+1 more)
-
-### Community 16 - "Domain Auditlogger"
+### Community 14 - "Audit Logger"
 Cohesion: 0.17
 Nodes (10): AuditLogger, Entry, ModelContext, Notification, PersistentIdentifier, String, URL, UUID (+2 more)
 
-### Community 17 - "Auth Loginview"
-Cohesion: 0.13
-Nodes (11): AuthField, LoginView, Bool, Error, String, SupabaseManager, Bool, String (+3 more)
+### Community 15 - "Core Domain Utilities"
+Cohesion: 0.18
+Nodes (6): AnyObject, Foundation, NotificationScheduling, RecurringTransactionActor, OSLog, SwiftData
 
-### Community 18 - "Onboardingtour Tabbarframec"
-Cohesion: 0.20
-Nodes (11): CapView, CGFloat, CGRect, Context, Void, TabBarFrameCapture, NSCoder, UITabBar (+3 more)
+### Community 16 - "App Lock Gate (Face ID/Touch ID)"
+Cohesion: 0.16
+Nodes (11): AppLockGate, AppLockState, LockOverlay, Bool, Content, View, Void, View (+3 more)
 
-### Community 19 - "Views Addtransactionview"
-Cohesion: 0.12
-Nodes (16): Hashable, AddTransactionView, AddTxFocus, importo, nome, CategoryPickerView, Account, Bool (+8 more)
-
-### Community 20 - "Domain Notificationmanager"
+### Community 17 - "Transaction Core Types"
 Cohesion: 0.16
 Nodes (8): Bool, Decimal, Double, Int, ModelContext, String, SystemNotificationManager, NotificationScheduling
 
-### Community 21 - "Views Budgetview"
+### Community 18 - "Add Transaction Flow"
+Cohesion: 0.13
+Nodes (15): Hashable, AddTransactionView, AddTxFocus, importo, nome, CategoryPickerView, Account, Bool (+7 more)
+
+### Community 19 - "Account Balance Cache"
+Cohesion: 0.22
+Nodes (6): AccountBalanceCache, Account, PersistentIdentifier, Decimal, String, AccountBalanceTests
+
+### Community 20 - "Pianifica (Budget+Goals) View"
 Cohesion: 0.19
-Nodes (13): AddBudgetView, BudgetHistorySheet, BudgetRow, Account, Bool, Budget, Category, Date (+5 more)
+Nodes (11): PianificaView, Bool, Budget, Decimal, Double, Goal, Int, LocalizedStringKey (+3 more)
 
-### Community 22 - "Views Pianificaview"
-Cohesion: 0.21
-Nodes (11): LocalizedStringKey, PianificaView, Bool, Budget, Decimal, Double, Goal, Int (+3 more)
+### Community 21 - "Account Model & Types"
+Cohesion: 0.18
+Nodes (13): CaseIterable, Account, AccountType, carta, contanti, conto, investimento, risparmio (+5 more)
 
-### Community 23 - "Views Categorymanagementvie"
+### Community 22 - "Semantic Colors & Home Feature Notes"
+Cohesion: 0.16
+Nodes (14): EmptyStateView (empty state coerente), HeroAmount (componente importo grande), DS.signColor / DS.positive / DS.negative — unica fonte di verità per colore da segno, Feature: Budget, Feature: Home (Dashboard), Feature: Impostazioni, Feature: Movimenti, BudgetView.swift (+6 more)
+
+### Community 23 - "Category Model & Seeding"
+Cohesion: 0.23
+Nodes (10): Category, Bool, Date, Int, String, UUID, ModelContext, Bool (+2 more)
+
+### Community 24 - "Category Management View"
 Cohesion: 0.24
 Nodes (8): AddCategoryView, CategoryManagementView, CategoryRow, Bool, Category, Int, String, Transaction
 
-### Community 24 - "Moneytracker Nightly"
+### Community 25 - "Enterprise Audit Bug Fixes v3"
 Cohesion: 0.18
-Nodes (12): AccountFlowUITests, CategoryFlowUITests, Claude Code headless auto-fix, com.moneytracker.nightlytests.plist (LaunchAgent), NavigationStressUITests, Pull Request automatica notturna, run_nightly_tests.sh, report_notturno.md (+4 more)
+Nodes (13): BUG-01: DashboardView List+frame fisso troncava testo (Dynamic Type) → fix LazyVStack, BUG-02: GoalsView.load() mostrava '1000.0' → fix truncatingRemainder, BUG-03: CategoryStat.id UUID instabile rompeva diffing → fix computed var su name, BUG-04: print() di debug in TabBarFrameCapture (console noise) → fix rimossi 7 print, i18n-01: sezione Siri non tradotta → fix 10 chiavi in 6 file, i18n-02: accessibility labels italiano hard-coded → fix String(localized:), PERF-01: allocazione NumberFormatter/DateFormatter per render → fix FormatterCache singleton, PERF-02: € hardcoded in AddAccountView/AddTransferView → fix Double.currencySymbol (+5 more)
 
-### Community 25 - "Views Accountsview"
-Cohesion: 0.25
-Nodes (8): AccountType, AccountRow, AccountsView, AddAccountView, Account, Bool, Decimal, String
+### Community 26 - "Feature Complete Changelog v2"
+Cohesion: 0.17
+Nodes (13): Changelog v2: Feature complete (conti multipli, trasferimenti, budget, obiettivi), Feature: Conti, Feature: Biometria (Face ID/Touch ID), Feature: Obiettivi, Feature: Ricorrenze Automatiche, Feature: Trasferimenti, AccountsView.swift, AddTransferView.swift (+5 more)
 
-### Community 26 - "Onboardingtour Touroverlayv"
-Cohesion: 0.27
-Nodes (9): Anchor, GeometryProxy, ModalCard, StepCard, CGFloat, CGRect, String, TourOverlayView (+1 more)
-
-### Community 27 - "Moneytracker Model"
+### Community 27 - "Changelog v3.x Colors & Recurring Fix"
 Cohesion: 0.22
-Nodes (10): Account Model, AI Financial Coach (Claude Haiku API), Connessione bancaria automatica (GoCardless/Nordigen), Budget Model, Punteggio Salute Finanziaria (0-100), Goal Model, Tracciatore Patrimonio Netto, NotificationManager (+2 more)
+Nodes (11): Changelog v3.x: colori semantici positivo/negativo, fix ricorrenze, tour a due livelli riscritto, FormatterCache.swift (singleton formatter costosi), KeywordCategoryClassifier.swift, NotificationManager.swift, RecurringSeriesDetector.swift (tab Ricorrenti, sola lettura/analisi), RecurringTransactionEngine.swift, Cartella Domain/, Cartella Formatting/ (+3 more)
 
-### Community 28 - "Moneytracker Applockgate"
+### Community 28 - "Login View"
 Cohesion: 0.25
-Nodes (9): AppLockGate (Biometria Face ID/Touch ID), BUG-04 print() debug in TabBarFrameCapture, MoneyTrackerApp.isUITesting (--uitesting flag), Modalità Coppia/Famiglia, Onboarding Tour, Supabase Cloud Sync, SupabaseManager (client, auth, sync), Sync cross-device (Supabase, offline-first) (+1 more)
+Nodes (7): AuthField, LoginView, Bool, Error, String, UIKeyboardType, View
 
-### Community 29 - "Moneytracker Model"
-Cohesion: 0.25
-Nodes (8): Calendario flusso di cassa, Category Model, Feature fiscali italiane (F24, 730, TFR, Detrazioni), RecurringTransactionEngine, Split spese (contatti + iMessage/WhatsApp), Tracker abbonamenti, Transaction Model, v2 Feature complete (primavera 2026)
+### Community 29 - "Transaction Model"
+Cohesion: 0.33
+Nodes (8): Account, Bool, Date, UUID, Transaction, TransactionType, entrata, uscita
 
-### Community 30 - "Onboardingtour Tourhighligh"
+### Community 30 - "Tour Anchor Geometry"
+Cohesion: 0.47
+Nodes (7): Anchor, CGRect, GeometryProxy, Bool, CGFloat, String, TourOverlayView
+
+### Community 31 - "Unit Test Suites (Balance/Category/Migration)"
+Cohesion: 0.31
+Nodes (4): MoneyTracker, SchemaMigrationTests, URL, Testing
+
+### Community 32 - "Siri Intent Sync Fix"
+Cohesion: 0.29
+Nodes (8): SEC-01: try! su ModelContainer in Shortcuts causava crash estensione → fix try? + guard, Changelog v3.x: fix tocco posteriore/Siri — transazioni sparivano dopo salvataggio (sync dirty flag), Feature: Shortcuts Apple (Siri/Comandi Rapidi), AddExpenseIntent.swift (Shortcuts/Siri), SyncService.swift (Sync Supabase), Cartella Intents/, Cartella Sync/, Setup e Installazione (Xcode, signing, TestFlight-style USB deploy)
+
+### Community 33 - "Changelog v1 & Core Models"
+Cohesion: 0.36
+Nodes (8): Changelog v1: Base (transazioni, categorie, saldo singolo conto), Cartella Models/, PERF-R01: Account.currentBalance O(n_tx), scala male >5000 tx — Alta v2, Modello Account, Modello Budget, Modello Category, Modello Goal (obiettivo di risparmio), Modello Transaction
+
+### Community 34 - "Onboarding Tour Fix Changelog"
+Cohesion: 0.36
+Nodes (8): Changelog v3.x: fix mini-tour contestuali che non comparivano mai, Feature: Onboarding Tour (Livello 1 panoramica + Livello 2 hint contestuali), ContextualHint.swift, TabBarFrameCapture.swift, TourManager.swift, TourOverlayView.swift, TourStep.swift, Cartella OnboardingTour/
+
+### Community 35 - "Tour Anchor Preference Key"
 Cohesion: 0.29
 Nodes (5): String, TourAnchorKey, View, PreferenceKey, Value
 
-### Community 31 - "Views Goalsview"
+### Community 36 - "Add Transfer Flow"
+Cohesion: 0.29
+Nodes (5): AddTransferView, Account, Binding, Bool, String
+
+### Community 37 - "Goals View"
 Cohesion: 0.36
 Nodes (5): AddGoalView, GoalRow, Date, Goal, String
 
-### Community 32 - "Auth Signupview"
+### Community 38 - "Share Sheet (CSV export)"
+Cohesion: 0.38
+Nodes (5): Any, Context, ShareSheet, UIActivityViewController, UIViewControllerRepresentable
+
+### Community 39 - "Project Docs & Checkpoint Workflow"
+Cohesion: 0.62
+Nodes (7): Struttura cartella immutabile (regola), Istruzioni Graphify (query/--update), CLAUDE.md — Istruzioni per Claude, Workflow checkpoint (CLAUDE.md, 5 step: audit → doc → PDF → commit → graphify), MoneyTracker.pdf — Documento Distribuibile, MoneyTracker.md — Documento Master, Workflow Checkpoint (sezione 11, MoneyTracker.md)
+
+### Community 40 - "Sign Up View"
 Cohesion: 0.38
 Nodes (4): SignUpView, Bool, Error, String
 
-### Community 34 - "Claude Md Checkpoint"
-Cohesion: 0.67
-Nodes (3): Checkpoint Workflow, Graphify Knowledge Graph Workflow, MoneyTracker Project (CLAUDE.md)
+### Community 41 - "Budget Model"
+Cohesion: 0.48
+Nodes (6): Budget, Account, Date, Int, String, UUID
 
-### Community 35 - "Moneytracker Bug01"
-Cohesion: 0.67
-Nodes (3): BUG-01 DashboardView List + Dynamic Type, DashboardView (Home), PERF-R02 @Query senza fetchLimit in DashboardView
+### Community 43 - "Formatter Cache Singleton"
+Cohesion: 0.33
+Nodes (3): FormatterCache, DateFormatter, String
 
-### Community 36 - "Moneytracker Bug03"
-Cohesion: 0.67
-Nodes (3): BUG-03 CategoryStat.id instabile, PDFReportGenerator, StatisticsView (Statistiche)
+### Community 44 - "Goal Model"
+Cohesion: 0.53
+Nodes (5): Goal, Bool, Date, String, UUID
 
-### Community 37 - "Moneytracker I18n01"
-Cohesion: 0.67
-Nodes (3): i18n-01 Sezione Siri non tradotta, i18n-02 Accessibility labels hard-coded, Localizzazione (7 lingue)
+### Community 45 - "Commissione Suprema & Nightly Test Automation"
+Cohesion: 0.50
+Nodes (5): Commissione Suprema — 6 giudici, tolleranza zero, 10/10 richiesto prima del commit, Changelog v3.x: XCUITest e automazione notturna, MoneyTrackerApp.swift (entry point), Automazione notturna (run_nightly_tests.sh + LaunchAgent, fix automatico via Claude Code headless, report_notturno.md + PR), MoneyTrackerUITests (target XCUITest, 12 test/4 classi)
 
-### Community 38 - "Assets Xcassets"
+### Community 46 - "Statistics & PDF Export Feature"
+Cohesion: 0.40
+Nodes (5): Feature: Statistiche, PDFReportGenerator.swift, StatisticsView.swift, Cartella Export/, Transferable CSVFile — nessun file temp su disco
+
+### Community 47 - "App Icon & Branding Assets"
 Cohesion: 1.00
 Nodes (3): AppIcon Light 1024 — App Icon (Light Variant), Light Theme Branding — white/grey palette, minimalist design language, Visual Metaphor: Combined Bar + Line Chart with dot markers
 
 ## Knowledge Gaps
-- **88 isolated node(s):** `contanti`, `carta`, `conto`, `risparmio`, `investimento` (+83 more)
+- **98 isolated node(s):** `contanti`, `carta`, `conto`, `risparmio`, `investimento` (+93 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **91 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **121 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `SwiftData` connect `Models` to `Views Theme`, `Views Transactionsview`, `Sync Syncservice`, `Views Contentview`, `Persistence Schemamigration`, `Auth Applockgate`, `Views Statisticsview`, `Intents Addexpenseintent`, `Views Settingsview`, `Views Addtransactionview`, `Views Budgetview`, `Views Categorymanagementvie`, `Views Accountsview`, `Views Goalsview`?**
-  _High betweenness centrality (0.242) - this node is a cross-community bridge._
-- **Why does `Foundation` connect `Models` to `Views Transactionsview`, `Sync Syncservice`, `Persistence Schemamigration`, `Auth Applockgate`, `Models`, `Intents Addexpenseintent`, `Domain Keywordcategoryclass`?**
-  _High betweenness centrality (0.091) - this node is a cross-community bridge._
-- **Why does `Date` connect `Views Statisticsview` to `Views Theme`, `Sync Syncservice`, `Export Pdfreportgenerator`, `Domain Auditlogger`, `Domain Notificationmanager`?**
-  _High betweenness centrality (0.057) - this node is a cross-community bridge._
-- **Are the 2 inferred relationships involving `TourStep` (e.g. with `.next()` and `.previous()`) actually correct?**
-  _`TourStep` has 2 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `SwiftData` connect `Core Domain Utilities` to `Onboarding Tour Overlay & Cards`, `Supabase Sync Models (SB*)`, `Budget View & History`, `Add Transfer Flow`, `SwiftData Schema Migration`, `Goals View`, `Recurring Series Detection`, `Siri/Shortcuts App Intents`, `Supabase Manager & Auth Bootstrap`, `Settings & Data Export`, `Add Transaction Flow`, `Pianifica (Budget+Goals) View`, `Category Management View`, `Transaction Model`, `Unit Test Suites (Balance/Category/Migration)`?**
+  _High betweenness centrality (0.162) - this node is a cross-community bridge._
+- **Why does `Foundation` connect `Core Domain Utilities` to `Supabase Sync Models (SB*)`, `SwiftData Schema Migration`, `Recurring Series Detection`, `Siri/Shortcuts App Intents`, `Supabase Manager & Auth Bootstrap`, `Currency/Date Formatting Helpers`, `Formatter Cache Singleton`, `Category Auto-Classification`, `App Lock Gate (Face ID/Touch ID)`, `Transaction Model`, `Unit Test Suites (Balance/Category/Migration)`?**
+  _High betweenness centrality (0.080) - this node is a cross-community bridge._
+- **Why does `View` connect `Onboarding Tour Overlay & Cards` to `Budget View & History`, `Add Transfer Flow`, `Recurring Series Detection`, `Supabase Manager & Auth Bootstrap`, `Settings & Data Export`, `Audit Logger`, `Pianifica (Budget+Goals) View`, `Tour Anchor Geometry`?**
+  _High betweenness centrality (0.077) - this node is a cross-community bridge._
 - **What connects `contanti`, `carta`, `conto` to the rest of the system?**
-  _91 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Views Theme` be split into smaller, more focused modules?**
-  _Cohesion score 0.05565638233514821 - nodes in this community are weakly interconnected._
-- **Should `Views Transactionsview` be split into smaller, more focused modules?**
-  _Cohesion score 0.06648936170212766 - nodes in this community are weakly interconnected._
+  _112 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Onboarding Tour Overlay & Cards` be split into smaller, more focused modules?**
+  _Cohesion score 0.050837496326770495 - nodes in this community are weakly interconnected._
+- **Should `Supabase Sync Models (SB*)` be split into smaller, more focused modules?**
+  _Cohesion score 0.09840425531914894 - nodes in this community are weakly interconnected._
+- **Should `Budget View & History` be split into smaller, more focused modules?**
+  _Cohesion score 0.09408033826638477 - nodes in this community are weakly interconnected._
