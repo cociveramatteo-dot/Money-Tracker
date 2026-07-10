@@ -10,7 +10,11 @@ final class AccountFlowUITests: MoneyTrackerUITestCase {
         // --- Aggiungi ---
         tapFAB()
         let nameField = app.textFields["tf_accountName"]
-        XCTAssertTrue(nameField.waitForExistence(timeout: 5))
+        // Timeout più ampio: questo è il primo sheet mai presentato nel processo
+        // (questa è la prima suite eseguita), e il primo cold render può superare
+        // i 5s abituali su una macchina CI sotto carico — osservato flaky solo qui,
+        // mai nelle chiamate identiche successive a processo caldo.
+        XCTAssertTrue(nameField.waitForExistence(timeout: 15))
         nameField.tap()
         nameField.typeText(name)
 
