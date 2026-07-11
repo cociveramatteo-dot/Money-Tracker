@@ -63,7 +63,14 @@ class MoneyTrackerUITestCase: XCTestCase {
     /// deterministica, osservata flaky sia a 0.4s sia a 1.0s).
     func swipeToDeleteTransaction(named name: String, file: StaticString = #filePath, line: UInt = #line) {
         let deleteButton = app.buttons["btn_deleteTransaction"]
-        let target = app.descendants(matching: .any).matching(NSPredicate(format: "label BEGINSWITH %@", name)).firstMatch
+        // Scope alla sola gerarchia StaticText: .descendants(matching: .any) forza
+        // una scansione dell'intero albero di accessibilità (ogni elemento di ogni
+        // tipo, comprese le ~75 righe demo) a ogni retry di waitForExistence — con
+        // la lista movimenti popolata questo ha fatto durare un singolo swipe fino
+        // a 17 minuti invece di pochi secondi (vedi log notte 11/07). La riga
+        // combinata (.accessibilityElement(children: .combine) in Theme.swift)
+        // risolve comunque come StaticText, quindi restringere il tipo è sicuro.
+        let target = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", name)).firstMatch
         for _ in 0..<6 {
             XCTAssertTrue(target.waitForExistence(timeout: 5), "Riga \(name) non trovata", file: file, line: line)
             target.swipeLeft()
