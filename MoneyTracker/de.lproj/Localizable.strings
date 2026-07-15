@@ -139,6 +139,7 @@
 
 /* ── Transfer ────────────────────────────── */
 "Trasferimento"    = "Überweisung";
+"Modifica trasferimento" = "Überweisung bearbeiten";
 "Da"               = "Von";
 "A"                = "An";
 "Note (opzionale)" = "Notizen (optional)";

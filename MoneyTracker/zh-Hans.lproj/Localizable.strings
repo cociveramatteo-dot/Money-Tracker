@@ -139,6 +139,7 @@
 
 /* ── Transfer ────────────────────────────── */
 "Trasferimento"    = "转账";
+"Modifica trasferimento" = "编辑转账";
 "Da"               = "从";
 "A"                = "到";
 "Note (opzionale)" = "备注（可选）";

@@ -505,6 +505,18 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 
 ## 10. Changelog
 
+### v3.x (luglio 2026) — Trasferimenti: fix eliminazione e nuova modalità di modifica
+
+**Bug fix — eliminazione trasferimento non funzionava dentro la sezione "Trasf." (`TransactionsView.swift`):**
+- **Bug**: il dialog di conferma "Elimina entrambi i movimenti" era agganciato solo alla vista hub (root della `NavigationStack`), non alla vista della sezione realmente in primo piano quando si è dentro "Trasferimenti". Un `.confirmationDialog`/`.alert` attaccato a una vista non in cima allo stack di navigazione resta "in sospeso": compariva solo tornando indietro all'hub, mai subito dopo lo swipe.
+- **Fix**: il modificatore (estratto in `View.transferDeleteConfirmation(pending:onConfirm:)`) è ora agganciato sia all'hub sia a `subListContent(for:)` (la vista pushata per ciascuna sezione), così l'eliminazione funziona subito indipendentemente da dove viene avviata.
+
+**Nuova funzionalità — modifica di un trasferimento esistente:**
+- Prima, toccare un trasferimento mostrava solo un alert bloccante ("elimina e ricrea"): non era possibile modificarlo.
+- `AddTransferView` ora accetta un parametro opzionale `editing: Transaction?` (una delle due gambe collegate). In modalità modifica, `save()` aggiorna **entrambe** le gambe esistenti in modo sincronizzato (importo, data, note, stato fatto/pianificato, conti "Da"/"A") invece di crearne di nuove — il ruolo (`.uscita`/`.entrata`) e il `transferGroupId` di ciascuna gamba non vengono mai alterati, solo il conto assegnato.
+- `TransactionsView`: il tap su un trasferimento apre ora `AddTransferView(editing:)` in una sheet, al posto dell'alert bloccante rimosso.
+- Aggiunta la traduzione di "Modifica trasferimento" nelle 6 lingue non italiane.
+
 ### v3.x (luglio 2026) — Colori semantici positivo/negativo, fix ricorrenze, tour a due livelli riscritto
 
 **Colori (verde/rosso), indipendenti dal tema attivo:**

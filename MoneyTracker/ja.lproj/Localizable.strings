@@ -139,6 +139,7 @@
 
 /* ── Transfer ────────────────────────────── */
 "Trasferimento"    = "振替";
+"Modifica trasferimento" = "振替を編集";
 "Da"               = "送金元";
 "A"                = "送金先";
 "Note (opzionale)" = "メモ（任意）";

@@ -139,6 +139,7 @@
 
 /* ── Transfer ────────────────────────────── */
 "Trasferimento"    = "Virement";
+"Modifica trasferimento" = "Modifier le virement";
 "Da"               = "De";
 "A"                = "À";
 "Note (opzionale)" = "Notes (optionnel)";

@@ -33,11 +33,11 @@ struct TransactionsView: View {
     // mostrarne il contenuto mentre lo spiega, la richiude quando si avanza.
     @State private var navPath: [TxFilter] = []
     @FocusState private var searchFocused: Bool
-    // BUG-04: pending transfer delete — shows confirmationDialog before removing both legs
+    // Pending transfer delete — shows confirmationDialog before removing both legs.
     @State private var transferToDelete: Transaction? = nil
-    // Tap su un trasferimento: spiega perché non è modificabile invece di aprire
-    // l'editor generico (che modificherebbe una sola gamba del trasferimento).
-    @State private var transferBeingEdited: Transaction? = nil
+    // Tap su un trasferimento: apre AddTransferView in modalità modifica, che
+    // aggiorna entrambe le gambe collegate in modo sincronizzato.
+    @State private var transferEditing: Transaction? = nil
 
     // Filtri avanzati — le stringhe importo e il flag date sono persistiti via AppStorage
     @AppStorage("txFilterMin")      private var filterMinAmount:      String = ""
@@ -232,6 +232,7 @@ struct TransactionsView: View {
                 }
             }
             .sheet(item: $editing) { AddTransactionView(editing: $0) }
+            .sheet(item: $transferEditing) { AddTransferView(editing: $0) }
             .sheet(isPresented: $showAdvancedFilter) { advancedFilterSheet }
             // Fix iOS 26: .tint(DS.ink) sovrascrive il tint di sistema (verde di default
             // in alcune versioni di iOS 26) per List, search bar e swipe actions.
@@ -239,34 +240,12 @@ struct TransactionsView: View {
             .themedNavBar()
             .sheet(isPresented: $showSettings) { SettingsView() }
             .sheet(item: $selectedSeries) { s in RecurringSeriesDetailView(seriesID: s.id) }
-            // BUG-04: confirm before deleting both legs of a transfer
-            .confirmationDialog(
-                "Elimina trasferimento",
-                isPresented: Binding(
-                    get: { transferToDelete != nil },
-                    set: { if !$0 { transferToDelete = nil } }
-                ),
-                titleVisibility: .visible
-            ) {
-                Button("Elimina entrambi i movimenti", role: .destructive) {
-                    if let t = transferToDelete { deleteTransactionOrPair(t) }
-                    transferToDelete = nil
-                }
-                Button("Annulla", role: .cancel) { transferToDelete = nil }
-            } message: {
-                Text("Questo trasferimento è composto da due movimenti collegati. Verranno eliminati entrambi.")
-            }
-            .alert(
-                "Trasferimento non modificabile",
-                isPresented: Binding(
-                    get: { transferBeingEdited != nil },
-                    set: { if !$0 { transferBeingEdited = nil } }
-                )
-            ) {
-                Button("OK", role: .cancel) { transferBeingEdited = nil }
-            } message: {
-                Text("Un trasferimento è composto da due movimenti collegati su due conti diversi: per cambiarlo, eliminalo (swipe verso sinistra) e creane uno nuovo.")
-            }
+            // Il dialog va agganciato anche qui (oltre che in subListContent) perché
+            // questa root smette di essere la vista in primo piano quando si entra in
+            // una sezione via NavigationLink: un .confirmationDialog attaccato a una
+            // vista non in cima allo stack di navigazione resta "in sospeso" e
+            // compare solo al ritorno sull'hub, invece che subito (era il Bug-04).
+            .transferDeleteConfirmation(pending: $transferToDelete, onConfirm: deleteTransactionOrPair)
         }
     }
 
@@ -426,6 +405,10 @@ struct TransactionsView: View {
         // Filtro categoria e ricerca sono locali alla sezione: uscendo si azzerano,
         // così la prossima sezione aperta parte sempre senza stato ereditato per errore.
         .onDisappear { selectedCat = ""; sectionSearch = "" }
+        // Vedi commento in `body`: questa è la vista realmente in primo piano quando si
+        // è dentro una sezione (es. "Trasf."), quindi il dialog va agganciato anche qui
+        // perché l'eliminazione con swipe funzioni subito, senza dover uscire e rientrare.
+        .transferDeleteConfirmation(pending: $transferToDelete, onConfirm: deleteTransactionOrPair)
     }
 
     // MARK: - Advanced filter sheet
@@ -578,10 +561,11 @@ struct TransactionsView: View {
         .accessibilityIdentifier("txRow_\(t.id.uuidString)")
         .onTapGesture {
             // I trasferimenti sono 2 transazioni collegate (transferGroupId): l'editor
-            // generico modificherebbe solo una delle due gambe, disallineando in modo
-            // silenzioso i saldi dei due conti coinvolti. Vanno eliminati e ricreati.
+            // generico modificherebbe solo una delle due gambe, disallineando i saldi
+            // dei due conti coinvolti — per questo usano AddTransferView (che aggiorna
+            // entrambe le gambe) invece dell'editor generico.
             if t.isTransfer {
-                transferBeingEdited = t
+                transferEditing = t
             } else {
                 editing = t
             }
@@ -679,5 +663,33 @@ struct TransactionsView: View {
         }
         context.delete(t)
         context.safeSave()
+    }
+}
+
+// MARK: - Transfer delete confirmation (condivisa tra hub e sezione)
+
+private extension View {
+    /// Chiede conferma prima di eliminare entrambe le gambe di un trasferimento.
+    /// Va applicata su ogni vista che può diventare quella in primo piano nello
+    /// stack di navigazione da cui può partire l'eliminazione (hub e sezione
+    /// "Trasf."), altrimenti il dialog resta "in sospeso" finché quella vista
+    /// non torna in primo piano — vedi commenti in `TransactionsView.body`.
+    func transferDeleteConfirmation(pending: Binding<Transaction?>, onConfirm: @escaping (Transaction) -> Void) -> some View {
+        confirmationDialog(
+            "Elimina trasferimento",
+            isPresented: Binding(
+                get: { pending.wrappedValue != nil },
+                set: { if !$0 { pending.wrappedValue = nil } }
+            ),
+            titleVisibility: .visible
+        ) {
+            Button("Elimina entrambi i movimenti", role: .destructive) {
+                if let t = pending.wrappedValue { onConfirm(t) }
+                pending.wrappedValue = nil
+            }
+            Button("Annulla", role: .cancel) { pending.wrappedValue = nil }
+        } message: {
+            Text("Questo trasferimento è composto da due movimenti collegati. Verranno eliminati entrambi.")
+        }
     }
 }

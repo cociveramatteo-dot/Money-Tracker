@@ -139,6 +139,7 @@
 
 /* ── Transfer ────────────────────────────── */
 "Trasferimento"    = "Transfer";
+"Modifica trasferimento" = "Edit transfer";
 "Da"               = "From";
 "A"                = "To";
 "Note (opzionale)" = "Notes (optional)";

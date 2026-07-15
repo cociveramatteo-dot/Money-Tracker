@@ -139,6 +139,7 @@
 
 /* ── Transfer ────────────────────────────── */
 "Trasferimento"    = "Transferencia";
+"Modifica trasferimento" = "Editar transferencia";
 "Da"               = "De";
 "A"                = "A";
 "Note (opzionale)" = "Notas (opcional)";
