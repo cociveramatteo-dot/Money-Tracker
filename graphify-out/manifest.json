@@ -1,8 +1,8 @@
 {
   ".claude/settings.local.json": {
-    "mtime": 1783579300.1860983,
-    "ast_hash": "a98dbd9fb94a3c9ad61aff308581e8f4",
-    "semantic_hash": "a98dbd9fb94a3c9ad61aff308581e8f4"
+    "mtime": 1784115270.0207095,
+    "ast_hash": "403381e936a0e60b2089ac0eff6faee2",
+    "semantic_hash": "403381e936a0e60b2089ac0eff6faee2"
   },
   "MoneyTracker/Assets.xcassets/AccentColor.colorset/Contents.json": {
     "mtime": 1782038113.3302462,
@@ -225,9 +225,9 @@
     "semantic_hash": "93b71b9e48a059b744f8189e5c33b605"
   },
   "MoneyTracker/Views/AddTransferView.swift": {
-    "mtime": 1783277755.6842752,
-    "ast_hash": "6789c493ffded0ea8bfbe590beb8ec98",
-    "semantic_hash": "6789c493ffded0ea8bfbe590beb8ec98"
+    "mtime": 1784114985.7088342,
+    "ast_hash": "d39a5c2d718cfa117562287e01bc7196",
+    "semantic_hash": "d39a5c2d718cfa117562287e01bc7196"
   },
   "MoneyTracker/Views/AuditLogView.swift": {
     "mtime": 1783508139.0769835,
@@ -280,22 +280,22 @@
     "semantic_hash": "c62f9037a7ac45f5308a0c07f5f51386"
   },
   "MoneyTracker/Views/TransactionsView.swift": {
-    "mtime": 1783623222.039753,
-    "ast_hash": "13388dafd1ad9e4c6f211f93d826b942",
-    "semantic_hash": "13388dafd1ad9e4c6f211f93d826b942"
+    "mtime": 1784114949.0915413,
+    "ast_hash": "7d6ef74f0d875e5238108f545921a86a",
+    "semantic_hash": "7d6ef74f0d875e5238108f545921a86a"
   },
   "docs/MoneyTracker.md": {
-    "mtime": 1783626691.3416693,
-    "ast_hash": "f679ee13e8124b9d027b26d025367262",
-    "semantic_hash": "f679ee13e8124b9d027b26d025367262"
+    "mtime": 1784115238.4003282,
+    "ast_hash": "c75002eaebe06d781edb8c85b5ee031a",
+    "semantic_hash": "c75002eaebe06d781edb8c85b5ee031a"
   },
   "docs/MoneyTracker.pdf": {
-    "mtime": 1783633356.1384537,
-    "ast_hash": "926b57e59b7220b1f42eadc7d8999d6d",
-    "semantic_hash": "926b57e59b7220b1f42eadc7d8999d6d"
+    "mtime": 1784115253.2541018,
+    "ast_hash": "08c119cb037dfbc451af566a70d33b24",
+    "semantic_hash": "08c119cb037dfbc451af566a70d33b24"
   },
   "MoneyTrackerUITests/AccountFlowUITests.swift": {
-    "mtime": 1783519671.9553084,
+    "mtime": 1783666828.6910632,
     "ast_hash": "1e03fbfb3d493a72d954de126dbfbeef",
     "semantic_hash": "1e03fbfb3d493a72d954de126dbfbeef"
   },
@@ -315,9 +315,9 @@
     "semantic_hash": "ea9e3ee5bba42d101a239a30cc463985"
   },
   "MoneyTrackerUITests/UITestSupport.swift": {
-    "mtime": 1783585068.7522779,
-    "ast_hash": "eeb12054c57432f0063b624a9fef8ff9",
-    "semantic_hash": "eeb12054c57432f0063b624a9fef8ff9"
+    "mtime": 1783757675.7909563,
+    "ast_hash": "e6b7c072677b3f4a06a3e453cbe1ce8f",
+    "semantic_hash": "e6b7c072677b3f4a06a3e453cbe1ce8f"
   },
   "MoneyTracker/Domain/RecurringSeriesDetector.swift": {
     "mtime": 1783582653.765757,
@@ -335,8 +335,8 @@
     "semantic_hash": "28264153691887f820319cc2a17003b8"
   },
   "report_notturno.md": {
-    "mtime": 1783574304.0300775,
-    "ast_hash": "bf39d0f72cf21e432055f161b64de71e",
-    "semantic_hash": "bf39d0f72cf21e432055f161b64de71e"
+    "mtime": 1784113704.673042,
+    "ast_hash": "1b9dd2fc3b0fa0e8a0f458cd01a5620c",
+    "semantic_hash": "1b9dd2fc3b0fa0e8a0f458cd01a5620c"
   }
 }
