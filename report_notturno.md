@@ -1,54 +1,24 @@
-# Report notturno MoneyTracker — 12/07/2026
+# Report notturno MoneyTracker — 14/07/2026
 
-**Esito: ❌ TEST FALLITI** dopo 5 tentativi di correzione automatica.
-
-Serve un intervento manuale: controlla il log completo in `/Users/matteo/Desktop/NightTestApp/logs/nightly_20260712_041117.log` e i risultati in `/Users/matteo/Desktop/NightTestApp/logs`.
+**Esito: ✅ TEST OK** (superati al tentativo 2 di 5)
 
 ## Dettaglio tentativi
 
-- `xcodebuild_20260712_041117_attempt1.log`: ❌ fallito
+- `xcodebuild_20260714_041248_attempt1.log`: ❌ fallito
   <details><summary>Estratto errori</summary>
 
   ```
-  <unknown>:0: error: -[MoneyTrackerUITests.TransactionFlowUITests testCancelAddTransactionDiscardsInput] : Failed to get matching snapshots: Timed out while evaluating UI query.
+  <unknown>:0: error: -[MoneyTrackerUITests.AccountFlowUITests testAddEditDeleteAccount] : Failed to synthesize event: Neither element nor any descendant has keyboard focus. Event dispatch snapshot: TextField, {{41.0, 352.0}, {341.0, 67.0}}, identifier: 'tf_accountBalance', placeholderValue: '0', value: 0
+  <unknown>:0: error: -[MoneyTrackerUITests.AccountFlowUITests testCancelAddAccountDiscardsInput] : Failed to tap "Conti" Button: Timed out while synthesizing event.
+  <unknown>:0: error: -[MoneyTrackerUITests.CategoryFlowUITests testAddEditDeleteCategory] : Failed to synthesize event: Timed out while synthesizing event.
+  <unknown>:0: error: -[MoneyTrackerUITests.CategoryFlowUITests testDefaultCategoryCannotBeEdited] : Failed to get matching snapshots: Timed out while evaluating UI query.
+  <unknown>:0: error: -[MoneyTrackerUITests.NavigationStressUITests testAddMultipleTransactionsThenDeleteAll] : Failed to tap "fabButton" Button: Timed out while synthesizing event.
+  /Users/matteo/Desktop/MoneyTracker/MoneyTrackerUITests/NavigationStressUITests.swift:25: error: -[MoneyTrackerUITests.NavigationStressUITests testOpenAndCancelAddSheetsRepeatedly] : XCTAssertTrue failed - Voce menu fabMenu_addTransaction non trovata
+  <unknown>:0: error: -[MoneyTrackerUITests.NavigationStressUITests testSearchTransactionsTypeAndClearRepeatedly] : Failed to get matching snapshots: Timed out while evaluating UI query.
+  <unknown>:0: error: -[MoneyTrackerUITests.TransactionFlowUITests testAddEditDeleteTransaction] : Failed to synthesize event: Timed out while synthesizing event.
   ```
   </details>
-- `xcodebuild_20260712_041117_attempt2.log`: ❌ fallito
-  <details><summary>Estratto errori</summary>
-
-  ```
-  <unknown>:0: error: -[MoneyTrackerUITests.NavigationStressUITests testAddMultipleTransactionsThenDeleteAll] : Failed to swipe left StaticText (First Match): Timed out while synthesizing event.
-  <unknown>:0: error: -[MoneyTrackerUITests.TransactionFlowUITests testAddEditDeleteTransaction] : Failed to get matching snapshots: Timed out while evaluating UI query.
-  <unknown>:0: error: -[MoneyTrackerUITests.TransactionFlowUITests testAddTransactionWithoutCategoryDefaultsToAltro] : Failed to synthesize event: Timed out while synthesizing event.
-  ```
-  </details>
-- `xcodebuild_20260712_041117_attempt3.log`: ❌ fallito
-  <details><summary>Estratto errori</summary>
-
-  ```
-  <unknown>:0: error: -[MoneyTrackerUITests.CategoryFlowUITests testAddEditDeleteCategory] : Failed to tap "fabMenu_addTransaction" Button: Timed out while synthesizing event.
-  <unknown>:0: error: -[MoneyTrackerUITests.CategoryFlowUITests testDefaultCategoryCannotBeEdited] : Failed to tap "Movimenti" Button: Timed out while synthesizing event.
-  <unknown>:0: error: -[MoneyTrackerUITests.NavigationStressUITests testAddMultipleTransactionsThenDeleteAll] : Failed to tap "tf_amount" TextField: Timed out while synthesizing event.
-  <unknown>:0: error: -[MoneyTrackerUITests.NavigationStressUITests testOpenAndCancelAddSheetsRepeatedly] : Failed to tap "Movimenti" Button: Timed out while synthesizing event.
-  ```
-  </details>
-- `xcodebuild_20260712_041117_attempt4.log`: ❌ fallito
-  <details><summary>Estratto errori</summary>
-
-  ```
-  <unknown>:0: error: -[MoneyTrackerUITests.AccountFlowUITests testAddEditDeleteAccount] : Failed to tap "tf_accountName" TextField: Timed out while synthesizing event.
-  <unknown>:0: error: -[MoneyTrackerUITests.CategoryFlowUITests testAddEditDeleteCategory] : Failed to tap "Movimenti" Button: Timed out while synthesizing event.
-  <unknown>:0: error: -[MoneyTrackerUITests.CategoryFlowUITests testDefaultCategoryCannotBeEdited] : Failed to tap "Cibo" StaticText: Find single matching element. Multiple matching elements found for <XCUIElementQuery: 0x115648af0>.
-  <unknown>:0: error: -[MoneyTrackerUITests.NavigationStressUITests testOpenAndCancelAddSheetsRepeatedly] : Failed to tap "fabMenu_addTransaction" Button: Timed out while synthesizing event.
-  <unknown>:0: error: -[MoneyTrackerUITests.NavigationStressUITests testRapidTabSwitching] : Failed to tap "Home" Button: Timed out while synthesizing event.
-  ```
-  </details>
-- `xcodebuild_20260712_041117_attempt5.log`: ❌ fallito
-  <details><summary>Estratto errori</summary>
-
-  ```
-  ```
-  </details>
+- `xcodebuild_20260714_041248_attempt2.log`: ✅ superato
 
 ## Modifiche automatiche
 
