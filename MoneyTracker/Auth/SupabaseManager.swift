@@ -36,6 +36,19 @@ final class SupabaseManager: ObservableObject {
     // MARK: - Init
 
     private init() {
+        // Gli XCUITest bypassano login/Face ID forzando la modalità demo (vedi
+        // MoneyTrackerApp.isUITesting), ma questo singleton viene comunque creato
+        // subito (proprietà @ObservedObject di MoneyTrackerApp): senza questo guard,
+        // client.auth.session tenta comunque di validare/rinnovare la sessione in
+        // rete ad ogni lancio. XCTest considera una richiesta URLSession in corso
+        // come "app occupata", quindi se la rete è assente o lenta nell'ambiente di
+        // test, synthesize event/wait-for-idle restano bloccati per minuti — causa
+        // dei fallimenti intermittenti "Timed out while synthesizing event" nei
+        // report notturni, non correlati a nessuna view specifica.
+        guard !MoneyTrackerApp.isUITesting else {
+            isLoading = false
+            return
+        }
         Task { await bootstrap() }
     }
 
