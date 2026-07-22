@@ -39,6 +39,8 @@
 "Uscite totali"              = "Gesamtausgaben";
 "Nessuna spesa questo mese." = "Keine Ausgaben diesen Monat.";
 "Fissi del mese"             = "Monatliche Fixkosten";
+"Spese fisse"                = "Feste Ausgaben";
+"Entrate fisse"              = "Feste Einnahmen";
 "da pagare"                  = "zu zahlen";
 "da ricevere"                = "zu erhalten";
 "Nessuna voce fissa.\nPremi + → aggiungi una spesa o entrata → attiva 'Voce fissa'." = "Keine Fixposten.\nTippe + → füge eine Ausgabe oder Einnahme hinzu → aktiviere 'Fix'.";
@@ -155,6 +157,10 @@
 "Genera CSV"     = "CSV erstellen";
 "Versione"       = "Version";
 "Transazioni totali" = "Transaktionen gesamt";
+"Spese fisse mensili" = "Monatliche feste Ausgaben";
+"Entrate fisse mensili" = "Monatliche feste Einnahmen";
+"Mostra il totale delle spese fisse del mese in home" = "Zeigt die monatlichen festen Ausgaben auf der Startseite";
+"Mostra il totale delle entrate fisse del mese in home" = "Zeigt die monatlichen festen Einnahmen auf der Startseite";
 
 /* ── Budget ──────────────────────────────── */
 "Budget usato"     = "Budget verbraucht";

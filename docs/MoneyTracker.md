@@ -267,6 +267,7 @@ Full support Light/Dark mode nativo SwiftUI, senza override manuali.
 - **Chips conti** — riga orizzontale scrollabile con nome + saldo. Pulsante `⊟` apre pannello selezione/ordinamento (`HomeAccountOrderSheet`). Ordine persistito via `@AppStorage`
 - **Nascondi saldo** — pulsante occhio: HeroAmount e chips mostrano "• • •". Stato persistito via `@AppStorage("hideBalance")`
 - **Saldo Atteso** — appare solo se ci sono movimenti pianificati. Mostra saldo futuro + delta (▲/▼)
+- **Fissi del mese** — mini-card affiancate "Spese fisse"/"Entrate fisse": somma di tutte le transazioni `isFixed` del mese corrente (pagate o da pagare, `isDone` ignorato). Ciascuna mostrabile/nascondibile indipendentemente da Impostazioni → Home (`@AppStorage("showFixedExpensesTotal")`/`("showFixedIncomeTotal")`); rispetta "Nascondi saldo" (`hideBalance`)
 - **Ultimi Movimenti** — collassabile. Ultime 4 transazioni non fisse. Swipe destra = Modifica, sinistra = Elimina
 - **Toolbar:** pulsante tema (sinistra) + occhio + ingranaggio (destra)
 
@@ -334,6 +335,7 @@ Full support Light/Dark mode nativo SwiftUI, senza override manuali.
 - Selezione tema
 - Toggle "Report mensile PDF" — notifica locale il 1° di ogni mese alle 10:00
 - Avviso saldo basso per conto (persistito in UserDefaults)
+- Sezione "Home": toggle indipendenti per mostrare/nascondere le mini-card "Spese fisse mensili"/"Entrate fisse mensili"
 
 ### Biometria (Auth/)
 
@@ -504,6 +506,19 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ---
 
 ## 10. Changelog
+
+### v3.x (luglio 2026) — Card "Fissi del mese" in Home + tour onboarding testato end-to-end
+
+**Nuova funzionalità — totali spese/entrate fisse del mese in Home:**
+- Nuova sezione "Fissi del mese" in `DashboardView` (tra "Saldo atteso" e "Ultimi movimenti"): due mini-card affiancate (`FixedTotalTile`, nuovo componente in `Theme.swift`) con il totale di tutte le transazioni `isFixed` del mese corrente, separate per Uscita/Entrata — a prescindere da `isDone`, così l'utente vede il totale dei fissi (affitto, auto, assicurazione, ecc.) indipendentemente dal fatto che siano già stati pagati.
+- Ciascuna delle due card è mostrabile/nascondibile **indipendentemente** dall'altra da Impostazioni → nuova sezione "Home" (due `Toggle` separati), persistiti via `@AppStorage("showFixedExpensesTotal")`/`("showFixedIncomeTotal")`, default entrambi attivi.
+- Rispetta "Nascondi saldo" (`hideBalance`): con l'occhio disattivato mostra "• • •" come il resto della Home.
+- Testi tradotti nelle 6 lingue non italiane (riuso della chiave esistente "Fissi del mese" per il titolo sezione, nuove chiavi "Spese fisse"/"Entrate fisse" per le card e "Spese fisse mensili"/"Entrate fisse mensili" per i toggle in Impostazioni).
+
+**QA — tour di onboarding verificato end-to-end prima del checkpoint:**
+- Aggiunti `accessibilityIdentifier` (`tourModalCTA`, `tourNext`, `tourBack`, `tourHintGotIt`) ai bottoni di `TourOverlayView.swift`: il solo testo "Avanti" era ambiguo negli XCUITest perché iOS assegna automaticamente la stessa etichetta di accessibilità (in italiano) alla chevron "mese successivo" di `MonthBar`, un componente estraneo al tour presente su più tab.
+- Nuovo `MoneyTrackerUITests/TourFlowUITests.swift`: percorre l'intera panoramica (17 step, incluse le due card modali iniziale/finale) con screenshot ad ogni passaggio, verificando titolo e presenza del testo atteso per ciascuno step. Utile come test di regressione per future modifiche al tour.
+- Verificato manualmente, screenshot per screenshot, che ogni spotlight punti all'elemento corretto e che i cambi tab/segmento (Movimenti → Statistiche → Pianifica → Conti) avvengano senza artefatti; nessun problema riscontrato.
 
 ### v3.x (luglio 2026) — Trasferimenti: fix eliminazione e nuova modalità di modifica
 

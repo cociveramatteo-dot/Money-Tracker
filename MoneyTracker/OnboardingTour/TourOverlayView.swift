@@ -264,6 +264,7 @@ private struct ModalCard: View {
                     .background(DS.ink)
                     .clipShape(RoundedRectangle(cornerRadius: 13))
             }
+            .accessibilityIdentifier("tourModalCTA")
 
             // Skip link (welcome step only)
             if tour.currentStep == .welcome {
@@ -273,6 +274,7 @@ private struct ModalCard: View {
                         .foregroundStyle(DS.smoke.opacity(0.55))
                         .padding(.top, 14)
                 }
+                .accessibilityIdentifier("tourSkip")
             }
         }
         .padding(28)
@@ -337,6 +339,7 @@ private struct StepCard: View {
                                 .background(DS.fog)
                                 .clipShape(RoundedRectangle(cornerRadius: 7))
                         }
+                        .accessibilityIdentifier("tourBack")
                     }
 
                     Button {
@@ -350,6 +353,7 @@ private struct StepCard: View {
                             .background(DS.ink)
                             .clipShape(RoundedRectangle(cornerRadius: 7))
                     }
+                    .accessibilityIdentifier("tourNext")
                 }
             }
         }
@@ -403,6 +407,7 @@ private struct HintCard: View {
                     .background(DS.ink)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
+            .accessibilityIdentifier("tourHintGotIt")
         }
         .padding(14)
         .background(DS.paper)

@@ -39,6 +39,8 @@
 "Uscite totali"              = "总支出";
 "Nessuna spesa questo mese." = "本月暂无支出。";
 "Fissi del mese"             = "每月固定项目";
+"Spese fisse"                = "固定支出";
+"Entrate fisse"              = "固定收入";
 "da pagare"                  = "待支付";
 "da ricevere"                = "待收取";
 "Nessuna voce fissa.\nPremi + → aggiungi una spesa o entrata → attiva 'Voce fissa'." = "暂无固定项目。\n点击 + 添加支出或收入并启用固定选项。";
@@ -155,6 +157,10 @@
 "Genera CSV"     = "生成 CSV";
 "Versione"       = "版本";
 "Transazioni totali" = "总交易数";
+"Spese fisse mensili" = "每月固定支出";
+"Entrate fisse mensili" = "每月固定收入";
+"Mostra il totale delle spese fisse del mese in home" = "在首页显示本月固定支出总额";
+"Mostra il totale delle entrate fisse del mese in home" = "在首页显示本月固定收入总额";
 
 /* ── Budget ──────────────────────────────── */
 "Budget usato"     = "已用预算";

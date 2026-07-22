@@ -603,3 +603,33 @@ struct RecurringSeriesCard: View {
         .accessibilityElement(children: .combine)
     }
 }
+
+// MARK: - FixedTotalTile
+// Mini card that shows a single fixed-items total (spese/entrate fisse del
+// mese). Used in pairs on the Home dashboard, each independently toggleable
+// from Impostazioni → Home.
+
+struct FixedTotalTile: View {
+    let title: LocalizedStringKey
+    let amount: Decimal
+    let color: Color
+    var hidden: Bool = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: DS.Space.xs) {
+            Text(title)
+                .font(.system(size: 12))
+                .foregroundStyle(DS.smoke)
+            Text(hidden ? "• • •" : amount.currencyFormatted)
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundStyle(hidden ? DS.ink : color)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+        }
+        .padding(DS.Space.m)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(DS.fog.opacity(0.5))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .accessibilityElement(children: .combine)
+    }
+}

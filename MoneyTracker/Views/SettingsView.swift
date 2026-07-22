@@ -85,6 +85,8 @@ struct SettingsView: View {
     @AppStorage("monthlyReportEnabled")  private var monthlyReportEnabled: Bool = false
     @AppStorage("demoModeEnabled")       private var demoModeEnabled:      Bool = false
     @AppStorage("appLockEnabled")        private var appLockEnabled:       Bool = false
+    @AppStorage("showFixedExpensesTotal") private var showFixedExpensesTotal: Bool = true
+    @AppStorage("showFixedIncomeTotal")   private var showFixedIncomeTotal:   Bool = true
 
     // Letto una volta: cambia solo se l'utente aggiunge/rimuove Face ID o il codice
     // dispositivo mentre l'app è aperta, caso limite non ricontrollato ad ogni render.
@@ -291,6 +293,41 @@ struct SettingsView: View {
                             }
                         }
                         .buttonStyle(.plain)
+                    }
+
+                    ThinDivider()
+
+                    VStack(alignment: .leading, spacing: DS.Space.l) {
+                        SectionLabel(text: "Home")
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Spese fisse mensili")
+                                    .font(.system(size: 15))
+                                    .foregroundStyle(DS.ink)
+                                Text("Mostra il totale delle spese fisse del mese in home")
+                                    .font(.system(size: 11))
+                                    .foregroundStyle(DS.smoke)
+                            }
+                            Spacer()
+                            Toggle("", isOn: $showFixedExpensesTotal)
+                                .tint(DS.ink)
+                                .labelsHidden()
+                        }
+                        ThinDivider()
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Entrate fisse mensili")
+                                    .font(.system(size: 15))
+                                    .foregroundStyle(DS.ink)
+                                Text("Mostra il totale delle entrate fisse del mese in home")
+                                    .font(.system(size: 11))
+                                    .foregroundStyle(DS.smoke)
+                            }
+                            Spacer()
+                            Toggle("", isOn: $showFixedIncomeTotal)
+                                .tint(DS.ink)
+                                .labelsHidden()
+                        }
                     }
 
                     ThinDivider()

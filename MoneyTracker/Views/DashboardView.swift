@@ -11,6 +11,8 @@ struct DashboardView: View {
 
     @AppStorage("hideBalance")              private var hideBalance: Bool   = false
     @AppStorage("homeAccountOrderedShown") private var homeAccountOrderedShown: String = ""
+    @AppStorage("showFixedExpensesTotal")  private var showFixedExpensesTotal: Bool = true
+    @AppStorage("showFixedIncomeTotal")    private var showFixedIncomeTotal:   Bool = true
 
     @State private var showSettings          = false
     @State private var showRecentMovements   = true
@@ -46,6 +48,21 @@ struct DashboardView: View {
         Array(transactions.filter { !$0.isFixed && !$0.isTransfer && $0.recurringFrequency.isEmpty }.prefix(4))
     }
 
+    // Voci fisse del mese corrente, a prescindere da isDone (l'utente vuole
+    // sapere quanto spende/incassa di fisso ogni mese anche se non ancora
+    // pagato/ricevuto).
+    private var monthlyFixedExpensesTotal: Decimal {
+        transactions
+            .filter { $0.isFixed && !$0.isTransfer && $0.transactionType == .uscita && $0.date.isSameMonth(as: Date()) }
+            .reduce(0) { $0 + $1.amount }
+    }
+
+    private var monthlyFixedIncomeTotal: Decimal {
+        transactions
+            .filter { $0.isFixed && !$0.isTransfer && $0.transactionType == .entrata && $0.date.isSameMonth(as: Date()) }
+            .reduce(0) { $0 + $1.amount }
+    }
+
     // MARK: - Body
     var body: some View {
         NavigationStack {
@@ -57,6 +74,7 @@ struct DashboardView: View {
                     }
                     ThinDivider()
                         .padding(.top, abs(totalDelta) > 0.001 ? DS.Space.l : DS.Space.xl)
+                    fisseDelMeseSection
                     ultimiMovimentiSection
                     Spacer(minLength: 100)
                 }
@@ -182,6 +200,39 @@ struct DashboardView: View {
             .padding(.horizontal, DS.Layout.margin)
             .padding(.bottom, DS.Space.l)
             .tourAnchor("saldoAtteso")
+        }
+    }
+
+    // MARK: - Fisse del mese
+
+    @ViewBuilder
+    private var fisseDelMeseSection: some View {
+        if showFixedExpensesTotal || showFixedIncomeTotal {
+            VStack(alignment: .leading, spacing: DS.Space.m) {
+                SectionLabel(text: "Fissi del mese")
+                    .padding(.top, DS.Space.l)
+
+                HStack(spacing: DS.Space.m) {
+                    if showFixedExpensesTotal {
+                        FixedTotalTile(
+                            title: "Spese fisse",
+                            amount: monthlyFixedExpensesTotal,
+                            color: DS.negative,
+                            hidden: hideBalance
+                        )
+                    }
+                    if showFixedIncomeTotal {
+                        FixedTotalTile(
+                            title: "Entrate fisse",
+                            amount: monthlyFixedIncomeTotal,
+                            color: DS.positive,
+                            hidden: hideBalance
+                        )
+                    }
+                }
+            }
+            .padding(.horizontal, DS.Layout.margin)
+            .padding(.bottom, DS.Space.l)
         }
     }
 

@@ -39,6 +39,8 @@
 "Uscite totali"              = "支出合計";
 "Nessuna spesa questo mese." = "今月の支出はありません。";
 "Fissi del mese"             = "今月の固定項目";
+"Spese fisse"                = "固定支出";
+"Entrate fisse"              = "固定収入";
 "da pagare"                  = "支払い待ち";
 "da ricevere"                = "受取り待ち";
 "Nessuna voce fissa.\nPremi + → aggiungi una spesa o entrata → attiva 'Voce fissa'." = "固定項目がありません。\n+ をタップ → 支出または収入を追加 → 「固定」を有効にする。";
@@ -155,6 +157,10 @@
 "Genera CSV"     = "CSVを生成";
 "Versione"       = "バージョン";
 "Transazioni totali" = "取引合計数";
+"Spese fisse mensili" = "毎月の固定支出";
+"Entrate fisse mensili" = "毎月の固定収入";
+"Mostra il totale delle spese fisse del mese in home" = "ホーム画面に今月の固定支出の合計を表示";
+"Mostra il totale delle entrate fisse del mese in home" = "ホーム画面に今月の固定収入の合計を表示";
 
 /* ── Budget ──────────────────────────────── */
 "Budget usato"     = "使用予算";

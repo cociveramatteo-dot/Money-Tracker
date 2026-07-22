@@ -39,6 +39,8 @@
 "Uscite totali"              = "Gastos totales";
 "Nessuna spesa questo mese." = "Sin gastos este mes.";
 "Fissi del mese"             = "Fijos del mes";
+"Spese fisse"                = "Gastos fijos";
+"Entrate fisse"              = "Ingresos fijos";
 "da pagare"                  = "por pagar";
 "da ricevere"                = "por recibir";
 "Nessuna voce fissa.\nPremi + → aggiungi una spesa o entrata → attiva 'Voce fissa'." = "Sin elementos fijos.\nPulsa + → añade un gasto o ingreso → activa 'Fijo'.";
@@ -155,6 +157,10 @@
 "Genera CSV"     = "Generar CSV";
 "Versione"       = "Versión";
 "Transazioni totali" = "Transacciones totales";
+"Spese fisse mensili" = "Gastos fijos mensuales";
+"Entrate fisse mensili" = "Ingresos fijos mensuales";
+"Mostra il totale delle spese fisse del mese in home" = "Muestra el total de gastos fijos del mes en el inicio";
+"Mostra il totale delle entrate fisse del mese in home" = "Muestra el total de ingresos fijos del mes en el inicio";
 
 /* ── Budget ──────────────────────────────── */
 "Budget usato"     = "Presupuesto usado";

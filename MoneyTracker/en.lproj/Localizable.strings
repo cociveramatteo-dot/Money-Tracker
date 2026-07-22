@@ -39,6 +39,8 @@
 "Uscite totali"              = "Total expenses";
 "Nessuna spesa questo mese." = "No expenses this month.";
 "Fissi del mese"             = "Monthly fixed items";
+"Spese fisse"                = "Fixed expenses";
+"Entrate fisse"              = "Fixed income";
 "da pagare"                  = "to pay";
 "da ricevere"                = "to receive";
 "Nessuna voce fissa.\nPremi + → aggiungi una spesa o entrata → attiva 'Voce fissa'." = "No fixed items.\nTap + → add an expense or income → enable 'Fixed item'.";
@@ -155,6 +157,10 @@
 "Genera CSV"     = "Generate CSV";
 "Versione"       = "Version";
 "Transazioni totali" = "Total transactions";
+"Spese fisse mensili" = "Monthly fixed expenses";
+"Entrate fisse mensili" = "Monthly fixed income";
+"Mostra il totale delle spese fisse del mese in home" = "Show the monthly fixed expenses total on the home screen";
+"Mostra il totale delle entrate fisse del mese in home" = "Show the monthly fixed income total on the home screen";
 
 /* ── Budget ──────────────────────────────── */
 "Budget usato"     = "Budget used";
