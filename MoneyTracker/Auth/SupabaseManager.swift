@@ -36,6 +36,17 @@ final class SupabaseManager: ObservableObject {
     // MARK: - Init
 
     private init() {
+        // Con "--uitesting" l'app bypassa login/Face ID e non usa mai `session`
+        // (vedi MoneyTrackerApp.body). Avviare comunque la chiamata di rete
+        // client.auth.session lascia una richiesta pendente che XCTest considera
+        // "app occupata", bloccando la sintetizzazione di tap/eventi per minuti
+        // quando la rete manca o è lenta nell'ambiente notturno — con blocchi
+        // apparentemente casuali su elementi non correlati (vedi log notturni,
+        // errore "Timed out while synthesizing event").
+        guard !MoneyTrackerApp.isUITesting else {
+            isLoading = false
+            return
+        }
         Task { await bootstrap() }
     }
 
