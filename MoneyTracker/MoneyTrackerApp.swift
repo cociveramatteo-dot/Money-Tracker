@@ -215,6 +215,19 @@ struct MoneyTrackerApp: App {
                     let engine = RecurringTransactionActor(modelContainer: activeContainer)
                     await engine.processRecurring()
                 }
+                // .task sopra parte solo al primo montaggio della view (o al cambio
+                // demo/reale via .id) — se l'app resta viva in background e torna in
+                // foreground senza restart, non veniva mai rieseguito. Risultato: le
+                // ricorrenti del mese nuovo non comparivano finché l'utente non
+                // chiudeva e riapriva l'app da zero. La guardia giornaliera dentro
+                // processRecurring() rende sicuro rilanciarlo a ogni ritorno attivo.
+                .onChange(of: scenePhase) { _, phase in
+                    guard phase == .active else { return }
+                    Task {
+                        let engine = RecurringTransactionActor(modelContainer: activeContainer)
+                        await engine.processRecurring()
+                    }
+                }
         }
         // Real-time sync: ogni volta che il real store salva, triggera un push
         // con debounce 1.5s. Così i dati arrivano su Supabase subito dopo l'inserimento.

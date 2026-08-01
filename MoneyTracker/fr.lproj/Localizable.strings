@@ -125,6 +125,7 @@
 "Settimanale"  = "Hebdomadaire";
 "Mensile"      = "Mensuel";
 "Annuale"      = "Annuel";
+"Interrompi ricorrenza" = "Arrêter la récurrence";
 
 /* ── Categories ──────────────────────────── */
 "Predefinite"  = "Par défaut";
@@ -231,6 +232,7 @@
 "Regali"        = "Cadeaux";
 "Giroconto"     = "Virement interne";
 "Altro"         = "Autre";
+"Rettifica saldo" = "Rectification de solde";
 
 /* ── Statistics ───────────────────────────── */
 "Riepilogo"                     = "Résumé";

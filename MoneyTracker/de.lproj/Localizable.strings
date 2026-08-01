@@ -125,6 +125,7 @@
 "Settimanale"  = "Wöchentlich";
 "Mensile"      = "Monatlich";
 "Annuale"      = "Jährlich";
+"Interrompi ricorrenza" = "Wiederholung stoppen";
 
 /* ── Categories ──────────────────────────── */
 "Predefinite"  = "Standard";
@@ -231,6 +232,7 @@
 "Regali"        = "Geschenke";
 "Giroconto"     = "Interne Überweisung";
 "Altro"         = "Sonstiges";
+"Rettifica saldo" = "Saldoberichtigung";
 
 /* ── Statistics ───────────────────────────── */
 "Riepilogo"                     = "Zusammenfassung";

@@ -125,6 +125,7 @@
 "Settimanale"  = "毎週";
 "Mensile"      = "毎月";
 "Annuale"      = "毎年";
+"Interrompi ricorrenza" = "繰り返しを停止";
 
 /* ── Categories ──────────────────────────── */
 "Predefinite"  = "デフォルト";
@@ -231,6 +232,7 @@
 "Regali"        = "ギフト";
 "Giroconto"     = "内部振替";
 "Altro"         = "その他";
+"Rettifica saldo" = "残高調整";
 
 /* ── Statistics ───────────────────────────── */
 "Riepilogo"                     = "概要";

@@ -570,8 +570,22 @@ struct TransactionsView: View {
                 editing = t
             }
         }
-        // long press → solo elimina
+        // long press → elimina, + interrompi ricorrenza da qualunque occorrenza della serie
         .contextMenu {
+            // Disponibile sia sul template originale (recurringFrequency valorizzato)
+            // sia su una qualunque copia generata (templateId valorizzato) — così non
+            // serve risalire fino alla transazione creata magari un anno fa: basta
+            // farlo dalla copia più recente/comoda da trovare. Svuota solo il campo
+            // ricorrenza sul template: non tocca questa transazione né le altre copie
+            // già generate, impedisce solo quelle dei mesi successivi.
+            if !t.recurringFrequency.isEmpty || !t.templateId.isEmpty {
+                Button {
+                    haptic(.soft)
+                    stopRecurrence(for: t)
+                } label: {
+                    Label("Interrompi ricorrenza", systemImage: "stop.circle")
+                }
+            }
             Button(role: .destructive) {
                 haptic(.medium)
                 if t.isTransfer && !t.transferGroupId.isEmpty {
@@ -651,6 +665,19 @@ struct TransactionsView: View {
             if let pair = all.first(where: { $0.isTransfer && $0.id != t.id && $0.transferGroupId == t.transferGroupId }) {
                 pair.isDone = newValue
             }
+        }
+        context.safeSave()
+    }
+
+    /// Ferma la generazione futura della serie a cui appartiene `t`, che sia essa
+    /// stessa il template originale o una qualunque copia già generata — evita di
+    /// dover risalire alla transazione creata magari mesi/anni fa per interromperla.
+    private func stopRecurrence(for t: Transaction) {
+        if !t.recurringFrequency.isEmpty {
+            t.recurringFrequency = ""
+        } else if !t.templateId.isEmpty,
+                  let template = all.first(where: { $0.id.uuidString == t.templateId }) {
+            template.recurringFrequency = ""
         }
         context.safeSave()
     }

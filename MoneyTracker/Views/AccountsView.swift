@@ -403,7 +403,7 @@ struct AddAccountView: View {
         }
         name             = a.name
         type             = a.accountType
-        balance = a.initialBalance == 0 ? "" : a.initialBalance.editableString
+        balance = a.currentBalance == 0 ? "" : a.currentBalance.editableString
         excludeFromTotal = a.isExcludedFromTotal
         // Soglia esistente da UserDefaults — salvata come stringa (vedi save()), non Double,
         // per evitare qualunque conversione binaria su un valore finanziario.
@@ -418,8 +418,14 @@ struct AddAccountView: View {
         if let a = editing {
             a.name                  = name
             a.type                  = type.rawValue
-            a.initialBalance        = b
             a.isExcludedFromTotal   = excludeFromTotal
+            if a.transactions.isEmpty {
+                // Nessuno storico da preservare: il numero digitato diventa
+                // direttamente l'ancora del conto, come alla creazione.
+                a.initialBalance = b
+            } else {
+                applyBalanceAdjustment(to: a, newBalance: b)
+            }
             UserDefaults.standard.set(threshold.fixedFractionString, forKey: "balanceThreshold_\(a.id.uuidString)")
         } else {
             let newAcc = Account(
@@ -435,5 +441,32 @@ struct AddAccountView: View {
         }
         context.safeSave()
         dismiss()
+    }
+
+    /// Il saldo di un conto è `initialBalance + somma di tutte le transazioni storiche`
+    /// (vedi AccountBalanceCache): toccare `initialBalance` su un conto che ha già
+    /// transazioni sposterebbe il risultato senza mai farlo coincidere col valore
+    /// digitato. Per "aggiornare" il saldo attuale senza intaccare lo storico si
+    /// registra invece una transazione di rettifica per la sola differenza, datata
+    /// oggi — così il conto riparte esattamente dal numero inserito.
+    private func applyBalanceAdjustment(to account: Account, newBalance: Decimal) {
+        let delta = newBalance - account.currentBalance
+        guard delta != 0 else { return }
+
+        let catName = "Rettifica saldo"
+        let catIcon = (try? context.fetch(
+            FetchDescriptor<Category>(predicate: #Predicate { $0.name == catName })
+        ))?.first?.icon ?? "arrow.triangle.2.circlepath"
+
+        context.insert(Transaction(
+            name:      catName,
+            amount:    abs(delta),
+            type:      delta > 0 ? .entrata : .uscita,
+            category:  catName,
+            categoryIcon: catIcon,
+            date:      Date(),
+            isDone:    true,
+            account:   account
+        ))
     }
 }

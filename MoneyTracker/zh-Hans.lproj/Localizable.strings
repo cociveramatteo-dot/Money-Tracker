@@ -125,6 +125,7 @@
 "Settimanale"  = "每周";
 "Mensile"      = "每月";
 "Annuale"      = "每年";
+"Interrompi ricorrenza" = "停止重复";
 
 /* ── Categories ──────────────────────────── */
 "Predefinite"  = "默认";
@@ -232,6 +233,7 @@
 "Regali"        = "礼物";
 "Giroconto"     = "内部转账";
 "Altro"         = "其他";
+"Rettifica saldo" = "余额调整";
 
 /* ── Statistics ───────────────────────────── */
 "Riepilogo"                     = "摘要";

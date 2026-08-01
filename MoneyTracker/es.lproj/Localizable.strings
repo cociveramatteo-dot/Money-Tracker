@@ -125,6 +125,7 @@
 "Settimanale"  = "Semanal";
 "Mensile"      = "Mensual";
 "Annuale"      = "Anual";
+"Interrompi ricorrenza" = "Detener recurrencia";
 
 /* ── Categories ──────────────────────────── */
 "Predefinite"  = "Predefinidas";
@@ -231,6 +232,7 @@
 "Regali"        = "Regalos";
 "Giroconto"     = "Transferencia interna";
 "Altro"         = "Otro";
+"Rettifica saldo" = "Ajuste de saldo";
 
 /* ── Statistics ───────────────────────────── */
 "Riepilogo"                     = "Resumen";

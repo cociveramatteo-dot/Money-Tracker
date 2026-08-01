@@ -38,8 +38,9 @@ extension Category {
         ("Viaggi",       "airplane",               9),
         ("Regali",       "gift.fill",              10),
         ("Risparmio",    "banknote",               11),
-        ("Giroconto",    "arrow.left.arrow.right", 12),
-        ("Altro",        "tray.fill",               13),
+        ("Giroconto",      "arrow.left.arrow.right",     12),
+        ("Altro",          "tray.fill",                   13),
+        ("Rettifica saldo", "arrow.triangle.2.circlepath", 14),
     ]
 
     @MainActor
@@ -64,6 +65,14 @@ extension Category {
                 cat.icon = icon
                 changed = true
             }
+        }
+        // Aggiunge ai profili già esistenti eventuali nuove categorie di default
+        // introdotte in versioni successive (es. "Rettifica saldo") — seedIfNeeded
+        // le crea solo su db vuoto, quindi qui copriamo gli utenti già attivi.
+        let existingNames = Set(all.map(\.name))
+        for (name, icon, order) in defaults where !existingNames.contains(name) {
+            context.insert(Category(name: name, icon: icon, isDefault: true, sortOrder: order))
+            changed = true
         }
         if changed { context.safeSave() }
     }

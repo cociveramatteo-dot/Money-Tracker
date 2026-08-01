@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: luglio 2026 · Versione 3.x*
+*App iOS finanza personale per il mercato italiano · Aggiornato: agosto 2026 · Versione 3.x*
 
 ---
 
@@ -304,6 +304,7 @@ Full support Light/Dark mode nativo SwiftUI, senza override manuali.
 - **Conti archiviati:** sezione separata, opacità 35%. Context menu: Ripristina / Elimina definitivamente
 - Hero: saldo attuale + futuro dei conti inclusi
 - Nuovo conto non escluso → aggiunto automaticamente in home
+- **Modifica saldo attuale:** il campo mostra e accetta sempre il saldo *reale* (`currentBalance`), non il saldo iniziale interno. Su un conto con transazioni già registrate, digitare un nuovo valore non sovrascrive lo storico: viene creata una transazione di rettifica ("Rettifica saldo", categoria dedicata) per la sola differenza, datata oggi — così il conto riparte esattamente dal numero inserito senza dover registrare le spese/entrate mancanti una per una. Su un conto senza transazioni il valore aggiorna direttamente il saldo iniziale, come prima.
 
 ### Budget (BudgetView)
 
@@ -362,10 +363,12 @@ Altri componenti:
 
 ### Ricorrenze Automatiche
 
-- Campo "Ripeti ogni" in AddTransactionView: mai / giornaliero / settimanale / mensile / annuale
-- `Transaction.recurringFrequency: String` nel modello
-- `RecurringTransactionEngine`: al lancio app genera automaticamente nuove occorrenze per tx scadute
-- Le nuove tx vengono create come `isDone = false` (pianificate)
+- Campo "Ricorrenza" in AddTransactionView: nessuna / settimanale / mensile / annuale
+- `Transaction.recurringFrequency: String` nel modello; `Transaction.templateId: String` collega ogni copia generata alla transazione "template" originale (vuoto sul template stesso)
+- `RecurringTransactionActor.processRecurring()` genera automaticamente, per il solo periodo corrente, le occorrenze mancanti dei template attivi — mai per tutti i mesi futuri in blocco, per non sfasare il saldo
+- Le nuove tx vengono create come `isDone = false` (pianificate), stesso nome/importo/categoria/conto del template, data corrispondente nel nuovo periodo
+- **Trigger**: gira su un `@ModelActor` in background sia al lancio dell'app sia a ogni ritorno in foreground (`scenePhase == .active`, `MoneyTrackerApp.swift`) — prima girava solo al lancio da zero del processo, quindi restava silente per chi teneva l'app viva in background attraverso il cambio di mese. Una guardia giornaliera (`UserDefaults`) evita elaborazioni ridondanti.
+- **Interrompi ricorrenza**: voce nel context menu (long press) di `TransactionsView`, disponibile sia sul template originale sia su una qualunque copia già generata (risale al template via `templateId`) — svuota `recurringFrequency` sul template senza toccare le occorrenze già create.
 
 ### Localizzazione
 
@@ -506,6 +509,22 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ---
 
 ## 10. Changelog
+
+### v3.x (agosto 2026) — Rettifica saldo conto, fix trigger ricorrenze, interrompi ricorrenza
+
+**Bug fix — modifica del saldo di un conto con storico produceva un risultato sbagliato:**
+- **Bug**: il campo "Saldo attuale" in `AddAccountView` mostrava e sovrascriveva `Account.initialBalance`, che è solo l'ancora sommata a *tutte* le transazioni storiche (`AccountBalanceCache`). Su un conto con transazioni già registrate, scrivere un nuovo valore non produceva mai quel saldo: il risultato finale restava `nuovo_valore + storico`, non il numero digitato.
+- **Fix**: il campo ora precompila e accetta il saldo *reale* (`currentBalance`). In salvataggio, se il conto ha già transazioni, viene creata una transazione di rettifica ("Rettifica saldo", nuova categoria di default) per la sola differenza, datata oggi, invece di toccare `initialBalance` — lo storico resta intatto e il saldo risultante coincide esattamente col valore inserito. Su un conto senza transazioni il comportamento resta identico a prima (aggiorna direttamente `initialBalance`).
+- Nuova categoria di default "Rettifica saldo" (`Category.swift`), aggiunta anche retroattivamente ai profili già esistenti tramite la migrazione già presente in `seedIfNeeded`.
+
+**Bug fix — le transazioni ricorrenti non venivano riportate al mese nuovo:**
+- **Bug**: `RecurringTransactionActor.processRecurring()` (logica di generazione corretta e già presente) veniva invocato solo dentro un `.task` legato al primo montaggio di `ContentView`, cioè solo a un lancio "da zero" dell'app. Chi teneva l'app viva in background attraverso il cambio di mese non vedeva mai generare le nuove occorrenze finché non chiudeva e riapriva il processo.
+- **Fix**: `processRecurring()` viene ora invocato anche a ogni ritorno in foreground (`scenePhase == .active`, `MoneyTrackerApp.swift`). La guardia giornaliera già esistente evita elaborazioni ridondanti nello stesso giorno.
+
+**Nuova funzionalità — "Interrompi ricorrenza":**
+- Nuova voce nel context menu (long press) di `TransactionsView`, disponibile sia sulla transazione template originale sia su una qualunque copia già generata (risale al template tramite `Transaction.templateId`) — così non serve risalire a una transazione creata magari mesi o anni fa. Svuota `recurringFrequency` sul template: nessuna transazione già esistente viene toccata, semplicemente non ne verranno generate di nuove nei mesi successivi.
+
+**i18n:** aggiunte le chiavi "Rettifica saldo" e "Interrompi ricorrenza" a tutti i 6 file di traduzione non italiani (EN/FR/ES/DE/JA/ZH-Hans).
 
 ### v3.x (luglio 2026) — Card "Fissi del mese" in Home + tour onboarding testato end-to-end
 
