@@ -343,6 +343,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoneyTracker/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Bucktrail;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "MoneyTracker usa Face ID per proteggere l'accesso ai tuoi dati finanziari.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -383,6 +384,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MoneyTracker/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Bucktrail;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "MoneyTracker usa Face ID per proteggere l'accesso ai tuoi dati finanziari.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

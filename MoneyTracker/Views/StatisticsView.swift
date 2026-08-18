@@ -263,20 +263,21 @@ struct StatisticsView: View {
                             ForEach(trend) { stat in
                                 BarMark(
                                     x: .value("Mese", stat.label),
-                                    y: .value("Uscite", stat.expenses)
+                                    y: .value("Importo", stat.income),
+                                    width: .ratio(0.35)
+                                )
+                                .foregroundStyle(DS.positive)
+                                .position(by: .value("Tipo", "Entrate"))
+                                .cornerRadius(3)
+
+                                BarMark(
+                                    x: .value("Mese", stat.label),
+                                    y: .value("Importo", stat.expenses),
+                                    width: .ratio(0.35)
                                 )
                                 .foregroundStyle(DS.negative.opacity(0.85))
-                                .cornerRadius(4)
-
-                                if stat.income > 0 {
-                                    LineMark(
-                                        x: .value("Mese", stat.label),
-                                        y: .value("Entrate", stat.income)
-                                    )
-                                    .foregroundStyle(DS.positive)
-                                    .symbol(Circle().strokeBorder(lineWidth: 1.5))
-                                    .symbolSize(30)
-                                }
+                                .position(by: .value("Tipo", "Uscite"))
+                                .cornerRadius(3)
                             }
                         }
                         .frame(height: 180)
@@ -305,8 +306,8 @@ struct StatisticsView: View {
                         .padding(.horizontal, DS.Layout.margin)
 
                         HStack(spacing: DS.Space.l) {
+                            legendItem(color: DS.positive, label: "Entrate")
                             legendItem(color: DS.negative.opacity(0.85), label: "Uscite")
-                            legendItem(color: DS.positive, label: "Entrate", isDot: true)
                         }
                         .padding(.horizontal, DS.Layout.margin)
                         .padding(.top, DS.Space.xs)
@@ -539,13 +540,9 @@ struct StatisticsView: View {
 
     // MARK: - Helper
 
-    private func legendItem(color: Color, label: String, isDot: Bool = false) -> some View {
+    private func legendItem(color: Color, label: String) -> some View {
         HStack(spacing: DS.Space.xs) {
-            if isDot {
-                Circle().fill(color).frame(width: 8, height: 8)
-            } else {
-                RoundedRectangle(cornerRadius: 2).fill(color).frame(width: 12, height: 8)
-            }
+            RoundedRectangle(cornerRadius: 2).fill(color).frame(width: 12, height: 8)
             Text(LocalizedStringKey(label))
                 .font(.system(size: 11))
                 .foregroundStyle(DS.smoke)

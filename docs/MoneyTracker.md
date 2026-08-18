@@ -2,6 +2,8 @@
 
 *App iOS finanza personale per il mercato italiano · Aggiornato: agosto 2026 · Versione 3.x*
 
+> **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
+
 ---
 
 ## 1. Visione e Posizionamento
@@ -257,6 +259,10 @@ Singleton centralizzato per formatter costosi. Ricrea i formatter solo quando ca
 
 Full support Light/Dark mode nativo SwiftUI, senza override manuali.
 
+### App Icon (Assets.xcassets/AppIcon.appiconset)
+
+Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inverso su dark), con l'ultima barra colorata in oro/ambra come accento — il verde/rosso di `DS.positive`/`DS.negative` resta riservato ai saldi in-app, quindi l'icona usa un colore distinto. Tre varianti richieste da iOS 18+: `AppIcon_light_1024.png`, `AppIcon_dark_1024.png`, `AppIcon_tinted_1024.png` (quest'ultima in scala di grigi, colorata dal sistema quando l'utente sceglie un tema icone personalizzato). Tutti e tre i PNG sono 1024×1024 senza canale alpha (richiesto da Apple).
+
 ---
 
 ## 6. Funzionalità Implementate
@@ -509,6 +515,19 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ---
 
 ## 10. Changelog
+
+### v3.x (agosto 2026) — Nuova icona, nuovo nome "Bucktrail", grafico trend a barre affiancate
+
+**Identità visiva — nuova App Icon:**
+- Sostituito il vecchio grafico bianco/nero (barre + linea spezzata con pallini) con un design più pulito: barre crescenti minimali con l'ultima colorata in oro/ambra come unico accento cromatico.
+- Aggiunte le varianti `AppIcon_dark_1024.png` e `AppIcon_tinted_1024.png` (prima dichiarate in `Contents.json` ma mai popolate — l'icona non cambiava mai in dark mode o con temi icona personalizzati iOS 18+).
+
+**Nome visualizzato → "Bucktrail":**
+- Impostato `INFOPLIST_KEY_CFBundleDisplayName = Bucktrail` su entrambe le configurazioni Debug/Release del target `MoneyTracker` in `project.pbxproj`. Il nome tecnico del progetto (cartella, target, bundle id) non cambia — vedi nota in testa a questo documento.
+
+**Statistiche — trend mensile da barre+linea a barre affiancate:**
+- `StatisticsView.swift`: il grafico "Uscite" (barre) + "Entrate" (linea con pallini) è stato sostituito con due `BarMark` affiancate per mese (`.position(by:)`), una per entrate e una per uscite — più leggibile del confronto barra/linea, specialmente quando le entrate erano ricorrenti a importo simile.
+- Rimosso il parametro `isDot` di `legendItem(color:label:)`, diventato morto dato che entrambe le serie sono ora barre (nessuna legenda "a pallino" residua).
 
 ### v3.x (agosto 2026) — Rettifica saldo conto, fix trigger ricorrenze, interrompi ricorrenza
 
