@@ -16,8 +16,8 @@ final class SupabaseManager: ObservableObject {
     // MARK: - Client
 
     let client = SupabaseClient(
-        supabaseURL: URL(string: "https://zblpzufsikxhuzdtcucg.supabase.co")!,
-        supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpibHB6dWZzaWt4aHV6ZHRjdWNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MTE1MzcsImV4cCI6MjA5ODM4NzUzN30.lezj5CD6yYjSK2-HeGSjU1kaE29G3B_ojiFhSz-8pgg",
+        supabaseURL: SupabaseConfig.url,
+        supabaseKey: SupabaseConfig.anonKey,
         options: SupabaseClientOptions(
             auth: SupabaseClientOptions.AuthOptions(
                 emitLocalSessionAsInitialSession: true
