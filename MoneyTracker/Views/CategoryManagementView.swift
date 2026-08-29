@@ -65,7 +65,13 @@ struct CategoryManagementView: View {
                                     .padding(.horizontal, DS.Layout.margin)
                                     .contentShape(Rectangle())
                                     .accessibilityIdentifier("categoryManageRow_\(cat.name)")
-                                    .onTapGesture { editing = cat }
+                                    // .highPriorityGesture invece di .onTapGesture: vedi commento
+                                    // analogo in AccountsView.swift — qui sotto c'è anche
+                                    // .contextMenu (pressione lunga), che senza priorità esplicita
+                                    // compete con il tap per la disambiguazione del gesto e può
+                                    // non risolversi in tempo su un tocco sintetizzato da XCUITest
+                                    // ("Timed out while synthesizing event" nei log notturni).
+                                    .highPriorityGesture(TapGesture().onEnded { editing = cat })
                                     .contextMenu {
                                         Button { editing = cat } label: {
                                             Label("Modifica", systemImage: "pencil")

@@ -65,7 +65,15 @@ struct AccountsView: View {
                         AccountRow(account: acc)
                             .contentShape(Rectangle())
                             .accessibilityIdentifier("accountRow_\(acc.name)")
-                            .onTapGesture { editing = acc }
+                            // .highPriorityGesture invece di .onTapGesture: qui la riga ha
+                            // anche .contextMenu (pressione lunga) sotto. Con .onTapGesture i
+                            // due gesture recognizer competono per stabilire se il tocco è un
+                            // tap o l'inizio di una pressione lunga, e quella disambiguazione può
+                            // non risolversi in tempo quando il tocco arriva sintetizzato da
+                            // XCUITest — visto nei log notturni come "Timed out while
+                            // synthesizing event" sul tap della riga. La priorità esplicita
+                            // risolve subito il tap senza aspettare l'esito del long press.
+                            .highPriorityGesture(TapGesture().onEnded { editing = acc })
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
                                     haptic(.medium)
