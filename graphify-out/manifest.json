@@ -45,14 +45,14 @@
     "semantic_hash": "d8fc65df3b56f203c38cf860724db611"
   },
   "MoneyTracker/Auth/SupabaseManager.swift": {
-    "mtime": 1785144371.699684,
-    "ast_hash": "27bde06986d9d8ac0589ecaca3fbbfa1",
-    "semantic_hash": "27bde06986d9d8ac0589ecaca3fbbfa1"
+    "mtime": 1787302879.8056548,
+    "ast_hash": "3dd5bdb21e6e94e3c717187063928842",
+    "semantic_hash": "3dd5bdb21e6e94e3c717187063928842"
   },
   "MoneyTracker/Domain/AccountBalanceCache.swift": {
-    "mtime": 1783277755.6883693,
-    "ast_hash": "33f5898f4b56de886a1ae8afd49ae5a8",
-    "semantic_hash": "33f5898f4b56de886a1ae8afd49ae5a8"
+    "mtime": 1787129051.7743213,
+    "ast_hash": "d66079cb7c5f98d394015a68e276fa75",
+    "semantic_hash": "d66079cb7c5f98d394015a68e276fa75"
   },
   "MoneyTracker/Domain/CategoryClassifying.swift": {
     "mtime": 1783277755.6885464,
@@ -70,14 +70,14 @@
     "semantic_hash": "7dd4ec0529dfa3b1d905ee7fd45712a8"
   },
   "MoneyTracker/Domain/RecurringTransactionEngine.swift": {
-    "mtime": 1783625491.5141337,
-    "ast_hash": "4ed729ae0e798d147a9a9b64b70ba814",
-    "semantic_hash": "4ed729ae0e798d147a9a9b64b70ba814"
+    "mtime": 1787096729.2437043,
+    "ast_hash": "22b8e171a6e3543fc833b88b35cc5686",
+    "semantic_hash": "22b8e171a6e3543fc833b88b35cc5686"
   },
   "MoneyTracker/Formatting/CurrencyFormatting.swift": {
-    "mtime": 1783504855.928799,
-    "ast_hash": "bb950f41aa008fffecb3fdc4ef4ee656",
-    "semantic_hash": "bb950f41aa008fffecb3fdc4ef4ee656"
+    "mtime": 1787129051.736221,
+    "ast_hash": "a5cf90a9b0fccae0a9bc9c0146307c88",
+    "semantic_hash": "a5cf90a9b0fccae0a9bc9c0146307c88"
   },
   "MoneyTracker/Formatting/FormatterCache.swift": {
     "mtime": 1783277755.6897342,
@@ -115,9 +115,9 @@
     "semantic_hash": "55b58464e072a50d044333f74a8f3bfd"
   },
   "MoneyTracker/MoneyTrackerApp.swift": {
-    "mtime": 1785546387.0559926,
-    "ast_hash": "e417f751ba55befed90947265a292f78",
-    "semantic_hash": "e417f751ba55befed90947265a292f78"
+    "mtime": 1788861833.8763885,
+    "ast_hash": "3e28391bd325d6ea1f4cd9674e9c4227",
+    "semantic_hash": "3e28391bd325d6ea1f4cd9674e9c4227"
   },
   "MoneyTracker/OnboardingTour/TourHighlight.swift": {
     "mtime": 1782745533.9249563,
@@ -145,14 +145,14 @@
     "semantic_hash": "e75c6cf8382268ccfc489dd1ab560eb0"
   },
   "MoneyTracker/Persistence/ModelContextSaving.swift": {
-    "mtime": 1783498646.8741395,
-    "ast_hash": "bc2f0105aa7143c7be667b5a1bf69af3",
-    "semantic_hash": "bc2f0105aa7143c7be667b5a1bf69af3"
+    "mtime": 1787129051.7843554,
+    "ast_hash": "e6c709b4d556fc97449956fd6359d53f",
+    "semantic_hash": "e6c709b4d556fc97449956fd6359d53f"
   },
   "MoneyTracker/Persistence/SchemaMigration.swift": {
-    "mtime": 1783278523.7455516,
-    "ast_hash": "f5898761b62f6341c5678dab3a2ad7f3",
-    "semantic_hash": "f5898761b62f6341c5678dab3a2ad7f3"
+    "mtime": 1787129051.7892442,
+    "ast_hash": "02371432b6f629e28633be1aaebe90eb",
+    "semantic_hash": "02371432b6f629e28633be1aaebe90eb"
   },
   "MoneyTracker/Resources/CategoryKeywords.json": {
     "mtime": 1783277755.6953232,
@@ -160,9 +160,9 @@
     "semantic_hash": "8c4a572e1cf416850fe9ca8cb0f03d7a"
   },
   "MoneyTracker/Sync/SyncService.swift": {
-    "mtime": 1783579494.3743126,
-    "ast_hash": "cd7d8b812d641fced8d9cbab19c3200c",
-    "semantic_hash": "cd7d8b812d641fced8d9cbab19c3200c"
+    "mtime": 1788862047.4849684,
+    "ast_hash": "e79f34507896a3db72d8a6de80d8d9e8",
+    "semantic_hash": "e79f34507896a3db72d8a6de80d8d9e8"
   },
   "MoneyTrackerTests/AccountBalanceTests.swift": {
     "mtime": 1784512986.202111,
@@ -200,9 +200,9 @@
     "semantic_hash": "78351775ade350055c0a1db2a224d7b3"
   },
   "MoneyTracker/Domain/NotificationManager.swift": {
-    "mtime": 1783504919.1679993,
-    "ast_hash": "c446fc323fc66ce3136ffa7815eaaa79",
-    "semantic_hash": "c446fc323fc66ce3136ffa7815eaaa79"
+    "mtime": 1787129051.730008,
+    "ast_hash": "260edd644f05e7d6ba567f58a12044e3",
+    "semantic_hash": "260edd644f05e7d6ba567f58a12044e3"
   },
   "MoneyTracker/Export/PDFReportGenerator.swift": {
     "mtime": 1783500399.2600284,
@@ -210,19 +210,19 @@
     "semantic_hash": "7f25ca0b134fa8ad53ac0e900f733b6e"
   },
   "MoneyTracker/Intents/AddExpenseIntent.swift": {
-    "mtime": 1783579510.0645149,
-    "ast_hash": "edd05559643bdfdc3bb49f7151e66076",
-    "semantic_hash": "edd05559643bdfdc3bb49f7151e66076"
+    "mtime": 1788861845.5294726,
+    "ast_hash": "658beb629850bed55ce1d793178b3abd",
+    "semantic_hash": "658beb629850bed55ce1d793178b3abd"
   },
   "MoneyTracker/Views/AccountsView.swift": {
-    "mtime": 1785546373.7272723,
-    "ast_hash": "00acdff775af446e5ebfbc33f5e142de",
-    "semantic_hash": "00acdff775af446e5ebfbc33f5e142de"
+    "mtime": 1787129051.7436821,
+    "ast_hash": "d227bc4b4cb70d105858099d240c009d",
+    "semantic_hash": "d227bc4b4cb70d105858099d240c009d"
   },
   "MoneyTracker/Views/AddTransactionView.swift": {
-    "mtime": 1783517850.2712066,
-    "ast_hash": "93b71b9e48a059b744f8189e5c33b605",
-    "semantic_hash": "93b71b9e48a059b744f8189e5c33b605"
+    "mtime": 1787129067.3536866,
+    "ast_hash": "73e26aad42c513289f737456dd81890a",
+    "semantic_hash": "73e26aad42c513289f737456dd81890a"
   },
   "MoneyTracker/Views/AddTransferView.swift": {
     "mtime": 1784114985.7088342,
@@ -235,14 +235,14 @@
     "semantic_hash": "0878ea8806066911593fe0f84dbb74a8"
   },
   "MoneyTracker/Views/BudgetView.swift": {
-    "mtime": 1783624370.0422053,
-    "ast_hash": "445510571198fd70db7cd6986491ffee",
-    "semantic_hash": "445510571198fd70db7cd6986491ffee"
+    "mtime": 1787129051.7488124,
+    "ast_hash": "f0cfcbd32b722aa0e031c48989cebc66",
+    "semantic_hash": "f0cfcbd32b722aa0e031c48989cebc66"
   },
   "MoneyTracker/Views/CategoryManagementView.swift": {
-    "mtime": 1785144371.7007728,
-    "ast_hash": "a92a693c67f079e620fba22078099849",
-    "semantic_hash": "a92a693c67f079e620fba22078099849"
+    "mtime": 1787129051.7540731,
+    "ast_hash": "ee537c9a1df16b95b34b6f39ecdbc6a2",
+    "semantic_hash": "ee537c9a1df16b95b34b6f39ecdbc6a2"
   },
   "MoneyTracker/Views/ContentView.swift": {
     "mtime": 1783618179.9981492,
@@ -265,34 +265,34 @@
     "semantic_hash": "b5db79e41a24f13130662c7cbccc90f3"
   },
   "MoneyTracker/Views/SettingsView.swift": {
-    "mtime": 1784710312.6919982,
-    "ast_hash": "d20760b85e0c30033e34ea923790cf59",
-    "semantic_hash": "d20760b85e0c30033e34ea923790cf59"
+    "mtime": 1788861744.2748163,
+    "ast_hash": "a3faa8add76c5d02c6958495bd20ca91",
+    "semantic_hash": "a3faa8add76c5d02c6958495bd20ca91"
   },
   "MoneyTracker/Views/StatisticsView.swift": {
-    "mtime": 1787094571.4079578,
-    "ast_hash": "88af559ea918ea9bcfe7d5f6dac71630",
-    "semantic_hash": "88af559ea918ea9bcfe7d5f6dac71630"
+    "mtime": 1787129051.75942,
+    "ast_hash": "82b141a8cf08cccb71008b902901b35c",
+    "semantic_hash": "82b141a8cf08cccb71008b902901b35c"
   },
   "MoneyTracker/Views/Theme.swift": {
-    "mtime": 1784710261.8889792,
-    "ast_hash": "add37da4358752c557e58b17114c93b3",
-    "semantic_hash": "add37da4358752c557e58b17114c93b3"
+    "mtime": 1787129051.7654455,
+    "ast_hash": "b8e6526d13be4cd6fc9d0f9b773a3e16",
+    "semantic_hash": "b8e6526d13be4cd6fc9d0f9b773a3e16"
   },
   "MoneyTracker/Views/TransactionsView.swift": {
-    "mtime": 1785546622.3914628,
-    "ast_hash": "6cedbaea313c35554e861740e2a2d634",
-    "semantic_hash": "6cedbaea313c35554e861740e2a2d634"
+    "mtime": 1787129051.7703285,
+    "ast_hash": "d169b318e98aaa265d5e5bd6700f0033",
+    "semantic_hash": "d169b318e98aaa265d5e5bd6700f0033"
   },
   "docs/MoneyTracker.md": {
-    "mtime": 1787094661.3221617,
-    "ast_hash": "6f8556c85b0140794f90623c94898f12",
-    "semantic_hash": "6f8556c85b0140794f90623c94898f12"
+    "mtime": 1788862193.9605925,
+    "ast_hash": "cbe7c8855faf73d0dc12dea0f740a1f5",
+    "semantic_hash": "cbe7c8855faf73d0dc12dea0f740a1f5"
   },
   "docs/MoneyTracker.pdf": {
-    "mtime": 1787094674.4431477,
-    "ast_hash": "a29d3df19c643245f16e6711e20c6844",
-    "semantic_hash": "a29d3df19c643245f16e6711e20c6844"
+    "mtime": 1788862206.4926085,
+    "ast_hash": "63ca8cd573b7b2c34fb9aa1604c08dba",
+    "semantic_hash": "63ca8cd573b7b2c34fb9aa1604c08dba"
   },
   "MoneyTrackerUITests/AccountFlowUITests.swift": {
     "mtime": 1785144371.701084,
@@ -353,5 +353,30 @@
     "mtime": 1787092697.0266485,
     "ast_hash": "b733e459b6fb5d16f6561c269c46c9df",
     "semantic_hash": "b733e459b6fb5d16f6561c269c46c9df"
+  },
+  "MoneyTracker/Auth/SupabaseConfig.swift": {
+    "mtime": 1787302875.7257454,
+    "ast_hash": "eb04362dac0648fdac196b8e7d640887",
+    "semantic_hash": "eb04362dac0648fdac196b8e7d640887"
+  },
+  "MoneyTracker/Persistence/SharedStore.swift": {
+    "mtime": 1788861827.1241088,
+    "ast_hash": "faf4402e8dbe62bc2f46999120dee592",
+    "semantic_hash": "faf4402e8dbe62bc2f46999120dee592"
+  },
+  "MoneyTrackerTests/CurrencyFormattingTests.swift": {
+    "mtime": 1787129199.1539912,
+    "ast_hash": "29eb67c3feeec15465720bfd99d699b7",
+    "semantic_hash": "29eb67c3feeec15465720bfd99d699b7"
+  },
+  "MoneyTrackerTests/RecurringTransactionEngineTests.swift": {
+    "mtime": 1787129918.4129813,
+    "ast_hash": "75f8b95f4606615a3181d38eccaa2664",
+    "semantic_hash": "75f8b95f4606615a3181d38eccaa2664"
+  },
+  "README.md": {
+    "mtime": 1787303431.894148,
+    "ast_hash": "da2d942208adf218bbf248f5c7d88cc2",
+    "semantic_hash": "da2d942208adf218bbf248f5c7d88cc2"
   }
 }
