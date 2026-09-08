@@ -120,6 +120,7 @@
 "Appare in 'Fissi del mese' nella home" = "显示在首页每月固定项目中";
 "Ricorrenza"   = "重复";
 "Crea automaticamente al prossimo periodo" = "下个周期自动创建";
+"Fa parte di una serie ricorrente — tieni premuto sulla transazione per interromperla" = "属于一个定期系列——长按该交易即可停止";
 "Aggiungi una nota..." = "添加备注...";
 "Nessuna"      = "无";
 "Settimanale"  = "每周";

@@ -120,6 +120,7 @@
 "Appare in 'Fissi del mese' nella home" = "Erscheint unter 'Monatliche Fixkosten' auf der Startseite";
 "Ricorrenza"   = "Wiederholung";
 "Crea automaticamente al prossimo periodo" = "Wird automatisch für die nächste Periode erstellt";
+"Fa parte di una serie ricorrente — tieni premuto sulla transazione per interromperla" = "Teil einer wiederkehrenden Serie — Transaktion gedrückt halten, um sie zu stoppen";
 "Aggiungi una nota..." = "Notiz hinzufügen...";
 "Nessuna"      = "Keine";
 "Settimanale"  = "Wöchentlich";

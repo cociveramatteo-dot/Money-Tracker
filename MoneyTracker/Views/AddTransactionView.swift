@@ -44,6 +44,15 @@ struct AddTransactionView: View {
         return name.isEmpty || v <= 0 || v > 1_000_000_000
     }
 
+    /// true quando si modifica una singola occorrenza già generata da una serie
+    /// ricorrente (templateId non vuoto), non il template stesso né una
+    /// transazione libera. Il picker "Ricorrenza" va nascosto in questo caso:
+    /// impostarne uno creerebbe una seconda serie parallela con lo stesso nome,
+    /// duplicando le occorrenze future ad ogni periodo.
+    private var isGeneratedOccurrence: Bool {
+        !(editing?.templateId.isEmpty ?? true)
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -112,7 +121,7 @@ struct AddTransactionView: View {
                                     .font(.system(size: 14))
                                     .foregroundStyle(DS.smoke)
                                     .frame(width: 20)
-                                Text(selectedCat?.name ?? NSLocalizedString("Scegli...", comment: ""))
+                                (selectedCat.map { DS.categoryText($0.name) } ?? Text("Scegli..."))
                                     .font(.system(size: 17, weight: .medium))
                                     .foregroundStyle(selectedCat != nil ? DS.ink : DS.smoke)
                                 if let cat = selectedCat, cat.name == suggestedCat {
@@ -200,23 +209,38 @@ struct AddTransactionView: View {
 
                         ThinDivider()
 
-                        HStack {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Ricorrenza")
-                                    .font(.system(size: 15))
-                                    .foregroundStyle(DS.ink)
-                                Text("Crea automaticamente al prossimo periodo")
-                                    .font(.system(size: 11))
-                                    .foregroundStyle(DS.smoke)
-                            }
-                            Spacer()
-                            Picker("", selection: $recurringFrequency) {
-                                ForEach(frequencies, id: \.value) { f in
-                                    Text(LocalizedStringKey(f.label)).tag(f.value)
+                        if isGeneratedOccurrence {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Ricorrenza")
+                                        .font(.system(size: 15))
+                                        .foregroundStyle(DS.ink)
+                                    Text("Fa parte di una serie ricorrente — tieni premuto sulla transazione per interromperla")
+                                        .font(.system(size: 11))
+                                        .foregroundStyle(DS.smoke)
                                 }
+                                Spacer()
                             }
-                            .pickerStyle(.menu)
-                            .tint(DS.ink)
+                            .accessibilityElement(children: .combine)
+                        } else {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Ricorrenza")
+                                        .font(.system(size: 15))
+                                        .foregroundStyle(DS.ink)
+                                    Text("Crea automaticamente al prossimo periodo")
+                                        .font(.system(size: 11))
+                                        .foregroundStyle(DS.smoke)
+                                }
+                                Spacer()
+                                Picker("", selection: $recurringFrequency) {
+                                    ForEach(frequencies, id: \.value) { f in
+                                        Text(LocalizedStringKey(f.label)).tag(f.value)
+                                    }
+                                }
+                                .pickerStyle(.menu)
+                                .tint(DS.ink)
+                            }
                         }
                         ThinDivider()
 
@@ -376,7 +400,7 @@ struct CategoryPickerView: View {
                                     .font(.system(size: 16))
                                     .foregroundStyle(DS.smoke)
                                     .frame(width: 20)
-                                Text(LocalizedStringKey(cat.name))
+                                DS.categoryText(cat.name)
                                     .font(.system(size: 15,
                                           weight: selected?.id == cat.id ? .semibold : .regular))
                                     .foregroundStyle(DS.ink)

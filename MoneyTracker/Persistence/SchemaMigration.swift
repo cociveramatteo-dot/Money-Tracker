@@ -172,60 +172,81 @@ enum MoneyTrackerMigrationPlan: SchemaMigrationPlan {
     // Buffer temporaneo: `willMigrate` legge i Double dalla SchemaV1 (prima che la
     // colonna cambi tipo) e li tiene da parte per `didMigrate`, che li riscrive come
     // Decimal sui modelli live una volta completata la migrazione strutturale.
-    // Conversione Decimal(Double) — non "inventa" precisione che i vecchi valori
-    // Double non avevano già, ma da qui in avanti non se ne perde altra.
+    // Conversione via stringa (decimalFromLegacyDouble) — non "inventa" precisione che
+    // i vecchi valori Double non avevano già, ma da qui in avanti non se ne perde altra.
+    // `willMigrate`/`didMigrate` sono closure `throws`: qui si lascia propagare ogni
+    // errore di fetch/save invece di inghiottirlo con `try?` — un fallimento silenzioso
+    // in questo punto significherebbe scrivere importi a zero/default per tutti gli
+    // utenti in migrazione, senza che nessuno se ne accorga. Se la migrazione fallisce,
+    // `ModelContainer(...)` in MoneyTrackerApp.init() lo intercetta già e ripiega su uno
+    // store in-memory invece di corrompere silenziosamente lo store su disco.
     private static let migrateV1toV2 = MigrationStage.custom(
         fromVersion: SchemaV1.self,
         toVersion: SchemaV2.self,
         willMigrate: { context in
-            let accounts = (try? context.fetch(FetchDescriptor<SchemaV1.Account>())) ?? []
+            let accounts = try context.fetch(FetchDescriptor<SchemaV1.Account>())
             for a in accounts {
                 DecimalMigrationBuffer.shared.stashAccountInitialBalance(id: a.id, value: a.initialBalance)
             }
-            let transactions = (try? context.fetch(FetchDescriptor<SchemaV1.Transaction>())) ?? []
+            let transactions = try context.fetch(FetchDescriptor<SchemaV1.Transaction>())
             for t in transactions {
                 DecimalMigrationBuffer.shared.stashTransactionAmount(id: t.id, value: t.amount)
             }
-            let budgets = (try? context.fetch(FetchDescriptor<SchemaV1.Budget>())) ?? []
+            let budgets = try context.fetch(FetchDescriptor<SchemaV1.Budget>())
             for b in budgets {
                 DecimalMigrationBuffer.shared.stashBudgetMonthlyLimit(id: b.id, value: b.monthlyLimit)
             }
-            let goals = (try? context.fetch(FetchDescriptor<SchemaV1.Goal>())) ?? []
+            let goals = try context.fetch(FetchDescriptor<SchemaV1.Goal>())
             for g in goals {
                 DecimalMigrationBuffer.shared.stashGoalAmounts(id: g.id, target: g.targetAmount, current: g.currentAmount)
             }
-            try? context.save()
+            try context.save()
         },
         didMigrate: { context in
-            let accounts = (try? context.fetch(FetchDescriptor<Account>())) ?? []
+            let accounts = try context.fetch(FetchDescriptor<Account>())
             for a in accounts {
                 if let old = DecimalMigrationBuffer.shared.accountInitialBalance(id: a.id) {
-                    a.initialBalance = Decimal(old)
+                    a.initialBalance = decimalFromLegacyDouble(old)
                 }
             }
-            let transactions = (try? context.fetch(FetchDescriptor<Transaction>())) ?? []
+            let transactions = try context.fetch(FetchDescriptor<Transaction>())
             for t in transactions {
                 if let old = DecimalMigrationBuffer.shared.transactionAmount(id: t.id) {
-                    t.amount = Decimal(old)
+                    t.amount = decimalFromLegacyDouble(old)
                 }
             }
-            let budgets = (try? context.fetch(FetchDescriptor<Budget>())) ?? []
+            let budgets = try context.fetch(FetchDescriptor<Budget>())
             for b in budgets {
                 if let old = DecimalMigrationBuffer.shared.budgetMonthlyLimit(id: b.id) {
-                    b.monthlyLimit = Decimal(old)
+                    b.monthlyLimit = decimalFromLegacyDouble(old)
                 }
             }
-            let goals = (try? context.fetch(FetchDescriptor<Goal>())) ?? []
+            let goals = try context.fetch(FetchDescriptor<Goal>())
             for g in goals {
                 if let old = DecimalMigrationBuffer.shared.goalAmounts(id: g.id) {
-                    g.targetAmount  = Decimal(old.target)
-                    g.currentAmount = Decimal(old.current)
+                    g.targetAmount  = decimalFromLegacyDouble(old.target)
+                    g.currentAmount = decimalFromLegacyDouble(old.current)
                 }
             }
-            try? context.save()
+            try context.save()
             DecimalMigrationBuffer.shared.clear()
         }
     )
+}
+
+/// Converte un Double legacy (SchemaV1) in Decimal passando per la sua rappresentazione
+/// testuale più breve, invece del costruttore diretto `Decimal(Double)` — che congela
+/// l'espansione binaria del Double nel nuovo campo (es. 19.99 diventa
+/// 19.98999999999999488, per sempre). Passare per `String(value)` (che usa già la
+/// rappresentazione decimale più corta round-trip) restituisce l'importo "pulito" che
+/// l'utente aveva effettivamente inserito. Fallback al costruttore diretto solo per
+/// valori non finiti (NaN/inf), che non dovrebbero mai comparire in un importo ma non
+/// devono far fallire la migrazione.
+/// nonisolated: chiamata da willMigrate/didMigrate, che girano fuori dal main actor
+/// (vedi nota su DecimalMigrationBuffer) — senza questo, SWIFT_DEFAULT_ACTOR_ISOLATION
+/// = MainActor la renderebbe implicitamente @MainActor e non chiamabile da lì.
+private nonisolated func decimalFromLegacyDouble(_ value: Double) -> Decimal {
+    Decimal(string: String(value)) ?? Decimal(value)
 }
 
 /// Buffer thread-safe usato solo durante la migrazione V1→V2: vive per la durata della

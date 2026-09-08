@@ -158,6 +158,22 @@ enum DS {
         default:             return "circle.dotted"
         }
     }
+
+    // MARK: Category name display
+    // Le categorie predefinite hanno una voce in Localizable.strings e vanno
+    // localizzate; i nomi delle categorie personalizzate sono testo libero
+    // inserito dall'utente e non devono mai passare per LocalizedStringKey —
+    // un carattere "%" nel nome verrebbe interpretato come specificatore di
+    // formato, causando testo corrotto o crash a runtime.
+    private static let defaultCategoryNames: Set<String> = [
+        "Cibo", "Trasporti", "Svago", "Shopping", "Salute", "Casa",
+        "Abbonamenti", "Lavoro", "Istruzione", "Viaggi", "Regali",
+        "Giroconto", "Risparmio", "Altro"
+    ]
+
+    static func categoryText(_ name: String) -> Text {
+        defaultCategoryNames.contains(name) ? Text(LocalizedStringKey(name)) : Text(name)
+    }
 }
 
 // MARK: - Navbar background modifier
@@ -414,7 +430,7 @@ struct DSTransactionRow: View {
                     .font(.system(size: 15))
                     .foregroundStyle(DS.ink)
                     .lineLimit(1)
-                Text(LocalizedStringKey(transaction.category))
+                DS.categoryText(transaction.category)
                     .font(.system(size: 12))
                     .foregroundStyle(DS.smoke)
             }

@@ -304,6 +304,8 @@ struct StatisticsView: View {
                             }
                         }
                         .padding(.horizontal, DS.Layout.margin)
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel(trendAccessibilitySummary(trend))
 
                         HStack(spacing: DS.Space.l) {
                             legendItem(color: DS.positive, label: "Entrate")
@@ -337,7 +339,7 @@ struct StatisticsView: View {
                                             .font(.system(size: 13))
                                             .foregroundStyle(DS.smoke)
                                             .frame(width: 18)
-                                        Text(LocalizedStringKey(cat.name))
+                                        DS.categoryText(cat.name)
                                             .font(.system(size: 14))
                                             .foregroundStyle(DS.ink)
                                         Spacer()
@@ -539,6 +541,15 @@ struct StatisticsView: View {
     }
 
     // MARK: - Helper
+
+    // Swift Charts non espone di suo alcuna informazione a VoiceOver: senza questa
+    // label il grafico a barre risulterebbe muto per un utente non vedente.
+    @MainActor
+    private func trendAccessibilitySummary(_ trend: [MonthStat]) -> String {
+        trend.map { stat in
+            "\(stat.label): \(String(localized: "entrate")) \(stat.income.currencyFormatted), \(String(localized: "uscite")) \(stat.expenses.currencyFormatted)"
+        }.joined(separator: ". ")
+    }
 
     private func legendItem(color: Color, label: String) -> some View {
         HStack(spacing: DS.Space.xs) {

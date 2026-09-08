@@ -53,9 +53,21 @@ extension Decimal {
     /// Parsing robusto dell'input utente: accetta sia "," sia "." come separatore
     /// decimale (tastiera italiana vs. inglese), sempre normalizzato a "." prima del
     /// parsing così il risultato non dipende dal locale del dispositivo.
+    /// Arrotondato a 2 cifre decimali: i campi di importo (AddTransactionView,
+    /// AddTransferView, BudgetView, GoalsView, AccountsView, soglia di saldo in
+    /// NotificationManager) sono `TextField` liberi senza limite di cifre dopo la
+    /// virgola — senza questo arrotondamento un utente potrebbe digitare "10.999" e
+    /// salvarlo esatto in `Transaction.amount`, mentre ogni punto della UI che mostra
+    /// l'importo (currencyFormatted, fixedFractionString) arrotonda a 2 cifre: il
+    /// totale calcolato da AccountBalanceCache userebbe il valore a 3 cifre non visibile
+    /// da nessuna parte, disallineando saldo mostrato e somma delle righe mostrate.
     static func parseAmount(_ raw: String) -> Decimal? {
         let normalized = raw.replacingOccurrences(of: ",", with: ".")
-        return Decimal(string: normalized, locale: Locale(identifier: "en_US_POSIX"))
+        guard let value = Decimal(string: normalized, locale: Locale(identifier: "en_US_POSIX")) else { return nil }
+        var rounded = Decimal()
+        var source = value
+        NSDecimalRound(&rounded, &source, 2, .plain)
+        return rounded
     }
 
     /// Converte un Double proveniente da una sorgente esterna che non garantisce

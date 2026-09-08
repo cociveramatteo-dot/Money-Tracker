@@ -397,7 +397,7 @@ struct TransactionsView: View {
             }
         }
         .background(DS.paper)
-        .navigationTitle(f.rawValue)
+        .navigationTitle(Text(LocalizedStringKey(f.rawValue)))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             if f != .ricorrenti { TourManager.shared.showHintIfNeeded(.movimentiSection) }
@@ -648,7 +648,7 @@ struct TransactionsView: View {
     private func filterChip(_ label: String, active: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(spacing: 5) {
-                Text(LocalizedStringKey(label))
+                DS.categoryText(label)
                     .font(.system(size: 13, weight: active ? .semibold : .regular))
                     .foregroundStyle(active ? DS.ink : DS.smoke)
                 Rectangle()

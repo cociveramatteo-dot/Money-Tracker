@@ -516,6 +516,29 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 
 ## 10. Changelog
 
+### v3.x (settembre 2026) — Tre bug critici: Tocco posteriore che "sparisce", perdita dati al login, ricorrenze arretrate
+
+Tre segnalazioni indipendenti dell'utente, tutte con causa radice nella sincronizzazione locale↔cloud e nel motore ricorrenze.
+
+**Bug fix — la spesa aggiunta da Tocco posteriore/Siri/Shortcuts non compariva mai nell'app:**
+- **Bug**: `AddExpenseIntent`/`AddIncomeIntent` (`Intents/AddExpenseIntent.swift`) girano fuori-processo rispetto all'app (`openAppWhenRun = false`, necessario perché il Tocco posteriore non deve aprire l'app). Senza un App Group configurato, quel processo separato e l'app principale aprono due `ModelConfiguration` senza `url:` esplicito, che risolvono in due container sandbox **diversi** — l'entitlements file era completamente vuoto, nessun App Group presente. Il salvataggio riusciva davvero (da qui il banner "salvato!"), ma finiva in uno store che l'app non apre mai.
+- **Fix**: nuovo `Persistence/SharedStore.swift` — App Group `group.com.matteo.moneytracker.shared` aggiunto a `MoneyTracker.entitlements`; sia `MoneyTrackerApp.init()` sia `IntentContainer` in `AddExpenseIntent.swift` ora aprono lo store tramite lo stesso `url:` nel container condiviso. Migrazione automatica una tantum (`migrateLegacyStoreIfNeeded`) che copia (non sposta) lo store dalla vecchia posizione a quella condivisa al primo lancio dopo l'attivazione — altrimenti il nuovo percorso risulterebbe vuoto e l'utente perderebbe tutto. Se la capability non è (ancora) attiva in Xcode, `mainStoreURL` è `nil` e si ripiega sul comportamento precedente: nessuna regressione, ma il bug resta finché il passo manuale in Xcode (Signing & Capabilities → App Groups) non viene fatto.
+
+**Bug fix — apertura app con tutti i dati cancellati, sostituiti da uno snapshot vecchio di mesi:**
+- **Bug**: `MoneyTrackerApp.swift` chiamava `SyncService.clearLocalData()` in automatico ogni volta che `auth.isLoggedIn` diventava `false` — ma quel cambio di stato scatta anche per una sessione persa **passivamente** (token di refresh scaduto/fallito, rete instabile: il SDK Supabase emette comunque un evento "signed out"), non solo per un logout intenzionale. Il risultato: al primo hiccup di rete l'app svuotava silenziosamente tutto lo store locale, poi al login successivo lo ripopolava con l'ultimo snapshot su Supabase — spesso vecchio di settimane/mesi se il push locale era rimasto indietro (es. proprio a causa del bug precedente sul Tocco posteriore).
+- **Fix**: rimosso lo svuotamento automatico reattivo. Il logout esplicito (bottone "Esci" in `SettingsView`) ora chiama `clearLocalData()` da solo, dopo aver tentato un push delle modifiche pendenti — stesso pattern già usato per l'eliminazione account. L'isolamento multi-utente resta garantito da `syncOnLogin()`, che svuota il locale solo quando rileva davvero un login con un `userId` diverso dall'ultimo salvato.
+- **Indurimento aggiuntivo** in `SyncService.pull()`: le transazioni locali ancora "sporche" (create/modificate ma non ancora confermate su Supabase — es. `markTransactionDirty` chiamato dall'Intent ma il push non ancora partito) non vengono più cancellate solo perché assenti dall'ultimo pull; prima venivano trattate come "cancellate su un altro dispositivo".
+
+**Bug fix — le transazioni ricorrenti non comparivano automaticamente all'inizio del mese:**
+- **Bug**: il fix precedente (v3.x agosto 2026, "fix trigger ricorrenze") faceva ripartire `processRecurring()` ad ogni ritorno in foreground, ma generava solo l'occorrenza del periodo **corrente** — se l'app non veniva aperta esattamente a cavallo del cambio mese/settimana/anno, quell'occorrenza restava persa per sempre, non recuperata nei lanci successivi.
+- **Fix**: `RecurringTransactionActor.processRecurring()` ora recupera tutte le occorrenze mancanti dall'ultima generata fino a oggi (backfill), non solo quella corrente — fino a un tetto di sicurezza di 60 per template (5 anni per le mensili) per evitare che un template dimenticato a lungo generi migliaia di righe in un colpo solo; oltre il tetto, il recupero prosegue nei run successivi. La ricerca dell'ultima occorrenza generata usa ora un fetch mirato per `templateId` invece di una finestra fissa di 2 mesi, che perdeva di vista le ricorrenze annuali e causava un duplicato ad ogni run. Coperto da `MoneyTrackerTests/RecurringTransactionEngineTests.swift` (backfill di mesi arretrati, non-duplicazione delle annuali dopo 2+ mesi, template appena creato).
+
+**Correttezza — precisione degli importi migrati da Double a Decimal (`SchemaMigration.swift`):**
+- **Bug**: la migrazione V1→V2 usava `Decimal(Double)`, che congela l'espansione binaria imprecisa del `Double` (es. 19.99 diventava 19.98999999999999488 per sempre).
+- **Fix**: conversione tramite la rappresentazione testuale più breve del `Double` (`Decimal(string: String(value))`), che restituisce l'importo "pulito" effettivamente inserito dall'utente. Le closure di migrazione ora propagano gli errori invece di inghiottirli con `try?`, coerente con il fallback già esistente in `MoneyTrackerApp.init()` in caso di store non migrabile.
+
+⚠️ **Passo manuale richiesto per il fix del Tocco posteriore**: in Xcode, target "MoneyTracker" → Signing & Capabilities → "+ Capability" → "App Groups" → verificare/aggiungere `group.com.matteo.moneytracker.shared`. Finché non viene fatto, il Tocco posteriore continua a comportarsi come prima (fix inattivo, nessuna regressione).
+
 ### v3.x (agosto 2026) — Nuova icona, nuovo nome "Bucktrail", grafico trend a barre affiancate
 
 **Identità visiva — nuova App Icon:**

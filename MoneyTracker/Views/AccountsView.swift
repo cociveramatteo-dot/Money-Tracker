@@ -5,6 +5,7 @@ struct AccountsView: View {
     @Query private var accounts: [Account]
     @Environment(\.modelContext) private var context
     @Binding var showAdd: Bool
+    @AppStorage("hideBalance") private var hideBalance: Bool = false
     @State private var editing: Account?           = nil
     @State private var showSettings               = false
     @State private var accountToDelete: Account?  = nil
@@ -31,12 +32,12 @@ struct AccountsView: View {
             List {
                 VStack(alignment: .leading, spacing: DS.Space.s) {
                     SectionLabel(text: "Totale attuale")
-                    HeroAmount(amount: totalCurrent, colorBySign: true)
+                    HeroAmount(amount: totalCurrent, hidden: hideBalance, colorBySign: true)
                     HStack(spacing: DS.Space.xs) {
                         Text("A conti fatti:")
                             .font(.system(size: 13))
                             .foregroundStyle(DS.smoke)
-                        Text(totalFuture.currencyFormatted)
+                        Text(hideBalance ? "• • •" : totalFuture.currencyFormatted)
                             .font(.system(size: 13, weight: .medium))
                             .foregroundStyle(DS.ink)
                     }
@@ -62,7 +63,7 @@ struct AccountsView: View {
                 } else {
                     let activeAccounts = included + excluded
                     ForEach(Array(activeAccounts.enumerated()), id: \.element.id) { index, acc in
-                        AccountRow(account: acc)
+                        AccountRow(account: acc, hidden: hideBalance)
                             .contentShape(Rectangle())
                             .accessibilityIdentifier("accountRow_\(acc.name)")
                             .onTapGesture { editing = acc }
@@ -120,7 +121,7 @@ struct AccountsView: View {
                 if !archived.isEmpty {
                     Section {
                         ForEach(archived) { acc in
-                            AccountRow(account: acc)
+                            AccountRow(account: acc, hidden: hideBalance)
                                 .opacity(0.35)
                                 .contextMenu {
                                     Button {
@@ -196,6 +197,7 @@ struct AccountsView: View {
 
 struct AccountRow: View {
     let account: Account
+    var hidden: Bool = false
 
     private var balanceColor: Color {
         if account.currentBalance > 0 { return DS.positive }
@@ -226,10 +228,10 @@ struct AccountRow: View {
             }
             Spacer()
             VStack(alignment: .trailing, spacing: DS.Space.xs) {
-                Text(account.currentBalance.currencyFormatted)
+                Text(hidden ? "• • •" : account.currentBalance.currencyFormatted)
                     .font(.system(size: 17, weight: .semibold))
-                    .foregroundStyle(balanceColor)
-                if abs(account.futureBalance - account.currentBalance) > 0.001 {
+                    .foregroundStyle(hidden ? DS.ink : balanceColor)
+                if !hidden, abs(account.futureBalance - account.currentBalance) > 0.001 {
                     HStack(spacing: 3) {
                         Text("→")
                         Text(account.futureBalance.currencyFormatted)
@@ -246,7 +248,10 @@ struct AccountRow: View {
             let excluded = account.isExcludedFromTotal
                 ? ", \(String(localized: "escluso dal totale"))"
                 : ""
-            return "\(account.name), \(account.accountType.localizedName), \(String(localized: "saldo")) \(account.currentBalance.currencyFormatted)\(excluded)"
+            let balance = hidden
+                ? String(localized: "Saldo nascosto")
+                : "\(String(localized: "saldo")) \(account.currentBalance.currencyFormatted)"
+            return "\(account.name), \(account.accountType.localizedName), \(balance)\(excluded)"
         }())
     }
 }

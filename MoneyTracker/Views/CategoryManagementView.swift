@@ -169,7 +169,7 @@ struct CategoryRow: View {
                     .foregroundStyle(DS.smoke)
             }
 
-            Text(LocalizedStringKey(cat.name))
+            DS.categoryText(cat.name)
                 .font(.system(size: 15, weight: .medium))
                 .foregroundStyle(DS.ink)
 

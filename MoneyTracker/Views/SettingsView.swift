@@ -692,7 +692,19 @@ struct SettingsView: View {
                                 isPresented: $showLogoutConfirm,
                                 titleVisibility: .visible) {
                 Button("Esci", role: .destructive) {
-                    Task { try? await auth.signOut() }
+                    Task {
+                        // Prova a caricare le eventuali modifiche non ancora sincronizzate
+                        // prima di sconnettersi — altrimenti resterebbero solo su questo
+                        // dispositivo e andrebbero perse allo svuotamento locale sotto.
+                        await SyncService.shared.pushResilient(context: context)
+                        try? await auth.signOut()
+                        // Logout esplicito e intenzionale: qui è corretto svuotare subito
+                        // lo store locale (così il prossimo utente sullo stesso dispositivo
+                        // non vede i dati del precedente). A differenza di questo, una
+                        // sessione persa passivamente (token scaduto/refresh fallito) NON
+                        // deve più svuotare i dati locali — vedi MoneyTrackerApp.swift.
+                        SyncService.shared.clearLocalData(context: context)
+                    }
                 }
                 Button("Annulla", role: .cancel) { }
             } message: {

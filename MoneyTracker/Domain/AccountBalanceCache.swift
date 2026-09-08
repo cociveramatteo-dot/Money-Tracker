@@ -31,11 +31,18 @@ nonisolated final class AccountBalanceCache: @unchecked Sendable {
     private let lock = NSLock()
     private var currentByID: [PersistentIdentifier: Decimal] = [:]
     private var futureByID:  [PersistentIdentifier: Decimal] = [:]
+    // Bumped da invalidateAll(): permette a currentBalance/futureBalance di accorgersi
+    // se un'invalidazione (es. save concorrente su RecurringTransactionActor) è avvenuta
+    // mentre stavano ricalcolando, ed evitare di re-inserire in cache un valore ormai
+    // stantio calcolato da uno snapshot pre-invalidazione (TOCTOU tra il calcolo fuori
+    // lock e la scrittura in cache sotto lock).
+    private var generation = 0
 
     func invalidateAll() {
         lock.lock()
         currentByID.removeAll(keepingCapacity: true)
         futureByID.removeAll(keepingCapacity: true)
+        generation += 1
         lock.unlock()
     }
 
@@ -43,13 +50,14 @@ nonisolated final class AccountBalanceCache: @unchecked Sendable {
         let id = account.persistentModelID
         lock.lock()
         if let cached = currentByID[id] { lock.unlock(); return cached }
+        let generationAtRead = generation
         lock.unlock()
 
         let done = account.transactions.filter { $0.isDone }
         let value = account.initialBalance + done.reduce(Decimal(0)) { $0 + $1.signedAmount }
 
         lock.lock()
-        currentByID[id] = value
+        if generation == generationAtRead { currentByID[id] = value }
         lock.unlock()
         return value
     }
@@ -58,12 +66,13 @@ nonisolated final class AccountBalanceCache: @unchecked Sendable {
         let id = account.persistentModelID
         lock.lock()
         if let cached = futureByID[id] { lock.unlock(); return cached }
+        let generationAtRead = generation
         lock.unlock()
 
         let value = account.initialBalance + account.transactions.reduce(Decimal(0)) { $0 + $1.signedAmount }
 
         lock.lock()
-        futureByID[id] = value
+        if generation == generationAtRead { futureByID[id] = value }
         lock.unlock()
         return value
     }

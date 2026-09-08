@@ -137,7 +137,7 @@ struct AddBudgetView: View {
                                     HStack(spacing: DS.Space.s) {
                                         Image(systemName: cat.icon)
                                             .font(.system(size: 12))
-                                        Text(LocalizedStringKey(cat.name))
+                                        DS.categoryText(cat.name)
                                             .font(.system(size: 13, weight: .medium))
                                             .lineLimit(1)
                                     }

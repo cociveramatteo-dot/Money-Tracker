@@ -18,6 +18,7 @@ extension ModelContext {
         } catch {
             let source = (file as NSString).lastPathComponent
             Logger.persistence.error("SwiftData save failed at \(source, privacy: .public):\(line) → \(error.localizedDescription, privacy: .public)")
+            assertionFailure("SwiftData save failed at \(source):\(line) → \(error.localizedDescription)")
             return false
         }
     }

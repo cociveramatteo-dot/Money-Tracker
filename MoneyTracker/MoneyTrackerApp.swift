@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import Combine
+import OSLog
 
 @main
 struct MoneyTrackerApp: App {
@@ -44,11 +45,25 @@ struct MoneyTrackerApp: App {
         // (importi Double) esistente verso SchemaV2 (Decimal). Vedi Domain/SchemaMigration.swift.
         let schema = Schema(versionedSchema: SchemaV2.self)
 
-        let realConfig = ModelConfiguration(
-            schema: schema,
-            isStoredInMemoryOnly: false
-            // cloudKitDatabase: .automatic   ← decommentare dopo aver abilitato iCloud
-        )
+        // Store reale nel container App Group condiviso con l'estensione Intents
+        // (Tocco posteriore/Siri/Shortcuts, vedi Persistence/SharedStore.swift) — senza
+        // questo, quel processo separato salva in un file che l'app non legge mai.
+        SharedStore.migrateLegacyStoreIfNeeded(schema: schema)
+        let realConfig: ModelConfiguration
+        if let sharedURL = SharedStore.mainStoreURL {
+            realConfig = ModelConfiguration(
+                schema: schema,
+                url: sharedURL
+                // cloudKitDatabase: .automatic   ← decommentare dopo aver abilitato iCloud
+            )
+        } else {
+            // Capability "App Groups" non ancora attivata in Xcode per questo target:
+            // ripiega sulla posizione precedente, non condivisa (vedi SharedStore.swift).
+            realConfig = ModelConfiguration(
+                schema: schema,
+                isStoredInMemoryOnly: false
+            )
+        }
 
         FormatterCache.registerLocaleObserver()
 
@@ -70,6 +85,11 @@ struct MoneyTrackerApp: App {
             SystemNotificationManager.shared.scheduleFixedReminderIfNeeded(context: ctx)
 
         } catch {
+            // Logga prima di ripiegare in-memory: senza questa riga un container reale
+            // corrotto/non migrabile fallisce in silenzio ad ogni lancio — l'utente vede
+            // un'app "vuota" (store effimero) senza nessuna traccia in Console.app/crash
+            // report che spieghi perché i suoi dati non sono più lì.
+            Logger.persistence.error("ModelContainer reale non creabile, fallback in-memory: \(error.localizedDescription, privacy: .public)")
             let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
             realContainer = (try? ModelContainer(for: schema, configurations: fallback))
                 ?? { fatalError("Impossibile creare ModelContainer: \(error)") }()
@@ -100,6 +120,7 @@ struct MoneyTrackerApp: App {
             }
         } catch {
             // Fallback sicuro: in-memory (la demo funziona ma non persiste tra i lanci)
+            Logger.persistence.error("ModelContainer demo non creabile, fallback in-memory: \(error.localizedDescription, privacy: .public)")
             let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
             demoContainer = (try? ModelContainer(for: schema, configurations: fallback))
                 ?? realContainer
@@ -139,14 +160,20 @@ struct MoneyTrackerApp: App {
             .animation(.easeInOut(duration: 0.25), value: auth.isLoggedIn)
             // Sync al login / logout.
             .onChange(of: auth.isLoggedIn) { _, loggedIn in
-                if loggedIn {
-                    guard !demoModeEnabled else { return }
-                    Task { await SyncService.shared.syncOnLogin(context: realContainer.mainContext) }
-                } else {
-                    // Logout: svuota subito il real store locale.
-                    // Così il prossimo utente che accede non vede i dati del precedente.
-                    SyncService.shared.clearLocalData(context: realContainer.mainContext)
-                }
+                guard loggedIn, !demoModeEnabled else { return }
+                Task { await SyncService.shared.syncOnLogin(context: realContainer.mainContext) }
+                // NIENTE svuotamento locale qui quando `loggedIn` diventa false: questo
+                // onChange scatta anche per una sessione persa passivamente (token di
+                // refresh scaduto/fallito, rete instabile — il SDK Supabase emette
+                // comunque un "signed out"), non solo per un logout intenzionale
+                // dell'utente. Svuotare qui cancellava i dati locali senza preavviso al
+                // primo hiccup di rete, e il pull successivo al login li sostituiva con
+                // l'ultimo snapshot su Supabase — spesso vecchio di settimane/mesi se il
+                // push era rimasto indietro. Il logout esplicito (bottone "Esci" in
+                // SettingsView) e la cancellazione account chiamano già
+                // SyncService.clearLocalData() da soli; l'isolamento multi-utente resta
+                // garantito da syncOnLogin(), che svuota il locale quando rileva un login
+                // con un userId diverso dall'ultimo salvato.
             }
             // Sync su lifecycle app (solo se loggato e non in demo).
             .onChange(of: scenePhase) { _, phase in

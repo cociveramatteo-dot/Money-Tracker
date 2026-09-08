@@ -451,11 +451,18 @@ final class SyncService: ObservableObject {
     /// Chiamato al logout per garantire che il prossimo utente
     /// non veda i dati del precedente.
     func clearLocalData(context: ModelContext) {
-        // Ordine importante: prima le dipendenze, poi gli account (cascade)
-        try? context.delete(model: Transaction.self)
-        try? context.delete(model: Budget.self)
-        try? context.delete(model: Goal.self)
-        try? context.delete(model: Account.self)
+        // Ordine importante: prima le dipendenze, poi gli account (cascade). Ogni
+        // cancellazione è loggata se fallisce: un fallimento silenzioso qui vorrebbe
+        // dire che il prossimo utente sullo stesso dispositivo può ritrovarsi a vedere
+        // i dati finanziari di quello precedente — non deve mai passare inosservato.
+        do { try context.delete(model: Transaction.self) }
+        catch { Logger.persistence.error("clearLocalData: delete Transaction failed → \(error.localizedDescription, privacy: .public)") }
+        do { try context.delete(model: Budget.self) }
+        catch { Logger.persistence.error("clearLocalData: delete Budget failed → \(error.localizedDescription, privacy: .public)") }
+        do { try context.delete(model: Goal.self) }
+        catch { Logger.persistence.error("clearLocalData: delete Goal failed → \(error.localizedDescription, privacy: .public)") }
+        do { try context.delete(model: Account.self) }
+        catch { Logger.persistence.error("clearLocalData: delete Account failed → \(error.localizedDescription, privacy: .public)") }
         context.safeSave()
         UserDefaults.standard.removeObject(forKey: lastPullKey)
         // Il registro modifiche (PROP-02) non deve mai sopravvivere ai dati a cui si
@@ -636,7 +643,15 @@ final class SyncService: ObservableObject {
                     context.insert(t)
                 }
             }
-            for local in localTx where !pulledTxIds.contains(local.id) {
+            // Non cancellare transazioni locali ancora "sporche" (create/modificate ma
+            // non ancora confermate su Supabase, es. subito dopo l'inserimento o se
+            // markTransactionDirty è stato chiamato dall'Intent del Tocco posteriore
+            // ma il push non è ancora partito/riuscito). Senza questo controllo, un
+            // pull che arriva prima che quelle righe siano state caricate le tratta
+            // come "cancellate su un altro dispositivo" e le elimina anche qui — pur
+            // essendo state salvate correttamente e mai sincronizzate altrove.
+            let stillDirty = dirtyTransactionIds
+            for local in localTx where !pulledTxIds.contains(local.id) && !stillDirty.contains(local.id) {
                 context.delete(local)
             }
 

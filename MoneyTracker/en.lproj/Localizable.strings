@@ -120,6 +120,7 @@
 "Appare in 'Fissi del mese' nella home" = "Appears in 'Monthly fixed' on home";
 "Ricorrenza"   = "Recurrence";
 "Crea automaticamente al prossimo periodo" = "Automatically creates at the next period";
+"Fa parte di una serie ricorrente — tieni premuto sulla transazione per interromperla" = "Part of a recurring series — long-press the transaction to stop it";
 "Aggiungi una nota..." = "Add a note...";
 "Nessuna"      = "None";
 "Settimanale"  = "Weekly";

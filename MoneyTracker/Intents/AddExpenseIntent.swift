@@ -16,7 +16,15 @@ private enum IntentContainer {
         // l'extension Shortcuts apre lo stesso store e deve poter applicare la stessa
         // migrazione Double→Decimal se non è già stata eseguita dall'app host.
         let schema = Schema(versionedSchema: SchemaV2.self)
-        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        // URL esplicito nel container App Group condiviso (Persistence/SharedStore.swift)
+        // — questo intent gira in un processo separato dall'app (openAppWhenRun = false):
+        // senza puntare esplicitamente allo stesso file dell'app host, scriverebbe in un
+        // container isolato e la transazione, pur salvata con successo, non comparirebbe
+        // mai nell'app. Se la capability App Groups non è ancora attiva in Xcode,
+        // `mainStoreURL` è nil e l'intent fallisce con un errore visibile all'utente
+        // invece di salvare silenziosamente in un posto che l'app non legge.
+        guard let url = SharedStore.mainStoreURL else { return nil }
+        let config = ModelConfiguration(schema: schema, url: url)
         return try? ModelContainer(for: schema, migrationPlan: MoneyTrackerMigrationPlan.self, configurations: config)
     }()
 }

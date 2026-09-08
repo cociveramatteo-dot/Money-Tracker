@@ -120,6 +120,7 @@
 "Appare in 'Fissi del mese' nella home" = "ホームの「今月の固定項目」に表示";
 "Ricorrenza"   = "繰り返し";
 "Crea automaticamente al prossimo periodo" = "次の期間に自動作成";
+"Fa parte di una serie ricorrente — tieni premuto sulla transazione per interromperla" = "定期シリーズの一部です — 取引を長押しすると停止できます";
 "Aggiungi una nota..." = "メモを追加...";
 "Nessuna"      = "なし";
 "Settimanale"  = "毎週";
