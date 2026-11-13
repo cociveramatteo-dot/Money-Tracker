@@ -116,6 +116,20 @@ il task e i file indicati.
 - **Obiettivo:** (1) a XL l'importo del totale in `groupHeader` va a capo (`€` su riga sola): `lineLimit(1)`/`fixedSize` sull'importo; (2) a XL `MonthBar` non scala; (3) il badge «MODALITÀ DEMO» (`MoneyTrackerApp.swift:272`, solo demo) copre il titolo grande; (4) tab bar con etichette troncate a XL (già in S-10). Le sezioni interne (Uscite ecc.) non sono state fotografate: verificarle a vista.
 - **Non fare:** toccare domain/calcoli
 
+### S-12 [ ] Movimenti: pagina unica + zona sotto i chip + Ricorrenti (da mockup)
+- **A chi:** Codex (o Antigravity) · confronto col mockup OBBLIGATORIO a ogni passo
+- **Obiettivo:** (1) Tutti/Fisse/Trasf./Uscite/Entrate nella STESSA pagina: titolo, impostazioni, filtri, ricerca e chip fermi, cambia solo la lista, niente pagine nuove; (2) sotto i chip mese, categorie e filtri esattamente come in `Movimenti.dc.html` (più pulito); (3) solo Ricorrenti resta pagina a sé, da rivedere; (4) elenco scritto delle altre differenze dal mockup; (5) riserve S-11.
+- **Leggere:** `Movimenti.dc.html`, `DESIGN_HANDOFF.md` §4, `Views/TransactionsView.swift`; aggiornare l'helper `openTransactionsSection` dei UI test senza aggirarli
+- **Fatto quando:** screenshot reali light/dark/XL/tedesco confrontati col mockup, 27 unit + 12 UI verdi
+- **Non fare:** toccare calcoli o Domain/
+
+### S-13 [ ] Motore ricorrenze a serie virtuali (D-008)
+- **A chi:** architetto (piano) poi Codex; collaudatore Claude
+- **Obiettivo:** implementare D-008: serie unica, occorrenze virtuali visibili in ogni mese (anche tra un anno), attivazione il primo del mese, salta mese / termina da qui, scelta solo questa / successive / tutte; vecchio motore disattivato senza toccare i dati esistenti
+- **Leggere:** `.cantiere/DECISIONI.md` D-008, `Domain/RecurringTransactionEngine.swift`, `Models/Transaction.swift`, `Domain/SchemaMigration.swift`, Sync
+- **Fatto quando:** test nuovi (mese corto, 31, anno bisestile, salto, fine serie, 3 frequenze, saldo invariato dai virtuali), migrazione che non altera dati, build + test verdi, Commissione Suprema 10/10
+- **Non fare:** convertire lo storico; far entrare i virtuali nei calcoli
+
 ### S-10 [ ] Verifica finale + Commissione Suprema
 - **A chi:** Claude Code (collaudatore)
 - **Obiettivo:** collaudo dell'intero ramo

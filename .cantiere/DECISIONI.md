@@ -38,3 +38,11 @@ Le decisioni che non si devono ridiscutere ogni volta. Solo aggiunte.
 - **Perché:** coerenza obbligatoria con i saldi di `AccountBalanceCache` senza ricalcolarli a modo nostro. `Decimal` esatto; test in `BalanceTrailTests` (6 casi).
 - **Nella vista:** la serie sta in `@State`, ricalcolata con `onChange` su firma (n. movimenti, saldo attuale, saldo atteso, giorno), mai nel `body`. Limite noto: cambiare solo la data di un pianificato senza toccare saldi o conteggio aggiorna la curva alla chiusura della modifica o al rientro nella schermata.
 - **Chi ha deciso:** Claude Code (brief)
+
+## D-008 · 2026-11-13 · Nuovo motore delle ricorrenze (serie virtuali) — ok scritto di Matteo
+- **Autorizzazione:** Matteo ha autorizzato per iscritto di agire su logica e dati (deroga a «solo visivo» e alle zone intoccabili Domain/, Models/Persistence, Sync/ limitatamente a questo lavoro).
+- **Regole decise:** (1) la serie è un solo oggetto (inizio, frequenza mensile/settimanale/annuale, fine opzionale); (2) le occorrenze future sono **virtuali** (solo visualizzazione, mai in saldi, spese, entrate, statistiche); (3) il **primo del mese** tutte le occorrenze di quel mese diventano transazioni vere **pianificate**; (4) saltare **solo questo mese**; (5) disattivare **per sempre** = la serie finisce da quella data, il passato resta; (6) modifica/eliminazione con scelta **solo questa / questa e le successive / tutte**; valido per tutte le frequenze.
+- **Dati esistenti:** NESSUNA migrazione automatica delle ricorrenti attuali: le sistema Matteo a mano (lo storico è inattendibile perché il vecchio motore non funzionava). Il nuovo schema non deve alterare né cancellare le transazioni esistenti.
+- **Vincoli:** nuova versione schema SwiftData con migrazione leggera che non tocca i dati; Decimal; test nuovi; allineamento Sync/Supabase; Commissione Suprema prima del merge.
+- **Alternative scartate:** generazione nel giorno esatto (comportamento attuale); conversione automatica dello storico.
+- **Chi ha deciso:** Matteo
