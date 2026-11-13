@@ -130,6 +130,17 @@ il task e i file indicati.
 - **Fatto quando:** test nuovi (mese corto, 31, anno bisestile, salto, fine serie, 3 frequenze, saldo invariato dai virtuali), migrazione che non altera dati, build + test verdi, Commissione Suprema 10/10
 - **Non fare:** convertire lo storico; far entrare i virtuali nei calcoli
 
+- **Sotto-task (piano architetto, D-008/D-009):**
+  - S-13a [ ] Calcolo puro + UUIDv5 + codec eccezioni → Codex · nuovi `Domain/RecurrenceCalculator.swift`, `MoneyTrackerTests/RecurrenceCalculatorTests.swift`
+  - S-13b [ ] Modello `RecurringRule` + SchemaV3 → Codex (in parallelo ad a) · `Models/RecurringRule.swift`, `Persistence/SchemaMigration.swift`, `MoneyTrackerApp.swift`, `Intents/AddExpenseIntent.swift`, `SchemaMigrationTests.swift`
+  - S-13c [ ] Materializer + spegnimento vecchio motore → Codex · richiede a+b
+  - S-13d [ ] Editor (solo questa / successive / tutte, salta, termina) → Codex · richiede c
+  - S-13e [?] Creare tabella `mt_recurring_rules` su Supabase → **Matteo** (SQL e istruzioni li prepara S-13f)
+  - S-13f [ ] Sync → Codex · richiede b; prova in app solo dopo e
+  - S-13g [ ] UI → Codex, DOPO che Antigravity chiude S-12 su `TransactionsView`
+  - S-13h [ ] Documento + collaudo + Commissione Suprema → collaudatore
+  - Ogni passo con confronto mockup dove c'è grafica. Piano completo: scratchpad `piano-s13.md` (da copiare in `.cantiere/` se Matteo lo vuole)
+
 ### S-14 [ ] Statistiche: confronto mese su mese
 - **A chi:** Codex (o Antigravity) · dopo S-6 (stessa schermata)
 - **Obiettivo:** frase/card tipo «Questo mese hai speso il 12% in più per Cibo»: per categoria e totale, mese corrente vs mese precedente, stesso periodo di giorni; colori neutri/«danger» da Theme, mai solo colore (anche testo/freccia)

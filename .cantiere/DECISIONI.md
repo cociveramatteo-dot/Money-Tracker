@@ -46,3 +46,12 @@ Le decisioni che non si devono ridiscutere ogni volta. Solo aggiunte.
 - **Vincoli:** nuova versione schema SwiftData con migrazione leggera che non tocca i dati; Decimal; test nuovi; allineamento Sync/Supabase; Commissione Suprema prima del merge.
 - **Alternative scartate:** generazione nel giorno esatto (comportamento attuale); conversione automatica dello storico.
 - **Chi ha deciso:** Matteo
+
+## D-009 · 2026-11-14 · Dettagli S-13 (risposte di Matteo, integrano D-008)
+- **Via il vecchio motore:** `RecurringTransactionEngine.swift` e `RecurringTransactionEngineTests.swift` si cancellano (conferma di Matteo: deroga alla zona «test esistenti intoccabili», limitata a questo file). Gli altri test restano intoccabili.
+- **«Elimina tutte»:** toglie le occorrenze pianificate non ancora fatte; quelle già fatte (isDone) restano sempre.
+- **«Disattiva da qui in poi»:** la serie termina da quella occorrenza compresa; se l'occorrenza di oggi è ancora pianificata sparisce, se già fatta resta. Nel menu anche una voce «Termina dopo questa» per l'altro caso.
+- **Regola generale:** le copie già fatte non si toccano mai.
+- **Fuori da S-13 (Matteo non li vuole):** lista «vecchie ricorrenti da sistemare», ricorrenze sui trasferimenti, card «Prossime scadenze» in Home. Le vecchie ricorrenti le rifà Matteo a mano.
+- **Piano tecnico:** architetto (RecurringRule, SchemaV3, UUIDv5 deterministico, materializzazione il primo del mese dal contesto principale, tabella `mt_recurring_rules` su Supabase). Causa individuata: le copie del vecchio motore, salvate su un contesto in background, non risultano «sporche» per il sync e il pull le cancella (`SyncService.swift` ~651).
+- **Chi ha deciso:** Matteo
