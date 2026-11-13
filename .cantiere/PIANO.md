@@ -66,7 +66,7 @@ il task e i file indicati.
 - **Non fare:** modificare le funzioni esistenti di `Domain/`, ricalcolare saldi nella vista
 - **Eseguito 2026-11-13 22:30 (capocantiere):** `Domain/BalanceTrail.swift` + 6 test; `TrailView`, `HomeHeroCard` in `Views/Components/`; `DashboardView` riscritta (header con occhio/impostazioni, hero con TrailView, conti in scroll orizzontale, fissi del mese, ultimi movimenti con `MovementRow`); `goToTab` per «Gestisci»/«Vedi tutti». Build + 27 unit + 12 UI verdi. Da collaudare.
 
-### S-5 [~] Movimenti
+### S-5 [x] Movimenti
 - **A chi:** Antigravity (o Codex)
 - **Obiettivo:** schermata come `Movimenti.dc.html`, sezione «In arrivo · pianificati» in cima
 - **Leggere:** `DESIGN_HANDOFF.md` §4 Movimenti, `Views/TransactionsView.swift`, `docs/MoneyTracker.md` §6
@@ -109,6 +109,12 @@ il task e i file indicati.
 - **Toccare:** solo aspetto di queste viste
 - **Fatto quando:** tutte le funzioni presenti, 7 lingue senza testi tagliati (tedesco), light/dark; test verdi
 - **Non fare:** toccare `Auth/` logica, Sync, Face ID
+- **Collaudo 2026-11-13 23:16 (collaudatore):** [x] conforme. Runner ripristinato (shutdown/boot). 27 unit + 12 UI verdi sul 37445D1E; funzioni conservate (ricerca, filtri, swipe, trasferimenti, ricorrenti). Resa a vista hub: light, dark, XL, tedesco ok. Riserve cosmetiche → S-11.
+
+### S-11 [ ] Riserve da S-5 (XL e badge demo)
+- **A chi:** Codex o operaio · piccolo
+- **Obiettivo:** (1) a XL l'importo del totale in `groupHeader` va a capo (`€` su riga sola): `lineLimit(1)`/`fixedSize` sull'importo; (2) a XL `MonthBar` non scala; (3) il badge «MODALITÀ DEMO» (`MoneyTrackerApp.swift:272`, solo demo) copre il titolo grande; (4) tab bar con etichette troncate a XL (già in S-10). Le sezioni interne (Uscite ecc.) non sono state fotografate: verificarle a vista.
+- **Non fare:** toccare domain/calcoli
 
 ### S-10 [ ] Verifica finale + Commissione Suprema
 - **A chi:** Claude Code (collaudatore)
