@@ -139,7 +139,7 @@ il task e i file indicati.
   - S-13f [ ] Sync → Codex · richiede b; prova in app solo dopo e
   - S-13g [ ] UI → Codex, DOPO che Antigravity chiude S-12 su `TransactionsView`
   - S-13h [ ] Documento + collaudo + Commissione Suprema → collaudatore
-  - Ogni passo con confronto mockup dove c'è grafica. Piano completo: scratchpad `piano-s13.md` (da copiare in `.cantiere/` se Matteo lo vuole)
+  - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
 
 ### S-14 [ ] Statistiche: confronto mese su mese
 - **A chi:** Codex (o Antigravity) · dopo S-6 (stessa schermata)
