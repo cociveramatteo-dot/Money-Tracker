@@ -13,18 +13,19 @@ struct ContentView: View {
     @State private var planningSegment      = 0
 
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack(alignment: .bottomTrailing) {
+            VStack(spacing: 0) {
             TabView(selection: $selectedTab) {
                 DashboardView(showAdd: $showAdd)
-                    .tabItem { Label("Home",        systemImage: "house") }
+                    .hidingNativeTabBar()
                     .tag(0)
 
                 TransactionsView(isSearchActive: $isSearchingTransactions)
-                    .tabItem { Label("Movimenti",   systemImage: "list.bullet") }
+                    .hidingNativeTabBar()
                     .tag(1)
 
                 StatisticsView()
-                    .tabItem { Label("Statistiche", systemImage: "chart.bar.fill") }
+                    .hidingNativeTabBar()
                     .tag(2)
 
                 PianificaView(
@@ -32,20 +33,26 @@ struct ContentView: View {
                     showAddGoal:   $showAddGoal,
                     segment:       $planningSegment
                 )
-                .tabItem { Label("Pianifica",   systemImage: "chart.pie") }
+                .hidingNativeTabBar()
                 .tag(3)
 
                 AccountsView(showAdd: $showAddAccount)
-                    .tabItem { Label("Conti",       systemImage: "creditcard") }
+                    .hidingNativeTabBar()
                     .tag(4)
             }
-            .tint(DS.ink)
-            .toolbarBackground(DS.paper, for: .tabBar)
-            .toolbarBackground(.visible, for: .tabBar)
+            // Spazio sotto la TabView: i contenuti (anche le schermate aperte in push)
+            // finiscono sopra la barra flottante, quindi righe e swipe restano raggiungibili.
+            Color.clear.frame(height: FloatingTabBar.reservedHeight)
+            }
+            .background(DS.paper)
+
+            FloatingTabBar(items: Self.tabItems, selection: $selectedTab)
+                .frame(maxHeight: .infinity, alignment: .bottom)
 
             let fabHidden = selectedTab == 1 && isSearchingTransactions
             fabButton
-                .padding(.bottom, 90)
+                .padding(.trailing, 22)
+                .padding(.bottom, 100)
                 .opacity(fabHidden ? 0 : 1)
                 .scaleEffect(fabHidden ? 0.7 : 1)
                 .animation(.spring(response: 0.25, dampingFraction: 0.8), value: fabHidden)
@@ -53,6 +60,22 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showAdd)      { AddTransactionView() }
         .sheet(isPresented: $showTransfer) { AddTransferView() }
+    }
+
+    private static let tabItems: [FloatingTabBar.Item] = [
+        .init(id: 0, title: "Home",        symbol: "house",      identifier: "tab_home"),
+        .init(id: 1, title: "Movimenti",   symbol: "list.bullet", identifier: "tab_movimenti"),
+        .init(id: 2, title: "Statistiche", symbol: "chart.bar",   identifier: "tab_statistiche"),
+        .init(id: 3, title: "Pianifica",   symbol: "scope",       identifier: "tab_pianifica"),
+        .init(id: 4, title: "Conti",       symbol: "creditcard",  identifier: "tab_conti"),
+    ]
+
+    private var fabLabel: LocalizedStringKey {
+        switch selectedTab {
+        case 3:  return planningSegment == 0 ? "Nuovo budget" : "Nuovo obiettivo"
+        case 4:  return "Nuovo conto"
+        default: return "Nuovo movimento"
+        }
     }
 
     // MARK: - FAB
@@ -73,6 +96,7 @@ struct ContentView: View {
                 fabCircle
             }
             .accessibilityIdentifier("fabButton")
+            .accessibilityLabel(fabLabel)
             .simultaneousGesture(TapGesture().onEnded {
                 haptic(.medium)
             })
@@ -90,18 +114,23 @@ struct ContentView: View {
                 fabCircle
             }
             .accessibilityIdentifier("fabButton")
+            .accessibilityLabel(fabLabel)
         }
     }
 
     private var fabCircle: some View {
-        ZStack {
-            Circle()
-                .fill(DS.ink)
-                .frame(width: 52, height: 52)
-                .shadow(color: .black.opacity(0.14), radius: 8, y: 3)
-            Image(systemName: "plus")
-                .font(.system(size: 20, weight: .medium))
-                .foregroundStyle(DS.paper)
-        }
+        Image(systemName: "plus")
+            .font(.system(size: 24, weight: .semibold))
+            .foregroundStyle(DS.onAccent)
+            .frame(width: 58, height: 58)
+            .background(DS.accent, in: RoundedRectangle(cornerRadius: 20))
+            .shadow(color: DS.accent.opacity(0.35), radius: 12, y: 6)
+    }
+}
+
+private extension View {
+    /// Nasconde la barra nativa (va dichiarato su ogni tab, non sulla TabView).
+    func hidingNativeTabBar() -> some View {
+        toolbar(.hidden, for: .tabBar)
     }
 }

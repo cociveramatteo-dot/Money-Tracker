@@ -16,7 +16,7 @@ final class NavigationStressUITests: MoneyTrackerUITestCase {
         }
         // L'app deve essere ancora viva e rispondere all'input.
         XCTAssertEqual(app.state, .runningForeground)
-        XCTAssertTrue(app.tabBars.buttons["Home"].exists)
+        XCTAssertTrue(app.buttons["tab_home"].exists)
     }
 
     func testOpenAndCancelAddSheetsRepeatedly() throws {
@@ -90,10 +90,10 @@ final class NavigationStressUITests: MoneyTrackerUITestCase {
 
     func testDashboardAndStatisticsRenderWithoutCrashing() throws {
         goToTab("Home")
-        XCTAssertTrue(app.tabBars.buttons["Home"].exists)
+        XCTAssertTrue(app.buttons["tab_home"].exists)
 
         goToTab("Statistiche")
-        XCTAssertTrue(app.tabBars.buttons["Statistiche"].exists)
+        XCTAssertTrue(app.buttons["tab_statistiche"].exists)
 
         XCTAssertEqual(app.state, .runningForeground)
     }

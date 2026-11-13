@@ -1,13 +1,20 @@
 # CONSEGNA — il biglietto per chi entra in turno
 
-**Da:** collaudatore (Claude Code · Sonnet) **Il:** 2026-11-13 20:40 **Collaudato:** commit 535ccc1 (S-2b)
+**Da:** capocantiere (Claude Code · Sonnet) **Il:** 2026-11-13 21:52 **Commit:** vedi `git log -1` (S-3)
 
-## Esito: ✅ S-2 e S-2b chiusi [x]
-Le quattro correzioni sono conformi (i18n in 7 lingue, raggio hero 24, layout riga robusto a XL/tedesco, accessibilityValue reale). Build e 33 test verdi (dati dall'impresa e da Matteo).
+## Fatto
+- `Views/Components/FloatingTabBar.swift` (capsula h66, raggio 24, margini 14, offset 20, pill `accentSoft` 44×28, 2 preview).
+- `ContentView.swift`: stessa `TabView` e stessi tag 0–4, barra nativa nascosta con `.toolbar(.hidden, for: .tabBar)` **su ogni tab** (sulla TabView non basta); spazio sotto riservato con un `Color.clear` nel VStack, perché `safeAreaInset` non arrivava alle liste aperte in push (la riga finiva sotto la barra e lo swipe falliva).
+- FAB 58×58 raggio 20, `accent`, plus `onAccent`, ombra accent 35%, trailing 22, 100 sopra il fondo; stessi id `fabButton`/`fabMenu_*`; `accessibilityLabel` Nuovo movimento/budget/obiettivo/conto (aggiunta «Nuovo movimento» in 7 lingue).
+- UI test: `goToTab` e due asserzioni ora usano `tab_<nome>` (i tab nativi non erano più presenti).
 
-## Aperto
-- Preview non viste a schermo dal collaudo: Matteo può confermarle in Xcode (Canvas, Dynamic Type XL, lingua tedesco). Non blocca.
-- Il raggio hero 24 è un letterale in `HeroCard.swift`: se serve altrove, farne un token (non ora).
+## Verificato
+build + test sul simulatore: TEST SUCCEEDED, 12 UI test verdi (unit invariati). Tre tentativi: barra nativa ancora attiva → inset non propagato → layout VStack.
+
+## Da guardare nel collaudo
+- Resa a vista (light/dark, XL, tedesco: etichette tab con `minimumScaleFactor 0.7`).
+- La tab bar non scorre più sopra i contenuti (striscia `paper` sotto): scelta per robustezza, valutare con Matteo.
+- Il FAB resta nascosto in ricerca movimenti come prima.
 
 ## Prossimo passo
-S-3 FloatingTabBar + FAB → capocantiere (Claude Code), come da PIANO.
+Collaudatore su S-3, poi S-4 (Home con TrailView).

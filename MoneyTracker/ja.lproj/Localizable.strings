@@ -411,3 +411,6 @@
 /* Sentiero — Budget status */
 "Sforato" = "超過";
 "Soglia 80%" = "80%のしきい値";
+
+/* Sentiero — FAB */
+"Nuovo movimento" = "新しい取引";

@@ -411,3 +411,6 @@
 /* Sentiero — Budget status */
 "Sforato" = "Überschritten";
 "Soglia 80%" = "Schwelle 80 %";
+
+/* Sentiero — FAB */
+"Nuovo movimento" = "Neue Buchung";

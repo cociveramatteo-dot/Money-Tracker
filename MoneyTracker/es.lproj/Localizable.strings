@@ -411,3 +411,6 @@
 /* Sentiero — Budget status */
 "Sforato" = "Superado";
 "Soglia 80%" = "Umbral del 80%";
+
+/* Sentiero — FAB */
+"Nuovo movimento" = "Nuevo movimiento";

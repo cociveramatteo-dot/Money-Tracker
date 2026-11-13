@@ -412,3 +412,6 @@
 /* Sentiero — Budget status */
 "Sforato" = "Exceeded";
 "Soglia 80%" = "80% threshold";
+
+/* Sentiero — FAB */
+"Nuovo movimento" = "New transaction";

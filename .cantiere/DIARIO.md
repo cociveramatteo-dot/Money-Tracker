@@ -12,3 +12,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-13 20:20 | collaudatore (Claude Code · Sonnet) | collaudo S-2 | ❌ non conforme: chiavi i18n «Sforato»/«Soglia 80%» mancanti in 7 lingue, raggio hero 16 invece di 24–26; resto ok | S-2b rilavorazione (Codex), poi ricollaudo |
 | 2026-11-13 20:35 | seconda impresa (Codex · GPT-6) | S-2b correzioni collaudo | Due chiavi in 7 lingue, hero raggio 24, layout MovementRow, accessibilità percentuale reale; build + 21 unit + 12 UI verdi | ricollaudo S-2b e chiusura S-2 |
 | 2026-11-13 20:40 | collaudatore (Claude Code · Sonnet) | ricollaudo S-2b | ✅ quattro correzioni conformi; S-2 e S-2b chiusi [x] | S-3 al capocantiere; resa visiva a vista da Matteo |
+| 2026-11-13 21:52 | capocantiere (Claude Code · Sonnet) | S-3 tab bar flottante + FAB | FloatingTabBar, FAB Sentiero, UI test su id tab_*; build + test verdi | collaudo S-3 (collaudatore) |

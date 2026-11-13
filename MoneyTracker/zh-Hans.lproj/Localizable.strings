@@ -414,3 +414,6 @@
 /* Sentiero — Budget status */
 "Sforato" = "已超支";
 "Soglia 80%" = "80%阈值";
+
+/* Sentiero — FAB */
+"Nuovo movimento" = "新建交易";

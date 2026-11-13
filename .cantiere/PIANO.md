@@ -47,13 +47,14 @@ il task e i file indicati.
 - **Verificato:** plutil sui 7 Localizable.strings, diff pulito, build e 21 test unitari + 12 UI verdi sul simulatore richiesto. Nessun crash del runner.
 - **Aperto:** ricollaudo indipendente, inclusa verifica visiva light/dark, XL e tedesco; S-2 resta in attesa del collaudatore.
 
-### S-3 [ ] FloatingTabBar + FAB
+### S-3 [~] FloatingTabBar + FAB
 - **A chi:** Claude Code
 - **Obiettivo:** nuova tab bar flottante e FAB con la grafica Sentiero
 - **Leggere:** `DESIGN_HANDOFF.md` §3 (icone tab §3), `Views/ContentView.swift`
 - **Toccare:** `ContentView.swift`, componenti tab bar
 - **Fatto quando:** stessi indici di tab, stesse azioni FAB per tab, stessi `accessibilityIdentifier` (se cambiano si aggiornano i UI test, non si tolgono); `accessibilityLabel` FAB «Nuovo movimento/budget/obiettivo/conto»; test verdi
 - **Non fare:** cambiare la navigazione
+- **Eseguito 2026-11-13 21:52 (capocantiere):** `FloatingTabBar` nuova; `TabView` tenuta con barra nativa nascosta (stati e navigazione invariati), FAB 58×58 raggio 20 `accent`, label accessibilità per tab (nuova chiave «Nuovo movimento» in 7 lingue). UI test aggiornati agli id `tab_*` (erano `tabBars.buttons`). Build + test verdi (12 UI). Da collaudare.
 
 ### S-4 [ ] Home con TrailView
 - **A chi:** Claude Code

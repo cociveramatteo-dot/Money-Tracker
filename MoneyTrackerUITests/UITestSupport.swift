@@ -24,10 +24,9 @@ class MoneyTrackerUITestCase: XCTestCase {
     // MARK: - Navigation helpers
 
     /// Naviga a una tab tramite l'etichetta visibile ("Home", "Movimenti", "Statistiche",
-    /// "Pianifica", "Conti") — i tab item SwiftUI non propagano accessibilityIdentifier
-    /// al UITabBarButton sottostante, quindi l'unico aggancio affidabile è il testo.
+    /// "Pianifica", "Conti") — la tab bar flottante espone `tab_<nome minuscolo>`.
     func goToTab(_ label: String, file: StaticString = #filePath, line: UInt = #line) {
-        let tab = app.tabBars.buttons[label]
+        let tab = app.buttons["tab_\(label.lowercased())"]
         XCTAssertTrue(tab.waitForExistence(timeout: 5), "Tab \(label) non trovata", file: file, line: line)
         tab.tap()
     }
