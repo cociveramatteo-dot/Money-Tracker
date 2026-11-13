@@ -1,0 +1,15 @@
+{
+  "cartella_sito": "03_CODICE",
+  "comando_build": "",
+  "cartella_pubblicata": ".",
+  "url": "",
+  "dominio_produzione": "",
+  "pagine_extra": [],
+  "monkey_secondi": 60,
+  "soglie": {
+    "prestazioni": 85,
+    "accessibilita": 90,
+    "seo": 90,
+    "buone_pratiche": 90
+  }
+}

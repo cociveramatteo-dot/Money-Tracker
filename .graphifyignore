@@ -1,0 +1,17 @@
+# Il grafo è per il CODICE: materiale del cliente, backup e archivi restano fuori
+00_CLIENTE/
+02_RISORSE/
+04_CONSEGNE/
+99_DA_SMISTARE/
+.cantiere/archivio/
+.cantiere/guardiano/
+.agents/
+.claude/
+node_modules/
+**/assets/originali/
+**/*.jpg
+**/*.jpeg
+**/*.png
+**/*.webp
+**/*.pdf
+**/*.zip

@@ -26,3 +26,14 @@ Pods/
 # File temporanei
 *.orig
 *.swp
+
+# --- adozione: file che c'erano già, fuori da git finché il trasloco T-000 non li sistema ---
+/docs
+/MoneyTracker
+/MoneyTracker.xcodeproj
+/MoneyTrackerTests
+/MoneyTrackerUITests
+/report_notturno.md
+/TestPlan.xctestplan
+/.Rhistory
+.claude/settings.local.json

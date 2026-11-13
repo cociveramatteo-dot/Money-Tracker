@@ -1,0 +1,8 @@
+{
+  "pesi": {
+    "prestazioni": 10, "accessibilita": 10, "seo": 7, "buone_pratiche": 5, "peso": 6, "velocita": 8,
+    "robustezza": 12, "codice": 8, "sicurezza": 8, "lingue": 5, "completezza": 5,
+    "grafica": 9, "uso": 5, "testi": 2
+  },
+  "soglie": { "totale": 80, "minimo_categoria": 60, "giorni_guardiano": 3 }
+}
