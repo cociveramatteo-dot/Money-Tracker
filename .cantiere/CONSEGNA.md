@@ -1,25 +1,27 @@
 # CONSEGNA — il biglietto per chi entra in turno
 
-**Da:** capocantiere (Claude Code · Sonnet) **Il:** 2026-11-13 19:23 **Commit:** vedi `git log -1` (S-1)
+**Da:** seconda impresa (Codex · GPT-6) **Il:** 2026-11-13 20:15 **Commit:** vedi `git log -1` (S-2)
 
 ## Fatto
-- S-1: token «Sentiero» adattivi light/dark nell'enum `DS` (`MoneyTracker/Views/Theme.swift`), costruttore `Color(lightHex:darkHex:)`. I nomi storici (`ink`, `paper`, `fog`, `smoke`, `positive`, `negative`) restano e cambiano valore; nuovi: `surface`, `accent`, `planned`, `danger`, `hero*`, ecc.
-- Font Space Grotesk e Inter in `MoneyTracker/Resources/Fonts/` + `UIAppFonts` in `Info.plist` + licenze OFL; `DS.Typo` con `Font.custom(…, relativeTo:)`.
-- `Views/CategoryTint.swift`: tinta categoria deterministica (FNV-1a), test in `CategoryTintTests` e `FontRegistrationTests`.
-- Decisioni D-005 e D-006 in `.cantiere/DECISIONI.md`; `docs/MoneyTracker.md` aggiornato.
+- S-2: creati solo i sette file nuovi `MoneyTracker/Views/Components/{Card,HeroCard,MovementRow,ProgressBar,BudgetStatus,SegmentedPill,FilterChip}.swift`.
+- Ogni componente ha due #Preview, light e dark tramite environment; nessun preferredColorScheme.
+- Font DS.Typo, colori adattivi DS e tinte categoria CategoryTint. fog e heroDivider usati soltanto come bordi, track o separatori, mai testo/icone.
+- MovementRow: uscita, entrata, pianificato con bordo tratteggiato, trasferimento; importi e metadati formattati dal chiamante. Nessun accesso ai modelli o modifica dei calcoli.
+- ProgressBar: altezza 8, soglie visive 80%/100%, tacca all'80% sulla hero; BudgetStatus con importo oltre budget fornito dal chiamante.
+- Filtri primari, secondari tratteggiati e avanzati con xmark; selezione SegmentedPill tramite Binding.
+- Track del segmento e bordo secondario usano fog: sostituzione dei valori fissi dell'handoff con il token adattivo disponibile, come richiesto.
 
 ## Verificato
-- Build verde, nessun warning; 21 test unitari + 12 test UI verdi su iPhone 18 Pro (iOS 27.2).
-- Non verificato a occhio: resa grafica in light/dark e Dynamic Type (nessuna schermata è stata ancora ridisegnata).
+- Comando richiesto: `xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' build test`.
+- BUILD SUCCEEDED e TEST SUCCEEDED: 21 test unitari + 12 UI, zero fallimenti. Nessun crash del runner.
+- Primo tentativo nel sandbox senza accesso CoreSimulator; esecuzione autorizzata fuori sandbox riuscita.
+- Nessun errore o warning dei nuovi componenti. Warning infrastrutturale AppIntents metadata sul target test e messaggi runtime del simulatore nel log.
+- `git diff --check` pulito; nessuna vista o test esistente modificato. Nessuna modifica preesistente esterna al lavoro.
+- Log temporaneo: `/tmp/moneytracker-s2-build-full.log` (non in git).
 
-## Mi sono fermato a
-S-1 fatto, in attesa di collaudo. Nota d'ambiente: la prima esecuzione dell'intera suite ha dato «Test crashed with signal kill before establishing connection» (simulatore); dopo `simctl shutdown all` e rilancio separato (unit, poi UI) tutto verde.
+## Aperto
+- S-2 a [~]: serve collaudatore. Preview compilate, non ispezionate visivamente; verificare light/dark, Dynamic Type XL e tedesco prima di chiudere S-2.
+- Le etichette di BudgetStatus usano Text localizzabile; verificare le traduzioni in fase di integrazione, senza modificare qui risorse esistenti.
 
 ## Prossimo passo
-- Task: collaudo di S-1 (collaudatore), poi S-2 «Componenti base»
-- A chi: collaudatore (Claude Code); S-2 → Codex
-
-## Attenzione
-- Scarto dall'handoff: in dark accent/planned schiariti per contrasto AA (D-005).
-- Tutti i colori storici cambiano subito leggermente tinta in tutta l'app.
-- Il PDF `docs/MoneyTracker.pdf` non è stato rigenerato (si fa al checkpoint).
+Collaudatore su Claude Code (Sonnet): leggere AGENTS.md e STATO, aprire turno se libero, leggere questa consegna e solo il diff del commit S-2. Verificare requisiti e preview, registrare esito e chiudere S-2 solo se conforme. Poi S-3 al capocantiere.
