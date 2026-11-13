@@ -130,6 +130,13 @@ il task e i file indicati.
 - **Fatto quando:** test nuovi (mese corto, 31, anno bisestile, salto, fine serie, 3 frequenze, saldo invariato dai virtuali), migrazione che non altera dati, build + test verdi, Commissione Suprema 10/10
 - **Non fare:** convertire lo storico; far entrare i virtuali nei calcoli
 
+### S-14 [ ] Statistiche: confronto mese su mese
+- **A chi:** Codex (o Antigravity) · dopo S-6 (stessa schermata)
+- **Obiettivo:** frase/card tipo «Questo mese hai speso il 12% in più per Cibo»: per categoria e totale, mese corrente vs mese precedente, stesso periodo di giorni; colori neutri/«danger» da Theme, mai solo colore (anche testo/freccia)
+- **Leggere:** `Statistiche.dc.html` (se il mockup non lo prevede, chiedere a Matteo dove metterlo), `Views/StatisticsView.swift`
+- **Fatto quando:** funzione pura in `Domain/` con `Decimal` + test (mese precedente vuoto, divisione per zero, categoria nuova, mese corrente a metà); resa confrontata col mockup in light/dark/XL/tedesco; testi nelle 7 lingue
+- **Non fare:** cambiare i calcoli esistenti delle statistiche
+
 ### S-10 [ ] Verifica finale + Commissione Suprema
 - **A chi:** Claude Code (collaudatore)
 - **Obiettivo:** collaudo dell'intero ramo
