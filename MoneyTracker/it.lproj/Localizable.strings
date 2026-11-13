@@ -30,59 +30,6 @@
 "demo.goal.emergenza"  = "Fondo emergenza";
 "demo.goal.fotografia" = "Corso di fotografia";
 
-/* ── Onboarding tour — new steps ─────────────── */
-"tour.welcome.title"  = "Benvenuto in MoneyTracker";
-"tour.welcome.body"   = "Questa guida ti accompagna nella scoperta di ogni funzione. Puoi interromperla in qualsiasi momento e riprenderla da Impostazioni → Rivedi tour.";
-"tour.shortcuts.title" = "Aggiungi spese senza aprire l'app";
-"tour.shortcuts.body"  = "Puoi registrare una spesa direttamente con Siri o con una Shortcut personalizzata. Consiglio: crea una scorciatoia e assegnala al doppio tocco sul retro del telefono. Trovi tutto in Impostazioni → Siri & Shortcut.";
-"tour.done.title"     = "Sei pronto";
-"tour.done.body"      = "Hai completato il tour di MoneyTracker. Ogni funzione è progettata per essere potente e immediata. Puoi rivedere questa guida in qualsiasi momento dalle Impostazioni.";
-"tour.startButton"    = "Inizia il tour";
-"tour.doneButton"     = "Inizia a usare l'app";
-"tour.skipButton"     = "Salta il tour";
 "Avanti"              = "Avanti";
 "Fine"                = "Fine";
-"Rivedi tour"         = "Rivedi tour";
 
-/* ── Tour: step-elemento per tab (Livello 1) ─── */
-"tour.stepProgress" = "%d di %d";
-
-"tour.home.balance.title" = "Saldo attuale";
-"tour.home.balance.body" = "Liquidità confermata: solo i movimenti effettuati concorrono a questo valore.";
-"tour.home.hide.title" = "Nascondi il saldo";
-"tour.home.hide.body" = "Tocca l'occhio per oscurare tutti gli importi, utile quando lo schermo è visibile ad altri.";
-"tour.home.expected.title" = "Saldo atteso";
-"tour.home.expected.body" = "Il saldo futuro, comprese le spese fisse pianificate non ancora avvenute.";
-"tour.home.accounts.title" = "I tuoi conti";
-"tour.home.accounts.body" = "Tocca l'icona per scegliere quali conti mostrare qui e in che ordine.";
-
-"tour.movimenti.sections.title" = "Sezioni";
-"tour.movimenti.sections.body" = "Ogni blocco raccoglie un tipo di movimento: tutti, fissi, ricorrenti, trasferimenti.";
-"tour.movimenti.block.title" = "Tutti i movimenti";
-"tour.movimenti.block.body" = "Apre l'elenco completo, con filtri per categoria e conto.";
-"tour.movimenti.search.title" = "Cerca ovunque";
-"tour.movimenti.search.body" = "Trova qualsiasi movimento, in qualunque sezione, digitando anche solo una parola.";
-
-"tour.statistiche.summary.title" = "Riepilogo del mese";
-"tour.statistiche.summary.body" = "Uscite ed entrate del mese, a confronto con quello precedente.";
-"tour.statistiche.trend.title" = "Andamento nel tempo";
-"tour.statistiche.trend.body" = "Confronta gli ultimi 6 o 12 mesi in un solo grafico.";
-"tour.statistiche.category.title" = "Uscite per categoria";
-"tour.statistiche.category.body" = "Scopri dove va la maggior parte dei tuoi soldi ogni mese.";
-
-"tour.pianifica.budget.title" = "Budget per categoria";
-"tour.pianifica.budget.body" = "Imposta un limite di spesa mensile e monitora quanto ne hai già usato.";
-"tour.pianifica.history.title" = "Storico budget";
-"tour.pianifica.history.body" = "Rivedi i mesi passati per capire come sono cambiate le tue abitudini di spesa.";
-"tour.pianifica.goals.title" = "Obiettivi di risparmio";
-"tour.pianifica.goals.body" = "Imposta un importo target per ogni obiettivo e aggiorna quanto hai già risparmiato.";
-
-"tour.conti.list.title" = "I tuoi conti";
-"tour.conti.list.body" = "Saldo, tipo e opzioni per ogni conto. Scorri a destra per modificarlo, a sinistra per eliminarlo.";
-
-/* ── Tour: mini-tour contestuali (Livello 2) ─── */
-"hint.movimentiSection.title" = "Azioni rapide";
-"hint.movimentiSection.body" = "Scorri a destra su una voce fissa per confermarla, a sinistra per eliminarla. Tieni premuto per altre opzioni.";
-"hint.settings.title" = "Impostazioni";
-"hint.settings.body" = "Lingua, valuta, sicurezza, esportazione dati e altro. Rivedi questo tour in qualsiasi momento da qui.";
-"hint.gotIt" = "Ho capito";

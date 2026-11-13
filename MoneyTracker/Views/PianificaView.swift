@@ -97,10 +97,8 @@ struct PianificaView: View {
 
                     if segment == 0 {
                         budgetContent
-                            .tourAnchor("budgetList")
                     } else {
                         goalsContent
-                            .tourAnchor("goalsList")
                     }
 
                     Spacer(minLength: 100)
@@ -156,7 +154,6 @@ struct PianificaView: View {
                             .font(.system(size: 16))
                             .foregroundStyle(DS.ink)
                     }
-                    .tourAnchor("historyButton")
                 }
                 Button { showSettings = true } label: {
                     Image(systemName: "gearshape")

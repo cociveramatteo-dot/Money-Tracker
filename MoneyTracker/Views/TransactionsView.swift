@@ -11,7 +11,6 @@ enum TxFilter: String, CaseIterable {
 }
 
 struct TransactionsView: View {
-    @ObservedObject private var tourManager = TourManager.shared
     @Query(sort: \Transaction.date, order: .reverse) private var all: [Transaction]
     @Query(sort: \Category.sortOrder) private var categories: [Category]
     @Environment(\.modelContext) private var context
@@ -29,8 +28,6 @@ struct TransactionsView: View {
     @State private var showSettings        = false
     @State private var showAdvancedFilter  = false
     @State private var selectedSeries: RecurringSeries? = nil
-    // Pilotato dal tour (step "movimenti.block"): apre la sezione "Tutti" per
-    // mostrarne il contenuto mentre lo spiega, la richiude quando si avanza.
     @State private var navPath: [TxFilter] = []
     @FocusState private var searchFocused: Bool
     // Pending transfer delete — shows confirmationDialog before removing both legs.
@@ -120,7 +117,6 @@ struct TransactionsView: View {
         NavigationStack(path: $navPath) {
             VStack(spacing: 0) {
                 searchField($hubSearchQuery, identifier: "tf_searchTransactions")
-                    .tourAnchor("searchField")
                     .padding(.horizontal, DS.Layout.margin)
                     .padding(.top, DS.Space.s)
                     .padding(.bottom, DS.Space.xs)
@@ -144,7 +140,6 @@ struct TransactionsView: View {
                         // contiene: uno ScrollView riporta il proprio frame (che riempie
                         // lo spazio disponibile), non l'altezza reale del contenuto —
                         // altrimenti lo spotlight si estenderebbe ben oltre i 6 blocchi.
-                        .tourAnchor("filterChips")
                         .padding(.horizontal, DS.Layout.margin)
                         .padding(.top, DS.Space.m)
                         .padding(.bottom, DS.Space.xxl)
@@ -190,16 +185,6 @@ struct TransactionsView: View {
             // tastiera ricompare da sola al ritorno sull'hub.
             .onChange(of: navPath) { _, path in
                 if !path.isEmpty { searchFocused = false }
-            }
-            // Il tour (step "movimenti.block") apre la sezione "Tutti" per spiegarne
-            // il contenuto e la richiude non appena si avanza/torna indietro — vedi
-            // OverviewStep.usesNavigationPush in TourStep.swift.
-            .onChange(of: tourManager.currentStep) { _, step in
-                if step.id == "movimenti.block" {
-                    if navPath.isEmpty { navPath.append(.tutti) }
-                } else if !navPath.isEmpty {
-                    navPath.removeLast(navPath.count)
-                }
             }
             .navigationDestination(for: TxFilter.self) { f in subListContent(for: f) }
             .toolbar {
@@ -392,16 +377,12 @@ struct TransactionsView: View {
                     .scrollContentBackground(.hidden)
                     .scrollIndicators(.hidden)
                     .refreshable { await SyncService.shared.manualRefresh(context: context) }
-                    .tourAnchor("sectionContent")
                 }
             }
         }
         .background(DS.paper)
         .navigationTitle(Text(LocalizedStringKey(f.rawValue)))
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            if f != .ricorrenti { TourManager.shared.showHintIfNeeded(.movimentiSection) }
-        }
         // Filtro categoria e ricerca sono locali alla sezione: uscendo si azzerano,
         // così la prossima sezione aperta parte sempre senza stato ereditato per errore.
         .onDisappear { selectedCat = ""; sectionSearch = "" }

@@ -392,19 +392,8 @@
 "Nessun conto trovato. Apri l'app per aggiungerne uno." = "アカウントが見つかりません。アプリを開いて追加してください。";
 "💰 Saldo totale: %@" = "💰 合計残高: %@";
 
-/* ── Onboarding tour — new steps ─────────────── */
-"tour.welcome.title"    = "MoneyTrackerへようこそ";
-"tour.welcome.body"     = "このガイドはすべての機能をご案内します。いつでも中断でき、設定→ツアーを見直すから再開できます。";
-"tour.shortcuts.title"  = "Siriオートメーション";
-"tour.shortcuts.body"   = "音声コマンドで支出・収入を記録し、残高を確認できます。「MoneyTrackerに支出を追加」と言うか、設定→SiriとSearchを探索してください。";
-"tour.done.title"       = "準備完了";
-"tour.done.body"        = "MoneyTrackerのツアーが完了しました。すべての機能は強力かつ即時に使えるよう設計されています。設定からいつでもこのガイドを見直せます。";
-"tour.startButton"      = "ツアーを開始";
-"tour.doneButton"       = "アプリを使い始める";
-"tour.skipButton"       = "ツアーをスキップ";
 "Avanti"                = "次へ";
 "Fine"                  = "完了";
-"Rivedi tour"           = "ツアーを見直す";
 
 /* ── Settings / Siri section & accessibility ─── */
 "Siri & Shortcut" = "Siri & ショートカット";
@@ -418,45 +407,3 @@
 "escluso dal totale" = "合計から除外";
 "saldo" = "残高";
 
-/* ── Tour: タブごとの要素ステップ（レベル1）─── */
-"tour.stepProgress" = "%d / %d";
-
-"tour.home.balance.title" = "現在の残高";
-"tour.home.balance.body" = "確定済みの資金です。完了した取引のみがこの値に反映されます。";
-"tour.home.hide.title" = "残高を非表示";
-"tour.home.hide.body" = "目のアイコンをタップするとすべての金額をぼかせます。画面が他人に見える場面で便利です。";
-"tour.home.expected.title" = "予測残高";
-"tour.home.expected.body" = "まだ発生していない予定の固定支出を含めた、将来の残高です。";
-"tour.home.accounts.title" = "あなたの口座";
-"tour.home.accounts.body" = "アイコンをタップして、ここに表示する口座とその順序を選べます。";
-
-"tour.movimenti.sections.title" = "セクション";
-"tour.movimenti.sections.body" = "各ブロックは取引の種類をまとめます：すべて、固定、定期、振替。";
-"tour.movimenti.block.title" = "すべての取引";
-"tour.movimenti.block.body" = "カテゴリと口座でフィルタできる完全なリストを開きます。";
-"tour.movimenti.search.title" = "どこでも検索";
-"tour.movimenti.search.body" = "単語を入力するだけで、どのセクションの取引でも見つけられます。";
-
-"tour.statistiche.summary.title" = "今月のサマリー";
-"tour.statistiche.summary.body" = "今月の支出と収入を、前月と比較して表示します。";
-"tour.statistiche.trend.title" = "推移";
-"tour.statistiche.trend.body" = "過去6か月または12か月を1つのグラフで比較できます。";
-"tour.statistiche.category.title" = "カテゴリ別支出";
-"tour.statistiche.category.body" = "毎月お金の大部分がどこに使われているかを確認できます。";
-
-"tour.pianifica.budget.title" = "カテゴリ別予算";
-"tour.pianifica.budget.body" = "月次の支出上限を設定し、これまでの使用状況を管理できます。";
-"tour.pianifica.history.title" = "予算の履歴";
-"tour.pianifica.history.body" = "過去の月を振り返って、支出習慣の変化を確認できます。";
-"tour.pianifica.goals.title" = "貯蓄目標";
-"tour.pianifica.goals.body" = "各目標に目標金額を設定し、これまでの貯蓄額を記録できます。";
-
-"tour.conti.list.title" = "あなたの口座";
-"tour.conti.list.body" = "各口座の残高、種類、オプションです。右にスワイプで編集、左にスワイプで削除。";
-
-/* ── Tour: mini-tour contestuali (Livello 2) ─── */
-"hint.movimentiSection.title" = "クイックアクション";
-"hint.movimentiSection.body" = "固定項目を右にスワイプで確定、左にスワイプで削除。長押しでその他のオプション。";
-"hint.settings.title" = "設定";
-"hint.settings.body" = "言語、通貨、セキュリティ、データエクスポートなど。このツアーはいつでもここから見直せます。";
-"hint.gotIt" = "わかりました";

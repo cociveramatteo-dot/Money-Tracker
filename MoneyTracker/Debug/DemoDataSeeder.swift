@@ -20,7 +20,7 @@ struct DemoDataSeeder {
     private static let seedVersionKey = "demoSeedVersion"
 
     /// Azzera completamente il container demo e lo risemina con dati freschi.
-    /// Chiamato all'avvio del tour per garantire uno stato pulito
+    /// Chiamato all'attivazione della modalità demo per garantire uno stato pulito
     /// indipendentemente da eventuali modifiche fatte in sessioni precedenti.
     @MainActor
     static func forceReset(context: ModelContext) {

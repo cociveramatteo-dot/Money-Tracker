@@ -93,7 +93,6 @@ struct DashboardView: View {
                                 .font(.system(size: 16))
                                 .foregroundStyle(DS.ink)
                         }
-                        .tourAnchor("eyeButton")
 
                         Button { showSettings = true } label: {
                             Image(systemName: "gearshape")
@@ -121,7 +120,6 @@ struct DashboardView: View {
             SectionLabel(text: "Saldo attuale")
                 .padding(.top, DS.Space.xl)
             HeroAmount(amount: totalCurrent, hidden: hideBalance, colorBySign: true)
-                .tourAnchor("balanceHero")
 
             if !topAccounts.isEmpty {
                 HStack(alignment: .bottom, spacing: 0) {
@@ -145,7 +143,6 @@ struct DashboardView: View {
                             .font(.system(size: 13))
                             .foregroundStyle(DS.smoke)
                     }
-                    .tourAnchor("accountPanel")
                 }
                 .padding(.top, DS.Space.xs)
             }
@@ -199,7 +196,6 @@ struct DashboardView: View {
             }
             .padding(.horizontal, DS.Layout.margin)
             .padding(.bottom, DS.Space.l)
-            .tourAnchor("saldoAtteso")
         }
     }
 

@@ -217,7 +217,6 @@ struct StatisticsView: View {
 
                 }
                 .padding(.horizontal, DS.Layout.margin)
-                .tourAnchor("monthSummary")
 
                 MonthBar(month: $selectedMonth)
                     .padding(.horizontal, DS.Layout.margin)
@@ -315,7 +314,6 @@ struct StatisticsView: View {
                         .padding(.top, DS.Space.xs)
                     }
                 }
-                .tourAnchor("trendChart")
 
                 ThinDivider().padding(.top, DS.Space.l)
 
@@ -372,7 +370,6 @@ struct StatisticsView: View {
                         }
                     }
                 }
-                .tourAnchor("categoryBreakdown")
 
                 ThinDivider().padding(.top, DS.Space.l)
 

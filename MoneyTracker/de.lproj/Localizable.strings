@@ -392,19 +392,8 @@
 "Nessun conto trovato. Apri l'app per aggiungerne uno." = "Kein Konto gefunden. Öffne die App, um eines hinzuzufügen.";
 "💰 Saldo totale: %@" = "💰 Gesamtstand: %@";
 
-/* ── Onboarding tour — new steps ─────────────── */
-"tour.welcome.title"    = "Willkommen bei MoneyTracker";
-"tour.welcome.body"     = "Diese Führung zeigt dir alle Funktionen. Du kannst jederzeit unterbrechen und über Einstellungen → Tour wiederholen fortfahren.";
-"tour.shortcuts.title"  = "Siri-Automatisierung";
-"tour.shortcuts.body"   = "Erfasse Ausgaben, Einnahmen und prüfe deinen Kontostand per Sprachbefehl. Sage «Ausgabe zu MoneyTracker hinzufügen» oder gehe zu Einstellungen → Siri.";
-"tour.done.title"       = "Alles bereit";
-"tour.done.body"        = "Du hast die MoneyTracker-Tour abgeschlossen. Jede Funktion ist leistungsstark und sofort nutzbar. Du kannst diese Führung jederzeit in den Einstellungen erneut aufrufen.";
-"tour.startButton"      = "Tour starten";
-"tour.doneButton"       = "App verwenden";
-"tour.skipButton"       = "Tour überspringen";
 "Avanti"                = "Weiter";
 "Fine"                  = "Fertig";
-"Rivedi tour"           = "Tour wiederholen";
 
 /* ── Settings / Siri section & accessibility ─── */
 "Siri & Shortcut" = "Siri & Kurzbefehle";
@@ -418,45 +407,3 @@
 "escluso dal totale" = "aus dem Gesamt ausgeschlossen";
 "saldo" = "Kontostand";
 
-/* ── Tour: Element-Schritte pro Tab (Stufe 1) ─── */
-"tour.stepProgress" = "%d von %d";
-
-"tour.home.balance.title" = "Aktueller Saldo";
-"tour.home.balance.body" = "Bestätigtes Guthaben: Nur abgeschlossene Transaktionen zählen zu diesem Wert.";
-"tour.home.hide.title" = "Saldo ausblenden";
-"tour.home.hide.body" = "Tippe auf das Auge, um alle Beträge zu verbergen — praktisch, wenn dein Bildschirm für andere sichtbar ist.";
-"tour.home.expected.title" = "Erwarteter Saldo";
-"tour.home.expected.body" = "Dein zukünftiger Saldo, einschließlich geplanter fester Ausgaben, die noch nicht stattgefunden haben.";
-"tour.home.accounts.title" = "Deine Konten";
-"tour.home.accounts.body" = "Tippe auf das Symbol, um auszuwählen, welche Konten hier angezeigt werden und in welcher Reihenfolge.";
-
-"tour.movimenti.sections.title" = "Bereiche";
-"tour.movimenti.sections.body" = "Jeder Block fasst eine Art von Transaktion zusammen: alle, feste, wiederkehrende, Überweisungen.";
-"tour.movimenti.block.title" = "Alle Transaktionen";
-"tour.movimenti.block.body" = "Öffnet die vollständige Liste, mit Filtern nach Kategorie und Konto.";
-"tour.movimenti.search.title" = "Überall suchen";
-"tour.movimenti.search.body" = "Finde jede Transaktion, in jedem Bereich, indem du nur ein Wort eingibst.";
-
-"tour.statistiche.summary.title" = "Monatsübersicht";
-"tour.statistiche.summary.body" = "Ausgaben und Einnahmen dieses Monats, verglichen mit dem vorherigen.";
-"tour.statistiche.trend.title" = "Verlauf über die Zeit";
-"tour.statistiche.trend.body" = "Vergleiche die letzten 6 oder 12 Monate in einem einzigen Diagramm.";
-"tour.statistiche.category.title" = "Ausgaben nach Kategorie";
-"tour.statistiche.category.body" = "Sieh, wohin der Großteil deines Geldes jeden Monat fließt.";
-
-"tour.pianifica.budget.title" = "Budgets nach Kategorie";
-"tour.pianifica.budget.body" = "Lege ein monatliches Ausgabenlimit fest und verfolge, wie viel du bereits verbraucht hast.";
-"tour.pianifica.history.title" = "Budget-Verlauf";
-"tour.pianifica.history.body" = "Sieh dir vergangene Monate an, um zu verstehen, wie sich deine Ausgabengewohnheiten verändert haben.";
-"tour.pianifica.goals.title" = "Sparziele";
-"tour.pianifica.goals.body" = "Lege für jedes Ziel einen Zielbetrag fest und trage ein, wie viel du bereits gespart hast.";
-
-"tour.conti.list.title" = "Deine Konten";
-"tour.conti.list.body" = "Saldo, Typ und Optionen für jedes Konto. Nach rechts wischen zum Bearbeiten, nach links zum Löschen.";
-
-/* ── Tour: mini-tour contestuali (Livello 2) ─── */
-"hint.movimentiSection.title" = "Schnellaktionen";
-"hint.movimentiSection.body" = "Wische bei einem festen Eintrag nach rechts, um ihn zu bestätigen, nach links zum Löschen. Gedrückt halten für weitere Optionen.";
-"hint.settings.title" = "Einstellungen";
-"hint.settings.body" = "Sprache, Währung, Sicherheit, Datenexport und mehr. Sieh dir diese Tour jederzeit von hier aus erneut an.";
-"hint.gotIt" = "Verstanden";

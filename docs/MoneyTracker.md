@@ -96,12 +96,6 @@ MoneyTracker/                    ← Source principale
 │   ├── Category.swift
 │   ├── Goal.swift
 │   └── Transaction.swift
-├── OnboardingTour/
-│   ├── TabBarFrameCapture.swift
-│   ├── ContextualHint.swift
-│   ├── TourManager.swift
-│   ├── TourOverlayView.swift
-│   └── TourStep.swift
 ├── Persistence/
 │   ├── Logging.swift
 │   ├── ModelContextSaving.swift
@@ -356,16 +350,13 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 - Inserisci nome e importo → salvato direttamente nel database senza aprire l'app
 - `try?` safe init del ModelContainer (no crash in caso di store non disponibile)
 
-### Onboarding Tour (OnboardingTour/)
+### Tour archiviato
 
-Due livelli:
-- **Livello 1 — panoramica** (`TourStep`/`OverviewStep`): sequenza lineare mostrata una volta sola al primo avvio, uno step per tab con spotlight sulla sola icona della tab bar.
-- **Livello 2 — mini-tour contestuali** (`ContextualHint`): un singolo spotlight + card con "Ho capito", mostrato una sola volta la prima volta che l'utente arriva davvero su un elemento (dopo aver completato la panoramica).
+Fino al tag `tour-v1` l'app aveva un **onboarding tour a due livelli**: una panoramica lineare (`TourStep`/`OverviewStep`, uno step per tab con spotlight) e mini-tour contestuali (`ContextualHint`, spotlight + card «Ho capito»), pilotati da `TourManager` e disegnati da `TourOverlayView` tramite gli ancoraggi `.tourAnchor(...)`. Con il redesign «Sentiero» è stato **rimosso dal codice** (cartella `MoneyTracker/OnboardingTour/`, `TourFlowUITests`, ancoraggi nelle viste, voce «Rivedi tour» e banner hint in Impostazioni, stringhe `tour.*`/`hint.*` nelle 7 lingue). La **modalità demo** resta invariata.
 
-Altri componenti:
-- `TourManager`: stato pubblicato per entrambi i livelli, persistenza (UserDefaults) di "panoramica completata" e "hint visti"
-- `TourOverlayView`: overlay unico (ModalCard, StepCard, HintCard) che disegna sia la panoramica sia gli hint contestuali — montato in `MoneyTrackerApp` quando `isActive` **oppure** `activeHint != nil`
-- `TabBarFrameCapture`: cattura frame tab bar per posizionamento overlay
+- **Tag:** `tour-v1` (annotato, su GitHub), commit `1853496`.
+- **Ripristino:** `git checkout tour-v1 -- MoneyTracker/OnboardingTour MoneyTrackerUITests/TourFlowUITests.swift`, poi ricablare overlay (`.overlayPreferenceValue(TourAnchorKey…)` in `MoneyTrackerApp`), ancoraggi `.tourAnchor` nelle viste e stringhe `tour.*`/`hint.*` sulla nuova grafica.
+- Le chiavi `UserDefaults` del tour rimaste sui dispositivi sono innocue.
 
 ### Ricorrenze Automatiche
 
@@ -443,7 +434,7 @@ Altri componenti:
 
 | Feature | Stato |
 |---|---|
-| Tour onboarding / discoverability | ⚙️ In sviluppo (OnboardingTour/ presente) |
+| Tour onboarding / discoverability | 🗄️ Archiviato (tag `tour-v1`, vedi «Tour archiviato») |
 | Widget schermata Home e Lock Screen (WidgetKit + AppGroup) | ☐ |
 | Ricorrenze automatiche | ✅ Implementato |
 | Apple Watch App (watchOS target + WatchConnectivity) | ☐ |
@@ -515,6 +506,12 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ---
 
 ## 10. Changelog
+
+### v3.x (novembre 2026) — Redesign «Sentiero», step 0: rimozione del tour
+
+- Rimossi `OnboardingTour/`, `TourFlowUITests`, `.tourAnchor(...)` in Dashboard/Transactions/Statistics/Pianifica/Accounts/ContentView, avvio automatico del tour, hook `--forceTour`, voce «Rivedi tour» e banner hint in Impostazioni, flag UserDefaults del tour nell'init `--uitesting`, stringhe `tour.*`/`hint.*`/«Rivedi tour» in tutte e 7 le lingue.
+- Nessuna funzione dell'app toccata oltre al tour; modalità demo invariata.
+- Tour conservato nel tag `tour-v1` (vedi «Tour archiviato»).
 
 ### v3.x (settembre 2026) — Tre bug critici: Tocco posteriore che "sparisce", perdita dati al login, ricorrenze arretrate
 

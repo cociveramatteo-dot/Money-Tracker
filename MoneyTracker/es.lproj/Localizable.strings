@@ -392,19 +392,8 @@
 "Nessun conto trovato. Apri l'app per aggiungerne uno." = "No se encontró ninguna cuenta. Abre la app para añadir una.";
 "💰 Saldo totale: %@" = "💰 Saldo total: %@";
 
-/* ── Onboarding tour — new steps ─────────────── */
-"tour.welcome.title"    = "Bienvenido a MoneyTracker";
-"tour.welcome.body"     = "Esta guía te presenta todas las funciones. Puedes interrumpirla en cualquier momento y retomarla desde Ajustes → Revisar tour.";
-"tour.shortcuts.title"  = "Automatización con Siri";
-"tour.shortcuts.body"   = "Registra gastos, ingresos y consulta tu saldo con un comando de voz. Di «Añadir gasto a MoneyTracker» o explora Ajustes → Siri y Búsqueda.";
-"tour.done.title"       = "Estás listo";
-"tour.done.body"        = "Has completado el tour de MoneyTracker. Cada función está diseñada para ser potente e inmediata. Puedes revisar esta guía en cualquier momento desde Ajustes.";
-"tour.startButton"      = "Iniciar tour";
-"tour.doneButton"       = "Empezar a usar la app";
-"tour.skipButton"       = "Saltar tour";
 "Avanti"                = "Siguiente";
 "Fine"                  = "Listo";
-"Rivedi tour"           = "Revisar tour";
 
 /* ── Settings / Siri section & accessibility ─── */
 "Siri & Shortcut" = "Siri y Atajos";
@@ -418,45 +407,3 @@
 "escluso dal totale" = "excluido del total";
 "saldo" = "saldo";
 
-/* ── Tour: pasos por elemento por pestaña (Nivel 1) ─── */
-"tour.stepProgress" = "%d de %d";
-
-"tour.home.balance.title" = "Saldo actual";
-"tour.home.balance.body" = "Fondos confirmados: solo los movimientos completados cuentan para este valor.";
-"tour.home.hide.title" = "Ocultar el saldo";
-"tour.home.hide.body" = "Toca el ojo para difuminar todos los importes — útil cuando tu pantalla es visible para otros.";
-"tour.home.expected.title" = "Saldo previsto";
-"tour.home.expected.body" = "Tu saldo futuro, incluidos los gastos fijos planificados que aún no han ocurrido.";
-"tour.home.accounts.title" = "Tus cuentas";
-"tour.home.accounts.body" = "Toca el icono para elegir qué cuentas se muestran aquí y en qué orden.";
-
-"tour.movimenti.sections.title" = "Secciones";
-"tour.movimenti.sections.body" = "Cada bloque agrupa un tipo de movimiento: todos, fijos, recurrentes, transferencias.";
-"tour.movimenti.block.title" = "Todos los movimientos";
-"tour.movimenti.block.body" = "Abre la lista completa, con filtros por categoría y cuenta.";
-"tour.movimenti.search.title" = "Buscar en todas partes";
-"tour.movimenti.search.body" = "Encuentra cualquier movimiento, en cualquier sección, con solo escribir una palabra.";
-
-"tour.statistiche.summary.title" = "Resumen del mes";
-"tour.statistiche.summary.body" = "Gastos e ingresos de este mes, comparados con el anterior.";
-"tour.statistiche.trend.title" = "Tendencia en el tiempo";
-"tour.statistiche.trend.body" = "Compara los últimos 6 o 12 meses en un solo gráfico.";
-"tour.statistiche.category.title" = "Gastos por categoría";
-"tour.statistiche.category.body" = "Descubre a dónde va la mayor parte de tu dinero cada mes.";
-
-"tour.pianifica.budget.title" = "Presupuestos por categoría";
-"tour.pianifica.budget.body" = "Define un límite de gasto mensual y controla cuánto has usado hasta ahora.";
-"tour.pianifica.history.title" = "Historial de presupuestos";
-"tour.pianifica.history.body" = "Revisa los meses pasados para ver cómo han cambiado tus hábitos de gasto.";
-"tour.pianifica.goals.title" = "Objetivos de ahorro";
-"tour.pianifica.goals.body" = "Define un importe objetivo para cada meta y registra cuánto has ahorrado hasta ahora.";
-
-"tour.conti.list.title" = "Tus cuentas";
-"tour.conti.list.body" = "Saldo, tipo y opciones de cada cuenta. Desliza a la derecha para editar, a la izquierda para eliminar.";
-
-/* ── Tour: mini-tour contestuali (Livello 2) ─── */
-"hint.movimentiSection.title" = "Acciones rápidas";
-"hint.movimentiSection.body" = "Desliza a la derecha en un elemento fijo para confirmarlo, a la izquierda para eliminarlo. Mantén pulsado para más opciones.";
-"hint.settings.title" = "Ajustes";
-"hint.settings.body" = "Idioma, moneda, seguridad, exportación de datos y más. Vuelve a ver este tour cuando quieras desde aquí.";
-"hint.gotIt" = "Entendido";

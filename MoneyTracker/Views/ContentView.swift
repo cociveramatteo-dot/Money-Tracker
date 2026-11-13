@@ -2,7 +2,6 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @ObservedObject private var tourManager = TourManager.shared
     @State private var selectedTab          = 0
     @State private var showAdd              = false
     @State private var showTransfer         = false
@@ -51,27 +50,6 @@ struct ContentView: View {
                 .scaleEffect(fabHidden ? 0.7 : 1)
                 .animation(.spring(response: 0.25, dampingFraction: 0.8), value: fabHidden)
                 .allowsHitTesting(!fabHidden)
-        }
-        // ── Tour-driven tab/segment switching (panoramica, Livello 1) ─────────
-        .onChange(of: tourManager.requiredTab) { _, tab in
-            if let tab { selectedTab = tab }
-        }
-        .onChange(of: tourManager.requiredSegment) { _, segment in
-            if let segment { planningSegment = segment }
-        }
-        // ── Tour trigger (panoramica) ──────────────────────────────────────────
-        // ContentView is recreated when demoModeEnabled changes (via .id()).
-        // Guard: don't restart if tour is already active (TourManager.start() caused
-        // this re-creation by toggling demoModeEnabled).
-        .onAppear {
-            guard !TourManager.shared.isActive else { return }
-            // "--forceTour": hook di QA per rivedere il tour in automazione senza
-            // passare da Impostazioni (stessa idea di "--uitesting", vedi MoneyTrackerApp).
-            if ProcessInfo.processInfo.arguments.contains("--forceTour") {
-                TourManager.shared.start()
-            } else {
-                TourManager.shared.startIfNeeded()
-            }
         }
         .sheet(isPresented: $showAdd)      { AddTransactionView() }
         .sheet(isPresented: $showTransfer) { AddTransferView() }
@@ -125,6 +103,5 @@ struct ContentView: View {
                 .font(.system(size: 20, weight: .medium))
                 .foregroundStyle(DS.paper)
         }
-        .tourAnchor("addButton")
     }
 }

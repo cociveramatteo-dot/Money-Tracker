@@ -111,10 +111,6 @@ struct AccountsView: View {
                             .listRowBackground(DS.paper)
                             .listRowSeparatorTint(DS.fog)
                             .listRowInsets(EdgeInsets(top: 0, leading: DS.Layout.margin, bottom: 0, trailing: DS.Layout.margin))
-                            // Bordo inferiore del tour (Livello 1, step "conti.list"):
-                            // lo spotlight si ferma qui invece che al frame dell'intera
-                            // List, che si estenderebbe ben oltre l'ultimo conto reale.
-                            .tourAnchor(index == activeAccounts.count - 1 ? "accountListEnd" : "accountListRow")
                     }
                 }
 
@@ -155,7 +151,6 @@ struct AccountsView: View {
             .background(DS.paper)
             .scrollIndicators(.hidden)
             .refreshable { await SyncService.shared.manualRefresh(context: context) }
-            .tourAnchor("accountList")
             .navigationTitle("Conti")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

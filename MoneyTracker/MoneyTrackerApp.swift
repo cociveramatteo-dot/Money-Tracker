@@ -10,9 +10,6 @@ struct MoneyTrackerApp: App {
     let demoContainer: ModelContainer
 
     @AppStorage("demoModeEnabled") private var demoModeEnabled = false
-    // Tour overlay is rendered HERE (app level) so it sits above UITabBarController
-    // and UITabBar — the only z-position from which the tab bar can be highlighted.
-    @ObservedObject private var tourManager = TourManager.shared
 
     // MARK: - UI testing hook
     //
@@ -30,14 +27,6 @@ struct MoneyTrackerApp: App {
             UserDefaults.standard.set(true, forKey: "demoModeEnabled")
             UserDefaults.standard.set(false, forKey: "appLockEnabled")
             UserDefaults.standard.set(true, forKey: "notificationsEnabled")
-            // Il tour di onboarding (panoramica + mini-tour contestuali) intercetterebbe
-            // i tap degli XCUITest: vanno marcati come già visti così i test partono
-            // direttamente sull'app, senza dover gestire nessun overlay del tour.
-            UserDefaults.standard.set(true, forKey: "onboarding.tour.overview.completed.v1")
-            for hint in ContextualHint.allCases {
-                UserDefaults.standard.set(true, forKey: "hint.\(hint.rawValue).seen")
-            }
-            UserDefaults.standard.set(true, forKey: "hint.settings.seen")
         }
 
         // Schema(versionedSchema:) invece di Schema([...]): necessario perché
@@ -273,23 +262,6 @@ struct MoneyTrackerApp: App {
             SyncService.shared.schedulePush(context: realContainer.mainContext)
             // Registro immutabile di ogni creazione/modifica/cancellazione (PROP-02).
             AuditLogger.shared.record(from: notification, context: ctx)
-        }
-        // Tour overlay — collects .tourAnchor() preferences from all descendants
-        // and renders the spotlight ABOVE everything including UITabBar.
-        .onChange(of: tourManager.isActive) { _, active in
-            guard active else { return }
-            DemoDataSeeder.forceReset(context: demoContainer.mainContext)
-        }
-        .overlayPreferenceValue(TourAnchorKey.self) { anchors in
-            // I mini-tour contestuali (Livello 2) vivono in questa stessa view ma
-            // scattano DOPO che la panoramica è finita (isActive == false) — vanno
-            // montati anche in quel caso, altrimenti activeHint non ha mai una view
-            // che lo disegni e "Ho capito" non si vede mai.
-            if tourManager.isActive || tourManager.activeHint != nil {
-                TourOverlayView(anchors: anchors)
-                    .ignoresSafeArea()
-                    .transition(.opacity)
-            }
         }
     }
 
