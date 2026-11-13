@@ -116,6 +116,44 @@ struct TransactionsView: View {
     var body: some View {
         NavigationStack(path: $navPath) {
             VStack(spacing: 0) {
+                HStack(spacing: DS.Space.m) {
+                    Text("Movimenti")
+                        .font(DS.Typo.screenTitle)
+                        .tracking(DS.Typo.screenTitleTracking)
+                        .foregroundStyle(DS.ink)
+                        .accessibilityAddTraits(.isHeader)
+                    Spacer(minLength: DS.Space.s)
+                    Button { showAdvancedFilter = true } label: {
+                        ZStack(alignment: .topTrailing) {
+                            Image(systemName: "line.3.horizontal.decrease")
+                                .font(.system(size: 16))
+                                .foregroundStyle(DS.ink)
+                            if activeAdvancedFilterCount > 0 {
+                                Text("\(activeAdvancedFilterCount)")
+                                    .font(DS.Typo.tabLabelActive)
+                                    .foregroundStyle(DS.onAccent)
+                                    .frame(minWidth: 18, minHeight: 18)
+                                    .background(DS.accent)
+                                    .clipShape(Circle())
+                                    .offset(x: 6, y: -6)
+                            }
+                        }
+                    }
+                    .frame(width: 44, height: 44)
+                    .background(DS.surface, in: RoundedRectangle(cornerRadius: DS.Layout.buttonRadius))
+                    .overlay(RoundedRectangle(cornerRadius: DS.Layout.buttonRadius).strokeBorder(DS.fog))
+                    .accessibilityLabel(Text("Filtri"))
+                    .accessibilityValue(Text("\(activeAdvancedFilterCount)"))
+                    .accessibilityIdentifier("btn_advancedFilter")
+                    Button { showSettings = true } label: {
+                        Image(systemName: "gearshape")
+                            .font(.system(size: 16))
+                            .foregroundStyle(DS.ink)
+                    }
+                    .accessibilityIdentifier("btn_openSettings")
+                }
+                .padding(.horizontal, DS.Layout.margin)
+                .padding(.vertical, DS.Space.s)
                 searchField($hubSearchQuery, identifier: "tf_searchTransactions")
                     .padding(.horizontal, DS.Layout.margin)
                     .padding(.top, DS.Space.s)
@@ -123,27 +161,9 @@ struct TransactionsView: View {
                     .focused($searchFocused)
 
                 if hubSearchQuery.isEmpty {
-                    MonthBar(month: $selectedMonth)
-                        .padding(.horizontal, DS.Layout.margin)
-                        .padding(.vertical, DS.Space.m)
-                    ThinDivider()
-
-                    ScrollView {
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: DS.Space.m) {
-                            ForEach(TxFilter.allCases, id: \.self) { f in
-                                NavigationLink(value: f) { sectionBlock(f) }
-                                    .buttonStyle(.plain)
-                                    .accessibilityIdentifier("txFilterBlock_\(f.rawValue)")
-                            }
-                        }
-                        // L'anchor va sulla griglia stessa, non sullo ScrollView che la
-                        // contiene: uno ScrollView riporta il proprio frame (che riempie
-                        // lo spazio disponibile), non l'altezza reale del contenuto —
-                        // altrimenti lo spotlight si estenderebbe ben oltre i 6 blocchi.
-                        .padding(.horizontal, DS.Layout.margin)
-                        .padding(.top, DS.Space.m)
-                        .padding(.bottom, DS.Space.xxl)
-                    }
+                    typeChips(selected: .tutti)
+                    secondaryChips
+                    movementList(filtered(for: .tutti))
                 } else {
                     ThinDivider()
                     // Tendina di ricerca: tutti i movimenti corrispondenti, di qualunque
@@ -173,6 +193,7 @@ struct TransactionsView: View {
             .background(DS.paper)
             .navigationTitle("Movimenti")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar(.hidden, for: .navigationBar)
             // isSearchActive aggiornato tramite onChange: nasconde il FAB in ContentView
             // durante la ricerca (prima gestito da SearchActiveObserver + .searchable).
             .onChange(of: hubSearchQuery) { _, v in
@@ -187,35 +208,6 @@ struct TransactionsView: View {
                 if !path.isEmpty { searchFocused = false }
             }
             .navigationDestination(for: TxFilter.self) { f in subListContent(for: f) }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack(spacing: DS.Space.m) {
-                        Button { showAdvancedFilter = true } label: {
-                            ZStack(alignment: .topTrailing) {
-                                Image(systemName: "line.3.horizontal.decrease")
-                                    .font(.system(size: 16))
-                                    .foregroundStyle(DS.ink)
-                                if activeAdvancedFilterCount > 0 {
-                                    Text("\(activeAdvancedFilterCount)")
-                                        .font(.system(size: 9, weight: .bold))
-                                        .foregroundStyle(DS.paper)
-                                        .frame(width: 14, height: 14)
-                                        .background(DS.ink)
-                                        .clipShape(Circle())
-                                        .offset(x: 6, y: -6)
-                                }
-                            }
-                        }
-                        .accessibilityIdentifier("btn_advancedFilter")
-                        Button { showSettings = true } label: {
-                            Image(systemName: "gearshape")
-                                .font(.system(size: 16))
-                                .foregroundStyle(DS.ink)
-                        }
-                        .accessibilityIdentifier("btn_openSettings")
-                    }
-                }
-            }
             .sheet(item: $editing) { AddTransactionView(editing: $0) }
             .sheet(item: $transferEditing) { AddTransferView(editing: $0) }
             .sheet(isPresented: $showAdvancedFilter) { advancedFilterSheet }
@@ -242,7 +234,7 @@ struct TransactionsView: View {
                 .font(.system(size: 14))
                 .foregroundStyle(DS.smoke)
             TextField("Cerca...", text: text)
-                .font(.system(size: 15))
+                .font(DS.Typo.rowName)
                 .foregroundStyle(DS.ink)
                 .submitLabel(.done)
                 .accessibilityIdentifier(identifier)
@@ -257,37 +249,100 @@ struct TransactionsView: View {
             }
         }
         .padding(.horizontal, DS.Layout.margin)
-        .padding(.vertical, DS.Space.s + 2)
-        .background(DS.fog.opacity(0.45))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .frame(minHeight: 46)
+        .background(DS.surface, in: RoundedRectangle(cornerRadius: DS.Layout.cardRadius))
+        .overlay(RoundedRectangle(cornerRadius: DS.Layout.cardRadius).strokeBorder(DS.fog))
     }
 
-    // MARK: - Hub blocks
+    // MARK: - Presentation (the existing filters still supply every snapshot)
 
-    private func sectionBlock(_ f: TxFilter) -> some View {
-        VStack(spacing: DS.Space.s) {
-            Image(systemName: iconFor(f))
-                .font(.system(size: 20, weight: .light))
-                .foregroundStyle(DS.ink)
-            Text(LocalizedStringKey(f.rawValue))
-                .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(DS.ink)
+    private func typeChips(selected: TxFilter) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: DS.Space.s) {
+                ForEach([TxFilter.tutti, .fisse, .trasf, .uscite, .entrate, .ricorrenti], id: \.self) { f in
+                    FilterChip(title: Text(LocalizedStringKey(f.rawValue)), isActive: selected == f) {
+                        navPath.append(f)
+                    }
+                    .accessibilityIdentifier("txFilterBlock_\(f.rawValue)")
+                }
+            }
+            .padding(.horizontal, DS.Layout.margin)
+            .padding(.vertical, DS.Space.s)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, DS.Space.xl)
-        .background(DS.fog.opacity(0.5))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
-    private func iconFor(_ f: TxFilter) -> String {
-        switch f {
-        case .tutti:      return "square.grid.2x2"
-        case .fisse:      return "pin.fill"
-        case .ricorrenti: return "arrow.triangle.2.circlepath"
-        case .trasf:      return "arrow.left.arrow.right"
-        case .uscite:     return "minus.circle"
-        case .entrate:    return "plus.circle"
+    private var secondaryChips: some View {
+        VStack(spacing: DS.Space.xs) {
+            MonthBar(month: $selectedMonth)
+                .padding(.horizontal, DS.Layout.margin)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: DS.Space.s) {
+                    SegmentedPill(options: [.init(id: "", title: Text("Tutti"))] + categories.map {
+                        .init(id: $0.name, title: DS.categoryText($0.name))
+                    }, selection: $selectedCat)
+                    .fixedSize(horizontal: true, vertical: false)
+                    if activeAdvancedFilterCount > 0 {
+                        FilterChip(title: Text("Filtri"), isActive: true, style: .secondary) {
+                            showAdvancedFilter = true
+                        }
+                    }
+                }
+                .padding(.horizontal, DS.Layout.margin)
+            }
         }
+        .padding(.bottom, DS.Space.s)
+    }
+
+    private func dayTitle(_ transactions: [Transaction], fallback: String) -> String {
+        guard let date = transactions.first?.date else { return fallback }
+        if Calendar.current.isDateInToday(date) { return NSLocalizedString("Oggi", comment: "") }
+        if Calendar.current.isDateInYesterday(date) { return NSLocalizedString("Ieri", comment: "") }
+        return fallback
+    }
+
+    private func groupHeader(_ title: String, transactions: [Transaction], planned: Bool = false) -> some View {
+        HStack {
+            Text(title).font(DS.Typo.secondary).fontWeight(.semibold)
+            Spacer(minLength: DS.Space.s)
+            // Display-only subtotal; transfers do not represent income or expense.
+            Text(transactions.filter { !$0.isTransfer }.reduce(Decimal.zero) { $0 + $1.signedAmount }.currencyFormatted)
+                .font(DS.Typo.rowAmount)
+        }
+        .foregroundStyle(planned ? DS.plannedText : DS.smoke)
+        .textCase(nil)
+        .padding(.vertical, DS.Space.s)
+    }
+
+    private func movementList(_ snapshot: [Transaction]) -> some View {
+        let planned = snapshot.filter { !$0.isDone }
+        let completed = snapshot.filter { $0.isDone }
+        return List {
+            if !planned.isEmpty {
+                Section {
+                    ForEach(planned) { t in swipeableRow(t) }
+                } header: {
+                    groupHeader(NSLocalizedString("In arrivo · pianificati", comment: ""), transactions: planned, planned: true)
+                }
+            }
+            ForEach(grouped(from: completed), id: \.key) { group in
+                Section {
+                    ForEach(group.value) { t in swipeableRow(t) }
+                } header: {
+                    groupHeader(dayTitle(group.value, fallback: group.key), transactions: group.value)
+                }
+            }
+            Section {
+                Color.clear.frame(height: 60)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+            }
+        }
+        .listStyle(.insetGrouped)
+        .listSectionSpacing(DS.Space.m)
+        .contentMargins(.horizontal, DS.Layout.margin, for: .scrollContent)
+        .scrollContentBackground(.hidden)
+        .scrollIndicators(.hidden)
+        .refreshable { await SyncService.shared.manualRefresh(context: context) }
     }
 
     // MARK: - Sezione (pagina di destinazione per ciascun blocco)
@@ -349,38 +404,12 @@ struct TransactionsView: View {
                     )
                     Spacer()
                 } else {
-                    List {
-                        ForEach(Array(grouped(from: snapshot).enumerated()), id: \.element.key) { _, group in
-                            Section {
-                                ForEach(group.value) { t in swipeableRow(t) }
-                            } header: {
-                                Text(LocalizedStringKey(group.key))
-                                    .font(.system(size: 11, weight: .medium))
-                                    .foregroundStyle(DS.smoke)
-                                    .tracking(1.5)
-                                    .padding(.horizontal, DS.Layout.margin)
-                                    .padding(.top, DS.Space.l)
-                                    .padding(.bottom, DS.Space.xs)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(DS.paper)
-                                    .listRowInsets(EdgeInsets())
-                            }
-                        }
-                        // Spacer per non coprire il FAB.
-                        Section {
-                            Color.clear.frame(height: 60)
-                                .listRowBackground(Color.clear)
-                                .listRowSeparator(.hidden)
-                        }
-                    }
-                    .listStyle(.plain)
-                    .scrollContentBackground(.hidden)
-                    .scrollIndicators(.hidden)
-                    .refreshable { await SyncService.shared.manualRefresh(context: context) }
+                    movementList(snapshot)
                 }
             }
         }
         .background(DS.paper)
+        .toolbar(.visible, for: .navigationBar)
         .navigationTitle(Text(LocalizedStringKey(f.rawValue)))
         .navigationBarTitleDisplayMode(.inline)
         // Filtro categoria e ricerca sono locali alla sezione: uscendo si azzerano,
@@ -522,24 +551,20 @@ struct TransactionsView: View {
 
     @ViewBuilder
     private func transactionCell(_ t: Transaction) -> some View {
-        Group {
-            if t.isFixed {
-                FixedExpenseRow(
-                    transaction: t,
-                    paid:     t.isDone,
-                    isIncome: t.transactionType == .entrata
-                ) {
-                    // tap sul checkmark → apri modifica (toggle è sullo swipe destra)
-                    editing = t
-                }
-                .padding(.horizontal, DS.Layout.margin)
-            } else {
-                DSTransactionRow(transaction: t)
-                    .padding(.horizontal, DS.Layout.margin)
-            }
-        }
+        MovementRow(
+            name: t.name,
+            metadata: [NSLocalizedString(t.category, comment: ""), t.account?.name ?? "", t.date.dayMonthFormatted]
+                .filter { !$0.isEmpty }.joined(separator: " · "),
+            amount: t.amount.currencyFormatted,
+            categoryName: t.category,
+            categorySymbol: t.categoryIcon.isEmpty ? DS.categoryIcon(for: t.category) : t.categoryIcon,
+            kind: t.isTransfer ? .transfer : t.transactionType == .entrata ? .income : .expense,
+            isPlanned: !t.isDone
+        )
+        .padding(.horizontal, DS.Space.l)
         .contentShape(Rectangle())
         .accessibilityIdentifier("txRow_\(t.id.uuidString)")
+        .accessibilityValue(Text(t.isDone ? "Fatto" : "Pianificato"))
         .onTapGesture {
             // I trasferimenti sono 2 transazioni collegate (transferGroupId): l'editor
             // generico modificherebbe solo una delle due gambe, disallineando i saldi
@@ -586,8 +611,8 @@ struct TransactionsView: View {
     private func swipeableRow(_ t: Transaction) -> some View {
         transactionCell(t)
             .listRowInsets(EdgeInsets())
-            .listRowBackground(DS.paper)
-            .listRowSeparatorTint(DS.fog)
+            .listRowBackground(DS.surface)
+            .listRowSeparatorTint(DS.divider)
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
                 if t.isFixed || !t.isDone {
                     Button {
@@ -627,16 +652,7 @@ struct TransactionsView: View {
     // MARK: - Helpers
 
     private func filterChip(_ label: String, active: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            VStack(spacing: 5) {
-                DS.categoryText(label)
-                    .font(.system(size: 13, weight: active ? .semibold : .regular))
-                    .foregroundStyle(active ? DS.ink : DS.smoke)
-                Rectangle()
-                    .fill(active ? DS.ink : Color.clear)
-                    .frame(height: 1)
-            }
-        }
+        FilterChip(title: DS.categoryText(label), isActive: active, style: .secondary, action: action)
     }
 
     private func toggleTransferOrFixed(_ t: Transaction) {

@@ -16,3 +16,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-13 22:08 | collaudatore (Claude Code · Sonnet) | S-3 | collaudo ok, S-3 [x] (note Dynamic Type accessibilità, FAB da vedere a vista) | S-4 |
 | 2026-11-13 22:30 | capocantiere (Claude Code · Sonnet) | S-4 Home con TrailView | BalanceTrail (puro, 6 test), TrailView, HomeHeroCard, Home Sentiero; build + 27 unit + 12 UI verdi | collaudo S-4; resa a vista (curva, XL, tedesco, dark) |
 | 2026-11-13 22:40 | collaudatore (Claude Code · Sonnet) | S-4 | collaudo ok, S-4 [x]: funzioni Home presenti, BalanceTrail corretto (Decimal, ancoraggi), i18n 6 lingue ok, nessuna modifica al codice | resa a vista (XL, tedesco, altezza righe ultimi movimenti) da confermare da Matteo; poi S-5 |
+
+| 2026-11-13 22:54 | seconda impresa (Codex · GPT-6) | S-5 Movimenti | restyling, MovementRow, chip, pianificati e card giornaliere; i18n x7; build verde, grafo aggiornato | test bloccati dal runner/simulatore; collaudo e resa a vista aperti, S-5 [~] |

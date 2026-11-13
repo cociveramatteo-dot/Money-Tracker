@@ -423,3 +423,5 @@
 "Mostra importi" = "Beträge anzeigen";
 "1 movimento pianificato" = "1 geplante Bewegung";
 "%lld movimenti pianificati" = "%lld geplante Bewegungen";
+
+"In arrivo · pianificati" = "Demnächst · geplant";

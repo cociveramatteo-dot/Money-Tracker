@@ -424,3 +424,5 @@
 "Mostra importi" = "Show amounts";
 "1 movimento pianificato" = "1 planned transaction";
 "%lld movimenti pianificati" = "%lld planned transactions";
+
+"In arrivo · pianificati" = "Upcoming · planned";

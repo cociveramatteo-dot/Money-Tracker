@@ -66,13 +66,17 @@ il task e i file indicati.
 - **Non fare:** modificare le funzioni esistenti di `Domain/`, ricalcolare saldi nella vista
 - **Eseguito 2026-11-13 22:30 (capocantiere):** `Domain/BalanceTrail.swift` + 6 test; `TrailView`, `HomeHeroCard` in `Views/Components/`; `DashboardView` riscritta (header con occhio/impostazioni, hero con TrailView, conti in scroll orizzontale, fissi del mese, ultimi movimenti con `MovementRow`); `goToTab` per «Gestisci»/«Vedi tutti». Build + 27 unit + 12 UI verdi. Da collaudare.
 
-### S-5 [ ] Movimenti
+### S-5 [~] Movimenti
 - **A chi:** Antigravity (o Codex)
 - **Obiettivo:** schermata come `Movimenti.dc.html`, sezione «In arrivo · pianificati» in cima
 - **Leggere:** `DESIGN_HANDOFF.md` §4 Movimenti, `Views/TransactionsView.swift`, `docs/MoneyTracker.md` §6
 - **Toccare:** `TransactionsView.swift` e componenti di S-2
 - **Fatto quando:** filtri, ricerca, swipe, conferma trasferimenti, filtri avanzati, sezione ricorrenti invariati; test verdi
 - **Non fare:** toccare `@Query`, logica o calcoli (Gemini Flash: stare lontano da SwiftData)
+
+- **Eseguito 2026-11-13 (Codex):** header Sentiero, ricerca h 46/raggio DS 16, chip tipo con gli stessi identificatori e percorsi, selettore categorie con SegmentedPill, MovementRow, pianificati in cima e card giornaliere con subtotali visivi (trasferimenti esclusi). Nuova intestazione in 7 lingue. Query, filtri, ricerca, sheet avanzato, ricorrenti, swipe e mutazioni dati invariati; nessun test modificato.
+- **Build separata:** BUILD SUCCEEDED, exit 0 (22:54), nessun errore o warning nuovo nel log finale.
+- **Verifica aperta:** i test non hanno prodotto un esito: il simulatore resta all'avvio e Xcode segnala il servizio `com.apple.instruments.deviceservice.lockdown` / `DTServiceHubClient` non disponibile. Tentati riavvio e rilancio. NON dichiarare test verdi. Richiesti collaudo indipendente e resa a vista light/dark, XL, tedesco (nessuno screenshot utile della schermata ottenuto).
 
 ### S-6 [ ] Statistiche
 - **A chi:** Antigravity col modello più forte (o Codex)

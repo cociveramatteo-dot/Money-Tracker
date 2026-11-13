@@ -426,3 +426,5 @@
 "Mostra importi" = "显示金额";
 "1 movimento pianificato" = "1 笔计划交易";
 "%lld movimenti pianificati" = "%lld 笔计划交易";
+
+"In arrivo · pianificati" = "即将到来 · 已计划";

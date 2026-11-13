@@ -423,3 +423,5 @@
 "Mostra importi" = "金額を表示";
 "1 movimento pianificato" = "予定の取引 1件";
 "%lld movimenti pianificati" = "予定の取引 %lld件";
+
+"In arrivo · pianificati" = "今後の予定";
