@@ -29,7 +29,7 @@ il task e i file indicati.
 - **Chiuso 2026-11-13:** collaudo ok (collaudatore): token, font, tinte, contrasti WCAG verificati; commit 46399d4. Nota: `fog` e `heroDivider` in dark senza regola di contrasto (bordi, non testo): ricontrollare se usati come testo/icone.
 - **Serve Matteo:** scaricare i font in `02_RISORSE/originali/font/` (istruzioni quando si parte)
 
-### S-2 [~] Componenti base
+### S-2 [!] Componenti base
 - **A chi:** Codex
 - **Obiettivo:** `Card`, `HeroCard`, `MovementRow`, `ProgressBar`, `BudgetStatus`, `SegmentedPill`, `FilterChip`, ciascuno con `#Preview` (light/dark)
 - **Leggere:** `DESIGN_HANDOFF.md` §3, `Views/Theme.swift` (token di S-1), `BucktrailTheme.swift`
@@ -37,6 +37,7 @@ il task e i file indicati.
 - **Fatto quando:** componenti compilano e hanno preview; nessuna vista esistente modificata; test verdi
 - **Non fare:** toccare viste esistenti, introdurre colori fuori da `DS`
 - **Eseguito 2026-11-13 20:15 (Codex):** sette nuovi componenti in `Views/Components/`, 14 preview light/dark; build e 21 test unitari + 12 UI verdi sul simulatore richiesto. Da collaudare; nessuna vista o test esistente modificato.
+- **Collaudo 2026-11-13 20:20 (collaudatore): ❌ NON CONFORME, rilavorazione S-2b.** Requisiti strutturali ok (7 componenti, 14 preview, solo file nuovi, solo token DS, nessun `preferredColorScheme`, tap target 44, font `relativeTo:`). Difetti: (1) chiavi `"Sforato"` e `"Soglia 80%"` (`BudgetStatus.swift:24-25`) assenti da tutti i 7 `Localizable.strings`: in tedesco/inglese/ecc. compaiono in italiano; aggiungere le chiavi nelle 7 lingue (de: «Überschritten», «Schwelle 80 %»). (2) `HeroCard.swift:24` usa `cardRadius` 16, l'handoff chiede raggio hero 24–26: aggiungere token/raggio hero. (3) minori: `MovementRow` importo senza `lineLimit`/priorità di layout (a XL con tedesco può comprimere nome); `ProgressBar` accessibilityValue limitato al 100% con progress>1. Preview non ispezionate visivamente (nessun renderer disponibile al collaudo): controllo statico dei token, contrasti ereditati da S-1.
 
 ### S-3 [ ] FloatingTabBar + FAB
 - **A chi:** Claude Code

@@ -1,27 +1,17 @@
 # CONSEGNA — il biglietto per chi entra in turno
 
-**Da:** seconda impresa (Codex · GPT-6) **Il:** 2026-11-13 20:15 **Commit:** vedi `git log -1` (S-2)
+**Da:** collaudatore (Claude Code · Sonnet) **Il:** 2026-11-13 20:20 **Collaudato:** commit 63113b4 (S-2)
 
-## Fatto
-- S-2: creati solo i sette file nuovi `MoneyTracker/Views/Components/{Card,HeroCard,MovementRow,ProgressBar,BudgetStatus,SegmentedPill,FilterChip}.swift`.
-- Ogni componente ha due #Preview, light e dark tramite environment; nessun preferredColorScheme.
-- Font DS.Typo, colori adattivi DS e tinte categoria CategoryTint. fog e heroDivider usati soltanto come bordi, track o separatori, mai testo/icone.
-- MovementRow: uscita, entrata, pianificato con bordo tratteggiato, trasferimento; importi e metadati formattati dal chiamante. Nessun accesso ai modelli o modifica dei calcoli.
-- ProgressBar: altezza 8, soglie visive 80%/100%, tacca all'80% sulla hero; BudgetStatus con importo oltre budget fornito dal chiamante.
-- Filtri primari, secondari tratteggiati e avanzati con xmark; selezione SegmentedPill tramite Binding.
-- Track del segmento e bordo secondario usano fog: sostituzione dei valori fissi dell'handoff con il token adattivo disponibile, come richiesto.
+## Esito: ❌ S-2 NON chiuso → [!], serve rilavorazione S-2b
+Conformi: sette componenti, 14 preview light/dark, solo file nuovi, solo token `DS`/`CategoryTint`, nessun `preferredColorScheme`, tap target 44, font con `relativeTo:`, nessuna vista esistente toccata. Build + 33 test verdi (dato dall'impresa e da Matteo).
 
-## Verificato
-- Comando richiesto: `xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' build test`.
-- BUILD SUCCEEDED e TEST SUCCEEDED: 21 test unitari + 12 UI, zero fallimenti. Nessun crash del runner.
-- Primo tentativo nel sandbox senza accesso CoreSimulator; esecuzione autorizzata fuori sandbox riuscita.
-- Nessun errore o warning dei nuovi componenti. Warning infrastrutturale AppIntents metadata sul target test e messaggi runtime del simulatore nel log.
-- `git diff --check` pulito; nessuna vista o test esistente modificato. Nessuna modifica preesistente esterna al lavoro.
-- Log temporaneo: `/tmp/moneytracker-s2-build-full.log` (non in git).
+## Difetti da correggere (solo `Views/Components/` + le 7 `Localizable.strings`)
+1. `BudgetStatus.swift:24-25`: chiavi `"Sforato"` e `"Soglia 80%"` assenti in tutti i 7 `Localizable.strings` (esiste solo `"Sforato di"`). Aggiungerle in it/en/de/es/fr/ja/zh-Hans (de: «Überschritten», «Schwelle 80 %»).
+2. `HeroCard.swift:24`: raggio 16; handoff §2 chiede 24–26 per la hero. Usare un raggio hero (24) senza cambiare `cardRadius`.
+3. Minori: `MovementRow` importo con `.fixedSize`/`layoutPriority` e `lineLimit` sul nome (XL + tedesco); `ProgressBar` accessibilityValue con progress>1 dica il valore reale.
 
-## Aperto
-- S-2 a [~]: serve collaudatore. Preview compilate, non ispezionate visivamente; verificare light/dark, Dynamic Type XL e tedesco prima di chiudere S-2.
-- Le etichette di BudgetStatus usano Text localizzabile; verificare le traduzioni in fase di integrazione, senza modificare qui risorse esistenti.
+## Limiti del collaudo
+Preview non viste a schermo (nessun renderer): controllo statico. Dynamic Type XL e tedesco da riverificare a vista dopo S-2b (in Xcode: preview con Dynamic Type XL e lingua de).
 
 ## Prossimo passo
-Collaudatore su Claude Code (Sonnet): leggere AGENTS.md e STATO, aprire turno se libero, leggere questa consegna e solo il diff del commit S-2. Verificare requisiti e preview, registrare esito e chiudere S-2 solo se conforme. Poi S-3 al capocantiere.
+S-2b a Codex, poi ricollaudo. S-3 resta bloccato fino alla chiusura di S-2.
