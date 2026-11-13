@@ -27,13 +27,22 @@ Pods/
 *.orig
 *.swp
 
-# --- adozione: file che c'erano già, fuori da git finché il trasloco T-000 non li sistema ---
-/docs
-/MoneyTracker
-/MoneyTracker.xcodeproj
-/MoneyTrackerTests
-/MoneyTrackerUITests
-/report_notturno.md
-/TestPlan.xctestplan
+# --- cantiere ---
+# collegamenti al magazzino (i file stanno su Google Drive, non in git)
+/00_CLIENTE
+/02_RISORSE
+/04_CONSEGNE
+
+# file di lavoro locali del cantiere
+.cantiere/tmp/
+.cantiere/guardiano/
+
+# graphify: grafo e report si tengono, la cache no
+graphify-out/cache/
+
+# spazzatura
 /.Rhistory
 .claude/settings.local.json
+Thumbs.db
+desktop.ini
+*~

@@ -6,16 +6,6 @@ il task e i file indicati.
 
 ## In corso / prossimi
 
-### T-000 [ ] Trasloco nel modello 2.0 (cantiere adottato o aggiornato)
-- **A chi:** magazziniere (proposta) → Matteo approva → Matteo lancia `bash .cantiere/strumenti/trasloco.sh <cartella> <destinazione>` per ogni cartella verso il magazzino (Claude Code non può scrivere su Drive) → capocantiere sistema il resto
-- **Obiettivo:** materiale pesante e del cliente nel magazzino su Drive; sul Mac solo codice e gestione del cantiere
-- **Leggere:** `python3 .cantiere/strumenti/magazzino.py`, `bash .cantiere/strumenti/spazio.sh`, file `*.cantiere-nuovo`
-- **Toccare:** spostamenti verso il magazzino (`.cantiere/cantiere.json` → "magazzino"); poi collegamenti 00_CLIENTE/02_RISORSE/04_CONSEGNE
-- **Fatto quando:** piano di trasloco approvato ed eseguito; cartelle collegate; tolte da `.gitignore` le righe del
-  blocco "adozione" per le cartelle sistemate (ciò che resta sul Mac deve essere leggero prima di entrare in git); `catalogo.py` eseguito; `*.cantiere-nuovo` uniti
-  dal capocantiere e cancellati; `.cantiere/guardiano.json` compilato; spazio del cantiere sul Mac < 300 MB (se possibile)
-- **Non fare:** cancellare file; rinominare o spostare file del codice senza l'ok dell'architetto; toccare il sito online
-
 ### T-001 [ ] Impianto del cantiere
 - **A chi:** capocantiere
 - **Obiettivo:** compilare AGENTS.md §1, aggiornare MAPPA.md, scrivere i primi task
@@ -26,6 +16,7 @@ il task e i file indicati.
 
 ## Fatti
 <!-- i task chiusi si spostano qui, con data e chi li ha fatti -->
+- T-000 [x] Trasloco: pacchetto di design già in `02_RISORSE/originali/bucktrail-redesign/`, `catalogo.py` lanciato, gitignore/guardiano/regole uniti (2026-11-13, Claude Code)
 
 ---
 Modello di task:

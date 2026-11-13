@@ -5,15 +5,14 @@
 
 ## 1. Il progetto
 - **Nome:** MoneyTracker
-- **Committente:** [DA COMPILARE] · **Chi approva:** [DA COMPILARE]
-- **Obiettivo:** [DA COMPILARE]
-- **Stack:** [DA COMPILARE] (standard dell'azienda: HTML/CSS/JS statico, niente framework se non serve)
-- **Hosting:** [DA COMPILARE] (standard: GitHub Pages. Netlify o altro solo se servono redirect 301, moduli,
-  intestazioni o anteprime: lo propone il capocantiere all'avvio e si scrive qui con il motivo)
-- **Skill in più dallo scaffale:** [nessuna] (skill `attrezza`)
-- **Vincoli non negoziabili:** [DA COMPILARE]
-- **Sito online / anteprima:** [DA COMPILARE] · **Repository GitHub:** [DA COMPILARE]
-- **Notebook NotebookLM (bibliotecario):** [DA COMPILARE: link]
+- **Committente:** Matteo (l'app è sua, nessun cliente esterno) · **Chi approva:** Matteo
+- **Obiettivo:** applicare a tutta l'app il redesign grafico «Sentiero» (`02_RISORSE/originali/bucktrail-redesign/DESIGN_HANDOFF.md`). Restyling **solo visivo**: nessuna funzione sparisce, nessun calcolo cambia (unica eccezione: rimozione del tour, step 0)
+- **Stack:** app iOS nativa SwiftUI + SwiftData, auth e sync Supabase, 7 lingue (it, en, de, es, fr, ja, zh-Hans). Non è un sito web
+- **Hosting:** nessuno (app iOS). Nessuna pubblicazione App Store/TestFlight senza l'ok di Matteo
+- **Skill in più dallo scaffale:** `frontend-design` (direzione grafica: l'handoff vince sempre)
+- **Vincoli non negoziabili:** il `CLAUDE.md` di MoneyTracker è prioritario (Commissione Suprema, documento master `docs/MoneyTracker.md`, workflow di checkpoint). Zone intoccabili: Models/Persistence, Domain/ (salvo l'aggiunta pura dello step 4), Sync/, Auth/, Intents/, Export/, Formatting/, notifiche, ricorrenze, test esistenti. Lavoro solo sul ramo `redesign-sentiero`; merge su `main` solo con l'ok di Matteo. Mai `preferredColorScheme` né colori non adattivi. Brief completo: `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md`
+- **Sito online / anteprima:** nessuno (simulatore Xcode) · **Repository GitHub:** https://github.com/cociveramatteo-dot/Money-Tracker (`origin`)
+- **Notebook NotebookLM (bibliotecario):** «MoneyTracker App» (già esistente, da riusare; aggiungere `DESIGN_HANDOFF.md` come fonte)
 - **Magazzino:** `~/Library/CloudStorage/GoogleDrive-cociveramatteo@gmail.com/Il mio Drive/MAGAZZINO/CANTIERI/moneytracker`
 
 ## 2. La squadra

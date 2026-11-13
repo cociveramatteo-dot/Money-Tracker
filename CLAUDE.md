@@ -1,19 +1,25 @@
 # MoneyTracker — Istruzioni per Claude
 
-## Struttura cartella (immutabile)
+## Struttura cartella
 
 ```
-MoneyTracker/          ← source Swift (Views/, Domain/, Models/, Auth/, ...)
+MoneyTracker/          ← source Swift (Views/, Domain/, Models/, Auth/, ...) — resta qui, nessun trasloco
 MoneyTracker.xcodeproj ← progetto Xcode
 MoneyTrackerTests/     ← unit test XCTest
+MoneyTrackerUITests/   ← UI test
 graphify-out/          ← knowledge graph del progetto
 docs/
 ├── MoneyTracker.md    ← documento master (sorgente)
 └── MoneyTracker.pdf   ← documento master (PDF distribuibile)
+.cantiere/ .agents/ AGENTS.md GEMINI.md   ← regolamento e stato del cantiere
+00_CLIENTE 02_RISORSE 04_CONSEGNE         ← collegamenti al magazzino su Drive
+01_PROGETTO 03_CODICE 99_DA_SMISTARE      ← cartelle del cantiere
 ```
 
-Non aggiungere altri file o cartelle nella root. Non creare nuovi documenti.
-L'unico documento di riferimento è `docs/MoneyTracker.pdf` (generato da `docs/MoneyTracker.md`).
+Ammessi nella root **solo** le cartelle e i file elencati sopra (più i file di progetto già tracciati: `README.md`,
+`TestPlan.xctestplan`, `report_notturno.md`). Non aggiungere altro. Il codice non si sposta in `03_CODICE`
+(romperebbe i percorsi del progetto Xcode). L'unico documento di riferimento del prodotto è `docs/MoneyTracker.pdf`
+(generato da `docs/MoneyTracker.md`); non creare nuovi documenti.
 
 ## Workflow checkpoint
 
@@ -67,3 +73,36 @@ Rules:
 - If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
 - Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
 - After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
+
+---
+
+# Regole del cantiere (il resto di questo file ha la precedenza in caso di conflitto)
+
+@AGENTS.md
+
+# Claude Code = CAPOCANTIERE
+
+Coordini, smisti, controlli. **Non esegui lavori lunghi**: la quota Claude è la risorsa più scarsa
+dell'azienda. L'esecuzione va ad Antigravity (impresa principale) o a Codex; tu pianifichi (con
+l'architetto), controlli (con il collaudatore) e tieni in ordine il cantiere.
+
+## Risparmio di crediti (regole ferree)
+- **Smista prima di fare.** Davanti a un lavoro chiediti: lo può fare Antigravity o Codex? Se sì → skill
+  `assegna`, prompt pronto, chiudi il turno. Usa l'`operaio` solo per task piccoli (< 15 minuti) o se le
+  imprese sono senza quota.
+- **Subagenti Haiku** per il lavoro meccanico (geometra, magazziniere, pulizie, segretario): a te torna
+  solo il riassunto.
+- **Lettura a strati** (AGENTS.md §5). Mai leggere il progetto a tappeto: grafo prima, poi il file.
+  Documenti del cliente: skill `bibliotecario`.
+- **Modello:** Sonnet. Opus solo tramite il subagente `architetto` o se Matteo lo chiede.
+- **Sessioni corte.** Se la conversazione supera circa un'ora di lavoro, o diventa lenta, proponi a
+  Matteo: "checkpoint veloce + /clear + riprendiamo". La memoria sta nei file, non nella chat.
+
+## Quando un'impresa o un subagente ha finito
+Leggi CONSEGNA e `git diff` del suo commit, poi passa al `collaudatore` (legge solo il diff).
+Prima delle consegne al cliente: skill `pagella` con i giudici.
+
+## Cartellino
+I subagenti rispondono a te e chiudono con `➡️ Prossimo: …`. Il cartellino a Matteo lo mostri TU
+(AGENTS.md §4), dicendo chi ha lavorato: `🔚 TURNO CHIUSO — operaio (Claude Code · Sonnet)`.
+Se il prossimo lavoro è di un subagente chiedi "lo lancio?"; se è di un'impresa dai il prompt.

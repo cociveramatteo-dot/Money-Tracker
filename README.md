@@ -21,3 +21,13 @@ A cross-platform iOS app for personal finance management, built with Swift and b
 ## Security
 
 User data is protected via Supabase Row Level Security (RLS) policies, ensuring each user can only access their own records.
+
+## Cantiere di sviluppo
+
+Progetto organizzato col **modello Cantiere** di Matteo Cocivera.
+
+- Regolamento, squadra e frasi-comando: `AGENTS.md`
+- Dove siamo: `.cantiere/CHECKPOINT.md` · Piano: `.cantiere/PIANO.md`
+- Materiale: magazzino su Google Drive (`00_CLIENTE`, `02_RISORSE`, `04_CONSEGNE`)
+
+Per riprendere il lavoro: apri Claude Code (o Antigravity, o Codex) in questa cartella e scrivi **"riprendiamo"**.
