@@ -111,6 +111,7 @@ il task e i file indicati.
 - **Leggere:** diff del ramo, BRIEF §6–7
 - **Toccare:** correzioni minime
 - **Fatto quando:** build e test verdi; Dynamic Type XL, VoiceOver, 7 lingue, oscura importi su tutte le schermate, demo, sync, export CSV/PDF, Siri; Commissione Suprema 10/10; **ok di Matteo sull'iPhone** prima del merge su `main`
+- **Da S-3 (ok di Matteo, rimandato qui):** taglie di accessibilità oltre XL: la `FloatingTabBar` può superare `reservedHeight` (94 pt fisso) e tagliare le etichette; renderla adattiva. Controllare a vista anche il FAB (ombra e alette azzurre al tocco).
 - **Non fare:** merge su `main` senza l'ok di Matteo
 
 ## Fatti
