@@ -223,14 +223,27 @@ Singleton centralizzato per formatter costosi. Ricrea i formatter solo quando ca
 
 ## 5. Design System (Theme.swift)
 
-### Palette colori semantica
+### Palette colori — «Sentiero»
 
-| Token | Descrizione |
-|---|---|
-| `DS.ink` | Testo principale (nero in light, bianco in dark) |
-| `DS.paper` | Sfondo principale |
-| `DS.fog` | Sfondo secondario (grigio chiarissimo) |
-| `DS.smoke` | Testo secondario, label, placeholder |
+Concetto: **verde, linea piena = già successo; ambra, tratteggiato = pianificato/atteso**. Tutti i colori sono adattivi (`Color(lightHex:darkHex:)`), nessun `preferredColorScheme`.
+
+| Token | Light | Dark | Uso |
+|---|---|---|---|
+| `DS.ink` | `#121614` | `#F1F3EF` | Testo primario |
+| `DS.paper` | `#F3F4EF` | `#0E1210` | Sfondo schermata (bg) |
+| `DS.surface` | `#FFFFFF` | `#171C19` | Card, liste, tab bar |
+| `DS.smoke` | `#5B635E` | `#9AA39D` | Testo secondario (inkSecondary) |
+| `DS.fog` | `#DCDFD8` | `#2A332E` | Bordi, riempimenti neutri |
+| `DS.divider` | `#ECEEE9` | `#232A26` | Separatori di riga, track barre |
+| `DS.accent` (`positive`) | `#1F7A4D` | `#5FD19B` | Entrate, FAB, progress OK |
+| `DS.planned` / `plannedText` | `#B45309` / `#8A4A0C` | `#F2A65A` | Pianificato, soglia 80% (testo < 18 pt: `plannedText`) |
+| `DS.danger` (`negative`) | `#B42318` | `#F26B5E` | Budget sforato |
+| `DS.transfer` | `#2F6FB0` | `#6FA8E0` | Trasferimenti |
+| `DS.hero`, `heroText`, `heroSecondary`, `heroDivider`, `heroAccent`, `heroPlanned` | — | — | Card scura (superficie scura in entrambi i temi) |
+
+Le varianti `*Soft` (`accentSoft`, `plannedSoft`, `dangerSoft`) sono gli sfondi dei badge. Valori dark e scarti dall'handoff: `DECISIONI.md` D-005.
+
+**Tinte categoria** (`CategoryTint`): 4 tinte (verde, ambra, blu, viola) assegnate per nome — mappa fissa per le 14 predefinite, hash FNV-1a del nome per le personalizzate (nessuna modifica al modello). **Tipografia** (`DS.Typo`): Space Grotesk (titoli, importi) e Inter (testo) nel bundle, Dynamic Type via `relativeTo:`, fallback SF Pro, importi con cifre tabulari.
 
 ### Spacing
 
@@ -506,6 +519,12 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ---
 
 ## 10. Changelog
+
+### v3.x (novembre 2026) — Redesign «Sentiero», step 1: token, font, dark mode
+
+- Palette «Sentiero» integrata in `DS` (adattiva light/dark, contrasto AA verificato); `ink/paper/fog/smoke` cambiano valore, `positive/negative` diventano alias di `accent/danger`; aggiunti `surface`, `divider`, `accentSoft`, `planned*`, `danger*`, `transfer`, `hero*`.
+- Font Space Grotesk e Inter nel bundle (`Resources/Fonts`, `UIAppFonts`, licenze OFL) e `DS.Typo` con Dynamic Type.
+- `CategoryTint`: tinta categoria deterministica (test `CategoryTintTests`); `FontRegistrationTests` verifica i font registrati.
 
 ### v3.x (novembre 2026) — Redesign «Sentiero», step 0: rimozione del tour
 

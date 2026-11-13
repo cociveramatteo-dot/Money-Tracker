@@ -6,3 +6,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | Quando | Chi (ruolo / strumento / modello) | Task | Fatto | Aperto |
 |---|---|---|---|---|
 | 2026-11-13 15:49 | Matteo | — | Cantiere aperto | Compilare AGENTS.md §1, primo piano |
+| 2026-11-13 19:23 | capocantiere (Claude Code · Sonnet) | S-1 token, font, dark mode | Token Sentiero in DS (light/dark), font Space Grotesk+Inter, CategoryTint, test; build + 21 unit + 12 UI verdi | collaudo S-1 (collaudatore); poi S-2 a Codex |
