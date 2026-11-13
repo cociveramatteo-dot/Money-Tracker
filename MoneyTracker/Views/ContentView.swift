@@ -95,6 +95,8 @@ struct ContentView: View {
             } label: {
                 fabCircle
             }
+            .buttonStyle(.plain)
+            .fabShadow()
             .accessibilityIdentifier("fabButton")
             .accessibilityLabel(fabLabel)
             .simultaneousGesture(TapGesture().onEnded {
@@ -113,18 +115,37 @@ struct ContentView: View {
             } label: {
                 fabCircle
             }
+            .buttonStyle(.plain)
+            .fabShadow()
             .accessibilityIdentifier("fabButton")
             .accessibilityLabel(fabLabel)
         }
     }
+
+    /// Forma unica del FAB: serve anche come anteprima del menu, così il tocco
+    /// non mostra il rettangolo di selezione di sistema attorno allo squircle.
+    private static let fabShape = RoundedRectangle(cornerRadius: 20)
 
     private var fabCircle: some View {
         Image(systemName: "plus")
             .font(.system(size: 24, weight: .semibold))
             .foregroundStyle(DS.onAccent)
             .frame(width: 58, height: 58)
-            .background(DS.accent, in: RoundedRectangle(cornerRadius: 20))
-            .shadow(color: DS.accent.opacity(0.35), radius: 12, y: 6)
+            .background(DS.accent, in: Self.fabShape)
+            .contentShape(.contextMenuPreview, Self.fabShape)
+            .contentShape(Self.fabShape)
+    }
+}
+
+private extension View {
+    /// Ombra del FAB applicata fuori dall'etichetta del Menu/Button: durante la
+    /// pressione il sistema ricalca solo l'etichetta e l'ombra interna spariva.
+    func fabShadow() -> some View {
+        background {
+            RoundedRectangle(cornerRadius: 20)
+                .fill(DS.accent)
+                .shadow(color: DS.accent.opacity(0.35), radius: 12, y: 6)
+        }
     }
 }
 

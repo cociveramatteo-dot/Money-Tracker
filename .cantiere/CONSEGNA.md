@@ -11,6 +11,8 @@
 ## Verificato
 build + test sul simulatore: TEST SUCCEEDED, 12 UI test verdi (unit invariati). Tre tentativi: barra nativa ancora attiva → inset non propagato → layout VStack.
 
+- Dopo segnalazione di Matteo (premendo il FAB spariva l'ombra e comparivano «alette azzurre» di selezione): forma di anteprima del menu = squircle (`contentShape(.contextMenuPreview, …)`), `buttonStyle(.plain)`, ombra spostata fuori dall'etichetta. Non riproducibile da qui senza vista a schermo: **Matteo deve riprovare sul simulatore/iPhone**. Build + test verdi di nuovo.
+
 ## Da guardare nel collaudo
 - Resa a vista (light/dark, XL, tedesco: etichette tab con `minimumScaleFactor 0.7`).
 - La tab bar non scorre più sopra i contenuti (striscia `paper` sotto): scelta per robustezza, valutare con Matteo.
