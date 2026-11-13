@@ -57,7 +57,7 @@ il task e i file indicati.
 - **Eseguito 2026-11-13 21:52 (capocantiere):** `FloatingTabBar` nuova; `TabView` tenuta con barra nativa nascosta (stati e navigazione invariati), FAB 58×58 raggio 20 `accent`, label accessibilità per tab (nuova chiave «Nuovo movimento» in 7 lingue). UI test aggiornati agli id `tab_*` (erano `tabBars.buttons`). Build + test verdi (12 UI). Da collaudare.
 - **Collaudo 2026-11-13 22:08:** ok. Tag 0-4 e navigazione invariati, id fabButton/fabMenu_* e label FAB ok, «Nuovo movimento» 1 volta x7 lingue (plutil ok), toolbar nascosta su ogni tab + striscia riservata, solo token DS, nessun preferredColorScheme, UI test aggiornati senza toglierne. Note non bloccanti: con Dynamic Type accessibilità la barra può superare `reservedHeight` (66+20+8, fisso) e tedesco «Startseite/Statistiken» a XL scala fino a 0.7 (ok a XL, tagli possibili agli accessibility size); fix FAB ombra/alette non verificabile da qui: Matteo riprova a vista.
 
-### S-4 [~] Home con TrailView
+### S-4 [x] Home con TrailView (2026-11-13 22:40, collaudo ok)
 - **A chi:** Claude Code
 - **Obiettivo:** Home come `Main.dc.html`: header, HeroCard con TrailView, conti in scroll orizzontale, ultimi movimenti
 - **Leggere:** `DESIGN_HANDOFF.md` §4 Home, BRIEF «TrailView», `Views/DashboardView.swift`, `Domain/` (calcoli saldo)
