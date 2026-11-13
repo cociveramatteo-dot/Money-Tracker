@@ -33,3 +33,7 @@
 "Avanti"              = "Avanti";
 "Fine"                = "Fine";
 
+
+/* Sentiero — Budget status */
+"Sforato" = "Sforato";
+"Soglia 80%" = "Soglia 80%";

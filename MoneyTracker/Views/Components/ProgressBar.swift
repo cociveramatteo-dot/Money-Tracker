@@ -20,7 +20,7 @@ struct ProgressBar: View {
         }
         .frame(height: 8)
         .accessibilityElement(children: .ignore)
-        .accessibilityValue(Text(fraction, format: .percent.precision(.fractionLength(0))))
+        .accessibilityValue(Text(progress.isFinite ? progress : 0, format: .percent.precision(.fractionLength(0))))
     }
 }
 

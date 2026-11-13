@@ -407,3 +407,7 @@
 "escluso dal totale" = "aus dem Gesamt ausgeschlossen";
 "saldo" = "Kontostand";
 
+
+/* Sentiero — Budget status */
+"Sforato" = "Überschritten";
+"Soglia 80%" = "Schwelle 80 %";

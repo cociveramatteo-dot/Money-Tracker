@@ -410,3 +410,7 @@
 
 /* ── Tour：每个标签页的元素步骤（第一级）─── */
 
+
+/* Sentiero — Budget status */
+"Sforato" = "已超支";
+"Soglia 80%" = "80%阈值";

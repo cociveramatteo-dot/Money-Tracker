@@ -20,7 +20,7 @@ struct HeroCard: View {
         }
         .padding(DS.Space.xl)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(DS.hero, in: RoundedRectangle(cornerRadius: DS.Layout.cardRadius))
+        .background(DS.hero, in: RoundedRectangle(cornerRadius: 24))
         .accessibilityElement(children: .combine)
     }
 }

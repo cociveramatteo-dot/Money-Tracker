@@ -407,3 +407,7 @@
 "escluso dal totale" = "合計から除外";
 "saldo" = "残高";
 
+
+/* Sentiero — Budget status */
+"Sforato" = "超過";
+"Soglia 80%" = "80%のしきい値";

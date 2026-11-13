@@ -50,10 +50,14 @@ struct MovementRow: View {
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: DS.Space.xs) {
                 Text(name).font(DS.Typo.rowName).foregroundStyle(DS.ink)
+                    .lineLimit(1)
                 Text(metadata).font(DS.Typo.caption).foregroundStyle(DS.smoke)
             }
             Spacer(minLength: DS.Space.s)
             Text(signedAmount).font(DS.Typo.rowAmount).foregroundStyle(amountColor)
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: false)
+                .layoutPriority(1)
         }
         .padding(.vertical, DS.Layout.rowVPad)
         .accessibilityElement(children: .combine)

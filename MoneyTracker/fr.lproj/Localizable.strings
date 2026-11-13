@@ -409,3 +409,7 @@
 
 /* ── Tour : étapes par élément et par onglet (Niveau 1) ─── */
 
+
+/* Sentiero — Budget status */
+"Sforato" = "Dépassé";
+"Soglia 80%" = "Seuil de 80 %";

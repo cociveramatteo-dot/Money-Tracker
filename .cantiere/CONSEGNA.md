@@ -1,17 +1,21 @@
 # CONSEGNA — il biglietto per chi entra in turno
 
-**Da:** collaudatore (Claude Code · Sonnet) **Il:** 2026-11-13 20:20 **Collaudato:** commit 63113b4 (S-2)
+**Da:** seconda impresa (Codex · GPT-6) **Il:** 2026-11-13 20:35 **Commit:** vedi `git log -1` (S-2b)
 
-## Esito: ❌ S-2 NON chiuso → [!], serve rilavorazione S-2b
-Conformi: sette componenti, 14 preview light/dark, solo file nuovi, solo token `DS`/`CategoryTint`, nessun `preferredColorScheme`, tap target 44, font con `relativeTo:`, nessuna vista esistente toccata. Build + 33 test verdi (dato dall'impresa e da Matteo).
+## Fatto
+- Corrette le quattro segnalazioni del collaudo S-2.
+- Aggiunte le due chiavi «Sforato» e «Soglia 80%» nei 7 Localizable.strings. Tedesco esatto: «Überschritten», «Schwelle 80 %»; traduzioni it/en/es/fr/ja/zh-Hans incluse.
+- HeroCard usa raggio 24; DS.Layout.cardRadius invariato.
+- MovementRow: lineLimit(1) sul nome; importo con lineLimit(1), fixedSize orizzontale e layoutPriority(1).
+- ProgressBar: la sola larghezza resta limitata a 0…100%; accessibilityValue usa progress reale (fallback 0 per valori non finiti), quindi 1.2 viene annunciato come 120%.
+- Modificati soltanto tre file in Views/Components/, i 7 Localizable.strings e i file obbligatori di turno in .cantiere/. Nessuna modifica estranea preesistente.
 
-## Difetti da correggere (solo `Views/Components/` + le 7 `Localizable.strings`)
-1. `BudgetStatus.swift:24-25`: chiavi `"Sforato"` e `"Soglia 80%"` assenti in tutti i 7 `Localizable.strings` (esiste solo `"Sforato di"`). Aggiungerle in it/en/de/es/fr/ja/zh-Hans (de: «Überschritten», «Schwelle 80 %»).
-2. `HeroCard.swift:24`: raggio 16; handoff §2 chiede 24–26 per la hero. Usare un raggio hero (24) senza cambiare `cardRadius`.
-3. Minori: `MovementRow` importo con `.fixedSize`/`layoutPriority` e `lineLimit` sul nome (XL + tedesco); `ProgressBar` accessibilityValue con progress>1 dica il valore reale.
-
-## Limiti del collaudo
-Preview non viste a schermo (nessun renderer): controllo statico. Dynamic Type XL e tedesco da riverificare a vista dopo S-2b (in Xcode: preview con Dynamic Type XL e lingua de).
+## Verificato
+- `plutil -lint` verde sui 7 file di traduzione; `git diff --check` pulito.
+- `xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' build test`: BUILD SUCCEEDED, TEST SUCCEEDED; 21 test unitari + 12 UI verdi, zero fallimenti. Nessun crash del runner, nessun riavvio necessario.
+- Log temporaneo: `/tmp/moneytracker-s2b-build.log` (fuori git).
+- Preview non ispezionate visivamente: restano da controllare light/dark, Dynamic Type XL e tedesco.
 
 ## Prossimo passo
-S-2b a Codex, poi ricollaudo. S-3 resta bloccato fino alla chiusura di S-2.
+S-2b [~], da ricollaudare. S-2 resta in attesa della chiusura da parte del collaudatore; S-3 non va avviato prima.
+Collaudatore su Claude Code (Sonnet): leggere AGENTS.md e STATO, aprire turno solo se libero; leggere questa consegna e il diff del commit S-2b. Verificare i quattro rilievi, registrare esito e chiudere S-2b/S-2 soltanto se conformi. Seguire AGENTS.md §4 a fine turno.

@@ -39,6 +39,13 @@ il task e i file indicati.
 - **Eseguito 2026-11-13 20:15 (Codex):** sette nuovi componenti in `Views/Components/`, 14 preview light/dark; build e 21 test unitari + 12 UI verdi sul simulatore richiesto. Da collaudare; nessuna vista o test esistente modificato.
 - **Collaudo 2026-11-13 20:20 (collaudatore): ❌ NON CONFORME, rilavorazione S-2b.** Requisiti strutturali ok (7 componenti, 14 preview, solo file nuovi, solo token DS, nessun `preferredColorScheme`, tap target 44, font `relativeTo:`). Difetti: (1) chiavi `"Sforato"` e `"Soglia 80%"` (`BudgetStatus.swift:24-25`) assenti da tutti i 7 `Localizable.strings`: in tedesco/inglese/ecc. compaiono in italiano; aggiungere le chiavi nelle 7 lingue (de: «Überschritten», «Schwelle 80 %»). (2) `HeroCard.swift:24` usa `cardRadius` 16, l'handoff chiede raggio hero 24–26: aggiungere token/raggio hero. (3) minori: `MovementRow` importo senza `lineLimit`/priorità di layout (a XL con tedesco può comprimere nome); `ProgressBar` accessibilityValue limitato al 100% con progress>1. Preview non ispezionate visivamente (nessun renderer disponibile al collaudo): controllo statico dei token, contrasti ereditati da S-1.
 
+### S-2b [~] Correzioni componenti base
+- **A chi:** Codex
+- **Obiettivo:** correggere i quattro rilievi del collaudo S-2.
+- **Eseguito 2026-11-13 20:35:** chiavi «Sforato» e «Soglia 80%» in tutte le 7 lingue (de: «Überschritten», «Schwelle 80 %»); HeroCard raggio 24 senza cambiare cardRadius; nome MovementRow su una riga e importo con fixedSize/layoutPriority; ProgressBar annuncia il valore reale anche oltre 100%.
+- **Verificato:** plutil sui 7 Localizable.strings, diff pulito, build e 21 test unitari + 12 UI verdi sul simulatore richiesto. Nessun crash del runner.
+- **Aperto:** ricollaudo indipendente, inclusa verifica visiva light/dark, XL e tedesco; S-2 resta in attesa del collaudatore.
+
 ### S-3 [ ] FloatingTabBar + FAB
 - **A chi:** Claude Code
 - **Obiettivo:** nuova tab bar flottante e FAB con la grafica Sentiero

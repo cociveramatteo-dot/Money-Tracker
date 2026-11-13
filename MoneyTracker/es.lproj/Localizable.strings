@@ -407,3 +407,7 @@
 "escluso dal totale" = "excluido del total";
 "saldo" = "saldo";
 
+
+/* Sentiero — Budget status */
+"Sforato" = "Superado";
+"Soglia 80%" = "Umbral del 80%";
