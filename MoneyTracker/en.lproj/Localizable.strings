@@ -415,3 +415,12 @@
 
 /* Sentiero — FAB */
 "Nuovo movimento" = "New transaction";
+
+/* Sentiero — Home */
+"Vedi tutti" = "See all";
+"Saldo atteso a fine mese" = "Expected balance at month end";
+"nessun movimento" = "no transactions";
+"Oscura importi" = "Hide amounts";
+"Mostra importi" = "Show amounts";
+"1 movimento pianificato" = "1 planned transaction";
+"%lld movimenti pianificati" = "%lld planned transactions";

@@ -417,3 +417,12 @@
 
 /* Sentiero — FAB */
 "Nuovo movimento" = "新建交易";
+
+/* Sentiero — Home */
+"Vedi tutti" = "查看全部";
+"Saldo atteso a fine mese" = "月底预期余额";
+"nessun movimento" = "无交易";
+"Oscura importi" = "隐藏金额";
+"Mostra importi" = "显示金额";
+"1 movimento pianificato" = "1 笔计划交易";
+"%lld movimenti pianificati" = "%lld 笔计划交易";

@@ -32,3 +32,9 @@ Le decisioni che non si devono ridiscutere ogni volta. Solo aggiunte.
 ## D-006 · 2026-11-13 · Tinte categoria
 - **Regola:** `CategoryTint.tint(for: nome)` (`Views/CategoryTint.swift`): mappa fissa per le 14 categorie predefinite (verde: Salute, Lavoro, Risparmio, Altro; ambra: Cibo, Shopping, Regali; blu: Trasporti, Casa, Viaggi, Giroconto; viola: Svago, Abbonamenti, Istruzione); per le personalizzate hash **FNV-1a 32 bit** del nome in UTF-8 modulo 4 (non `hashValue`, instabile tra avvii). Nessuna modifica al modello SwiftData; varianti dark per ogni tinta. Test in `CategoryTintTests`.
 - **Chi ha deciso:** Claude Code (brief)
+
+## D-007 · 2026-11-13 · Serie del saldo per la TrailView
+- **Regola:** `Domain/BalanceTrail.swift`, funzione pura `BalanceTrail.make(currentBalance:entries:now:)`, nessuna modifica alle funzioni esistenti. Parte dal saldo attuale e va all'indietro togliendo i movimenti fatti (serie reale, giorno 1 → oggi); la proiezione aggiunge i non fatti in avanti (oggi → fine mese). Pianificati scaduti ancorati a oggi, oltre fine mese all'ultimo giorno, così l'ultimo punto proiettato = «Saldo atteso» (`futureBalance`) sempre, anche con date anomale. Fatti con data futura → oggi, precedenti al mese → giorno 1. Senza pianificati nessuna proiezione.
+- **Perché:** coerenza obbligatoria con i saldi di `AccountBalanceCache` senza ricalcolarli a modo nostro. `Decimal` esatto; test in `BalanceTrailTests` (6 casi).
+- **Nella vista:** la serie sta in `@State`, ricalcolata con `onChange` su firma (n. movimenti, saldo attuale, saldo atteso, giorno), mai nel `body`. Limite noto: cambiare solo la data di un pianificato senza toccare saldi o conteggio aggiorna la curva alla chiusura della modifica o al rientro nella schermata.
+- **Chi ha deciso:** Claude Code (brief)

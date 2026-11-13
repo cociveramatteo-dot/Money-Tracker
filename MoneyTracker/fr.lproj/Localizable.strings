@@ -416,3 +416,12 @@
 
 /* Sentiero — FAB */
 "Nuovo movimento" = "Nouvelle opération";
+
+/* Sentiero — Home */
+"Vedi tutti" = "Tout voir";
+"Saldo atteso a fine mese" = "Solde prévu en fin de mois";
+"nessun movimento" = "aucun mouvement";
+"Oscura importi" = "Masquer les montants";
+"Mostra importi" = "Afficher les montants";
+"1 movimento pianificato" = "1 mouvement planifié";
+"%lld movimenti pianificati" = "%lld mouvements planifiés";

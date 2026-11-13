@@ -16,7 +16,7 @@ struct ContentView: View {
         ZStack(alignment: .bottomTrailing) {
             VStack(spacing: 0) {
             TabView(selection: $selectedTab) {
-                DashboardView(showAdd: $showAdd)
+                DashboardView(showAdd: $showAdd, goToTab: { selectedTab = $0 })
                     .hidingNativeTabBar()
                     .tag(0)
 

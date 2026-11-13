@@ -8,6 +8,8 @@ struct DashboardView: View {
     @Query(sort: \Transaction.date, order: .reverse) private var transactions: [Transaction]
     @Environment(\.modelContext) private var context
     @Binding var showAdd: Bool
+    /// Cambia tab dalla Home («Gestisci» → Conti, «Vedi tutti» → Movimenti).
+    var goToTab: (Int) -> Void = { _ in }
 
     @AppStorage("hideBalance")              private var hideBalance: Bool   = false
     @AppStorage("homeAccountOrderedShown") private var homeAccountOrderedShown: String = ""
@@ -18,6 +20,17 @@ struct DashboardView: View {
     @State private var showRecentMovements   = true
     @State private var showAccountOrder      = false
     @State private var editingTransaction: Transaction? = nil
+    /// Serie della TrailView: ricalcolata solo al cambio dei dati (vedi `trailSignature`), mai nel body.
+    @State private var trail: BalanceTrail? = nil
+    @ScaledMetric(relativeTo: .body) private var rowHeight: CGFloat = 66
+
+    /// Cambia quando cambiano saldi, numero di movimenti o giorno: è la chiave del ricalcolo della serie.
+    private struct TrailSignature: Equatable {
+        let count: Int
+        let current: Decimal
+        let future: Decimal
+        let day: Date
+    }
 
     // MARK: - Conti
 
@@ -63,46 +76,45 @@ struct DashboardView: View {
             .reduce(0) { $0 + $1.amount }
     }
 
+    private func money(_ value: Decimal) -> String {
+        hideBalance ? "•••• €" : value.currencyFormatted
+    }
+
+    // MARK: - Serie TrailView
+
+    private var trailSignature: TrailSignature {
+        TrailSignature(count: transactions.count, current: totalCurrent, future: totalFuture,
+                       day: Calendar.current.startOfDay(for: Date()))
+    }
+
+    private func rebuildTrail() {
+        let ids = Set(includedAccounts.map { $0.persistentModelID })
+        let entries = transactions.compactMap { t -> BalanceTrail.Entry? in
+            guard let account = t.account, ids.contains(account.persistentModelID) else { return nil }
+            return .init(date: t.date, signedAmount: t.signedAmount, isDone: t.isDone)
+        }
+        trail = BalanceTrail.make(currentBalance: totalCurrent, entries: entries, now: Date())
+    }
+
     // MARK: - Body
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
+                    header
                     saldoHeroSection
-                    if abs(totalDelta) > 0.001 {
-                        saldoFuturoSection
-                    }
-                    ThinDivider()
-                        .padding(.top, abs(totalDelta) > 0.001 ? DS.Space.l : DS.Space.xl)
+                    contiSection
                     fisseDelMeseSection
                     ultimiMovimentiSection
-                    Spacer(minLength: 100)
+                    Spacer(minLength: DS.Space.xl)
                 }
             }
             .background(DS.paper)
             .scrollIndicators(.hidden)
             .refreshable { await SyncService.shared.manualRefresh(context: context) }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack(spacing: DS.Space.m) {
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.2)) { hideBalance.toggle() }
-                        } label: {
-                            Image(systemName: hideBalance ? "eye.slash" : "eye")
-                                .font(.system(size: 16))
-                                .foregroundStyle(DS.ink)
-                        }
-
-                        Button { showSettings = true } label: {
-                            Image(systemName: "gearshape")
-                                .font(.system(size: 16))
-                                .foregroundStyle(DS.ink)
-                        }
-                    }
-                }
-            }
-            .themedNavBar()
+            .toolbar(.hidden, for: .navigationBar)
+            .onChange(of: trailSignature, initial: true) { rebuildTrail() }
+            .onChange(of: editingTransaction == nil) { rebuildTrail() }
             .sheet(isPresented: $showSettings)     { SettingsView() }
             .sheet(item: $editingTransaction)       { AddTransactionView(editing: $0) }
             .sheet(isPresented: $showAccountOrder)  {
@@ -114,89 +126,144 @@ struct DashboardView: View {
         }
     }
 
-    // MARK: - Saldo Attuale (hero)
-    private var saldoHeroSection: some View {
-        VStack(alignment: .leading, spacing: DS.Space.s) {
-            SectionLabel(text: "Saldo attuale")
-                .padding(.top, DS.Space.xl)
-            HeroAmount(amount: totalCurrent, hidden: hideBalance, colorBySign: true)
+    // MARK: - Header
 
-            if !topAccounts.isEmpty {
-                HStack(alignment: .bottom, spacing: 0) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(alignment: .bottom, spacing: DS.Space.l) {
-                            ForEach(topAccounts) { acc in
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(acc.name)
-                                        .font(.system(size: 11))
-                                        .foregroundStyle(DS.smoke)
-                                    Text(hideBalance ? "• • •" : acc.currentBalance.currencyFormatted)
-                                        .font(.system(size: 13, weight: .medium))
-                                        .foregroundStyle(hideBalance ? DS.ink : DS.signColor(acc.currentBalance))
-                                }
-                            }
-                        }
-                        .padding(.trailing, DS.Space.m)
-                    }
-                    Button { showAccountOrder = true } label: {
-                        Image(systemName: "slider.horizontal.3")
-                            .font(.system(size: 13))
-                            .foregroundStyle(DS.smoke)
-                    }
+    private var header: some View {
+        HStack(alignment: .center) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(Date(), format: .dateTime.weekday(.wide).day().month(.wide))
+                    .font(DS.Typo.secondary).foregroundStyle(DS.smoke)
+                Text("Bucktrail").font(DS.Typo.wordmark).tracking(-0.5).foregroundStyle(DS.ink)
+            }
+            Spacer(minLength: DS.Space.s)
+            HStack(spacing: DS.Space.s) {
+                headerButton(symbol: hideBalance ? "eye.slash" : "eye",
+                             label: hideBalance ? "Mostra importi" : "Oscura importi") {
+                    withAnimation(.easeInOut(duration: 0.2)) { hideBalance.toggle() }
                 }
-                .padding(.top, DS.Space.xs)
+                headerButton(symbol: "gearshape", label: "Impostazioni") { showSettings = true }
             }
         }
         .padding(.horizontal, DS.Layout.margin)
+        .padding(.top, DS.Space.s)
+        .padding(.bottom, DS.Space.m)
     }
 
-    // MARK: - Saldo atteso (futuro)
-    private var saldoFuturoSection: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            ThinDivider().padding(.top, DS.Space.xl)
-
-            VStack(alignment: .leading, spacing: DS.Space.s) {
-                SectionLabel(text: "Saldo atteso")
-                    .padding(.top, DS.Space.l)
-
-                HeroAmount(amount: totalFuture, size: 48, hidden: hideBalance, colorBySign: true)
-
-                if totalDelta != 0 {
-                    HStack(spacing: DS.Space.xs) {
-                        Text(totalDelta >= 0 ? "▲" : "▼")
-                            .font(.system(size: 10))
-                        Text(hideBalance ? "• • •" : abs(totalDelta).currencyFormatted)
-                            .font(.system(size: 13, weight: .medium))
-                        Text(LocalizedStringKey(totalDelta >= 0 ? "in entrata pianificate" : "in uscite pianificate"))
-                            .font(.system(size: 13))
-                    }
-                    .foregroundStyle(totalDelta >= 0 ? DS.positive : DS.negative)
-                }
-
-                if topAccounts.count > 1 {
-                    VStack(alignment: .leading, spacing: DS.Space.xs) {
-                        ForEach(topAccounts) { acc in
-                            if abs(acc.plannedDelta) > 0.001 {
-                                HStack(spacing: DS.Space.xs) {
-                                    Text(acc.name)
-                                        .font(.system(size: 11))
-                                        .foregroundStyle(DS.smoke)
-                                    Text("→")
-                                        .font(.system(size: 11))
-                                        .foregroundStyle(DS.smoke)
-                                    Text(hideBalance ? "• • •" : acc.futureBalance.currencyFormatted)
-                                        .font(.system(size: 11, weight: .medium))
-                                        .foregroundStyle(hideBalance ? DS.ink : DS.signColor(acc.futureBalance))
-                                }
-                            }
-                        }
-                    }
-                    .padding(.top, DS.Space.xs)
-                }
-            }
-            .padding(.horizontal, DS.Layout.margin)
-            .padding(.bottom, DS.Space.l)
+    private func headerButton(symbol: String, label: LocalizedStringKey, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: symbol)
+                .font(.system(size: 18))
+                .foregroundStyle(DS.ink)
+                .frame(width: 44, height: 44)
+                .background(DS.surface, in: RoundedRectangle(cornerRadius: 14))
+                .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(DS.fog, lineWidth: 1))
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel(label)
+    }
+
+    // MARK: - Hero (saldo attuale + TrailView + saldo atteso)
+
+    @ViewBuilder
+    private var saldoHeroSection: some View {
+        if let trail {
+            let cal = Calendar.current
+            let start = cal.dateInterval(of: .month, for: Date())?.start ?? Date()
+            let end = cal.date(byAdding: .day, value: trail.daysInMonth - 1, to: start) ?? start
+            HomeHeroCard(
+                amount: Text(money(totalCurrent)),
+                trail: trail,
+                monthStart: start,
+                monthEnd: end,
+                expectedAmount: abs(totalDelta) > 0.001 ? Text(money(totalFuture)) : nil,
+                plannedSummary: abs(totalDelta) > 0.001 ? plannedSummary(count: trail.plannedCount) : nil
+            )
+            .padding(.horizontal, 16)
+        }
+    }
+
+    private func plannedSummary(count: Int) -> Text {
+        let amount = money(totalDelta)
+        let sign = totalDelta > 0 && !hideBalance ? "+" : ""
+        let label = count == 1
+            ? Text("1 movimento pianificato")
+            : Text("\(count) movimenti pianificati")
+        return Text("\(label)\n\(sign)\(amount)")
+    }
+
+    // MARK: - Conti (scroll orizzontale)
+
+    @ViewBuilder
+    private var contiSection: some View {
+        if !topAccounts.isEmpty {
+            sectionHeader("Conti", link: "Gestisci") { goToTab(4) } trailing: {
+                Button { showAccountOrder = true } label: {
+                    Image(systemName: "slider.horizontal.3")
+                        .font(.system(size: 14)).foregroundStyle(DS.smoke)
+                        .frame(width: 44, height: 44)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Conti in home")
+            }
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: DS.Space.s) {
+                    ForEach(topAccounts) { acc in accountCard(acc) }
+                }
+                .padding(.horizontal, 16)
+            }
+        }
+    }
+
+    private func accountCard(_ acc: Account) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: DS.Space.s) {
+                RoundedRectangle(cornerRadius: 3).fill(accountTint(acc)).frame(width: 10, height: 10)
+                Text(acc.name).font(DS.Typo.secondary).foregroundStyle(DS.smoke).lineLimit(1)
+            }
+            Text(money(acc.currentBalance)).font(DS.Typo.rowAmount).foregroundStyle(DS.ink)
+                .lineLimit(1).minimumScaleFactor(0.7)
+            if abs(acc.plannedDelta) > 0.001 {
+                Text("→ \(money(acc.futureBalance))").font(DS.Typo.caption).foregroundStyle(DS.plannedText)
+                    .lineLimit(1).minimumScaleFactor(0.7)
+            } else {
+                Text("nessun movimento").font(DS.Typo.caption).foregroundStyle(DS.smoke).lineLimit(1)
+            }
+        }
+        .padding(.horizontal, 14).padding(.vertical, DS.Space.m)
+        .frame(width: 148, alignment: .leading)
+        .background(DS.surface, in: RoundedRectangle(cornerRadius: 18))
+        .accessibilityElement(children: .combine)
+    }
+
+    /// Tinta adattiva per tipo di conto (colorHex dei conti è spesso grigio e non adattivo).
+    private func accountTint(_ acc: Account) -> Color {
+        switch acc.accountType {
+        case .conto:        return DS.accent
+        case .risparmio:    return DS.transfer
+        case .carta:        return DS.planned
+        case .contanti:     return DS.smoke
+        case .investimento: return DS.ink
+        }
+    }
+
+    // MARK: - Intestazione di sezione
+
+    private func sectionHeader<Trailing: View>(
+        _ title: LocalizedStringKey, link: LocalizedStringKey,
+        action: @escaping () -> Void, @ViewBuilder trailing: () -> Trailing = { EmptyView() }
+    ) -> some View {
+        HStack(alignment: .center, spacing: DS.Space.xs) {
+            Text(title).font(DS.Typo.sectionTitle).foregroundStyle(DS.ink)
+            Spacer()
+            trailing()
+            Button(action: action) {
+                Text(link).font(DS.Typo.secondary).fontWeight(.semibold).foregroundStyle(DS.accent)
+                    .frame(minHeight: 44)
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.horizontal, DS.Layout.margin)
+        .padding(.top, DS.Space.l)
     }
 
     // MARK: - Fisse del mese
@@ -205,7 +272,7 @@ struct DashboardView: View {
     private var fisseDelMeseSection: some View {
         if showFixedExpensesTotal || showFixedIncomeTotal {
             VStack(alignment: .leading, spacing: DS.Space.m) {
-                SectionLabel(text: "Fissi del mese")
+                Text("Fissi del mese").font(DS.Typo.sectionTitle).foregroundStyle(DS.ink)
                     .padding(.top, DS.Space.l)
 
                 HStack(spacing: DS.Space.m) {
@@ -228,7 +295,6 @@ struct DashboardView: View {
                 }
             }
             .padding(.horizontal, DS.Layout.margin)
-            .padding(.bottom, DS.Space.l)
         }
     }
 
@@ -236,29 +302,22 @@ struct DashboardView: View {
 
     private var ultimiMovimentiSection: some View {
         VStack(alignment: .leading, spacing: 0) {
-
-            Button {
-                withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
-                    showRecentMovements.toggle()
-                }
-            } label: {
-                HStack {
-                    SectionLabel(text: "Ultimi movimenti")
-                    Spacer()
+            sectionHeader("Ultimi movimenti", link: "Vedi tutti") { goToTab(1) } trailing: {
+                Button {
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                        showRecentMovements.toggle()
+                    }
+                } label: {
                     Image(systemName: showRecentMovements ? "chevron.up" : "chevron.down")
-                        .font(.system(size: 11))
-                        .foregroundStyle(DS.smoke)
-                        .animation(.spring(response: 0.35, dampingFraction: 0.8), value: showRecentMovements)
+                        .font(.system(size: 12)).foregroundStyle(DS.smoke)
+                        .frame(width: 44, height: 44)
                 }
-                .padding(.horizontal, DS.Layout.margin)
-                .padding(.top, DS.Space.l)
-                .padding(.bottom, DS.Space.m)
+                .buttonStyle(.plain)
+                .accessibilityLabel("Ultimi movimenti")
             }
-            .buttonStyle(.plain)
 
             if showRecentMovements {
                 if recentNormal.isEmpty {
-                    // PERF-BUG: was List+fixed height which broke Dynamic Type; now EmptyStateView
                     EmptyStateView(
                         icon: "tray",
                         title: "Nessun movimento",
@@ -266,19 +325,15 @@ struct DashboardView: View {
                     )
                     .transition(.opacity)
                 } else {
-                    // List enables native swipeActions (only available inside List).
-                    // scrollDisabled(true) prevents inner-scroll conflict with the outer
-                    // ScrollView. Row height is fixed (fonts use explicit size:, not Dynamic
-                    // Type scalable), so a static multiplier is safe:
-                    //   rowVPad(14) × 2 + lineH(18) + spacing(2) + lineH(14) ≈ 66 pt/row.
-                    let rowH: CGFloat = 66
+                    // List abilita le swipeActions native (solo dentro List). scrollDisabled evita
+                    // il conflitto con lo ScrollView esterno; l'altezza riga scala con Dynamic Type.
                     List {
                         ForEach(recentNormal) { t in
-                            DSTransactionRow(transaction: t)
-                                .padding(.horizontal, DS.Layout.margin)
+                            movementRow(t)
+                                .padding(.horizontal, DS.Space.l)
                                 .listRowInsets(EdgeInsets())
-                                .listRowBackground(DS.paper)
-                                .listRowSeparatorTint(DS.fog)
+                                .listRowBackground(DS.surface)
+                                .listRowSeparatorTint(DS.divider)
                                 .contentShape(Rectangle())
                                 .onTapGesture { editingTransaction = t }
                                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
@@ -310,11 +365,30 @@ struct DashboardView: View {
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
                     .scrollDisabled(true)
-                    .frame(height: CGFloat(recentNormal.count) * rowH)
+                    .frame(height: CGFloat(recentNormal.count) * rowHeight)
+                    .background(DS.surface, in: RoundedRectangle(cornerRadius: 20))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .padding(.horizontal, 16)
                     .transition(.opacity)
                 }
             }
         }
+    }
+
+    private func movementRow(_ t: Transaction) -> some View {
+        let category = NSLocalizedString(t.category, comment: "")
+        let accountName = t.account?.name ?? ""
+        let metadata = [category, accountName, t.date.dayMonthFormatted]
+            .filter { !$0.isEmpty }.joined(separator: " · ")
+        return MovementRow(
+            name: t.name,
+            metadata: metadata,
+            amount: money(t.amount),
+            categoryName: t.category,
+            categorySymbol: t.categoryIcon.isEmpty ? "circle.dotted" : t.categoryIcon,
+            kind: t.transactionType == .entrata ? .income : .expense,
+            isPlanned: !t.isDone
+        )
     }
 }
 

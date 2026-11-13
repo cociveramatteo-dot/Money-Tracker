@@ -414,3 +414,12 @@
 
 /* Sentiero — FAB */
 "Nuovo movimento" = "新しい取引";
+
+/* Sentiero — Home */
+"Vedi tutti" = "すべて見る";
+"Saldo atteso a fine mese" = "月末の予想残高";
+"nessun movimento" = "取引なし";
+"Oscura importi" = "金額を隠す";
+"Mostra importi" = "金額を表示";
+"1 movimento pianificato" = "予定の取引 1件";
+"%lld movimenti pianificati" = "予定の取引 %lld件";
