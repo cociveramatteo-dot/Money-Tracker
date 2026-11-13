@@ -11,12 +11,12 @@ il task e i file indicati.
 > **Collaudo di ogni step:** `xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,name=<iPhone>' build test` (schema reale: `MoneyTracker`), nessun warning nuovo, funzioni della schermata tutte presenti (elenco fatto a inizio step da `docs/MoneyTracker.md`), light+dark, Dynamic Type XL, tedesco, oscura importi, modalità demo, screenshot prima/dopo in `.cantiere/tmp/`.
 > **Mai toccare:** Models/Persistence, Domain/ (salvo step 4), Sync/, Auth/, Intents/, Export/, Formatting/, classificatore categorie, notifiche, ricorrenze, test esistenti (salvo identificatori UI). Vedi AGENTS.md.
 
-### S-0 [~] Rimozione del tour
+### S-0 [x] Rimozione del tour
 - **A chi:** Claude Code
 - **Obiettivo:** togliere il tour (tag `tour-v1` lo conserva), tenere la modalità demo
 - **Leggere:** BRIEF §4
 - **Toccare:** OnboardingTour/, viste, SettingsView, TourFlowUITests, 7 Localizable.strings, docs
-- **Fatto quando:** build e tutti i test verdi; `grep` di `Tour|tourAnchor|ContextualHint` vuoto. *Stato: codice fatto (95c0afb, 620419d), build verde; mancano i test (serve simulatore).*
+- **Fatto quando:** build e tutti i test verdi; `grep` di `Tour|tourAnchor|ContextualHint` vuoto. *Chiuso 2026-11-13: build verde, 17 test unitari + 12 test UI verdi su iPhone 18 Pro (iOS 27.2); commit 95c0afb, 620419d.*
 - **Non fare:** toccare la modalità demo
 
 ### S-1 [ ] Token, font, dark mode
