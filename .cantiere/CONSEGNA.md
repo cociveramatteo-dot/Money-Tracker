@@ -19,4 +19,4 @@ build + test sul simulatore: TEST SUCCEEDED, 12 UI test verdi (unit invariati). 
 - Il FAB resta nascosto in ricerca movimenti come prima.
 
 ## Prossimo passo
-Collaudatore su S-3, poi S-4 (Home con TrailView).
+S-3 collaudato ok. Prossimo: S-4 (Home con TrailView). Matteo: riprovare il FAB (ombra/alette) sul simulatore.
