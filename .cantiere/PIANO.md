@@ -29,7 +29,7 @@ il task e i file indicati.
 - **Chiuso 2026-11-13:** collaudo ok (collaudatore): token, font, tinte, contrasti WCAG verificati; commit 46399d4. Nota: `fog` e `heroDivider` in dark senza regola di contrasto (bordi, non testo): ricontrollare se usati come testo/icone.
 - **Serve Matteo:** scaricare i font in `02_RISORSE/originali/font/` (istruzioni quando si parte)
 
-### S-2 [!] Componenti base
+### S-2 [x] Componenti base (chiuso 2026-11-13 20:40, collaudatore)
 - **A chi:** Codex
 - **Obiettivo:** `Card`, `HeroCard`, `MovementRow`, `ProgressBar`, `BudgetStatus`, `SegmentedPill`, `FilterChip`, ciascuno con `#Preview` (light/dark)
 - **Leggere:** `DESIGN_HANDOFF.md` §3, `Views/Theme.swift` (token di S-1), `BucktrailTheme.swift`
@@ -38,8 +38,9 @@ il task e i file indicati.
 - **Non fare:** toccare viste esistenti, introdurre colori fuori da `DS`
 - **Eseguito 2026-11-13 20:15 (Codex):** sette nuovi componenti in `Views/Components/`, 14 preview light/dark; build e 21 test unitari + 12 UI verdi sul simulatore richiesto. Da collaudare; nessuna vista o test esistente modificato.
 - **Collaudo 2026-11-13 20:20 (collaudatore): ❌ NON CONFORME, rilavorazione S-2b.** Requisiti strutturali ok (7 componenti, 14 preview, solo file nuovi, solo token DS, nessun `preferredColorScheme`, tap target 44, font `relativeTo:`). Difetti: (1) chiavi `"Sforato"` e `"Soglia 80%"` (`BudgetStatus.swift:24-25`) assenti da tutti i 7 `Localizable.strings`: in tedesco/inglese/ecc. compaiono in italiano; aggiungere le chiavi nelle 7 lingue (de: «Überschritten», «Schwelle 80 %»). (2) `HeroCard.swift:24` usa `cardRadius` 16, l'handoff chiede raggio hero 24–26: aggiungere token/raggio hero. (3) minori: `MovementRow` importo senza `lineLimit`/priorità di layout (a XL con tedesco può comprimere nome); `ProgressBar` accessibilityValue limitato al 100% con progress>1. Preview non ispezionate visivamente (nessun renderer disponibile al collaudo): controllo statico dei token, contrasti ereditati da S-1.
+- **Ricollaudo 2026-11-13 20:40 (collaudatore): ✅ CONFORME, S-2 e S-2b chiusi.** Le quattro correzioni (commit 535ccc1) verificate sul diff: chiavi «Sforato»/«Soglia 80%» presenti una volta in ciascuno dei 7 file, `plutil -lint` ok, de «Überschritten»/«Schwelle 80 %»; hero raggio 24 con `cardRadius` invariato; nome `lineLimit(1)` e importo `fixedSize`+`layoutPriority(1)` (a XL/tedesco si tronca il nome, mai l'importo); accessibilityValue col progresso reale. Nota: il 24 della hero è un letterale, da portare in token se riusato in S-4. Resa a vista (light/dark, XL, de) da confermare da Matteo nelle preview di Xcode.
 
-### S-2b [~] Correzioni componenti base
+### S-2b [x] Correzioni componenti base
 - **A chi:** Codex
 - **Obiettivo:** correggere i quattro rilievi del collaudo S-2.
 - **Eseguito 2026-11-13 20:35:** chiavi «Sforato» e «Soglia 80%» in tutte le 7 lingue (de: «Überschritten», «Schwelle 80 %»); HeroCard raggio 24 senza cambiare cardRadius; nome MovementRow su una riga e importo con fixedSize/layoutPriority; ProgressBar annuncia il valore reale anche oltre 100%.
