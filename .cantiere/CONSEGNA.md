@@ -1,8 +1,6 @@
-# CONSEGNA — S-20
+# CONSEGNA — collaudo S-20
 
-Seconda impresa (Codex · GPT-6), 2026-11-14 11:05.
-Guard apply: base.endDate = nil, appartenenza alla serie ancora verificata.
-Test terminate dalla prima → delete(.all): risultato nil, serie e copie rimosse.
-68 unit verdi (67 esistenti + 1), /tmp/moneytracker-s20.log.
-S-20 [~], serve collaudatore sul diff. Nessun push.
-Grafo aggiornato con graphify update, file generati lasciati fuori commit per mantenere il fix minimo. Directory non tracciata graphify-out/2026-11-14/ preesistente, lasciata intatta.
+**Da:** collaudatore (Claude Code · Sonnet) · 2026-11-14 11:06.
+- S-20 **collaudato ok** (bf9727e): una riga in Domain (`base.endDate = nil` nel guard), test di regressione (terminate prima occorrenza → delete(.all) riesce), log /tmp/moneytracker-s20.log: 68 unit verdi.
+- Nota: il guard non rifiuta più occorrenze oltre l'endDate; la UI non le offre, quindi nessun impatto pratico. Nessun task nuovo.
+- Prossimo: S-13h (documento + Commissione Suprema), S-18, S-19, prova reale S-13f.

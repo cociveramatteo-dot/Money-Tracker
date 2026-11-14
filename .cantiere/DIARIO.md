@@ -45,3 +45,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-14 11:15 | collaudatore (Claude Code · Sonnet) | collaudo S-13g (be6ceb0) + riproduzione S-20 | S-13g [x]; S-20 riprodotto (delete/edit .all → invalidOccurrence dopo terminate dalla prima) | fix S-20 da assegnare; S-13h |
 
 | 2026-11-14 11:05 | seconda impresa (Codex · GPT-6) | S-20 | guard corretto e test regressione, 68 unit verdi | collaudo diff |
+| 2026-11-14 11:06 | collaudatore (Claude Code · Sonnet) | collaudo S-20 (bf9727e) | guard con base.endDate=nil + test regressione, 68 unit verdi; S-20 [x] | nota: il guard ora accetta anche occorrenze oltre endDate (non raggiungibili dalla UI); S-13h |

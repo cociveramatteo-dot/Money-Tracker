@@ -213,7 +213,7 @@ Modello di task:
 - **A chi:** redattore (Claude Code · Sonnet).
 - **Perimetro:** blocchi `S-13g — DA RIVEDERE DAL REDATTORE` in tutte le 7 Localizable.strings; etichette, ambiti e messaggi di errore. Sono traduzioni provvisorie, non approvate.
 
-### S-20 [~] CONFERMATO Verificare editor di una serie terminata prima della prima occorrenza
+### S-20 [x] collaudato 2026-11-14 11:06 (bf9727e: guard ok, regressione ok, 68 unit verdi) CONFERMATO Verificare editor di una serie terminata prima della prima occorrenza
 
 - **Riprodotto 2026-11-14 11:12 (collaudatore, test temporaneo poi rimosso, Domain intatto):** serie mensile, `terminate(afterThis:false)` dalla prima occorrenza → `endDate < startDate`; poi `delete(.all)` e `edit(.all)` falliscono entrambi con `invalidOccurrence`. Causa: in `apply` il guard usa `base` con `endDate` ancora impostato, quindi nessuna occorrenza. La serie resta bloccata, non eliminabile dall'UI. Fix proposto (Domain, da assegnare a Codex): nel guard azzerare `base.endDate = nil` come per `exceptions`, o impedire `terminate(afterThis:false)` sulla prima occorrenza (usare delete(.all)). Aggiungere test.
 - **A chi:** collaudatore, diagnosi; eventuale correzione Domain da assegnare separatamente con autorizzazione di Matteo.
