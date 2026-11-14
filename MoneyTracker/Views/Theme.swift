@@ -99,6 +99,7 @@ enum DS {
     //   neutri (border) · smoke = testo secondario (inkSecondary).
     static let ink   = Color(lightHex: 0x121614, darkHex: 0xF1F3EF)
     static let paper = Color(lightHex: 0xF3F4EF, darkHex: 0x0E1210)
+    static let filterBorder = Color(lightHex: 0xB9BFB6, darkHex: 0x2A332E)
     static let fog   = Color(lightHex: 0xDCDFD8, darkHex: 0x2A332E)
     static let smoke = Color(lightHex: 0x5B635E, darkHex: 0x9AA39D)
 
@@ -455,7 +456,9 @@ struct MonthBar: View {
             }
             Spacer()
             Text(label)
-                .font(.system(size: 15, weight: .medium))
+                .font(DS.Typo.rowName)
+                .minimumScaleFactor(0.8)
+                .lineLimit(1)
                 .foregroundStyle(DS.ink)
             Spacer()
             Button {
@@ -614,6 +617,7 @@ struct FixedExpenseRow: View {
 
 struct RecurringSeriesCard: View {
     let series: RecurringSeries
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var frequencyLabel: String {
         switch series.frequency {
@@ -652,35 +656,51 @@ struct RecurringSeriesCard: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: DS.Space.xs) {
+        let tint = CategoryTint.tint(for: series.category)
+        let iconName = series.categoryIcon.isEmpty ? DS.categoryIcon(for: series.category) : series.categoryIcon
+
+        VStack(alignment: .leading, spacing: DS.Space.s) {
             HStack(spacing: DS.Space.m) {
-                Image(systemName: series.categoryIcon.isEmpty ? "arrow.triangle.2.circlepath" : series.categoryIcon)
-                    .font(.system(size: 14))
-                    .foregroundStyle(DS.smoke)
-                    .frame(width: 18)
-                Text(series.name)
-                    .font(.system(size: 15))
-                    .foregroundStyle(DS.ink)
-                    .lineLimit(1)
+                ZStack {
+                    RoundedRectangle(cornerRadius: DS.Space.m)
+                        .fill(tint.background)
+                        .frame(width: 38, height: 38)
+                    Image(systemName: iconName)
+                        .font(.system(size: 16))
+                        .foregroundStyle(tint.foreground)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(series.name)
+                        .font(DS.Typo.rowName)
+                        .foregroundStyle(DS.ink)
+                        .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
+                    Text("\(series.count) \(String(localized: "volte")) · \(String(localized: "dal")) \(series.firstDate.dayMonthFormatted)")
+                        .font(DS.Typo.caption)
+                        .foregroundStyle(DS.smoke)
+                }
                 Spacer()
-                Text(frequencyLabel)
-                    .font(.system(size: 11))
-                    .foregroundStyle(DS.smoke)
+                if !dynamicTypeSize.isAccessibilitySize {
+                    Text(frequencyLabel)
+                        .font(DS.Typo.caption)
+                        .foregroundStyle(DS.smoke)
+                }
             }
-            Text("\(series.count) \(String(localized: "volte")) · \(String(localized: "dal")) \(series.firstDate.dayMonthFormatted)")
-                .font(.system(size: 12))
-                .foregroundStyle(DS.smoke)
+            if dynamicTypeSize.isAccessibilitySize {
+                Text(frequencyLabel).font(DS.Typo.caption).foregroundStyle(DS.smoke)
+            }
             Text(totalLine)
-                .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(isExpense ? DS.negative : DS.positive)
+                .font(DS.Typo.rowAmount)
+                .foregroundStyle(isExpense ? DS.ink : DS.positive)
+                .monospacedDigit()
             detailLine
-                .font(.system(size: 12))
+                .font(DS.Typo.caption)
                 .foregroundStyle(DS.smoke)
+                .monospacedDigit()
         }
         .padding(DS.Space.l)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(DS.fog.opacity(0.5))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .background(DS.surface, in: RoundedRectangle(cornerRadius: 18))
+        .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(DS.fog))
         .accessibilityElement(children: .combine)
     }
 }

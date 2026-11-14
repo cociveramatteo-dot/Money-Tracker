@@ -20,3 +20,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-13 22:54 | seconda impresa (Codex · GPT-6) | S-5 Movimenti | restyling, MovementRow, chip, pianificati e card giornaliere; i18n x7; build verde, grafo aggiornato | test bloccati dal runner/simulatore; collaudo e resa a vista aperti, S-5 [~] |
 | 2026-11-13 23:16 | collaudatore (Claude Code · Sonnet) | S-5 collaudo | runner ripristinato; 27 unit + 12 UI verdi; resa hub light/dark/XL/de ok; S-5 [x] | riserve cosmetiche in S-11; sezioni interne non fotografate |
 | 2026-11-14 00:22 | capocantiere (Claude Code · Sonnet) | S-12 | turno Antigravity interrotto per quota e liberato su ordine di Matteo; modifiche non committate lasciate nel ramo | Codex riprende S-12, verifica e confronto mockup da fare |
+
+| 2026-11-14 01:14 | seconda impresa (Codex · GPT-6) | S-12 | riprese modifiche Antigravity; pagina unica, chip da mockup, Ricorrenti/storico, demo e XL; 27 unit + 12 UI verdi; 8 varianti reali confrontate più swipe/storico/filtri/MonthBar; test temporaneo rimosso, grafo aggiornato | S-12 [~] da collaudare; tab bar XL in S-10; motore ricorrenze S-13 |

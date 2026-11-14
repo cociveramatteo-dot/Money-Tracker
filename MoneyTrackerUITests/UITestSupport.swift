@@ -43,11 +43,18 @@ class MoneyTrackerUITestCase: XCTestCase {
         }
     }
 
-    /// Apre una sezione della tab Movimenti (Tutti/Fisse/Ricorrenti/Trasf./Uscite/Entrate)
-    /// dall'hub a blocchi. Va chiamata dopo `goToTab("Movimenti")` — la lista dei
-    /// movimenti non è più visibile sull'hub, compare solo dentro la sezione.
+    /// Seleziona una sezione o filtro della tab Movimenti (Tutti/Fisse/Ricorrenti/Trasf./Uscite/Entrate).
+    /// Va chiamata dopo `goToTab("Movimenti")` — con la pagina unica (S-12) seleziona il chip
+    /// inline per Tutti/Fisse/Trasf./Uscite/Entrate, oppure apre la pagina a sé per Ricorrenti.
     func openTransactionsSection(_ label: String, file: StaticString = #filePath, line: UInt = #line) {
         let block = app.buttons["txFilterBlock_\(label)"]
+        let chips = app.scrollViews["tx_typeChips"]
+        XCTAssertTrue(chips.waitForExistence(timeout: 5), file: file, line: line)
+        chips.swipeRight()
+        for _ in 0..<5 {
+            if block.exists && chips.frame.contains(block.frame) { break }
+            chips.swipeLeft()
+        }
         XCTAssertTrue(block.waitForExistence(timeout: 5), "Blocco \(label) non trovato", file: file, line: line)
         block.tap()
     }

@@ -115,8 +115,8 @@
     "semantic_hash": "55b58464e072a50d044333f74a8f3bfd"
   },
   "MoneyTracker/MoneyTrackerApp.swift": {
-    "mtime": 1794581974.3055158,
-    "ast_hash": "ea331e8c50de5d6926134186a9188939",
+    "mtime": 1794614439.401763,
+    "ast_hash": "d612d279d53b2ab376178f70156758e6",
     "semantic_hash": ""
   },
   "MoneyTracker/Persistence/Logging.swift": {
@@ -255,13 +255,13 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/Theme.swift": {
-    "mtime": 1794591929.4579759,
-    "ast_hash": "a1ffb6aad5e1dc79f714ebbbe8d39630",
+    "mtime": 1794614073.0816212,
+    "ast_hash": "7ed3b2aaf38f24e9d1d8bb74306cd10f",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/TransactionsView.swift": {
-    "mtime": 1794606107.6524775,
-    "ast_hash": "cc04443be3ceffed050ce710cf2988d2",
+    "mtime": 1794614073.0459683,
+    "ast_hash": "d624c3e4dfd78c6897f527e70d7c0ca1",
     "semantic_hash": ""
   },
   "docs/MoneyTracker.md": {
@@ -295,8 +295,8 @@
     "semantic_hash": "ea9e3ee5bba42d101a239a30cc463985"
   },
   "MoneyTrackerUITests/UITestSupport.swift": {
-    "mtime": 1794598697.458108,
-    "ast_hash": "962503c7d1b4379289d0c1754a4290de",
+    "mtime": 1794612499.1790872,
+    "ast_hash": "5b51f1cdea6171a429f7aa1b92da0c5e",
     "semantic_hash": ""
   },
   "MoneyTracker/Domain/RecurringSeriesDetector.swift": {
@@ -305,9 +305,9 @@
     "semantic_hash": "1c386cb06fc864849c2b10cd577c7240"
   },
   "MoneyTracker/Views/RecurringSeriesDetailView.swift": {
-    "mtime": 1783592387.8407507,
-    "ast_hash": "28264153691887f820319cc2a17003b8",
-    "semantic_hash": "28264153691887f820319cc2a17003b8"
+    "mtime": 1794611523.2797437,
+    "ast_hash": "9333c090bc70194efc35ef17938203f1",
+    "semantic_hash": ""
   },
   "report_notturno.md": {
     "mtime": 1785144371.701398,
@@ -490,8 +490,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/Components/MovementRow.swift": {
-    "mtime": 1794597758.168373,
-    "ast_hash": "937510148bf353c5ffa70a0795d1acf5",
+    "mtime": 1794612779.4359863,
+    "ast_hash": "4b07a39865711af21382609f1ebf9080",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/Components/ProgressBar.swift": {
@@ -540,18 +540,18 @@
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1794605646.372428,
-    "ast_hash": "67f73eae90be916be30f2980b311a275",
+    "mtime": 1794614919.8630497,
+    "ast_hash": "27e8b43de65f217c5de3a0a6f6324902",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
-    "mtime": 1794605419.8880153,
-    "ast_hash": "29a585147f16abfaa320bf40b85bba73",
+    "mtime": 1794611268.9722278,
+    "ast_hash": "25e7ba4542e66d77cf9872388e852693",
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1794605646.3632367,
-    "ast_hash": "ad6f11d17769f5ee34e01482f2be9f88",
+    "mtime": 1794612176.021651,
+    "ast_hash": "d09b40862666d32cf1324edc24afdd39",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -565,13 +565,13 @@
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1794581340.6152058,
-    "ast_hash": "7069ccc28c6d9ebcebc00caa835be118",
+    "mtime": 1794606879.081488,
+    "ast_hash": "3ee09b57f930781f32ae20fa2520aece",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1794605646.3582656,
-    "ast_hash": "a338be8f511ce503673b8c8eaa849a5c",
+    "mtime": 1794611280.1269724,
+    "ast_hash": "8ec6f8c16e7331301b19350e1335556e",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -585,8 +585,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1794605934.2121723,
-    "ast_hash": "d7620536731784a7d3f2fbeec064afe5",
+    "mtime": 1794612259.8139985,
+    "ast_hash": "46992f4b62a7eae9c1882e1222c8d6ae",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -632,6 +632,16 @@
   "MoneyTracker/Resources/Fonts/OFL-SpaceGrotesk.txt": {
     "mtime": 1794591759.7102888,
     "ast_hash": "46244c88f5c8dc59711305e032cacb56",
+    "semantic_hash": ""
+  },
+  ".cantiere/LEZIONI-AZIENDA.md": {
+    "mtime": 1794614501.228855,
+    "ast_hash": "26d3640009e5d62feb4c0d74e759dfb3",
+    "semantic_hash": ""
+  },
+  ".cantiere/piano-s13.md": {
+    "mtime": 1794611275.3464081,
+    "ast_hash": "d54c5e0dada5eea7221da9dbabfe63f2",
     "semantic_hash": ""
   }
 }

@@ -427,3 +427,16 @@
 "%lld movimenti pianificati" = "%lld mouvements planifiés";
 
 "In arrivo · pianificati" = "À venir · planifiés";
+
+/* Sentiero — Movimenti S-12 */
+"Tutte le categorie" = "Toutes les catégories";
+"Questo mese" = "Ce mois";
+"Mese precedente" = "Mois précédent";
+"Mese successivo" = "Mois suivant";
+"Filtri (%lld)" = "Filtres (%lld)";
+
+"Cerca per nome" = "Rechercher par nom";
+"Rimuovi filtri" = "Supprimer les filtres";
+"Nessun movimento corrisponde alla ricerca." = "Aucun mouvement ne correspond à la recherche.";
+"Fissa" = "Fixe";
+"Nessun risultato" = "Aucun résultat";

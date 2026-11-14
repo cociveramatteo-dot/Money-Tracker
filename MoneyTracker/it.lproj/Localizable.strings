@@ -46,3 +46,16 @@
 "Ieri" = "Ieri";
 
 "Oggi" = "Oggi";
+
+/* Sentiero — Movimenti S-12 */
+"Tutte le categorie" = "Tutte le categorie";
+"Questo mese" = "Questo mese";
+"Mese precedente" = "Mese precedente";
+"Mese successivo" = "Mese successivo";
+"Filtri (%lld)" = "Filtri (%lld)";
+
+"Cerca per nome" = "Cerca per nome";
+"Rimuovi filtri" = "Rimuovi filtri";
+"Nessun movimento corrisponde alla ricerca." = "Nessun movimento corrisponde alla ricerca.";
+"Fissa" = "Fissa";
+"Nessun risultato" = "Nessun risultato";

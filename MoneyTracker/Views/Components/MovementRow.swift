@@ -12,6 +12,8 @@ struct MovementRow: View {
     let categorySymbol: String
     var kind: Kind = .expense
     var isPlanned = false
+    var compact = false
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var amountColor: Color {
         if isPlanned { return DS.plannedText }
@@ -30,6 +32,25 @@ struct MovementRow: View {
     }
 
     var body: some View {
+        Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: DS.Space.s) {
+                    Text(name).font(DS.Typo.rowName).foregroundStyle(DS.ink)
+                    Text(metadata).font(DS.Typo.caption).foregroundStyle(DS.smoke)
+                    Text(signedAmount).font(DS.Typo.rowAmount).foregroundStyle(amountColor)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
+            } else {
+                standardRow
+            }
+        }
+        .padding(.vertical, compact ? 10 : DS.Layout.rowVPad)
+        .accessibilityElement(children: .combine)
+    }
+
+    private var standardRow: some View {
         HStack(spacing: DS.Space.m) {
             Image(systemName: kind == .transfer ? "arrow.left.arrow.right" : categorySymbol)
                 .font(DS.Typo.rowName)
@@ -59,8 +80,6 @@ struct MovementRow: View {
                 .fixedSize(horizontal: true, vertical: false)
                 .layoutPriority(1)
         }
-        .padding(.vertical, DS.Layout.rowVPad)
-        .accessibilityElement(children: .combine)
     }
 }
 

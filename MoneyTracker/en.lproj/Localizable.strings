@@ -426,3 +426,16 @@
 "%lld movimenti pianificati" = "%lld planned transactions";
 
 "In arrivo · pianificati" = "Upcoming · planned";
+
+/* Sentiero — Movimenti S-12 */
+"Tutte le categorie" = "All categories";
+"Questo mese" = "This month";
+"Mese precedente" = "Previous month";
+"Mese successivo" = "Next month";
+"Filtri (%lld)" = "Filters (%lld)";
+
+"Cerca per nome" = "Search by name";
+"Rimuovi filtri" = "Clear filters";
+"Nessun movimento corrisponde alla ricerca." = "No transactions match your search.";
+"Fissa" = "Fixed";
+"Nessun risultato" = "No results";

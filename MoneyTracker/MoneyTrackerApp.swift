@@ -207,21 +207,31 @@ struct MoneyTrackerApp: App {
         let activeContainer = demoModeEnabled ? demoContainer : realContainer
 
         return ZStack {
-            ContentView()
+            VStack(spacing: 0) {
+                // Il banner visibile è nell'overlay sopra le barre native.
+                // Il segnaposto ne riserva l'altezza, anche alle taglie di accessibilità.
+                if demoModeEnabled {
+                    demoBanner.hidden()
+                        .fixedSize(horizontal: false, vertical: true)
+                        .layoutPriority(1)
+                        .zIndex(1)
+                }
+                ContentView()
+                    .frame(maxHeight: .infinity)
+                    .clipped()
+            }
+                .background(DS.paper)
                 .modelContainer(activeContainer)
                 // .id() forza la ricreazione completa dell'albero di viste al cambio
                 // di modalità, garantendo che @Query e @Environment siano agganciati
                 // al container giusto senza residui del precedente.
                 .id(demoModeEnabled ? "demo" : "real")
-                // Banner "DEMO" — in cima, sotto la status bar / Dynamic Island.
-                .overlay(alignment: .top) {
-                    if demoModeEnabled { demoBanner }
-                }
                 // Indicatore di sync silenzioso — mai un alert: se la rete manca o il
                 // cloud non risponde, l'utente vede "in corso"/"in sospeso", mai un
                 // errore. Il retry automatico (SyncService) risolve da solo appena possibile.
                 .overlay(alignment: .top) {
-                    if !demoModeEnabled { syncStatusBanner }
+                    if demoModeEnabled { demoBanner }
+                    else { syncStatusBanner }
                 }
                 .animation(.spring(response: 0.4, dampingFraction: 0.75), value: syncService.status)
                 .task {
@@ -275,12 +285,12 @@ struct MoneyTrackerApp: App {
                 .font(.system(size: 11, weight: .bold, design: .monospaced))
                 .kerning(0.5)
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(DS.plannedText)
         .padding(.horizontal, 12)
         .padding(.vertical, 5)
-        .background(Color.orange.opacity(0.92), in: Capsule())
-        .shadow(color: .black.opacity(0.18), radius: 6, y: 2)
-        .padding(.top, 8) // dentro la safe area top, sotto Dynamic Island / notch
+        .background(DS.plannedSoft, in: Capsule())
+        .shadow(color: DS.ink.opacity(0.12), radius: 6, y: 2)
+        .padding(.vertical, 4)
         .allowsHitTesting(false)
         .transition(.move(edge: .top).combined(with: .opacity))
         .animation(.spring(response: 0.4, dampingFraction: 0.75), value: demoModeEnabled)

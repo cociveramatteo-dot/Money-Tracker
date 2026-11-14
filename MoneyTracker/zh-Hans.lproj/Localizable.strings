@@ -428,3 +428,16 @@
 "%lld movimenti pianificati" = "%lld 笔计划交易";
 
 "In arrivo · pianificati" = "即将到来 · 已计划";
+
+/* Sentiero — Movimenti S-12 */
+"Tutte le categorie" = "所有类别";
+"Questo mese" = "本月";
+"Mese precedente" = "上个月";
+"Mese successivo" = "下个月";
+"Filtri (%lld)" = "筛选 (%lld)";
+
+"Cerca per nome" = "按名称搜索";
+"Rimuovi filtri" = "清除筛选";
+"Nessun movimento corrisponde alla ricerca." = "没有符合搜索条件的交易。";
+"Fissa" = "固定";
+"Nessun risultato" = "无结果";

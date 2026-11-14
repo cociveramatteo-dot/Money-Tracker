@@ -226,5 +226,7 @@
   "224": "String",
   "225": "Transaction",
   "226": "ModelContainer",
-  "227": "URL"
+  "227": "URL",
+  "228": "SignUpView",
+  "229": "Date"
 }

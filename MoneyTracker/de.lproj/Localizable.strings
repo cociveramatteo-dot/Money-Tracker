@@ -425,3 +425,16 @@
 "%lld movimenti pianificati" = "%lld geplante Bewegungen";
 
 "In arrivo · pianificati" = "Demnächst · geplant";
+
+/* Sentiero — Movimenti S-12 */
+"Tutte le categorie" = "Alle Kategorien";
+"Questo mese" = "Dieser Monat";
+"Mese precedente" = "Vorheriger Monat";
+"Mese successivo" = "Nächster Monat";
+"Filtri (%lld)" = "Filter (%lld)";
+
+"Cerca per nome" = "Nach Namen suchen";
+"Rimuovi filtri" = "Filter entfernen";
+"Nessun movimento corrisponde alla ricerca." = "Keine Buchungen entsprechen deiner Suche.";
+"Fissa" = "Fixkosten";
+"Nessun risultato" = "Keine Ergebnisse";

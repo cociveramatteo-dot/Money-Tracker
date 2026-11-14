@@ -3,4 +3,4 @@
 In turno: nessuno
 Dalle: —
 Ultimo checkpoint: —
-Fase: S-12 Movimenti (riprende Codex; Antigravity senza quota fino a circa 2026-11-21, turno interrotto e liberato da Matteo il 2026-11-14 00:22)
+Fase: S-12 implementato da Codex, [~] pronto per il collaudatore; prove e differenze residue in CONSEGNA.md. Tab bar XL resta S-10; motore ricorrenze resta S-13.

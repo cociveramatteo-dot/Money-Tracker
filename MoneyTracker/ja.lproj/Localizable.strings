@@ -425,3 +425,16 @@
 "%lld movimenti pianificati" = "予定の取引 %lld件";
 
 "In arrivo · pianificati" = "今後の予定";
+
+/* Sentiero — Movimenti S-12 */
+"Tutte le categorie" = "すべてのカテゴリー";
+"Questo mese" = "今月";
+"Mese precedente" = "前月";
+"Mese successivo" = "翌月";
+"Filtri (%lld)" = "フィルター (%lld)";
+
+"Cerca per nome" = "名前で検索";
+"Rimuovi filtri" = "フィルターを解除";
+"Nessun movimento corrisponde alla ricerca." = "検索に一致する取引はありません。";
+"Fissa" = "固定";
+"Nessun risultato" = "結果なし";

@@ -116,12 +116,13 @@ il task e i file indicati.
 - **Obiettivo:** (1) a XL l'importo del totale in `groupHeader` va a capo (`€` su riga sola): `lineLimit(1)`/`fixedSize` sull'importo; (2) a XL `MonthBar` non scala; (3) il badge «MODALITÀ DEMO» (`MoneyTrackerApp.swift:272`, solo demo) copre il titolo grande; (4) tab bar con etichette troncate a XL (già in S-10). Le sezioni interne (Uscite ecc.) non sono state fotografate: verificarle a vista.
 - **Non fare:** toccare domain/calcoli
 
-### S-12 [ ] Movimenti: pagina unica + zona sotto i chip + Ricorrenti (da mockup)
+### S-12 [~] Movimenti: pagina unica + zona sotto i chip + Ricorrenti (da mockup)
 - **A chi:** Codex (o Antigravity) · confronto col mockup OBBLIGATORIO a ogni passo
 - **Obiettivo:** (1) Tutti/Fisse/Trasf./Uscite/Entrate nella STESSA pagina: titolo, impostazioni, filtri, ricerca e chip fermi, cambia solo la lista, niente pagine nuove; (2) sotto i chip mese, categorie e filtri esattamente come in `Movimenti.dc.html` (più pulito); (3) solo Ricorrenti resta pagina a sé, da rivedere; (4) elenco scritto delle altre differenze dal mockup; (5) riserve S-11.
 - **Leggere:** `Movimenti.dc.html`, `DESIGN_HANDOFF.md` §4, `Views/TransactionsView.swift`; aggiornare l'helper `openTransactionsSection` dei UI test senza aggirarli
 - **Fatto quando:** screenshot reali light/dark/XL/tedesco confrontati col mockup, 27 unit + 12 UI verdi
 - **Non fare:** toccare calcoli o Domain/
+- **Eseguito 2026-11-14 01:14 · Codex:** pagina unica, chip da mockup, Ricorrenti e storico, demo e XL; 27 unit + 12 UI verdi, catture finali light/dark/accessibility-XL/de confrontate a vista, test temporaneo rimosso. Differenze residue e prove in CONSEGNA. Solo il collaudatore o Matteo può passare a [x]. Riserva tab bar XL resta S-10.
 
 ### S-13 [ ] Motore ricorrenze a serie virtuali (D-008)
 - **A chi:** architetto (piano) poi Codex; collaudatore Claude
