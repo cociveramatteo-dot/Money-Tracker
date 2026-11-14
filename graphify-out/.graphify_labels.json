@@ -225,6 +225,7 @@
   "223": "String",
   "224": "String",
   "225": "Transaction",
+  "226": "ShareSheet",
   "227": "URL",
   "228": "SignUpView",
   "229": "Date",
@@ -300,5 +301,13 @@
   "299": "Security via Supabase Row Level Security (RLS)",
   "300": "Smart categorization (keyword-based)",
   "301": "Visual insights (color-coded charts)",
-  "302": "Esito test notturno: TEST OK (tentativo 1/5)"
+  "302": "Esito test notturno: TEST OK (tentativo 1/5)",
+  "303": "Option",
+  "304": "RecurringSeriesEditor.swift",
+  "305": "MoneyTracker",
+  "306": "TxFilter",
+  "307": "Goal.swift",
+  "308": "LoginView",
+  "309": "SyncService.swift",
+  "310": "RecurringSeriesDetailView"
 }
