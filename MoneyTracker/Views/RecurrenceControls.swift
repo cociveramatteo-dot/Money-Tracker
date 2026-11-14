@@ -25,7 +25,7 @@ struct RecurrenceSelection: Identifiable {
         snapshot.endDate = nil
         let calendar = Calendar(identifier: .gregorian)
         // Include the whole anchor-to-copy range: historical copies may have been moved manually.
-        let end = calendar.date(byAdding: .month, value: 1, to: max(transaction.date, rule.startDate, rule.materializedThrough ?? rule.startDate))!
+        guard let end = calendar.date(byAdding: .month, value: 1, to: max(transaction.date, rule.startDate, rule.materializedThrough ?? rule.startDate)) else { return nil }
         let interval = DateInterval(start: rule.startDate, end: end)
         guard let original = RecurrenceCalculator().occurrences(rule: snapshot, in: interval).first(where: { $0.id == transaction.id }) else { return nil }
         let effective = RecurrenceCalculator().occurrences(rule: RecurringSeriesEditor.snapshot(rule), in: interval).first { $0.id == transaction.id } ?? original
@@ -145,5 +145,27 @@ struct RecurrenceEditorView: View {
             try RecurringSeriesEditor().apply(action, to: selection.rule,
                 originalDate: selection.occurrence.originalDate, context: context)
         }) { dismiss() }
+    }
+}
+
+/// Resolve only when the context menu is presented, never while building list rows.
+struct RecurrenceContextMenu: View {
+    let transaction: Transaction
+    let rules: [RecurringRule]
+    let onSelect: (RecurrenceSelection) -> Void
+    let onDelete: () -> Void
+    @State private var selection: RecurrenceSelection?
+
+    var body: some View {
+        Group {
+            if let selection {
+                Button("Ricorrenza") { onSelect(selection) }
+            }
+            Button(role: .destructive, action: onDelete) {
+                Label("Elimina", systemImage: "trash")
+            }
+            .onAppear { selection = RecurrenceSelection.resolve(transaction, rules: rules) }
+            .onDisappear { selection = nil }
+        }
     }
 }

@@ -14,12 +14,14 @@ struct TransactionsView: View {
     @Query private var rules: [RecurringRule]
     @State private var recurrenceSelection: RecurrenceSelection?
 
+    @State private var occurrenceCache = RecurrencePresentationCache()
+
     private var virtualOccurrences: [Occurrence] {
         let calendar = Calendar(identifier: .gregorian)
         guard let month = calendar.dateInterval(of: .month, for: selectedMonth),
               let current = calendar.dateInterval(of: .month, for: Date()), month.start > current.start else { return [] }
         let realIDs = Set(all.map(\.id))
-        return rules.flatMap { RecurrenceCalculator().occurrences(rule: RecurringSeriesEditor.snapshot($0), in: month) }
+        return occurrenceCache.occurrences(rules: rules, in: month)
             .filter { !realIDs.contains($0.id) && (selectedCat.isEmpty || $0.category == selectedCat)
                 && (hubSearchQuery.isEmpty || $0.name.localizedCaseInsensitiveContains(hubSearchQuery))
                 && (selectedType == .tutti || selectedType == .fisse && $0.isFixed
@@ -188,7 +190,8 @@ struct TransactionsView: View {
                 secondaryChips
 
                 let currentList = filtered(for: selectedType)
-                if currentList.isEmpty && virtualOccurrences.isEmpty {
+                let virtual = virtualOccurrences
+                if currentList.isEmpty && virtual.isEmpty {
                     EmptyStateView(
                         icon: hubSearchQuery.isEmpty ? "tray" : "magnifyingglass",
                         title: hubSearchQuery.isEmpty ? "Nessun movimento" : "Nessun risultato",
@@ -196,7 +199,7 @@ struct TransactionsView: View {
                     )
                     Spacer()
                 } else {
-                    movementList(currentList)
+                    movementList(currentList, virtual: virtual)
                 }
             }
             .background(DS.paper)
@@ -222,41 +225,6 @@ struct TransactionsView: View {
             .sheet(item: $selectedSeries) { s in RecurringSeriesDetailView(seriesID: s.id) }
             .transferDeleteConfirmation(pending: $transferToDelete, onConfirm: deleteTransactionOrPair)
         }
-    }
-
-    private func programmedRule(_ rule: RecurringRule) -> some View {
-        let calendar = Calendar(identifier: .gregorian)
-        let start = calendar.startOfDay(for: Date())
-        let end = calendar.date(byAdding: .year, value: 2, to: max(start, rule.startDate))!
-        let next = RecurrenceCalculator().occurrences(rule: RecurringSeriesEditor.snapshot(rule), in: DateInterval(start: start, end: end)).first
-        return VStack(alignment: .leading, spacing: DS.Space.s) {
-            Text(rule.name).foregroundStyle(DS.ink)
-            Text(rule.amount.currencyFormatted + " · " + NSLocalizedString(rule.frequency == "mensile" ? "Mensile" : rule.frequency == "annuale" ? "Annuale" : "Settimanale", comment: ""))
-                .foregroundStyle(DS.smoke)
-            if let endDate = rule.endDate {
-                Text(endDate < start ? "Terminata" : "Termina il")
-                Text(endDate.dayMonthFormatted)
-            } else { Text("Attiva") }
-            if let next {
-                Button {
-                    recurrenceSelection = RecurrenceSelection(rule: rule, occurrence: next)
-                } label: { Text("Prossima occorrenza") + Text(" · " + next.date.dayMonthFormatted) }
-                .accessibilityIdentifier("editRecurrence_\(rule.name)")
-            } else {
-                // Ended or fully skipped series remain editable through their original anchor.
-                Button("Modifica") {
-                    var base = RecurringSeriesEditor.snapshot(rule)
-                    base.exceptions = [:]; base.endDate = nil
-                    let end = calendar.date(byAdding: .day, value: 1, to: rule.startDate)!
-                    if let first = RecurrenceCalculator().occurrences(rule: base, in: DateInterval(start: rule.startDate, end: end)).first {
-                        recurrenceSelection = RecurrenceSelection(rule: rule, occurrence: first)
-                    }
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(DS.Space.m)
-        .background(DS.surface)
     }
 
     // MARK: - Search bar
@@ -494,26 +462,18 @@ struct TransactionsView: View {
         .listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: 6, trailing: 4))
     }
 
-    private func movementList(_ snapshot: [Transaction]) -> some View {
+    private func movementList(_ snapshot: [Transaction], virtual: [Occurrence]) -> some View {
         let planned = snapshot.filter { !$0.isDone }
         let completed = snapshot.filter { $0.isDone }
         return List {
-            if !virtualOccurrences.isEmpty {
+            if !virtual.isEmpty {
                 Section("Serie programmate") {
-                    ForEach(virtualOccurrences) { occurrence in
-                        Button {
+                    ForEach(virtual) { occurrence in
+                        VirtualOccurrenceRow(occurrence: occurrence) {
                             if let rule = rules.first(where: { $0.id == occurrence.ruleId }) {
                                 recurrenceSelection = RecurrenceSelection(rule: rule, occurrence: occurrence)
                             }
-                        } label: {
-                            VStack(alignment: .leading) {
-                                Text(occurrence.name).foregroundStyle(DS.ink)
-                                Text(occurrence.date.dayMonthFormatted + " · " + occurrence.amount.currencyFormatted)
-                                    .foregroundStyle(DS.smoke)
-                                Text("Virtuale · esclusa dai totali").font(.caption).foregroundStyle(DS.smoke)
-                            }
                         }
-                        .listRowBackground(DS.surface)
                     }
                 }
             }
@@ -592,7 +552,7 @@ struct TransactionsView: View {
                         LazyVStack(spacing: DS.Space.m) {
                             SectionLabel(text: "Serie programmate")
                             ForEach(rules.filter { (recurringCategory.isEmpty || $0.category == recurringCategory) && (sectionSearch.isEmpty || $0.name.localizedCaseInsensitiveContains(sectionSearch)) }) { rule in
-                                programmedRule(rule)
+                                ProgrammedRuleCard(rule: rule) { recurrenceSelection = $0 }
                             }
                             ForEach(series) { s in
                                 RecurringSeriesCard(series: s)
@@ -615,7 +575,7 @@ struct TransactionsView: View {
             .transferDeleteConfirmation(pending: $transferToDelete, onConfirm: deleteTransactionOrPair)
         } else {
             // Fallback difensivo nel caso improbabile di navigazione
-            movementList(filtered(for: f))
+            movementList(filtered(for: f), virtual: virtualOccurrences)
         }
     }
 
@@ -781,18 +741,13 @@ struct TransactionsView: View {
         }
         // long press → elimina, + interrompi ricorrenza da qualunque occorrenza della serie
         .contextMenu {
-            if let selection = RecurrenceSelection.resolve(t, rules: rules) {
-                Button("Ricorrenza") { recurrenceSelection = selection }
-            }
-            Button(role: .destructive) {
+            RecurrenceContextMenu(transaction: t, rules: rules, onSelect: { recurrenceSelection = $0 }) {
                 haptic(.medium)
                 if t.isTransfer && !t.transferGroupId.isEmpty {
                     transferToDelete = t
                 } else {
                     deleteTransactionOrPair(t)
                 }
-            } label: {
-                Label("Elimina", systemImage: "trash")
             }
         }
     }
