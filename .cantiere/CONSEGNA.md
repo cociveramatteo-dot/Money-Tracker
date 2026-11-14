@@ -1,6 +1,8 @@
-# CONSEGNA — collaudo S-13g + S-20
+# CONSEGNA — S-20
 
-**Da:** collaudatore (Claude Code · Sonnet) · 2026-11-14 11:15.
-- S-13g **collaudato ok** (be6ceb0): ambiti solo questa/successive/tutte, salta, termina da qui/dopo questa, elimina con conferma, alert errori e avvii verificati nel diff; virtuali solo in sezione separata, mai in totali/saldi; build + 67 unit + 1 UI verdi (log /tmp/moneytracker-s13g-final.log). Domain/Models/Sync non toccati.
-- Note minori: doppio `safeSave` ridondante in AddTransactionView (ramo non ricorrente); in caso di errore del materializer vengono tolti solo regola e transazione propri.
-- **S-20 CONFERMATO** con test temporaneo (rimosso): terminate dalla prima occorrenza → poi delete(.all)/edit(.all) = `invalidOccurrence`. Dettagli e fix proposto in PIANO S-20.
+Seconda impresa (Codex · GPT-6), 2026-11-14 11:05.
+Guard apply: base.endDate = nil, appartenenza alla serie ancora verificata.
+Test terminate dalla prima → delete(.all): risultato nil, serie e copie rimosse.
+68 unit verdi (67 esistenti + 1), /tmp/moneytracker-s20.log.
+S-20 [~], serve collaudatore sul diff. Nessun push.
+Grafo aggiornato con graphify update, file generati lasciati fuori commit per mantenere il fix minimo. Directory non tracciata graphify-out/2026-11-14/ preesistente, lasciata intatta.

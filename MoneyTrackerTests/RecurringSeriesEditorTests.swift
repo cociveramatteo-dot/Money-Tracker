@@ -76,6 +76,18 @@ struct RecurringSeriesEditorTests {
         #expect(rule.endDate == date(2, 28))
     }
 
+    @Test func deleteAllAfterTerminatingBeforeFirstOccurrence() throws {
+        let (container, rule) = try setup()
+        let context = container.mainContext
+        try materialize(context)
+        try editor.apply(.terminate(afterThis: false), to: rule, originalDate: date(1), context: context, now: date(3))
+        #expect(try #require(rule.endDate) < rule.startDate)
+        let result = try editor.apply(.delete(.all), to: rule, originalDate: date(1), context: context, now: date(3))
+        #expect(result == nil)
+        #expect(try context.fetchCount(FetchDescriptor<RecurringRule>()) == 0)
+        #expect(try copies(context).isEmpty)
+    }
+
     @Test func editAllReconcilesAndPreservesDone() throws {
         let (container, rule) = try setup(frequency: "settimanale", start: 3)
         let context = container.mainContext

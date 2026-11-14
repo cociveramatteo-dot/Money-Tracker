@@ -72,6 +72,7 @@ struct RecurringSeriesEditor {
         let original = calculator.noon(originalDate)
         var base = Self.snapshot(rule)
         base.exceptions = [:]
+        base.endDate = nil
         let interval = calendar.dateInterval(of: .month, for: original)!
         guard rule.modelContext === context,
               calculator.occurrences(rule: base, in: interval).contains(where: { $0.originalDate == original })
