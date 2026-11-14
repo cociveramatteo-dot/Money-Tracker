@@ -31,8 +31,9 @@ struct MoneyTrackerApp: App {
 
         // Schema(versionedSchema:) invece di Schema([...]): necessario perché
         // MoneyTrackerMigrationPlan sappia riconoscere/convertire uno store SchemaV1
-        // (importi Double) esistente verso SchemaV2 (Decimal). Vedi Domain/SchemaMigration.swift.
-        let schema = Schema(versionedSchema: SchemaV2.self)
+        // (importi Double) verso V2 (Decimal), poi V3 (RecurringRule, solo aggiunta).
+        // Vedi Persistence/SchemaMigration.swift.
+        let schema = Schema(versionedSchema: SchemaV3.self)
 
         // Store reale nel container App Group condiviso con l'estensione Intents
         // (Tocco posteriore/Siri/Shortcuts, vedi Persistence/SharedStore.swift) — senza

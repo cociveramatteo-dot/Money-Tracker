@@ -12,10 +12,10 @@ import Foundation
 
 private enum IntentContainer {
     static let shared: ModelContainer? = {
-        // Stesso schema versionato dell'app principale (Domain/SchemaMigration.swift):
+        // Stesso schema versionato dell'app principale (Persistence/SchemaMigration.swift):
         // l'extension Shortcuts apre lo stesso store e deve poter applicare la stessa
-        // migrazione Double→Decimal se non è già stata eseguita dall'app host.
-        let schema = Schema(versionedSchema: SchemaV2.self)
+        // migrazione V1→V2→V3 se non è già stata eseguita dall'app host.
+        let schema = Schema(versionedSchema: SchemaV3.self)
         // URL esplicito nel container App Group condiviso (Persistence/SharedStore.swift)
         // — questo intent gira in un processo separato dall'app (openAppWhenRun = false):
         // senza puntare esplicitamente allo stesso file dell'app host, scriverebbe in un
