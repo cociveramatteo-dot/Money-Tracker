@@ -5,7 +5,6 @@ struct AddTransactionView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @State private var recurrenceStatus = RecurrenceOperationStatus()
-    @Query private var rules: [RecurringRule]
     @Query private var accounts: [Account]
     @Query(sort: \Category.sortOrder) private var categories: [Category]
 
@@ -47,11 +46,7 @@ struct AddTransactionView: View {
     }
 
     var body: some View {
-        if let editing, let selection = RecurrenceSelection.resolve(editing, rules: rules) {
-            RecurrenceEditorView(selection: selection)
-        } else {
-            transactionForm
-        }
+        transactionForm
     }
 
     private var transactionForm: some View {
@@ -333,7 +328,6 @@ struct AddTransactionView: View {
             t.date         = date
             t.isDone              = isDone
             t.isFixed             = isFixed
-            t.recurringFrequency  = recurringFrequency
             t.notes               = notes
         } else {
             let transaction = Transaction(

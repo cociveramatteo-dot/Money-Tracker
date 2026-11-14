@@ -13,6 +13,7 @@ struct MovementRow: View {
     var kind: Kind = .expense
     var isPlanned = false
     var compact = false
+    var isRecurring = false
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var amountColor: Color {
@@ -35,7 +36,7 @@ struct MovementRow: View {
         Group {
             if dynamicTypeSize.isAccessibilitySize {
                 VStack(alignment: .leading, spacing: DS.Space.s) {
-                    Text(name).font(DS.Typo.rowName).foregroundStyle(DS.ink)
+                    movementTitle
                     Text(metadata).font(DS.Typo.caption).foregroundStyle(DS.smoke)
                     Text(signedAmount).font(DS.Typo.rowAmount).foregroundStyle(amountColor)
                         .lineLimit(1)
@@ -48,6 +49,18 @@ struct MovementRow: View {
         }
         .padding(.vertical, compact ? 10 : DS.Layout.rowVPad)
         .accessibilityElement(children: .combine)
+    }
+
+    private var movementTitle: some View {
+        HStack(spacing: DS.Space.xs) {
+            Text(name).font(DS.Typo.rowName).foregroundStyle(DS.ink)
+            if isRecurring {
+                Image(systemName: "repeat")
+                    .font(DS.Typo.caption)
+                    .foregroundStyle(DS.smoke)
+                    .accessibilityLabel(Text("Ricorrenza"))
+            }
+        }
     }
 
     private var standardRow: some View {
@@ -70,7 +83,7 @@ struct MovementRow: View {
                 }
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: DS.Space.xs) {
-                Text(name).font(DS.Typo.rowName).foregroundStyle(DS.ink)
+                movementTitle
                     .lineLimit(1)
                 Text(metadata).font(DS.Typo.caption).foregroundStyle(DS.smoke)
             }

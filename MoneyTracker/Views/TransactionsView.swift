@@ -720,7 +720,8 @@ struct TransactionsView: View {
             categorySymbol: t.categoryIcon.isEmpty ? DS.categoryIcon(for: t.category) : t.categoryIcon,
             kind: t.isTransfer ? .transfer : t.transactionType == .entrata ? .income : .expense,
             isPlanned: !t.isDone,
-            compact: true
+            compact: true,
+            isRecurring: rules.contains { $0.id.uuidString == t.templateId }
         )
         .padding(.horizontal, 14)
         .contentShape(Rectangle())
@@ -733,8 +734,6 @@ struct TransactionsView: View {
             // entrambe le gambe) invece dell'editor generico.
             if t.isTransfer {
                 transferEditing = t
-            } else if let selection = RecurrenceSelection.resolve(t, rules: rules) {
-                recurrenceSelection = selection
             } else {
                 editing = t
             }

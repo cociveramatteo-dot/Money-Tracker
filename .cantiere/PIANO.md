@@ -233,3 +233,10 @@ Modello di task:
 - Implementato da Codex. 2026-11-14 11:37 collaudo ok (diff visivamente invariato, Domain/Models/Sync/Auth intatti).
 ### Commissione Suprema S-13h (2026-11-14 11:08)
 1 Sicurezza 10 · 2 Architettura 8 (S-22) · 3 Logica 10 · 4 Performance 8 (S-21) · 5 Robustezza 9 (`!` su calendar.date in resolve/programmedRule: sicuri ma da sostituire con guard in S-21) · 6 Lingua/UX 8 (traduzioni provvisorie S-19, grafica S-18). Esito: non approvato, nessun push.
+
+### S-23 [~] Editor singola occorrenza e indicatore ricorrenza
+- **A chi:** Codex, assegnato da Matteo 2026-11-14.
+- **Obiettivo:** tap in Movimenti apre editor normale; salva solo la copia, senza cambiare regola. Ricorrenza solo dal menu prolungato esistente. Selettore nascosto in modifica; icona repeat nelle righe. Verifica categorie nella copia e con Tutte.
+- **Perimetro:** viste e test; mantenere e committare modifiche preesistenti ProgrammedRuleCard/RecurrenceControls. Domain intatto; graphify-out escluso dal commit.
+- **Fatto quando:** unit e UI verdi, verifiche riportate in CONSEGNA; poi collaudo indipendente.
+- **Eseguito 2026-11-14 12:45 · Codex:** due reindirizzamenti rimossi; editor normale salva solo Transaction, selettore nascosto e frequenza non assegnata in modifica; icona repeat adattiva/accessibile in Movimenti. Categoria copia e Tutte verificate, nessun bug logico trovato. Domain intatto. Build + 70 unit + 2 UI S-23 verdi (`/tmp/moneytracker-s23-final.log`). Suite completa eseguita: restano i due fallimenti preesistenti S-15; nuovi test corretti e verificati verdi separatamente. Da collaudare; dettagli in CONSEGNA.

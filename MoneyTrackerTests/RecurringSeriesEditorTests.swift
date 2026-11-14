@@ -27,6 +27,29 @@ struct RecurringSeriesEditorTests {
         try RecurringMaterializer(timeZone: zone).materializeDue(context: context, now: date(month))
     }
 
+    @Test func categoryEditsOnCopyAndAllSeries() throws {
+        let (container, rule) = try setup(frequency: "settimanale", start: 3)
+        let context = container.mainContext
+        try materialize(context)
+        let copy = try #require(copies(context).first { $0.date == date(3) })
+        let originalCategory = rule.category
+        let originalExceptions = rule.exceptionsJSON
+        copy.category = "Casa"; copy.categoryIcon = "house"
+        try context.save()
+        try materialize(context, month: 4)
+        #expect(copy.category == "Casa" && copy.categoryIcon == "house")
+        #expect(rule.category == originalCategory && rule.exceptionsJSON == originalExceptions)
+        #expect(try copies(context).filter { $0.id != copy.id }.allSatisfy { $0.category == originalCategory })
+        copy.isDone = true; try context.save()
+        var values = RecurringSeriesEditor.snapshot(rule)
+        values.category = "Trasporti"; values.categoryIcon = "car"
+        try editor.apply(.edit(.all, values), to: rule, originalDate: date(3), context: context, now: date(3))
+        #expect(rule.category == "Trasporti" && rule.categoryIcon == "car")
+        #expect(copy.category == "Casa" && copy.categoryIcon == "house")
+        #expect(try copies(context).filter { !$0.isDone && calendar.isDate($0.date, equalTo: date(3), toGranularity: .month) }
+            .allSatisfy { $0.category == "Trasporti" && $0.categoryIcon == "car" })
+    }
+
     @Test func onlyThisOverrideAndDelete() throws {
         let (container, rule) = try setup()
         let context = container.mainContext

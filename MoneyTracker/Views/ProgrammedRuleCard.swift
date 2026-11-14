@@ -25,7 +25,7 @@ struct ProgrammedRuleCard: View {
             if let next {
                 Button {
                     onSelect(RecurrenceSelection(rule: rule, occurrence: next))
-                } label: { Text("Prossima occorrenza") + Text(" · " + next.date.dayMonthFormatted) }
+                } label: { Text(verbatim: String(localized: "Prossima occorrenza") + " · " + next.date.dayMonthFormatted) }
                 .accessibilityIdentifier("editRecurrence_\(rule.name)")
             } else {
                 // Ended or fully skipped series remain editable through their original anchor.

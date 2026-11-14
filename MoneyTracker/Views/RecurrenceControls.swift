@@ -87,6 +87,7 @@ struct RecurrenceEditorView: View {
                         Picker("Categoria", selection: $category) {
                             ForEach(categories) { Text(LocalizedStringKey($0.name)).tag($0.name) }
                         }
+                        .accessibilityIdentifier("recurrence_category")
                         Picker("Conto", selection: $accountID) {
                             Text("Nessuno").tag(nil as UUID?)
                             ForEach(accounts) { Text($0.name).tag(Optional($0.id)) }
@@ -158,7 +159,9 @@ struct RecurrenceContextMenu: View {
     var body: some View {
         Group {
             if let selection = RecurrenceSelection.resolve(transaction, rules: rules) {
-                Button("Ricorrenza") { onSelect(selection) }
+                Button { onSelect(selection) } label: {
+                    Label("Ricorrenza", systemImage: "repeat")
+                }
             }
             Button(role: .destructive, action: onDelete) {
                 Label("Elimina", systemImage: "trash")

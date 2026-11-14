@@ -52,3 +52,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-14 11:37 | collaudatore (Claude Code · Sonnet) | S-21/S-22 | S-22 ok [x]; S-21 [ ]: voce Ricorrenza nel contextMenu risolta in onAppear, rischio non comparire; xcodebuild mio bloccato (simulatore), fidato log Codex 68+1 verdi | fix menu S-21 |
 | 2026-11-14 11:45 | seconda impresa (Codex · GPT-6) | S-21 fix menu | resolve nel body, test invalidazione cache, pressione prolungata UI; build + 69 unit + 1 UI verdi, log conservato | collaudo commit e verifica manuale menu; graphify-out escluso |
 | 2026-11-14 11:47 | collaudatore (Claude Code · Sonnet) | S-21 fix menu | collaudo ok, S-21 [x]: resolve nel body, test cache, log 69 unit + 1 UI coerente | controllo manuale menu a Matteo |
+
+| 2026-11-14 12:45 | impresa (Codex · GPT-6) | S-23 editor singola occorrenza e repeat | viste aggiornate, categorie verificate, 70 unit + 2 UI mirati verdi; modifiche preesistenti incluse | collaudo S-23; suite completa con due fallimenti noti S-15 |
