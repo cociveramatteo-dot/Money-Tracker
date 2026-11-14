@@ -1,20 +1,23 @@
-# CONSEGNA — collaudo SQL S-13f (563980d)
+# CONSEGNA — S-13f Sync Swift
 
-**Da:** collaudatore (Claude Code · Sonnet) · 2026-11-14 10:30
+**Da:** seconda impresa (Codex · GPT-6) · 2026-11-14 10:33
+**Stato:** S-13f [~], parte Swift pronta per collaudo sul ramo `redesign-sentiero`. S-13e già [x].
 
-**Esito: OK** (solo lettura statica; SQL non eseguito, Sync non toccato).
-- Colonne: 16 su 16 coerenti con `RecurringRule.swift` e piano-s13 (id, user_id, name, type, category, category_icon, notes, amount, is_fixed, account_id, frequency, start_date, end_date, exceptions, materialized_through, created_at). Nullable corretti: account_id, end_date, materialized_through.
-- Decimal: `amount numeric` senza scala, nessun arrotondamento imposto; compatibile con DTO `Decimal` come `SBTransaction`.
-- Permessi: REVOKE ALL a PUBLIC/anon/authenticated, GRANT CRUD solo ad authenticated; RLS attiva.
-- Quattro policy proprietario `(SELECT auth.uid()) = user_id`; UPDATE con USING + WITH CHECK. Frequency con CHECK sulle 3 voci. FK user_id → auth.users ON DELETE CASCADE. Transazione con BEGIN/COMMIT, fallisce se la tabella esiste.
-- Nota: nessun CHECK end_date >= start_date, voluto (serie vuota ammessa).
-**Non verificato:** esecuzione reale e isolamento tra due utenti (dopo il Sync).
+## Fatto
+- `SyncService.swift`: DTO interno `SBRecurringRule` completo (16 colonne, Decimal, exceptions testuale, nullable serializzati come NULL espliciti); push completo + deleteOrphans con filtro utente; fetch locale throwing prima di avviare gli upload per non scambiare un errore per insieme vuoto.
+- Pull delle regole con inserimento, aggiornamento di tutti i campi e cancellazione orfani; watermark = max(locale, remoto), con tutte le combinazioni nil coperte. Helper condiviso tra pull e test; save resta quello del pull.
+- Logout: clearLocalData elimina anche RecurringRule. Nessuna vista, modello, logica Domain, tabella remota o test preesistente modificato.
+- Quattro nuovi test in `RecurringRuleSyncTests.swift`: DTO/CodingKeys/Decimal/eccezioni/NULL, nove combinazioni watermark, merge inserimenti/aggiornamenti/orfani/pull vuoto, logout.
 
-## Prossimo: Matteo, S-13e
-📍 supabase.com/dashboard → progetto MoneyTracker → SQL Editor → New query
-▶️ Incolla il blocco SQL di `.cantiere/PER-MATTEO.md` (sezione S-13e) e premi Run una volta sola
-↩️ Riporta «S-13e fatto: rls_attiva = true, numero_policy = 4» oppure l'errore completo. Se la tabella esiste già, non cancellarla: riporta l'errore.
-Poi: Codex implementa il Sync di S-13f (DTO, push, pull con max watermark, clearLocalData). Non provare il Sync in app prima della conferma S-13e. Restano obblighi S-13g (alert errori, 7 lingue).
+## Verifica
+- Build e **64 unit test verdi** (60 precedenti + 4 nuovi). Log: `/tmp/moneytracker-s13f-recheck.log`; xcresult: `/Users/matteo/Library/Developer/Xcode/DerivedData/MoneyTracker-ccjguvvnbihhyiemgfhjfvaiqfwa/Logs/Test/Run-MoneyTracker-2026.11.14_10-32-48-+0100.xcresult`.
+- Prima esecuzione: 63/64, confronto importo/eccezioni dopo persistenza ad alta precisione fallito. DTO con `123.4567890123456789` verde; test merge finale usa `0.2`. Diagnosi distinta **S-16**, non risolta né nascosta: isolare campo e differenza prima di attribuire causa a SwiftData. Log `/tmp/moneytracker-s13f.log`.
+- `git diff --check` pulito. UI non eseguiti: nessuna vista modificata; difetti noti S-15 restano aperti.
+- Grafo aggiornato AST senza LLM. Graphify segnala 9 file JSON senza nodi (tra cui configurazioni e Contents.json). Backup automatico `graphify-out/2026-11-14/` escluso dal commit; tutti i file inizialmente erano puliti.
 
-## Aggiornamento 2026-11-14 10:27
-S-13e [x]: Matteo ha eseguito l'SQL, esito rls_attiva = true, numero_policy = 4. Via libera a Codex per il Sync di S-13f; isolamento tra due utenti da provare dopo.
+## Non verificato / aperto
+- Nessuna chiamata verso il Supabase reale: prova tra due dispositivi e isolamento fra due utenti ancora da eseguire dopo il collaudo; S-13f non è [x].
+- S-16 precisione elevata da diagnosticare; S-13g UI/alert/avvii materializer e sette lingue ancora aperto. Non cambiare dati o schema per aggirare la verifica.
+
+## Prossimo: collaudatore — Claude Code · Sonnet
+Prompt: «Prendi il turno secondo AGENTS.md §4, leggi CONSEGNA.md. Collauda solo il diff dell'ultimo commit [seconda impresa] implementa Sync ricorrenze (S-13f), confrontandolo con .cantiere/piano-s13.md: DTO completo, NULL, Decimal/eccezioni, upsert/deleteOrphans filtrati per utente, pull con watermark max, cancellazione regole al logout e nuovi test. Build e 64 unit verdi nel log indicato. Non dichiarare verificata la rete: prova fra dispositivi e isolamento utenti non eseguiti. Esamina la scoperta S-16 senza modificare modelli o viste. Aggiorna piano e consegna, chiudi turno col cartellino. Dopo il collaudo organizza la prova reale necessaria per chiudere S-13f.»

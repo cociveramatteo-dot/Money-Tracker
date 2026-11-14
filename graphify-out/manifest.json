@@ -135,9 +135,9 @@
     "semantic_hash": "8c4a572e1cf416850fe9ca8cb0f03d7a"
   },
   "MoneyTracker/Sync/SyncService.swift": {
-    "mtime": 1788862047.4849684,
-    "ast_hash": "e79f34507896a3db72d8a6de80d8d9e8",
-    "semantic_hash": "e79f34507896a3db72d8a6de80d8d9e8"
+    "mtime": 1794648600.9070528,
+    "ast_hash": "5edda87e1cd845e5cc9c989d7bacff15",
+    "semantic_hash": ""
   },
   "MoneyTrackerTests/AccountBalanceTests.swift": {
     "mtime": 1784512986.202111,
@@ -530,8 +530,8 @@
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1794644976.895091,
-    "ast_hash": "97517d59e2ef351a2f8ae17d85ae72f5",
+    "mtime": 1794648483.5274477,
+    "ast_hash": "2b0f2103a26e0ed2f990eef94f58c679",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
@@ -540,8 +540,8 @@
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1794645922.9408023,
-    "ast_hash": "48171293b348086d5c98cdb1924bb235",
+    "mtime": 1794648483.5264769,
+    "ast_hash": "c17b0878971603ba34fa93aa551ff579",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -555,13 +555,13 @@
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1794644976.8973331,
-    "ast_hash": "060ea271d46d5f8c8c7e458334f48191",
+    "mtime": 1794648483.526921,
+    "ast_hash": "3e9dad37b8c46b760ced0d6929751a46",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1794645922.9380078,
-    "ast_hash": "58d2b9da9fbca4f65c88db3a49284670",
+    "mtime": 1794648782.0649457,
+    "ast_hash": "015e9d155d5b64071bc8b2cb1584dcdb",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1794646106.3828335,
-    "ast_hash": "7a6164cbae38451564db3092accc1f63",
+    "mtime": 1794648528.0164514,
+    "ast_hash": "ec72477c68e3cb889e23dfbeb1316c00",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -667,6 +667,11 @@
   "MoneyTrackerTests/RecurringSeriesEditorTests.swift": {
     "mtime": 1794646455.4114304,
     "ast_hash": "9355bbdfc97ed5a127db98a9c94bbfbd",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/RecurringRuleSyncTests.swift": {
+    "mtime": 1794648727.039852,
+    "ast_hash": "0d85485b608191886f5bc73212d2b586",
     "semantic_hash": ""
   }
 }

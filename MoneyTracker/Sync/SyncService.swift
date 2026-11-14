@@ -10,6 +10,103 @@ import Combine
 // Struct Codable che rispecchiano le colonne delle tabelle Supabase (snake_case).
 // Vengono costruite dai modelli SwiftData locali e decodificate dalle risposte API.
 
+struct SBRecurringRule: Codable {
+    let id: UUID
+    let userId: UUID
+    let name: String
+    let type: String
+    let category: String
+    let categoryIcon: String
+    let notes: String
+    let amount: Decimal
+    let isFixed: Bool
+    let accountId: UUID?
+    let frequency: String
+    let startDate: Date
+    let endDate: Date?
+    let exceptionsJSON: String
+    let materializedThrough: Date?
+    let createdAt: Date
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case userId = "user_id"
+        case name
+        case type
+        case category
+        case categoryIcon = "category_icon"
+        case notes
+        case amount
+        case isFixed = "is_fixed"
+        case accountId = "account_id"
+        case frequency
+        case startDate = "start_date"
+        case endDate = "end_date"
+        case exceptionsJSON = "exceptions"
+        case materializedThrough = "materialized_through"
+        case createdAt = "created_at"
+    }
+
+    init(_ rule: RecurringRule, userId: UUID) {
+        self.id = rule.id
+        self.userId = userId
+        self.name = rule.name
+        self.type = rule.type
+        self.category = rule.category
+        self.categoryIcon = rule.categoryIcon
+        self.notes = rule.notes
+        self.amount = rule.amount
+        self.isFixed = rule.isFixed
+        self.accountId = rule.accountId
+        self.frequency = rule.frequency
+        self.startDate = rule.startDate
+        self.endDate = rule.endDate
+        self.exceptionsJSON = rule.exceptionsJSON
+        self.materializedThrough = rule.materializedThrough
+        self.createdAt = rule.createdAt
+    }
+
+    // Encode nil as SQL NULL too: an edit can clear an account, end date or cursor.
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(userId, forKey: .userId)
+        try container.encode(name, forKey: .name)
+        try container.encode(type, forKey: .type)
+        try container.encode(category, forKey: .category)
+        try container.encode(categoryIcon, forKey: .categoryIcon)
+        try container.encode(notes, forKey: .notes)
+        try container.encode(amount, forKey: .amount)
+        try container.encode(isFixed, forKey: .isFixed)
+        try container.encode(accountId, forKey: .accountId)
+        try container.encode(frequency, forKey: .frequency)
+        try container.encode(startDate, forKey: .startDate)
+        try container.encode(endDate, forKey: .endDate)
+        try container.encode(exceptionsJSON, forKey: .exceptionsJSON)
+        try container.encode(materializedThrough, forKey: .materializedThrough)
+        try container.encode(createdAt, forKey: .createdAt)
+    }
+
+    /// Remote fields win, except the materialization cursor which must never go backwards.
+    func apply(to rule: RecurringRule) {
+        if rule.name != name { rule.name = name }
+        if rule.type != type { rule.type = type }
+        if rule.category != category { rule.category = category }
+        if rule.categoryIcon != categoryIcon { rule.categoryIcon = categoryIcon }
+        if rule.notes != notes { rule.notes = notes }
+        if rule.amount != amount { rule.amount = amount }
+        if rule.isFixed != isFixed { rule.isFixed = isFixed }
+        if rule.accountId != accountId { rule.accountId = accountId }
+        if rule.frequency != frequency { rule.frequency = frequency }
+        if rule.startDate != startDate { rule.startDate = startDate }
+        if rule.endDate != endDate { rule.endDate = endDate }
+        if rule.exceptionsJSON != exceptionsJSON { rule.exceptionsJSON = exceptionsJSON }
+        if rule.createdAt != createdAt { rule.createdAt = createdAt }
+        let watermark = [rule.materializedThrough, materializedThrough].compactMap { $0 }.max()
+        if rule.materializedThrough != watermark { rule.materializedThrough = watermark }
+    }
+}
+
 private struct SBAccount: Codable {
     let id:                   UUID
     let userId:               UUID
@@ -457,6 +554,8 @@ final class SyncService: ObservableObject {
         // i dati finanziari di quello precedente — non deve mai passare inosservato.
         do { try context.delete(model: Transaction.self) }
         catch { Logger.persistence.error("clearLocalData: delete Transaction failed → \(error.localizedDescription, privacy: .public)") }
+        do { try context.delete(model: RecurringRule.self) }
+        catch { Logger.persistence.error("clearLocalData: delete RecurringRule failed → \(error.localizedDescription, privacy: .public)") }
         do { try context.delete(model: Budget.self) }
         catch { Logger.persistence.error("clearLocalData: delete Budget failed → \(error.localizedDescription, privacy: .public)") }
         do { try context.delete(model: Goal.self) }
@@ -486,6 +585,9 @@ final class SyncService: ObservableObject {
             let transactions = (try? context.fetch(FetchDescriptor<Transaction>())) ?? []
             let budgets      = (try? context.fetch(FetchDescriptor<Budget>()))      ?? []
             let goals        = (try? context.fetch(FetchDescriptor<Goal>()))        ?? []
+
+            // Fetch must succeed before orphan deletion: a failed read is not an empty store.
+            let rules = try context.fetch(FetchDescriptor<RecurringRule>())
 
             // Accounts
             if !accounts.isEmpty {
@@ -532,6 +634,14 @@ final class SyncService: ObservableObject {
             try await deleteOrphans(table: "mt_goals",
                                     userId: userId,
                                     localIds: Set(goals.map { $0.id }))
+
+            // Rules use a full upsert, like budgets (including watermark and exceptions).
+            if !rules.isEmpty {
+                try await client.from("mt_recurring_rules")
+                    .upsert(rules.map { SBRecurringRule($0, userId: userId) }).execute()
+            }
+            try await deleteOrphans(table: "mt_recurring_rules", userId: userId,
+                                    localIds: Set(rules.map { $0.id }))
 
             Logger.persistence.info("SyncService: push complete")
             return true
@@ -721,6 +831,10 @@ final class SyncService: ObservableObject {
                 context.delete(local)
             }
 
+            let sbRules: [SBRecurringRule] = try await client.from("mt_recurring_rules")
+                .select().eq("user_id", value: userId.uuidString).execute().value
+            try Self.mergeRecurringRules(sbRules, context: context)
+
             context.safeSave()
             UserDefaults.standard.set(Date(), forKey: lastPullKey)
             Logger.persistence.info("SyncService: pull complete")
@@ -728,6 +842,24 @@ final class SyncService: ObservableObject {
         } catch {
             Logger.persistence.error("SyncService pull error: \(error.localizedDescription, privacy: .public)")
         }
+    }
+
+    /// Shared by the pull and in-memory tests; save remains part of the enclosing pull.
+    static func mergeRecurringRules(_ rows: [SBRecurringRule], context: ModelContext) throws {
+        let locals = try context.fetch(FetchDescriptor<RecurringRule>())
+        let byId = Dictionary(locals.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+        for row in rows {
+            if let existing = byId[row.id] {
+                row.apply(to: existing)
+            } else {
+                let rule = RecurringRule(id: row.id, name: row.name, amount: row.amount,
+                                         type: row.type, frequency: row.frequency, startDate: row.startDate)
+                row.apply(to: rule)
+                context.insert(rule)
+            }
+        }
+        let remoteIds = Set(rows.map { $0.id })
+        for local in locals where !remoteIds.contains(local.id) { context.delete(local) }
     }
 
     // MARK: - Helpers

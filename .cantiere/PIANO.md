@@ -138,8 +138,9 @@ il task e i file indicati.
   - S-13c [x] (2026-11-14 09:55, collaudo ok) Materializer + spegnimento vecchio motore → Codex · implementato; verifica completata 2026-11-14 09:29: build e 48 unit verdi, UI 10/12 sullo stesso codice (due sessioni, stop intermedio richiesto da Matteo). I due fallimenti sono gli stessi S-15. Nessun codice cambiato alla ripresa; da collaudare prima di d.
   - S-13d [x] collaudato 2026-11-14 10:20 (ok, 60 unit verdi; note in CONSEGNA) · Editor (solo questa / successive / tutte, salta, termina) → Codex · implementato 2026-11-14 09:56: Domain + 12 nuovi test; build e 60 unit verdi. Da collaudare. Stato errore osservabile pronto; alert effettivo e collegamento degli avvii del materializer obbligatori in S-13g (UI intoccabile in d).
   - S-13e [x] fatto da Matteo 2026-11-14 10:27 (rls_attiva = true, numero_policy = 4; isolamento tra utenti da provare col Sync) · Creare tabella `mt_recurring_rules` su Supabase → **Matteo** (SQL e istruzioni li prepara S-13f)
-  - S-13f [ ] Sync → Codex · richiede b; prova in app solo dopo e
+  - S-13f [~] Sync → Codex · parte Swift implementata, da collaudare; prova reale tra dispositivi e isolamento utenti ancora da eseguire
     - 2026-11-14 10:17 · Codex: preparata **solo la parte SQL**, su richiesta di Matteo, in `PER-MATTEO.md` (tabella, indice user_id, grant CRUD e 4 policy RLS). Da collaudare; non eseguita su Supabase. S-13e resta a Matteo; DTO/push/pull/clearLocalData e test Sync ancora da implementare in S-13f.
+    - 2026-11-14 10:33 · Codex: DTO, upsert/deleteOrphans, pull max watermark, logout e 4 nuovi test; build + 64 unit verdi (`/tmp/moneytracker-s13f-recheck.log`). Prova reale e collaudo da fare; scoperta S-16 separata.
   - S-13g [ ] UI → Codex, DOPO che Antigravity chiude S-12 su `TransactionsView`
   - S-13h [ ] Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo).
   - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
@@ -188,3 +189,8 @@ Modello di task:
 ```
 
 - S-13f/SQL collaudato 2026-11-14 10:30 (ok, solo diff documentale; SQL non eseguito). Resta [ ] il Sync Swift. S-13e: tocca a Matteo (PER-MATTEO).
+
+### S-16 [ ] Verificare precisione Decimal elevata nella persistenza RecurringRule
+- Scoperto durante S-13f: il DTO conserva esattamente `123.4567890123456789` nel round-trip JSON, ma il confronto dell'importo dopo inserimento/fetch SwiftData ha fallito nel test nuovo di merge (prima esecuzione: `/tmp/moneytracker-s13f.log`, riga 928). Il test comprendeva anche exceptionsJSON: isolare e misurare la differenza prima di attribuire la causa.
+- Il test finale di merge usa `0.2`; il DTO mantiene la prova ad alta precisione. Nessun modello o test preesistente modificato.
+- A chi: collaudatore per diagnosi; eventuale correzione Models/Persistence richiede assegnazione specifica. Non dichiarare risolto in S-13f.
