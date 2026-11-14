@@ -222,11 +222,12 @@ Modello di task:
 
 - S-20 · 2026-11-14 11:05 · Codex: guard con base.endDate nil; regressione terminate prima → delete all; 68 unit verdi (67 esistenti + 1). Da collaudare.
 
-### S-21 [~] Performance: ricalcoli per riga in TransactionsView (Commissione S-13h, giudice 4: 8/10)
+### S-21 [ ] Performance: ricalcoli per riga in TransactionsView (Commissione S-13h, giudice 4: 8/10)
 - `RecurrenceSelection.resolve` è chiamata per ogni riga in `.contextMenu`/tap e ricalcola le occorrenze dall'ancora fino alla copia (serie settimanali lunghe = centinaia di occorrenze per riga a ogni render); `virtualOccurrences` e `programmedRule` ricalcolano a ogni body. Soluzione: calcolare solo al tap/apertura menu o memoizzare per (regola, mese). Nessun cambio di logica. → Codex.
-- Implementato da Codex: risoluzione al tap/apertura menu, cache delle occorrenze invalidata su input/intervallo/fuso, guard al posto dei force unwrap di presentazione. Da collaudare.
-### S-22 [~] Architettura: spezzare TransactionsView (giudice 2: 8/10)
+- Implementato da Codex: risoluzione al tap/apertura menu, cache delle occorrenze invalidata su input/intervallo/fuso, guard al posto dei force unwrap di presentazione.
+  - Collaudo 2026-11-14 11:37: cache (chiave su tutti gli input snapshot + intervallo + fuso), fallback serie terminate e guard OK. DA CORREGGERE: `RecurrenceContextMenu` (RecurrenceControls.swift ~riga 160) risolve in `.onAppear` + `@State` dentro un `.contextMenu`: su iOS il menu è reso da UIKit, onAppear/State possono non scattare o non aggiornare il menu → voce «Ricorrenza» potrebbe non comparire mai (regressione funzionale, non coperta dal test UI). Fix: calcolare `RecurrenceSelection.resolve` direttamente nel `body` di RecurrenceContextMenu (il body è valutato solo alla presentazione del menu), togliere onAppear/onDisappear/@State; poi verificare a mano sul simulatore (pressione prolungata su movimento di una serie → compare «Ricorrenza»). → Codex.
+### S-22 [x] Architettura: spezzare TransactionsView (giudice 2: 8/10)
 - `programmedRule` (~35 righe con logica di fallback ancora) e `virtualOccurrences` stanno inline in `TransactionsView` già molto lunga; estrarre in sottoview/file `ProgrammedRuleCard` in Views/. Nessun cambio visivo. → Codex (prima di S-18).
-- Implementato da Codex: ProgrammedRuleCard e VirtualOccurrenceRow in Views/, cache di presentazione separata, layout e azioni mantenuti. Da collaudare.
+- Implementato da Codex. 2026-11-14 11:37 collaudo ok (diff visivamente invariato, Domain/Models/Sync/Auth intatti).
 ### Commissione Suprema S-13h (2026-11-14 11:08)
 1 Sicurezza 10 · 2 Architettura 8 (S-22) · 3 Logica 10 · 4 Performance 8 (S-21) · 5 Robustezza 9 (`!` su calendar.date in resolve/programmedRule: sicuri ma da sostituire con guard in S-21) · 6 Lingua/UX 8 (traduzioni provvisorie S-19, grafica S-18). Esito: non approvato, nessun push.

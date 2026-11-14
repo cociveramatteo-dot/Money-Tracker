@@ -49,3 +49,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-14 11:08 | collaudatore (Claude Code · Sonnet) | S-13h documento + Commissione Suprema | commenti obsoleti, docs+PDF, 68 unit verdi; Commissione: 10/8/10/8/9/8 | S-21, S-22, S-19, S-18 prima del checkpoint |
 
 | 2026-11-14 11:15 | seconda impresa (Codex · GPT-6) | S-21 / S-22 | cache occorrenze, resolve al tap/apertura menu, guard, card e riga virtuale estratte; build + 68 unit + 1 UI verdi; grafo aggiornato | collaudo diff e menu contestuale; S-19/S-18 prima della Commissione |
+| 2026-11-14 11:37 | collaudatore (Claude Code · Sonnet) | S-21/S-22 | S-22 ok [x]; S-21 [ ]: voce Ricorrenza nel contextMenu risolta in onAppear, rischio non comparire; xcodebuild mio bloccato (simulatore), fidato log Codex 68+1 verdi | fix menu S-21 |
