@@ -206,7 +206,7 @@ Modello di task:
 - S-17 collaudo: la guardia `rows.isEmpty && !locals.isEmpty` è nel punto giusto (prima di qualsiasi modifica), il test verifica id, watermark ed eccezioni conservati; la cancellazione orfani con remoto popolato resta coperta da `pullInsertsUpdatesAndDeletesOrphans` (il test ora non più svuota con `[]`). Eseguita solo la suite da 5 test (log /tmp/moneytracker-s17-verified.log), non i 64. **Limite accettato:** se l'ultima regola viene cancellata da un altro dispositivo, qui resta e il push successivo la ricarica (risorge). Con remoto parzialmente popolato nessun cambiamento.
 
 ### S-18 [ ] Rifinitura grafica dei virtuali e delle serie programmate
-- **A chi:** Codex (Antigravity non più disponibile, deciso da Matteo 2026-11-14 11:09); mockup da concordare con Matteo prima di inventare grafica.
+- **A chi:** Codex (Antigravity sospeso fino al 2026-11-20, deciso da Matteo 2026-11-14 11:09); mockup da concordare con Matteo prima di inventare grafica.
 - **Perimetro:** presentazione introdotta in S-13g, Theme.swift; nessun cambiamento a logica, saldi o totali. Verifica light/dark/XL/tedesco.
 
 ### S-19 [ ] Revisione testi e traduzioni S-13g

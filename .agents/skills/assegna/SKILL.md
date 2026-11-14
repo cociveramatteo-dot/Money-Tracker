@@ -10,7 +10,7 @@ description: Decide a quale membro della squadra dare un lavoro (Antigravity, Co
    si assegna: segnalo `[?]` e rispondi "tocca a te: <domande precise>".
    Se serve un attrezzo spento o non installato (skill dello scaffale, Chrome, un connettore) dillo qui (AGENTS.md §6.12 🧰).
 2. Scegli con la tabella di `.cantiere/SQUADRA.md`: **il più economico che lo fa bene**. Per ESEGUIRE (codice,
-   CSS, testi, correzioni) la proposta principale è SEMPRE un'impresa: Antigravity → Codex. L'operaio (Claude)
+   CSS, testi, correzioni) la proposta principale è SEMPRE un'impresa: Antigravity → Codex. **Antigravity è sospeso fino al 2026-11-20 (Matteo): salta direttamente a Codex, non proporlo né preparargli prompt.** Dal 2026-11-21 torna normale (controlla la data con `date`). L'operaio (Claude)
    solo come riserva dichiarata ("se le imprese sono senza quota"), mai come prima scelta, anche per task brevi.
    Claude (capocantiere/architetto) solo per pensare e controllare.
 3. **Prima di scrivere un prompt per un'impresa** leggi la sezione "Come si costruisce" di `.cantiere/MAPPA.md`
