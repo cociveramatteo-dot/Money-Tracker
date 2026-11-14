@@ -5,6 +5,11 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### S-23 — controllo manuale editor singola occorrenza
+📍 Simulator Xcode, MoneyTracker, scheda Movimenti.
+▶️ (1) Crea un movimento Mensile, salvalo: accanto al titolo deve esserci una piccola icona repeat grigia. (2) Toccalo una volta: si apre l'editor normale, senza selettore ricorrenza; cambia importo e categoria, salva: cambia solo quella copia. (3) Tienilo premuto: compaiono «Ricorrenza» (con icona) ed «Elimina»; «Ricorrenza» apre l'editor della serie. (4) Apri un movimento non ricorrente: nessun selettore di ricorrenza.
+↩️ Riporta «S-23 manuale OK» oppure cosa non torna.
+
 ### S-21 — controllo manuale menu dopo il collaudo
 📍 Simulator Xcode, MoneyTracker, scheda Movimenti (dati demo).
 ▶️ Crea un movimento con ricorrenza Mensile, salva, tieni premuta la sua riga e tocca «Ricorrenza»: deve aprirsi l’editor con «Ambito». Se Simulator è bloccato, chiudilo con ⌘Q e riaprilo da Xcode → Open Developer Tool → Simulator; poi rilancia l’app con ▶︎ in Xcode.

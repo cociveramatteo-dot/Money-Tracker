@@ -234,7 +234,7 @@ Modello di task:
 ### Commissione Suprema S-13h (2026-11-14 11:08)
 1 Sicurezza 10 · 2 Architettura 8 (S-22) · 3 Logica 10 · 4 Performance 8 (S-21) · 5 Robustezza 9 (`!` su calendar.date in resolve/programmedRule: sicuri ma da sostituire con guard in S-21) · 6 Lingua/UX 8 (traduzioni provvisorie S-19, grafica S-18). Esito: non approvato, nessun push.
 
-### S-23 [~] Editor singola occorrenza e indicatore ricorrenza
+### S-23 [x] (2026-11-14 12:55, collaudo ok) Editor singola occorrenza e indicatore ricorrenza
 - **A chi:** Codex, assegnato da Matteo 2026-11-14.
 - **Obiettivo:** tap in Movimenti apre editor normale; salva solo la copia, senza cambiare regola. Ricorrenza solo dal menu prolungato esistente. Selettore nascosto in modifica; icona repeat nelle righe. Verifica categorie nella copia e con Tutte.
 - **Perimetro:** viste e test; mantenere e committare modifiche preesistenti ProgrammedRuleCard/RecurrenceControls. Domain intatto; graphify-out escluso dal commit.

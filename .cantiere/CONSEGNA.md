@@ -1,4 +1,8 @@
-# CONSEGNA — S-23
+# CONSEGNA — collaudo S-23
+
+**Da:** collaudatore, 2026-11-14 12:55. S-23 [x] collaudo ok (solo lettura diff e log, nessun test rilanciato). Manuale a Matteo in PER-MATTEO.md. Restano S-18/S-19, poi Commissione S-13h; checkpoint/push bloccato.
+
+---
 
 **Da:** impresa (Codex · GPT-6), 2026-11-14 12:45. Ramo `redesign-sentiero`.
 
