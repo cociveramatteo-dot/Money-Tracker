@@ -3,4 +3,4 @@
 In turno: nessuno
 Dalle: —
 Ultimo checkpoint: —
-Fase: S-12 implementato da Codex, [~] pronto per il collaudatore; prove e differenze residue in CONSEGNA.md. Tab bar XL resta S-10; motore ricorrenze resta S-13.
+Fase: S-12 chiuso [x]; prossimo S-13a+b (Codex)

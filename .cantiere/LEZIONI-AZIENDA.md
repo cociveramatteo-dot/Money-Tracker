@@ -23,8 +23,11 @@
 |---|---|---|
 | **Claude Code · Sonnet (capocantiere/collaudatore)** | coordinare, collaudare con test reali, riconoscere errori e scrivere decisioni | ha chiuso S-5 senza mockup (errore mio); ha detto che il Budget mancava mentre esisteva: prima verificare nel codice/documento master |
 | **Architetto · Opus** | analisi di sistema, trovare cause profonde (sync), piani con sotto-task e rischi | costa: usarlo per dati/architettura, non per la grafica |
-| **Codex** | restyling con grande attenzione a identificatori e test, build verde, i18n x7 | controllo del Simulatore instabile (timeout, runner fermo): ha consegnato senza verifica a vista |
+| **Codex** | ripresa di lavoro altrui lasciato a metà (S-12): ha riletto il diff, tenuto il buono, confrontato col mockup anche rendendo l'HTML mancante di support.js; restyling con grande attenzione a identificatori e test, build verde, i18n x7 | controllo del Simulatore instabile (timeout, runner fermo): ha consegnato senza verifica a vista |
 | **Antigravity · Gemini Flash (piano starter)** | grande volume di modifiche UI in poco tempo, screenshot comparativi | quota esaurita in un solo lavoro (pausa di una settimana); consuma molto con tanti controlli ogni 15–25 secondi su test lunghi (meglio un'unica attesa); non ha chiuso il turno né confrontato il mockup prima di restare senza quota. Per lavori lunghi serve un piano più capiente o lavori spezzati |
+
+## Esiti recenti
+- **S-12 (Movimenti):** chiuso 2026-11-14 01:30. Il confronto col mockup richiesto da Matteo ha prodotto una schermata conforme al primo collaudo; il passaggio Antigravity→Codex per quota è riuscito perché il codice a metà era rimasto nel ramo e CONSEGNA/PIANO erano aggiornati. Il mockup andava cercato in `reference/` e mancava `support.js`: nel brief indicare sempre percorso e come renderizzarlo.
 
 ## Suggerimenti per la versione successiva
 - Scheda task con campi fissi: **mockup di riferimento**, **deroghe autorizzate**, **file riservati**, **come si verifica a vista**.

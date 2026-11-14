@@ -111,12 +111,12 @@ il task e i file indicati.
 - **Non fare:** toccare `Auth/` logica, Sync, Face ID
 - **Collaudo 2026-11-13 23:16 (collaudatore):** [x] conforme. Runner ripristinato (shutdown/boot). 27 unit + 12 UI verdi sul 37445D1E; funzioni conservate (ricerca, filtri, swipe, trasferimenti, ricorrenti). Resa a vista hub: light, dark, XL, tedesco ok. Riserve cosmetiche → S-11.
 
-### S-11 [ ] Riserve da S-5 (XL e badge demo)
+### S-11 [x] Riserve da S-5 (XL e badge demo) — assorbito da S-12; resta solo tab bar XL in S-10
 - **A chi:** Codex o operaio · piccolo
 - **Obiettivo:** (1) a XL l'importo del totale in `groupHeader` va a capo (`€` su riga sola): `lineLimit(1)`/`fixedSize` sull'importo; (2) a XL `MonthBar` non scala; (3) il badge «MODALITÀ DEMO» (`MoneyTrackerApp.swift:272`, solo demo) copre il titolo grande; (4) tab bar con etichette troncate a XL (già in S-10). Le sezioni interne (Uscite ecc.) non sono state fotografate: verificarle a vista.
 - **Non fare:** toccare domain/calcoli
 
-### S-12 [~] Movimenti: pagina unica + zona sotto i chip + Ricorrenti (da mockup)
+### S-12 [x] Movimenti: pagina unica + zona sotto i chip + Ricorrenti (da mockup) — collaudo 2026-11-14 01:30 ok
 - **A chi:** Codex (o Antigravity) · confronto col mockup OBBLIGATORIO a ogni passo
 - **Obiettivo:** (1) Tutti/Fisse/Trasf./Uscite/Entrate nella STESSA pagina: titolo, impostazioni, filtri, ricerca e chip fermi, cambia solo la lista, niente pagine nuove; (2) sotto i chip mese, categorie e filtri esattamente come in `Movimenti.dc.html` (più pulito); (3) solo Ricorrenti resta pagina a sé, da rivedere; (4) elenco scritto delle altre differenze dal mockup; (5) riserve S-11.
 - **Leggere:** `Movimenti.dc.html`, `DESIGN_HANDOFF.md` §4, `Views/TransactionsView.swift`; aggiornare l'helper `openTransactionsSection` dei UI test senza aggirarli
