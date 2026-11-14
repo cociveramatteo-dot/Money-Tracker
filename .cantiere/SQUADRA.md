@@ -1,3 +1,5 @@
+> **2026-11-14 11:09 — ANTIGRAVITY NON DISPONIBILE: Matteo non può più usarlo.** Non assegnargli nulla e non proporlo nei cartellini. Le sue mansioni (grafica, implementazione, test visivi) vanno a **Codex**; in riserva l'`operaio`.
+
 # SQUADRA — organigramma, smistamento e albo delle assunzioni
 
 ## Squadra fissa
