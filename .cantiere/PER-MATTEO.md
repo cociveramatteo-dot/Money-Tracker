@@ -5,7 +5,7 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### S-13e — Creare `mt_recurring_rules` (SQL preparato in S-13f)
+### ✅ FATTA 2026-11-14 10:27 · S-13e — Creare `mt_recurring_rules` (SQL preparato in S-13f)
 
 📍 Apri https://supabase.com/dashboard, scegli il progetto **MoneyTracker**, poi **SQL Editor → New query**.
 ▶️ Copia tutto il blocco SQL qui sotto e premi **Run** una sola volta. Non servono modifiche o credenziali nel testo.

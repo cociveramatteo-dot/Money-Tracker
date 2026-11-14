@@ -15,3 +15,6 @@
 ▶️ Incolla il blocco SQL di `.cantiere/PER-MATTEO.md` (sezione S-13e) e premi Run una volta sola
 ↩️ Riporta «S-13e fatto: rls_attiva = true, numero_policy = 4» oppure l'errore completo. Se la tabella esiste già, non cancellarla: riporta l'errore.
 Poi: Codex implementa il Sync di S-13f (DTO, push, pull con max watermark, clearLocalData). Non provare il Sync in app prima della conferma S-13e. Restano obblighi S-13g (alert errori, 7 lingue).
+
+## Aggiornamento 2026-11-14 10:27
+S-13e [x]: Matteo ha eseguito l'SQL, esito rls_attiva = true, numero_policy = 4. Via libera a Codex per il Sync di S-13f; isolamento tra due utenti da provare dopo.
