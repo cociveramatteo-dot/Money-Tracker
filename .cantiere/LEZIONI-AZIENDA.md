@@ -29,6 +29,8 @@
 ## Esiti recenti
 - **S-12 (Movimenti):** chiuso 2026-11-14 01:30. Il confronto col mockup richiesto da Matteo ha prodotto una schermata conforme al primo collaudo; il passaggio Antigravity→Codex per quota è riuscito perché il codice a metà era rimasto nel ramo e CONSEGNA/PIANO erano aggiornati. Il mockup andava cercato in `reference/` e mancava `support.js`: nel brief indicare sempre percorso e come renderizzarlo.
 
+- **Badge filtri tagliato dal bordo (S-12):** visibile negli screenshot di Codex e passato al collaudo come «ok»; l'ha visto Matteo in app. → Nel collaudo guardare i dettagli ai bordi (badge, ombre, tagli) con lo screenshot ingrandito, specie con stati attivi (filtri, errori, selezioni).
+
 ## Suggerimenti per la versione successiva
 - Scheda task con campi fissi: **mockup di riferimento**, **deroghe autorizzate**, **file riservati**, **come si verifica a vista**.
 - Prima di assegnare grafica a un'impresa, controllare la quota residua; per task grossi spezzarli in passi che finiscono in un turno.
