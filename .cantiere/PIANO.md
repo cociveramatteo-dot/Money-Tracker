@@ -132,10 +132,10 @@ il task e i file indicati.
 - **Non fare:** convertire lo storico; far entrare i virtuali nei calcoli
 
 - **Sotto-task (piano architetto, D-008/D-009):**
-  - S-13a [~] Calcolo puro + UUIDv5 + codec eccezioni → Codex · nuovi `Domain/RecurrenceCalculator.swift`, `MoneyTrackerTests/RecurrenceCalculatorTests.swift`
-  - S-13b [~] Modello `RecurringRule` + SchemaV3 → Codex (eseguito dopo a) · `Models/RecurringRule.swift`, `Persistence/SchemaMigration.swift`, `MoneyTrackerApp.swift`, `Intents/AddExpenseIntent.swift`, `SchemaMigrationTests.swift`
+  - S-13a [x] (2026-11-14, collaudo ok) Calcolo puro + UUIDv5 + codec eccezioni → Codex · nuovi `Domain/RecurrenceCalculator.swift`, `MoneyTrackerTests/RecurrenceCalculatorTests.swift`
+  - S-13b [x] (2026-11-14, collaudo ok) Modello `RecurringRule` + SchemaV3 → Codex (eseguito dopo a) · `Models/RecurringRule.swift`, `Persistence/SchemaMigration.swift`, `MoneyTrackerApp.swift`, `Intents/AddExpenseIntent.swift`, `SchemaMigrationTests.swift`
   - Verifica a+b (Codex, 2026-11-14 02:05): build OK; 40 unit verdi (27 esistenti + 13 nuovi), migrazioni V1→V2, V2→V3 e V1→V3 su disco OK; UI 10/12, due fallimenti riprodotti dopo shutdown all + boot → S-15. Da collaudare; nessun test esistente modificato salvo aggiunte a SchemaMigrationTests.
-  - S-13c [~] Materializer + spegnimento vecchio motore → Codex · implementato; verifica completata 2026-11-14 09:29: build e 48 unit verdi, UI 10/12 sullo stesso codice (due sessioni, stop intermedio richiesto da Matteo). I due fallimenti sono gli stessi S-15. Nessun codice cambiato alla ripresa; da collaudare prima di d.
+  - S-13c [x] (2026-11-14 09:55, collaudo ok) Materializer + spegnimento vecchio motore → Codex · implementato; verifica completata 2026-11-14 09:29: build e 48 unit verdi, UI 10/12 sullo stesso codice (due sessioni, stop intermedio richiesto da Matteo). I due fallimenti sono gli stessi S-15. Nessun codice cambiato alla ripresa; da collaudare prima di d.
   - S-13d [ ] Editor (solo questa / successive / tutte, salta, termina) → Codex · richiede c
   - S-13e [?] Creare tabella `mt_recurring_rules` su Supabase → **Matteo** (SQL e istruzioni li prepara S-13f)
   - S-13f [ ] Sync → Codex · richiede b; prova in app solo dopo e
@@ -144,6 +144,7 @@ il task e i file indicati.
   - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
 
 ### S-15 [ ] Diagnosticare due test UI che non trovano il movimento appena salvato
+- **Collaudo 2026-11-14:** i due test falliscono IDENTICI (righe 55 e 68) anche sul commit 0a76000, prima di S-13: indipendenti da S-13, regressione precedente (probabile S-12 o prima).
 - **A chi:** collaudatore (Claude Code · Sonnet)
 - **Scoperto:** verifica S-13a+b, 2026-11-14 02:05. Non attribuito al nuovo schema: causa da verificare.
 - **Casi:** `NavigationStressUITests.testAddMultipleTransactionsThenDeleteAll` (riga 55) e `TransactionFlowUITests.testAddTransactionWithoutCategoryDefaultsToAltro` (riga 68).
