@@ -86,9 +86,27 @@ struct RecurringRuleSyncTests {
         let inserted = try #require(result.first { $0.id == added.id })
         #expect(inserted.amount == added.amount && inserted.exceptionsJSON == added.exceptionsJSON)
         #expect(inserted.startDate == added.startDate && inserted.createdAt == added.createdAt)
+    }
+
+    @Test func emptyRemotePreservesLocalRulesAwaitingPush() throws {
+        let store = try container()
+        let context = store.mainContext
+        let watermark = Date(timeIntervalSince1970: 300)
+        let local = rule(watermark: watermark)
+        context.insert(local)
+        try context.save()
+        let localId = local.id
+        let exceptions = local.exceptionsJSON
+
         try SyncService.mergeRecurringRules([], context: context)
         try context.save()
-        #expect(try context.fetchCount(FetchDescriptor<RecurringRule>()) == 0)
+
+        let result = try context.fetch(FetchDescriptor<RecurringRule>())
+        #expect(result.count == 1)
+        let preserved = try #require(result.first)
+        #expect(preserved.id == localId)
+        #expect(preserved.materializedThrough == watermark)
+        #expect(preserved.exceptionsJSON == exceptions)
     }
 
     @Test func logoutDeletesRules() throws {

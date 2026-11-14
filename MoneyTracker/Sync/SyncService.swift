@@ -847,6 +847,8 @@ final class SyncService: ObservableObject {
     /// Shared by the pull and in-memory tests; save remains part of the enclosing pull.
     static func mergeRecurringRules(_ rows: [SBRecurringRule], context: ModelContext) throws {
         let locals = try context.fetch(FetchDescriptor<RecurringRule>())
+        // Preserve local rules awaiting their first push, as with accounts.
+        if rows.isEmpty && !locals.isEmpty { return }
         let byId = Dictionary(locals.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
         for row in rows {
             if let existing = byId[row.id] {
