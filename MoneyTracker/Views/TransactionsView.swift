@@ -127,25 +127,28 @@ struct TransactionsView: View {
                         .accessibilityAddTraits(.isHeader)
                     Spacer(minLength: DS.Space.s)
                     Button { showAdvancedFilter = true } label: {
-                        ZStack(alignment: .topTrailing) {
-                            Image(systemName: "line.3.horizontal.decrease")
-                                .font(.system(size: 16))
-                                .foregroundStyle(DS.ink)
-                                .frame(width: 44, height: 44)
-                            if activeAdvancedFilterCount > 0 {
-                                Text("\(activeAdvancedFilterCount)")
-                                    .font(DS.Typo.tabLabelActive)
-                                    .foregroundStyle(DS.onAccent)
-                                    .frame(minWidth: 18, minHeight: 18)
-                                    .background(DS.accent)
-                                    .clipShape(Circle())
-                                    .offset(x: 6, y: -6)
-                            }
-                        }
+                        Image(systemName: "line.3.horizontal.decrease")
+                            .font(.system(size: 16))
+                            .foregroundStyle(DS.ink)
+                            .frame(width: 44, height: 44)
                     }
                     .frame(width: 44, height: 44)
                     .background(DS.surface, in: RoundedRectangle(cornerRadius: DS.Layout.buttonRadius))
                     .overlay(RoundedRectangle(cornerRadius: DS.Layout.buttonRadius).strokeBorder(DS.fog))
+                    // Il badge sta DOPO il bordo: così il contorno del pulsante non lo taglia.
+                    .overlay(alignment: .topTrailing) {
+                        if activeAdvancedFilterCount > 0 {
+                            Text("\(activeAdvancedFilterCount)")
+                                .font(DS.Typo.tabLabelActive)
+                                .foregroundStyle(DS.onAccent)
+                                .frame(minWidth: 18, minHeight: 18)
+                                .background(DS.accent)
+                                .clipShape(Circle())
+                                .offset(x: 6, y: -6)
+                                .allowsHitTesting(false)
+                                .accessibilityHidden(true)
+                        }
+                    }
                     .accessibilityLabel(Text("Filtri"))
                     .accessibilityValue(Text("\(activeAdvancedFilterCount)"))
                     .accessibilityIdentifier("btn_advancedFilter")
