@@ -186,3 +186,5 @@ Modello di task:
 - **Fatto quando:** (criteri verificabili)
 - **Non fare:**
 ```
+
+- S-13f/SQL collaudato 2026-11-14 10:30 (ok, solo diff documentale; SQL non eseguito). Resta [ ] il Sync Swift. S-13e: tocca a Matteo (PER-MATTEO).
