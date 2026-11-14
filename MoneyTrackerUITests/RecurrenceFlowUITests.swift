@@ -22,6 +22,14 @@ final class RecurrenceFlowUITests: MoneyTrackerUITestCase {
                 .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.15)))
         }
         save.tap()
+        let row = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", name)).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.press(forDuration: 1.2)
+        let recurrence = app.buttons["Ricorrenza"]
+        XCTAssertTrue(recurrence.waitForExistence(timeout: 5))
+        recurrence.tap()
+        XCTAssertTrue(app.buttons["recurrence_scope"].waitForExistence(timeout: 5))
+        app.navigationBars.buttons["Annulla"].tap()
         openTransactionsSection("Ricorrenti")
         XCTAssertTrue(app.staticTexts[name].waitForExistence(timeout: 5))
         app.buttons["editRecurrence_" + name].tap()

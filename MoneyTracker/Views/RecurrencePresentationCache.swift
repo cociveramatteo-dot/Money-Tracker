@@ -31,9 +31,8 @@ final class RecurrencePresentationCache {
     private var timeZone: TimeZone?
     private var values: [Occurrence] = []
 
-    func occurrences(rules: [RecurringRule], in interval: DateInterval) -> [Occurrence] {
+    func occurrences(rules: [RecurringRule], in interval: DateInterval, timeZone: TimeZone = .current) -> [Occurrence] {
         let keys = rules.map(RuleKey.init)
-        let timeZone = TimeZone.current
         if self.keys != keys || self.interval != interval || self.timeZone != timeZone {
             values = rules.flatMap {
                 RecurrenceCalculator(timeZone: timeZone).occurrences(rule: RecurringSeriesEditor.snapshot($0), in: interval)

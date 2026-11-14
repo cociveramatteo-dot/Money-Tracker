@@ -154,18 +154,15 @@ struct RecurrenceContextMenu: View {
     let rules: [RecurringRule]
     let onSelect: (RecurrenceSelection) -> Void
     let onDelete: () -> Void
-    @State private var selection: RecurrenceSelection?
 
     var body: some View {
         Group {
-            if let selection {
+            if let selection = RecurrenceSelection.resolve(transaction, rules: rules) {
                 Button("Ricorrenza") { onSelect(selection) }
             }
             Button(role: .destructive, action: onDelete) {
                 Label("Elimina", systemImage: "trash")
             }
-            .onAppear { selection = RecurrenceSelection.resolve(transaction, rules: rules) }
-            .onDisappear { selection = nil }
         }
     }
 }
