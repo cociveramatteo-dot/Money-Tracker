@@ -33,3 +33,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 
 | 2026-11-14 09:56 | seconda impresa (Codex · GPT-6) | S-13d | Editor Domain, ambiti/eccezioni/riconciliazione, recupero errore; build e 60 unit verdi; grafo aggiornato | Collaudo d; alert e collegamento errori materializer/editor in S-13g; S-15 invariato |
 | 2026-11-14 10:20 | collaudatore (Claude Code · Sonnet) | collaudo S-13d | ok: ambiti, codec, copie fatte immutate, split, watermark nil, rollback; 60 unit verdi da log | note minori + obbligo S-13g (alert errori) |
+
+| 2026-11-14 10:18 | seconda impresa (Codex · GPT-6) | S-13f, sola preparazione SQL | SQL mt_recurring_rules e istruzioni S-13e in PER-MATTEO; 16 colonne, indice, grant CRUD, 4 policy RLS; controlli statici e diff puliti | Collaudo SQL, esecuzione S-13e a Matteo; codice Sync S-13f ancora da fare |

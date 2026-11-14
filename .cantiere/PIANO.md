@@ -139,6 +139,7 @@ il task e i file indicati.
   - S-13d [x] collaudato 2026-11-14 10:20 (ok, 60 unit verdi; note in CONSEGNA) · Editor (solo questa / successive / tutte, salta, termina) → Codex · implementato 2026-11-14 09:56: Domain + 12 nuovi test; build e 60 unit verdi. Da collaudare. Stato errore osservabile pronto; alert effettivo e collegamento degli avvii del materializer obbligatori in S-13g (UI intoccabile in d).
   - S-13e [?] Creare tabella `mt_recurring_rules` su Supabase → **Matteo** (SQL e istruzioni li prepara S-13f)
   - S-13f [ ] Sync → Codex · richiede b; prova in app solo dopo e
+    - 2026-11-14 10:17 · Codex: preparata **solo la parte SQL**, su richiesta di Matteo, in `PER-MATTEO.md` (tabella, indice user_id, grant CRUD e 4 policy RLS). Da collaudare; non eseguita su Supabase. S-13e resta a Matteo; DTO/push/pull/clearLocalData e test Sync ancora da implementare in S-13f.
   - S-13g [ ] UI → Codex, DOPO che Antigravity chiude S-12 su `TransactionsView`
   - S-13h [ ] Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo).
   - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
