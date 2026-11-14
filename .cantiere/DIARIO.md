@@ -32,3 +32,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-14 09:55 | collaudatore (Claude Code · Sonnet) | S-13a/b/c | Diff rivisto, build + 48 unit verdi rieseguiti; i 2 UI falliscono uguali su 0a76000 (indipendenti da S-13) → [x] | S-15 aperto; commenti vecchio actor in S-13h |
 
 | 2026-11-14 09:56 | seconda impresa (Codex · GPT-6) | S-13d | Editor Domain, ambiti/eccezioni/riconciliazione, recupero errore; build e 60 unit verdi; grafo aggiornato | Collaudo d; alert e collegamento errori materializer/editor in S-13g; S-15 invariato |
+| 2026-11-14 10:20 | collaudatore (Claude Code · Sonnet) | collaudo S-13d | ok: ambiti, codec, copie fatte immutate, split, watermark nil, rollback; 60 unit verdi da log | note minori + obbligo S-13g (alert errori) |
