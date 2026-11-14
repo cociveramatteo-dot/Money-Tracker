@@ -135,7 +135,7 @@ il task e i file indicati.
   - S-13a [~] Calcolo puro + UUIDv5 + codec eccezioni → Codex · nuovi `Domain/RecurrenceCalculator.swift`, `MoneyTrackerTests/RecurrenceCalculatorTests.swift`
   - S-13b [~] Modello `RecurringRule` + SchemaV3 → Codex (eseguito dopo a) · `Models/RecurringRule.swift`, `Persistence/SchemaMigration.swift`, `MoneyTrackerApp.swift`, `Intents/AddExpenseIntent.swift`, `SchemaMigrationTests.swift`
   - Verifica a+b (Codex, 2026-11-14 02:05): build OK; 40 unit verdi (27 esistenti + 13 nuovi), migrazioni V1→V2, V2→V3 e V1→V3 su disco OK; UI 10/12, due fallimenti riprodotti dopo shutdown all + boot → S-15. Da collaudare; nessun test esistente modificato salvo aggiunte a SchemaMigrationTests.
-  - S-13c [~] Materializer + spegnimento vecchio motore → Codex · implementato 2026-11-14 02:20; build e 48 unit verdi. **Matteo ha chiesto di fermare il turno:** suite UI interrotta, da completare alla ripresa; poi collaudatore. Non iniziare d prima di chiudere questa verifica.
+  - S-13c [~] Materializer + spegnimento vecchio motore → Codex · implementato; verifica completata 2026-11-14 09:29: build e 48 unit verdi, UI 10/12 sullo stesso codice (due sessioni, stop intermedio richiesto da Matteo). I due fallimenti sono gli stessi S-15. Nessun codice cambiato alla ripresa; da collaudare prima di d.
   - S-13d [ ] Editor (solo questa / successive / tutte, salta, termina) → Codex · richiede c
   - S-13e [?] Creare tabella `mt_recurring_rules` su Supabase → **Matteo** (SQL e istruzioni li prepara S-13f)
   - S-13f [ ] Sync → Codex · richiede b; prova in app solo dopo e
@@ -148,7 +148,7 @@ il task e i file indicati.
 - **Scoperto:** verifica S-13a+b, 2026-11-14 02:05. Non attribuito al nuovo schema: causa da verificare.
 - **Casi:** `NavigationStressUITests.testAddMultipleTransactionsThenDeleteAll` (riga 55) e `TransactionFlowUITests.testAddTransactionWithoutCategoryDefaultsToAltro` (riga 68).
 - **Prove:** suite completa 10 UI verdi / 2 falliti; entrambi ancora falliti dopo `simctl shutdown all` e boot. 40 unit verdi. Log `/tmp/moneytracker-s13-build.log` e `/tmp/moneytracker-s13-recheck.log`; xcresult nei rispettivi log. Nessuno screenshot di fallimento esportabile dal risultato.
-- **Aggiornamento S-13c (2026-11-14 02:20):** il caso stress alla riga 55 è fallito ancora; il caso senza categoria non è stato raggiunto prima dell’interruzione richiesta da Matteo. UI non modificati. Log `/tmp/moneytracker-s13c-build.log`.
+- **Aggiornamento S-13c (2026-11-14 09:29):** completati i sei UI sospesi (5 verdi, senza-categoria:68 fallito); aggregato con la sessione interrotta: 10/12, stessi due S-15. Nessun altro fallimento. Codice/test invariati; log `/tmp/moneytracker-s13c-ui-resume.log` e `/tmp/moneytracker-s13c-build.log`.
 - **Fatto quando:** causa dimostrata e 12 UI verdi; distinguere persistenza, visibilità/accessibilità e automazione. Nessuna asserzione indebolita.
 - **Vincoli:** non cambiare viste/test esistenti senza assegnazione e autorizzazione specifica; eventuale correzione oltre il perimetro va prima proposta a Matteo.
 

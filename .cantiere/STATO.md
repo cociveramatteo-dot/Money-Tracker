@@ -3,4 +3,4 @@
 In turno: nessuno
 Dalle: —
 Ultimo checkpoint: —
-Fase: STOP richiesto da Matteo. S-13c implementato [~], build e 48 unit verdi; suite UI interrotta. Ripresa Claude Code → Codex: completare solo verifica UI S-13c, poi collaudatore/S-13d. Leggere CONSEGNA.md.
+Fase: S-13a/b/c implementati [~], verifica c completata: build e 48 unit verdi; UI 10/12, stessi due fallimenti S-15. Prossimo collaudatore (Claude Code · Sonnet), poi S-13d a Codex. Leggere CONSEGNA.md.

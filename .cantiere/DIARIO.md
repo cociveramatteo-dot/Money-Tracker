@@ -27,3 +27,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-14 02:05 | seconda impresa (Codex · GPT-6) | S-13a + S-13b | Calculator/UUIDv5/codec, RecurringRule e SchemaV3, app/Siri aggiornati; build e 40 unit verdi; grafo aggiornato | [~] da collaudare; UI 10/12, due fallimenti riprodotti → S-15; prossimo S-13c |
 
 | 2026-11-14 02:20 | seconda impresa (Codex · GPT-6) | S-13c | Materializer/mainContext e 11 test, avvii serializzati, vecchio motore/test rimossi; build e 48 unit verdi; grafo aggiornato | Stop esplicito di Matteo, UI interrotti: 5 verdi e stress S-15 fallito; ripresa Claude→Codex per completare sola verifica UI; S-13c [~] |
+
+| 2026-11-14 09:29 | seconda impresa (Codex · GPT-6) | Ripresa verifica UI S-13c | Completati i 6 UI sospesi: 5 verdi, 1 fallito noto; totale sul codice invariato 10/12 UI, build e 48 unit già verdi; solo documenti aggiornati | S-13a/b/c [~] da collaudare, S-15 aperto (stessi 2 fallimenti); poi S-13d |

@@ -6,7 +6,7 @@
 **Data:** — **Tag git:** — **Fatto da:** —
 
 ## Siamo qui
-Promemoria di sospensione richiesto da Matteo, 2026-11-14 02:20 (non un checkpoint formale né un collaudo): ramo `redesign-sentiero`; S-12 chiuso, S-13a/b/c implementati [~]. S-13c ha build e 48 unit verdi; suite UI interrotta su richiesta di Matteo (5 UI verdi, stress S-15 ancora fallito, restanti da eseguire).
+Promemoria di ripresa aggiornato 2026-11-14 09:29 (non checkpoint formale): ramo `redesign-sentiero`; S-12 chiuso, S-13a/b/c implementati [~]. Completata la verifica UI interrotta: build e 48 unit verdi; UI 10/12 sul codice invariato in due sessioni, due fallimenti già noti S-15. Nessuna modifica a codice o test in questa ripresa.
 
 ## Prima cosa da fare alla ripresa
-Matteo scriverà «riprendiamo» a Claude Code. Leggere `.cantiere/STATO.md` e `.cantiere/CONSEGNA.md`, poi indirizzarlo a Codex col prompt completo già scritto nella consegna: **completare la sola verifica UI di S-13c**, non rifare l'implementazione e non iniziare S-13d prima. Due fallimenti UI preesistenti sono S-15; non aggirarli modificando test o viste.
+Leggere STATO e CONSEGNA, quindi **collaudo S-13a/b/c → Claude Code · Sonnet** col prompt completo in CONSEGNA. S-15 resta aperto, non aggirare i difetti cambiando test o viste. Dopo il collaudo, prossimo sviluppo S-13d → Codex.

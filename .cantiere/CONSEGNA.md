@@ -1,7 +1,7 @@
-# CONSEGNA — ripresa esatta dopo lo stop di Matteo
+# CONSEGNA — S-13c: verifica UI completata, da collaudare
 
-**Da:** seconda impresa (Codex · GPT-6) · 2026-11-14 02:20
-**STOP ESPLICITO:** Matteo vuole fermare adesso, scriverà «riprendiamo» a Claude Code, che lo rimanderà a Codex. **Non avviare S-13d: completare prima la verifica UI di S-13c.**
+**Da:** seconda impresa (Codex · GPT-6) · 2026-11-14 09:29
+**Ripresa completata:** Matteo ha scritto «riprendiamo» e «-- yolo». In questo turno nessun codice o test modificato: eseguiti solo i sei UI rimasti interrotti, poi aggiornati i documenti. **S-13c resta [~], non [x].**
 
 ## S-13c implementato [~]
 - Nuovo `MoneyTracker/Domain/RecurringMaterializer.swift`, `@MainActor`: accetta solo `container.mainContext` (guardia e test), calendario gregoriano e mezzogiorno, Decimal, ID del calculator; intero mese corrente come pianificato `isDone=false`, `templateId=rule.id`, frequenza della copia vuota.
@@ -12,23 +12,25 @@
 - Rimossi SOLO il vecchio `Domain/RecurringTransactionEngine.swift` e `MoneyTrackerTests/RecurringTransactionEngineTests.swift` (3 test), autorizzati da D-009; esecuzione annotata in DECISIONI.
 - Invariati Sync/, viste, modelli, dati legacy, altri test esistenti. Nessuna modifica a logica di conti o saldi.
 
-## Verificato e non verificato
-- **Build OK; 48 unit verdi** = 40 precedenti − 3 del vecchio motore + 11 nuovi.
-- Unit-only completo riuscito: `/tmp/moneytracker-s13c-unit.log`, TEST SUCCEEDED.
-- `build test` completo: `/tmp/moneytracker-s13c-build.log`, BUILD SUCCEEDED e nuovamente 48 unit verdi. **Suite UI interrotta su ordine di Matteo, non conclusa.**
-- Prima dell'interruzione: 5 UI verdi (2 conti, 2 categorie, dashboard/statistiche), 1 fallito: NavigationStressUITests.testAddMultipleTransactionsThenDeleteAll:55 (stesso S-15). In corso open/cancel sheets; restanti UI non verificati in questo turno. Non assumere verde il test interrotto.
-- S-15 resta aperto: nel turno a+b erano 10/12 verdi, con stress:55 e senza-categoria:68 falliti anche dopo reset del runner. Qui il secondo caso non è stato raggiunto. Non alterare test o viste per aggirarli.
-- Interruzione inviata con `kill -INT` al processo xcodebuild PID 73681. Il log può contenere stack/assertion di annullamento di Xcode, non attribuirli al codice dell'app.
-- Bundle della sessione interrotta: `/Users/matteo/Library/Developer/Xcode/DerivedData/MoneyTracker-ccjguvvnbihhyiemgfhjfvaiqfwa/Logs/Test/Run-MoneyTracker-2026.11.14_02-14-50-+0100.xcresult` (può essere incompleto per annullamento).
-- `git diff --check` OK. Nessuna chiamata/tipo del vecchio actor nel codice eseguibile. Restano **5 riferimenti nei soli commenti** di AccountBalanceCache, CurrencyFormatting e Logging: lasciati invariati per perimetro, nota in S-13h. Quindi una ricerca testuale grezza del nome non è vuota; non confonderla con motore ancora attivo.
-- Grafo aggiornato `graphify update .` (AST, nessuna API); consueto avviso di 9 JSON metadati/asset senza nodi. Backup automatico fuori da git: `/tmp/moneytracker-s13c-graphify-backup`.
-- Nessun collaudo indipendente, Commissione Suprema, merge o push eseguito. S-13a/b e c restano [~]. Verifica reale cloud degli avvii non effettuata; Sync delle regole è S-13f.
+## Prove e risultati effettivi
+- Codice dei commit `25b1b6e` (a+b) e `dc58891` (c). Nessuna differenza in MoneyTracker/, MoneyTrackerTests/ o MoneyTrackerUITests/ rispetto a `dc58891` durante questa ripresa.
+- **Build OK; 48 unit verdi** = 40 precedenti − 3 del vecchio motore + 11 nuovi. Prove già completate sullo stesso codice: `/tmp/moneytracker-s13c-unit.log` (TEST SUCCEEDED), `/tmp/moneytracker-s13c-build.log` (BUILD SUCCEEDED e ancora 48 unit verdi). Non ripetute senza cambi di codice.
+- La sessione `build test` delle 02:14 era stata interrotta da Matteo dopo **5 UI verdi e 1 fallito** (stress S-15); restavano sei test.
+- Ora eseguiti tutti e sei i rimanenti sul simulatore `37445D1E-DEF7-4A32-9A39-EA9EACCA3E48`: **5 verdi, 1 fallito**. Passano open/cancel sheets, rapid tab switching, ricerca, aggiunta/modifica/eliminazione movimento e annullamento. Fallisce `TransactionFlowUITests.testAddTransactionWithoutCategoryDefaultsToAltro` a riga 68, stesso S-15.
+- **Totale UI sul codice invariato, aggregato delle due sessioni: 10/12 verdi, 2 falliti.** La verifica è stata completata, ma non è tutta verde. Casi falliti: `NavigationStressUITests.testAddMultipleTransactionsThenDeleteAll:55` e `TransactionFlowUITests.testAddTransactionWithoutCategoryDefaultsToAltro:68`; entrambi cercano senza trovarla la riga del movimento appena salvato. Causa non dimostrata; non attribuita al nuovo schema/materializer. Nessun nuovo fallimento osservato.
+- Log della ripresa: `/tmp/moneytracker-s13c-ui-resume.log` (6 test, 1 failure, exit 65 atteso per quel fallimento); percorso xcresult nelle ultime righe. Log precedenti a+b: `/tmp/moneytracker-s13-build.log` e `/tmp/moneytracker-s13-recheck.log` (stessi due UI fallivano già, anche dopo shutdown all + boot).
+- `git diff --check` OK. Non sono stati cambiati test, viste, Sync, modelli o dati legacy durante questa ripresa. Nessun collaudo indipendente, Commissione Suprema, merge o push eseguito.
+- Nessun tipo/chiamata del vecchio actor nel codice eseguibile; restano 5 riferimenti nei soli commenti di AccountBalanceCache, CurrencyFormatting e Logging, fuori perimetro e annotati in S-13h. Una ricerca testuale grezza quindi non è vuota.
+- Grafo già aggiornato nel commit `dc58891`, codice invariato: non rigenerato in questa ripresa. Avviso precedente: 9 JSON metadati/asset senza nodi; backup in `/tmp/moneytracker-s13c-graphify-backup`.
 
-## Punto preciso da cui riprendere
-Il codice non richiede altra implementazione nota. Completa **solo la verifica UI interrotta**, registra l'esito senza rifare i 48 unit già verdi se non cambi codice. Poi chiudi la verifica di S-13c per il collaudatore e passa a S-13d.
+## Aperto e prossimo passo
+- S-13a/b/c [~]: serve il collaudatore; S-15 ancora aperto per i due UI. Non indebolire asserzioni o modificare viste per aggirarli.
+- Dopo il collaudo, S-13d (editor ambiti, salta/termina e riconciliazione) → Codex. Nessuna implementazione di S-13d iniziata.
+- Gli avvii reali con cloud non sono stati provati end-to-end: Sync delle regole e tabella Supabase sono S-13e/f. Nessuna pubblicazione autorizzata.
 
-📍 Claude Code, stessa cartella: Matteo scriverà «riprendiamo». Il capocantiere deve indirizzarlo a Codex con questo prompt:
+📍 Claude Code nella cartella `/Users/matteo/Desktop/APP/MoneyTracker`, modello Sonnet. ▶️ Prompt completo:
 
 ```text
-Riprendi solo S-13c dal salvataggio richiesto da Matteo. Entra in turno secondo AGENTS.md §4 se STATO è libero, ramo redesign-sentiero. Leggi CONSEGNA.md, la scheda S-13 in PIANO, D-008/D-009 e piano-s13.md; graphify prima del codice. Implementazione già finita e committata: RecurringMaterializer @MainActor/mainContext, Decimal, UUIDv5, watermark e massimo 36 mesi più recenti, nessuno storico per regole nuove; vecchio motore e suoi tre test rimossi; avvii serializzati dopo sync login/foreground, active e significantTimeChange, anche demo/offline. Build e 48 unit già verdi, 11 nuovi test materializer inclusi. Non rifare il codice o ripetere unit senza una ragione nuova. Matteo ha interrotto la suite completa mentre giravano gli UI: completa la verifica UI sul simulatore 37445D1E-DEF7-4A32-9A39-EA9EACCA3E48 (shutdown all + boot solo se runner bloccato). S-15 documenta due UI già falliti prima di questo turno: stress riga55 è fallito anche qui, senza-categoria riga68 non era ancora eseguito. Non cambiare UI/test per aggirarli, né Sync, viste o dati legacy. Verifica che non restino chiamate/tipo del vecchio actor: solo cinque commenti obsoleti in altri file, rimandati a S-13h. Chiudi la verifica con risultati onesti, documenti e commit mirato; S-13c resta [~] per il collaudatore, mai [x]. Solo dopo il completamento della verifica proponi S-13d.
+Entra in turno secondo AGENTS.md §4 solo se STATO è libero. Sul ramo redesign-sentiero collauda S-13a/b/c, senza iniziare S-13d: leggi CONSEGNA, schede S-13/S-15, piano-s13.md e D-008/D-009; per il codice leggi solo il diff dei commit 25b1b6e e dc58891 (git diff 0a76000..dc58891 -- MoneyTracker MoneyTrackerTests). Controlla calculator/UUIDv5/Decimal, migrazioni V1→V2→V3 senza conversioni legacy, mainContext/watermark/limite 36 mesi, idempotenza e copie fatte invariate, avvii dopo sync e spegnimento del vecchio motore. Le prove registrate sono build e 48 unit verdi; tutti i 12 UI sono stati eseguiti sullo stesso codice in due sessioni, 10 verdi e due falliti già noti S-15 (stress riga55 e senza-categoria riga68). Nuovo log dei sei UI ripresi: /tmp/moneytracker-s13c-ui-resume.log; gli altri log sono in CONSEGNA. Nessuna asserzione o vista è stata modificata per aggirare i difetti; diagnostica S-15 senza correzioni fuori perimetro. Rimangono solo cinque riferimenti al vecchio actor nei commenti di file fuori perimetro, rimandati a S-13h. Segna [x] solo se il tuo collaudo lo giustifica, altrimenti registra difetti precisi e lascia [~]. Chiudi con documenti, commit mirato e STATO libero. Dopo il collaudo, prossimo sviluppo: S-13d (editor degli ambiti) a Codex.
 ```
+↩️ Riportare cartellino del collaudatore ed eventuali difetti; poi assegnare S-13d.
