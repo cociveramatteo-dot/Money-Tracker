@@ -3,4 +3,4 @@
 In turno: nessuno
 Dalle: —
 Ultimo checkpoint: —
-Fase: S-13f Swift implementato [~], build + 64 unit verdi (2026-11-14 10:33). Prossimo collaudo Claude Code · Sonnet; prova reale tra dispositivi/utenti ancora da fare. Scoperta S-16 (precisione elevata nel test persistito), leggere CONSEGNA.md. S-13e [x], S-13a/b/c/d [x]; S-13g UI/alert/avvii ancora aperto.
+Fase: S-13f Swift collaudato ok (2026-11-14 10:40) ma resta [~]: prova reale su Supabase (due dispositivi, due utenti) NON eseguita e non eseguibile da UI finché S-13g non crea/mostra le regole. Aperti: S-16 (precisione Decimal, diagnosi preliminare in PIANO), S-17 (pull cancella regole non spedite), S-13g UI/alert/avvii. S-13a–e [x].
