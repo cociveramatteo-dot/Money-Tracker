@@ -142,7 +142,7 @@ il task e i file indicati.
     - 2026-11-14 10:17 · Codex: preparata **solo la parte SQL**, su richiesta di Matteo, in `PER-MATTEO.md` (tabella, indice user_id, grant CRUD e 4 policy RLS). Da collaudare; non eseguita su Supabase. S-13e resta a Matteo; DTO/push/pull/clearLocalData e test Sync ancora da implementare in S-13f.
     - 2026-11-14 10:33 · Codex: DTO, upsert/deleteOrphans, pull max watermark, logout e 4 nuovi test; build + 64 unit verdi (`/tmp/moneytracker-s13f-recheck.log`). Prova reale e collaudo da fare; scoperta S-16 separata.
     - 2026-11-14 10:40 · collaudatore: DTO 16 colonne = SQL, CHECK frequency coerente coi valori del calcolatore, NULL espliciti, push/deleteOrphans filtrati per user_id con fetch throwing, pull max watermark (9 combinazioni), logout ok, 64 unit verdi (log riletto). Nessun difetto bloccante; un rischio di pull → S-17.
-  - S-13g [~] UI funzionale → Codex · implementata 2026-11-14: creazione regole/ID deterministici, editor ambiti/salta/termina, serie programmate e virtuali futuri esclusi dai totali, alert errori e avvii lifecycle già presenti verificati. Models/Domain/Sync intatti. Build + 67 unit + 1 nuovo UI verdi (2026-11-14 10:59, `/tmp/moneytracker-s13g-final.log`). Collaudo indipendente da fare. Traduzioni provvisorie nelle 7 lingue → S-19. Rifinitura grafica → S-18.
+  - S-13g [x] UI funzionale → Codex · implementata 2026-11-14: creazione regole/ID deterministici, editor ambiti/salta/termina, serie programmate e virtuali futuri esclusi dai totali, alert errori e avvii lifecycle già presenti verificati. Models/Domain/Sync intatti. Build + 67 unit + 1 nuovo UI verdi (2026-11-14 10:59, `/tmp/moneytracker-s13g-final.log`). Collaudo indipendente da fare. Traduzioni provvisorie nelle 7 lingue → S-19. Rifinitura grafica → S-18. · **collaudato 2026-11-14 11:15** (be6ceb0): ambiti/salta/termina/alert/avvii ok, virtuali fuori dai totali, build+67 unit+1 UI verdi, Domain/Models/Sync intatti. Note: doppio safeSave ridondante in AddTransactionView; il 3° tentativo UI è stato aggiustato solo nel test.
   - S-13h [ ] Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo).
   - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
 
@@ -213,7 +213,9 @@ Modello di task:
 - **A chi:** redattore (Claude Code · Sonnet).
 - **Perimetro:** blocchi `S-13g — DA RIVEDERE DAL REDATTORE` in tutte le 7 Localizable.strings; etichette, ambiti e messaggi di errore. Sono traduzioni provvisorie, non approvate.
 
-### S-20 [ ] Verificare editor di una serie terminata prima della prima occorrenza
+### S-20 [ ] CONFERMATO Verificare editor di una serie terminata prima della prima occorrenza
+
+- **Riprodotto 2026-11-14 11:12 (collaudatore, test temporaneo poi rimosso, Domain intatto):** serie mensile, `terminate(afterThis:false)` dalla prima occorrenza → `endDate < startDate`; poi `delete(.all)` e `edit(.all)` falliscono entrambi con `invalidOccurrence`. Causa: in `apply` il guard usa `base` con `endDate` ancora impostato, quindi nessuna occorrenza. La serie resta bloccata, non eliminabile dall'UI. Fix proposto (Domain, da assegnare a Codex): nel guard azzerare `base.endDate = nil` come per `exceptions`, o impedire `terminate(afterThis:false)` sulla prima occorrenza (usare delete(.all)). Aggiungere test.
 - **A chi:** collaudatore, diagnosi; eventuale correzione Domain da assegnare separatamente con autorizzazione di Matteo.
 - **Scoperto S-13g:** `terminate(afterThis: false)` sull'ancora imposta endDate prima di startDate; il guard `invalidOccurrence` di S-13d sembra poi impedire anche `delete(.all)` e la modifica della serie dalla lista. Analisi statica, da riprodurre con test dedicato.
 - **Vincolo:** Domain non modificato in S-13g; l'interfaccia mostra l'errore, non aggira la validazione.
