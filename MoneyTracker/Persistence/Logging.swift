@@ -4,7 +4,7 @@ import OSLog
 // MARK: - Loggers
 
 // nonisolated: `Logger` è Sendable e questi logger sono usati anche da contesti non-main-actor
-// (es. RecurringTransactionActor in background). SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor
+// (es. materializer e Sync). SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor
 // li renderebbe altrimenti @MainActor per default.
 extension Logger {
     nonisolated static let persistence = Logger(subsystem: Bundle.main.bundleIdentifier ?? "MoneyTracker", category: "Persistence")

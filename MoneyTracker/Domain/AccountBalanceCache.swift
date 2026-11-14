@@ -15,15 +15,14 @@ import SwiftData
 /// da `ModelContext.safeSave()`, l'unico punto di salvataggio usato da quasi tutta l'app.
 /// Il ricalcolo O(n) avviene quindi una volta per salvataggio, non una volta per frame.
 ///
-/// Non è isolata al `@MainActor`: `RecurringTransactionActor` (background `@ModelActor`,
-/// vedi Domain/RecurringTransactionEngine.swift) deve poter invalidare/leggere la stessa
-/// cache dal proprio executor senza dover fare `await` verso il main actor. La classe è
+/// Non è isolata al `@MainActor`: deve restare invalidabile/leggibile anche da contesti non
+/// main-actor (es. salvataggi di Sync e ricorrenze) senza `await` verso il main actor. La classe è
 /// quindi un semplice singleton thread-safe protetto da lock, non un attore: legge solo
 /// tipi valore (`PersistentIdentifier`, `Double`) sotto lock, mai il modello stesso.
 // nonisolated: il progetto ha SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor, quindi ogni
 // dichiarazione non annotata sarebbe implicitamente @MainActor. Questa cache deve invece
-// restare accessibile sia dal main actor (le view) sia da RecurringTransactionActor
-// (background @ModelActor) senza `await` — da qui l'opt-out esplicito.
+// restare accessibile sia dal main actor (le view) sia da contesti non-main-actor
+// senza `await` — da qui l'opt-out esplicito.
 nonisolated final class AccountBalanceCache: @unchecked Sendable {
     static let shared = AccountBalanceCache()
     private init() {}
@@ -32,7 +31,7 @@ nonisolated final class AccountBalanceCache: @unchecked Sendable {
     private var currentByID: [PersistentIdentifier: Decimal] = [:]
     private var futureByID:  [PersistentIdentifier: Decimal] = [:]
     // Bumped da invalidateAll(): permette a currentBalance/futureBalance di accorgersi
-    // se un'invalidazione (es. save concorrente su RecurringTransactionActor) è avvenuta
+    // se un'invalidazione (es. save concorrente fuori dal main actor) è avvenuta
     // mentre stavano ricalcolando, ed evitare di re-inserire in cache un valore ormai
     // stantio calcolato da uno snapshot pre-invalidazione (TOCTOU tra il calcolo fuori
     // lock e la scrittura in cache sotto lock).

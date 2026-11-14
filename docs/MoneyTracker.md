@@ -82,7 +82,10 @@ MoneyTracker/                    ← Source principale
 │   ├── KeywordCategoryClassifier.swift ← Classificatore keyword on-device
 │   ├── NotificationManager.swift ← Notifiche locali budget/saldo
 │   ├── NotificationScheduling.swift
-│   └── RecurringTransactionEngine.swift ← Engine ricorrenze automatiche
+│   ├── RecurrenceCalculator.swift ← Occorrenze virtuali deterministiche (UUIDv5)
+│   ├── RecurringMaterializer.swift ← Materializza le occorrenze dovute
+│   ├── RecurringSeriesEditor.swift ← Modifica/salta/termina/elimina serie
+│   └── RecurringSeriesDetector.swift ← Rilevamento passivo serie
 ├── Export/
 │   └── PDFReportGenerator.swift ← Generazione PDF mensile
 ├── Formatting/
@@ -371,14 +374,14 @@ Fino al tag `tour-v1` l'app aveva un **onboarding tour a due livelli**: una pano
 - **Ripristino:** `git checkout tour-v1 -- MoneyTracker/OnboardingTour MoneyTrackerUITests/TourFlowUITests.swift`, poi ricablare overlay (`.overlayPreferenceValue(TourAnchorKey…)` in `MoneyTrackerApp`), ancoraggi `.tourAnchor` nelle viste e stringhe `tour.*`/`hint.*` sulla nuova grafica.
 - Le chiavi `UserDefaults` del tour rimaste sui dispositivi sono innocue.
 
-### Ricorrenze Automatiche
+### Ricorrenze Automatiche (serie virtuali, D-008/D-009)
 
-- Campo "Ricorrenza" in AddTransactionView: nessuna / settimanale / mensile / annuale
-- `Transaction.recurringFrequency: String` nel modello; `Transaction.templateId: String` collega ogni copia generata alla transazione "template" originale (vuoto sul template stesso)
-- `RecurringTransactionActor.processRecurring()` genera automaticamente, per il solo periodo corrente, le occorrenze mancanti dei template attivi — mai per tutti i mesi futuri in blocco, per non sfasare il saldo
-- Le nuove tx vengono create come `isDone = false` (pianificate), stesso nome/importo/categoria/conto del template, data corrispondente nel nuovo periodo
-- **Trigger**: gira su un `@ModelActor` in background sia al lancio dell'app sia a ogni ritorno in foreground (`scenePhase == .active`, `MoneyTrackerApp.swift`) — prima girava solo al lancio da zero del processo, quindi restava silente per chi teneva l'app viva in background attraverso il cambio di mese. Una guardia giornaliera (`UserDefaults`) evita elaborazioni ridondanti.
-- **Interrompi ricorrenza**: voce nel context menu (long press) di `TransactionsView`, disponibile sia sul template originale sia su una qualunque copia già generata (risale al template via `templateId`) — svuota `recurringFrequency` sul template senza toccare le occorrenze già create.
+- Ogni serie è una `RecurringRule` (sincronizzata, schema V3); le occorrenze hanno ID deterministico (UUIDv5 da regola + data originale), così più dispositivi non creano duplicati. `Transaction.templateId` punta alla regola. I template legacy (`recurringFrequency`) non generano più copie.
+- Creazione: in `AddTransactionView` (solo nuova transazione) il picker "Ricorrenza" crea regola e prima occorrenza in un unico salvataggio.
+- `RecurringMaterializer` crea come pianificate (`isDone = false`) le occorrenze dovute, mai storico retroattivo oltre il mese corrente. Avvii: login (dopo il sync), foreground (`scenePhase == .active`, anche offline/demo) e cambio giorno (`significantTimeChange`). Gli errori compaiono in un alert localizzato (`RecurrenceOperationStatus`).
+- `RecurrenceEditorView`: ambiti *solo questa* (nome, importo, note, data nello stesso mese), *questa e successive* (split della serie), *tutte*; azioni *salta mese*, *termina da qui*, *termina dopo questa*, *elimina* con conferma. Le copie già fatte (`isDone`) restano invariate.
+- Movimenti: tab "Ricorrenti" mostra le serie programmate (importo, frequenza, prossima, stato) accanto alle serie rilevate; nei mesi futuri le occorrenze **virtuali** compaiono in una sezione separata, etichettate «esclusa dai totali», e non entrano mai in totali, saldi o filtri importo.
+- Sync: le regole viaggiano su Supabase; una regola locale non viene persa se il remoto è vuoto. La prova reale a due dispositivi è ancora da fare.
 
 ### Localizzazione
 
@@ -519,6 +522,13 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ---
 
 ## 10. Changelog
+
+### v3.x (novembre 2026) — Ricorrenze a serie virtuali (S-13)
+
+- Nuovo motore: `RecurrenceCalculator`, `RecurringMaterializer`, `RecurringSeriesEditor`, `RecurringRule` sincronizzata; sostituisce `RecurringTransactionActor` (rimosso, commenti obsoleti aggiornati).
+- UI: creazione, editor a tre ambiti, salta/termina/elimina, serie programmate e virtuali esclusi dai totali, alert errori, avvii lifecycle. Rimosso «Interrompi ricorrenza» legacy.
+- S-20: `RecurringSeriesEditor` permette di eliminare/modificare una serie terminata prima della prima occorrenza (test di regressione). 68 unit test + `RecurrenceFlowUITests`.
+- Aperti: prova reale Supabase (S-13f), rifinitura grafica (S-18), revisione traduzioni (S-19).
 
 ### v3.x (novembre 2026) — Redesign «Sentiero», step 1: token, font, dark mode
 

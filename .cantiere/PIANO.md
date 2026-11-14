@@ -143,7 +143,7 @@ il task e i file indicati.
     - 2026-11-14 10:33 · Codex: DTO, upsert/deleteOrphans, pull max watermark, logout e 4 nuovi test; build + 64 unit verdi (`/tmp/moneytracker-s13f-recheck.log`). Prova reale e collaudo da fare; scoperta S-16 separata.
     - 2026-11-14 10:40 · collaudatore: DTO 16 colonne = SQL, CHECK frequency coerente coi valori del calcolatore, NULL espliciti, push/deleteOrphans filtrati per user_id con fetch throwing, pull max watermark (9 combinazioni), logout ok, 64 unit verdi (log riletto). Nessun difetto bloccante; un rischio di pull → S-17.
   - S-13g [x] UI funzionale → Codex · implementata 2026-11-14: creazione regole/ID deterministici, editor ambiti/salta/termina, serie programmate e virtuali futuri esclusi dai totali, alert errori e avvii lifecycle già presenti verificati. Models/Domain/Sync intatti. Build + 67 unit + 1 nuovo UI verdi (2026-11-14 10:59, `/tmp/moneytracker-s13g-final.log`). Collaudo indipendente da fare. Traduzioni provvisorie nelle 7 lingue → S-19. Rifinitura grafica → S-18. · **collaudato 2026-11-14 11:15** (be6ceb0): ambiti/salta/termina/alert/avvii ok, virtuali fuori dai totali, build+67 unit+1 UI verdi, Domain/Models/Sync intatti. Note: doppio safeSave ridondante in AddTransactionView; il 3° tentativo UI è stato aggiustato solo nel test.
-  - S-13h [ ] Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo).
+  - S-13h [!] Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo). · 2026-11-14 11:08: commenti obsoleti sistemati (0 riferimenti a RecurringTransactionActor), docs/MoneyTracker.md+PDF aggiornati, 68 unit verdi. **Commissione Suprema NON a 10/10** → checkpoint (push) bloccato fino a S-21/S-22/S-19/S-18.
   - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
 
 ### S-15 [ ] Diagnosticare due test UI che non trovano il movimento appena salvato
@@ -221,3 +221,10 @@ Modello di task:
 - **Vincolo:** Domain non modificato in S-13g; l'interfaccia mostra l'errore, non aggira la validazione.
 
 - S-20 · 2026-11-14 11:05 · Codex: guard con base.endDate nil; regressione terminate prima → delete all; 68 unit verdi (67 esistenti + 1). Da collaudare.
+
+### S-21 [ ] Performance: ricalcoli per riga in TransactionsView (Commissione S-13h, giudice 4: 8/10)
+- `RecurrenceSelection.resolve` è chiamata per ogni riga in `.contextMenu`/tap e ricalcola le occorrenze dall'ancora fino alla copia (serie settimanali lunghe = centinaia di occorrenze per riga a ogni render); `virtualOccurrences` e `programmedRule` ricalcolano a ogni body. Soluzione: calcolare solo al tap/apertura menu o memoizzare per (regola, mese). Nessun cambio di logica. → Codex.
+### S-22 [ ] Architettura: spezzare TransactionsView (giudice 2: 8/10)
+- `programmedRule` (~35 righe con logica di fallback ancora) e `virtualOccurrences` stanno inline in `TransactionsView` già molto lunga; estrarre in sottoview/file `ProgrammedRuleCard` in Views/. Nessun cambio visivo. → Codex (prima di S-18).
+### Commissione Suprema S-13h (2026-11-14 11:08)
+1 Sicurezza 10 · 2 Architettura 8 (S-22) · 3 Logica 10 · 4 Performance 8 (S-21) · 5 Robustezza 9 (`!` su calendar.date in resolve/programmedRule: sicuri ma da sostituire con guard in S-21) · 6 Lingua/UX 8 (traduzioni provvisorie S-19, grafica S-18). Esito: non approvato, nessun push.

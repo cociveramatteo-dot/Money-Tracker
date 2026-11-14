@@ -123,8 +123,8 @@ extension Date {
         if Calendar.current.isDateInYesterday(self) { return String(localized: "Ieri") }
         return FormatterCache.dayMonth.string(from: self)
     }
-    // nonisolated: funzioni pure su Calendar.current, usate anche da RecurringTransactionActor
-    // in background — non devono ereditare il default @MainActor del progetto.
+    // nonisolated: funzioni pure su Calendar.current, usate anche da contesti
+    // non-main-actor (calcoli ricorrenze/Sync) — non devono ereditare il default @MainActor del progetto.
     nonisolated var startOfMonth: Date {
         Calendar.current.dateInterval(of: .month, for: self)?.start ?? self
     }
