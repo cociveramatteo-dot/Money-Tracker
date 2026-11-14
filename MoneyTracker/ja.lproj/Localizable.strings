@@ -438,3 +438,28 @@
 "Nessun movimento corrisponde alla ricerca." = "検索に一致する取引はありません。";
 "Fissa" = "固定";
 "Nessun risultato" = "結果なし";
+
+/* S-13g — DA RIVEDERE DAL REDATTORE: testi e traduzioni provvisori. */
+"Ricorrenze" = "繰り返し";
+"Impossibile aggiornare le ricorrenze. Riprova." = "繰り返しを更新できませんでした。もう一度お試しください。";
+"Ambito" = "適用範囲";
+"Solo questa" = "この回のみ";
+"Questa e le successive" = "この回以降";
+"Tutte" = "すべて";
+"Le occorrenze già effettuate restano invariate." = "完了済みの回は変更されません。";
+"La data deve restare nello stesso mese." = "日付は同じ月内にしてください。";
+"Salta mese" = "この月をスキップ";
+"Termina da qui" = "この回から終了";
+"Eliminare le occorrenze selezionate?" = "選択した回を削除しますか？";
+"Serie programmate" = "予定された繰り返し";
+"Virtuale · esclusa dai totali" = "仮の予定 · 合計に含まれません";
+"Terminata" = "終了済み";
+"Termina il" = "終了日";
+"Attiva" = "有効";
+"Prossima occorrenza" = "次回の予定";
+"Nessuno" = "なし";
+"Tipo" = "種類";
+"Le ricorrenze richiedono il contesto principale." = "繰り返しにはメインコンテキストが必要です。";
+"L’occorrenza non appartiene alla serie." = "この回はこの繰り返しに属していません。";
+"I valori della ricorrenza non sono validi." = "繰り返しの値が無効です。";
+"Termina dopo questa" = "この回の後に終了";

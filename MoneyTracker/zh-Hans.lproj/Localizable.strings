@@ -441,3 +441,28 @@
 "Nessun movimento corrisponde alla ricerca." = "没有符合搜索条件的交易。";
 "Fissa" = "固定";
 "Nessun risultato" = "无结果";
+
+/* S-13g — DA RIVEDERE DAL REDATTORE: testi e traduzioni provvisori. */
+"Ricorrenze" = "重复计划";
+"Impossibile aggiornare le ricorrenze. Riprova." = "无法更新重复计划。请重试。";
+"Ambito" = "范围";
+"Solo questa" = "仅本次";
+"Questa e le successive" = "本次及以后";
+"Tutte" = "全部";
+"Le occorrenze già effettuate restano invariate." = "已完成的记录保持不变。";
+"La data deve restare nello stesso mese." = "日期必须在同一个月内。";
+"Salta mese" = "跳过本月";
+"Termina da qui" = "从本次起终止";
+"Eliminare le occorrenze selezionate?" = "删除所选的记录？";
+"Serie programmate" = "计划系列";
+"Virtuale · esclusa dai totali" = "虚拟记录 · 不计入总额";
+"Terminata" = "已终止";
+"Termina il" = "结束日期";
+"Attiva" = "有效";
+"Prossima occorrenza" = "下次计划";
+"Nessuno" = "无";
+"Tipo" = "类型";
+"Le ricorrenze richiedono il contesto principale." = "重复计划需要主上下文。";
+"L’occorrenza non appartiene alla serie." = "本次记录不属于此系列。";
+"I valori della ricorrenza non sono validi." = "重复计划的值无效。";
+"Termina dopo questa" = "本次之后终止";

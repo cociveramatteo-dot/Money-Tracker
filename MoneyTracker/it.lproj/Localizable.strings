@@ -59,3 +59,28 @@
 "Nessun movimento corrisponde alla ricerca." = "Nessun movimento corrisponde alla ricerca.";
 "Fissa" = "Fissa";
 "Nessun risultato" = "Nessun risultato";
+
+/* S-13g — DA RIVEDERE DAL REDATTORE: testi e traduzioni provvisori. */
+"Ricorrenze" = "Ricorrenze";
+"Impossibile aggiornare le ricorrenze. Riprova." = "Impossibile aggiornare le ricorrenze. Riprova.";
+"Ambito" = "Ambito";
+"Solo questa" = "Solo questa";
+"Questa e le successive" = "Questa e le successive";
+"Tutte" = "Tutte";
+"Le occorrenze già effettuate restano invariate." = "Le occorrenze già effettuate restano invariate.";
+"La data deve restare nello stesso mese." = "La data deve restare nello stesso mese.";
+"Salta mese" = "Salta mese";
+"Termina da qui" = "Termina da qui";
+"Eliminare le occorrenze selezionate?" = "Eliminare le occorrenze selezionate?";
+"Serie programmate" = "Serie programmate";
+"Virtuale · esclusa dai totali" = "Virtuale · esclusa dai totali";
+"Terminata" = "Terminata";
+"Termina il" = "Termina il";
+"Attiva" = "Attiva";
+"Prossima occorrenza" = "Prossima occorrenza";
+"Nessuno" = "Nessuno";
+"Tipo" = "Tipo";
+"Le ricorrenze richiedono il contesto principale." = "Le ricorrenze richiedono il contesto principale.";
+"L’occorrenza non appartiene alla serie." = "L’occorrenza non appartiene alla serie.";
+"I valori della ricorrenza non sono validi." = "I valori della ricorrenza non sono validi.";
+"Termina dopo questa" = "Termina dopo questa";

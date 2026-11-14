@@ -100,7 +100,7 @@ Si interviene su un'occorrenza X con chiave k e data originale D. X può essere 
 | **S-13d** Editor (ambiti, salta, termina) | Codex | nuovo `Domain/RecurringSeriesEditor.swift` + test | test della tabella d) verdi |
 | **S-13e [?]** Creare la tabella su Supabase | **Matteo** (SQL pronto, scritto in S-13f e copiato in PER-MATTEO) | dashboard Supabase → SQL Editor | la tabella esiste e la RLS è attiva (Matteo riporta "fatto") |
 | **S-13f** Sync | Codex (scrive lo SQL **prima** del codice) | `Sync/SyncService.swift` (DTO, push, pull, clearLocalData) | test del DTO verde; **provato in app solo dopo S-13e**: regola creata su un dispositivo compare dopo il pull |
-| **S-13g** UI (dati + azioni) | Codex, **dopo** che Antigravity ha chiuso il lavoro su `TransactionsView` e c'è un mockup; la grafica dei virtuali la fa Antigravity | `TransactionsView.swift`, `AddTransactionView.swift`, `Localizable` (7 lingue, traduzioni al redattore) | il flusso a mano sul simulatore funziona; stringhe in 7 lingue |
+| **S-13g [~]** UI funzionale (dati + azioni) | Codex, autorizzato da Matteo 2026-11-14: S-12 chiuso, Antigravity non disponibile; stile Theme esistente, rifinitura virtuali separata S-18 | `TransactionsView.swift`, `AddTransactionView.swift`, `Localizable` (7 lingue, traduzioni al redattore) | il flusso a mano sul simulatore funziona; stringhe in 7 lingue |
 | **S-13h** Documento master + collaudo + Commissione Suprema | collaudatore / capocantiere | `docs/MoneyTracker.md` §Ricorrenze, §Modelli, Changelog | build e test verdi, 10/10 |
 
 S-13a e S-13b sono indipendenti e si possono fare in parallelo. S-13c richiede a+b, S-13d richiede c, S-13f richiede b, S-13g richiede c, d e f.

@@ -438,3 +438,28 @@
 "Nessun movimento corrisponde alla ricerca." = "Keine Buchungen entsprechen deiner Suche.";
 "Fissa" = "Fixkosten";
 "Nessun risultato" = "Keine Ergebnisse";
+
+/* S-13g — DA RIVEDERE DAL REDATTORE: testi e traduzioni provvisori. */
+"Ricorrenze" = "Wiederholungen";
+"Impossibile aggiornare le ricorrenze. Riprova." = "Wiederholungen konnten nicht aktualisiert werden. Versuche es erneut.";
+"Ambito" = "Umfang";
+"Solo questa" = "Nur dieses Vorkommen";
+"Questa e le successive" = "Dieses und folgende Vorkommen";
+"Tutte" = "Alle";
+"Le occorrenze già effettuate restano invariate." = "Bereits erledigte Vorkommen bleiben unverändert.";
+"La data deve restare nello stesso mese." = "Das Datum muss im selben Monat bleiben.";
+"Salta mese" = "Monat überspringen";
+"Termina da qui" = "Ab hier beenden";
+"Eliminare le occorrenze selezionate?" = "Ausgewählte Vorkommen löschen?";
+"Serie programmate" = "Geplante Serien";
+"Virtuale · esclusa dai totali" = "Virtuell · nicht in Summen enthalten";
+"Terminata" = "Beendet";
+"Termina il" = "Endet am";
+"Attiva" = "Aktiv";
+"Prossima occorrenza" = "Nächstes Vorkommen";
+"Nessuno" = "Keines";
+"Tipo" = "Typ";
+"Le ricorrenze richiedono il contesto principale." = "Wiederholungen erfordern den Hauptkontext.";
+"L’occorrenza non appartiene alla serie." = "Das Vorkommen gehört nicht zu dieser Serie.";
+"I valori della ricorrenza non sono validi." = "Die Werte der Wiederholung sind ungültig.";
+"Termina dopo questa" = "Nach diesem Vorkommen beenden";

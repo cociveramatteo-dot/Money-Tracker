@@ -11,6 +11,7 @@ struct MoneyTrackerApp: App {
     let demoContainer: ModelContainer
 
     @AppStorage("demoModeEnabled") private var demoModeEnabled = false
+    @State private var recurrenceStatus = RecurrenceOperationStatus()
     @State private var recurrenceRefreshTask: Task<Void, Never>?
     @State private var recurrenceSyncedUserID: UUID?
 
@@ -150,6 +151,7 @@ struct MoneyTrackerApp: App {
                         .appLockGate()
                 }
             }
+            .recurrenceErrorAlert(recurrenceStatus)
             .animation(.easeInOut(duration: 0.25), value: auth.isLoggedIn)
             // Login/restored session sync starts in mainAppView.task, after mounting
             // the active container. Logout never clears local data here.
@@ -269,10 +271,8 @@ struct MoneyTrackerApp: App {
                 guard auth.isLoggedIn, auth.session?.user.id == userID, !demoModeEnabled else { return }
                 recurrenceSyncedUserID = userID
             }
-            do {
+            recurrenceStatus.perform {
                 try RecurringMaterializer().materializeDue(context: container.mainContext)
-            } catch {
-                Logger.recurring.error("Recurring materialization failed: \(error.localizedDescription, privacy: .public)")
             }
         }
     }

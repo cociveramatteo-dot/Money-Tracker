@@ -142,7 +142,7 @@ il task e i file indicati.
     - 2026-11-14 10:17 · Codex: preparata **solo la parte SQL**, su richiesta di Matteo, in `PER-MATTEO.md` (tabella, indice user_id, grant CRUD e 4 policy RLS). Da collaudare; non eseguita su Supabase. S-13e resta a Matteo; DTO/push/pull/clearLocalData e test Sync ancora da implementare in S-13f.
     - 2026-11-14 10:33 · Codex: DTO, upsert/deleteOrphans, pull max watermark, logout e 4 nuovi test; build + 64 unit verdi (`/tmp/moneytracker-s13f-recheck.log`). Prova reale e collaudo da fare; scoperta S-16 separata.
     - 2026-11-14 10:40 · collaudatore: DTO 16 colonne = SQL, CHECK frequency coerente coi valori del calcolatore, NULL espliciti, push/deleteOrphans filtrati per user_id con fetch throwing, pull max watermark (9 combinazioni), logout ok, 64 unit verdi (log riletto). Nessun difetto bloccante; un rischio di pull → S-17.
-  - S-13g [ ] UI → Codex · via libera: S-12 è già [x] (collaudo 2026-11-14 01:30); Antigravity senza crediti, non serve
+  - S-13g [~] UI funzionale → Codex · implementata 2026-11-14: creazione regole/ID deterministici, editor ambiti/salta/termina, serie programmate e virtuali futuri esclusi dai totali, alert errori e avvii lifecycle già presenti verificati. Models/Domain/Sync intatti. Build + 67 unit + 1 nuovo UI verdi (2026-11-14 10:59, `/tmp/moneytracker-s13g-final.log`). Collaudo indipendente da fare. Traduzioni provvisorie nelle 7 lingue → S-19. Rifinitura grafica → S-18.
   - S-13h [ ] Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo).
   - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
 
@@ -204,3 +204,16 @@ Modello di task:
 - **S-17 · 2026-11-14 10:42 · Codex:** implementata protezione remoto vuoto/locale popolato in mergeRecurringRules; nuovo test conserva ID, watermark ed eccezioni. Adeguata la vecchia asserzione di cancellazione su remoto vuoto; orfani con remoto popolato ancora verificati. Build + 5/5 RecurringRuleSyncTests verdi (`/tmp/moneytracker-s17-verified.log`). Da collaudare. Remoto parzialmente popolato: comportamento invariato.
 
 - S-17 collaudo: la guardia `rows.isEmpty && !locals.isEmpty` è nel punto giusto (prima di qualsiasi modifica), il test verifica id, watermark ed eccezioni conservati; la cancellazione orfani con remoto popolato resta coperta da `pullInsertsUpdatesAndDeletesOrphans` (il test ora non più svuota con `[]`). Eseguita solo la suite da 5 test (log /tmp/moneytracker-s17-verified.log), non i 64. **Limite accettato:** se l'ultima regola viene cancellata da un altro dispositivo, qui resta e il push successivo la ricarica (risorge). Con remoto parzialmente popolato nessun cambiamento.
+
+### S-18 [ ] Rifinitura grafica dei virtuali e delle serie programmate
+- **A chi:** Antigravity, quando disponibile; mockup da concordare con Matteo prima di inventare grafica.
+- **Perimetro:** presentazione introdotta in S-13g, Theme.swift; nessun cambiamento a logica, saldi o totali. Verifica light/dark/XL/tedesco.
+
+### S-19 [ ] Revisione testi e traduzioni S-13g
+- **A chi:** redattore (Claude Code · Sonnet).
+- **Perimetro:** blocchi `S-13g — DA RIVEDERE DAL REDATTORE` in tutte le 7 Localizable.strings; etichette, ambiti e messaggi di errore. Sono traduzioni provvisorie, non approvate.
+
+### S-20 [ ] Verificare editor di una serie terminata prima della prima occorrenza
+- **A chi:** collaudatore, diagnosi; eventuale correzione Domain da assegnare separatamente con autorizzazione di Matteo.
+- **Scoperto S-13g:** `terminate(afterThis: false)` sull'ancora imposta endDate prima di startDate; il guard `invalidOccurrence` di S-13d sembra poi impedire anche `delete(.all)` e la modifica della serie dalla lista. Analisi statica, da riprodurre con test dedicato.
+- **Vincolo:** Domain non modificato in S-13g; l'interfaccia mostra l'errore, non aggira la validazione.

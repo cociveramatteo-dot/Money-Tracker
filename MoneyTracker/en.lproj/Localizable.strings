@@ -439,3 +439,28 @@
 "Nessun movimento corrisponde alla ricerca." = "No transactions match your search.";
 "Fissa" = "Fixed";
 "Nessun risultato" = "No results";
+
+/* S-13g — DA RIVEDERE DAL REDATTORE: testi e traduzioni provvisori. */
+"Ricorrenze" = "Recurrences";
+"Impossibile aggiornare le ricorrenze. Riprova." = "Unable to update recurrences. Try again.";
+"Ambito" = "Scope";
+"Solo questa" = "Only this occurrence";
+"Questa e le successive" = "This and following occurrences";
+"Tutte" = "All";
+"Le occorrenze già effettuate restano invariate." = "Completed occurrences remain unchanged.";
+"La data deve restare nello stesso mese." = "The date must stay in the same month.";
+"Salta mese" = "Skip month";
+"Termina da qui" = "End from here";
+"Eliminare le occorrenze selezionate?" = "Delete the selected occurrences?";
+"Serie programmate" = "Scheduled series";
+"Virtuale · esclusa dai totali" = "Virtual · excluded from totals";
+"Terminata" = "Ended";
+"Termina il" = "Ends on";
+"Attiva" = "Active";
+"Prossima occorrenza" = "Next occurrence";
+"Nessuno" = "None";
+"Tipo" = "Type";
+"Le ricorrenze richiedono il contesto principale." = "Recurrences require the main context.";
+"L’occorrenza non appartiene alla serie." = "The occurrence does not belong to this series.";
+"I valori della ricorrenza non sono validi." = "The recurrence values are invalid.";
+"Termina dopo questa" = "End after this occurrence";
