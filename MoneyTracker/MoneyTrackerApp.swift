@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 import Combine
 import OSLog
+import Auth
 
 @main
 struct MoneyTrackerApp: App {
@@ -10,6 +11,8 @@ struct MoneyTrackerApp: App {
     let demoContainer: ModelContainer
 
     @AppStorage("demoModeEnabled") private var demoModeEnabled = false
+    @State private var recurrenceRefreshTask: Task<Void, Never>?
+    @State private var recurrenceSyncedUserID: UUID?
 
     // MARK: - UI testing hook
     //
@@ -148,28 +151,13 @@ struct MoneyTrackerApp: App {
                 }
             }
             .animation(.easeInOut(duration: 0.25), value: auth.isLoggedIn)
-            // Sync al login / logout.
-            .onChange(of: auth.isLoggedIn) { _, loggedIn in
-                guard loggedIn, !demoModeEnabled else { return }
-                Task { await SyncService.shared.syncOnLogin(context: realContainer.mainContext) }
-                // NIENTE svuotamento locale qui quando `loggedIn` diventa false: questo
-                // onChange scatta anche per una sessione persa passivamente (token di
-                // refresh scaduto/fallito, rete instabile — il SDK Supabase emette
-                // comunque un "signed out"), non solo per un logout intenzionale
-                // dell'utente. Svuotare qui cancellava i dati locali senza preavviso al
-                // primo hiccup di rete, e il pull successivo al login li sostituiva con
-                // l'ultimo snapshot su Supabase — spesso vecchio di settimane/mesi se il
-                // push era rimasto indietro. Il logout esplicito (bottone "Esci" in
-                // SettingsView) e la cancellazione account chiamano già
-                // SyncService.clearLocalData() da soli; l'isolamento multi-utente resta
-                // garantito da syncOnLogin(), che svuota il locale quando rileva un login
-                // con un userId diverso dall'ultimo salvato.
-            }
+            // Login/restored session sync starts in mainAppView.task, after mounting
+            // the active container. Logout never clears local data here.
             // Sync su lifecycle app (solo se loggato e non in demo).
             .onChange(of: scenePhase) { _, phase in
-                guard auth.isLoggedIn, !demoModeEnabled else { return }
                 switch phase {
                 case .background:
+                    guard auth.isLoggedIn, !demoModeEnabled, !Self.isUITesting else { return }
                     // Push quando l'app va in background — garantisce che i dati
                     // siano su Supabase prima che l'utente chiuda l'app. Resiliente:
                     // se fallisce (rete assente proprio ora), resta in coda e riparte
@@ -178,7 +166,7 @@ struct MoneyTrackerApp: App {
                 case .active:
                     // Push resiliente (retry automatico con backoff se fallisce) e poi
                     // pull solo se il push è andato a buon fine — vedi SyncService.syncOnForeground.
-                    Task { await SyncService.shared.syncOnForeground(context: realContainer.mainContext) }
+                    scheduleRecurrenceRefresh(afterLogin: false)
                 default:
                     break
                 }
@@ -235,25 +223,11 @@ struct MoneyTrackerApp: App {
                     else { syncStatusBanner }
                 }
                 .animation(.spring(response: 0.4, dampingFraction: 0.75), value: syncService.status)
-                .task {
-                    // Il seeding demo avviene in init() — qui processiamo solo le ricorrenti.
-                    // PERF-05: gira su un @ModelActor in background, non sul main actor,
-                    // così il primo render dopo il login non aspetta il fetch+confronto+save.
-                    let engine = RecurringTransactionActor(modelContainer: activeContainer)
-                    await engine.processRecurring()
+                .task(id: demoModeEnabled) {
+                    scheduleRecurrenceRefresh(afterLogin: true)
                 }
-                // .task sopra parte solo al primo montaggio della view (o al cambio
-                // demo/reale via .id) — se l'app resta viva in background e torna in
-                // foreground senza restart, non veniva mai rieseguito. Risultato: le
-                // ricorrenti del mese nuovo non comparivano finché l'utente non
-                // chiudeva e riapriva l'app da zero. La guardia giornaliera dentro
-                // processRecurring() rende sicuro rilanciarlo a ogni ritorno attivo.
-                .onChange(of: scenePhase) { _, phase in
-                    guard phase == .active else { return }
-                    Task {
-                        let engine = RecurringTransactionActor(modelContainer: activeContainer)
-                        await engine.processRecurring()
-                    }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                    scheduleRecurrenceRefresh(afterLogin: false)
                 }
         }
         // Real-time sync: ogni volta che il real store salva, triggera un push
@@ -273,6 +247,33 @@ struct MoneyTrackerApp: App {
             SyncService.shared.schedulePush(context: realContainer.mainContext)
             // Registro immutabile di ogni creazione/modifica/cancellazione (PROP-02).
             AuditLogger.shared.record(from: notification, context: ctx)
+        }
+    }
+
+    // All lifecycle entry points share one queue: initial login sync, foreground
+    // sync and clock/month changes must finish their pull before materialization.
+    private func scheduleRecurrenceRefresh(afterLogin: Bool) {
+        let previous = recurrenceRefreshTask
+        recurrenceRefreshTask = Task { @MainActor in
+            await previous?.value
+            let isDemo = demoModeEnabled || Self.isUITesting
+            let container = isDemo ? demoContainer : realContainer
+            if !isDemo {
+                guard auth.isLoggedIn else { return }
+                guard let userID = auth.session?.user.id else { return }
+                if afterLogin || recurrenceSyncedUserID != userID {
+                    await SyncService.shared.syncOnLogin(context: container.mainContext)
+                } else {
+                    await SyncService.shared.syncOnForeground(context: container.mainContext)
+                }
+                guard auth.isLoggedIn, auth.session?.user.id == userID, !demoModeEnabled else { return }
+                recurrenceSyncedUserID = userID
+            }
+            do {
+                try RecurringMaterializer().materializeDue(context: container.mainContext)
+            } catch {
+                Logger.recurring.error("Recurring materialization failed: \(error.localizedDescription, privacy: .public)")
+            }
         }
     }
 

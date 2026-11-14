@@ -4,7 +4,11 @@ Le scrivono le IA del cantiere, sempre con istruzioni complete (AGENTS.md §6.13
 in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine.
 
 ## Da fare
-- [ ] 2026-11-14 02:05 · Prossimo S-13c. 📍 Nuova sessione Codex nella cartella `/Users/matteo/Desktop/APP/MoneyTracker`. ▶️ Incollare il prompt completo nella sezione «Prossimo: S-13c» di `.cantiere/CONSEGNA.md`. ↩️ Riportare cartellino e commit. I due UI falliti sono S-15 per il collaudatore.
+- [ ] 2026-11-14 02:20 · Ripresa dopo lo stop richiesto. 📍 Claude Code, nella cartella `/Users/matteo/Desktop/APP/MoneyTracker`. ▶️ Scrivere:
+  ```text
+  riprendiamo
+  ```
+  Il capocantiere trova in STATO/CHECKPOINT/CONSEGNA il punto preciso e il prompt completo per Codex: completare la verifica UI interrotta di S-13c, senza rifare il codice (build e 48 unit già verdi). ↩️ Poi aprire una nuova sessione Codex qui e incollare il prompt che Claude fornirà.
 - [ ] 2026-11-13 · Segnalazione attrezzi (S-5, Codex). 📍 Nella chat «Azienda», incollare:
   ```text
   Nel cantiere MoneyTracker il controllo CUA dell'app Simulator va in timeout. xcodebuild compila (BUILD SUCCEEDED) ma il runner non avvia i test sul simulatore 37445D1E-DEF7-4A32-9A39-EA9EACCA3E48: DTServiceHubClient / com.apple.instruments.deviceservice.lockdown non disponibile. Anche dopo shutdown/boot il problema persiste. Verificare il collegamento tra strumenti Codex e simulatore; non modificare codice o test per aggirare il problema.

@@ -55,3 +55,8 @@ Le decisioni che non si devono ridiscutere ogni volta. Solo aggiunte.
 - **Fuori da S-13 (Matteo non li vuole):** lista «vecchie ricorrenti da sistemare», ricorrenze sui trasferimenti, card «Prossime scadenze» in Home. Le vecchie ricorrenti le rifà Matteo a mano.
 - **Piano tecnico:** architetto (RecurringRule, SchemaV3, UUIDv5 deterministico, materializzazione il primo del mese dal contesto principale, tabella `mt_recurring_rules` su Supabase). Causa individuata: le copie del vecchio motore, salvate su un contesto in background, non risultano «sporche» per il sync e il pull le cancella (`SyncService.swift` ~651).
 - **Chi ha deciso:** Matteo
+
+### Nota di esecuzione D-009 · 2026-11-14 02:20 · Codex
+- S-13c: eliminati `Domain/RecurringTransactionEngine.swift` e i suoi tre test in `RecurringTransactionEngineTests.swift`, come autorizzato. Nessun dato legacy convertito/cancellato e nessun altro test esistente modificato.
+- Dettaglio operativo del limite del piano: massimo **36 mesi più recenti**, incluso quello corrente; il watermark avanza al mese corrente. `nil` è una regola nuova e parte solo dal mese corrente (o dal mese di inizio futuro), evitando storico inventato. Test dedicati verdi.
+- Stop esplicito di Matteo durante la suite UI: salvare tutto e riprendere da Claude Code, poi Codex, senza rifare l'implementazione. Nessun merge/push e nessuna dichiarazione di collaudo completo.

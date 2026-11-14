@@ -25,3 +25,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-14 01:30 | collaudatore (Claude Code · Sonnet) | S-12 collaudo | confronto col mockup su screenshot (light, dark, XL, tedesco, filtri attivi, swipe, Ricorrenti); pagina unica, chip, banner, totale XL ok; 27 unit + 12 UI verdi (rieseguiti da me); 7 lingue valide; S-12 [x] | tab bar XL → S-10; motore ricorrenze → S-13; ritocchi Ricorrenti minori |
 
 | 2026-11-14 02:05 | seconda impresa (Codex · GPT-6) | S-13a + S-13b | Calculator/UUIDv5/codec, RecurringRule e SchemaV3, app/Siri aggiornati; build e 40 unit verdi; grafo aggiornato | [~] da collaudare; UI 10/12, due fallimenti riprodotti → S-15; prossimo S-13c |
+
+| 2026-11-14 02:20 | seconda impresa (Codex · GPT-6) | S-13c | Materializer/mainContext e 11 test, avvii serializzati, vecchio motore/test rimossi; build e 48 unit verdi; grafo aggiornato | Stop esplicito di Matteo, UI interrotti: 5 verdi e stress S-15 fallito; ripresa Claude→Codex per completare sola verifica UI; S-13c [~] |

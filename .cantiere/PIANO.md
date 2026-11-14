@@ -135,12 +135,12 @@ il task e i file indicati.
   - S-13a [~] Calcolo puro + UUIDv5 + codec eccezioni → Codex · nuovi `Domain/RecurrenceCalculator.swift`, `MoneyTrackerTests/RecurrenceCalculatorTests.swift`
   - S-13b [~] Modello `RecurringRule` + SchemaV3 → Codex (eseguito dopo a) · `Models/RecurringRule.swift`, `Persistence/SchemaMigration.swift`, `MoneyTrackerApp.swift`, `Intents/AddExpenseIntent.swift`, `SchemaMigrationTests.swift`
   - Verifica a+b (Codex, 2026-11-14 02:05): build OK; 40 unit verdi (27 esistenti + 13 nuovi), migrazioni V1→V2, V2→V3 e V1→V3 su disco OK; UI 10/12, due fallimenti riprodotti dopo shutdown all + boot → S-15. Da collaudare; nessun test esistente modificato salvo aggiunte a SchemaMigrationTests.
-  - S-13c [ ] Materializer + spegnimento vecchio motore → Codex · richiede a+b
+  - S-13c [~] Materializer + spegnimento vecchio motore → Codex · implementato 2026-11-14 02:20; build e 48 unit verdi. **Matteo ha chiesto di fermare il turno:** suite UI interrotta, da completare alla ripresa; poi collaudatore. Non iniziare d prima di chiudere questa verifica.
   - S-13d [ ] Editor (solo questa / successive / tutte, salta, termina) → Codex · richiede c
   - S-13e [?] Creare tabella `mt_recurring_rules` su Supabase → **Matteo** (SQL e istruzioni li prepara S-13f)
   - S-13f [ ] Sync → Codex · richiede b; prova in app solo dopo e
   - S-13g [ ] UI → Codex, DOPO che Antigravity chiude S-12 su `TransactionsView`
-  - S-13h [ ] Documento + collaudo + Commissione Suprema → collaudatore
+  - S-13h [ ] Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo).
   - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
 
 ### S-15 [ ] Diagnosticare due test UI che non trovano il movimento appena salvato
@@ -148,6 +148,7 @@ il task e i file indicati.
 - **Scoperto:** verifica S-13a+b, 2026-11-14 02:05. Non attribuito al nuovo schema: causa da verificare.
 - **Casi:** `NavigationStressUITests.testAddMultipleTransactionsThenDeleteAll` (riga 55) e `TransactionFlowUITests.testAddTransactionWithoutCategoryDefaultsToAltro` (riga 68).
 - **Prove:** suite completa 10 UI verdi / 2 falliti; entrambi ancora falliti dopo `simctl shutdown all` e boot. 40 unit verdi. Log `/tmp/moneytracker-s13-build.log` e `/tmp/moneytracker-s13-recheck.log`; xcresult nei rispettivi log. Nessuno screenshot di fallimento esportabile dal risultato.
+- **Aggiornamento S-13c (2026-11-14 02:20):** il caso stress alla riga 55 è fallito ancora; il caso senza categoria non è stato raggiunto prima dell’interruzione richiesta da Matteo. UI non modificati. Log `/tmp/moneytracker-s13c-build.log`.
 - **Fatto quando:** causa dimostrata e 12 UI verdi; distinguere persistenza, visibilità/accessibilità e automazione. Nessuna asserzione indebolita.
 - **Vincoli:** non cambiare viste/test esistenti senza assegnazione e autorizzazione specifica; eventuale correzione oltre il perimetro va prima proposta a Matteo.
 

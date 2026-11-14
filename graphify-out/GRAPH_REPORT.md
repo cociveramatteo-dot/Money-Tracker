@@ -1,16 +1,16 @@
 # Graph Report - MoneyTracker  (2026-11-14)
 
 ## Corpus Check
-- 124 files · ~91,082 words
+- 124 files · ~91,834 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1329 nodes · 2169 edges · 303 communities (62 shown, 241 thin omitted)
-- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 148 edges (avg confidence: 0.8)
+- 1360 nodes · 2266 edges · 302 communities (64 shown, 238 thin omitted)
+- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 169 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `0a760004`
+- Built from commit: `25b1b6e2`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -240,7 +240,6 @@
 - String
 - String
 - Transaction
-- ModelContainer
 - URL
 - SignUpView
 - Date
@@ -319,7 +318,7 @@
 - Esito test notturno: TEST OK (tentativo 1/5)
 
 ## God Nodes (most connected - your core abstractions)
-1. `Decimal` - 58 edges
+1. `Decimal` - 61 edges
 2. `Foundation` - 34 edges
 3. `SwiftData` - 34 edges
 4. `Double` - 34 edges
@@ -333,71 +332,75 @@
 ## Surprising Connections (you probably didn't know these)
 - `RecurrenceCalculatorTests` --calls--> `RecurrenceCalculator`  [INFERRED]
   MoneyTrackerTests/RecurrenceCalculatorTests.swift → MoneyTracker/Domain/RecurrenceCalculator.swift
+- `RecurringMaterializerTests` --references--> `RecurringMaterializer`  [EXTRACTED]
+  MoneyTrackerTests/RecurringMaterializerTests.swift → MoneyTracker/Domain/RecurringMaterializer.swift
 - `MoneyTracker.pdf (distributable, generated from MoneyTracker.md via pandoc/Chrome)` --references--> `MoneyTracker — Documento Completo (master doc)`  [EXTRACTED]
   docs/MoneyTracker.pdf → docs/MoneyTracker.md
 - `AuditLogView` --references--> `AuditLogger`  [EXTRACTED]
   MoneyTracker/Views/AuditLogView.swift → MoneyTracker/Domain/AuditLogger.swift
 - `BalanceTrail` --references--> `Decimal`  [EXTRACTED]
   MoneyTracker/Domain/BalanceTrail.swift → MoneyTracker/Formatting/CurrencyFormatting.swift
-- `DashboardView` --references--> `BalanceTrail`  [EXTRACTED]
-  MoneyTracker/Views/DashboardView.swift → MoneyTracker/Domain/BalanceTrail.swift
 
 ## Import Cycles
 - None detected.
 
-## Communities (303 total, 241 thin omitted)
+## Communities (302 total, 238 thin omitted)
 
 ### Community 0 - "CategoryManagementView & AddTransactionView"
 Cohesion: 0.25
 Nodes (17): DSTransactionRow, EmptyStateView, FixedExpenseRow, FixedTotalTile, GhostButton, HeroAmount, PrimaryButton, RecurringSeriesCard (+9 more)
 
 ### Community 1 - "Ricorrenze — motore backfill & Intents dirty-tracking"
-Cohesion: 0.23
-Nodes (18): Codable, AccountExport, BudgetExport, CSVFile, CurrencyConfirmSheet, GDPRExport, GoalExport, JSONExportFile (+10 more)
+Cohesion: 0.13
+Nodes (22): Codable, AccountExport, BudgetExport, CSVFile, CurrencyConfirmSheet, GDPRExport, GoalExport, JSONExportFile (+14 more)
 
 ### Community 2 - "Sync/ricorrenze — file sorgente del checkpoint settembre 2026"
-Cohesion: 0.05
-Nodes (29): AnyObject, Combine, Foundation, Hashable, MoneyTracker, RecurringRule, Bool, Date (+21 more)
+Cohesion: 0.09
+Nodes (12): Auth, Combine, Foundation, MoneyTracker, Network, OSLog, Supabase, SwiftData (+4 more)
 
 ### Community 3 - "Schema Migration V1→V2 (Decimal precision)"
 Cohesion: 0.14
 Nodes (23): MigrationStage, Account, Budget, decimalFromLegacyDouble(), DecimalMigrationBuffer, Goal, MoneyTrackerMigrationPlan, SchemaV1 (+15 more)
 
 ### Community 4 - "Supabase DTOs (SBAccount/SBBudget/SBGoal/SBTransaction)"
-Cohesion: 0.16
-Nodes (18): CryptoKit, DateInterval, Occurrence, RecurrenceCalculator, RecurrenceException, RecurrenceExceptionCodec, RuleSnapshot, Bool (+10 more)
+Cohesion: 0.07
+Nodes (42): CryptoKit, DateInterval, Occurrence, RecurrenceCalculator, RecurrenceException, RecurrenceExceptionCodec, RuleSnapshot, Bool (+34 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.13
 Nodes (11): NavigationStressUITests, MoneyTrackerUITestCase, String, StaticString, UInt, AccountFlowUITests, CategoryFlowUITests, TransactionFlowUITests (+3 more)
 
 ### Community 6 - "AppIntents — Tocco posteriore/Siri (AddExpenseIntent)"
-Cohesion: 0.11
-Nodes (22): AppIntent, AppIntents, AppShortcut, AppShortcutsProvider, DynamicOptionsProvider, LocalizedStringResource, AccountOptionsProvider, AddExpenseIntent (+14 more)
+Cohesion: 0.14
+Nodes (15): DashboardView, HomeAccountOrderSheet, Account, Bool, CGFloat, Date, Int, LocalizedStringKey (+7 more)
 
 ### Community 7 - "Supabase CodingKeys (snake_case mapping)"
-Cohesion: 0.20
-Nodes (7): BudgetStatus, Text, Color, DS, Set, Text, UInt32
+Cohesion: 0.29
+Nodes (4): BudgetStatus, Text, Color, UInt32
 
 ### Community 8 - "Community 8"
-Cohesion: 0.38
-Nodes (6): Identifiable, Option, SegmentedPill, Text, DSIcon, Selection
+Cohesion: 0.32
+Nodes (7): DS, DSIcon, MonthBar, Date, Set, String, Text
 
 ### Community 9 - "Community 9"
-Cohesion: 0.05
-Nodes (47): FilterChip, Style, advanced, primary, secondary, Text, Void, HeroCard (+39 more)
+Cohesion: 0.15
+Nodes (16): FilterChip, Style, advanced, primary, secondary, Text, Void, haptic() (+8 more)
 
 ### Community 10 - "Community 10"
-Cohesion: 0.06
-Nodes (29): Charts, IntentResult, App Icon (Dark Mode, 1024x1024), App Icon (Light Mode, 1024x1024), App Icon (Tinted, 1024x1024), AccountRow, AccountsView, AddAccountView (+21 more)
+Cohesion: 0.07
+Nodes (28): Any, Charts, Context, Identifiable, App Icon (Dark Mode, 1024x1024), App Icon (Light Mode, 1024x1024), App Icon (Tinted, 1024x1024), Option (+20 more)
+
+### Community 11 - "Community 11"
+Cohesion: 0.22
+Nodes (7): AccountRow, AccountsView, AddAccountView, Account, Bool, String, CurrencyFormattingTests
 
 ### Community 12 - "Community 12"
-Cohesion: 0.24
+Cohesion: 0.21
 Nodes (9): CGContext, CGPoint, FontRegistrationTests, UIColor, UIFont, UIGraphicsPDFRendererContext, NumberFormatter, PDFReportGenerator (+1 more)
 
 ### Community 14 - "Community 14"
-Cohesion: 0.18
-Nodes (6): Bundle, NSCache, NSString, CategoryClassifying, KeywordCategoryClassifier, KeywordCategoryClassifierTests
+Cohesion: 0.08
+Nodes (23): AppIntent, AppIntents, AppShortcut, AppShortcutsProvider, Bundle, DynamicOptionsProvider, IntentResult, LocalizedStringResource (+15 more)
 
 ### Community 15 - "Community 15"
 Cohesion: 0.20
@@ -408,8 +411,8 @@ Cohesion: 0.21
 Nodes (7): LocalAuthentication, AppLockGate, AppLockState, LockOverlay, View, BiometricAuthenticating, LAContextAuthenticator
 
 ### Community 17 - "Community 17"
-Cohesion: 0.38
-Nodes (5): Any, Context, ShareSheet, UIActivityViewController, UIViewControllerRepresentable
+Cohesion: 0.20
+Nodes (8): TxFilter, entrate, fisse, ricorrenti, trasf, tutti, uscite, View
 
 ### Community 20 - "Community 20"
 Cohesion: 0.29
@@ -417,7 +420,7 @@ Nodes (6): Chi fa meglio cosa (osservazioni, non verità: aggiornare), Cosa va b
 
 ### Community 22 - "Community 22"
 Cohesion: 0.05
-Nodes (23): App, FileProtectionType, DemoDataSeeder, applyFileProtection(), MoneyTrackerApp, Bool, ModelContainer, String (+15 more)
+Nodes (28): AnyObject, App, FileProtectionType, DemoDataSeeder, applyFileProtection(), MoneyTrackerApp, Bool, ModelContainer (+20 more)
 
 ### Community 27 - "Community 27"
 Cohesion: 0.09
@@ -439,17 +442,21 @@ Nodes (11): Cartellino, Claude Code = CAPOCANTIERE, Commissione Suprema (control
 Cohesion: 0.11
 Nodes (24): accessibilita(), AXE, BASE, cliccaTutto(), confrontaScreenshot(), controllaLink(), controllaPagina(), differenze (+16 more)
 
+### Community 35 - "Community 35"
+Cohesion: 0.33
+Nodes (6): Kind, expense, income, transfer, MovementRow, String
+
 ### Community 36 - "Community 36"
 Cohesion: 0.14
-Nodes (7): String, SignUpView, Goal, SBGoal, AuditLogView, AddGoalView, GoalRow
+Nodes (8): String, RecurringSeries, RecurringSeriesDetector, Goal, SBGoal, AuditLogView, AddGoalView, GoalRow
 
 ### Community 37 - "Community 37"
-Cohesion: 0.27
-Nodes (4): entrata, SBTransaction, AddTransactionView, AddTransferView
+Cohesion: 0.13
+Nodes (11): Hashable, Category, AddTransactionView, AddTxFocus, importo, nome, CategoryPickerView, AddBudgetView (+3 more)
 
 ### Community 38 - "Community 38"
 Cohesion: 0.10
-Nodes (19): Fatti, In corso / prossimi, PIANO DEI LAVORI, S-0 [x] Rimozione del tour, S-10 [ ] Verifica finale + Commissione Suprema, S-11 [x] Riserve da S-5 (XL e badge demo) — assorbito da S-12; resta solo tab bar XL in S-10, S-12 [x] Movimenti: pagina unica + zona sotto i chip + Ricorrenti (da mockup) — collaudo 2026-11-14 01:30 ok, S-13 [ ] Motore ricorrenze a serie virtuali (D-008) (+11 more)
+Nodes (20): Fatti, In corso / prossimi, PIANO DEI LAVORI, S-0 [x] Rimozione del tour, S-10 [ ] Verifica finale + Commissione Suprema, S-11 [x] Riserve da S-5 (XL e badge demo) — assorbito da S-12; resta solo tab bar XL in S-10, S-12 [x] Movimenti: pagina unica + zona sotto i chip + Ricorrenti (da mockup) — collaudo 2026-11-14 01:30 ok, S-13 [ ] Motore ricorrenze a serie virtuali (D-008) (+12 more)
 
 ### Community 39 - "Community 39"
 Cohesion: 0.12
@@ -460,12 +467,12 @@ Cohesion: 0.12
 Nodes (16): 6. Funzionalità Implementate, Aggiunta Transazione (AddTransactionView), Biometria (Auth/), Budget (BudgetView), Conti (AccountsView), Haptic Feedback, Home (DashboardView), Impostazioni (SettingsView) (+8 more)
 
 ### Community 42 - "Community 42"
-Cohesion: 0.17
-Nodes (6): AccountBalanceCache, investimento, Transaction, TransactionType, uscita, SBAccount
+Cohesion: 0.14
+Nodes (10): AccountBalanceCache, Account, Budget, Transaction, TransactionType, entrata, uscita, AddTransferView (+2 more)
 
 ### Community 43 - "Community 43"
-Cohesion: 0.22
-Nodes (8): CategoryTint, amber, blue, green, violet, String, UInt32, CategoryTintTests
+Cohesion: 0.20
+Nodes (9): CaseIterable, CategoryTint, amber, blue, green, violet, String, UInt32 (+1 more)
 
 ### Community 44 - "Community 44"
 Cohesion: 0.15
@@ -484,8 +491,8 @@ Cohesion: 0.19
 Nodes (9): PianificaView, Bool, Budget, Goal, Int, LocalizedStringKey, PersistentIdentifier, Transaction (+1 more)
 
 ### Community 49 - "Community 49"
-Cohesion: 0.24
-Nodes (5): Budget, SBBudget, AddBudgetView, BudgetHistorySheet, BudgetRow
+Cohesion: 0.50
+Nodes (3): RecurringSeriesDetailView, String, Transaction
 
 ### Community 50 - "Community 50"
 Cohesion: 0.38
@@ -504,8 +511,8 @@ Cohesion: 0.18
 Nodes (10): D-001 · 2026-11-13 · Adozione del modello Cantiere, D-002 · 2026-11-13 · Rimosso il guardiano dei siti web, D-003 · 2026-11-13 · `@MainActor` su CurrencyFormattingTests, D-004 · 2026-11-13 · Simulatore di riferimento, D-005 · 2026-11-13 · Token «Sentiero» e dark mode (S-1), D-006 · 2026-11-13 · Tinte categoria, D-007 · 2026-11-13 · Serie del saldo per la TrailView, D-008 · 2026-11-13 · Nuovo motore delle ricorrenze (serie virtuali) — ok scritto di Matteo (+2 more)
 
 ### Community 58 - "Community 58"
-Cohesion: 0.28
-Nodes (7): CaseIterable, Account, AccountType, carta, contanti, conto, risparmio
+Cohesion: 0.33
+Nodes (6): AccountType, carta, contanti, conto, investimento, risparmio
 
 ### Community 59 - "Community 59"
 Cohesion: 0.50
@@ -516,8 +523,8 @@ Cohesion: 0.29
 Nodes (7): 4. Modelli Dati, Account, Budget, Category, FormatterCache (performance), Goal (Obiettivo di risparmio), Transaction
 
 ### Community 63 - "Community 63"
-Cohesion: 0.29
-Nodes (3): UIKeyboardType, AuthField, LoginView
+Cohesion: 0.14
+Nodes (8): Error, MaterializationError, requiresMainContext, saveFailed, UIKeyboardType, AuthField, LoginView, SignUpView
 
 ### Community 64 - "Community 64"
 Cohesion: 0.33
@@ -553,7 +560,7 @@ Nodes (5): Cantiere di sviluppo, Features, Personal Finance Tracker, Security, T
 
 ### Community 72 - "Community 72"
 Cohesion: 0.33
-Nodes (5): Aperto, CONSEGNA — il biglietto per chi entra in turno, Differenze residue accettate, Esito, Prossimo passo
+Nodes (5): Aperto, CONSEGNA — il biglietto per chi entra in turno, Fatto, Prossimo: S-13c → Codex, Verifica effettiva
 
 ### Community 73 - "Community 73"
 Cohesion: 0.80
@@ -588,28 +595,28 @@ Cohesion: 0.50
 Nodes (3): Dettaglio tentativi, Modifiche automatiche, Report notturno MoneyTracker — 25/07/2026
 
 ### Community 165 - "Community 165"
-Cohesion: 0.21
-Nodes (10): Card, Content, Layout, MonthBar, Space, CGFloat, Date, String (+2 more)
+Cohesion: 0.19
+Nodes (9): Card, Content, HeroCard, Text, Layout, Space, CGFloat, Typo (+1 more)
 
 ## Knowledge Gaps
-- **345 isolated node(s):** `backup.sh script`, `esegui.sh script`, `CHROME_PATH`, `require`, `AXE` (+340 more)
+- **351 isolated node(s):** `backup.sh script`, `esegui.sh script`, `CHROME_PATH`, `require`, `AXE` (+346 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **241 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **238 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Decimal` connect `Community 10` to `CategoryManagementView & AddTransactionView`, `Ricorrenze — motore backfill & Intents dirty-tracking`, `Sync/ricorrenze — file sorgente del checkpoint settembre 2026`, `Schema Migration V1→V2 (Decimal precision)`, `Supabase DTOs (SBAccount/SBBudget/SBGoal/SBTransaction)`, `Community 36`, `AppIntents — Tocco posteriore/Siri (AddExpenseIntent)`, `Supabase CodingKeys (snake_case mapping)`, `Community 9`, `Community 48`, `Community 27`?**
-  _High betweenness centrality (0.074) - this node is a cross-community bridge._
-- **Why does `SwiftData` connect `Sync/ricorrenze — file sorgente del checkpoint settembre 2026` to `CategoryManagementView & AddTransactionView`, `Ricorrenze — motore backfill & Intents dirty-tracking`, `Schema Migration V1→V2 (Decimal precision)`, `Community 36`, `Community 37`, `AppIntents — Tocco posteriore/Siri (AddExpenseIntent)`, `Community 9`, `Community 10`, `Community 42`, `Community 11`, `Community 45`, `Community 48`, `Community 49`, `Community 22`, `Community 58`?**
-  _High betweenness centrality (0.041) - this node is a cross-community bridge._
-- **Why does `Double` connect `Schema Migration V1→V2 (Decimal precision)` to `Sync/ricorrenze — file sorgente del checkpoint settembre 2026`, `Community 35`, `Community 36`, `AppIntents — Tocco posteriore/Siri (AddExpenseIntent)`, `Supabase CodingKeys (snake_case mapping)`, `Community 10`, `Community 48`, `Community 22`?**
-  _High betweenness centrality (0.032) - this node is a cross-community bridge._
-- **Are the 19 inferred relationships involving `Decimal` (e.g. with `.perform()` and `.perform()`) actually correct?**
-  _`Decimal` has 19 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `Decimal` connect `Supabase DTOs (SBAccount/SBBudget/SBGoal/SBTransaction)` to `CategoryManagementView & AddTransactionView`, `Ricorrenze — motore backfill & Intents dirty-tracking`, `Sync/ricorrenze — file sorgente del checkpoint settembre 2026`, `Schema Migration V1→V2 (Decimal precision)`, `Community 36`, `AppIntents — Tocco posteriore/Siri (AddExpenseIntent)`, `Supabase CodingKeys (snake_case mapping)`, `Community 10`, `Community 11`, `Community 14`, `Community 48`, `Community 27`?**
+  _High betweenness centrality (0.075) - this node is a cross-community bridge._
+- **Why does `SwiftData` connect `Sync/ricorrenze — file sorgente del checkpoint settembre 2026` to `CategoryManagementView & AddTransactionView`, `Ricorrenze — motore backfill & Intents dirty-tracking`, `Schema Migration V1→V2 (Decimal precision)`, `Community 36`, `Community 37`, `AppIntents — Tocco posteriore/Siri (AddExpenseIntent)`, `Community 10`, `Community 11`, `Community 42`, `Community 45`, `Community 14`, `Community 48`, `Community 49`, `Community 17`?**
+  _High betweenness centrality (0.036) - this node is a cross-community bridge._
+- **Why does `Double` connect `Schema Migration V1→V2 (Decimal precision)` to `Sync/ricorrenze — file sorgente del checkpoint settembre 2026`, `Community 36`, `Supabase DTOs (SBAccount/SBBudget/SBGoal/SBTransaction)`, `Supabase CodingKeys (snake_case mapping)`, `Community 10`, `Community 14`, `Community 48`, `Community 22`?**
+  _High betweenness centrality (0.022) - this node is a cross-community bridge._
+- **Are the 22 inferred relationships involving `Decimal` (e.g. with `.perform()` and `.perform()`) actually correct?**
+  _`Decimal` has 22 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `backup.sh script`, `Cartella servita come "/" del sito: quella con index.html più vicina alla radice`, `(lingua dalla cartella, percorso senza cartella della lingua).` to the rest of the system?**
-  _371 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _377 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Ricorrenze — motore backfill & Intents dirty-tracking` be split into smaller, more focused modules?**
+  _Cohesion score 0.12701612903225806 - nodes in this community are weakly interconnected._
 - **Should `Sync/ricorrenze — file sorgente del checkpoint settembre 2026` be split into smaller, more focused modules?**
-  _Cohesion score 0.05257936507936508 - nodes in this community are weakly interconnected._
-- **Should `Schema Migration V1→V2 (Decimal precision)` be split into smaller, more focused modules?**
-  _Cohesion score 0.14439946018893388 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08562367864693446 - nodes in this community are weakly interconnected._
