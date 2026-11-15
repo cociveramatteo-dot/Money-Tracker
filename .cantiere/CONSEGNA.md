@@ -1,36 +1,10 @@
-# CONSEGNA — S-24 / S-25 implementati; S-15 automazione corretta
+# CONSEGNA — collaudo S-24 / S-25 / S-15
 
-**Da:** impresa (Codex · GPT-6), 2026-11-15 11:41. Ramo `redesign-sentiero`. S-24/S-25/S-15 [~], da collaudare. Nessun push, merge o checkpoint. Modifiche Domain e test S-15 autorizzati da Matteo in chat. Decisioni in D-010.
+**Da:** collaudatore (Claude Code · Sonnet), 2026-11-15 11:55. Commit 125561c. Esito [x] per S-24, S-25, S-15.
+- Diff riletto (Calculator, Editor, AddTransactionView, RecurrenceControls, test): scope, campi, effettuato locale (D-010), override->Tutte, ID/date/rollback, eliminazione per giorno originale coerenti.
+- 78 unit rilanciati in locale: verdi. UI non rilanciati; log di Codex coerenti: full 13/15 (due S-15 rossi prima del fix), S-15 2/2 verdi in rilancio mirato. Nessun full run unico 15/15 dopo il reset filtro.
+- Riserva: blocco reale su Tutte non riprodotto in demo; non dichiarato risolto, serve prova di Matteo.
+- Non toccati graphify-out e demo.
 
-## Risultato e riserva S-24
-- Corretto il difetto riprodotto su Questa e le successive: originalDate è alle 12:00 e il confronto col timestamp lasciava le copie dello stesso giorno al mattino. Il motore ora confronta il giorno originale deterministico; anche una copia spostata prima della soglia viene eliminata se la sua data originale è in scope. Termina usa lo stesso criterio.
-- Tutte e Solo questa conservano le copie effettuate, come D-009; i legacy restano intatti. Il nuovo mapping originale è lazy: l'eliminazione Tutte non enumera la storia delle date.
-- Unit e UI verificano i tre scope, assenza di ricreazione, serie mensile fissa, copie del mattino e spostate, navigazione dopo eliminazione. Anche il percorso Ricorrenza → Tutte con copia effettuata risponde e conserva la copia senza repeat.
-- **Il blocco originario su Tutte NON è stato riprodotto sui dati demo.** Non c'è evidenza di crash/deadlock/loop da attribuire a quel caso: non dichiarare risolto il problema sul database reale senza riscontro. Prova reale in PER-MATTEO. Nel turno precedente nessun breakpoint LLDB salvato nel progetto (compresi ignorati) era presente; fatalError solo all'avvio ModelContainer e assertionFailure in safeSave. Nessuna evidenza che siano stati colpiti.
-
-## S-25 — comportamento scelto e implementato
-- Il salvataggio normale di una copia usa lo stesso `.edit(.all, ...)` dell'editor ricorrenza: regola e tutte le copie esistenti, anche storiche/effettuate, ricevono nome, importo, tipo, categoria/icona, conto, note, fissa e data coerenti. Frequenza/fine non sono modificabili qui. Una modifica alla data della copia viene tradotta nell'ancora della serie rispettandone la posizione; febbraio invariato in una serie al 31 non sposta l'ancora al 28.
-- **Già effettuato resta locale**, su esplicita risposta di Matteo. Non viene propagato dal motore; la modifica normale può cambiarlo solo sulla copia scelta. Il cambiamento locale viene incluso nel salvataggio e ripristinato se l'operazione fallisce.
-- Solo questa ora salva nel codec anche categoria/icona, tipo, fissa e conto. `overridesAccount` distingue “nessun conto” da un vecchio override che non specificava il conto; campi opzionali compatibili con i vecchi JSON, nessuna migrazione/schema cambiati. Virtuali e copie materializzate leggono gli stessi campi.
-- Successive aggiorna le copie in scope e le ricollega alla regola sostitutiva, anche se effettuate, riallineandone gli ID. Il passato precedente alla soglia rimane invariato.
-- **Tutte sostituisce gli override di valori/date precedenti con i valori mostrati e salvati.** Nell'editor ricorrenza Tutte carica i valori della regola; nell'editor normale usa i valori della copia mostrata (quindi una precedente modifica singola può essere estesa alla serie). Non restano differenze nascoste. I salti espliciti sono conservati se la cadenza non cambia; il reset con nuova cadenza è quello già previsto dal motore.
-- Se cambiano ancora/frequenza, le copie seguono la posizione nella nuova cadenza, con giorno limitato all'ultimo del mese nei mesi corti e ID aggiornati. Non si inventa lo storico mancante. Nuove copie riconciliate/materializzate restano pianificate.
-- Corretti i tag Tipo nell'editor ricorrenza: usavano `uscita`/`entrata` invece dei rawValue `Uscita`/`Entrata` accettati dal modello. I controlli categoria/tipo/conto/fissa ora sono accessibili anche con Solo questa. Rimossa la frase ormai falsa che prometteva copie effettuate invariate. Nessun altro intervento grafico.
-- Rollback testato su cambio data/frequenza/split: ripristina valori, date, ID, templateId, eccezioni e regola senza perdere altre modifiche pendenti.
-
-## S-15 — causa e correzione dei test
-- Il full run mostra un filtro avanzato persistente **≥20 €** nella gerarchia UI (`btn_activeFilterBadge`). I due test creavano movimenti da 10–15 €: Tutti cambia il tipo, non azzera i filtri importo/data AppStorage. Il caso con importo 42 € passava. Gerarchia esportata in `/tmp/moneytracker-s25-s15-failures/278822BF-4958-42C3-A8D4-F99E8C623194.txt`.
-- I due test ora rimuovono esplicitamente i filtri attraverso il pulsante UI Rimuovi filtri. Nessun codice app cambiato per S-15. Aggiunte attese del focus (osservato anche un errore XCUITest “Neither element nor any descendant has keyboard focus”), visibilità Salva e chiusura form; ricerca nome nella riga accessibile con metadati; attesa della scomparsa dopo eliminazione. Verificati tutti e cinque gli insert/delete dello stress e il fallback Altro, senza indebolire asserzioni.
-- Il primo tentativo con sole attese/locator non risolveva la soglia persistente: quei fallimenti sono registrati e non vanno attribuiti alla persistenza o a S-25.
-
-## Verifica (esiti distinti, nessun full run unico dichiarato verde)
-- `/tmp/moneytracker-s25-unit.log`: 72 unit verdi al primo aggiornamento del motore.
-- `/tmp/moneytracker-s25-matrix.log`: 75 unit verdi; eliminazione UI nei tre scope verde; il vecchio flusso si fermava nella ricerca del titolo in Ricorrenti. Il test S-23 è stato riscritto sul percorso richiesto da Movimenti, verificando categoria normale → Solo questa → Tutte → rilettura normale e regola rimossa, con asserzioni più pertinenti alla nuova semantica.
-- `/tmp/moneytracker-s25-full.log`: **77 unit verdi, 13/15 UI verdi**. Gli unici fallimenti sono i due S-15 prima della correzione filtro. Tutti e tre i RecurrenceFlowUITests verdi, incluso mensile/fissa con tre scope. XCResult `Test-MoneyTracker-2026.11.15_11-18-36-+0100.xcresult`.
-- `/tmp/moneytracker-s25-final.log`: **78 unit verdi** (aggiunto test ancora dell'editor normale: mese corto, spostamento mese, settimanale, bisestile) e flusso normale/ricorrenza UI verde sul codice app finale; S-15 ancora rosso prima di azzerare il filtro.
-- `/tmp/moneytracker-s25-s15-fixed.log`: **2/2 S-15 verdi, TEST SUCCEEDED**, stress 152,107 s e senza categoria 42,387 s. XCResult `Test-MoneyTracker-2026.11.15_11-36-30-+0100.xcresult`. Dopo questo giro nessun codice app cambiato.
-- **Ultimi esiti complessivi: 78 unit e tutti i 15 UI verdi**, ottenuti con suite completa più rilanci mirati dei casi modificati/falliti. Non esiste un nuovo full run unico 15/15 dopo il reset filtro; questa distinzione è intenzionale e deve restare nel collaudo.
-- `git diff --check` pulito. Graphify aggiornato AST; graphify-out era già modificato e resta interamente fuori dal commit. Models/Persistence/Sync/Auth/Intents/Export/Formatting e notifiche non modificati. Nessun file pesante aggiunto al repository.
-
-## Prossimo — collaudatore (Claude Code · Sonnet)
-Collaudare il diff di questo turno sul ramo redesign-sentiero: propagazione completa per scope, stato effettuato locale, override→Tutte, date/ID/rollback, eliminazione mattino/spostate e test S-15 con filtro persistente azzerato dalla UI. Leggere i log indicati; non dichiarare un full run unico verde. Mantenere la riserva sul blocco reale Tutte non riprodotto. Segnare [x] solo con esito indipendente giustificato e chiudere secondo AGENTS. Dopo: S-18/S-19 e Commissione S-13h; nessun push/merge senza autorizzazione.
+## Prossimo
+S-18/S-19, poi Commissione S-13h. Nessun push/merge.

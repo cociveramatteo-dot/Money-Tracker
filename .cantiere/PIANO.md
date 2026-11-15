@@ -146,7 +146,8 @@ il task e i file indicati.
   - S-13h [!] Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo). · 2026-11-14 11:08: commenti obsoleti sistemati (0 riferimenti a RecurringTransactionActor), docs/MoneyTracker.md+PDF aggiornati, 68 unit verdi. **Commissione Suprema NON a 10/10** → checkpoint (push) bloccato fino a S-21/S-22/S-19/S-18.
   - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
 
-### S-15 [~] Diagnosticare due test UI che non trovano il movimento appena salvato
+### S-15 [x] Diagnosticare due test UI che non trovano il movimento appena salvato
+- **Collaudo 2026-11-15 11:55 (collaudatore):** [x] collaudo ok — test UI corretti (filtro persistente ≥20€ azzerato da UI), 2/2 verdi nei log; nessun codice app cambiato. 78 unit riverificate in locale (78 passed, Swift Testing). UI non rilanciati: log di Codex coerenti (full 13/15 prima del fix, S-15 2/2 verdi in rilancio mirato; nessun full run unico 15/15). Riserva: blocco reale su Tutte non riprodotto in demo, NON dichiarato risolto; serve prova di Matteo su dati reali (PER-MATTEO).
 - **Collaudo 2026-11-14:** i due test falliscono IDENTICI (righe 55 e 68) anche sul commit 0a76000, prima di S-13: indipendenti da S-13, regressione precedente (probabile S-12 o prima).
 - **A chi:** collaudatore (Claude Code · Sonnet)
 - **Scoperto:** verifica S-13a+b, 2026-11-14 02:05. Non attribuito al nuovo schema: causa da verificare.
@@ -245,13 +246,15 @@ Modello di task:
 
 - **S-23 superato da S-25:** il tap normale resta AddTransactionView, ma il salvataggio ora applica Tutte alla serie. L'icona repeat e il menu lungo restano invariati.
 
-### S-24 [~] Eliminazione ricorrenze: regressioni e confronto per giorno originale
+### S-24 [x] Eliminazione ricorrenze: regressioni e confronto per giorno originale
+- **Collaudo 2026-11-15 11:55 (collaudatore):** [x] collaudo ok — eliminazione per giorno originale, 3 scope, copie del mattino/spostate. 78 unit riverificate in locale (78 passed, Swift Testing). UI non rilanciati: log di Codex coerenti (full 13/15 prima del fix, S-15 2/2 verdi in rilancio mirato; nessun full run unico 15/15). Riserva: blocco reale su Tutte non riprodotto in demo, NON dichiarato risolto; serve prova di Matteo su dati reali (PER-MATTEO).
 - **A chi:** Codex, assegnato da Matteo; Domain autorizzato esplicitamente il 2026-11-15. Collaudo indipendente da fare.
 - **Fatto:** corretto il difetto dimostrato su successive: il confronto con mezzogiorno lasciava la copia del mattino. Ora si usa il giorno originale ricavato dall'ID anche per copie spostate; stessa correzione per termina. Tutte non genera la mappa delle date originali quando non serve.
 - **Prove:** test unit serie mensile fissa gennaio–aprile, copia delle 08:00, copia spostata, conservazione effettuate/legacy, mancata ricreazione; UI da Movimenti con pressione prolungata → Elimina/Ricorrenza → tre scope, scomparsa e navigazione successive verdi.
 - **Riserva:** il blocco originario su Tutte non riprodotto in demo; nessuna causa crash/deadlock dimostrata, nessun breakpoint progetto trovato. Non dichiararlo risolto sul database reale senza verifica di Matteo/collaudatore.
 
-### S-25 [~] Uniformità campi ricorrenti secondo scope (sostituisce S-23)
+### S-25 [x] Uniformità campi ricorrenti secondo scope (sostituisce S-23)
+- **Collaudo 2026-11-15 11:55 (collaudatore):** [x] collaudo ok — propagazione per scope, effettuato locale (D-010), override→Tutte, date/ID/rollback. 78 unit riverificate in locale (78 passed, Swift Testing). UI non rilanciati: log di Codex coerenti (full 13/15 prima del fix, S-15 2/2 verdi in rilancio mirato; nessun full run unico 15/15). Riserva: blocco reale su Tutte non riprodotto in demo, NON dichiarato risolto; serve prova di Matteo su dati reali (PER-MATTEO).
 - **A chi:** Codex, assegnato e Domain autorizzato da Matteo; collaudo indipendente da fare.
 - **Fatto:** editor normale usa RecurringSeriesEditor/Tutte per nome, importo, categoria/icona, conto, tipo, note, fissa e data; frequenza/fine restano solo nell'editor ricorrenza. Quest'ultimo applica tutti i campi del form secondo scope, anche alle copie effettuate. Eccezioni complete per Solo questa, incluso conto esplicitamente vuoto. Storico e futuro uniformi; nessuno storico mancante inventato.
 - **Decisione D-010:** Tutte sostituisce override precedenti di valori/date; salti mantenuti a cadenza invariata. Date/frequenza riallineano le copie per posizione e i loro ID; mesi corti gestiti. Già effettuato resta locale alla singola copia, come precisato da Matteo. Ripristino di valori/date/ID/template verificato su errore di salvataggio.
