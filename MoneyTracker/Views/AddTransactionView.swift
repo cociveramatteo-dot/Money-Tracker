@@ -6,6 +6,7 @@ struct AddTransactionView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var recurrenceStatus = RecurrenceOperationStatus()
     @Query private var accounts: [Account]
+    @Query private var rules: [RecurringRule]
     @Query(sort: \Category.sortOrder) private var categories: [Category]
 
     var editing: Transaction? = nil
@@ -318,7 +319,24 @@ struct AddTransactionView: View {
         let catName = selectedCat?.name ?? "Altro"
         let catIcon = selectedCat?.icon ?? "circle.dotted"
 
-        if let t = editing {
+        if let t = editing, let rule = rules.first(where: { $0.id.uuidString == t.templateId }) {
+            var values = RecurringSeriesEditor.snapshot(rule)
+            values.name = name; values.amount = amt; values.type = type.rawValue
+            values.category = catName; values.categoryIcon = catIcon; values.accountId = selectedAccount?.id
+            values.isFixed = isFixed; values.notes = notes
+            // Preserve the selected occurrence's position in the series. A prior single-date
+            // override shown in this form becomes the date shift for the entire series too.
+            let originalDate = RecurrenceSelection.resolve(t, rules: [rule])?.occurrence.originalDate ?? t.date
+            values.startDate = RecurrenceCalculator().anchorForSeriesEdit(rule: values, originalDate: originalDate, date: date)
+            // Completion remains local to this copy (Matteo, 2026-11-15).
+            // Apply it before reconciliation, which may replace a planned copy after a date change.
+            let previousDone = t.isDone
+            t.isDone = isDone
+            guard recurrenceStatus.perform({
+                try RecurringSeriesEditor().apply(.edit(.all, values), to: rule,
+                                                 originalDate: rule.startDate, context: context)
+            }) else { t.isDone = previousDone; return }
+        } else if let t = editing {
             t.name         = name
             t.amount       = amt
             t.type         = type.rawValue

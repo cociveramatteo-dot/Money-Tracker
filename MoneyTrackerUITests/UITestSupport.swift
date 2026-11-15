@@ -59,6 +59,51 @@ class MoneyTrackerUITestCase: XCTestCase {
         block.tap()
     }
 
+    /// The Tutti chip does not reset persisted amount/date filters.
+    /// Creation tests must start with those filters explicitly cleared through the UI.
+    func clearTransactionFilters(file: StaticString = #filePath, line: UInt = #line) {
+        let clear = app.buttons["Rimuovi filtri"]
+        if clear.exists { clear.tap() }
+        XCTAssertTrue(XCTWaiter.wait(for: [XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"), object: clear)], timeout: 5) == .completed,
+            "Filtri avanzati ancora attivi", file: file, line: line)
+    }
+
+    /// MovementRow combines name and metadata into one accessible label.
+    /// Match the full name boundary, rather than requiring an isolated Text leaf.
+    func transactionRow(named name: String) -> XCUIElement {
+        app.staticTexts.matching(NSPredicate(format: "label == %@ OR label BEGINSWITH %@", name, name + ",")).firstMatch
+    }
+
+    /// Wait for the sheet and actual field focus before dispatching keyboard events.
+    func enterTransactionField(_ identifier: String, text: String, file: StaticString = #filePath, line: UInt = #line) {
+        let field = app.textFields[identifier]
+        XCTAssertTrue(field.waitForExistence(timeout: 5), file: file, line: line)
+        let focused = NSPredicate(format: "hasKeyboardFocus == true")
+        for _ in 0..<2 {
+            field.tap()
+            if XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: focused, object: field)], timeout: 2) == .completed { break }
+        }
+        XCTAssertTrue(focused.evaluate(with: field), "Campo senza focus: \(identifier)", file: file, line: line)
+        field.typeText(text)
+    }
+
+    /// Bring the button above the keyboard explicitly; XCUITest's implicit scroll
+    /// can compute a hit point while the SwiftUI scroll view is still moving.
+    func saveTransactionForm(file: StaticString = #filePath, line: UInt = #line) {
+        let save = app.buttons["btn_saveTransaction"]
+        for _ in 0..<4 {
+            if save.isHittable { break }
+            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.35))
+                .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.15)))
+        }
+        XCTAssertTrue(save.isHittable, "Salva non raggiungibile", file: file, line: line)
+        save.tap()
+        XCTAssertTrue(XCTWaiter.wait(for: [XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"), object: app.buttons["btn_cancelAddTransaction"])], timeout: 5) == .completed,
+            "Il form non si è chiuso dopo Salva", file: file, line: line)
+    }
+
     /// Swipe-to-delete robusto su una riga movimento (cercata per nome): subito
     /// dopo l'insert, la riga può impiegare più di un istante a installare i
     /// gesture recognizer della cella List — un primo swipe tentato in quella

@@ -40,6 +40,7 @@ final class NavigationStressUITests: MoneyTrackerUITestCase {
     func testAddMultipleTransactionsThenDeleteAll() throws {
         goToTab("Movimenti")
         openTransactionsSection("Tutti")
+        clearTransactionFilters()
         let baseName = uniqueName("Stress")
         var names: [String] = []
 
@@ -47,12 +48,10 @@ final class NavigationStressUITests: MoneyTrackerUITestCase {
             let name = "\(baseName)_\(i)"
             names.append(name)
             tapFAB(menuItem: "fabMenu_addTransaction")
-            app.textFields["tf_amount"].tap()
-            app.textFields["tf_amount"].typeText("\(10 + i)")
-            app.textFields["tf_name"].tap()
-            app.textFields["tf_name"].typeText(name)
-            app.buttons["btn_saveTransaction"].tap()
-            XCTAssertTrue(app.staticTexts[name].waitForExistence(timeout: 5), "Transazione \(name) non creata")
+            enterTransactionField("tf_amount", text: "\(10 + i)")
+            enterTransactionField("tf_name", text: name)
+            saveTransactionForm()
+            XCTAssertTrue(transactionRow(named: name).waitForExistence(timeout: 5), "Transazione \(name) non creata")
         }
 
         // Elimina dalla più recente (in cima alla lista) alla più vecchia: così ogni
@@ -60,10 +59,11 @@ final class NavigationStressUITests: MoneyTrackerUITestCase {
         // di scroll — le righe fuori schermo non esistono nella gerarchia di
         // accessibilità di una List lazy finché non vengono scrollate in vista.
         for name in names.reversed() {
-            let row = app.staticTexts[name]
+            let row = transactionRow(named: name)
             XCTAssertTrue(row.waitForExistence(timeout: 5))
             swipeToDeleteTransaction(named: name)
-            XCTAssertFalse(app.staticTexts[name].waitForExistence(timeout: 3))
+            XCTAssertTrue(XCTWaiter.wait(for: [XCTNSPredicateExpectation(
+                predicate: NSPredicate(format: "exists == false"), object: transactionRow(named: name))], timeout: 5) == .completed)
         }
 
         XCTAssertEqual(app.state, .runningForeground)

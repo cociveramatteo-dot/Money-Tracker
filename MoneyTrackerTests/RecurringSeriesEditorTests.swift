@@ -55,7 +55,7 @@ struct RecurringSeriesEditorTests {
         }
     }
 
-    // S-24: reproducer retained while the Domain change awaits Matteo's authorization.
+    // S-24 regression: the original civil day includes morning transactions.
     @Test func deleteFollowingIncludesSelectedCopyBeforeNoon() throws {
         let (container, rule) = try setup(start: 3)
         let context = container.mainContext
@@ -66,6 +66,129 @@ struct RecurringSeriesEditorTests {
         try context.save()
         try editor.apply(.delete(.following), to: rule, originalDate: date(3), context: context, now: date(3))
         #expect(try copies(context).isEmpty, "Following must include the selected civil day, including morning transactions")
+    }
+
+    @Test func everyFieldRespectsScopeAcrossHistoryAndFuture() throws {
+        for scope in [RecurringSeriesEditor.Scope.onlyThis, .following, .all] {
+            let (container, rule) = try setup()
+            let context = container.mainContext
+            let account = Account(name: "Series account", type: .conto)
+            context.insert(account)
+            rule.accountId = account.id
+            for month in 1...4 { try materialize(context, month: month) }
+            for copy in try copies(context) where copy.date == date(1) || copy.date == date(3) { copy.isDone = true }
+            try context.save()
+            var values = RecurringSeriesEditor.snapshot(rule)
+            values.name = "Uniform"; values.amount = 42; values.category = "Casa"; values.categoryIcon = "house"
+            values.type = TransactionType.entrata.rawValue; values.notes = "New notes"; values.isFixed = true
+            values.accountId = nil
+            if scope == .onlyThis { values.startDate = date(3, 15) }
+            let result = try #require(try editor.apply(.edit(scope, values), to: rule, originalDate: date(3), context: context, now: date(3)))
+            let rows = try copies(context)
+            #expect(rows.count == 4)
+            for copy in rows {
+                let month = calendar.component(.month, from: copy.date)
+                let changed = scope == .all || (scope == .following ? month >= 3 : month == 3)
+                #expect(copy.name == (changed ? "Uniform" : "Base"))
+                #expect(copy.amount == (changed ? 42 : Decimal(string: "0.2")!))
+                #expect(copy.category == (changed ? "Casa" : "Altro"))
+                #expect(copy.categoryIcon == (changed ? "house" : "circle.dotted"))
+                #expect(copy.type == (changed ? TransactionType.entrata.rawValue : TransactionType.uscita.rawValue))
+                #expect(copy.notes == (changed ? "New notes" : ""))
+                #expect(copy.isFixed == changed)
+                #expect(copy.account?.id == (changed ? nil : account.id))
+                #expect(copy.isDone == (month == 1 || month == 3))
+            }
+            let future = try #require(RecurrenceCalculator(timeZone: zone).occurrences(
+                rule: RecurringSeriesEditor.snapshot(result), in: DateInterval(start: date(5), end: date(6))).first)
+            #expect(future.name == (scope == .onlyThis ? "Base" : "Uniform"))
+            #expect(future.category == (scope == .onlyThis ? "Altro" : "Casa"))
+            #expect(future.accountId == (scope == .onlyThis ? account.id : nil))
+            if scope == .onlyThis {
+                // No materialized copy: all override fields must also survive JSON/virtual rendering.
+                values.startDate = date(8, 15)
+                try editor.apply(.edit(.onlyThis, values), to: rule, originalDate: date(8), context: context, now: date(4))
+                let virtual = try #require(RecurrenceCalculator(timeZone: zone).occurrences(
+                    rule: RecurringSeriesEditor.snapshot(rule), in: DateInterval(start: date(8), end: date(9))).first)
+                #expect(virtual.name == "Uniform" && virtual.amount == 42 && virtual.notes == "New notes")
+                #expect(virtual.category == "Casa" && virtual.categoryIcon == "house" && virtual.type == TransactionType.entrata.rawValue)
+                #expect(virtual.isFixed && virtual.accountId == nil && virtual.date == date(8, 15))
+                try materialize(context, month: 8)
+                #expect(try copies(context).first { $0.id == virtual.id }?.category == "Casa")
+            }
+        }
+    }
+
+    @Test func allReplacesPriorOverridesButPreservesSkipsAndCompletion() throws {
+        let (container, rule) = try setup()
+        let context = container.mainContext
+        for month in 1...4 { try materialize(context, month: month) }
+        var single = RecurringSeriesEditor.snapshot(rule)
+        single.name = "Single"; single.amount = 7; single.category = "Casa"; single.startDate = date(3, 15)
+        try editor.apply(.edit(.onlyThis, single), to: rule, originalDate: date(3), context: context, now: date(4))
+        try editor.apply(.delete(.onlyThis), to: rule, originalDate: date(2), context: context, now: date(4))
+        let completed = try #require(copies(context).first { $0.date == date(1) })
+        completed.isDone = true
+        var all = RecurringSeriesEditor.snapshot(rule)
+        all.name = "All"; all.amount = 9; all.category = "Salute"; all.categoryIcon = "heart"
+        try editor.apply(.edit(.all, all), to: rule, originalDate: date(3), context: context, now: date(4))
+        #expect(completed.name == "All" && completed.isDone)
+        #expect(try copies(context).allSatisfy { $0.name == "All" && $0.amount == 9 && $0.category == "Salute" })
+        #expect(try copies(context).contains { $0.date == date(3) })
+        #expect(try copies(context).allSatisfy { $0.date != date(3, 15) && $0.date != date(2) })
+        let exceptions = RecurrenceExceptionCodec.decode(rule.exceptionsJSON)
+        #expect(exceptions.count == 1 && exceptions["2026-02-01"]?.skip == true)
+    }
+
+    @Test func deleteFollowingUsesOriginalDayOfMovedCopy() throws {
+        let (container, rule) = try setup(frequency: "settimanale", start: 3)
+        let context = container.mainContext
+        try materialize(context)
+        var override = RecurringSeriesEditor.snapshot(rule)
+        override.startDate = date(3, 2)
+        try editor.apply(.edit(.onlyThis, override), to: rule, originalDate: date(3, 15), context: context, now: date(3))
+        try editor.apply(.delete(.following), to: rule, originalDate: date(3, 15), context: context, now: date(3))
+        #expect(try copies(context).map(\.date).sorted() == [date(3), date(3, 8)])
+    }
+
+    @Test func allDateChangeReschedulesHistoryAndClampsShortMonths() throws {
+        let (container, rule) = try setup()
+        let context = container.mainContext
+        rule.startDate = date(1, 31)
+        for month in 1...3 { try materialize(context, month: month) }
+        let done = try #require(copies(context).first { $0.date == date(1, 31) })
+        done.isDone = true
+        var values = RecurringSeriesEditor.snapshot(rule); values.startDate = date(1, 30)
+        try editor.apply(.edit(.all, values), to: rule, originalDate: date(3, 31), context: context, now: date(3))
+        #expect(try copies(context).map(\.date).sorted() == [date(1, 30), date(2, 28), date(3, 30)])
+        #expect(done.isDone && done.date == date(1, 30))
+        for copy in try copies(context) {
+            #expect(copy.id == RecurrenceCalculator.occurrenceID(ruleId: rule.id, key: RecurrenceCalculator(timeZone: zone).key(for: copy.date)))
+        }
+        try materialize(context, month: 4)
+        #expect(try copies(context).map(\.date).sorted() == [date(1, 30), date(2, 28), date(3, 30), date(4, 30)])
+    }
+
+    @Test func failedRescheduleRestoresDatesIdentitiesAndOverrides() throws {
+        struct Failure: Error {}
+        for scope in [RecurringSeriesEditor.Scope.all, .following] {
+            let (container, rule) = try setup()
+            let context = container.mainContext
+            for month in 1...4 { try materialize(context, month: month) }
+            let rows = try copies(context)
+            let ids = rows.map(\.id), dates = rows.map(\.date), templates = rows.map(\.templateId)
+            var values = RecurringSeriesEditor.snapshot(rule)
+            values.startDate = date(1, 15); values.frequency = "settimanale"; values.category = "Casa"
+            let failing = RecurringSeriesEditor(timeZone: zone, save: { _ in throw Failure() })
+            #expect(throws: Failure.self) {
+                try failing.apply(.edit(scope, values), to: rule, originalDate: date(3), context: context, now: date(3))
+            }
+            try context.save()
+            #expect(rows.map(\.id) == ids && rows.map(\.date) == dates && rows.map(\.templateId) == templates)
+            #expect(rows.allSatisfy { $0.category == "Altro" })
+            #expect(try copies(context).count == 4)
+            #expect(try context.fetchCount(FetchDescriptor<RecurringRule>()) == 1)
+        }
     }
 
     @Test func categoryEditsOnCopyAndAllSeries() throws {
@@ -86,7 +209,7 @@ struct RecurringSeriesEditorTests {
         values.category = "Trasporti"; values.categoryIcon = "car"
         try editor.apply(.edit(.all, values), to: rule, originalDate: date(3), context: context, now: date(3))
         #expect(rule.category == "Trasporti" && rule.categoryIcon == "car")
-        #expect(copy.category == "Casa" && copy.categoryIcon == "house")
+        #expect(copy.category == "Trasporti" && copy.categoryIcon == "car")
         #expect(try copies(context).filter { !$0.isDone && calendar.isDate($0.date, equalTo: date(3), toGranularity: .month) }
             .allSatisfy { $0.category == "Trasporti" && $0.categoryIcon == "car" })
     }
@@ -152,7 +275,7 @@ struct RecurringSeriesEditorTests {
         #expect(try copies(context).isEmpty)
     }
 
-    @Test func editAllReconcilesAndPreservesDone() throws {
+    @Test func editAllReconcilesAndUpdatesDone() throws {
         let (container, rule) = try setup(frequency: "settimanale", start: 3)
         let context = container.mainContext
         try materialize(context)
@@ -161,11 +284,12 @@ struct RecurringSeriesEditorTests {
         var values = RecurringSeriesEditor.snapshot(rule)
         values.amount = Decimal(string: "0.1")!; values.name = "New"
         try editor.apply(.edit(.all, values), to: rule, originalDate: date(3), context: context, now: date(3))
-        #expect(done.amount == Decimal(string: "0.2")! && done.name == "Base")
+        #expect(done.amount == Decimal(string: "0.1")! && done.name == "New" && done.isDone)
         #expect(try copies(context).filter { !$0.isDone }.allSatisfy { $0.name == "New" && $0.amount == Decimal(string: "0.1")! })
         values.frequency = "mensile"; values.startDate = date(3, 20)
         try editor.apply(.edit(.all, values), to: rule, originalDate: date(3), context: context, now: date(3))
-        #expect(try copies(context).count == 2)
+        #expect(try copies(context).count == 5)
+        #expect(done.date == date(4, 20) && done.isDone)
         #expect(rule.exceptionsJSON == "{}")
         #expect(try copies(context).contains { !$0.isDone && $0.date == date(3, 20) })
     }
@@ -282,7 +406,7 @@ struct RecurringSeriesEditorTests {
             var values = RecurringSeriesEditor.snapshot(rule)
             values.amount = 7; values.startDate = date(3, 2)
             try editor.apply(.edit(.onlyThis, values), to: rule, originalDate: date(3), context: context, now: date(3))
-            #expect(done.amount == Decimal(string: "0.2")! && done.date == date(3))
+            #expect(done.amount == 7 && done.date == date(3, 2) && done.isDone)
             try editor.apply(.delete(.all), to: rule, originalDate: date(3), context: context, now: date(3))
             #expect(try copies(context).map(\.id) == [done.id])
         }
@@ -298,7 +422,7 @@ struct RecurringSeriesEditorTests {
         try editor.apply(.edit(.following, values), to: rule, originalDate: date(3, 15), context: context, now: date(3))
         #expect(try copies(context).count == 5)
         #expect(try copies(context).filter { $0.date == date(3, 22) }.map(\.id) == [done.id])
-        #expect(done.amount == Decimal(string: "0.2")! && done.isDone)
+        #expect(done.amount == 8 && done.isDone)
         try materialize(context)
         #expect(try copies(context).count == 5)
     }

@@ -102,16 +102,13 @@ Entra in turno secondo AGENTS.md §4 solo se STATO è libero. Sul ramo redesign-
 
 - 2026-11-14 09:29 · Ripresa Codex completata: eseguiti i sei UI rimasti, note di sospensione sostituite con esito e istruzioni di collaudo.
 
-## S-24 / S-25 — decisione necessaria (2026-11-15, Codex)
-- [ ] 📍 In questa chat Codex del cantiere. ▶️ Per autorizzare la correzione del difetto dimostrato e la nuova regola, incollare:
+## S-24 — verifica del blocco sul caso reale
+- [ ] 📍 Sull'iPhone o sul simulatore dove avveniva il blocco, con la versione contenente le modifiche S-24/S-25. ▶️ Aprire Movimenti, tenere premuto il movimento ricorrente che si bloccava, scegliere Elimina (oppure Ricorrenza), poi Tutte e confermare. Verificare che l'app risponda passando alla tab Home. L'eliminazione conserva le copie già effettuate.
+  ↩️ Riportare questo testo compilato, senza dati personali:
 ```text
-Autorizzo per S-24 e S-25 le modifiche necessarie a Domain/RecurringSeriesEditor.swift e al codec/calcolatore ricorrenze. Correggi l'eliminazione successive delle copie del mattino e implementa la propagazione di tutti i campi secondo scope, incluso storico effettuato e precedenti override con Tutte. Riprendi da CONSEGNA, mantieni protette le altre zone, porta unit e UI verdi e chiudi il turno. Nessun push o merge.
-```
-↩️ Riportare anche, per il blocco originale con Tutte, questo testo compilato (nessun dato personale necessario):
-```text
-Il blocco avviene su: iPhone / simulatore. Avvio: da icona / da Xcode.
+Dispositivo: iPhone / simulatore. Avvio: da icona / da Xcode.
+Il blocco su Tutte si ripresenta: sì / no.
 Copia: pianificata / già effettuata. Data iniziale serie: …
-Succede anche su una nuova serie mensile fissa pianificata? sì / no / non provato.
-Dopo conferma Tutte: app si chiude / resta ferma / Xcode evidenzia una riga (quale: …).
+Se sì: app si chiude / resta ferma / Xcode evidenzia una riga (quale: …).
 ```
-La richiesta deriva dal vincolo esplicito dell'incarico: fermarsi se serve modificare Domain oltre una pura aggiunta. Non è stata applicata alcuna modifica al motore.
+- Autorizzazioni Domain S-24/S-25 e test S-15 ricevute il 2026-11-15; nessuna autorizzazione ulteriore pendente. Già effettuato resta della singola copia (D-010).

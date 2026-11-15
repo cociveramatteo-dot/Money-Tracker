@@ -60,3 +60,13 @@ Le decisioni che non si devono ridiscutere ogni volta. Solo aggiunte.
 - S-13c: eliminati `Domain/RecurringTransactionEngine.swift` e i suoi tre test in `RecurringTransactionEngineTests.swift`, come autorizzato. Nessun dato legacy convertito/cancellato e nessun altro test esistente modificato.
 - Dettaglio operativo del limite del piano: massimo **36 mesi più recenti**, incluso quello corrente; il watermark avanza al mese corrente. `nil` è una regola nuova e parte solo dal mese corrente (o dal mese di inizio futuro), evitando storico inventato. Test dedicati verdi.
 - Stop esplicito di Matteo durante la suite UI: salvare tutto e riprendere da Claude Code, poi Codex, senza rifare l'implementazione. Nessun merge/push e nessuna dichiarazione di collaudo completo.
+
+## D-010 · 2026-11-15 · Campi ricorrenti uniformi per scope (S-25, sostituisce S-23 e parte di D-009)
+- **Chi decide:** Matteo: autorizzazione esplicita a modificare Domain per S-24/S-25; autorizzati anche i test S-15 per ottenere suite UI verde senza cambiare comportamento dell'app.
+- **Editor normale:** modifica tutti i campi della serie, passato/futuro e copie effettuate comprese, tramite lo stesso RecurringSeriesEditor con scope Tutte. Frequenza/fine restano fuori dall'editor normale.
+- **Scope:** Solo questa memorizza tutti i campi editabili nel codec dell'eccezione, incluso il conto esplicitamente vuoto; successive aggiorna dalla data originale selezionata e ricollega le copie alla nuova serie; Tutte aggiorna tutte le copie esistenti e la regola dei virtuali futuri.
+- **Già effettuato:** Matteo ha precisato che resta uno stato della singola copia. Non viene propagato dal motore; l'editor normale può ancora modificarlo sulla sola copia scelta.
+- **Override precedenti:** Tutte sostituisce gli override di valori e date con i valori salvati per la serie. I salti espliciti restano saltati se la cadenza non cambia; con nuova cadenza si applica il reset già previsto dal motore. Nessuna copia viene creata per inventare lo storico mancante.
+- **Cambio date/frequenza:** le copie esistenti in scope seguono la stessa posizione nella nuova cadenza (giorno limitato all'ultimo del mese nei mesi corti), con ID deterministici riallineati per evitare duplicati. La materializzazione resta pianificata per le nuove copie.
+- **Eliminazione:** invariata la protezione delle copie effettuate e dei dati legacy. Da qui in poi confronta il giorno originale dell'occorrenza, non il timestamp (che escludeva erroneamente il mattino) né la data eventualmente spostata.
+- **Alternative scartate:** duplicare il motore nelle viste; lasciare eccezioni di valori che contraddicono Tutte; propagare lo stato effettuato e alterare i saldi delle altre copie senza volontà di Matteo.

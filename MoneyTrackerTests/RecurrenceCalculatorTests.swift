@@ -56,6 +56,19 @@ struct RecurrenceCalculatorTests {
         #expect(calculator.occurrences(rule: input, in: interval).isEmpty)
     }
 
+    @Test("Normal editor preserves occurrence position and clamped anchors")
+    func normalEditorAnchor() {
+        let monthly = rule(start: date(2026, 1, 31))
+        #expect(calculator.anchorForSeriesEdit(rule: monthly, originalDate: date(2026, 2, 28), date: date(2026, 2, 28)) == date(2026, 1, 31))
+        #expect(calculator.anchorForSeriesEdit(rule: monthly, originalDate: date(2026, 2, 28), date: date(2026, 2, 27)) == date(2026, 1, 27))
+        #expect(calculator.anchorForSeriesEdit(rule: monthly, originalDate: date(2026, 2, 28), date: date(2026, 3, 15)) == date(2026, 2, 15))
+        let weekly = rule("settimanale", start: date(2026, 3, 1))
+        #expect(calculator.anchorForSeriesEdit(rule: weekly, originalDate: date(2026, 3, 15), date: date(2026, 3, 18)) == date(2026, 3, 4))
+        let annual = rule("annuale", start: date(2024, 2, 29))
+        #expect(calculator.anchorForSeriesEdit(rule: annual, originalDate: date(2025, 2, 28), date: date(2025, 2, 28)) == date(2024, 2, 29))
+        #expect(calculator.anchorForSeriesEdit(rule: annual, originalDate: date(2025, 2, 28), date: date(2025, 2, 27)) == date(2024, 2, 27))
+    }
+
     @Test("Skip, overrides, exact Decimal, and defensive codec")
     func exceptions() throws {
         var input = rule(start: date(2026, 1, 15))

@@ -101,16 +101,27 @@ final class RecurrenceFlowUITests: MoneyTrackerUITestCase {
         XCTAssertTrue(app.buttons["Elimina"].exists)
         recurrence.tap()
         XCTAssertTrue(app.buttons["recurrence_scope"].waitForExistence(timeout: 5))
-        app.navigationBars.buttons["Annulla"].tap()
-        openTransactionsSection("Ricorrenti")
-        XCTAssertTrue(app.staticTexts[name].waitForExistence(timeout: 5))
-        app.buttons["editRecurrence_" + name].tap()
+        // Category is editable with Solo questa too; its override must survive reopening.
+        app.swipeUp()
+        app.buttons["recurrence_category"].tap()
+        let singleCategory = app.collectionViews.buttons["Salute"]
+        XCTAssertTrue(singleCategory.waitForExistence(timeout: 5))
+        if !singleCategory.isHittable { app.collectionViews.buttons["Altro"].swipeDown() }
+        singleCategory.tap()
+        app.navigationBars.buttons["Salva"].tap()
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+        XCTAssertTrue(app.buttons["btn_categoryPicker"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["btn_categoryPicker"].label.contains("Salute"))
+        app.buttons["btn_cancelAddTransaction"].tap()
+        row.press(forDuration: 1.2)
+        app.buttons["Ricorrenza"].tap()
         let scope = app.buttons["recurrence_scope"]
         XCTAssertTrue(scope.waitForExistence(timeout: 5))
         scope.tap()
         app.buttons["Tutte"].tap()
-        // The single-occurrence category edit must leave the series category unchanged.
-        XCTAssertFalse(app.buttons["recurrence_category"].label.contains("Casa"))
+        // The normal editor now updates the entire series, including its category.
+        XCTAssertTrue(app.buttons["recurrence_category"].label.contains("Casa"))
         let field = app.textFields["recurrence_name"]
         field.tap()
         field.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: name.count))
@@ -129,8 +140,14 @@ final class RecurrenceFlowUITests: MoneyTrackerUITestCase {
         categoryChoice.tap()
         XCTAssertTrue(categoryPicker.label.contains("Salute"))
         app.navigationBars.buttons["Salva"].tap()
-        XCTAssertTrue(app.staticTexts[name + "Updated"].waitForExistence(timeout: 5))
-        app.buttons["editRecurrence_" + name + "Updated"].tap()
+        let updatedRow = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", name + "Updated")).firstMatch
+        XCTAssertTrue(updatedRow.waitForExistence(timeout: 5))
+        updatedRow.tap()
+        XCTAssertTrue(app.buttons["btn_categoryPicker"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["btn_categoryPicker"].label.contains("Salute"))
+        app.buttons["btn_cancelAddTransaction"].tap()
+        updatedRow.press(forDuration: 1.2)
+        app.buttons["Ricorrenza"].tap()
         app.buttons["recurrence_scope"].tap()
         app.buttons["Tutte"].tap()
         XCTAssertTrue(app.buttons["recurrence_category"].label.contains("Salute"))
@@ -140,6 +157,10 @@ final class RecurrenceFlowUITests: MoneyTrackerUITestCase {
         }
         app.buttons["Elimina"].tap()
         app.sheets.buttons["Elimina"].tap()
-        XCTAssertFalse(app.staticTexts[name + "Updated"].waitForExistence(timeout: 3))
+        // Deletion preserves completed history, but the surviving copy has no active series.
+        XCTAssertTrue(updatedRow.waitForExistence(timeout: 5))
+        XCTAssertTrue(XCTWaiter.wait(for: [XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "NOT (label CONTAINS %@)", "Ricorrenza"), object: updatedRow)], timeout: 5) == .completed)
+        goToTab("Home")
     }
 }

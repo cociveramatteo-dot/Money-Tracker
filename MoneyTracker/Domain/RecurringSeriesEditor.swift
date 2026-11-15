@@ -23,7 +23,7 @@ final class RecurrenceOperationStatus {
 struct RecurringSeriesEditor {
     enum Scope { case onlyThis, following, all }
     enum Action {
-        /// onlyThis uses amount, startDate (effective date), name and notes, as supported by the exception codec.
+        /// onlyThis stores every editable value as an occurrence override.
         /// following anchors the replacement at the selected original date. all uses the supplied anchor.
         case edit(Scope, RuleSnapshot)
         case delete(Scope)
@@ -93,6 +93,18 @@ struct RecurringSeriesEditor {
         let key = calculator.key(for: original)
         var exceptions = old.exceptions
         let previousDay = calendar.date(byAdding: .day, value: -1, to: original)!
+        // IDs identify the original civil day even if the effective date was moved.
+        var originalDays: [UUID: Date]?
+        func originalDay(_ copy: Transaction) -> Date {
+            if originalDays == nil {
+                let lastDate = max(copies.map(\.date).max() ?? original, oldWatermark ?? original, original)
+                let end = calendar.date(byAdding: .month, value: 1, to: lastDate)!
+                originalDays = Dictionary(uniqueKeysWithValues: calculator.occurrences(
+                    rule: base, in: DateInterval(start: base.startDate, end: max(end, base.startDate.addingTimeInterval(1))))
+                    .map { ($0.id, $0.originalDate) })
+            }
+            return originalDays?[copy.id] ?? calculator.noon(copy.date)
+        }
 
         func remove(_ predicate: (Transaction) -> Bool) {
             deletions.append(contentsOf: copies.filter { !$0.isDone && predicate($0) })
@@ -101,10 +113,12 @@ struct RecurringSeriesEditor {
             let name = transaction.name, amount = transaction.amount, date = transaction.date
             let notes = transaction.notes, category = transaction.category, icon = transaction.categoryIcon
             let type = transaction.type, fixed = transaction.isFixed, account = transaction.account
+            let id = transaction.id, template = transaction.templateId
             undo.append {
                 transaction.name = name; transaction.amount = amount; transaction.date = date
                 transaction.notes = notes; transaction.category = category; transaction.categoryIcon = icon
                 transaction.type = type; transaction.isFixed = fixed; transaction.account = account
+                transaction.id = id; transaction.templateId = template
             }
             transaction.name = occurrence.name; transaction.amount = occurrence.amount; transaction.date = occurrence.date
             transaction.notes = occurrence.notes; transaction.category = occurrence.category
@@ -112,7 +126,31 @@ struct RecurringSeriesEditor {
             transaction.isFixed = occurrence.isFixed
             transaction.account = accounts.first { $0.id == occurrence.accountId }
         }
-        func reconcile(_ target: RecurringRule, completedSource: UUID? = nil) {
+        func occurrence(_ values: RuleSnapshot, on day: Date) -> Occurrence {
+            Occurrence(ruleId: values.id, key: calculator.key(for: day), originalDate: day,
+                       date: calculator.noon(day), amount: values.amount, name: values.name,
+                       category: values.category, categoryIcon: values.categoryIcon, type: values.type,
+                       accountId: values.accountId, isFixed: values.isFixed, notes: values.notes, isOverridden: false)
+        }
+        // Match occurrence positions when the anchor/frequency changes (including short months).
+        func rescheduledDay(_ day: Date, from source: RuleSnapshot, to target: RuleSnapshot) -> Date {
+            let index: Int
+            if source.frequency == "settimanale" {
+                index = max(0, (calendar.dateComponents([.day], from: source.startDate, to: day).day ?? 0) / 7)
+            } else {
+                let a = calendar.dateInterval(of: .month, for: source.startDate)!.start
+                let b = calendar.dateInterval(of: .month, for: day)!.start
+                index = max(0, (calendar.dateComponents([.month], from: a, to: b).month ?? 0) / (source.frequency == "annuale" ? 12 : 1))
+            }
+            if target.frequency == "settimanale" {
+                return calendar.date(byAdding: .day, value: index * 7, to: calculator.noon(target.startDate))!
+            }
+            let anchorMonth = calendar.dateInterval(of: .month, for: target.startDate)!.start
+            let month = calendar.date(byAdding: .month, value: index * (target.frequency == "annuale" ? 12 : 1), to: anchorMonth)!
+            let dayOfMonth = min(calendar.component(.day, from: target.startDate), calendar.range(of: .day, in: .month, for: month)!.count)
+            return calendar.date(byAdding: .day, value: dayOfMonth - 1, to: calculator.noon(month))!
+        }
+        func reconcile(_ target: RecurringRule) {
             let month = calendar.dateInterval(of: .month, for: now)!
             let desired = calculator.occurrences(rule: Self.snapshot(target), in: month)
             let ids = Set(desired.map(\.id))
@@ -122,14 +160,8 @@ struct RecurringSeriesEditor {
                 deletions.append(copy)
             }
             for occurrence in desired {
-                // A split changes the namespace, but a completed original occurrence
-                // must not acquire a second planned copy in the replacement series.
-                if let source = completedSource {
-                    let previousID = RecurrenceCalculator.occurrenceID(ruleId: source, key: occurrence.key)
-                    if transactions.contains(where: { $0.id == previousID && $0.isDone }) { continue }
-                }
                 if let existing = transactions.first(where: { $0.id == occurrence.id }) {
-                    if !existing.isDone { update(existing, occurrence) }
+                    update(existing, occurrence)
                 } else {
                     let copy = Transaction(name: occurrence.name, amount: occurrence.amount,
                                            type: TransactionType(rawValue: occurrence.type) ?? .uscita,
@@ -158,10 +190,14 @@ struct RecurringSeriesEditor {
                     guard calendar.isDate(values.startDate, equalTo: original, toGranularity: .month)
                     else { throw EditorError.crossMonthOverride }
                     exceptions[key] = RecurrenceException(amount: NSDecimalNumber(decimal: values.amount).stringValue,
-                                                         date: calculator.noon(values.startDate), name: values.name, notes: values.notes)
+                                                         date: calculator.noon(values.startDate), name: values.name, notes: values.notes,
+                                                         category: values.category, categoryIcon: values.categoryIcon,
+                                                         type: values.type, isFixed: values.isFixed,
+                                                         accountId: values.accountId, overridesAccount: true)
                     rule.exceptionsJSON = try RecurrenceExceptionCodec.encode(exceptions)
-                    let occurrence = calculator.occurrences(rule: Self.snapshot(rule), in: interval).first { $0.key == key }!
-                    if let copy = copies.first(where: { $0.id == occurrence.id && !$0.isDone }) { update(copy, occurrence) }
+                    guard let occurrence = calculator.occurrences(rule: Self.snapshot(rule), in: interval).first(where: { $0.key == key })
+                    else { throw EditorError.invalidOccurrence }
+                    if let copy = copies.first(where: { $0.id == occurrence.id }) { update(copy, occurrence) }
                 case .following:
                     rule.endDate = previousDay
                     rule.exceptionsJSON = try RecurrenceExceptionCodec.encode(exceptions.filter { $0.key < key })
@@ -170,12 +206,30 @@ struct RecurringSeriesEditor {
                                               isFixed: values.isFixed, accountId: values.accountId, frequency: values.frequency,
                                               startDate: original, endDate: values.endDate)
                     replacement = fresh; result = fresh; context.insert(fresh)
-                    remove { $0.date >= original }
-                    reconcile(fresh, completedSource: rule.id)
+                    // Keep every existing occurrence in scope, including completed history.
+                    // Reparent its deterministic identity so materialization cannot duplicate it.
+                    var source = old; source.startDate = original
+                    let target = Self.snapshot(fresh)
+                    for copy in copies where originalDay(copy) >= original {
+                        let day = rescheduledDay(originalDay(copy), from: source, to: target)
+                        update(copy, occurrence(target, on: day))
+                        if let end = target.endDate, day > calculator.noon(end), !copy.isDone { deletions.append(copy) }
+                        copy.id = RecurrenceCalculator.occurrenceID(ruleId: fresh.id, key: calculator.key(for: day))
+                        copy.templateId = fresh.id.uuidString
+                    }
+                    reconcile(fresh)
                 case .all:
                     assign(values, to: rule)
-                    if old.frequency != values.frequency || calculator.key(for: old.startDate) != calculator.key(for: values.startDate) {
-                        rule.exceptionsJSON = "{}"
+                    let sameSchedule = old.frequency == values.frequency
+                        && calculator.key(for: old.startDate) == calculator.key(for: values.startDate)
+                    // A series edit replaces prior field/date overrides; explicit skips stay skipped.
+                    rule.exceptionsJSON = try RecurrenceExceptionCodec.encode(sameSchedule
+                        ? old.exceptions.filter { $0.value.skip } : [:])
+                    for copy in copies {
+                        let day = rescheduledDay(originalDay(copy), from: old, to: values)
+                        update(copy, occurrence(values, on: day))
+                        if let end = values.endDate, day > calculator.noon(end), !copy.isDone { deletions.append(copy) }
+                        copy.id = RecurrenceCalculator.occurrenceID(ruleId: rule.id, key: calculator.key(for: day))
                     }
                     reconcile(rule)
                 }
@@ -187,7 +241,7 @@ struct RecurringSeriesEditor {
                     let id = RecurrenceCalculator.occurrenceID(ruleId: rule.id, key: key)
                     remove { $0.id == id }
                 case .following:
-                    rule.endDate = previousDay; remove { $0.date >= original }
+                    rule.endDate = previousDay; remove { originalDay($0) >= original }
                 case .all:
                     remove { _ in true }; deleteRule = true; result = nil
                 }
@@ -199,8 +253,10 @@ struct RecurringSeriesEditor {
                 remove { calendar.isDate($0.date, equalTo: original, toGranularity: .month) }
             case let .terminate(afterThis):
                 rule.endDate = afterThis ? original : previousDay
-                remove { afterThis ? $0.date > original : $0.date >= original }
+                remove { afterThis ? originalDay($0) > original : originalDay($0) >= original }
             }
+            var deletionIDs: Set<UUID> = []
+            deletions = deletions.filter { deletionIDs.insert($0.id).inserted }
             for copy in deletions { context.delete(copy) }
             if deleteRule { context.delete(rule) }
             try save(context)

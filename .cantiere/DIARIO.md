@@ -57,3 +57,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-14 12:55 | collaudatore (Claude Code · Sonnet) | S-23 | collaudo ok, S-23 [x]: diff coerente con le 7 richieste, Domain/Models/Sync/Auth intatti, log finale 70 unit + 2 UI verdi, due fallimenti suite completa = S-15 (NavigationStress:55, TransactionFlow:68) | manuale a Matteo (PER-MATTEO) |
 
 | 2026-11-15 11:09 | impresa (Codex · GPT-6) | S-24/S-25 | task creati, test serie tutte aggiunto, bug successive prima delle 12 riprodotto con unit/UI; limite S-25 dimostrato | Domain vietato: entrambi [!], nessun codice app modificato, test reproducer rossi; autorizzazione Matteo |
+
+| 2026-11-15 11:41 | impresa (Codex · GPT-6) | S-24/S-25 + test S-15 autorizzati | corretti giorno originale eliminazione e propagazione completa per scope, effettuato locale, date/ID/rollback; 78 unit e ultimi esiti dei 15 UI verdi tra full e rilanci mirati; S-15 filtro persistente ≥20€ dimostrato e azzerato nei test | collaudo indipendente; blocco Tutte su dati reali non riprodotto, S-18/S-19 e Commissione |

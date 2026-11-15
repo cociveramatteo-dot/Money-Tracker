@@ -146,7 +146,7 @@ il task e i file indicati.
   - S-13h [!] Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo). · 2026-11-14 11:08: commenti obsoleti sistemati (0 riferimenti a RecurringTransactionActor), docs/MoneyTracker.md+PDF aggiornati, 68 unit verdi. **Commissione Suprema NON a 10/10** → checkpoint (push) bloccato fino a S-21/S-22/S-19/S-18.
   - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
 
-### S-15 [ ] Diagnosticare due test UI che non trovano il movimento appena salvato
+### S-15 [~] Diagnosticare due test UI che non trovano il movimento appena salvato
 - **Collaudo 2026-11-14:** i due test falliscono IDENTICI (righe 55 e 68) anche sul commit 0a76000, prima di S-13: indipendenti da S-13, regressione precedente (probabile S-12 o prima).
 - **A chi:** collaudatore (Claude Code · Sonnet)
 - **Scoperto:** verifica S-13a+b, 2026-11-14 02:05. Non attribuito al nuovo schema: causa da verificare.
@@ -155,6 +155,8 @@ il task e i file indicati.
 - **Aggiornamento S-13c (2026-11-14 09:29):** completati i sei UI sospesi (5 verdi, senza-categoria:68 fallito); aggregato con la sessione interrotta: 10/12, stessi due S-15. Nessun altro fallimento. Codice/test invariati; log `/tmp/moneytracker-s13c-ui-resume.log` e `/tmp/moneytracker-s13c-build.log`.
 - **Fatto quando:** causa dimostrata e 12 UI verdi; distinguere persistenza, visibilità/accessibilità e automazione. Nessuna asserzione indebolita.
 - **Vincoli:** non cambiare viste/test esistenti senza assegnazione e autorizzazione specifica; eventuale correzione oltre il perimetro va prima proposta a Matteo.
+
+- **Eseguito Codex 2026-11-15 (autorizzazione Matteo in chat):** causa dimostrata nella gerarchia del fallimento: filtro avanzato persistente ≥20€, non azzerato dal chip Tutti, nasconde i movimenti 10–15€ dei due test. Test corretti azzerando i filtri dalla UI; aggiunte attese del focus e chiusura form (osservato anche un errore XCUITest di digitazione senza focus), ricerca riga accessibile con nome e metadati, attesa reale della cancellazione. Nessun codice app cambiato per S-15. Entrambi verdi nel rilancio finale `/tmp/moneytracker-s25-s15-fixed.log` (TEST SUCCEEDED), da collaudare.
 
 ### S-14 [ ] Statistiche: confronto mese su mese
 - **A chi:** Codex (o Antigravity) · dopo S-6 (stessa schermata)
@@ -241,16 +243,18 @@ Modello di task:
 - **Fatto quando:** unit e UI verdi, verifiche riportate in CONSEGNA; poi collaudo indipendente.
 - **Eseguito 2026-11-14 12:45 · Codex:** due reindirizzamenti rimossi; editor normale salva solo Transaction, selettore nascosto e frequenza non assegnata in modifica; icona repeat adattiva/accessibile in Movimenti. Categoria copia e Tutte verificate, nessun bug logico trovato. Domain intatto. Build + 70 unit + 2 UI S-23 verdi (`/tmp/moneytracker-s23-final.log`). Suite completa eseguita: restano i due fallimenti preesistenti S-15; nuovi test corretti e verificati verdi separatamente. Da collaudare; dettagli in CONSEGNA.
 
-### S-24 [!] Blocco eliminazione ricorrenza con scope tutte
-- **A chi:** Codex, assegnato da Matteo 2026-11-14.
-- **Obiettivo:** riprodurre da Movimenti (mensile/fissa, menu Elimina o Ricorrenza), identificare la causa e correggere; verificare tutti gli scope, fatalError/precondition e breakpoint locali.
-- **Fatto quando:** regressione serie tutte, unit e UI verdi. Domain intatto; graphify-out fuori commit.
+- **S-23 superato da S-25:** il tap normale resta AddTransactionView, ma il salvataggio ora applica Tutte alla serie. L'icona repeat e il menu lungo restano invariati.
 
-### S-25 [!] Uniformità campi ricorrenti secondo scope (sostituisce S-23)
-- **A chi:** Codex, assegnato da Matteo 2026-11-14.
-- **Obiettivo:** editor normale equivalente a tutte, storico e futuro; editor ricorrenza propaga tutti i campi secondo scope, incluse categorie ed eccezioni precedenti. Frequenza/fine serie solo nell'editor ricorrenza. Aggiornare test S-23.
-- **Vincolo:** riusare RecurringSeriesEditor/Domain senza modificarli; se serve modifica Domain oltre pura aggiunta fermarsi e documentare in CONSEGNA. Nessun altro cambio grafico o comportamentale.
+### S-24 [~] Eliminazione ricorrenze: regressioni e confronto per giorno originale
+- **A chi:** Codex, assegnato da Matteo; Domain autorizzato esplicitamente il 2026-11-15. Collaudo indipendente da fare.
+- **Fatto:** corretto il difetto dimostrato su successive: il confronto con mezzogiorno lasciava la copia del mattino. Ora si usa il giorno originale ricavato dall'ID anche per copie spostate; stessa correzione per termina. Tutte non genera la mappa delle date originali quando non serve.
+- **Prove:** test unit serie mensile fissa gennaio–aprile, copia delle 08:00, copia spostata, conservazione effettuate/legacy, mancata ricreazione; UI da Movimenti con pressione prolungata → Elimina/Ricorrenza → tre scope, scomparsa e navigazione successive verdi.
+- **Riserva:** il blocco originario su Tutte non riprodotto in demo; nessuna causa crash/deadlock dimostrata, nessun breakpoint progetto trovato. Non dichiararlo risolto sul database reale senza verifica di Matteo/collaudatore.
 
-- **Diagnosi Codex 2026-11-15:** non implementabile con il vincolo Domain intatto. `RecurringSeriesEditor`: `remove`/`update` escludono isDone; `all` riconcilia solo il mese di now e conserva le eccezioni a frequenza/ancora invariate; `onlyThis` codifica solo nome/importo/data/note, non categoria/tipo/conto/fissa. Serve autorizzazione a modificare il motore e il codec (non semplice aggiunta). S-23 resta operativo e i suoi test non vengono ribaltati senza implementazione della nuova semantica. Dettagli in CONSEGNA.
-
-- **S-24 · Codex 2026-11-15:** blocco su tutte non riprodotto: UI mensile/fissa pianificata → menu Elimina → Tutte elimina la riga e permette Home/Movimenti; Solo questa passa via menu Ricorrenza. Difetto separato riprodotto su successive: copia del giorno alle 08:00 non eliminata perché `remove { $0.date >= original }` confronta con original alle 12:00. Nuovo unit deterministico rosso, 15/16 editor verdi; UI rosso su successive. Richiede modifica Domain, vietata dall'incarico: fermo senza workaround. Nessun codice app modificato; diagnosi e richiesta in CONSEGNA/PER-MATTEO. Test aggiunto di eliminazione serie tutte e degli altri scope a mezzogiorno verde; suite completa prima del reproducer: 71 unit verdi. Non dichiarare risolto né suite verde.
+### S-25 [~] Uniformità campi ricorrenti secondo scope (sostituisce S-23)
+- **A chi:** Codex, assegnato e Domain autorizzato da Matteo; collaudo indipendente da fare.
+- **Fatto:** editor normale usa RecurringSeriesEditor/Tutte per nome, importo, categoria/icona, conto, tipo, note, fissa e data; frequenza/fine restano solo nell'editor ricorrenza. Quest'ultimo applica tutti i campi del form secondo scope, anche alle copie effettuate. Eccezioni complete per Solo questa, incluso conto esplicitamente vuoto. Storico e futuro uniformi; nessuno storico mancante inventato.
+- **Decisione D-010:** Tutte sostituisce override precedenti di valori/date; salti mantenuti a cadenza invariata. Date/frequenza riallineano le copie per posizione e i loro ID; mesi corti gestiti. Già effettuato resta locale alla singola copia, come precisato da Matteo. Ripristino di valori/date/ID/template verificato su errore di salvataggio.
+- **Prove:** 78 unit verdi; test UI normale → serie/categoria, Solo questa categoria, successivo Tutte e rilettura dei valori verde. Tutti i 15 UI hanno ultimo esito verde tra suite completa e rilanci mirati (dettaglio in CONSEGNA, non un unico full run verde).
+- **Perimetro:** Domain/RecurrenceCalculator.swift e RecurringSeriesEditor.swift; viste e test. Models/Persistence/Sync/Auth e grafica intatti. Corretto anche il tag del selettore Tipo (rawValue del modello).
+- **Da fare:** collaudo S-24/S-25/S-15; poi S-18/S-19 e Commissione S-13h. Nessun push/merge/checkpoint.

@@ -46,7 +46,7 @@ struct RecurrenceEditorView: View {
     @State private var notes = ""
     @State private var date = Date()
     @State private var frequency = "mensile"
-    @State private var type = "uscita"
+    @State private var type = TransactionType.uscita.rawValue
     @State private var category = "Altro"
     @State private var accountID: UUID?
     @State private var fixed = false
@@ -62,11 +62,9 @@ struct RecurrenceEditorView: View {
                         Text("Questa e le successive").tag(1)
                         Text("Tutte").tag(2)
                     }.accessibilityIdentifier("recurrence_scope")
-                    Text("Le occorrenze già effettuate restano invariate.")
-                        .foregroundStyle(DS.smoke)
                     TextField("Descrizione", text: $name).accessibilityIdentifier("recurrence_name")
-                    TextField("Importo", text: $amount).keyboardType(.decimalPad)
-                    TextField("Note", text: $notes, axis: .vertical)
+                    TextField("Importo", text: $amount).keyboardType(.decimalPad).accessibilityIdentifier("recurrence_amount")
+                    TextField("Note", text: $notes, axis: .vertical).accessibilityIdentifier("recurrence_notes")
                     if scope == 0 {
                         let month = Calendar(identifier: .gregorian).dateInterval(of: .month, for: selection.occurrence.originalDate)!
                         DatePicker("Data", selection: $date, in: month.start...month.end.addingTimeInterval(-1), displayedComponents: .date)
@@ -80,10 +78,12 @@ struct RecurrenceEditorView: View {
                             Text("Mensile").tag("mensile")
                             Text("Annuale").tag("annuale")
                         }
+                    }
+                    Group {
                         Picker("Tipo", selection: $type) {
-                            Text("Uscita").tag("uscita")
-                            Text("Entrata").tag("entrata")
-                        }
+                            Text("Uscita").tag(TransactionType.uscita.rawValue)
+                            Text("Entrata").tag(TransactionType.entrata.rawValue)
+                        }.accessibilityIdentifier("recurrence_type")
                         Picker("Categoria", selection: $category) {
                             ForEach(categories) { Text(LocalizedStringKey($0.name)).tag($0.name) }
                         }
@@ -91,8 +91,8 @@ struct RecurrenceEditorView: View {
                         Picker("Conto", selection: $accountID) {
                             Text("Nessuno").tag(nil as UUID?)
                             ForEach(accounts) { Text($0.name).tag(Optional($0.id)) }
-                        }
-                        Toggle("Fissa", isOn: $fixed)
+                        }.accessibilityIdentifier("recurrence_account")
+                        Toggle("Fissa", isOn: $fixed).accessibilityIdentifier("recurrence_fixed")
                     }
                 }
                 Section {
@@ -129,8 +129,11 @@ struct RecurrenceEditorView: View {
         amount = (scope == 0 ? occurrence.amount : rule.amount).editableString
         notes = scope == 0 ? occurrence.notes : rule.notes
         date = scope == 0 ? occurrence.date : scope == 1 ? occurrence.originalDate : rule.startDate
-        frequency = rule.frequency; type = rule.type; category = rule.category
-        accountID = rule.accountId; fixed = rule.isFixed
+        frequency = rule.frequency
+        type = scope == 0 ? occurrence.type : rule.type
+        category = scope == 0 ? occurrence.category : rule.category
+        accountID = scope == 0 ? occurrence.accountId : rule.accountId
+        fixed = scope == 0 ? occurrence.isFixed : rule.isFixed
     }
     private func save() {
         guard let value = Decimal.parseAmount(amount), value > 0, value <= 1_000_000_000 else { return }

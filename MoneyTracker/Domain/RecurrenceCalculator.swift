@@ -8,6 +8,13 @@ nonisolated struct RecurrenceException: Codable, Sendable, Equatable {
     var date: Date? = nil
     var name: String? = nil
     var notes: String? = nil
+    var category: String? = nil
+    var categoryIcon: String? = nil
+    var type: String? = nil
+    var isFixed: Bool? = nil
+    var accountId: UUID? = nil
+    // Distinguishes an explicit “no account” override from an old exception without this field.
+    var overridesAccount: Bool? = nil
 }
 
 nonisolated enum RecurrenceExceptionCodec {
@@ -76,6 +83,23 @@ nonisolated struct RecurrenceCalculator: Sendable {
         return String(format: "%04d-%02d-%02d", parts.year!, parts.month!, parts.day!)
     }
 
+    /// Translate the date shown for a selected copy back to its series anchor.
+    /// An unchanged clamped date (e.g. February 28 for a day-31 series) keeps the anchor.
+    func anchorForSeriesEdit(rule: RuleSnapshot, originalDate: Date, date: Date) -> Date {
+        guard !calendar.isDate(date, inSameDayAs: originalDate) else { return rule.startDate }
+        if rule.frequency == "settimanale" {
+            let days = calendar.dateComponents([.day], from: noon(originalDate), to: noon(date)).day ?? 0
+            return calendar.date(byAdding: .day, value: days, to: noon(rule.startDate))!
+        }
+        let originalMonth = calendar.dateInterval(of: .month, for: originalDate)!.start
+        let editedMonth = calendar.dateInterval(of: .month, for: date)!.start
+        let months = calendar.dateComponents([.month], from: originalMonth, to: editedMonth).month ?? 0
+        let anchorMonth = calendar.dateInterval(of: .month, for: rule.startDate)!.start
+        let month = calendar.date(byAdding: .month, value: months, to: anchorMonth)!
+        let day = min(calendar.component(.day, from: date), calendar.range(of: .day, in: .month, for: month)!.count)
+        return calendar.date(byAdding: .day, value: day - 1, to: noon(month))!
+    }
+
     /// Intervals are half-open [start, end). End dates on rules are inclusive civil days.
     /// Selection uses the effective date, including an override within the original month.
     func occurrences(rule: RuleSnapshot, in interval: DateInterval) -> [Occurrence] {
@@ -121,9 +145,10 @@ nonisolated struct RecurrenceCalculator: Sendable {
             guard date >= interval.start, date < interval.end else { return nil }
             return Occurrence(ruleId: rule.id, key: key, originalDate: original, date: date,
                               amount: exception?.amount.flatMap { Decimal(string: $0, locale: Locale(identifier: "en_US_POSIX")) } ?? rule.amount,
-                              name: exception?.name ?? rule.name, category: rule.category,
-                              categoryIcon: rule.categoryIcon, type: rule.type, accountId: rule.accountId,
-                              isFixed: rule.isFixed, notes: exception?.notes ?? rule.notes,
+                              name: exception?.name ?? rule.name, category: exception?.category ?? rule.category,
+                              categoryIcon: exception?.categoryIcon ?? rule.categoryIcon, type: exception?.type ?? rule.type,
+                              accountId: exception?.overridesAccount == true ? exception?.accountId : rule.accountId,
+                              isFixed: exception?.isFixed ?? rule.isFixed, notes: exception?.notes ?? rule.notes,
                               isOverridden: exception != nil)
         }.sorted { $0.date == $1.date ? $0.key < $1.key : $0.date < $1.date }
     }
