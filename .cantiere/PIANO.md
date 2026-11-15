@@ -269,3 +269,10 @@ Modello di task:
 - **Vincoli:** zone intoccabili invariate (Domain, Models, Sync…), solo API esistenti; nessuna stringa hardcoded nuova.
 - **Verifica:** simulatore con demo attiva (Home/grafico, Movimenti, Ricorrenze, Budget, Obiettivi), confronto col mockup, test verdi. Poi collaudo indipendente.
 - **Nota:** nessun push/merge.
+
+### S-27 [ ] Migliorie dal collaudo di S-24/S-25/S-15 (suggerite 2026-11-15)
+- **A chi:** Codex, dopo S-26. Non urgenti, da fare prima del checkpoint.
+- **a)** Un full run UI unico 15/15 verde, per sostituire la somma di full e rilanci mirati.
+- **b)** Gli UI test partono con i filtri avanzati azzerati (reset dell'AppStorage all'avvio), così non servono workaround via UI (causa dei 2 rossi S-15).
+- **c)** Test unit: due copie che finiscono sullo stesso giorno dopo una modifica di data non devono generare ID duplicati.
+- **Vincoli:** nessun cambio al codice app salvo l'hook di reset test; Domain/Models/Sync intatti; nessun push/merge.
