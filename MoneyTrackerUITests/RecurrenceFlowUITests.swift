@@ -1,6 +1,47 @@
 import XCTest
 
 final class RecurrenceFlowUITests: MoneyTrackerUITestCase {
+    func testDeleteMonthlyFixedSeriesFromMovementMenuAllScopes() throws {
+        for (index, scope) in ["Tutte", "Solo questa", "Questa e le successive"].enumerated() {
+            goToTab("Movimenti")
+            tapFAB(menuItem: "fabMenu_addTransaction")
+            let name = uniqueName("DeleteFixed")
+            app.textFields["tf_amount"].tap()
+            app.textFields["tf_amount"].typeText("24")
+            app.textFields["tf_name"].tap()
+            app.textFields["tf_name"].typeText(name)
+            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.35))
+                .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.15)))
+            app.switches["toggle_isFixed"].tap()
+            // Enabling Fissa makes the transaction planned (isDone = false).
+            app.buttons["picker_recurrence"].tap()
+            app.buttons["Mensile"].tap()
+            let save = app.buttons["btn_saveTransaction"]
+            if !save.isHittable { app.swipeUp() }
+            save.tap()
+            let row = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", name)).firstMatch
+            XCTAssertTrue(row.waitForExistence(timeout: 5))
+            row.press(forDuration: 1.2)
+            // Both menu entry points must lead to a responsive recurrence editor.
+            app.buttons[index == 1 ? "Ricorrenza" : "Elimina"].tap()
+            XCTAssertTrue(app.buttons["recurrence_scope"].waitForExistence(timeout: 5))
+            app.buttons["recurrence_scope"].tap()
+            app.buttons[scope].tap()
+            for _ in 0..<5 {
+                if app.buttons["Elimina"].isHittable { break }
+                app.swipeUp()
+            }
+            app.buttons["Elimina"].tap()
+            app.sheets.buttons["Elimina"].tap()
+            XCTAssertTrue(app.buttons["fabButton"].waitForExistence(timeout: 5))
+            XCTAssertTrue(NSPredicate(format: "exists == false").evaluate(with: row) ||
+                XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: row)], timeout: 5) == .completed, "Scope \(scope): selected planned copy must disappear")
+            // A real tap after deletion also detects a stuck main thread / lingering sheet.
+            goToTab("Home")
+            goToTab("Movimenti")
+        }
+    }
+
     func testNonRecurringEditCannotCreateSeries() throws {
         goToTab("Movimenti")
         openTransactionsSection("Tutti")

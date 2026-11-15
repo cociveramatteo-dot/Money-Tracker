@@ -1,29 +1,31 @@
-# CONSEGNA — collaudo S-23
+# CONSEGNA — S-24 / S-25: diagnosi, attesa autorizzazione Domain
 
-**Da:** collaudatore, 2026-11-14 12:55. S-23 [x] collaudo ok (solo lettura diff e log, nessun test rilanciato). Manuale a Matteo in PER-MATTEO.md. Restano S-18/S-19, poi Commissione S-13h; checkpoint/push bloccato.
+**Da:** impresa (Codex · GPT-6), 2026-11-15 11:08. Ramo `redesign-sentiero`. Task creati in PIANO, entrambi [!]. Nessuna modifica al codice dell'app, nessun push/merge/checkpoint. Il turno è iniziato il 14 novembre ed è proseguito dopo la sospensione per autorizzazione al campionamento.
 
----
+## S-24 — cosa è riprodotto
+- Nuovo UI `testDeleteMonthlyFixedSeriesFromMovementMenuAllScopes`: crea mensile spesa fissa pianificata in Movimenti, pressione prolungata → Elimina → Tutte → conferma. La riga scompare e i tocchi Home/Movimenti funzionano. Poi menu Ricorrenza → Solo questa: passa. Terzo giro Elimina → Questa e le successive: la riga rimane, test rosso.
+- **Il blocco segnalato con Tutte non è stato riprodotto.** Non identificati crash, deadlock o loop in quel caso, nessuna correzione ipotetica applicata. I dati dei test sono demo in memoria, non il database reale di Matteo: non escludono un problema specifico dei suoi dati o del debugger.
+- **Difetto distinto dimostrato:** `RecurringSeriesEditor.swift` normalizza originalDate a mezzogiorno (inizio apply); delete following usa `remove { $0.date >= original }`. Una copia reale dello stesso giorno alle 08:00 è precedente e rimane. UI fallisce proprio su successive; nuovo unit `deleteFollowingIncludesSelectedCopyBeforeNoon` imposta le 08:00 e fallisce su `copies(context).isEmpty`, riga 68. Copia a mezzogiorno: i tre scope passano.
+- Correzione necessaria: confronto per giorno civile/originale, senza escludere la copia selezionata del mattino; da valutare anche copie spostate e terminate/following per evitare altri effetti. È una modifica di Domain, non una pura aggiunta: **mi sono fermato come chiesto da Matteo**. Nessuna normalizzazione artificiale dei dati nella UI.
+- `deleteMonthlyFixedSeriesAllScopes` verifica copie di gennaio–aprile, transazione estranea conservata, rimozione regola con Tutte e mancata ricreazione dopo nuova materializzazione. Verde.
 
-**Da:** impresa (Codex · GPT-6), 2026-11-14 12:45. Ramo `redesign-sentiero`.
+## Breakpoint e trap
+- Ricerca comprendente file nascosti/ignorati nel progetto: nessun file Breakpoints/LLDB trovato, incluso xcuserdata locale (contiene solo xcschemes). Non modificata la configurazione personale del debugger.
+- In tutti i .swift dell'app: `fatalError` solo nel fallback di creazione ModelContainer (`MoneyTrackerApp.swift:89`); `assertionFailure` in `Persistence/ModelContextSaving.swift:21` in caso di safeSave fallito; nessun precondition trovato. Nessun log prova che questi trap siano stati colpiti durante l'eliminazione testata.
+- Campionamento richiesto del processo app: non eseguito perché, all'arrivo dell'autorizzazione, il PID non era più attivo. Non c'è una stack trace da attribuire al blocco originale.
 
-## Fatto
-- Tap su una copia di serie in Movimenti → AddTransactionView normale. Rimosso il reindirizzamento sia in TransactionsView sia in AddTransactionView. Pressione prolungata → Ricorrenza/Elimina conservata.
-- Editor normale: selettore ricorrenza già nascosto quando editing != nil; salvataggio non assegna più recurringFrequency. Nessuna conversione di un movimento normale in serie.
-- Piccolo SF repeat accanto al titolo, nelle due disposizioni Dynamic Type di MovementRow; attivato solo in Movimenti per copie appartenenti a una regola presente. DS.smoke e DS.Typo.caption, etichetta accessibile localizzata Ricorrenza.
-- Incluse le modifiche preesistenti richieste: Text(verbatim: String(localized: ...)) in ProgrammedRuleCard e Label Ricorrenza/repeat nel menu.
+## S-25 — impossibile con Domain invariato
+- `RecurringSeriesEditor` è esplicitamente incompatibile con la nuova regola: reconcile aggiorna solo il mese di now; salta isDone; all conserva le eccezioni se frequenza/ancora non cambiano. Anche un precedente override nome/importo/note può quindi prevalere sui valori di Tutte.
+- onlyThis serializza soltanto importo/data/nome/note: `RecurrenceException` non ha categoria/icona, conto, tipo, fissa. Non basta mostrare i controlli nella UI per propagare questi campi ai virtuali futuri.
+- Per ottenere passato e futuro uniformi, incluse copie effettuate e precedenti override, bisogna cambiare l'editor e il codec/calcolatore in Domain. Aggiungere un servizio parallelo nelle viste aggirerebbe il vincolo e duplicherebbe il motore: non fatto.
+- **Nessuna semantica nuova parzialmente applicata.** Rimane il comportamento corrente S-23 (editor normale modifica copia; Tutte conserva effettuate ed eccezioni come sopra). I test S-23 non sono stati ribaltati senza la relativa implementazione. Alla ripresa autorizzata, Tutte dovrà rendere uniformi i campi anche dopo un precedente onlyThis; definire insieme nel motore come conservare salti e date spostate senza riattivare cancellazioni.
 
-## Eccezioni e categorie
-- Letti Domain/RecurringSeriesEditor.swift, RecurringMaterializer.swift e codec tramite snapshot. Le eccezioni onlyThis della regola gestiscono importo/data/nome/note; la categoria della singola copia si salva direttamente in Transaction. Il materializer lascia intatte le copie esistenti, anche spostate/modificate. Non serve cambiare Domain: nessun file Domain/Models/Persistence/Sync/Auth modificato.
-- Nuovo unit categoryEditsOnCopyAndAllSeries: categoria/icona Casa sulla copia persistite; materializzazione del mese successivo non cambia la copia né categoria/eccezioni della regola; altre copie conservano categoria della regola. Poi Tutte aggiorna categoria/icona della regola e copie pianificate del mese; copia effettuata conserva Casa.
-- UI: crea serie mensile, tap normale, selettore assente, categoria Casa salvata e riletta; menu lungo Ricorrenza con Elimina; categoria della regola ancora diversa da Casa; Tutte salva Salute e la rilegge riaprendo l'editor. Test aggiuntivo su movimento non ricorrente: modifica normale senza selettore/scope. Controllo etichetta accessibile repeat.
-- Nessuna correzione alla logica categoria: non dimostrato alcun bug. Primo tentativo UI fallito per tap XCUITest su Trasporti fuori area (hit point {-1,-1}); video esportato in /tmp/moneytracker-s23-attachments dimostra selezione involontaria Salute. Test corretto scegliendo esplicitamente Salute visibile, con verifica immediata prima di salvare e dopo riapertura.
-
-## Verifiche
-- **Finale verde:** build + 70 unit + 2/2 RecurrenceFlowUITests, TEST SUCCEEDED, `/tmp/moneytracker-s23-final.log`; risultato `Test-MoneyTracker-2026.11.14_12-42-20-+0100.xcresult` nella cartella Xcode Logs/Test. Test serie 108,832 s; movimento non ricorrente 24,708 s.
-- **Suite completa eseguita:** `/tmp/moneytracker-s23-full.log`, 70 unit verdi, 10/14 UI verdi prima delle correzioni ai nuovi test. Due fallimenti sono quelli preesistenti S-15: NavigationStressUITests:55 e TransactionFlowUITests:68. Gli altri due erano nei nuovi test S-23 e sono risolti nella verifica mirata finale. Nessun test S-15 modificato; non si dichiara l'intera suite verde.
-- Automazione finale: menu categoria selezionato in `collectionViews` per escludere elementi omonimi sottostanti; categoria portata sopra la tastiera, verifica Salute prima del salvataggio e dopo riapertura. Il caso non ricorrente usa Supermercato del seed demo: evita di dipendere dalla creazione già oggetto di S-15. Gli ulteriori tentativi hanno mostrato menu omonimi e pulsante Salva fuori vista, senza dimostrare un difetto di salvataggio categoria.
-- Prima esecuzione mirata: 70 unit verdi, UI fermato dall'errore di automazione descritto sopra. Log intermedi in /tmp/moneytracker-s23-first.log, -second.log, -third.log; quello finale è il riferimento autorevole.
-- git diff --check pulito. Grafo aggiornato AST; graphify-out preesistente modificato e lasciato interamente fuori dal commit.
+## Prove e limiti
+- `/tmp/moneytracker-s24-baseline.log`: 70 unit verdi; 2 UI esistenti verdi, nuovo UI fallito inizialmente perché il test marcava erroneamente la voce effettuata (corretto: Fissa imposta già isDone=false).
+- `/tmp/moneytracker-s24-repro.log`: **71 unit verdi**, incluso nuovo test serie e scope a mezzogiorno; UI nuovo rosso su successive, UI esistente timeout snapshot su elenco Ricorrenti, non ricorrente verde.
+- `/tmp/moneytracker-s24-isolated.log`: UI isolato, Tutte e Solo questa completati con scomparsa e navigazione; successive fallisce dopo attesa 5 secondi sulla riga ancora presente. XCResult `Test-MoneyTracker-2026.11.15_11-03-11-+0100.xcresult` (percorso esatto autorevole nel log).
+- `/tmp/moneytracker-s24-boundary.log`: suite editor **15 verdi / 1 rosso** (nuovo reproducer mattino); nessuna asserzione indebolita. I test rossi sono mantenuti come prova del difetto, non disabilitati né marcati expected failure. **La suite finale NON è verde**, nessuna pretesa di completamento S-24/S-25.
+- `git diff --check` pulito. Grafo aggiornato AST (`/tmp/moneytracker-s24-graph.log`); tutto graphify-out, già sporco prima del turno, escluso dal commit. Nessun altro file estraneo modificato.
 
 ## Prossimo
-S-23 [~] resta da collaudare indipendentemente. Non effettuati push, merge o checkpoint. Restano S-18/S-19 prima della Commissione S-13h; controllo manuale S-21 ancora a Matteo come da PER-MATTEO.md.
+Matteo: autorizzare le modifiche Domain necessarie (testo completo in PER-MATTEO). Poi Codex riprende S-24/S-25, ottiene unit/UI verdi, quindi collaudatore indipendente. Per il blocco originale Tutte servono dettagli del caso reale (stato effettuata/pianificata, data iniziale della serie, dispositivo e avvio da Xcode o icona). Restano S-18/S-19 e Commissione S-13h prima di checkpoint/push; S-15 preesistente non affrontato.

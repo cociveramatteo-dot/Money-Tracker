@@ -27,6 +27,47 @@ struct RecurringSeriesEditorTests {
         try RecurringMaterializer(timeZone: zone).materializeDue(context: context, now: date(month))
     }
 
+    @Test func deleteMonthlyFixedSeriesAllScopes() throws {
+        for scope in [RecurringSeriesEditor.Scope.onlyThis, .following, .all] {
+            let (container, rule) = try setup()
+            let context = container.mainContext
+            rule.isFixed = true
+            for month in 1...4 { try materialize(context, month: month) }
+            let unrelated = Transaction(name: "Unrelated", amount: 5, type: .uscita)
+            context.insert(unrelated)
+            try context.save()
+            let ruleID = rule.id.uuidString
+            let result = try editor.apply(.delete(scope), to: rule, originalDate: date(3), context: context, now: date(3))
+            let remaining = try copies(context)
+            #expect(remaining.contains { $0.id == unrelated.id })
+            let seriesDates = Set(remaining.filter { $0.templateId == ruleID }.map(\.date))
+            switch scope {
+            case .onlyThis: #expect(seriesDates == Set([date(1), date(2), date(4)]))
+            case .following: #expect(seriesDates == Set([date(1), date(2)]))
+            case .all: #expect(seriesDates.isEmpty && result == nil)
+            }
+            #expect(try context.fetchCount(FetchDescriptor<RecurringRule>()) == (scope == .all ? 0 : 1))
+            try materialize(context, month: 5)
+            #expect(try copies(context).filter { $0.templateId == ruleID && $0.date == date(3) }.isEmpty)
+            if scope != .onlyThis {
+                #expect(try copies(context).filter { $0.templateId == ruleID && $0.date >= date(3) }.isEmpty)
+            }
+        }
+    }
+
+    // S-24: reproducer retained while the Domain change awaits Matteo's authorization.
+    @Test func deleteFollowingIncludesSelectedCopyBeforeNoon() throws {
+        let (container, rule) = try setup(start: 3)
+        let context = container.mainContext
+        rule.isFixed = true
+        try materialize(context)
+        let copy = try #require(copies(context).first)
+        copy.date = try #require(calendar.date(bySettingHour: 8, minute: 0, second: 0, of: date(3)))
+        try context.save()
+        try editor.apply(.delete(.following), to: rule, originalDate: date(3), context: context, now: date(3))
+        #expect(try copies(context).isEmpty, "Following must include the selected civil day, including morning transactions")
+    }
+
     @Test func categoryEditsOnCopyAndAllSeries() throws {
         let (container, rule) = try setup(frequency: "settimanale", start: 3)
         let context = container.mainContext

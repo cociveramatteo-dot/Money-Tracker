@@ -101,3 +101,17 @@ Entra in turno secondo AGENTS.md §4 solo se STATO è libero. Sul ramo redesign-
 - 2026-11-14 · Collaudo S-12 completato dal collaudatore (01:30, [x]); rimossa richiesta già eseguita.
 
 - 2026-11-14 09:29 · Ripresa Codex completata: eseguiti i sei UI rimasti, note di sospensione sostituite con esito e istruzioni di collaudo.
+
+## S-24 / S-25 — decisione necessaria (2026-11-15, Codex)
+- [ ] 📍 In questa chat Codex del cantiere. ▶️ Per autorizzare la correzione del difetto dimostrato e la nuova regola, incollare:
+```text
+Autorizzo per S-24 e S-25 le modifiche necessarie a Domain/RecurringSeriesEditor.swift e al codec/calcolatore ricorrenze. Correggi l'eliminazione successive delle copie del mattino e implementa la propagazione di tutti i campi secondo scope, incluso storico effettuato e precedenti override con Tutte. Riprendi da CONSEGNA, mantieni protette le altre zone, porta unit e UI verdi e chiudi il turno. Nessun push o merge.
+```
+↩️ Riportare anche, per il blocco originale con Tutte, questo testo compilato (nessun dato personale necessario):
+```text
+Il blocco avviene su: iPhone / simulatore. Avvio: da icona / da Xcode.
+Copia: pianificata / già effettuata. Data iniziale serie: …
+Succede anche su una nuova serie mensile fissa pianificata? sì / no / non provato.
+Dopo conferma Tutte: app si chiude / resta ferma / Xcode evidenzia una riga (quale: …).
+```
+La richiesta deriva dal vincolo esplicito dell'incarico: fermarsi se serve modificare Domain oltre una pura aggiunta. Non è stata applicata alcuna modifica al motore.

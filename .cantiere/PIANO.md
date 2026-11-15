@@ -240,3 +240,17 @@ Modello di task:
 - **Perimetro:** viste e test; mantenere e committare modifiche preesistenti ProgrammedRuleCard/RecurrenceControls. Domain intatto; graphify-out escluso dal commit.
 - **Fatto quando:** unit e UI verdi, verifiche riportate in CONSEGNA; poi collaudo indipendente.
 - **Eseguito 2026-11-14 12:45 · Codex:** due reindirizzamenti rimossi; editor normale salva solo Transaction, selettore nascosto e frequenza non assegnata in modifica; icona repeat adattiva/accessibile in Movimenti. Categoria copia e Tutte verificate, nessun bug logico trovato. Domain intatto. Build + 70 unit + 2 UI S-23 verdi (`/tmp/moneytracker-s23-final.log`). Suite completa eseguita: restano i due fallimenti preesistenti S-15; nuovi test corretti e verificati verdi separatamente. Da collaudare; dettagli in CONSEGNA.
+
+### S-24 [!] Blocco eliminazione ricorrenza con scope tutte
+- **A chi:** Codex, assegnato da Matteo 2026-11-14.
+- **Obiettivo:** riprodurre da Movimenti (mensile/fissa, menu Elimina o Ricorrenza), identificare la causa e correggere; verificare tutti gli scope, fatalError/precondition e breakpoint locali.
+- **Fatto quando:** regressione serie tutte, unit e UI verdi. Domain intatto; graphify-out fuori commit.
+
+### S-25 [!] Uniformità campi ricorrenti secondo scope (sostituisce S-23)
+- **A chi:** Codex, assegnato da Matteo 2026-11-14.
+- **Obiettivo:** editor normale equivalente a tutte, storico e futuro; editor ricorrenza propaga tutti i campi secondo scope, incluse categorie ed eccezioni precedenti. Frequenza/fine serie solo nell'editor ricorrenza. Aggiornare test S-23.
+- **Vincolo:** riusare RecurringSeriesEditor/Domain senza modificarli; se serve modifica Domain oltre pura aggiunta fermarsi e documentare in CONSEGNA. Nessun altro cambio grafico o comportamentale.
+
+- **Diagnosi Codex 2026-11-15:** non implementabile con il vincolo Domain intatto. `RecurringSeriesEditor`: `remove`/`update` escludono isDone; `all` riconcilia solo il mese di now e conserva le eccezioni a frequenza/ancora invariate; `onlyThis` codifica solo nome/importo/data/note, non categoria/tipo/conto/fissa. Serve autorizzazione a modificare il motore e il codec (non semplice aggiunta). S-23 resta operativo e i suoi test non vengono ribaltati senza implementazione della nuova semantica. Dettagli in CONSEGNA.
+
+- **S-24 · Codex 2026-11-15:** blocco su tutte non riprodotto: UI mensile/fissa pianificata → menu Elimina → Tutte elimina la riga e permette Home/Movimenti; Solo questa passa via menu Ricorrenza. Difetto separato riprodotto su successive: copia del giorno alle 08:00 non eliminata perché `remove { $0.date >= original }` confronta con original alle 12:00. Nuovo unit deterministico rosso, 15/16 editor verdi; UI rosso su successive. Richiede modifica Domain, vietata dall'incarico: fermo senza workaround. Nessun codice app modificato; diagnosi e richiesta in CONSEGNA/PER-MATTEO. Test aggiunto di eliminazione serie tutte e degli altri scope a mezzogiorno verde; suite completa prima del reproducer: 71 unit verdi. Non dichiarare risolto né suite verde.
