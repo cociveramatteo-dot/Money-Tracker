@@ -106,3 +106,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 21:50 | collaudatore (Claude Code · Sonnet) | S-31 collaudo | rimozione completa, 12 chiavi x 7 lingue esclusive, nessun riferimento residuo, screenshot ok, diff --check ok, BUILD SUCCEEDED; S-31 [x] | merge/checkpoint su decisione di Matteo |
 | 2026-11-16 21:45 | capocantiere (Claude Code · Sonnet) | == CHECKPOINT | collaudo.sh 🟢, doc master + PDF (S-31/D-012), graphify update | merge su main (ok di Matteo) |
 | 2026-11-16 21:49 | Matteo | controlli manuali S-24 e S-21 | tutto OK | S-30 |
+| 2026-11-16 21:50 | Matteo | prova Supabase reale S-13f | già controllata da Matteo, OK | S-30 |
