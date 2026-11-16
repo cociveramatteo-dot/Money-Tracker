@@ -1,7 +1,5 @@
-# CONSEGNA — collaudo S-30 (collaudatore, Claude Code · Sonnet, 2026-11-16 22:40)
+# CONSEGNA — collaudo S-32 (collaudatore, Claude Code · Sonnet) · 2026-11-16 23:46
 
-S-30 chiuso [x] sul ramo `categoria-ultima-volta` (commit 4a19ab2): conforme a D-011, nessun difetto da correggere.
-- Verificato: build, 90 unit verdi, 4 UI S-30, UI S-6 Sentiero, screenshot dark/de, plutil 7/7, chiavi allineate, diff --check.
-- Aperto: `DemoShowcaseUITests.testShowcaseScreens` rosso (S-26, bolletta Enel non hittable, riga 29): file non toccato da S-30, verificare su main. Fetch di tutta la cronologia a ogni debounce: ok ora, da rivedere con molti movimenti.
-- Traduzioni «· Ultima usata» ancora ⏳: le approva Matteo (vedi APPROVAZIONI/PER-MATTEO).
-- Prossimo: Matteo approva traduzioni; poi Commissione/checkpoint (PDF da rigenerare). Nessun push/merge.
+S-32 chiuso [x], collaudo ok. Diff 02c93a8 sul codice: solo MoneyTrackerUITests/DemoShowcaseUITests.swift; asserzioni/catture intatte; ricerca per nome (helper esistente) + attesa hittable 5 s, sensata. Verificato: demo isolato verde, 90 unit verdi, git diff --check pulito.
+
+Aperto: S-33 [?] RecurrenceFlowUITests.testCreateEditAndDeleteScheduledSeries riga 100 (preesistenza su main non accertata) — serve Matteo. Ramo fix-demo-showcase-test: nessun push/merge senza Matteo.
