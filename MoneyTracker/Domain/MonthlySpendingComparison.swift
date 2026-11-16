@@ -66,6 +66,9 @@ nonisolated struct MonthlySpendingComparison: Equatable, Sendable {
         }
         let categories = Set(current.keys).union(previous.keys).sorted().map {
             change(category: $0, current: current[$0] ?? 0, previous: previous[$0] ?? 0)
+        }.sorted {  // variazione assoluta decrescente; a parità, alfabetico
+            let a = abs($0.current - $0.previous), b = abs($1.current - $1.previous)
+            return a != b ? a > b : ($0.category ?? "") < ($1.category ?? "")
         }
         let totalCurrent = categories.reduce(Decimal(0)) { $0 + $1.current }
         let totalPrevious = categories.reduce(Decimal(0)) { $0 + $1.previous }

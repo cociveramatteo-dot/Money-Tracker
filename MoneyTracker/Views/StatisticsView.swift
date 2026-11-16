@@ -11,11 +11,15 @@ struct StatisticsView: View {
     @State private var comparisonNow = Date()
     @State private var cachedComparison: MonthlySpendingComparison?
 
-    private struct ComparisonInput: Equatable {
-        let entries: [MonthlySpendingComparison.Entry]
-        let month: Date
-        let day: Date
-        let calendar: Calendar
+    /// Snapshot costruito fuori dal body: eseguito solo al cambio di transazioni, mese o giorno.
+    private func rebuildComparison() {
+        let entries: [MonthlySpendingComparison.Entry] = transactions.map {
+            .init(date: $0.date, amount: $0.amount, category: $0.category,
+                  isExpense: $0.transactionType == .uscita, isDone: $0.isDone, isTransfer: $0.isTransfer)
+        }
+        cachedComparison = MonthlySpendingComparison.make(
+            entries: entries, month: selectedMonth,
+            now: Calendar.current.startOfDay(for: comparisonNow), calendar: .current)
     }
 
     // MARK: - Data per il mese selezionato
@@ -189,12 +193,6 @@ struct StatisticsView: View {
         let avgInc       = avgMonthlyIncome(stats: l12)
         let curYear      = yearTotals(year: currentYear,     byMonth: byMonth)
         let prevYear     = yearTotals(year: currentYear - 1, byMonth: byMonth)
-        // Snapshot di valori: rileva anche modifiche in-place dei modelli SwiftData.
-        // Il confronto puro è eseguito soltanto quando cambia questo input Equatable.
-        let comparisonInput = ComparisonInput(entries: transactions.map {
-            .init(date: $0.date, amount: $0.amount, category: $0.category,
-                  isExpense: $0.transactionType == .uscita, isDone: $0.isDone, isTransfer: $0.isTransfer)
-        }, month: selectedMonth, day: Calendar.current.startOfDay(for: comparisonNow), calendar: .current)
         return NavigationStack {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
@@ -441,14 +439,12 @@ struct StatisticsView: View {
         .onChange(of: pdfURL) { _, url in if url != nil { showShareSheet = true } }
         .onChange(of: selectedMonth) { _, _ in pdfURL = nil }
         // PERF-02: rebuild the byMonth dictionary only when the transaction list changes
-        .onAppear { rebuildByMonth(); comparisonNow = Date() }
-        .onChange(of: comparisonInput, initial: true) { _, input in
-            cachedComparison = MonthlySpendingComparison.make(entries: input.entries, month: input.month,
-                                                               now: input.day, calendar: input.calendar)
-        }
+        .onAppear { rebuildByMonth(); comparisonNow = Date(); rebuildComparison() }
+        .onChange(of: selectedMonth) { _, _ in rebuildComparison() }
+        .onChange(of: comparisonNow) { _, _ in rebuildComparison() }
         .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in comparisonNow = Date() }
         .onChange(of: scenePhase) { _, phase in if phase == .active { comparisonNow = Date() } }
-        .onChange(of: transactions) { _, _ in rebuildByMonth() }
+        .onChange(of: transactions) { _, _ in rebuildByMonth(); rebuildComparison() }
         } // NavigationStack
     }
 

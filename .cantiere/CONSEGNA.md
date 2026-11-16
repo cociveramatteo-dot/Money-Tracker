@@ -1,10 +1,17 @@
-# CONSEGNA — collaudo S-7p + S-14 (collaudatore, 2026-11-16 14:37)
+# CONSEGNA — correzioni S-14 e suite completa S-10 (operaio, 2026-11-16 15:40)
 
-Esito: S-7p [x] e S-14 [x], collaudo ok sui diff 5d59c8d e 6580f59. Nessuna zona intoccabile toccata, nessun test esistente modificato, un solo file aggiunto in Domain/. Build/test non rilanciati (dichiarati verdi dall'impresa: build + 90 unit + 4 UI).
+A) Correzioni S-14 fatte (nessun calcolo esistente toccato):
+1. Percentuali >= 100: zero decimali (`SpendingComparisonCard.formatPercentage`; 1234 resta 1.234); sotto 100 formato invariato.
+2. `StatisticsView`: snapshot `ComparisonInput` tolto dal body; `rebuildComparison()` chiamata in onAppear e onChange di transactions, selectedMonth, comparisonNow.
+3. `MonthlySpendingComparison.categories` ordinate per variazione assoluta decrescente, a parità alfabetico (solo ordinamento).
+Test nuovi (suite `MonthlyComparisonOrderingTests` in MonthlySpendingComparisonTests.swift): ordine + formato percentuale. Nessun test esistente modificato.
 
-Verificato: plutil -lint su 14 file ok; stringsdict 0/1/2+ coerenti per le 7 lingue (zero/other in it/en/de/es/fr, solo other in ja/zh), testi "other" identici ai .strings approvati; calcolo Decimal puro con test richiesti; serie in cache con onChange (nel body solo lo snapshot Equatable); card tra Andamento e Per categoria; freccia + testo, DS.danger/ink/smoke/surface/divider; screenshot light/dark/XL/de senza tagli né bordi anomali.
-Non verificato: build/test, mockup (card non presente), rendering reale di ja/zh.
-
-Note minori (nessun task): percentuali >=1000% arrotondate a 3 cifre significative; lo snapshot transactions.map gira a ogni body (O(n)), il calcolo pesante no.
-
-Da Matteo: approvare le traduzioni ⏳ in APPROVAZIONI.md (singolari S-7p, 12 chiavi S-14 x 7 lingue, formulazione italiana percentuali).
+B) Suite completa (build + test, senza -only-testing, parallelo off):
+- BUILD SUCCEEDED; unit Swift Testing: 92 test in 19 suite, tutti passati (XCTest unit: 0).
+- UI: 45 test eseguiti, 3 falliti, 42 passati (~3037 s).
+- Fallimenti (riportati, non aggirati):
+  - NavigationStressUITests.testRapidTabSwitching — UITestSupport.swift:30 timeout "Failed to get matching snapshots" (284 s)
+  - RecurrenceFlowUITests.testCreateEditAndDeleteScheduledSeries — RecurrenceFlowUITests.swift:64 "Neither element nor any descendant has keyboard focus" su tf_amount (557 s)
+  - SentieroPlanningUITests.testGerman — SentieroPlanningUITests.swift:22 XCTAssertTrue failed (34 s)
+- Log: /tmp/moneytracker-s10-full.log · xcresult: /tmp/mt-s10.xcresult
+Sospetto: i primi due sembrano instabilità simulatore (focus tastiera/timeout), da rilanciare singolarmente; testGerman da analizzare (possibile regressione stringhe/S-14 non esclusa). Serve collaudatore/indagine.

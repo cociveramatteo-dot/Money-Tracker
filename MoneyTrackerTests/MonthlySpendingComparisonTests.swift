@@ -85,3 +85,37 @@ struct MonthlySpendingComparisonTests {
         #expect(result.categories.isEmpty)
     }
 }
+
+@Suite("Monthly comparison ordering and percentage format")
+struct MonthlyComparisonOrderingTests {
+    private var calendar: Calendar {
+        var result = Calendar(identifier: .gregorian)
+        result.timeZone = TimeZone(secondsFromGMT: 0) ?? .gmt
+        return result
+    }
+    private func entry(_ day: Int, _ amount: Decimal, _ category: String, month: Int = 11) throws -> MonthlySpendingComparison.Entry {
+        let date = try #require(calendar.date(from: DateComponents(year: 2026, month: month, day: day, hour: 12)))
+        return .init(date: date, amount: amount, category: category, isExpense: true, isDone: true, isTransfer: false)
+    }
+
+    @Test("Categories are ordered by absolute change descending, ties alphabetical")
+    func ordering() throws {
+        let entries = [try entry(2, 100, "Zeta"), try entry(2, 150, "Beta", month: 10),
+                       try entry(3, 50, "Alfa"), try entry(3, 100, "Alfa", month: 10),
+                       try entry(4, 10, "Cibo"), try entry(4, 60, "Cibo", month: 10),
+                       try entry(5, 500, "Gamma")]
+        let now = try #require(calendar.date(from: DateComponents(year: 2026, month: 11, day: 15)))
+        let month = try #require(calendar.date(from: DateComponents(year: 2026, month: 11, day: 1)))
+        let result = try #require(MonthlySpendingComparison.make(entries: entries, month: month, now: now, calendar: calendar))
+        // Gamma 500, Beta 150, poi Alfa/Cibo/Zeta... Alfa 50, Cibo 50, Zeta 100
+        #expect(result.categories.map(\.category) == ["Gamma", "Beta", "Zeta", "Alfa", "Cibo"])
+    }
+
+    @Test("Percentages of 100 or more keep every integer digit")
+    func largePercentage() {
+        let en = Locale(identifier: "en_US")
+        #expect(SpendingComparisonCard.formatPercentage(1234, locale: en) == "1,234")
+        #expect(SpendingComparisonCard.formatPercentage(100, locale: en) == "100")
+        #expect(SpendingComparisonCard.formatPercentage(Decimal(string: "12.345")!, locale: en) == "12.3")
+    }
+}

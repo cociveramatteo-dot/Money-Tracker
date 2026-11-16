@@ -28,6 +28,14 @@ struct SpendingComparisonCard: View {
         .background(DS.surface, in: RoundedRectangle(cornerRadius: 22))
     }
 
+    /// Sotto 100: 1-3 cifre significative; da 100 in su: nessun decimale (1234 resta 1234).
+    static func formatPercentage(_ value: Decimal, locale: Locale) -> String {
+        if value >= 100 {
+            return value.formatted(.number.precision(.fractionLength(0)).locale(locale))
+        }
+        return value.formatted(.number.precision(.significantDigits(1...3)).locale(locale))
+    }
+
     private func row(_ change: MonthlySpendingComparison.Change) -> some View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: symbol(change.direction)).frame(width: 20)
@@ -55,7 +63,7 @@ struct SpendingComparisonCard: View {
         switch change.direction {
         case .higher, .lower:
             guard let percentage = change.percentage else { return String(localized: "Dati insufficienti.") }
-            let number = percentage.formatted(.number.precision(.significantDigits(1...3)).locale(locale))
+            let number = Self.formatPercentage(percentage, locale: locale)
             let key: String
             if let category {
                 key = change.direction == .higher ? "Questo mese hai speso il %@%% in più per %@"
