@@ -1,25 +1,24 @@
-# CONSEGNA — S-27
+# CONSEGNA — S-18
 
-**Da:** impresa (Codex · GPT-6), 2026-11-16 01:40. Ramo `redesign-sentiero`. Nessun push/merge.
+**Da:** impresa (Codex · GPT-6), 2026-11-16 09:40. Ramo `redesign-sentiero`. Nessun push/merge.
 
-## Modifiche
-- DemoDataSeeder: eliminati tutti i sette force-unwrap con fallback per date/intervalli/categorie; interesse espresso come Decimal(275) / 100, identico valore esatto.
-- MoneyTrackerApp: rimuove txFilterMin, txFilterMax e txFilterUseDates da UserDefaults esclusivamente all'avvio --uitesting. I workaround UI esistenti restano invariati per rispettare il vincolo sui test esistenti.
-- Nuovo RecurringCollisionTests.swift: due copie settimanali spostate sullo stesso giorno mantengono ID distinti; verifica conteggio, stabilità ID dopo materializzazione e unicità nel calendario virtuale. Nessuna modifica ai test esistenti o alle zone intoccabili.
+## Proposta e implementazione
+Matteo ha approvato esplicitamente in chat prima di implementare: card serie Sentiero arrotondata, icona categoria 38×38, nome/importo, frequenza/stato e pulsante prossima data; virtuali con struttura righe Movimenti, icona tratteggiata e importo ambra, data e avviso esclusa dai totali. Registrato in APPROVAZIONI.md.
+- Unico file app modificato: Views/ProgrammedRuleCard.swift (contiene anche VirtualOccurrenceRow). Token adattivi e font Sentiero esistenti, icone categoria, card raggio 18/bordo, separatore, pulsanti con target minimo 44 pt, ViewThatFits per disporre nome/importo verticalmente quando necessario. Avviso virtuale senza lineLimit, data sempre presente.
+- Identico calcolo prossima occorrenza, cache, fallback serie terminata e callback editor. Nessuna modifica a logica, saldi, totali, zone intoccabili o test esistenti. Theme.swift non necessitava modifiche.
+- Aggiunto RecurrenceAppearanceUITests.swift per acquisizioni e apertura editor nelle quattro configurazioni. Il test dark va eseguito separatamente con il simulatore impostato dark via simctl (commento nel file); i launch defaults AppleInterfaceStyle non controllano l'aspetto del simulatore.
 
 ## Verifiche
-- Unico run completo sequenziale: build + **80 unit verdi + 16/16 UI verdi**, TEST SUCCEEDED. UI 868,002 s, sessione test 905,913 s.
-- Comando: `xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' -parallel-testing-enabled NO build test`.
-- Log `/tmp/moneytracker-s27.log`; risultato `/Users/matteo/Library/Developer/Xcode/DerivedData/MoneyTracker-ccjguvvnbihhyiemgfhjfvaiqfwa/Logs/Test/Run-MoneyTracker-2026.11.16_01-24-07-+0100.xcresult`.
-- Showcase: 52,870 s. Il timeout idle storico era nel testNonRecurringEditCannotCreateSeries (log S-26: idle da 12,40 a 2091,94 s, test totale 2107,964 s), non nello showcase. Ora lo stesso test passa in 22,802 s. Nessun messaggio “App event loop idle notification not received” nel run S-27. Causa non accertata: problema non riprodotto; non certificare una correzione prestazionale.
-- Primo avvio del comando in sandbox fallito prima dei test per accesso ai cache Xcode; run completo eseguito dopo autorizzazione, senza rilanci mirati.
-- git diff --check verde. Graphify AST aggiornato, nessun costo LLM; avvisa di 9 file JSON senza nodi (Contents.json e configurazioni), non di errori Swift.
+- Build + **80 unit e 7 UI verdi** (4 acquisizioni + 3 RecurrenceFlow), log `/tmp/moneytracker-s18.log`; risultato `/Users/matteo/Library/Developer/Xcode/DerivedData/MoneyTracker-ccjguvvnbihhyiemgfhjfvaiqfwa/Logs/Test/Run-MoneyTracker-2026.11.16_09-28-08-+0100.xcresult`.
+- Primo comando sandbox fermato sui cache Xcode; comando rieseguito con autorizzazione. Nessun cambio per aggirare test.
+- Nel primo run il test denominato Dark aveva prodotto immagini light: rilevato durante ispezione, non considerato prova dark. Tolto l'argomento inefficace AppleInterfaceStyle; eseguito `xcrun simctl ui 37445D1E-DEF7-4A32-9A39-EA9EACCA3E48 appearance dark`, poi test mirato RecurrenceAppearanceUITests/testDark: **verde**, 40,878 s. Log `/tmp/moneytracker-s18-dark.log`, risultato `/Users/matteo/Library/Developer/Xcode/DerivedData/MoneyTracker-ccjguvvnbihhyiemgfhjfvaiqfwa/Logs/Test/Test-MoneyTracker-2026.11.16_09-37-58-+0100.xcresult`. Simulatore ripristinato light.
+- Otto immagini valide (due viste × light/dark/XL/tedesco) ispezionate: card e virtuali leggibili, importi ambra, date e avvisi visibili; tedesco tradotto; XL aumenta testi e altezze. Nessuna nuova stringa. Confronto con DESIGN_HANDOFF §2/§3 MovementRow e proposta approvata; il mockup originario non rappresenta specificamente queste due nuove viste.
+- Immagini light/XL/tedesco in `/tmp/moneytracker-s18-images/` (manifest, series-sheet.png, virtual-sheet.png); usare le due dark reali in `/tmp/moneytracker-s18-dark-images/` (manifest, dark-sheet.png), ignorare le prime dark nominali.
+- `git diff --check` verde; graphify AST aggiornato senza LLM. Screenshot/xcresult fuori da git.
 
-## File esclusi
-Tutto graphify-out/ era già modificato/non tracciato all'inizio. Aggiornato localmente, escluso interamente dal commit per non includere lavoro preesistente. Nessun altro file estraneo incluso.
-
-## Collaudo S-27 (collaudatore, 2026-11-16 03:55)
-Esito: **ok, S-27 [x]**. Build + 80 unit verdi (rilanciati su iPhone 18 Pro); UI 16/16 fidati dalla consegna. Nessun problema aperto.
+## Limiti e file esclusi
+S-18 riguarda esclusivamente queste due viste, non certifica tutto il redesign. In XL la tab bar mostra etichette affollate: registrato S-28 senza modificare ContentView. Restano S-19 e Commissione S-13h.
+Tutti gli artefatti graphify-out erano già modificati/non tracciati; aggiornati localmente e lasciati fuori dal commit. Nessun file estraneo incluso.
 
 ## Prossimo
-Restano S-18/S-19 e Commissione S-13h. Nessun push/merge.
+Collaudo indipendente S-18 → collaudatore Claude Code (Sonnet): leggere solo il diff del commit S-18 e queste evidenze, confrontare proposta approvata e otto immagini valide; verificare callback e logica invariati, light/dark/XL/tedesco, nessuna zona intoccabile. Solo collaudatore o Matteo porta S-18 a [x]. Dopo: S-19 al redattore. Nessun push/merge.

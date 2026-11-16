@@ -208,9 +208,10 @@ Modello di task:
 
 - S-17 collaudo: la guardia `rows.isEmpty && !locals.isEmpty` è nel punto giusto (prima di qualsiasi modifica), il test verifica id, watermark ed eccezioni conservati; la cancellazione orfani con remoto popolato resta coperta da `pullInsertsUpdatesAndDeletesOrphans` (il test ora non più svuota con `[]`). Eseguita solo la suite da 5 test (log /tmp/moneytracker-s17-verified.log), non i 64. **Limite accettato:** se l'ultima regola viene cancellata da un altro dispositivo, qui resta e il push successivo la ricarica (risorge). Con remoto parzialmente popolato nessun cambiamento.
 
-### S-18 [ ] Rifinitura grafica dei virtuali e delle serie programmate
+### S-18 [~] Rifinitura grafica dei virtuali e delle serie programmate
 - **A chi:** Codex (Antigravity sospeso fino al 2026-11-20, deciso da Matteo 2026-11-14 11:09); mockup da concordare con Matteo prima di inventare grafica.
 - **Perimetro:** presentazione introdotta in S-13g, Theme.swift; nessun cambiamento a logica, saldi o totali. Verifica light/dark/XL/tedesco.
+- **Eseguito Codex 2026-11-16:** proposta approvata da Matteo in chat e registrata in APPROVAZIONI. ProgrammedRuleCard e VirtualOccurrenceRow allineati alla proposta Sentiero, layout adattabile, colori esistenti. Build + 80 unit + 7 UI verdi; verifica dark reale separata verde. Otto screenshot validi ispezionati, evidenze in CONSEGNA. Da collaudare.
 
 ### S-19 [ ] Revisione testi e traduzioni S-13g
 - **A chi:** redattore (Claude Code · Sonnet).
@@ -280,3 +281,6 @@ Modello di task:
 - **Esito collaudo (2026-11-16 03:55):** chiuso, collaudo ok. Diff 35ea8d4 letto; fallback seeder equivalenti (Decimal(275)/100 = 2,75), reset filtri solo dentro `isUITesting`, nuovo test non banale (ID distinti + stabilità dopo materializzazione + calendario virtuale); zone intoccabili intatte; build e 80 unit verdi (rilanciati). UI 16/16 dalla CONSEGNA.
 
 - **S-27 eseguito Codex (2026-11-16):** fallback seeder senza force-unwrap; reset txFilterMin/Max/UseDates solo --uitesting; nuovo RecurringCollisionTests (due copie nello stesso giorno, ID distinti anche dopo materializzazione e nel virtuale). Build + 80 unit + 16/16 UI in un unico run sequenziale verdi. Showcase 52,870 s; testNonRecurringEditCannotCreateSeries 22,802 s; nessun timeout idle riprodotto. Da collaudare; dettagli in CONSEGNA.
+
+### S-28 [ ] Tab bar affollata con Dynamic Type XL
+- **Scoperto in S-18:** nello screenshot XL le etichette Movimenti/Statistiche della tab bar si avvicinano eccessivamente. Fuori dal perimetro S-18, non corretto. Verificare ContentView e layout accessibile senza cambiare funzioni. Evidenza: `/tmp/moneytracker-s18-images/series-sheet.png`, colonna testExtraLarge. → Codex dopo assegnazione.
