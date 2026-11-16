@@ -1,6 +1,6 @@
 # STATO DEL CANTIERE
 
 In turno: nessuno
-Dalle: —
+Dalle: 2026-11-16 01:15
 Ultimo checkpoint: —
-Fase: S-26 [~] implementato: seed v6, 79 unit + 4 UI finali verdi, collaudo indipendente da fare. S-24/S-25/S-15 [x]; restano S-27, S-18/S-19 e Commissione S-13h. Nessun push/merge.
+Fase: S-26 [x] collaudo ok (2026-11-16). Restano S-27, S-18/S-19 e Commissione S-13h. Nessun push/merge.
