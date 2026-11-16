@@ -1,6 +1,6 @@
 # STATO DEL CANTIERE
 
 In turno: nessuno
-Dalle: 2026-11-16 10:23
+Dalle: 2026-11-16 10:48
 Ultimo checkpoint: —
-Fase: S-6 [!] riferimento mockup incompleto (support.js assente), host browser CUA non disponibile. Nessun codice modificato; S-7/S-8 non iniziati. S-29 [x]; restano Commissione S-13h e approvazione traduzioni. Nessun push/merge.
+Fase: S-6 [~] implementato e verificato; segue S-7 poi S-8. Collaudo visivo definitivo e traduzioni pendenti. Nessun push/merge.

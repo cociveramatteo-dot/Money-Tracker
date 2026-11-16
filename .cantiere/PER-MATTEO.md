@@ -5,18 +5,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### S-6 — riferimento visivo completo
-📍 Nella chat in cui sono stati creati i mockup Bucktrail/Sentiero.
-▶️ Incolla:
-```text
-Il pacchetto MoneyTracker contiene reference/Statistiche.dc.html, Pianifica.dc.html e Conti.dc.html, ma manca support.js richiamato dagli HTML: i template sc-for e {{ … }} non possono essere renderizzati. Restituisci il support.js originale del pacchetto oppure screenshot completi a 390×844 dei tre mockup, senza modificarne il design.
-```
-↩️ Allega qui il file originale oppure gli screenshot. Per il problema dello strumento, nella chat «Azienda» incolla:
-```text
-In MoneyTracker il tentativo CUA getBrowser sul mockup locale fallisce con “The browser access host is unavailable”. Ripristinare l’host browser per il confronto visivo richiesto, senza cambiare il codice app.
-```
-Riporta la conferma del ripristino se scegli il riferimento HTML.
-
 ### Approvazione traduzioni (APPROVAZIONI.md)
 📍 Apri `.cantiere/APPROVAZIONI.md`.
 ▶️ Controlla le voci ⏳: traduzioni de/es/zh riviste in S-19 (il «Termin» tedesco da far rileggere a un madrelingua), «Bewegungen» della tab bar (S-28) e quelle nuove che S-29 aggiungerà. Per ognuna scrivi ✅ o la correzione.

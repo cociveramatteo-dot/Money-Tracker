@@ -70,3 +70,6 @@ Le decisioni che non si devono ridiscutere ogni volta. Solo aggiunte.
 - **Cambio date/frequenza:** le copie esistenti in scope seguono la stessa posizione nella nuova cadenza (giorno limitato all'ultimo del mese nei mesi corti), con ID deterministici riallineati per evitare duplicati. La materializzazione resta pianificata per le nuove copie.
 - **Eliminazione:** invariata la protezione delle copie effettuate e dei dati legacy. Da qui in poi confronta il giorno originale dell'occorrenza, non il timestamp (che escludeva erroneamente il mattino) né la data eventualmente spostata.
 - **Alternative scartate:** duplicare il motore nelle viste; lasciare eccezioni di valori che contraddicono Tutte; propagare lo stato effettuato e alterare i saldi delle altre copie senza volontà di Matteo.
+
+## 2026-11-16 · Riferimenti S-6/S-7/S-8 (Matteo)
+Autorizzata lettura diretta del sorgente HTML inline dei mockup, comprese le strutture ripetute sc-for/hint-placeholder-count, senza rendering/support.js. DESIGN_HANDOFF §4 prevale in caso di conflitto. PNG originali assenti: confrontare screenshot simulatore light/dark/XL/de con misure, token e struttura del sorgente; dichiarare differenze residue, senza dichiarare conformità. Confronto visivo definitivo al collaudatore. Nessun push/merge.

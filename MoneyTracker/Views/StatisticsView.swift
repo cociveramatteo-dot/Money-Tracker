@@ -183,195 +183,147 @@ struct StatisticsView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
 
-                VStack(alignment: .leading, spacing: DS.Space.s) {
-                    SectionLabel(text: "Riepilogo")
-                        .padding(.top, DS.Space.xl)
-
-                    HStack(alignment: .lastTextBaseline, spacing: DS.Space.xl) {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Uscite")
-                                .font(.system(size: 11))
-                                .foregroundStyle(DS.smoke)
-                            HeroAmount(amount: monthSpent, size: 44, forceColor: DS.negative)
+                HStack {
+                    Text("Statistiche").font(DS.Typo.screenTitle)
+                        .tracking(DS.Typo.screenTitleTracking)
+                    Spacer()
+                    Button { haptic(.soft); generatePDF() } label: {
+                        HStack(spacing: 6) {
+                            if isGeneratingPDF { ProgressView() }
+                            else { Image(systemName: "square.and.arrow.down") }
+                            Text("PDF")
                         }
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Entrate")
-                                .font(.system(size: 11))
-                                .foregroundStyle(DS.smoke)
-                            HeroAmount(amount: monthIncome, size: 44, forceColor: DS.positive)
-                        }
+                        .font(DS.Typo.secondary).foregroundStyle(DS.ink)
+                        .padding(.horizontal, 14).frame(minHeight: 44)
+                        .background(DS.surface, in: RoundedRectangle(cornerRadius: 12))
+                        .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(DS.fog))
                     }
-
-                    if prevSpent > 0 {
-                        HStack(spacing: DS.Space.xs) {
-                            Image(systemName: monthSpent - prevSpent >= 0 ? "arrow.up" : "arrow.down")
-                                .font(.system(size: 10))
-                            Text(abs(monthSpent - prevSpent).currencyFormatted)
-                                .font(.system(size: 13, weight: .medium))
-                            Text("rispetto al mese scorso")
-                                .font(.system(size: 13))
-                        }
-                        // Più spese del mese scorso = peggioramento (rosso), meno = miglioramento (verde).
-                        .foregroundStyle(monthSpent - prevSpent >= 0 ? DS.negative : DS.positive)
-                    }
-
+                    .disabled(isGeneratingPDF)
+                    .accessibilityIdentifier("statistics_pdf")
+                    Button { showSettings = true } label: {
+                        Image(systemName: "gearshape").frame(width: 44, height: 44)
+                    }.accessibilityLabel("Impostazioni")
                 }
-                .padding(.horizontal, DS.Layout.margin)
+                .foregroundStyle(DS.ink).padding(.horizontal, DS.Layout.margin)
 
                 MonthBar(month: $selectedMonth)
+                    .frame(minHeight: 44)
                     .padding(.horizontal, DS.Layout.margin)
-                    .padding(.top, DS.Space.xl)
 
-                ThinDivider().padding(.top, DS.Space.xl)
+                HStack(spacing: 8) {
+                    summaryTile("Uscite", amount: monthSpent, color: DS.ink)
+                    summaryTile("Entrate", amount: monthIncome, color: DS.accent)
+                    summaryTile("Netto", amount: monthIncome - monthSpent, color: DS.heroAccent, hero: true)
+                }
+                .padding(.horizontal, 16)
 
-                VStack(alignment: .leading, spacing: DS.Space.m) {
+                VStack(alignment: .leading, spacing: 10) {
                     HStack {
-                        SectionLabel(text: trendMonths == 6 ? "Andamento 6 mesi" : "Andamento 12 mesi")
+                        Text("Andamento").font(DS.Typo.rowName)
                         Spacer()
-                        HStack(spacing: 0) {
+                        HStack(spacing: 3) {
                             ForEach([6, 12], id: \.self) { n in
-                                Button {
-                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                                        trendMonths = n
-                                    }
-                                } label: {
-                                    Text("\(n)m")
-                                        .font(.system(size: 12, weight: trendMonths == n ? .semibold : .regular))
-                                        .foregroundStyle(trendMonths == n ? DS.paper : DS.smoke)
-                                        .padding(.horizontal, DS.Space.m)
-                                        .padding(.vertical, DS.Space.xs)
-                                        .background(trendMonths == n ? DS.ink : Color.clear)
-                                        .clipShape(RoundedRectangle(cornerRadius: 6))
+                                Button { trendMonths = n } label: {
+                                    Text(verbatim: "\(n)M")
+                                        .font(DS.Typo.caption)
+                                        .foregroundStyle(trendMonths == n ? DS.ink : DS.smoke)
+                                        .frame(minWidth: 44, minHeight: 44)
+                                        .background(trendMonths == n ? DS.surface : DS.divider,
+                                                    in: RoundedRectangle(cornerRadius: 8))
                                 }
                                 .buttonStyle(.plain)
+                                .accessibilityIdentifier("statistics_range_\(n)")
+                                .accessibilityAddTraits(trendMonths == n ? [.isSelected] : [])
                             }
-                        }
-                        .background(DS.fog)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        }.padding(3).background(DS.divider, in: RoundedRectangle(cornerRadius: 10))
                     }
-                    .padding(.horizontal, DS.Layout.margin)
-                    .padding(.top, DS.Space.l)
-
+                    HStack(spacing: 14) {
+                        legendItem(color: DS.ink, label: "Uscite")
+                        legendItem(color: DS.heroAccent, label: "Entrate")
+                    }
                     if trend.allSatisfy({ $0.expenses == 0 && $0.income == 0 }) {
-                        Text("Nessun dato disponibile.")
-                            .font(.system(size: 13))
-                            .foregroundStyle(DS.smoke)
-                            .padding(.horizontal, DS.Layout.margin)
+                        Text("Nessun dato disponibile.").font(DS.Typo.secondary).foregroundStyle(DS.smoke)
                     } else {
                         Chart {
                             ForEach(trend) { stat in
-                                BarMark(
-                                    x: .value("Mese", stat.label),
-                                    y: .value("Importo", stat.income),
-                                    width: .ratio(0.35)
-                                )
-                                .foregroundStyle(DS.positive)
-                                .position(by: .value("Tipo", "Entrate"))
-                                .cornerRadius(3)
-
-                                BarMark(
-                                    x: .value("Mese", stat.label),
-                                    y: .value("Importo", stat.expenses),
-                                    width: .ratio(0.35)
-                                )
-                                .foregroundStyle(DS.negative.opacity(0.85))
-                                .position(by: .value("Tipo", "Uscite"))
-                                .cornerRadius(3)
+                                BarMark(x: .value("Mese", stat.label), y: .value("Importo", stat.expenses), width: .ratio(0.65))
+                                    .foregroundStyle(DS.ink)
+                                    .position(by: .value("Tipo", "Uscite")).cornerRadius(4)
+                                BarMark(x: .value("Mese", stat.label), y: .value("Importo", stat.income), width: .ratio(0.65))
+                                    .foregroundStyle(DS.heroAccent)
+                                    .position(by: .value("Tipo", "Entrate")).cornerRadius(4)
                             }
                         }
-                        .frame(height: 180)
-                        .chartYAxis {
-                            AxisMarks(position: .leading) { val in
-                                AxisValueLabel {
-                                    if let d = val.as(Double.self) {
-                                        Text(d.currencyCompact)
-                                            .font(.system(size: 10))
-                                            .foregroundStyle(DS.smoke)
-                                    }
-                                }
-                            }
-                        }
+                        .frame(height: 130)
+                        .chartYAxis(.hidden)
                         .chartXAxis {
-                            AxisMarks { val in
+                            AxisMarks { value in
                                 AxisValueLabel {
-                                    if let s = val.as(String.self) {
-                                        Text(s)
-                                            .font(.system(size: 10))
+                                    if let label = value.as(String.self) {
+                                        Text(trendMonths == 12 ? String(label.prefix(1)) : label).font(DS.Typo.tabLabel)
+                                            .fontWeight(label == trend.last?.label ? .bold : .regular)
                                             .foregroundStyle(DS.smoke)
                                     }
                                 }
                             }
                         }
-                        .padding(.horizontal, DS.Layout.margin)
                         .accessibilityElement(children: .ignore)
                         .accessibilityLabel(trendAccessibilitySummary(trend))
-
-                        HStack(spacing: DS.Space.l) {
-                            legendItem(color: DS.positive, label: "Entrate")
-                            legendItem(color: DS.negative.opacity(0.85), label: "Uscite")
-                        }
-                        .padding(.horizontal, DS.Layout.margin)
-                        .padding(.top, DS.Space.xs)
                     }
+                    Divider().overlay(DS.divider)
+                    ViewThatFits(in: .horizontal) {
+                        HStack {
+                            Text("Uscite medie")
+                            Spacer()
+                            Text(avgExp.currencyFormatted).foregroundStyle(DS.ink).monospacedDigit()
+                        }
+                        VStack(alignment: .leading) {
+                            Text("Uscite medie")
+                            Text(avgExp.currencyFormatted).foregroundStyle(DS.ink).monospacedDigit()
+                        }
+                    }.font(DS.Typo.caption).foregroundStyle(DS.smoke)
                 }
+                .padding(16).background(DS.surface, in: RoundedRectangle(cornerRadius: 22))
+                .padding(.horizontal, 16).padding(.top, 10)
 
-                ThinDivider().padding(.top, DS.Space.l)
-
-                VStack(alignment: .leading, spacing: DS.Space.m) {
-                    SectionLabel(text: "Uscite per categoria")
-                        .padding(.horizontal, DS.Layout.margin)
-                        .padding(.top, DS.Space.l)
-
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Per categoria").font(DS.Typo.rowName).padding(.bottom, 4)
                     if categoryData.isEmpty {
-                        Text("Nessuna uscita questo mese.")
-                            .font(.system(size: 13))
-                            .foregroundStyle(DS.smoke)
-                            .padding(.horizontal, DS.Layout.margin)
-                    } else {
-                        // Barre orizzontali per categoria
-                        VStack(spacing: 0) {
-                            ForEach(categoryData) { cat in
-                                VStack(alignment: .leading, spacing: DS.Space.s) {
-                                    HStack {
-                                        Image(systemName: cat.icon.isEmpty ? "circle.dotted" : cat.icon)
-                                            .font(.system(size: 13))
-                                            .foregroundStyle(DS.smoke)
-                                            .frame(width: 18)
-                                        DS.categoryText(cat.name)
-                                            .font(.system(size: 14))
-                                            .foregroundStyle(DS.ink)
-                                        Spacer()
-                                        Text(cat.amount.currencyFormatted)
-                                            .font(.system(size: 13, weight: .medium))
-                                            .foregroundStyle(DS.ink)
-                                        Text(monthSpent > 0 ? String(format: "%.0f%%", (cat.amount / monthSpent).asDouble * 100) : "0%")
-                                            .font(.system(size: 11))
-                                            .foregroundStyle(DS.smoke)
-                                            .frame(width: 30, alignment: .trailing)
-                                    }
-
-                                    GeometryReader { geo in
-                                        ZStack(alignment: .leading) {
-                                            Rectangle().fill(DS.fog).frame(height: 2)
-                                            Rectangle()
-                                                .fill(DS.negative)
-                                                .frame(width: monthSpent > 0 ? geo.size.width * (cat.amount / monthSpent).asDouble : 0, height: 2)
-                                        }
-                                    }
-                                    .frame(height: 2)
-                                }
-                                .padding(.horizontal, DS.Layout.margin)
-                                .padding(.vertical, DS.Space.m)
-
-                                if cat.id != categoryData.last?.id {
-                                    ThinDivider().padding(.leading, DS.Layout.margin + 18 + DS.Space.m)
-                                }
+                        Text("Nessuna uscita questo mese.").font(DS.Typo.secondary).foregroundStyle(DS.smoke)
+                    }
+                    ForEach(categoryData) { cat in
+                        VStack(alignment: .leading, spacing: 5) {
+                            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                                DS.categoryText(cat.name).font(DS.Typo.secondary)
+                                Spacer(minLength: 4)
+                                Text(monthSpent > 0 ? String(format: "%.0f%%", (cat.amount / monthSpent).asDouble * 100) : "0%")
+                                    .font(DS.Typo.caption).foregroundStyle(DS.smoke)
+                                Text(cat.amount.currencyFormatted).font(DS.Typo.rowAmount)
+                                    .fixedSize(horizontal: true, vertical: false)
                             }
-                        }
+                            GeometryReader { geo in
+                                Capsule().fill(DS.divider)
+                                Capsule().fill(CategoryTint.tint(for: cat.name).foreground)
+                                    .frame(width: (categoryData.first?.amount ?? 0) > 0
+                                           ? geo.size.width * (cat.amount / categoryData[0].amount).asDouble : 0)
+                            }.frame(height: 6)
+                        }.padding(.vertical, 5)
                     }
                 }
+                .foregroundStyle(DS.ink).padding(16)
+                .background(DS.surface, in: RoundedRectangle(cornerRadius: 22))
+                .padding(.horizontal, 16).padding(.top, 10)
 
-                ThinDivider().padding(.top, DS.Space.l)
+                if prevSpent > 0 {
+                    HStack(spacing: 4) {
+                        Image(systemName: monthSpent - prevSpent >= 0 ? "arrow.up" : "arrow.down")
+                        Text(abs(monthSpent - prevSpent).currencyFormatted)
+                        Text("rispetto al mese scorso")
+                    }
+                    .font(DS.Typo.caption)
+                    .foregroundStyle(monthSpent - prevSpent >= 0 ? DS.negative : DS.positive)
+                    .padding(16)
+                }
 
                 VStack(alignment: .leading, spacing: DS.Space.m) {
                     SectionLabel(text: "Media mensile — ultimi 12 mesi")
@@ -380,7 +332,7 @@ struct StatisticsView: View {
 
                     if avgExp == 0 && avgInc == 0 {
                         Text("Dati insufficienti.")
-                            .font(.system(size: 13))
+                            .font(DS.Typo.secondary)
                             .foregroundStyle(DS.smoke)
                             .padding(.horizontal, DS.Layout.margin)
                     } else {
@@ -388,7 +340,7 @@ struct StatisticsView: View {
                             // Uscite medie
                             VStack(alignment: .leading, spacing: DS.Space.xs) {
                                 Text("Uscite medie")
-                                    .font(.system(size: 11))
+                                    .font(DS.Typo.caption)
                                     .foregroundStyle(DS.smoke)
                                 Text(avgExp.currencyFormatted)
                                     .font(.system(size: 22, weight: .semibold))
@@ -406,7 +358,7 @@ struct StatisticsView: View {
                             // Entrate medie
                             VStack(alignment: .leading, spacing: DS.Space.xs) {
                                 Text("Entrate medie")
-                                    .font(.system(size: 11))
+                                    .font(DS.Typo.caption)
                                     .foregroundStyle(DS.smoke)
                                 Text(avgInc.currencyFormatted)
                                     .font(.system(size: 22, weight: .semibold))
@@ -432,7 +384,7 @@ struct StatisticsView: View {
 
                     if curYear.expenses == 0 && prevYear.expenses == 0 {
                         Text("Dati insufficienti.")
-                            .font(.system(size: 13))
+                            .font(DS.Typo.secondary)
                             .foregroundStyle(DS.smoke)
                             .padding(.horizontal, DS.Layout.margin)
                     } else {
@@ -460,36 +412,7 @@ struct StatisticsView: View {
         .background(DS.paper)
         .scrollIndicators(.hidden)
         .refreshable { await SyncService.shared.manualRefresh(context: context) }
-        .navigationTitle("Statistiche")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                HStack(spacing: DS.Space.m) {
-                    // Esporta PDF — un solo tap: genera e apre share sheet automaticamente
-                    if isGeneratingPDF {
-                        ProgressView()
-                            .tint(DS.ink)
-                            .scaleEffect(0.8)
-                    } else {
-                        Button {
-                            haptic(.soft)
-                            generatePDF()
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                                .font(.system(size: 16))
-                                .foregroundStyle(DS.ink)
-                        }
-                        .disabled(isGeneratingPDF)
-                    }
-                    // Impostazioni
-                    Button { showSettings = true } label: {
-                        Image(systemName: "gearshape")
-                            .font(.system(size: 16))
-                            .foregroundStyle(DS.ink)
-                    }
-                }
-            }
-        }
+        .toolbar(.hidden, for: .navigationBar)
         .sheet(isPresented: $showSettings) { SettingsView() }
         .sheet(isPresented: $showShareSheet, onDismiss: { pdfURL = nil }) {
             if let url = pdfURL { ShareSheet(items: [url]) }
@@ -501,6 +424,16 @@ struct StatisticsView: View {
         .onAppear { rebuildByMonth() }
         .onChange(of: transactions) { _, _ in rebuildByMonth() }
         } // NavigationStack
+    }
+
+    private func summaryTile(_ title: LocalizedStringKey, amount: Decimal, color: Color, hero: Bool = false) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(title).font(DS.Typo.caption).foregroundStyle(hero ? DS.heroSecondary : DS.smoke)
+            Text(amount.currencyFormatted).font(DS.Typo.rowAmount).foregroundStyle(color)
+                .lineLimit(1).minimumScaleFactor(0.65).monospacedDigit()
+        }
+        .padding(12).frame(maxWidth: .infinity, alignment: .leading)
+        .background(hero ? DS.hero : DS.surface, in: RoundedRectangle(cornerRadius: 16))
     }
 
     // MARK: - Anno compare row helper
@@ -527,7 +460,7 @@ struct StatisticsView: View {
                         Image(systemName: delta >= 0 ? "arrow.up" : "arrow.down")
                             .font(.system(size: 9))
                         Text("\(sign)\(String(format: "%.0f", pct))% vs \(currentYear - 1)")
-                            .font(.system(size: 11))
+                            .font(DS.Typo.caption)
                     }
                     .foregroundStyle(good ? DS.positive : DS.negative)
                 }
@@ -552,7 +485,7 @@ struct StatisticsView: View {
         HStack(spacing: DS.Space.xs) {
             RoundedRectangle(cornerRadius: 2).fill(color).frame(width: 12, height: 8)
             Text(LocalizedStringKey(label))
-                .font(.system(size: 11))
+                .font(DS.Typo.caption)
                 .foregroundStyle(DS.smoke)
         }
     }
