@@ -49,3 +49,10 @@ Proposte italiane effettive senza articolo davanti al numero (valide anche per 1
 - «Questo mese hai speso di meno per %2$@ (−%1$@%%)»
 - «Questo mese hai speso di più in totale (+%@%%)»
 - «Questo mese hai speso di meno in totale (−%@%%)»
+
+## S-30 · Categoria dall’ultima volta · ✅ traduzioni approvate da Matteo 2026-11-16
+Chiave `· Ultima usata` in `MoneyTracker/*.lproj/Localizable.strings`, approvate da Matteo il 2026-11-16.
+
+| it | en | de | es | fr | ja | zh-Hans | Stato |
+|---|---|---|---|---|---|---|---|
+| · Ultima usata | · Last used | · Zuletzt verwendet | · Última utilizada | · Dernière utilisée | · 前回使用 | · 上次使用 | ✅ 2026-11-16 |

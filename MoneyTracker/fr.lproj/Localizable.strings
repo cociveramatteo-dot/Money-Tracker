@@ -508,3 +508,6 @@
 "Sotto la soglia di %@" = "Sous %@";
 
 "Escluso dal totale" = "Exclu du total";
+
+/* S-30: history category suggestion */
+"· Ultima usata" = "· Dernière utilisée";

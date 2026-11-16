@@ -506,3 +506,6 @@
 "Sotto la soglia di %@" = "%@未満";
 
 "Escluso dal totale" = "合計に含まず";
+
+/* S-30: history category suggestion */
+"· Ultima usata" = "· 前回使用";

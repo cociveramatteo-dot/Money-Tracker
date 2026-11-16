@@ -195,8 +195,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/AddTransactionView.swift": {
-    "mtime": 1794860913.306445,
-    "ast_hash": "1fdf4365452db36f90878f2880f7f0fa",
+    "mtime": 1794865508.6336136,
+    "ast_hash": "36fc20844506af249b1c4da434c49df4",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/AddTransferView.swift": {
@@ -245,7 +245,7 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/StatisticsView.swift": {
-    "mtime": 1794861271.8764925,
+    "mtime": 1794862099.052521,
     "ast_hash": "5264e4e66a3e64e659a83da4d4411cac",
     "semantic_hash": ""
   },
@@ -260,8 +260,8 @@
     "semantic_hash": ""
   },
   "docs/MoneyTracker.md": {
-    "mtime": 1794861893.7609382,
-    "ast_hash": "5227ebd63499fb48bc63b9ae11e9f068",
+    "mtime": 1794865476.979927,
+    "ast_hash": "febaa7a9d6a60379b61bb7e2b533e07c",
     "semantic_hash": ""
   },
   "docs/MoneyTracker.pdf": {
@@ -515,8 +515,8 @@
     "semantic_hash": ""
   },
   ".cantiere/APPROVAZIONI.md": {
-    "mtime": 1794861385.1855397,
-    "ast_hash": "85f2d45d1c703a0ac11ec6c2636ddb73",
+    "mtime": 1794865386.2382922,
+    "ast_hash": "4184b28460a77bcdb2e9da60c5bff5eb",
     "semantic_hash": ""
   },
   ".cantiere/AVVIO.md": {
@@ -525,23 +525,23 @@
     "semantic_hash": ""
   },
   ".cantiere/CHECKPOINT.md": {
-    "mtime": 1794860913.2628953,
-    "ast_hash": "9b1e87eb2da593b103fc5832c2467e79",
+    "mtime": 1794862099.0307236,
+    "ast_hash": "ad6a5ce20952486a3af67c25aa30e1e3",
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1794861829.6233103,
-    "ast_hash": "80fe2396ee925f5ef99026426e1ed68f",
+    "mtime": 1794865386.2399688,
+    "ast_hash": "02d7919e72465b913df162fc73a8c3b0",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
-    "mtime": 1794861385.1847894,
+    "mtime": 1794862099.0404568,
     "ast_hash": "9a9cab2d49c0c704c22e9f3fa645119b",
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1794861829.5780547,
-    "ast_hash": "576616ff576222bb04835281271f7150",
+    "mtime": 1794865386.2433374,
+    "ast_hash": "5e78694b1c3d440d87d218c2680436ba",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -555,13 +555,13 @@
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1794860913.2673497,
-    "ast_hash": "96801cae4a6bef0a7aee41fd23e67c8b",
+    "mtime": 1794865386.2459667,
+    "ast_hash": "3c7d9d99f534ee5a349d2c901285b89d",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1794861829.5723515,
-    "ast_hash": "05ada15fd1d30083c2d7ca5a731070ea",
+    "mtime": 1794865453.053607,
+    "ast_hash": "1c068b0d27a218d3f74810b3086fa1df",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1794861886.5315993,
-    "ast_hash": "daf1825d89e8a14199d0047b9feec916",
+    "mtime": 1794865460.8416731,
+    "ast_hash": "eab81db4093bc5a148f2decf59ac3a0b",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -762,6 +762,21 @@
   "MoneyTrackerTests/DaysRemainingPluralTests.swift": {
     "mtime": 1794860913.3250597,
     "ast_hash": "4773449cba1aaf598cc5b5f1be06f234",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Domain/LastUsedCategory.swift": {
+    "mtime": 1794865386.253639,
+    "ast_hash": "7adf6ec1e2ec1a8e428fa0828626a3e4",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/LastUsedCategoryTests.swift": {
+    "mtime": 1794865386.276717,
+    "ast_hash": "773e2915d952b163de811a6dedf4ce1e",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/LastUsedCategoryUITests.swift": {
+    "mtime": 1794865508.638053,
+    "ast_hash": "fc325303f1c2e5fc38adb5a40b238eca",
     "semantic_hash": ""
   }
 }

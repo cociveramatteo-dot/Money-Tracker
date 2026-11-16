@@ -324,7 +324,7 @@ Modello di task:
 
 - **S-29 eseguito Codex 2026-11-16:** helper calendario senza unwrap nei tre Domain, ultimo mese da end−1 s, fetch transazioni unico per regola e Set ID. Quattro errorDescription localizzati; messaggio status già NSLocalizedString, cinque chiavi verificate in tutte le 7 lingue senza nuovi testi. Nuovo test Decimal su store riaperto + DTO JSON + apply: 0.29/1234.56/999999.99 esatti. Build + 81 unit + 3 UI verdi. Da ricollaudare; poi nuova Commissione, non attribuiti voti.
 
-### S-30 [ ] Categoria dall'ultima volta (nuova funzione) — DA FARE SOLO A RESTYLING CHIUSO
+### S-30 [x] Categoria dall'ultima volta (nuova funzione) — 2026-11-16 collaudo ok (traduzioni ancora ⏳ per Matteo)
 - **Quando:** dopo S-14, S-10, checkpoint finale e merge/ok di Matteo sul restyling. Matteo lo avvia lui («partiamo con l'altro lavoro»). Non è restyling: tocca la logica dell'inserimento.
 - **A chi:** Codex (Antigravity sospeso fino al 2026-11-20) · collaudo indipendente + Commissione.
 - **Obiettivo:** se il nome di un movimento non ha categoria dalle parole chiave (`KeywordCategoryClassifier`), usare la categoria dell'ultimo movimento con lo stesso nome (D-011). Es.: «Mc» → ultima categoria scelta per «Mc».
@@ -333,9 +333,21 @@ Modello di task:
 - **Fatto quando:** funzione pura in `Domain/` (nuovo file) con test: nome nuovo, maiuscole/accenti, due categorie diverse (vince l'ultima), movimento pianificato/trasferimento ignorati, categoria eliminata, DB vuoto; resa dell'etichetta in light/dark/XL/tedesco; test esistenti invariati.
 - **Non fare:** modificare modelli/Persistence/Sync, cambiare il classifier a parole chiave, suggerimenti per somiglianza.
 
+- **Eseguito Codex 2026-11-16:** avvio autorizzato da Matteo dopo chiusura restyling e merge su main; ramo `categoria-ultima-volta` da `489154b`. Funzione pura `LastUsedCategory`, priorità cronologia → keyword, nomi esatti normalizzati, solo effettuati/non trasferimenti, ultimo per `createdAt`, categoria eliminata → fallback. Etichetta in 7 lingue, traduzioni ⏳. Nessun modello/sync/classifier o test esistente modificato.
+- **Verifiche:** build e 90 unit (83 esistenti + 7 nuovi) verdi; 4 UI S-6 verdi; 4 nuovi UI S-30 verificano anche correzione manuale → prossimo suggerimento. Screenshot light/dark/XL/de e dettagli in CONSEGNA. Nessun push/merge. Prossimo: collaudo indipendente Claude Code · Sonnet.
+
 ### S-31 [x] Rimozione confronto mese su mese — 2026-11-16 collaudo ok
 - **A chi:** Codex, autorizzato da Matteo 2026-11-16 sul ramo rimuovi-confronto-mese.
 - **Obiettivo:** eliminare interamente S-14 preservando le altre statistiche, verificare lingue, build, unit e UI S-6 con screenshot light/dark/XL/de. Nessun push o merge.
 - **Eseguito Codex 2026-11-16 21:40:** eliminati i quattro file S-14, card/cache/eventi dedicati in StatisticsView e 12 chiavi esclusive × 7 lingue, previo controllo riferimenti con rg. «Dati insufficienti.» conservata perché condivisa. Nessun altro calcolo/test/Export/plurale S-7p modificato. S-14 segnato rimosso, approvazioni ritirate, decisione D-012.
 - **Verifica:** build riuscita; 83 unit in 17 suite verdi (92 meno 9 test S-14); 4 UI S-6 verdi; 12 screenshot light/dark/XL/de ispezionati senza vuoti. Tutti i .strings validi, sei lingue non italiane allineate a 392 chiavi. 541 warning Swift già riscontrati identici nei log precedenti, nessuno nuovo; secondo build dark senza warning. Dettagli/evidenze in CONSEGNA.
 - **Aperto:** niente (collaudo ok 2026-11-16); nessun push/merge.
+
+- **Collaudo 2026-11-16 22:40 (Claude Code · Sonnet):** conforme a D-011. Solo Domain/LastUsedCategory.swift nuovo + AddTransactionView; nessun Models/Persistence/Sync/Auth/Export/classifier toccato. Confronto esatto normalizzato, vince l'ultimo per createdAt, solo isDone && !isTransfer, categoria eliminata → nil, nessun force-unwrap. 7 .strings validi, 395 chiavi uguali nelle 6 lingue non it. Unit 90/90; UI nuovi 4/4; S-6 Sentiero verdi; screenshot dark/de ok; diff --check ok. Fetch dopo debounce 280 ms, non a ogni render. Note: (a) `DemoShowcaseUITests.testShowcaseScreens` fallisce (riga 29, bolletta Enel non hittable in S-26): file non toccato da S-30, da verificare su main → T aperto sotto; (b) il fetch carica tutta la cronologia a ogni pausa di digitazione (ok ora, da rivedere con molti movimenti).
+
+### S-32 [ ] Manutenzione: DemoShowcaseUITests.testShowcaseScreens rosso (anche su main)
+- **A chi:** Codex (Antigravity sospeso fino al 2026-11-20) · collaudo indipendente.
+- **Trovato da:** collaudo S-30 (2026-11-16 22:40); verificato dal capocantiere il 2026-11-16 22:43 che fallisce anche su `main` (489154b, senza S-30): non dipende da S-30. Probabile causa riferita dal collaudatore, non confermata: riga 29 del test, bolletta Enel non tappabile nella schermata demo S-26.
+- **Obiettivo:** capire la causa reale (test fragile o difetto della demo) e sistemarla con la modifica minima. Se il difetto è nella vista, niente restyling; se serve toccare zone protette, fermarsi e chiedere a Matteo.
+- **Fatto quando:** il test passa da solo e nel run UI completo; nessun altro test modificato o indebolito.
+- **Prompt:** da preparare quando Matteo avvia il lavoro.
