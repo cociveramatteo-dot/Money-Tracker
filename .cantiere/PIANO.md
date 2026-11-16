@@ -118,7 +118,7 @@ il task e i file indicati.
 
 - **Ricollaudo 2026-11-16 11:52 · collaudatore:** ok. Opacity rimossa, DS.smoke opaco (ricalcolato 5,60:1 light / 7,28:1 dark), riga distinta da quelle attive (intestazione ARCHIVIATI, testi grigi), ripristino via contextMenu invariato; padding S-7 76 pt confermato. Solo AccountRow/PianificaView + nuovo test UI, nessun Localizable/zona intoccabile/test esistente toccato.
 
-### S-9 [ ] Impostazioni, sheet di inserimento, categorie, login
+### S-9 [x] (collaudo ok 2026-11-13 23:16) Impostazioni, sheet di inserimento, categorie, login
 - **A chi:** Antigravity
 - **Obiettivo:** stessi token per coerenza (schermate non disegnate)
 - **Leggere:** `Views/Theme.swift`, componenti di S-2, `SettingsView.swift`, `AddTransactionView`, viste Auth
@@ -140,7 +140,7 @@ il task e i file indicati.
 - **Non fare:** toccare calcoli o Domain/
 - **Eseguito 2026-11-14 01:14 · Codex:** pagina unica, chip da mockup, Ricorrenti e storico, demo e XL; 27 unit + 12 UI verdi, catture finali light/dark/accessibility-XL/de confrontate a vista, test temporaneo rimosso. Differenze residue e prove in CONSEGNA. Solo il collaudatore o Matteo può passare a [x]. Riserva tab bar XL resta S-10.
 
-### S-13 [ ] Motore ricorrenze a serie virtuali (D-008)
+### S-13 [~] (tutto [x] tranne S-13f: prova reale Supabase, fuori dal restyling) Motore ricorrenze a serie virtuali (D-008)
 - **A chi:** architetto (piano) poi Codex; collaudatore Claude
 - **Obiettivo:** implementare D-008: serie unica, occorrenze virtuali visibili in ogni mese (anche tra un anno), attivazione il primo del mese, salta mese / termina da qui, scelta solo questa / successive / tutte; vecchio motore disattivato senza toccare i dati esistenti
 - **Leggere:** `.cantiere/DECISIONI.md` D-008, `Domain/RecurringTransactionEngine.swift`, `Models/Transaction.swift`, `Domain/SchemaMigration.swift`, Sync
@@ -154,12 +154,12 @@ il task e i file indicati.
   - S-13c [x] (2026-11-14 09:55, collaudo ok) Materializer + spegnimento vecchio motore → Codex · implementato; verifica completata 2026-11-14 09:29: build e 48 unit verdi, UI 10/12 sullo stesso codice (due sessioni, stop intermedio richiesto da Matteo). I due fallimenti sono gli stessi S-15. Nessun codice cambiato alla ripresa; da collaudare prima di d.
   - S-13d [x] collaudato 2026-11-14 10:20 (ok, 60 unit verdi; note in CONSEGNA) · Editor (solo questa / successive / tutte, salta, termina) → Codex · implementato 2026-11-14 09:56: Domain + 12 nuovi test; build e 60 unit verdi. Da collaudare. Stato errore osservabile pronto; alert effettivo e collegamento degli avvii del materializer obbligatori in S-13g (UI intoccabile in d).
   - S-13e [x] fatto da Matteo 2026-11-14 10:27 (rls_attiva = true, numero_policy = 4; isolamento tra utenti da provare col Sync) · Creare tabella `mt_recurring_rules` su Supabase → **Matteo** (SQL e istruzioni li prepara S-13f)
-  - S-13f [~] Sync → Codex · parte Swift **collaudata ok 2026-11-14 10:40** (diff cff65f7); resta [~] solo perché manca la prova reale su Supabase (due dispositivi, due utenti) — vedi S-17 e S-13g
+  - S-13f [~] Sync → Codex · parte Swift **collaudata ok 2026-11-14 10:40** (diff cff65f7); resta [~] FUORI DAL RESTYLING: manca manca la prova reale su Supabase (due dispositivi, due utenti) — vedi S-17 e S-13g
     - 2026-11-14 10:17 · Codex: preparata **solo la parte SQL**, su richiesta di Matteo, in `PER-MATTEO.md` (tabella, indice user_id, grant CRUD e 4 policy RLS). Da collaudare; non eseguita su Supabase. S-13e resta a Matteo; DTO/push/pull/clearLocalData e test Sync ancora da implementare in S-13f.
     - 2026-11-14 10:33 · Codex: DTO, upsert/deleteOrphans, pull max watermark, logout e 4 nuovi test; build + 64 unit verdi (`/tmp/moneytracker-s13f-recheck.log`). Prova reale e collaudo da fare; scoperta S-16 separata.
     - 2026-11-14 10:40 · collaudatore: DTO 16 colonne = SQL, CHECK frequency coerente coi valori del calcolatore, NULL espliciti, push/deleteOrphans filtrati per user_id con fetch throwing, pull max watermark (9 combinazioni), logout ok, 64 unit verdi (log riletto). Nessun difetto bloccante; un rischio di pull → S-17.
   - S-13g [x] UI funzionale → Codex · implementata 2026-11-14: creazione regole/ID deterministici, editor ambiti/salta/termina, serie programmate e virtuali futuri esclusi dai totali, alert errori e avvii lifecycle già presenti verificati. Models/Domain/Sync intatti. Build + 67 unit + 1 nuovo UI verdi (2026-11-14 10:59, `/tmp/moneytracker-s13g-final.log`). Collaudo indipendente da fare. Traduzioni provvisorie nelle 7 lingue → S-19. Rifinitura grafica → S-18. · **collaudato 2026-11-14 11:15** (be6ceb0): ambiti/salta/termina/alert/avvii ok, virtuali fuori dai totali, build+67 unit+1 UI verdi, Domain/Models/Sync intatti. Note: doppio safeSave ridondante in AddTransactionView; il 3° tentativo UI è stato aggiustato solo nel test.
-  - S-13h [!] Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo). · 2026-11-14 11:08: commenti obsoleti sistemati (0 riferimenti a RecurringTransactionActor), docs/MoneyTracker.md+PDF aggiornati, 68 unit verdi. **Commissione Suprema NON a 10/10** → checkpoint (push) bloccato fino a S-21/S-22/S-19/S-18.
+  - S-13h [x] (Commissione 10/10 il 2026-11-16 dopo S-29) Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo). · 2026-11-14 11:08: commenti obsoleti sistemati (0 riferimenti a RecurringTransactionActor), docs/MoneyTracker.md+PDF aggiornati, 68 unit verdi. **Commissione Suprema NON a 10/10** → checkpoint (push) bloccato fino a S-21/S-22/S-19/S-18.
   - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
 
 ### S-15 [x] Diagnosticare due test UI che non trovano il movimento appena salvato
@@ -188,7 +188,7 @@ il task e i file indicati.
 - **Eseguito Codex 2026-11-16:** confronto puro `Decimal` su periodi di uguale durata, card totale/per categoria, aggiornamento cache al cambio dati/giorno; 7 test Domain + 4 UI mirati. Build + 90 unit + 4 UI verdi; screenshot light/dark/XL/de in `.cantiere/tmp/s14/`. 12 nuove chiavi × 7 lingue ⏳ in APPROVAZIONI. Calcoli statistiche precedenti e Export invariati. Collaudo ok 2026-11-16 14:37 (diff + screenshot light/dark/XL/de; build/test non rilanciati, dichiarati verdi). Nota: percentuali >=1000% arrotondate a 3 cifre significative (1234 -> 1230), minore. Traduzioni ⏳ Matteo.
 - **Non fare:** cambiare i calcoli esistenti delle statistiche
 
-### S-10 [ ] Verifica finale + Commissione Suprema
+### S-10 [x] (2026-11-16: Commissione S-10, nessun difetto bloccante; 92 unit verdi; UI 42/45 nel run completo, i 3 falliti rilanciati singolarmente verdi; 2 voti 9 per commento obsoleto e sentence() lunga, corretti in 1748ef5 senza nuova valutazione) Verifica finale + Commissione Suprema
 - **A chi:** Claude Code (collaudatore)
 - **Obiettivo:** collaudo dell'intero ramo
 - **Leggere:** diff del ramo, BRIEF §6–7
@@ -216,13 +216,13 @@ Modello di task:
 
 - S-13f/SQL collaudato 2026-11-14 10:30 (ok, solo diff documentale; SQL non eseguito). Resta [ ] il Sync Swift. S-13e: tocca a Matteo (PER-MATTEO).
 
-### S-16 [ ] Verificare precisione Decimal elevata nella persistenza RecurringRule
+### S-16 [?] FUORI DAL RESTYLING (serve decisione di Matteo: test su precisione Decimal elevata) Verificare precisione Decimal elevata nella persistenza RecurringRule
 - Scoperto durante S-13f: il DTO conserva esattamente `123.4567890123456789` nel round-trip JSON, ma il confronto dell'importo dopo inserimento/fetch SwiftData ha fallito nel test nuovo di merge (prima esecuzione: `/tmp/moneytracker-s13f.log`, riga 928). Il test comprendeva anche exceptionsJSON: isolare e misurare la differenza prima di attribuire la causa.
 - Il test finale di merge usa `0.2`; il DTO mantiene la prova ad alta precisione. Nessun modello o test preesistente modificato.
 - A chi: collaudatore per diagnosi; eventuale correzione Models/Persistence richiede assegnazione specifica. Non dichiarare risolto in S-13f.
 - **Diagnosi preliminare (collaudatore 2026-11-14 10:40, da log, nessuna esecuzione nuova):** il confronto fallito era `inserted.amount == added.amount` (importo), non exceptionsJSON (nel log risulta «not evaluated»). `added` non era inserito nel context, `inserted` è l'oggetto persistito: il valore a 19 cifre non torna uguale dopo il passaggio dal modello SwiftData. Ipotesi (NON verificata): SwiftData salva `Decimal` con precisione ridotta. Impatto pratico basso: gli importi reali hanno ≤ 2–4 decimali (il test con `0.2` passa). Il DTO/JSON è esatto (provato). Per chiudere: un test diagnostico che stampi `amount` dopo save+fetch per 0.2, 1234.56, 12 cifre, 19 cifre. Nessuna correzione al modello finché non è misurato.
 
-### S-17 [~] Pull: non cancellare regole locali non ancora spedite
+### S-17 [x] (collaudo ok 2026-11-14) Pull: non cancellare regole locali non ancora spedite
 - Trovato nel collaudo S-13f. `mergeRecurringRules` cancella ogni regola locale assente dal remoto. Via `syncOnForeground` è sicuro (push riuscito prima del pull), ma `syncOnLogin` con stesso utente e account già remoti chiama `pull` senza push: una regola creata offline/prima del primo sync verrebbe cancellata. Stesso comportamento dei budget (rischio già accettato lì), ma una regola porta con sé watermark ed eccezioni.
 - Proposta: come per gli account, saltare la cancellazione orfani se il remoto è vuoto e il locale no (o proteggere le regole non ancora pushate). Assegnare a Codex, toccando solo SyncService + un test; da decidere con Matteo se accettare il rischio.
 
