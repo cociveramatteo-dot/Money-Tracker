@@ -480,31 +480,31 @@
 "demo.goal.computer" = "Ordinateur portable";
 "demo.tx.interest" = "Intérêts de l’épargne";
 
-"Andamento" = "[DA COMPLETARE]";
+"Andamento" = "Évolution";
 
-"Per categoria" = "[DA COMPLETARE]";
+"Per categoria" = "Par catégorie";
 
 "PDF" = "PDF";
 
-"Multi-categoria" = "[DA COMPLETARE]";
+"Multi-categoria" = "Multicatégorie";
 
-"Nessuna scadenza" = "[DA COMPLETARE]";
+"Nessuna scadenza" = "Sans échéance";
 
-"Aggiungi progresso" = "[DA COMPLETARE]";
+"Aggiungi progresso" = "Ajouter une progression";
 
-"Progresso complessivo" = "[DA COMPLETARE]";
+"Progresso complessivo" = "Progression globale";
 
-"Avviso all’80%" = "[DA COMPLETARE]";
+"Avviso all’80%" = "Alerte à 80 %";
 
 
-"Mancano %lld giorni" = "[DA COMPLETARE]";
+"Mancano %lld giorni" = "Plus que %lld jours";
 
-"Patrimonio totale" = "[DA COMPLETARE]";
+"Patrimonio totale" = "Patrimoine total";
 
-"Liquidità" = "[DA COMPLETARE]";
+"Liquidità" = "Liquidités";
 
-"Risparmio e investimenti" = "[DA COMPLETARE]";
+"Risparmio e investimenti" = "Épargne et placements";
 
-"Sotto la soglia di %@" = "[DA COMPLETARE]";
+"Sotto la soglia di %@" = "Sous %@";
 
-"Escluso dal totale" = "[DA COMPLETARE]";
+"Escluso dal totale" = "Exclu du total";

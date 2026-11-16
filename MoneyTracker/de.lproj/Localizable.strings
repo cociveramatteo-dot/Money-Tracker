@@ -478,31 +478,31 @@
 "demo.goal.computer" = "Laptop";
 "demo.tx.interest" = "Sparzinsen";
 
-"Andamento" = "[DA COMPLETARE]";
+"Andamento" = "Verlauf";
 
-"Per categoria" = "[DA COMPLETARE]";
+"Per categoria" = "Nach Kategorie";
 
 "PDF" = "PDF";
 
-"Multi-categoria" = "[DA COMPLETARE]";
+"Multi-categoria" = "Mehrere Kategorien";
 
-"Nessuna scadenza" = "[DA COMPLETARE]";
+"Nessuna scadenza" = "Keine Frist";
 
-"Aggiungi progresso" = "[DA COMPLETARE]";
+"Aggiungi progresso" = "Fortschritt hinzufügen";
 
-"Progresso complessivo" = "[DA COMPLETARE]";
+"Progresso complessivo" = "Gesamtfortschritt";
 
-"Avviso all’80%" = "[DA COMPLETARE]";
+"Avviso all’80%" = "Warnung bei 80 %";
 
 
-"Mancano %lld giorni" = "[DA COMPLETARE]";
+"Mancano %lld giorni" = "Noch %lld Tage";
 
-"Patrimonio totale" = "[DA COMPLETARE]";
+"Patrimonio totale" = "Gesamtvermögen";
 
-"Liquidità" = "[DA COMPLETARE]";
+"Liquidità" = "Liquidität";
 
-"Risparmio e investimenti" = "[DA COMPLETARE]";
+"Risparmio e investimenti" = "Sparen & Anlagen";
 
-"Sotto la soglia di %@" = "[DA COMPLETARE]";
+"Sotto la soglia di %@" = "Unter %@";
 
-"Escluso dal totale" = "[DA COMPLETARE]";
+"Escluso dal totale" = "Nicht in Summe";

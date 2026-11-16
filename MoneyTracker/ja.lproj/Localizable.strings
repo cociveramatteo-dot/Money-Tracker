@@ -478,31 +478,31 @@
 "demo.goal.computer" = "ノートパソコン";
 "demo.tx.interest" = "預金利息";
 
-"Andamento" = "[DA COMPLETARE]";
+"Andamento" = "推移";
 
-"Per categoria" = "[DA COMPLETARE]";
+"Per categoria" = "カテゴリ別";
 
 "PDF" = "PDF";
 
-"Multi-categoria" = "[DA COMPLETARE]";
+"Multi-categoria" = "複数カテゴリ";
 
-"Nessuna scadenza" = "[DA COMPLETARE]";
+"Nessuna scadenza" = "期限なし";
 
-"Aggiungi progresso" = "[DA COMPLETARE]";
+"Aggiungi progresso" = "進捗を追加";
 
-"Progresso complessivo" = "[DA COMPLETARE]";
+"Progresso complessivo" = "全体の進捗";
 
-"Avviso all’80%" = "[DA COMPLETARE]";
+"Avviso all’80%" = "80%で通知";
 
 
-"Mancano %lld giorni" = "[DA COMPLETARE]";
+"Mancano %lld giorni" = "残り%lld日";
 
-"Patrimonio totale" = "[DA COMPLETARE]";
+"Patrimonio totale" = "総資産";
 
-"Liquidità" = "[DA COMPLETARE]";
+"Liquidità" = "現金";
 
-"Risparmio e investimenti" = "[DA COMPLETARE]";
+"Risparmio e investimenti" = "貯蓄・投資";
 
-"Sotto la soglia di %@" = "[DA COMPLETARE]";
+"Sotto la soglia di %@" = "%@未満";
 
-"Escluso dal totale" = "[DA COMPLETARE]";
+"Escluso dal totale" = "合計に含まず";
