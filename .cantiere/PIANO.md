@@ -99,13 +99,15 @@ il task e i file indicati.
 
 - **Eseguito Codex 2026-11-16 11:08:** segmented, hero budget/obiettivi con anello, card dedicate e + 44×44 verso editor esistente. Soglie delegate a BudgetStatus/ProgressBar invariati, progressi ponderati e speso invariati. Build senza warning, 82 unit e 7 UI mirati verdi tra run base e acquisizioni finali (dark separato); 16 screenshot finali ispezionati in `.cantiere/tmp/s7/comparison.png`. Primo run nuove prove rosso per ereditarietà identificatore SwiftUI, risolto con contenitore accessibile e selezione per etichetta senza togliere asserzioni. Sei chiavi nuove x7; traduzioni non fornite `[DA COMPLETARE]`, ⏳. Differenze sorgente: navigazione mese e azioni esistenti preservate, percentuale hero DS 30 anziché 28, importi con /, icone obiettivo tinta accent. Nessuna conformità dichiarata; collaudo definitivo pendente.
 
-### S-8 [ ] Conti
+### S-8 [~] Conti
 - **A chi:** Antigravity (o Codex)
 - **Obiettivo:** schermata come `Conti.dc.html`, raggruppamento per tipo solo visivo
 - **Leggere:** `DESIGN_HANDOFF.md` §4 Conti, `Views/AccountsView.swift`
 - **Toccare:** `AccountsView.swift`
 - **Fatto quando:** swipe/long-press, archiviazione ed esclusione dal totale invariati; test verdi
 - **Non fare:** cambiare il modello dei conti
+
+- **Eseguito Codex 2026-11-16 11:31:** hero patrimonio, gruppi visivi per tipo, totali gruppo esclusi correttamente, icone tinta, avviso soglia da UserDefaults esistente, riga tratteggiata archiviati con apertura/ripristino. Totali globali, mutazioni e AddAccountView invariati. Build senza warning, 82 unit + 12 UI mirati con ultimi esiti verdi tra i run (non un singolo run completo). Corretto hit target Archiviati dopo primo test rosso, nessuna asserzione rimossa. 13 immagini finali ispezionate: light/dark/XL/de, escluso, archiviati chiusi/aperti, soglia lunga XL, saldi nascosti XL. `.cantiere/tmp/s8/`. Residui: traduzioni ⏳, Archiviati con conteggio separato, icone SF invece SVG, attenuazione preesistente righe archiviate da valutare al collaudo. Nessuna conformità dichiarata.
 
 ### S-9 [ ] Impostazioni, sheet di inserimento, categorie, login
 - **A chi:** Antigravity

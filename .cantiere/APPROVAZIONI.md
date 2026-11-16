@@ -15,3 +15,6 @@ Italiano dal mockup: «Andamento», «Per categoria», «PDF». «Netto» riusa 
 
 ## S-7 · testi di presentazione · ⏳
 Dal riferimento: «Multi-categoria», «Nessuna scadenza», «Aggiungi progresso», «Progresso complessivo», «Avviso all’80%», «Mancano %lld giorni». «Storico Budget» riusa la chiave esistente. Nuove traduzioni non fornite: `[DA COMPLETARE]` nelle sei lingue; chiavi preesistenti riusate.
+
+## S-8 · testi del riferimento · ⏳
+«Patrimonio totale», «Liquidità», «Risparmio e investimenti», «Sotto la soglia di %@», «Escluso dal totale»: italiano dal sorgente/handoff. Traduzioni nuove non fornite `[DA COMPLETARE]` nelle sei lingue, riusate quelle già esistenti se presenti. «Archiviati» e «A conti fatti» riusano chiavi esistenti.

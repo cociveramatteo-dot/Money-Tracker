@@ -7,8 +7,12 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ### Approvazione traduzioni (APPROVAZIONI.md)
 📍 Apri `.cantiere/APPROVAZIONI.md`.
-▶️ Controlla le voci ⏳: traduzioni de/es/zh riviste in S-19 (il «Termin» tedesco da far rileggere a un madrelingua), «Bewegungen» della tab bar (S-28) e quelle nuove che S-29 aggiungerà. Per ognuna scrivi ✅ o la correzione.
-↩️ Dimmi «traduzioni approvate» oppure le correzioni.
+▶️ Controlla le voci ⏳ S-19/S-28 e S-6/S-7/S-8. Per i testi già tradotti scrivi ✅ o la correzione. I nuovi testi del redesign hanno `[DA COMPLETARE]` dove manca una traduzione fornita: prima vanno completati dal redattore.
+📍 Nella chat del capocantiere, incolla:
+```text
+Assegna al redattore il completamento delle sole traduzioni [DA COMPLETARE] introdotte da S-6, S-7 e S-8 nei Localizable.strings en/de/es/fr/ja/zh-Hans. Le sorgenti italiane e le voci ⏳ sono in APPROVAZIONI.md. Traduci fedelmente i testi forniti senza aggiungere contenuti; preserva esattamente i segnaposto %lld e %@. Non modificare altre chiavi, logica, modelli o viste. Verifica plutil e unicità chiavi x7. Registra le proposte come ⏳ e lasciale alla mia approvazione; dopo le traduzioni serve ricontrollo visivo soprattutto de/XL. Nessun push o merge.
+```
+↩️ Riporta «traduzioni pronte da approvare» o le correzioni. Per S-19 resta utile la rilettura madrelingua di «Termin» tedesco. S-29 non ha introdotto nuove traduzioni: ha riusato chiavi esistenti.
 
 ### S-21 — controllo manuale menu dopo il collaudo
 📍 Simulator Xcode, MoneyTracker, scheda Movimenti (dati demo).
