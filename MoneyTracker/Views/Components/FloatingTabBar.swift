@@ -25,9 +25,8 @@ struct FloatingTabBar: View {
                             .background(active ? DS.accentSoft : .clear, in: Capsule())
                         Text(item.title)
                             .font(active ? DS.Typo.tabLabelActive : DS.Typo.tabLabel)
-                            .lineLimit(2)
-                            .multilineTextAlignment(.center)
-                            .minimumScaleFactor(0.7)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.6)
                             .padding(.horizontal, DS.Space.xs)
                     }
                     .foregroundStyle(active ? DS.ink : DS.smoke)
