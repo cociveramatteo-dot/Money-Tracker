@@ -509,3 +509,17 @@
 "Sotto la soglia di %@" = "低于%@";
 
 "Escluso dal totale" = "不计入总额";
+
+/* S-14 — proposte di traduzione, approvazione pendente */
+"Confronto mese su mese" = "月度对比";
+"Giorni 1–%lld · %@ / %@" = "%2$@ / %3$@ · 1–%1$lld日";
+"Questo mese hai speso il %@%% in più per %@" = "本月%2$@的支出比上月同期增加了%1$@%%";
+"Questo mese hai speso il %@%% in meno per %@" = "本月%2$@的支出比上月同期减少了%1$@%%";
+"Questo mese hai speso il %@%% in più in totale" = "本月总支出比上月同期增加了%@%%";
+"Questo mese hai speso il %@%% in meno in totale" = "本月总支出比上月同期减少了%@%%";
+"Questo mese hai speso quanto nel periodo precedente per %@" = "本月%@的支出与上月同期相同";
+"Questo mese hai speso quanto nel periodo precedente in totale" = "本月总支出与上月同期相同";
+"Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente" = "本月%2$@的支出为%1$@；上月同期没有支出";
+"Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente" = "本月总支出为%@；上月同期没有支出";
+"Spesa pari a zero nei due periodi per %@" = "两个时段的%@支出均为零";
+"Spesa totale pari a zero nei due periodi" = "两个时段的总支出均为零";

@@ -506,3 +506,17 @@
 "Sotto la soglia di %@" = "Unter %@";
 
 "Escluso dal totale" = "Nicht in Summe";
+
+/* S-14 — proposte di traduzione, approvazione pendente */
+"Confronto mese su mese" = "Monatsvergleich";
+"Giorni 1–%lld · %@ / %@" = "Tage 1–%lld · %@ / %@";
+"Questo mese hai speso il %@%% in più per %@" = "Diesen Monat hast du für %2$@ %1$@%% mehr ausgegeben";
+"Questo mese hai speso il %@%% in meno per %@" = "Diesen Monat hast du für %2$@ %1$@%% weniger ausgegeben";
+"Questo mese hai speso il %@%% in più in totale" = "Diesen Monat hast du insgesamt %@%% mehr ausgegeben";
+"Questo mese hai speso il %@%% in meno in totale" = "Diesen Monat hast du insgesamt %@%% weniger ausgegeben";
+"Questo mese hai speso quanto nel periodo precedente per %@" = "Diesen Monat hast du für %@ genauso viel ausgegeben wie im vorherigen Zeitraum";
+"Questo mese hai speso quanto nel periodo precedente in totale" = "Deine Gesamtausgaben in diesem Monat entsprechen dem vorherigen Zeitraum";
+"Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente" = "Diesen Monat hast du %1$@ für %2$@ ausgegeben; im vorherigen Zeitraum gab es keine Ausgaben";
+"Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente" = "Diesen Monat hast du insgesamt %@ ausgegeben; im vorherigen Zeitraum gab es keine Ausgaben";
+"Spesa pari a zero nei due periodi per %@" = "Für %@ liegen die Ausgaben in beiden Zeiträumen bei null";
+"Spesa totale pari a zero nei due periodi" = "Die Gesamtausgaben liegen in beiden Zeiträumen bei null";

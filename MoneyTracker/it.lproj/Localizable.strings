@@ -129,3 +129,17 @@
 "Sotto la soglia di %@" = "Sotto la soglia di %@";
 
 "Escluso dal totale" = "Escluso dal totale";
+
+/* S-14 — proposte di traduzione, approvazione pendente */
+"Confronto mese su mese" = "Confronto mese su mese";
+"Giorni 1–%lld · %@ / %@" = "Giorni 1–%lld · %@ / %@";
+"Questo mese hai speso il %@%% in più per %@" = "Questo mese hai speso di più per %2$@ (+%1$@%%)";
+"Questo mese hai speso il %@%% in meno per %@" = "Questo mese hai speso di meno per %2$@ (−%1$@%%)";
+"Questo mese hai speso il %@%% in più in totale" = "Questo mese hai speso di più in totale (+%@%%)";
+"Questo mese hai speso il %@%% in meno in totale" = "Questo mese hai speso di meno in totale (−%@%%)";
+"Questo mese hai speso quanto nel periodo precedente per %@" = "Questo mese hai speso quanto nel periodo precedente per %@";
+"Questo mese hai speso quanto nel periodo precedente in totale" = "Questo mese hai speso quanto nel periodo precedente in totale";
+"Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente" = "Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente";
+"Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente" = "Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente";
+"Spesa pari a zero nei due periodi per %@" = "Spesa pari a zero nei due periodi per %@";
+"Spesa totale pari a zero nei due periodi" = "Spesa totale pari a zero nei due periodi";

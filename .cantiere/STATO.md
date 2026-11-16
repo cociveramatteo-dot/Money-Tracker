@@ -1,6 +1,6 @@
 # STATO DEL CANTIERE
 
 In turno: nessuno
-Dalle: 2026-11-16 12:14
+Dalle: —
 Ultimo checkpoint: —
-Fase: S-7p [~] plurali implementati e verificati; segue S-14. S-6/S-7/S-8 [x] dai collaudi precedenti. Approvazioni traduzioni e Commissione S-13h pendenti. Nessun push/merge.
+Fase: S-7p [~] e S-14 [~] implementati e verificati; in attesa di collaudo e approvazione traduzioni. S-6/S-7/S-8 [x]. Modifiche esterne D-011/S-30 lasciate fuori dal commit del turno. Nessun push/merge.

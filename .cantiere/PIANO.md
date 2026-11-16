@@ -179,11 +179,13 @@ il task e i file indicati.
 - **A chi:** Codex, assegnato da Matteo in chat.
 - **Eseguito 2026-11-16 12:14:** sette Localizable.stringsdict; singolare in it/en/de/es/fr, sola forma other in ja/zh-Hans. Plurali italiani e testi plurali esistenti invariati. Pianifica usa localizedStringWithFormat. Verifica runtime di 0/1/2 in tutte sette lingue (21 casi), build + 83 unit e 1 UI Pianifica verdi. Nuove forme singolari ⏳ in APPROVAZIONI. Nessun test esistente modificato, nessuna zona intoccabile. Da collaudare.
 
-### S-14 [ ] Statistiche: confronto mese su mese
+### S-14 [~] Statistiche: confronto mese su mese
 - **A chi:** Codex (o Antigravity) · dopo S-6 (stessa schermata)
 - **Obiettivo:** frase/card tipo «Questo mese hai speso il 12% in più per Cibo»: per categoria e totale, mese corrente vs mese precedente, stesso periodo di giorni; colori neutri/«danger» da Theme, mai solo colore (anche testo/freccia)
 - **Leggere:** `Statistiche.dc.html` (se il mockup non lo prevede, chiedere a Matteo dove metterlo), `Views/StatisticsView.swift`
 - **Fatto quando:** funzione pura in `Domain/` con `Decimal` + test (mese precedente vuoto, divisione per zero, categoria nuova, mese corrente a metà); resa confrontata col mockup in light/dark/XL/tedesco; testi nelle 7 lingue
+
+- **Eseguito Codex 2026-11-16:** confronto puro `Decimal` su periodi di uguale durata, card totale/per categoria, aggiornamento cache al cambio dati/giorno; 7 test Domain + 4 UI mirati. Build + 90 unit + 4 UI verdi; screenshot light/dark/XL/de in `.cantiere/tmp/s14/`. 12 nuove chiavi × 7 lingue ⏳ in APPROVAZIONI. Calcoli statistiche precedenti e Export invariati. Da collaudare.
 - **Non fare:** cambiare i calcoli esistenti delle statistiche
 
 ### S-10 [ ] Verifica finale + Commissione Suprema

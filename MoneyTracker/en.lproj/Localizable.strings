@@ -507,3 +507,17 @@
 "Sotto la soglia di %@" = "Below %@";
 
 "Escluso dal totale" = "Excluded from total";
+
+/* S-14 — proposte di traduzione, approvazione pendente */
+"Confronto mese su mese" = "Month-over-month comparison";
+"Giorni 1–%lld · %@ / %@" = "Days 1–%lld · %@ / %@";
+"Questo mese hai speso il %@%% in più per %@" = "This month you spent %@%% more on %@";
+"Questo mese hai speso il %@%% in meno per %@" = "This month you spent %@%% less on %@";
+"Questo mese hai speso il %@%% in più in totale" = "In total, you spent %@%% more this month";
+"Questo mese hai speso il %@%% in meno in totale" = "In total, you spent %@%% less this month";
+"Questo mese hai speso quanto nel periodo precedente per %@" = "This month you spent the same on %@ as in the previous period";
+"Questo mese hai speso quanto nel periodo precedente in totale" = "This month’s total spending matches the previous period";
+"Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente" = "This month you spent %@ on %@; no spending in the previous period";
+"Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente" = "This month you spent %@ in total; no spending in the previous period";
+"Spesa pari a zero nei due periodi per %@" = "Spending on %@ is zero in both periods";
+"Spesa totale pari a zero nei due periodi" = "Total spending is zero in both periods";
