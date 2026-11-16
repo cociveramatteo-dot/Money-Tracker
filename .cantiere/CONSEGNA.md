@@ -22,3 +22,6 @@ Tutti gli artefatti graphify-out erano già modificati/non tracciati; aggiornati
 
 ## Prossimo
 Collaudo indipendente S-18 → collaudatore Claude Code (Sonnet): leggere solo il diff del commit S-18 e queste evidenze, confrontare proposta approvata e otto immagini valide; verificare callback e logica invariati, light/dark/XL/tedesco, nessuna zona intoccabile. Solo collaudatore o Matteo porta S-18 a [x]. Dopo: S-19 al redattore. Nessun push/merge.
+
+## Collaudo S-18 (2026-11-16 09:43)
+Esito ok, S-18 [x]. Prossimo: S-19 -> redattore; S-28 -> Codex.

@@ -68,3 +68,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 03:55 | collaudatore (Claude Code · Sonnet) | S-27 | collaudo ok: diff 35ea8d4, fallback seeder, reset filtri solo --uitesting, test collisioni valido, zone intoccabili intatte, build + 80 unit verdi | S-18/S-19, Commissione S-13h |
 
 | 2026-11-16 09:40 | impresa (Codex · GPT-6) | S-18 | proposta approvata; card serie/virtuali Sentiero; 80 unit + 7 UI verdi e dark reale mirato verde, otto immagini ispezionate | collaudo S-18; S-19/S-13h; tab bar XL S-28 |
+| 2026-11-16 09:43 | collaudatore (Claude Code · Sonnet) | S-18 | collaudo ok: diff, immagini, unit verdi | S-19 redattore, S-28 |
