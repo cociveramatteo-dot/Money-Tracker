@@ -71,3 +71,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 09:43 | collaudatore (Claude Code · Sonnet) | S-18 | collaudo ok: diff, immagini, unit verdi | S-19 redattore, S-28 |
 | 2026-11-16 09:45 | redattore (Claude Code · Sonnet) | S-19 revisione traduzioni S-13g | 7 lingue riviste (de, fr, ja, zh-Hans corrette; it/en/es confermate), marker rimossi; plutil ok, chiavi allineate | collaudo + rilettura madrelingua |
 | 2026-11-16 09:47 | collaudatore (Claude Code · Sonnet) | S-19 | collaudo ok: strings valide, chiavi allineate, 0 marker; note genere de/es su «Nessuno» | approvazione Matteo, S-28 |
+| 2026-11-16 09:47 | redattore (Claude Code · Sonnet) | S-19 correzione 4 rilievi collaudo | de Keines/Termine, es Ninguna, zh 项目; plutil ok | ricollaudo veloce + approvazione Matteo |

@@ -100,7 +100,7 @@
 "Nessuna serie ricorrente" = "Keine wiederkehrende Reihe";
 "I pagamenti che si ripetono per almeno 2 mesi appariranno qui." = "Zahlungen, die sich mindestens 2 Monate lang wiederholen, erscheinen hier.";
 "Serie eliminata"  = "Reihe gelöscht";
-"Tutte le occorrenze di questo pagamento ricorrente sono state cancellate." = "Alle Vorkommen dieser wiederkehrenden Zahlung wurden gelöscht.";
+"Tutte le occorrenze di questo pagamento ricorrente sono state cancellate." = "Alle Termine dieser wiederkehrenden Zahlung wurden gelöscht.";
 
 /* ── Fixed items row ─────────────────────── */
 "Da pagare"  = "Zu zahlen";
@@ -457,7 +457,7 @@
 "Termina il" = "Endet am";
 "Attiva" = "Aktiv";
 "Prossima occorrenza" = "Nächster Termin";
-"Nessuno" = "Keine";
+"Nessuno" = "Keines";
 "Tipo" = "Typ";
 "Le ricorrenze richiedono il contesto principale." = "Wiederholungen erfordern den Hauptkontext.";
 "L’occorrenza non appartiene alla serie." = "Der Termin gehört nicht zu dieser Reihe.";
