@@ -95,3 +95,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 11:34 | collaudatore (Claude Code · Sonnet) | S-6/S-7/S-8 | S-6 e S-7 [x]; S-8 [!] per contrasto righe archiviate (opacity 0.35) | fix S-8 a Codex; traduzioni ⏳ |
 
 | 2026-11-16 11:48 | impresa (Codex · GPT-6) | correzioni collaudo S-7/S-8 | archiviati DS.smoke opaco AA e fascia FAB Pianifica 76 pt; build, 82 unit + 3 UI verdi, 15 screenshot ispezionati | S-8 [~] ricollaudo e controllo padding S-7; traduzioni al redattore |
+| 2026-11-16 11:52 | collaudatore (Claude Code · Sonnet) | S-8 ricollaudo c14b29a | S-8 [x]; contrasto 5,60/7,28:1 ricalcolato, S-7 padding ok | traduzioni ⏳, commissione S-13h |

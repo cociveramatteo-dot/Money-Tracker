@@ -103,7 +103,7 @@ il task e i file indicati.
 
 - **Correzione aggiuntiva richiesta da Matteo · 2026-11-16 11:48 · Codex:** padding esterno inferiore dello ScrollView di 76 pt (token DS), per riservare la fascia del FAB anche a inizio scroll, in Budget e Obiettivi. Aspetto delle card e logica invariati. UI light/dark/XL verificano frame scroll sopra FAB e screenshot iniziali/fondo. S-7 resta [x] dal collaudo precedente; il solo padding è da ricontrollare.
 
-### S-8 [~] Conti
+### S-8 [x] Conti (2026-11-16 11:52 · collaudo ok)
 - **A chi:** Antigravity (o Codex)
 - **Obiettivo:** schermata come `Conti.dc.html`, raggruppamento per tipo solo visivo
 - **Leggere:** `DESIGN_HANDOFF.md` §4 Conti, `Views/AccountsView.swift`
@@ -115,6 +115,8 @@ il task e i file indicati.
 - **Eseguito Codex 2026-11-16 11:31:** hero patrimonio, gruppi visivi per tipo, totali gruppo esclusi correttamente, icone tinta, avviso soglia da UserDefaults esistente, riga tratteggiata archiviati con apertura/ripristino. Totali globali, mutazioni e AddAccountView invariati. Build senza warning, 82 unit + 12 UI mirati con ultimi esiti verdi tra i run (non un singolo run completo). Corretto hit target Archiviati dopo primo test rosso, nessuna asserzione rimossa. 13 immagini finali ispezionate: light/dark/XL/de, escluso, archiviati chiusi/aperti, soglia lunga XL, saldi nascosti XL. `.cantiere/tmp/s8/`. Residui: traduzioni ⏳, Archiviati con conteggio separato, icone SF invece SVG, attenuazione preesistente righe archiviate da valutare al collaudo. Nessuna conformità dichiarata.
 
 - **Correzione collaudo · 2026-11-16 11:48 · Codex [~]:** rimossa opacity 0.35 dalle righe archiviate; testi/importi/icone usano DS.smoke opaco nello stato archiviato. Contrasto token testo/sfondo 5,60:1 light e 7,28:1 dark; icone almeno 5,14:1 / 5,32:1 sui fondi tinta. Distinzione dagli attivi conservata, menu/ripristino invariati e verificati in light/dark/XL. Build senza warning, 82 unit e 3 UI mirati verdi; 15 screenshot ispezionati in `.cantiere/tmp/review-s7-s8/`, incluso prima/dopo del riquadro 3 precedente. Localizable.strings non toccati. Ricollaudo dello stato archiviati espansi e del padding S-7.
+
+- **Ricollaudo 2026-11-16 11:52 · collaudatore:** ok. Opacity rimossa, DS.smoke opaco (ricalcolato 5,60:1 light / 7,28:1 dark), riga distinta da quelle attive (intestazione ARCHIVIATI, testi grigi), ripristino via contextMenu invariato; padding S-7 76 pt confermato. Solo AccountRow/PianificaView + nuovo test UI, nessun Localizable/zona intoccabile/test esistente toccato.
 
 ### S-9 [ ] Impostazioni, sheet di inserimento, categorie, login
 - **A chi:** Antigravity
