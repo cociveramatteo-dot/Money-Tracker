@@ -523,6 +523,15 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 
 ## 10. Changelog
 
+### v3.x (novembre 2026) — Ricorrenze: rifinitura, demo vetrina e chiusura Commissione S-13h (S-17…S-29)
+
+- S-17: il pull non cancella più regole locali non ancora spedite. S-18/S-19: rifinitura grafica di virtuali e serie programmate, revisione di testi e traduzioni (de/es/zh).
+- S-21/S-22: meno ricalcoli per riga in `TransactionsView`, che viene spezzata in componenti. S-23/S-25: editor di singola occorrenza e uniformità dei campi per ambito (il tap normale applica «Tutte» alla serie). S-24: eliminazione delle serie con confronto per giorno originale; «già effettuato» resta della singola copia.
+- S-26: demo vetrina completa (`DemoDataSeeder`, `seedVersion` 6) con vere regole, override e occorrenza effettuata, 32 chiavi `demo.*` in 7 lingue. S-27: full run UI 16/16.
+- S-28: tab bar leggibile con Dynamic Type XL (`lineLimit(1)` + `minimumScaleFactor(0.6)`; «Bewegungen» completo su una riga).
+- S-29 (Commissione S-13h, ora 10/10): helper di calendario con fallback al posto dei `!`, `lastMonth` calcolato su `interval.end - 1`, un solo fetch per regola nel materializer, `errorDescription` localizzati, test round-trip `Decimal` SwiftData/DTO; test sull'estremo dell'intervallo e commento sul guard. 82 unit test verdi.
+- Aperti: approvazione traduzioni (Matteo), prova manuale S-24 sul caso reale, prova reale Supabase (S-13f).
+
 ### v3.x (novembre 2026) — Ricorrenze a serie virtuali (S-13)
 
 - Nuovo motore: `RecurrenceCalculator`, `RecurringMaterializer`, `RecurringSeriesEditor`, `RecurringRule` sincronizzata; sostituisce `RecurringTransactionActor` (rimosso, commenti obsoleti aggiornati).
