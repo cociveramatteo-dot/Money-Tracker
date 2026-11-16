@@ -20,10 +20,10 @@ Dal riferimento: «Multi-categoria», «Nessuna scadenza», «Aggiungi progresso
 «Patrimonio totale», «Liquidità», «Risparmio e investimenti», «Sotto la soglia di %@», «Escluso dal totale»: italiano dal sorgente/handoff. Traduzioni nuove non fornite `[DA COMPLETARE]` nelle sei lingue, riusate quelle già esistenti se presenti. «Archiviati» e «A conti fatti» riusano chiavi esistenti.
 | S-6/7/8 | 13 traduzioni nuove (Andamento, Per categoria, Multi-categoria, Nessuna scadenza, Aggiungi progresso, Progresso complessivo, Avviso all'80%, Mancano %lld giorni, Patrimonio totale, Liquidità, Risparmio e investimenti, Sotto la soglia di %@, Escluso dal totale) in 6 lingue, proposte dal redattore; dubbi: singolare «1 giorno», «Liquidità»=Cash/現金, de «Sparen & Anlagen»/«Nicht in Summe» | MoneyTracker/*.lproj/Localizable.strings | Matteo | ✅ | 2026-11-16 | Approvate da Matteo in chat 2026-11-16 (dubbio singolare «1 giorno» e madrelingua aperti); compilate al posto dei [DA COMPLETARE]; plutil ok, chiavi allineate |
 
-## S-7p · plurale giorni · ⏳
+## S-7p · plurale giorni · ✅ approvato da Matteo 2026-11-16
 Forme singolari proposte, derivate dai testi esistenti: it «Manca %lld giorno»; en «%lld day left»; de «Noch %lld Tag»; es «Falta %lld día»; fr «Plus que %lld jour». Plurali e zero conservano i testi già presenti (italiano «Mancano %lld giorni» invariato). ja «残り%lld日» e zh-Hans «还剩%lld天» mantengono una sola forma. Nessun nuovo contenuto, solo accordo grammaticale; approvazione pendente.
 
-## S-14 · confronto mese su mese · ⏳
+## S-14 · confronto mese su mese · ✅ approvato da Matteo 2026-11-16
 Testi funzionali proposti sui dati reali del confronto, non dati o percentuali fissi. Percentuali assenti quando la base è zero. Nessun termine lasciato ambiguo; tutte le proposte richiedono approvazione. I valori sono nelle sezioni `S-14` dei sette Localizable.strings.
 
 | Sorgente italiana | en | de | es | fr | ja | zh-Hans |
@@ -41,7 +41,7 @@ Testi funzionali proposti sui dati reali del confronto, non dati o percentuali f
 | Spesa pari a zero nei due periodi per %@ | Spending on %@ is zero in both periods | Für %@ liegen die Ausgaben in beiden Zeiträumen bei null | El gasto en %@ es cero en ambos períodos | Les dépenses pour %@ sont nulles sur les deux périodes | 両期間とも%@への支出はゼロです | 两个时段的%@支出均为零 |
 | Spesa totale pari a zero nei due periodi | Total spending is zero in both periods | Die Gesamtausgaben liegen in beiden Zeiträumen bei null | El gasto total es cero en ambos períodos | Les dépenses totales sont nulles sur les deux périodes | 両期間とも支出総額はゼロです | 两个时段的总支出均为零 |
 
-### S-14 · formulazione percentuali italiana · ⏳
+### S-14 · formulazione percentuali italiana · ✅ approvato da Matteo 2026-11-16
 Proposte italiane effettive senza articolo davanti al numero (valide anche per 1% e 8%); le chiavi precedenti restano identificativi del messaggio:
 - «Questo mese hai speso di più per %2$@ (+%1$@%%)»
 - «Questo mese hai speso di meno per %2$@ (−%1$@%%)»
