@@ -3,15 +3,14 @@
 > Il file per ripartire. Chi riapre il cantiere legge SOLO questo per capire dove siamo.
 > Gli storici stanno in `.cantiere/archivio/checkpoint/`.
 
-**Data:** 2026-11-16 21:45 · **Tag git:** checkpoint-2026-11-16-2145 · **Fatto da:** capocantiere (Claude Code · Sonnet)
+**Data:** 2026-11-16 22:49 · **Tag git:** checkpoint-2026-11-16-2249 · **Fatto da:** capocantiere (Claude Code · Sonnet)
 
 ## Siamo qui
-Ramo `rimuovi-confronto-mese`. Redesign Sentiero completo e collaudato; S-31 (rimozione confronto mese su mese, D-012) chiuso [x]. Collaudo automatico 🟢; 83 unit test e 4 UI Statistiche verdi. Documento master e PDF aggiornati. Non ancora fatto il merge su `main` (serve l'ok di Matteo).
+S-30 «categoria dall'ultima volta» collaudata e con Commissione Suprema 10/10 (secondo giro); traduzioni approvate da Matteo. S-13f e S-13 chiusi da Matteo; S-24 e S-21 verificati. Merge di `categoria-ultima-volta` su `main` e push in questo checkpoint.
 
 ## Stato di salute
-🟢 build, test, collaudo.sh. Aperti: controlli manuali S-24 e S-21, prova Supabase reale (S-13f), S-16, `TransactionsView` 864 righe. Nota: il .strings italiano ha 88 chiavi contro 394 delle altre lingue (preesistente, da confermare che sia voluto).
+🟢 build, 90 unit test, UI S-30 e S-6, collaudo.sh. 🟡 `DemoShowcaseUITests.testShowcaseScreens` rosso anche su main (S-32, da assegnare a Codex). Nota: il .strings italiano ha 88 chiavi contro 395 delle altre lingue (preesistente).
 
 ## Domani si riparte così
-1. Matteo decide il merge di `rimuovi-confronto-mese` su `main` (prima rilanciare i 4 UI test S-6 sulla build finale).
-2. Controlli manuali S-24 e S-21 (Matteo).
-3. Poi S-30 «categoria dall'ultima volta» (D-011).
+1. S-32: sistemare il test demo rosso → Codex (Antigravity sospeso fino al 2026-11-20).
+2. `TransactionsView` ancora 864 righe; S-16 precisione Decimal (opzionali).

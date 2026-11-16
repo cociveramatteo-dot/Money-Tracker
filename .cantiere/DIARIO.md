@@ -110,3 +110,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 
 | 2026-11-16 22:07 | impresa (Codex · GPT-6) | S-30 Categoria dall’ultima volta | Funzione pura, form, 7 lingue; build + 90 unit + 4 UI S-6 + 4 nuovi UI verdi; screenshot light/dark/XL/de ispezionati; ramo categoria-ultima-volta, nessun push/merge | Collaudo indipendente Claude Code · Sonnet; traduzioni ⏳ Matteo |
 | 2026-11-16 22:40 | collaudatore (Claude Code · Sonnet) | S-30 collaudo | Conforme D-011; 90 unit, UI S-30 e S-6 verdi, screenshot ok; S-30 [x] | DemoShowcaseUITests rosso (non S-30, da verificare su main); traduzioni ⏳ Matteo |
+| 2026-11-16 22:49 | capocantiere (Claude Code · Sonnet) | == CHECKPOINT | S-30 collaudo ok + Commissione 10/10, doc+PDF, graphify | S-32 |
