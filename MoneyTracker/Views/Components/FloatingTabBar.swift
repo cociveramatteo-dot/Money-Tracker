@@ -25,11 +25,13 @@ struct FloatingTabBar: View {
                             .background(active ? DS.accentSoft : .clear, in: Capsule())
                         Text(item.title)
                             .font(active ? DS.Typo.tabLabelActive : DS.Typo.tabLabel)
-                            .lineLimit(1)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
                             .minimumScaleFactor(0.7)
+                            .padding(.horizontal, DS.Space.xs)
                     }
                     .foregroundStyle(active ? DS.ink : DS.smoke)
-                    .frame(maxWidth: .infinity, minHeight: 66)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 66)
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)

@@ -283,5 +283,7 @@ Modello di task:
 
 - **S-27 eseguito Codex (2026-11-16):** fallback seeder senza force-unwrap; reset txFilterMin/Max/UseDates solo --uitesting; nuovo RecurringCollisionTests (due copie nello stesso giorno, ID distinti anche dopo materializzazione e nel virtuale). Build + 80 unit + 16/16 UI in un unico run sequenziale verdi. Showcase 52,870 s; testNonRecurringEditCannotCreateSeries 22,802 s; nessun timeout idle riprodotto. Da collaudare; dettagli in CONSEGNA.
 
-### S-28 [ ] Tab bar affollata con Dynamic Type XL
+### S-28 [~] Tab bar affollata con Dynamic Type XL
 - **Scoperto in S-18:** nello screenshot XL le etichette Movimenti/Statistiche della tab bar si avvicinano eccessivamente. Fuori dal perimetro S-18, non corretto. Verificare ContentView e layout accessibile senza cambiare funzioni. Evidenza: `/tmp/moneytracker-s18-images/series-sheet.png`, colonna testExtraLarge. → Codex dopo assegnazione.
+
+- **S-28 eseguito Codex 2026-11-16:** FloatingTabBar celle uguali (minWidth 0), margine testo 4 pt per lato, fino a due righe centrate per nomi lunghi. Indici/identificatori/callback e ContentView invariati. Build + 80 unit + 3 UI verdi (italiano L/XL, tedesco XL); screenshot finali ispezionati. Da collaudare, evidenze in CONSEGNA.
