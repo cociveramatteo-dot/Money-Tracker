@@ -54,6 +54,8 @@ struct RecurringMaterializer {
             while cursor <= currentMonth {
                 let nextMonth = calculator.adding(.month, value: 1, to: cursor)
                 // No mutations have occurred: preserve watermarks if the calendar cannot advance.
+                // Unreachable with a valid calendar: defends against a calendar fallback that does not advance.
+                // It exits before any mutation, so there is no infinite loop and no half-written watermark.
                 guard nextMonth > cursor else { return 0 }
                 for occurrence in calculator.occurrences(rule: snapshot, in: DateInterval(start: cursor, end: nextMonth)) {
                     let id = occurrence.id

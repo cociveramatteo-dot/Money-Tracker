@@ -23,3 +23,6 @@ TransactionsView, blocco reale S-24, traduzioni S-19/S-28, Models/Persistence, A
 
 ## Prossimo
 Ricollaudo S-29 → collaudatore Claude Code (Sonnet): leggere solo il diff del commit S-29 e queste evidenze. Verificare perimetro autorizzato, fallback calendario, estremi intervallo, fetch per regola/idempotenza, chiavi i18n esistenti e test Decimal. Solo collaudatore o Matteo può portare S-29 a [x]. Poi nuova Commissione Suprema S-13h: nessuna nuova valutazione 10/10 dichiarata in questo turno. Approvazione traduzioni Matteo ancora pendente. Nessun push/merge.
+
+## Follow-up S-29 (operaio, 2026-11-16 10:17)
+Aggiunto test `halfOpenEndAtMonthStart` in RecurrenceCalculatorTests (intervallo che termina a mezzanotte del 1° del mese: nessuna occorrenza del mese end, tutte quelle del precedente). Aggiunto solo un commento sul guard in RecurringMaterializer. 82 unit test verdi.

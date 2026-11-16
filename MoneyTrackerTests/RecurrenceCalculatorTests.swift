@@ -56,6 +56,15 @@ struct RecurrenceCalculatorTests {
         #expect(calculator.occurrences(rule: input, in: interval).isEmpty)
     }
 
+    @Test("Interval ending at midnight of the 1st excludes the end month")
+    func halfOpenEndAtMonthStart() {
+        let interval = DateInterval(start: date(2026, 3, 1, hour: 0), end: date(2026, 4, 1, hour: 0))
+        let weekly = calculator.occurrences(rule: rule("settimanale", start: date(2026, 3, 1, hour: 0)), in: interval)
+        #expect(weekly.map(\.key) == ["2026-03-01", "2026-03-08", "2026-03-15", "2026-03-22", "2026-03-29"])
+        let monthly = calculator.occurrences(rule: rule(start: date(2026, 1, 1, hour: 0)), in: interval)
+        #expect(monthly.map(\.key) == ["2026-03-01"])
+    }
+
     @Test("Normal editor preserves occurrence position and clamped anchors")
     func normalEditorAnchor() {
         let monthly = rule(start: date(2026, 1, 31))
