@@ -70,3 +70,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 09:40 | impresa (Codex · GPT-6) | S-18 | proposta approvata; card serie/virtuali Sentiero; 80 unit + 7 UI verdi e dark reale mirato verde, otto immagini ispezionate | collaudo S-18; S-19/S-13h; tab bar XL S-28 |
 | 2026-11-16 09:43 | collaudatore (Claude Code · Sonnet) | S-18 | collaudo ok: diff, immagini, unit verdi | S-19 redattore, S-28 |
 | 2026-11-16 09:45 | redattore (Claude Code · Sonnet) | S-19 revisione traduzioni S-13g | 7 lingue riviste (de, fr, ja, zh-Hans corrette; it/en/es confermate), marker rimossi; plutil ok, chiavi allineate | collaudo + rilettura madrelingua |
+| 2026-11-16 09:47 | collaudatore (Claude Code · Sonnet) | S-19 | collaudo ok: strings valide, chiavi allineate, 0 marker; note genere de/es su «Nessuno» | approvazione Matteo, S-28 |

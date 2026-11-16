@@ -18,3 +18,6 @@ In questo turno non avevo Bash: NON eseguiti `plutil -lint`, `date`, commit, rig
 
 ## Dubbi
 «Nessuno» (chiave generica): tradotto senza contesto (de «Keine», es «Ninguno»); verificare dove compare. «contesto principale» è testo tecnico, tradotto alla lettera.
+
+## Collaudo S-19 (collaudatore, 2026-11-16 09:47)
+Esito ok → [x]. Approvazione Matteo ancora ⏳. Da segnalare al redattore/Matteo: «Nessuno» è usato in RecurrenceControls.swift:92 come scelta del Conto → de «Keine» sbagliato (Konto è neutro: «Keines»), es «Ninguno» dovrebbe essere «Ninguna» (cuenta). de riga 103 «Vorkommen» e zh riga 103 «记录» non allineati ai nuovi termini.
