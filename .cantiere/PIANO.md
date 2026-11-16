@@ -78,7 +78,7 @@ il task e i file indicati.
 - **Build separata:** BUILD SUCCEEDED, exit 0 (22:54), nessun errore o warning nuovo nel log finale.
 - **Verifica aperta:** i test non hanno prodotto un esito: il simulatore resta all'avvio e Xcode segnala il servizio `com.apple.instruments.deviceservice.lockdown` / `DTServiceHubClient` non disponibile. Tentati riavvio e rilancio. NON dichiarare test verdi. Richiesti collaudo indipendente e resa a vista light/dark, XL, tedesco (nessuno screenshot utile della schermata ottenuto).
 
-### S-6 [~] Statistiche
+### S-6 [x] Statistiche
 - **A chi:** Antigravity col modello più forte (o Codex)
 - **Obiettivo:** schermata come `Statistiche.dc.html`; grafico con Swift Charts `BarMark` + `position(by:)`
 - **Blocco superato da Matteo 2026-11-16:** autorizzato confronto con sorgente HTML inline, strutture sc-for e handoff §4; nessun runtime o rendering richiesto. Screenshot originali PNG assenti; confronto visivo definitivo al collaudatore.
@@ -86,26 +86,29 @@ il task e i file indicati.
 - **Toccare:** `StatisticsView.swift`
 - **Fatto quando:** export PDF invariato, 6M/12M, media uscite e confronto anno precedente come prima; test verdi
 - **Non fare:** cambiare calcoli o `Export/`
+- **Collaudo 2026-11-16 11:34: [x] collaudo ok** (visivo da screenshot + diff). Differenze accettate: confronto annuale in sezione separata (invariante esistente), target 6M/12M 44pt (HIG), 12M con iniziali. Aperto non bloccante: titoli Andamento/Per categoria mostrano "[DA COMPLETARE]" in de (e nelle altre 5 lingue) finché Matteo non approva le traduzioni (⏳). Nessun colore non adattivo, BarMark+position(by:) presenti, zone intoccabili e test esistenti non toccati.
 
 - **Eseguito Codex 2026-11-16 10:48:** tre tile, card Andamento/categorie, BarMark affiancati, 12M con iniziali leggibili a XL. Calcoli/cache/PDF invariati. Build + 82 unit + 3 UI TabBarAppearance + 4 nuovi UI S-6 verdi (dark separato). Dodici screenshot finali ispezionati, `.cantiere/tmp/s6/comparison.png`. Confronto con sorgente HTML, nessuna conformità dichiarata. Differenze: target 44 pt, impostazioni preservate, sezioni aggiuntive esistenti e confronto annuale anziché mensile nel footer; titoli Andamento/Per categoria da tradurre nelle sei lingue, ⏳.
 
-### S-7 [~] Pianifica (Budget + Obiettivi)
+### S-7 [x] Pianifica (Budget + Obiettivi)
 - **A chi:** Antigravity (o Codex)
 - **Obiettivo:** schermata come `Pianifica.dc.html`
 - **Leggere:** `DESIGN_HANDOFF.md` §4 Pianifica, `Views/PianificaView.swift`
 - **Toccare:** `PianificaView.swift` e relative card
 - **Fatto quando:** soglie 80/100% lette dalla logica esistente (non ricalcolate nella vista); badge testuale di stato; progresso complessivo ponderato invariato; test verdi
 - **Non fare:** ricalcolare soglie, toccare modelli
+- **Collaudo 2026-11-16 11:34: [x] collaudo ok.** Soglie via BudgetStatus/ProgressBar esistenti (nessuna soglia nelle viste), badge testuale (Soglia 80%/Sforato/%) sempre presente, + 44x44, XL e tedesco senza tagli. Differenze accettate: mese separato dalla hero (navigazione esistente), % hero 30 vs 28, icone tinta unica. Aperto non bloccante: "[DA COMPLETARE]" visibile in de (hero e sottotitoli obiettivi) fino ad approvazione traduzioni.
 
 - **Eseguito Codex 2026-11-16 11:08:** segmented, hero budget/obiettivi con anello, card dedicate e + 44×44 verso editor esistente. Soglie delegate a BudgetStatus/ProgressBar invariati, progressi ponderati e speso invariati. Build senza warning, 82 unit e 7 UI mirati verdi tra run base e acquisizioni finali (dark separato); 16 screenshot finali ispezionati in `.cantiere/tmp/s7/comparison.png`. Primo run nuove prove rosso per ereditarietà identificatore SwiftUI, risolto con contenitore accessibile e selezione per etichetta senza togliere asserzioni. Sei chiavi nuove x7; traduzioni non fornite `[DA COMPLETARE]`, ⏳. Differenze sorgente: navigazione mese e azioni esistenti preservate, percentuale hero DS 30 anziché 28, importi con /, icone obiettivo tinta accent. Nessuna conformità dichiarata; collaudo definitivo pendente.
 
-### S-8 [~] Conti
+### S-8 [!] Conti
 - **A chi:** Antigravity (o Codex)
 - **Obiettivo:** schermata come `Conti.dc.html`, raggruppamento per tipo solo visivo
 - **Leggere:** `DESIGN_HANDOFF.md` §4 Conti, `Views/AccountsView.swift`
 - **Toccare:** `AccountsView.swift`
 - **Fatto quando:** swipe/long-press, archiviazione ed esclusione dal totale invariati; test verdi
 - **Non fare:** cambiare il modello dei conti
+- **Collaudo 2026-11-16 11:34: [!] NON PASSA per un punto.** Correggere (Codex): in `Views/AccountsView.swift:~183` le righe archiviate espanse usano `.opacity(0.35)` sull'intera riga: testo e importi quasi illeggibili (contrasto ~1,5:1, vedi `.cantiere/tmp/s8/states.png` riquadro 3, e dark). Sostituire con attenuazione leggibile (es. opacity 0.6-0.65 o colori DS.ink2 senza opacity sull'intera riga) mantenendo la distinzione visiva e la riga ripristinabile; ricontrollare light/dark/XL. Tutto il resto conforme: swipe/long-press, archiviazione, esclusione dal totale, hideBalance, hero/gruppi/icone 40/13, tratteggiata Archiviati con conteggio separato accettata. Dopo il fix basta ricollaudo del solo stato archivi espansi. Aperto non bloccante: "[DA COMPLETARE]" in de (hero, gruppo Liquidità/Risparmio).
 
 - **Eseguito Codex 2026-11-16 11:31:** hero patrimonio, gruppi visivi per tipo, totali gruppo esclusi correttamente, icone tinta, avviso soglia da UserDefaults esistente, riga tratteggiata archiviati con apertura/ripristino. Totali globali, mutazioni e AddAccountView invariati. Build senza warning, 82 unit + 12 UI mirati con ultimi esiti verdi tra i run (non un singolo run completo). Corretto hit target Archiviati dopo primo test rosso, nessuna asserzione rimossa. 13 immagini finali ispezionate: light/dark/XL/de, escluso, archiviati chiusi/aperti, soglia lunga XL, saldi nascosti XL. `.cantiere/tmp/s8/`. Residui: traduzioni ⏳, Archiviati con conteggio separato, icone SF invece SVG, attenuazione preesistente righe archiviate da valutare al collaudo. Nessuna conformità dichiarata.
 

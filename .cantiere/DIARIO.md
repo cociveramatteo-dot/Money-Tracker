@@ -92,3 +92,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 11:08 | impresa (Codex · GPT-6) | S-7 Pianifica | hero/card Sentiero, soglie esistenti, + editor verificato; 82 unit + 7 UI mirati verdi e 16 screenshot ispezionati | collaudo/traduzioni; segue S-8 |
 
 | 2026-11-16 11:31 | impresa (Codex · GPT-6) | S-8 Conti | gruppi e hero Sentiero, menu/swipe/editor conservati; 82 unit + 12 UI mirati con ultimi esiti verdi, 13 screenshot ispezionati | collaudo S-6/S-7/S-8 e completamento/approvazione traduzioni |
+| 2026-11-16 11:34 | collaudatore (Claude Code · Sonnet) | S-6/S-7/S-8 | S-6 e S-7 [x]; S-8 [!] per contrasto righe archiviate (opacity 0.35) | fix S-8 a Codex; traduzioni ⏳ |
