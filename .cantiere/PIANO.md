@@ -214,7 +214,7 @@ Modello di task:
 - **Eseguito Codex 2026-11-16:** proposta approvata da Matteo in chat e registrata in APPROVAZIONI. ProgrammedRuleCard e VirtualOccurrenceRow allineati alla proposta Sentiero, layout adattabile, colori esistenti. Build + 80 unit + 7 UI verdi; verifica dark reale separata verde. Otto screenshot validi ispezionati, evidenze in CONSEGNA. Da collaudare.
 - **Collaudo 2026-11-16 09:43: collaudo ok.** Diff solo ProgrammedRuleCard.swift + nuovo UI test; nessuna zona intoccabile, logica/callback invariati, solo token Theme adattivi, nessuna nuova stringa. Otto immagini valide (light/dark/XL/tedesco) coerenti con proposta Sentiero; 80 unit verdi riverificate. Nota: S-28 (tab bar XL) separato.
 
-### S-19 [x] Revisione testi e traduzioni S-13g · collaudato 2026-11-16 09:47: collaudo ok (solo 7 strings + .cantiere, plutil ok, 380 chiavi allineate, nessuna chiave persa, 0 marker). Approvazione Matteo in APPROVAZIONI.md ancora ⏳. Note: de "Keine" per "Conto" (neutro) → "Keines"; es "Ninguno" per "Conto" (cuenta) → "Ninguna"; de riga 103 resta "Vorkommen"; zh riga 103 "记录" per occorrenze (vs 项目).
+### S-19 [~] Revisione testi e traduzioni S-13g · collaudato 2026-11-16 09:47: collaudo ok (solo 7 strings + .cantiere, plutil ok, 380 chiavi allineate, nessuna chiave persa, 0 marker). Approvazione Matteo in APPROVAZIONI.md ancora ⏳. Note: de "Keine" per "Conto" (neutro) → "Keines"; es "Ninguno" per "Conto" (cuenta) → "Ninguna"; de riga 103 resta "Vorkommen"; zh riga 103 "记录" per occorrenze (vs 项目).
 - **A chi:** redattore (Claude Code · Sonnet).
 - **Perimetro:** blocchi `S-13g — DA RIVEDERE DAL REDATTORE` in tutte le 7 Localizable.strings; etichette, ambiti e messaggi di errore. Sono traduzioni provvisorie, non approvate.
 
