@@ -1,27 +1,22 @@
-# CONSEGNA — S-26 Demo vetrina
+# CONSEGNA — S-27
 
-**Da:** impresa (Codex · GPT-6), 2026-11-16 01:13. Ramo `redesign-sentiero`. Nessun push/merge.
+**Da:** impresa (Codex · GPT-6), 2026-11-16 01:40. Ramo `redesign-sentiero`. Nessun push/merge.
 
-## Implementazione
-- `DemoDataSeeder` versione 6: otto mesi di dati interamente fittizi, stipendio 2.850 €, premi occasionali, due viaggi, picco regali, dentista, acquisti distribuiti; quattro tipi di conto (carta prepagata), giroconti mensili bilanciati e interessi sui risparmi.
-- Nove vere `RecurringRule`: stipendio, affitto, bolletta, internet, video, musica, palestra, assicurazione, rata. Copie storiche/current-month con ID del calculator e `templateId`; bolletta di oggi con override 112,40 €, palestra di oggi già effettuata. Mesi successivi virtuali, watermark al mese corrente (decisione ricorrenze già in DECISIONI.md).
-- Pianificati: bolletta, assicurazione, hotel a fine mese, corso tra tre giorni. Budget per otto mesi, sotto soglia / 80–99% / sforati, quattro obiettivi al 26/44/70/100% circa. Tutte le categorie principali, esclusa la categoria tecnica Rettifica saldo.
-- 32 chiavi `demo.*` usate, coperte in tutte le sette lingue; 12 nuove chiavi per lingua e nome carta aggiornato. Nessuna modifica alle zone intoccabili o ai test esistenti.
-- Reset elimina anche le regole; test dedicato su container in memoria verifica due reset, ID, override, effettuato oggi, storia, categorie, budget, giroconti, mancata rimaterializzazione e delta pianificato non nullo.
+## Modifiche
+- DemoDataSeeder: eliminati tutti i sette force-unwrap con fallback per date/intervalli/categorie; interesse espresso come Decimal(275) / 100, identico valore esatto.
+- MoneyTrackerApp: rimuove txFilterMin, txFilterMax e txFilterUseDates da UserDefaults esclusivamente all'avvio --uitesting. I workaround UI esistenti restano invariati per rispettare il vincolo sui test esistenti.
+- Nuovo RecurringCollisionTests.swift: due copie settimanali spostate sullo stesso giorno mantengono ID distinti; verifica conteggio, stabilità ID dopo materializzazione e unicità nel calendario virtuale. Nessuna modifica ai test esistenti o alle zone intoccabili.
 
 ## Verifiche
-- Build e controllo finale: **79 unit + 4 UI verdi**, `TEST SUCCEEDED` (unit + RecurrenceFlowUITests + DemoShowcaseUITests). Log `/tmp/moneytracker-s26-final.log`; xcresult `/Users/matteo/Library/Developer/Xcode/DerivedData/MoneyTracker-ccjguvvnbihhyiemgfhjfvaiqfwa/Logs/Test/Run-MoneyTracker-2026.11.15_12-43-24-+0100.xcresult`. L'ultimo UI è passato dopo un lunghissimo timeout di idle del simulatore; non è un risultato veloce/prestazionale. Tentata interruzione solo quando sembrava bloccato: il processo era già terminato, nessun test interrotto.
-- Dieci immagini finali esportate e ispezionate in `/tmp/moneytracker-s26-images/` (manifest con nomi). Home: attuale 21.973,16 €, atteso 21.511,76 €, quattro pianificati −461,40 €, curva verde/ambra senza incassi del mese successivo. Movimenti: supermercato e palestra effettuati oggi, indicatori repeat; editor Solo questa con bolletta 112,4; serie con prossime date anche virtuali di dicembre. Statistiche: sei barre mensili diverse, picco vacanze agosto e premio luglio. Budget: Cibo 260/300 (86,7%), Svago 112/90 e Shopping 212/170 sforati, Trasporti 70/240 e Salute 73/180 sotto; Obiettivi: 25/44/70/100% visualizzati. Conti: quattro tipi e saldi positivi plausibili.
-- Primo full run: 79 unit verdi, 14/16 UI verdi. Due test ricorrenze non trovavano righe fuori dalla parte visibile della lista. Distribuzione acquisti e scadenze del seed corretta; rilancio intermedio unit + tutte le ricorrenze + showcase verde (83 test). Nessun test esistente modificato.
-- `plutil -lint` su sette Localizable.strings e controllo delle chiavi: verdi. `git diff --check` verde.
-- Acquisizioni tramite XCTest su iPhone 18 Pro / iOS 27.2, demo `--uitesting` (desktop CUA non disponibile). Screenshot e xcresult restano locali, fuori da git.
-- Confronto con `DESIGN_HANDOFF.md` e `reference/*.dc.html`: Home mostra hero, curva verde e proiezione ambra; gli altri schermi possono essere popolati e verificati, ma Statistiche/Pianifica/Conti non sono ancora tutti conformi ai mockup: lavori già aperti S-6/S-7/S-8. Le serie programmate hanno ancora la grafica da rifinire in S-18. S-26 non certifica il redesign completo.
+- Unico run completo sequenziale: build + **80 unit verdi + 16/16 UI verdi**, TEST SUCCEEDED. UI 868,002 s, sessione test 905,913 s.
+- Comando: `xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' -parallel-testing-enabled NO build test`.
+- Log `/tmp/moneytracker-s27.log`; risultato `/Users/matteo/Library/Developer/Xcode/DerivedData/MoneyTracker-ccjguvvnbihhyiemgfhjfvaiqfwa/Logs/Test/Run-MoneyTracker-2026.11.16_01-24-07-+0100.xcresult`.
+- Showcase: 52,870 s. Il timeout idle storico era nel testNonRecurringEditCannotCreateSeries (log S-26: idle da 12,40 a 2091,94 s, test totale 2107,964 s), non nello showcase. Ora lo stesso test passa in 22,802 s. Nessun messaggio “App event loop idle notification not received” nel run S-27. Causa non accertata: problema non riprodotto; non certificare una correzione prestazionale.
+- Primo avvio del comando in sandbox fallito prima dei test per accesso ai cache Xcode; run completo eseguito dopo autorizzazione, senza rilanci mirati.
+- git diff --check verde. Graphify AST aggiornato, nessun costo LLM; avvisa di 9 file JSON senza nodi (Contents.json e configurazioni), non di errori Swift.
 
 ## File esclusi
-`graphify-out/` era già modificato/non tracciato all'inizio. Eseguito aggiornamento AST senza LLM; tutti gli artefatti del grafo (compresi quelli preesistenti) restano fuori dal commit. Nessun'altra modifica estranea inclusa.
+Tutto graphify-out/ era già modificato/non tracciato all'inizio. Aggiornato localmente, escluso interamente dal commit per non includere lavoro preesistente. Nessun altro file estraneo incluso.
 
 ## Prossimo
-Collaudo indipendente S-26 → collaudatore su Claude Code (Sonnet), leggendo solo il diff del commit e queste evidenze. Solo il collaudatore o Matteo può portare S-26 a [x]. Dopo: S-27 (full UI unico e altri miglioramenti già elencati); poi S-18/S-19 e Commissione S-13h. Nessun push/merge.
-
-## Collaudo S-26 (2026-11-16 01:22)
-Esito: OK. Nessuna modifica a zone intoccabili/test esistenti; seed solo su demoContainer separato; 32 chiavi demo.* in 7 lingue; unit test verdi (rilanciati). Note minori: force-unwrap solo in codice Debug (dateInterval, Category.defaults) accettabili. Prossimo: S-27.
+S-27 [~] → collaudatore Claude Code (Sonnet): leggere solo il diff del commit S-27 e queste evidenze, verificare fallback e isolamento reset filtri, test collisioni e full run. Solo collaudatore o Matteo può portare S-27 a [x]. Restano S-18/S-19 e Commissione S-13h; Statistiche/Pianifica/Conti ancora da allineare secondo task aperti. Nessun push/merge.

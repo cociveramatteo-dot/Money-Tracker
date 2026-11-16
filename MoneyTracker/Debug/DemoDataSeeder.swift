@@ -35,12 +35,12 @@ struct DemoDataSeeder {
         let now = Date()
         let calculator = RecurrenceCalculator()
         let today = calculator.noon(now)
-        let month = cal.dateInterval(of: .month, for: now)!.start
+        let month = cal.dateInterval(of: .month, for: now)?.start ?? today
         // Calendar arithmetic preserves civil days across DST and year boundaries.
         func date(_ offset: Int, _ day: Int) -> Date {
-            let start = cal.date(byAdding: .month, value: offset, to: month)!
-            let clamped = min(day, cal.range(of: .day, in: .month, for: start)!.count)
-            return calculator.noon(cal.date(byAdding: .day, value: clamped - 1, to: start)!)
+            let start = cal.date(byAdding: .month, value: offset, to: month) ?? month
+            let clamped = min(day, (cal.range(of: .day, in: .month, for: start)?.count ?? 28))
+            return calculator.noon(cal.date(byAdding: .day, value: clamped - 1, to: start) ?? start)
         }
         func name(_ key: String) -> String {
             NSLocalizedString("demo." + key, comment: "Fictional demo data")
@@ -135,7 +135,7 @@ struct DemoDataSeeder {
                 let bonus = movement("tx.bonus", offset == -4 ? 450 : 180, "Lavoro", date(offset, 18), conto, type: .entrata)
                 bonus.isDone = true
             }
-            let interest = movement("tx.interest", Decimal(string: "2.75")!, "Risparmio",
+            let interest = movement("tx.interest", Decimal(275) / 100, "Risparmio",
                                     date(offset, min(2, elapsed)), risparmi, type: .entrata)
             interest.isDone = true
             // Paired transfer: visible in accounts, excluded from income/expense reports.
@@ -149,7 +149,7 @@ struct DemoDataSeeder {
         }
         // A non-series plan remains visible even on the final day of the month.
         movement("tx.hotel", 195, "Viaggi", date(0, 31), carta)
-        movement("tx.course", 90, "Istruzione", cal.date(byAdding: .day, value: 3, to: today)!, conto)
+        movement("tx.course", 90, "Istruzione", cal.date(byAdding: .day, value: 3, to: today) ?? today, conto)
 
         for offset in -7...0 {
             let anchor = date(offset, 1)
@@ -157,7 +157,7 @@ struct DemoDataSeeder {
                                                 ("Salute", 180), ("Shopping", 170)]
             for (category, limit) in budgets {
                 context.insert(Budget(category: category,
-                    categoryIcon: Category.defaults.first { $0.name == category }!.icon,
+                    categoryIcon: Category.defaults.first { $0.name == category }?.icon ?? "circle.dotted",
                     monthlyLimit: limit, month: cal.component(.month, from: anchor),
                     year: cal.component(.year, from: anchor)))
             }

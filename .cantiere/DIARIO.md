@@ -63,3 +63,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 
 | 2026-11-16 01:13 | impresa (Codex · GPT-6) | S-26 Demo vetrina | seed v6: otto mesi, nove regole, override/oggi effettuato, pianificati, budget/obiettivi/conti e sette lingue; build + 79 unit + 4 UI verdi, dieci immagini confrontate; commit locale senza push | collaudo indipendente S-26; full UI unico S-27; grafica S-6/S-7/S-8/S-18 |
 | 2026-11-16 01:22 | collaudatore (Claude Code · Sonnet) | S-26 | collaudo ok: diff 0cde11c, zone intoccabili intatte, 32 chiavi demo x 7 lingue, unit test verdi | S-27 |
+
+| 2026-11-16 01:40 | impresa (Codex · GPT-6) | S-27 | fallback seeder, reset filtri test, test collisioni; build + 80 unit + 16/16 UI unico run verdi | collaudo indipendente; idle non riprodotto |

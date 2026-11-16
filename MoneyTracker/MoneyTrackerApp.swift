@@ -28,6 +28,10 @@ struct MoneyTrackerApp: App {
 
     init() {
         if Self.isUITesting {
+            // Persisted advanced filters must not leak between UI test launches.
+            for key in ["txFilterMin", "txFilterMax", "txFilterUseDates"] {
+                UserDefaults.standard.removeObject(forKey: key)
+            }
             UserDefaults.standard.set(true, forKey: "demoModeEnabled")
             UserDefaults.standard.set(false, forKey: "appLockEnabled")
             UserDefaults.standard.set(true, forKey: "notificationsEnabled")
