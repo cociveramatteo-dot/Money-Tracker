@@ -5,6 +5,14 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### S-26 — avviare il collaudo indipendente
+📍 Claude Code, nuova sessione nella cartella `/Users/matteo/Desktop/APP/MoneyTracker`.
+▶️ Incolla:
+```text
+Collauda S-26 Demo vetrina sul ramo redesign-sentiero. Leggi STATO e CONSEGNA, poi solo il diff dell'ultimo commit [impresa] demo vetrina (S-26). Verifica requisiti di PIANO, invarianti delle zone intoccabili, reset senza duplicati, vere regole/override/effettuato, sette lingue e le evidenze dei 79 unit + 4 UI finali verdi. Dieci screenshot e xcresult sono indicati in CONSEGNA; confronta col DESIGN_HANDOFF tenendo separati i task grafici già aperti. Non modificare i test esistenti per farli passare. Solo con esito positivo porta S-26 da [~] a [x] con data/esito. Chiudi secondo AGENTS.md. Nessun push o merge.
+```
+↩️ Riporta l'esito del collaudo oppure i problemi trovati.
+
 ### S-23 — controllo manuale editor singola occorrenza
 📍 Simulator Xcode, MoneyTracker, scheda Movimenti.
 ▶️ (1) Crea un movimento Mensile, salvalo: accanto al titolo deve esserci una piccola icona repeat grigia. (2) Toccalo una volta: si apre l'editor normale, senza selettore ricorrenza; cambia importo e categoria, salva: cambia solo quella copia. (3) Tienilo premuto: compaiono «Ricorrenza» (con icona) ed «Elimina»; «Ricorrenza» apre l'editor della serie. (4) Apri un movimento non ricorrente: nessun selettore di ricorrenza.

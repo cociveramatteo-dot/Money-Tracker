@@ -344,7 +344,7 @@
 /* ── Demo accounts ───────────────────────────── */
 "demo.account.conto"    = "Compte courant";
 "demo.account.risparmi" = "Épargne";
-"demo.account.carta"    = "Carte de crédit";
+"demo.account.carta"    = "Carte prépayée";
 "demo.account.contanti" = "Espèces";
 
 /* ── Demo transactions ───────────────────────── */
@@ -465,3 +465,17 @@
 "L’occorrenza non appartiene alla serie." = "Cette occurrence n’appartient pas à la série.";
 "I valori della ricorrenza non sono validi." = "Les valeurs de la récurrence ne sont pas valides.";
 "Termina dopo questa" = "Terminer après cette occurrence";
+
+// Fictional showcase data
+"demo.tx.internet" = "Internet à domicile";
+"demo.tx.streaming" = "Streaming vidéo";
+"demo.tx.music" = "Musique";
+"demo.tx.gym" = "Salle de sport";
+"demo.tx.insurance" = "Assurance auto";
+"demo.tx.installment" = "Mensualité des meubles";
+"demo.tx.shopping" = "Achats personnels";
+"demo.tx.course" = "Cours de langues";
+"demo.tx.other" = "Petites dépenses";
+"demo.tx.bonus" = "Prime de performance";
+"demo.goal.computer" = "Ordinateur portable";
+"demo.tx.interest" = "Intérêts de l’épargne";

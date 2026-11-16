@@ -60,3 +60,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 
 | 2026-11-15 11:41 | impresa (Codex · GPT-6) | S-24/S-25 + test S-15 autorizzati | corretti giorno originale eliminazione e propagazione completa per scope, effettuato locale, date/ID/rollback; 78 unit e ultimi esiti dei 15 UI verdi tra full e rilanci mirati; S-15 filtro persistente ≥20€ dimostrato e azzerato nei test | collaudo indipendente; blocco Tutte su dati reali non riprodotto, S-18/S-19 e Commissione |
 | 2026-11-15 11:55 | collaudatore (Claude Code · Sonnet) | collaudo S-24/S-25/S-15 (125561c) | diff Domain/viste/test riletto; 78 unit verdi rilanciati; log UI verificati (rilanci mirati, no full 15/15 unico); esito [x] con riserva blocco reale su Tutte | S-18/S-19, Commissione S-13h; prova reale Tutte a Matteo |
+
+| 2026-11-16 01:13 | impresa (Codex · GPT-6) | S-26 Demo vetrina | seed v6: otto mesi, nove regole, override/oggi effettuato, pianificati, budget/obiettivi/conti e sette lingue; build + 79 unit + 4 UI verdi, dieci immagini confrontate; commit locale senza push | collaudo indipendente S-26; full UI unico S-27; grafica S-6/S-7/S-8/S-18 |

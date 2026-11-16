@@ -345,7 +345,7 @@
 /* ── Demo accounts ───────────────────────────── */
 "demo.account.conto"    = "活期账户";
 "demo.account.risparmi" = "储蓄账户";
-"demo.account.carta"    = "信用卡";
+"demo.account.carta"    = "预付卡";
 "demo.account.contanti" = "现金";
 
 /* ── Demo transactions ───────────────────────── */
@@ -466,3 +466,17 @@
 "L’occorrenza non appartiene alla serie." = "本次记录不属于此系列。";
 "I valori della ricorrenza non sono validi." = "重复计划的值无效。";
 "Termina dopo questa" = "本次之后终止";
+
+// Fictional showcase data
+"demo.tx.internet" = "家庭网络";
+"demo.tx.streaming" = "视频订阅";
+"demo.tx.music" = "音乐订阅";
+"demo.tx.gym" = "健身房";
+"demo.tx.insurance" = "汽车保险";
+"demo.tx.installment" = "家具分期";
+"demo.tx.shopping" = "个人购物";
+"demo.tx.course" = "语言课程";
+"demo.tx.other" = "日常杂费";
+"demo.tx.bonus" = "绩效奖金";
+"demo.goal.computer" = "笔记本电脑";
+"demo.tx.interest" = "储蓄利息";

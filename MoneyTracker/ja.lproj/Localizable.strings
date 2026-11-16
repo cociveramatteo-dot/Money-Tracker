@@ -344,7 +344,7 @@
 /* ── Demo accounts ───────────────────────────── */
 "demo.account.conto"    = "普通預金口座";
 "demo.account.risparmi" = "貯蓄";
-"demo.account.carta"    = "クレジットカード";
+"demo.account.carta"    = "プリペイドカード";
 "demo.account.contanti" = "現金";
 
 /* ── Demo transactions ───────────────────────── */
@@ -463,3 +463,17 @@
 "L’occorrenza non appartiene alla serie." = "この回はこの繰り返しに属していません。";
 "I valori della ricorrenza non sono validi." = "繰り返しの値が無効です。";
 "Termina dopo questa" = "この回の後に終了";
+
+// Fictional showcase data
+"demo.tx.internet" = "自宅のインターネット";
+"demo.tx.streaming" = "動画配信";
+"demo.tx.music" = "音楽配信";
+"demo.tx.gym" = "ジム会費";
+"demo.tx.insurance" = "自動車保険";
+"demo.tx.installment" = "家具の分割払い";
+"demo.tx.shopping" = "個人の買い物";
+"demo.tx.course" = "語学コース";
+"demo.tx.other" = "雑費";
+"demo.tx.bonus" = "業績賞与";
+"demo.goal.computer" = "ノートパソコン";
+"demo.tx.interest" = "預金利息";

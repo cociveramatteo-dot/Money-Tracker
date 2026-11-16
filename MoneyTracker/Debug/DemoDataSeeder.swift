@@ -1,33 +1,19 @@
 import SwiftData
 import Foundation
 
-// MARK: - DemoDataSeeder
-//
-// Popola il container demo con dati realistici su tutte le sezioni dell'app:
-// • 4 conti con tipi diversi e saldi credibili
-// • ~70 transazioni su 3 mesi (varie categorie, alcune fisse, alcune pianificate)
-// • 5 budget mese corrente a diversi livelli di utilizzo
-// • 4 obiettivi di risparmio a diversi stadi di avanzamento
-//
-// Viene eseguito solo se il container demo è vuoto (guard count == 0).
-// Non tocca mai il container reale dell'utente.
-
+/// Fictional showcase data, exclusively for the separate demo container.
 struct DemoDataSeeder {
-
-    /// Versione del seed — incrementa ogni volta che cambia il contenuto demo.
-    /// Se la versione in UserDefaults è diversa, il container viene ripulito e riseminato.
-    private static let seedVersion = 5
+    private static let seedVersion = 6
     private static let seedVersionKey = "demoSeedVersion"
 
-    /// Azzera completamente il container demo e lo risemina con dati freschi.
-    /// Chiamato all'attivazione della modalità demo per garantire uno stato pulito
-    /// indipendentemente da eventuali modifiche fatte in sessioni precedenti.
     @MainActor
     static func forceReset(context: ModelContext) {
-        if let accounts     = try? context.fetch(FetchDescriptor<Account>())     { accounts.forEach     { context.delete($0) } }
-        if let transactions = try? context.fetch(FetchDescriptor<Transaction>()) { transactions.forEach { context.delete($0) } }
-        if let budgets      = try? context.fetch(FetchDescriptor<Budget>())      { budgets.forEach      { context.delete($0) } }
-        if let goals        = try? context.fetch(FetchDescriptor<Goal>())        { goals.forEach        { context.delete($0) } }
+        // Remove rules too: otherwise a later materialization recreates old demo copies.
+        if let rows = try? context.fetch(FetchDescriptor<RecurringRule>()) { rows.forEach { context.delete($0) } }
+        if let rows = try? context.fetch(FetchDescriptor<Transaction>()) { rows.forEach { context.delete($0) } }
+        if let rows = try? context.fetch(FetchDescriptor<Account>()) { rows.forEach { context.delete($0) } }
+        if let rows = try? context.fetch(FetchDescriptor<Budget>()) { rows.forEach { context.delete($0) } }
+        if let rows = try? context.fetch(FetchDescriptor<Goal>()) { rows.forEach { context.delete($0) } }
         context.safeSave()
         Category.seedIfNeeded(context: context)
         seed(context: context)
@@ -36,189 +22,146 @@ struct DemoDataSeeder {
 
     @MainActor
     static func seedIfNeeded(context: ModelContext) {
-        let savedVersion = UserDefaults.standard.integer(forKey: seedVersionKey)
-        let accountCount = (try? context.fetchCount(FetchDescriptor<Account>())) ?? 0
-
-        if accountCount == 0 || savedVersion < seedVersion {
-            // Ripulisci tutto prima di riseminare (evita duplicati su upgrade di versione)
-            if accountCount > 0 {
-                if let accounts     = try? context.fetch(FetchDescriptor<Account>())     { accounts.forEach     { context.delete($0) } }
-                if let transactions = try? context.fetch(FetchDescriptor<Transaction>()) { transactions.forEach { context.delete($0) } }
-                if let budgets      = try? context.fetch(FetchDescriptor<Budget>())      { budgets.forEach      { context.delete($0) } }
-                if let goals        = try? context.fetch(FetchDescriptor<Goal>())        { goals.forEach        { context.delete($0) } }
-                context.safeSave()
-            }
-            seed(context: context)
-            UserDefaults.standard.set(seedVersion, forKey: seedVersionKey)
+        let count = (try? context.fetchCount(FetchDescriptor<Account>())) ?? 0
+        if count == 0 || UserDefaults.standard.integer(forKey: seedVersionKey) < seedVersion {
+            forceReset(context: context)
         }
     }
 
     @MainActor
     private static func seed(context: ModelContext) {
-        let cal = Calendar.current
+        var cal = Calendar(identifier: .gregorian)
+        cal.timeZone = .current
         let now = Date()
+        let calculator = RecurrenceCalculator()
+        let today = calculator.noon(now)
+        let month = cal.dateInterval(of: .month, for: now)!.start
+        // Calendar arithmetic preserves civil days across DST and year boundaries.
+        func date(_ offset: Int, _ day: Int) -> Date {
+            let start = cal.date(byAdding: .month, value: offset, to: month)!
+            let clamped = min(day, cal.range(of: .day, in: .month, for: start)!.count)
+            return calculator.noon(cal.date(byAdding: .day, value: clamped - 1, to: start)!)
+        }
+        func name(_ key: String) -> String {
+            NSLocalizedString("demo." + key, comment: "Fictional demo data")
+        }
+        let conto = Account(name: name("account.conto"), type: .conto, initialBalance: 2_900, colorHex: "1F7A4D")
+        let risparmi = Account(name: name("account.risparmi"), type: .risparmio, initialBalance: 6_200, colorHex: "2F6FB0")
+        let carta = Account(name: name("account.carta"), type: .carta, initialBalance: 4_800, colorHex: "5A4AA3")
+        let contanti = Account(name: name("account.contanti"), type: .contanti, initialBalance: 650, colorHex: "B45309")
+        for account in [conto, risparmi, carta, contanti] { context.insert(account) }
 
-        func date(daysAgo d: Int, hour h: Int = 12) -> Date {
-            var c = cal.dateComponents([.year, .month, .day], from: cal.date(byAdding: .day, value: -d, to: now) ?? now)
-            c.hour = h; c.minute = 0
-            return cal.date(from: c) ?? now
+        @discardableResult
+        func movement(_ key: String, _ amount: Decimal, _ category: String, _ when: Date,
+                      _ account: Account, type: TransactionType = .uscita) -> Transaction {
+            let icon = Category.defaults.first { $0.name == category }?.icon ?? "tray.fill"
+            let tx = Transaction(name: name(key), amount: amount, type: type, category: category,
+                                 categoryIcon: icon, date: when, isDone: when < today, account: account)
+            context.insert(tx)
+            return tx
         }
 
-        // MARK: Conti
-
-        let conto    = Account(name: String(localized: "demo.account.conto"),   type: .conto,       initialBalance: 620,   colorHex: "1A1A1A")
-        let risparmi = Account(name: String(localized: "demo.account.risparmi"), type: .risparmio,   initialBalance: 3_800, colorHex: "4A4A4A")
-        let carta    = Account(name: String(localized: "demo.account.carta"),   type: .carta,       initialBalance: 0,     colorHex: "6A6A6A")
-        let contanti = Account(name: String(localized: "demo.account.contanti"), type: .contanti,    initialBalance: 95,    colorHex: "9A9A9A")
-        context.insert(conto)
-        context.insert(risparmi)
-        context.insert(carta)
-        context.insert(contanti)
-
-        // MARK: Transazioni — 3 mesi
-        // Tupla: (nome, importo, tipo, categoria, icona, giorni fa, conto, isFixed, isDone)
-
-        typealias TxRow = (String, Decimal, TransactionType, String, String, Int, Account, Bool, Bool)
-
-        // isFixed: true SOLO su Affitto e abbonamenti digitali — gli unici che in una vera app
-        // sarebbero segnati come "spesa fissa". Tutto il resto a false per evitare che il
-        // swipe sinistro "Fatto/Pianificato" compaia su quasi ogni riga della lista movimenti.
-        // Nessuna transazione isDone:false — le pianificate attivano anch'esse il swipe.
-
-        // Localized demo transaction names
-        let lStipendio   = String(localized: "demo.tx.stipendio")
-        let lAffitto     = String(localized: "demo.tx.affitto")
-        let lBolletta    = String(localized: "demo.tx.bolletta")
-        let lCarburante  = String(localized: "demo.tx.carburante")
-        let lFarmacia    = String(localized: "demo.tx.farmacia")
-        let lRegalo      = String(localized: "demo.tx.regalo")
-        let lSupermercato = String(localized: "demo.tx.supermercato")
-        let lVolo        = String(localized: "demo.tx.volo")
-        let lHotel       = String(localized: "demo.tx.hotel")
-        let lDentista    = String(localized: "demo.tx.dentista")
-        let lCinema      = String(localized: "demo.tx.cinema")
-        let lRistorante  = String(localized: "demo.tx.ristorante")
-        let lRisparmio   = String(localized: "demo.tx.risparmio")
-
-        let transactions: [TxRow] = [
-
-            (lStipendio,              1_750,  .entrata, "Lavoro",       "briefcase.fill",        27, conto,    false, true),
-            (lAffitto,                  650,  .uscita,  "Casa",         "house.fill",            26, conto,    true,  true),
-            (lBolletta,                  78,  .uscita,  "Casa",         "house.fill",            25, conto,    false, true),
-            ("Esselunga",               87.5, .uscita,  "Cibo",         "fork.knife",            22, conto,    false, true),
-            ("Netflix",                 17.99,.uscita,  "Abbonamenti",  "repeat.circle.fill",    21, carta,    true,  true),
-            ("Spotify",                  9.99,.uscita,  "Abbonamenti",  "repeat.circle.fill",    21, carta,    true,  true),
-            (lCarburante,                58,  .uscita,  "Trasporti",    "car.fill",              18, conto,    false, true),
-            ("Trattoria Da Nino",        48,  .uscita,  "Svago",        "gamecontroller.fill",   15, carta,    false, true),
-            (lSupermercato,              52.3,.uscita,  "Cibo",         "fork.knife",            10, conto,    false, true),
-            (lFarmacia,                  24,  .uscita,  "Salute",       "heart.fill",             7, carta,    false, true),
-            (lRegalo,                    45,  .uscita,  "Regali",       "gift.fill",              3, carta,    false, true),
-
-            (lStipendio,              1_750,  .entrata, "Lavoro",       "briefcase.fill",        57, conto,    false, true),
-            (lAffitto,                  650,  .uscita,  "Casa",         "house.fill",            56, conto,    true,  true),
-            (lBolletta,                  81,  .uscita,  "Casa",         "house.fill",            55, conto,    false, true),
-            (lVolo,                     118,  .uscita,  "Viaggi",       "airplane",              52, carta,    false, true),
-            (lHotel,                    195,  .uscita,  "Viaggi",       "airplane",              50, carta,    false, true),
-            ("Esselunga",               91.2, .uscita,  "Cibo",         "fork.knife",            47, conto,    false, true),
-            ("Netflix",                 17.99,.uscita,  "Abbonamenti",  "repeat.circle.fill",    45, carta,    true,  true),
-            ("Spotify",                  9.99,.uscita,  "Abbonamenti",  "repeat.circle.fill",    45, carta,    true,  true),
-            (lDentista,                 130,  .uscita,  "Salute",       "heart.fill",            42, carta,    false, true),
-            (lCinema,                    55,  .uscita,  "Svago",        "gamecontroller.fill",   38, carta,    false, true),
-
-            (lStipendio,              1_750,  .entrata, "Lavoro",       "briefcase.fill",        87, conto,    false, true),
-            (lAffitto,                  650,  .uscita,  "Casa",         "house.fill",            86, conto,    true,  true),
-            (lBolletta,                  74,  .uscita,  "Casa",         "house.fill",            85, conto,    false, true),
-            ("Esselunga",               79.8, .uscita,  "Cibo",         "fork.knife",            82, conto,    false, true),
-            ("Netflix",                 17.99,.uscita,  "Abbonamenti",  "repeat.circle.fill",    80, carta,    true,  true),
-            ("Spotify",                  9.99,.uscita,  "Abbonamenti",  "repeat.circle.fill",    80, carta,    true,  true),
-            (lCarburante,                52,  .uscita,  "Trasporti",    "car.fill",              77, conto,    false, true),
-            (lRistorante,                44,  .uscita,  "Svago",        "gamecontroller.fill",   74, carta,    false, true),
-            ("Amazon",                   38,  .uscita,  "Shopping",     "bag.fill",              71, carta,    false, true),
-        ]
-
-        for tx in transactions {
-            let t = Transaction(
-                name:         tx.0,
-                amount:       tx.1,
-                type:         tx.2,
-                category:     tx.3,
-                categoryIcon: tx.4,
-                date:         date(daysAgo: tx.5),
-                isDone:       tx.8,
-                isFixed:      tx.7,
-                account:      tx.6
-            )
-            context.insert(t)
+        // Real series and calculator-derived identities, exactly as the editor expects.
+        // Current-month future copies remain planned; later months stay virtual, as in production.
+        // The watermark prevents duplicate materialization.
+        func series(_ key: String, _ amount: Decimal, _ category: String, _ day: Int,
+                    _ account: Account, type: TransactionType = .uscita, override: Bool = false) {
+            let icon = Category.defaults.first { $0.name == category }?.icon ?? "tray.fill"
+            // Preserve a day-29/30/31 anchor even if the first historical month is shorter.
+            let start = cal.component(.day, from: date(-7, day)) == day ? date(-7, day) : date(-8, day)
+            let rule = RecurringRule(name: name(key), amount: amount, type: type.rawValue,
+                                     category: category, categoryIcon: icon, isFixed: true,
+                                     accountId: account.id, frequency: "mensile", startDate: start,
+                                     materializedThrough: date(0, 1))
+            var exceptions: [String: RecurrenceException] = [:]
+            if override {
+                exceptions[calculator.key(for: date(0, day))] = RecurrenceException(amount: "112.40")
+                rule.exceptionsJSON = (try? RecurrenceExceptionCodec.encode(exceptions)) ?? "{}"
+            }
+            context.insert(rule)
+            let snapshot = RuleSnapshot(id: rule.id, name: rule.name, amount: amount, type: rule.type,
+                                        category: category, categoryIcon: icon, isFixed: true,
+                                        accountId: account.id, frequency: rule.frequency,
+                                        startDate: rule.startDate, exceptions: exceptions)
+            for occurrence in calculator.occurrences(rule: snapshot,
+                in: DateInterval(start: date(-7, 1), end: date(1, 1))) {
+                let tx = movement(key, occurrence.amount, category, occurrence.date, account, type: type)
+                tx.id = occurrence.id
+                tx.templateId = rule.id.uuidString
+                tx.isFixed = true
+                // The gym occurrence today has already been paid; other today copies are planned.
+                tx.isDone = occurrence.date < today || (key == "tx.gym" && cal.isDate(occurrence.date, inSameDayAs: today))
+            }
         }
+        series("tx.stipendio", 2_850, "Lavoro", 1, conto, type: .entrata)
+        series("tx.affitto", 780, "Casa", 3, conto)
+        series("tx.bolletta", 86, "Casa", cal.component(.day, from: today), conto, override: true)
+        series("tx.internet", 29, "Casa", 9, conto)
+        series("tx.streaming", 15.99, "Abbonamenti", 12, carta)
+        series("tx.music", 10.99, "Abbonamenti", 6, carta)
+        series("tx.gym", 45, "Salute", cal.component(.day, from: today), conto)
+        series("tx.insurance", 64, "Trasporti", 23, conto)
+        series("tx.installment", 125, "Shopping", 10, conto)
 
-        // MARK: Spese fisse pianificate (isDone: false)
-        // Queste transazioni NON sono ancora confermate → contribuiscono al saldoAtteso
-        // ma non al saldoAttuale, rendendo visibile la differenza nella Home e nel tour.
-        // date(daysAgo: negativo) = data futura.
-
-        let planned: [(String, Decimal, String, String, Int, Account)] = [
-            (lAffitto,    650,   "Casa",        "house.fill",           -5, conto),
-            ("Netflix",    17.99, "Abbonamenti", "repeat.circle.fill",  -8, carta),
-            (lBolletta,    78,    "Casa",        "bolt.fill",           -12, conto),
-            ("Spotify",     9.99, "Abbonamenti", "repeat.circle.fill",  -15, carta),
-        ]
-        for p in planned {
-            let t = Transaction(
-                name:         p.0,
-                amount:       p.1,
-                type:         .uscita,
-                category:     p.2,
-                categoryIcon: p.3,
-                date:         date(daysAgo: p.4),
-                isDone:       false,
-                isFixed:      true,
-                account:      p.5
-            )
-            context.insert(t)
+        // Eight distinct monthly profiles. Current-month purchases are distributed over
+        // elapsed days so every launch, including the first of a month, has useful budgets.
+        let variation = [0, 18, -12, 35, 8, -5, 24, 12]
+        for offset in -7...0 {
+            let v = Decimal(variation[offset + 7])
+            let elapsed = offset == 0 ? cal.component(.day, from: today) : 28
+            func spent(_ key: String, _ amount: Decimal, _ category: String, _ day: Int, _ account: Account) {
+                let purchaseDay = offset == 0 ? max(1, day * elapsed / 28) : day
+                let when = date(offset, purchaseDay)
+                let tx = movement(key, amount, category, when, account)
+                tx.isDone = true
+            }
+            for day in [2, 8, 15, 28] {
+                spent("tx.supermercato", 62 + v / 4, "Cibo", day, conto)
+            }
+            spent("tx.carburante", 58 + v, "Trasporti", 6, conto)
+            spent("tx.ristorante", 68 + v, "Svago", 11, carta)
+            spent("tx.cinema", 32, "Svago", 19, contanti)
+            spent("tx.farmacia", 22 + v / 2, "Salute", 14, carta)
+            spent("tx.shopping", 75 + v, "Shopping", 18, carta)
+            spent("tx.course", 35, "Istruzione", 10, carta)
+            spent("tx.regalo", offset == -1 ? 240 : 40 + v, "Regali", 24, carta)
+            spent("tx.other", 12, "Altro", 7, contanti)
+            if offset == -3 || offset == -6 {
+                spent("tx.volo", offset == -3 ? 320 : 145, "Viaggi", 13, carta)
+                spent("tx.hotel", offset == -3 ? 640 : 210, "Viaggi", 17, carta)
+            }
+            if offset == -2 { spent("tx.dentista", 280, "Salute", 16, conto) }
+            if offset == -4 || offset == -1 {
+                let bonus = movement("tx.bonus", offset == -4 ? 450 : 180, "Lavoro", date(offset, 18), conto, type: .entrata)
+                bonus.isDone = true
+            }
+            let interest = movement("tx.interest", Decimal(string: "2.75")!, "Risparmio",
+                                    date(offset, min(2, elapsed)), risparmi, type: .entrata)
+            interest.isDone = true
+            // Paired transfer: visible in accounts, excluded from income/expense reports.
+            let group = UUID().uuidString
+            for (account, type) in [(conto, TransactionType.uscita), (risparmi, .entrata)] {
+                let tx = movement("tx.risparmio", 180, "Giroconto", date(offset, min(5, elapsed)), account, type: type)
+                tx.isDone = true
+                tx.isTransfer = true
+                tx.transferGroupId = group
+            }
         }
+        // A non-series plan remains visible even on the final day of the month.
+        movement("tx.hotel", 195, "Viaggi", date(0, 31), carta)
+        movement("tx.course", 90, "Istruzione", cal.date(byAdding: .day, value: 3, to: today)!, conto)
 
-        let transferId = UUID().uuidString
-        let tOut = Transaction(name: lRisparmio, amount: 300, type: .uscita,
-                               category: "Giroconto", categoryIcon: "arrow.left.arrow.right",
-                               date: date(daysAgo: 20), isDone: true,
-                               isTransfer: true, transferGroupId: transferId, account: conto)
-        let tIn  = Transaction(name: lRisparmio, amount: 300, type: .entrata,
-                               category: "Giroconto", categoryIcon: "arrow.left.arrow.right",
-                               date: date(daysAgo: 20), isDone: true,
-                               isTransfer: true, transferGroupId: transferId, account: risparmi)
-        context.insert(tOut)
-        context.insert(tIn)
-
-        // MARK: Budget mese corrente
-
-        let m = cal.component(.month, from: now)
-        let y = cal.component(.year,  from: now)
-
-        let budgets: [(String, String, Decimal)] = [
-            ("Cibo",        "fork.knife",          280),   // ~90% utilizzato
-            ("Svago",       "gamecontroller.fill",  150),   // ~70%
-            ("Abbonamenti", "repeat.circle.fill",    40),   // ~80%
-            ("Trasporti",   "car.fill",             180),   // ~85%
-            ("Salute",      "heart.fill",           200),   // ~57%
-        ]
-        for b in budgets {
-            context.insert(Budget(category: b.0, categoryIcon: b.1, monthlyLimit: b.2, month: m, year: y))
+        for offset in -7...0 {
+            let anchor = date(offset, 1)
+            let budgets: [(String, Decimal)] = [("Cibo", 300), ("Svago", 90), ("Trasporti", 240),
+                                                ("Salute", 180), ("Shopping", 170)]
+            for (category, limit) in budgets {
+                context.insert(Budget(category: category,
+                    categoryIcon: Category.defaults.first { $0.name == category }!.icon,
+                    monthlyLimit: limit, month: cal.component(.month, from: anchor),
+                    year: cal.component(.year, from: anchor)))
+            }
         }
-
-        // Budget mese precedente (per lo storico)
-        let prevM = m == 1 ? 12 : m - 1
-        let prevY = m == 1 ? y - 1 : y
-        let prevBudgets: [(String, String, Decimal)] = [
-            ("Cibo",        "fork.knife",          280),
-            ("Svago",       "gamecontroller.fill",  150),
-            ("Abbonamenti", "repeat.circle.fill",    40),
-            ("Trasporti",   "car.fill",             180),
-            ("Viaggi",      "airplane",             400),
-        ]
-        for b in prevBudgets {
-            context.insert(Budget(category: b.0, categoryIcon: b.1, monthlyLimit: b.2, month: prevM, year: prevY))
-        }
-
         // MARK: Obiettivi
 
         context.insert(Goal(
@@ -231,12 +174,12 @@ struct DemoDataSeeder {
         context.insert(Goal(
             name:          String(localized: "demo.goal.emergenza"),
             targetAmount:  15_000,
-            currentAmount: 12_400,  // 83%
+            currentAmount: 6_640,   // 44%
             emoji:         "banknote",
             deadline:      nil
         ))
         context.insert(Goal(
-            name:          "MacBook Pro M4",
+            name:          String(localized: "demo.goal.computer"),
             targetAmount:  2_499,
             currentAmount: 640,     // 26%
             emoji:         "laptopcomputer",
