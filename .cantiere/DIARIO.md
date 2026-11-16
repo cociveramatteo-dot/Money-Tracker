@@ -112,3 +112,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 22:40 | collaudatore (Claude Code · Sonnet) | S-30 collaudo | Conforme D-011; 90 unit, UI S-30 e S-6 verdi, screenshot ok; S-30 [x] | DemoShowcaseUITests rosso (non S-30, da verificare su main); traduzioni ⏳ Matteo |
 | 2026-11-16 22:49 | capocantiere (Claude Code · Sonnet) | == CHECKPOINT | S-30 collaudo ok + Commissione 10/10, doc+PDF, graphify | S-32 |
 | 2026-11-16 23:39 | impresa (Codex · GPT-6) | S-32 test demo | Riprodotto overscroll e verificato video xcresult; solo test demo corretto, isolato e nella suite verde; 90 unit e 4 UI S-6 verdi; UI totali 44/45, diff --check pulito; nessun push/merge | Collaudo indipendente S-32; S-33 [?] altro test ricorrenze rosso, lasciato intatto |
+| 2026-11-16 23:46 | collaudatore (Claude Code · Sonnet) | S-32 | collaudo ok: solo test demo toccato, asserzioni preservate, demo isolato verde, 90 unit verdi | S-33 [?] Matteo |

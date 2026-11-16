@@ -345,7 +345,8 @@ Modello di task:
 
 - **Collaudo 2026-11-16 22:40 (Claude Code · Sonnet):** conforme a D-011. Solo Domain/LastUsedCategory.swift nuovo + AddTransactionView; nessun Models/Persistence/Sync/Auth/Export/classifier toccato. Confronto esatto normalizzato, vince l'ultimo per createdAt, solo isDone && !isTransfer, categoria eliminata → nil, nessun force-unwrap. 7 .strings validi, 395 chiavi uguali nelle 6 lingue non it. Unit 90/90; UI nuovi 4/4; S-6 Sentiero verdi; screenshot dark/de ok; diff --check ok. Fetch dopo debounce 280 ms, non a ogni render. Note: (a) `DemoShowcaseUITests.testShowcaseScreens` fallisce (riga 29, bolletta Enel non hittable in S-26): file non toccato da S-30, da verificare su main → T aperto sotto; (b) il fetch carica tutta la cronologia a ogni pausa di digitazione (ok ora, da rivedere con molti movimenti).
 
-### S-32 [~] Manutenzione: DemoShowcaseUITests.testShowcaseScreens rosso (anche su main)
+### S-32 [x] Manutenzione: DemoShowcaseUITests.testShowcaseScreens rosso (anche su main)
+- **Collaudo 2026-11-16 23:46: [x] collaudo ok** (collaudatore). Diff limitato al solo DemoShowcaseUITests; asserzioni e catture preservate, ricerca esistente + attesa hittable 5 s; test demo isolato verde, 90 unit verdi, diff --check pulito. Suite UI completa non rieseguita (32 min): 44/45 per evidenza dell'impresa; rosso residuo = S-33.
 - **A chi:** Codex (Antigravity sospeso fino al 2026-11-20) · collaudo indipendente.
 - **Trovato da:** collaudo S-30 (2026-11-16 22:40); verificato dal capocantiere il 2026-11-16 22:43 che fallisce anche su `main` (489154b, senza S-30): non dipende da S-30. Probabile causa riferita dal collaudatore, non confermata: riga 29 del test, bolletta Enel non tappabile nella schermata demo S-26.
 - **Obiettivo:** capire la causa reale (test fragile o difetto della demo) e sistemarla con la modifica minima. Se il difetto è nella vista, niente restyling; se serve toccare zone protette, fermarsi e chiedere a Matteo.
