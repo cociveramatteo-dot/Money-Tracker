@@ -441,7 +441,7 @@
 "Fissa" = "Fixe";
 "Nessun risultato" = "Aucun résultat";
 
-/* S-13g — DA RIVEDERE DAL REDATTORE: testi e traduzioni provvisori. */
+/* S-13g — rivisto dal redattore (S-19). */
 "Ricorrenze" = "Récurrences";
 "Impossibile aggiornare le ricorrenze. Riprova." = "Impossible de mettre à jour les récurrences. Réessayez.";
 "Ambito" = "Portée";
@@ -450,7 +450,7 @@
 "Tutte" = "Toutes";
 "Le occorrenze già effettuate restano invariate." = "Les occurrences déjà effectuées restent inchangées.";
 "La data deve restare nello stesso mese." = "La date doit rester dans le même mois.";
-"Salta mese" = "Ignorer le mois";
+"Salta mese" = "Sauter ce mois";
 "Termina da qui" = "Terminer à partir d’ici";
 "Eliminare le occorrenze selezionate?" = "Supprimer les occurrences sélectionnées ?";
 "Serie programmate" = "Séries programmées";
