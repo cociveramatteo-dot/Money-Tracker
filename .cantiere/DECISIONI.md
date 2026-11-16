@@ -79,3 +79,9 @@ Autorizzata lettura diretta del sorgente HTML inline dei mockup, comprese le str
 - **Quando:** solo dopo la chiusura del restyling (S-14, S-10, checkpoint, merge): Matteo avvia il lavoro.
 - **Perché:** impara dalle abitudini, copre i nomi che l'elenco fisso non conosce, nessuna migrazione o sync (si usa la cronologia).
 - **Alternative scartate:** tabella nome→categoria da sincronizzare (più parti in movimento); categoria più frequente (meno semplice, non coincide con la richiesta); somiglianza approssimata dei nomi (suggerimenti sbagliati).
+
+## D-012 · 2026-11-16 · Rimozione confronto mese su mese (S-31)
+- **Chi decide:** Matteo. **Cosa:** rimozione completa della card S-14 da Statistiche, del calcolo dedicato, dei relativi test e delle sole 12 chiavi esclusive nelle sette lingue.
+- **Perché:** non gradito a Matteo. Il resto dell'app è confermato e resta invariato.
+- **Alternative scartate:** nasconderla senza cancellare il codice.
+- **Vincoli:** ramo rimuovi-confronto-mese; nessun push o merge. Medie, grafici, 6M/12M, confronto annuale, PDF/Export e plurale giorni S-7p invariati.

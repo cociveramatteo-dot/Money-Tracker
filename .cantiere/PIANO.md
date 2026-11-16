@@ -179,7 +179,7 @@ il task e i file indicati.
 - **A chi:** Codex, assegnato da Matteo in chat.
 - **Eseguito 2026-11-16 12:14:** sette Localizable.stringsdict; singolare in it/en/de/es/fr, sola forma other in ja/zh-Hans. Plurali italiani e testi plurali esistenti invariati. Pianifica usa localizedStringWithFormat. Verifica runtime di 0/1/2 in tutte sette lingue (21 casi), build + 83 unit e 1 UI Pianifica verdi. Nuove forme singolari ⏳ in APPROVAZIONI. Nessun test esistente modificato, nessuna zona intoccabile. Collaudo ok 2026-11-16 14:37 (plutil ok, 0/1/2+ coerenti con le chiavi approvate; traduzioni singolari ⏳ Matteo).
 
-### S-14 [x] Statistiche: confronto mese su mese
+### S-14 [x] Statistiche: confronto mese su mese — rimosso su richiesta di Matteo 2026-11-16
 - **A chi:** Codex (o Antigravity) · dopo S-6 (stessa schermata)
 - **Obiettivo:** frase/card tipo «Questo mese hai speso il 12% in più per Cibo»: per categoria e totale, mese corrente vs mese precedente, stesso periodo di giorni; colori neutri/«danger» da Theme, mai solo colore (anche testo/freccia)
 - **Leggere:** `Statistiche.dc.html` (se il mockup non lo prevede, chiedere a Matteo dove metterlo), `Views/StatisticsView.swift`
@@ -332,3 +332,10 @@ Modello di task:
 - **Regole (D-011):** (1) nessuna nuova tabella né sync: si guarda la cronologia dei movimenti; (2) priorità: cronologia dell'utente, poi parole chiave fisse; (3) confronto nome senza maiuscole/accenti/spazi in eccesso, corrispondenza esatta (al massimo per prefisso, mai somiglianza «a occhio»); (4) due categorie per lo stesso nome → vince l'ultima; (5) preselezionata come oggi; se l'utente la cambia, il salvataggio aggiorna di fatto la «prossima volta»; (6) etichetta «Ultima usata» invece di «Suggerita» quando viene dalla cronologia (7 lingue, nuove traduzioni ⏳ in APPROVAZIONI.md); (7) contano solo i movimenti normali, non pianificati né trasferimenti.
 - **Fatto quando:** funzione pura in `Domain/` (nuovo file) con test: nome nuovo, maiuscole/accenti, due categorie diverse (vince l'ultima), movimento pianificato/trasferimento ignorati, categoria eliminata, DB vuoto; resa dell'etichetta in light/dark/XL/tedesco; test esistenti invariati.
 - **Non fare:** modificare modelli/Persistence/Sync, cambiare il classifier a parole chiave, suggerimenti per somiglianza.
+
+### S-31 [x] Rimozione confronto mese su mese — 2026-11-16 collaudo ok
+- **A chi:** Codex, autorizzato da Matteo 2026-11-16 sul ramo rimuovi-confronto-mese.
+- **Obiettivo:** eliminare interamente S-14 preservando le altre statistiche, verificare lingue, build, unit e UI S-6 con screenshot light/dark/XL/de. Nessun push o merge.
+- **Eseguito Codex 2026-11-16 21:40:** eliminati i quattro file S-14, card/cache/eventi dedicati in StatisticsView e 12 chiavi esclusive × 7 lingue, previo controllo riferimenti con rg. «Dati insufficienti.» conservata perché condivisa. Nessun altro calcolo/test/Export/plurale S-7p modificato. S-14 segnato rimosso, approvazioni ritirate, decisione D-012.
+- **Verifica:** build riuscita; 83 unit in 17 suite verdi (92 meno 9 test S-14); 4 UI S-6 verdi; 12 screenshot light/dark/XL/de ispezionati senza vuoti. Tutti i .strings validi, sei lingue non italiane allineate a 392 chiavi. 541 warning Swift già riscontrati identici nei log precedenti, nessuno nuovo; secondo build dark senza warning. Dettagli/evidenze in CONSEGNA.
+- **Aperto:** niente (collaudo ok 2026-11-16); nessun push/merge.

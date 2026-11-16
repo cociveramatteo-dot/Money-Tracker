@@ -523,6 +523,12 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 
 ## 10. Changelog
 
+### v3.x (novembre 2026) — Rimozione del confronto mese su mese (S-31, D-012)
+
+- Su richiesta di Matteo (2026-11-16) la card «Confronto mese su mese» (S-14) è rimossa: eliminati `SpendingComparisonCard`, `Domain/MonthlySpendingComparison` e i relativi test (unit e UI); da `StatisticsView` tolti card, cache, osservatori e notifica del cambio giorno dedicati.
+- Rimosse le 12 chiavi esclusive della card in tutte e 7 le lingue; «Dati insufficienti.» e i `.stringsdict` (S-7p) restano. Grafici, 6M/12M, medie, confronto annuale e PDF invariati.
+- Collaudo ok: build riuscita, 83 unit test e 4 UI test Statistiche verdi, screenshot light/dark/XL/tedesco senza vuoti. Il capitolo S-14 qui sotto resta come storico.
+
 ### v3.x (novembre 2026) — Redesign «Sentiero» completo: Statistiche, Pianifica, Conti, confronto mese su mese (S-6…S-10, S-14)
 
 - S-6 Statistiche, S-7 Pianifica, S-8 Conti ridisegnate dai mockup (stili letti dal sorgente HTML): grafico `BarMark` con `position(by:)`, hero con anello e badge di stato testuali, raggruppamento per tipo solo visivo. Soglie, progresso ponderato, PDF e archiviazione invariati. Righe archiviate leggibili (contrasto 5,60:1 light, 7,28:1 dark); spazio in fondo a Pianifica per il pulsante flottante.
@@ -642,7 +648,7 @@ Tre segnalazioni indipendenti dell'utente, tutte con causa radice nella sincroni
 **Colori (verde/rosso), indipendenti dal tema attivo:**
 - Nuovi `DS.positive`/`DS.negative` in `Theme.swift` (toni smorzati, adattivi chiaro/scuro) + `DS.signColor(_:)` come unica fonte di verità per "colora in base al segno"
 - Saldi (Home, Conti) colorati per segno; uscite/entrate colorate ovunque appaiano come riga (Movimenti, Home, storico ricorrenze) tranne i trasferimenti (restano neutri: non sono un guadagno/perdita reale)
-- Statistiche: "Uscite"/"Entrate" e relativi grafici (barre, linea, legenda, barre per categoria), confronto mese su mese e anno su anno colorati in base a miglioramento/peggioramento
+- Statistiche: "Uscite"/"Entrate" e relativi grafici (barre, linea, legenda, barre per categoria), confronto anno su anno colorato in base a miglioramento/peggioramento
 - Budget: resta neutro entro il limite, rosso solo se sforato
 - Rimosso un flag morto (`FixedExpenseRow.colorCoded`) mai attivato da nessuna parte che avrebbe dovuto occuparsi di questo
 

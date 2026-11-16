@@ -506,17 +506,3 @@
 "Sotto la soglia di %@" = "%@未満";
 
 "Escluso dal totale" = "合計に含まず";
-
-/* S-14 — confronto mese su mese (approvato) */
-"Confronto mese su mese" = "前月との比較";
-"Giorni 1–%lld · %@ / %@" = "%2$@ / %3$@ · 1～%1$lld日";
-"Questo mese hai speso il %@%% in più per %@" = "今月の%2$@への支出は、前月の同期間より%1$@%%増えました";
-"Questo mese hai speso il %@%% in meno per %@" = "今月の%2$@への支出は、前月の同期間より%1$@%%減りました";
-"Questo mese hai speso il %@%% in più in totale" = "今月の支出総額は、前月の同期間より%@%%増えました";
-"Questo mese hai speso il %@%% in meno in totale" = "今月の支出総額は、前月の同期間より%@%%減りました";
-"Questo mese hai speso quanto nel periodo precedente per %@" = "今月の%@への支出は、前月の同期間と同じです";
-"Questo mese hai speso quanto nel periodo precedente in totale" = "今月の支出総額は、前月の同期間と同じです";
-"Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente" = "今月の%2$@への支出は%1$@です。前月の同期間の支出はありません";
-"Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente" = "今月の支出総額は%@です。前月の同期間の支出はありません";
-"Spesa pari a zero nei due periodi per %@" = "両期間とも%@への支出はゼロです";
-"Spesa totale pari a zero nei due periodi" = "両期間とも支出総額はゼロです";

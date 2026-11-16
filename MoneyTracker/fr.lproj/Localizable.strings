@@ -508,17 +508,3 @@
 "Sotto la soglia di %@" = "Sous %@";
 
 "Escluso dal totale" = "Exclu du total";
-
-/* S-14 — confronto mese su mese (approvato) */
-"Confronto mese su mese" = "Comparaison mensuelle";
-"Giorni 1–%lld · %@ / %@" = "Jours 1–%lld · %@ / %@";
-"Questo mese hai speso il %@%% in più per %@" = "Ce mois-ci, tu as dépensé %@%% de plus pour %@";
-"Questo mese hai speso il %@%% in meno per %@" = "Ce mois-ci, tu as dépensé %@%% de moins pour %@";
-"Questo mese hai speso il %@%% in più in totale" = "Ce mois-ci, tu as dépensé %@%% de plus au total";
-"Questo mese hai speso il %@%% in meno in totale" = "Ce mois-ci, tu as dépensé %@%% de moins au total";
-"Questo mese hai speso quanto nel periodo precedente per %@" = "Ce mois-ci, tu as dépensé autant pour %@ que pendant la période précédente";
-"Questo mese hai speso quanto nel periodo precedente in totale" = "Les dépenses totales de ce mois sont identiques à celles de la période précédente";
-"Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente" = "Ce mois-ci, tu as dépensé %@ pour %@ ; aucune dépense pendant la période précédente";
-"Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente" = "Ce mois-ci, tu as dépensé %@ au total ; aucune dépense pendant la période précédente";
-"Spesa pari a zero nei due periodi per %@" = "Les dépenses pour %@ sont nulles sur les deux périodes";
-"Spesa totale pari a zero nei due periodi" = "Les dépenses totales sont nulles sur les deux périodes";

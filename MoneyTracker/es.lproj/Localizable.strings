@@ -506,17 +506,3 @@
 "Sotto la soglia di %@" = "Por debajo de %@";
 
 "Escluso dal totale" = "Excluido del total";
-
-/* S-14 — confronto mese su mese (approvato) */
-"Confronto mese su mese" = "Comparación mensual";
-"Giorni 1–%lld · %@ / %@" = "Días 1–%lld · %@ / %@";
-"Questo mese hai speso il %@%% in più per %@" = "Este mes has gastado un %@%% más en %@";
-"Questo mese hai speso il %@%% in meno per %@" = "Este mes has gastado un %@%% menos en %@";
-"Questo mese hai speso il %@%% in più in totale" = "Este mes has gastado un %@%% más en total";
-"Questo mese hai speso il %@%% in meno in totale" = "Este mes has gastado un %@%% menos en total";
-"Questo mese hai speso quanto nel periodo precedente per %@" = "Este mes has gastado lo mismo en %@ que en el período anterior";
-"Questo mese hai speso quanto nel periodo precedente in totale" = "El gasto total de este mes es igual al del período anterior";
-"Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente" = "Este mes has gastado %@ en %@; no hubo gastos en el período anterior";
-"Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente" = "Este mes has gastado %@ en total; no hubo gastos en el período anterior";
-"Spesa pari a zero nei due periodi per %@" = "El gasto en %@ es cero en ambos períodos";
-"Spesa totale pari a zero nei due periodi" = "El gasto total es cero en ambos períodos";
