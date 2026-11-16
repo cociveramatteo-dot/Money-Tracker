@@ -523,6 +523,15 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 
 ## 10. Changelog
 
+### v3.x (novembre 2026) — Redesign «Sentiero» completo: Statistiche, Pianifica, Conti, confronto mese su mese (S-6…S-10, S-14)
+
+- S-6 Statistiche, S-7 Pianifica, S-8 Conti ridisegnate dai mockup (stili letti dal sorgente HTML): grafico `BarMark` con `position(by:)`, hero con anello e badge di stato testuali, raggruppamento per tipo solo visivo. Soglie, progresso ponderato, PDF e archiviazione invariati. Righe archiviate leggibili (contrasto 5,60:1 light, 7,28:1 dark); spazio in fondo a Pianifica per il pulsante flottante.
+- S-14: card «Confronto mese su mese» in Statistiche (`Domain/MonthlySpendingComparison`, puro, `Decimal`): stesso periodo di giorni, per categoria e totale, freccia + testo, percentuali ≥100 senza decimali, righe per variazione assoluta decrescente, snapshot calcolato fuori dal `body`.
+- Plurale di «Mancano %lld giorni» (`Localizable.stringsdict` it/en/de/es/fr; ja/zh forma unica). Nuove traduzioni S-6/S-7/S-8/S-14 in 7 lingue, approvate da Matteo.
+- S-28: tab bar leggibile con Dynamic Type XL. S-29: helper calendario senza `!`, un fetch per regola nel materializer, errori localizzati, test round-trip `Decimal`.
+- Qualità: Commissione S-13h e S-10 senza difetti bloccanti. 92 unit test; UI 45 test (42 verdi nel run completo, i 3 falliti rilanciati singolarmente verdi: un test sbagliato corretto e due instabilità del simulatore).
+- Aperti: controlli manuali S-24 e S-21, prova Supabase reale (S-13f), precisione Decimal elevata (S-16), `TransactionsView` ancora 864 righe. Prossima funzione: S-30 «categoria dall'ultima volta» (D-011).
+
 ### v3.x (novembre 2026) — Ricorrenze: rifinitura, demo vetrina e chiusura Commissione S-13h (S-17…S-29)
 
 - S-17: il pull non cancella più regole locali non ancora spedite. S-18/S-19: rifinitura grafica di virtuali e serie programmate, revisione di testi e traduzioni (de/es/zh).
