@@ -17,7 +17,7 @@ final class SentieroPlanningUITests: MoneyTrackerUITestCase {
             app.swipeDown()
         }
         app.buttons["planning_goals"].tap()
-        let label = language == "de" ? "[DA COMPLETARE]" : "Aggiungi progresso"
+        let label = language == "de" ? "Fortschritt hinzufügen" : "Aggiungi progresso"
         let add = app.buttons.matching(NSPredicate(format: "label == %@", label)).firstMatch
         XCTAssertTrue(add.waitForExistence(timeout: 5))
         XCTAssertGreaterThanOrEqual(add.frame.width, 44)
