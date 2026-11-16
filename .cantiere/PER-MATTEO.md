@@ -5,13 +5,14 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### S-33 — autorizzare diagnosi separata di un altro UI rosso
-📍 Nella chat del capocantiere (Claude Code), dopo il collaudo S-32.
+### S-33 — decidere osservazione dopo diagnosi non riproducibile
+Diagnosi autorizzata il 2026-11-16 ed eseguita: due run isolati e tutta la suite verdi sul main `4fb666a`, senza modificare codice/test. Causa del vecchio rosso non accertata; dettagli in CONSEGNA. Proposta: mantenerlo in osservazione.
+📍 Nella chat del capocantiere (Claude Code).
 ▶️ Incolla:
 ```text
-Prepara il task S-33 del PIANO: nel run completo S-32 RecurrenceFlowUITests.testCreateEditAndDeleteScheduledSeries fallisce alla riga 100, voce Ricorrenza non trovata. Il log è /tmp/mt-s32-full-fixed.log. Verifica prima la causa dal bundle xcresult e la riproducibilità; non attribuirlo a S-32 senza prove. S-32 non autorizzava modifiche ad altri test, quindi è rimasto intatto. Definisci scope e prompt per la correzione minima, senza push o merge.
+S-33: mantienilo in osservazione, senza dichiarare corretta o accertata una causa. Fai verificare il dossier CONSEGNA dal collaudatore (Claude Code · Sonnet) sul ramo fix-recurrence-ui-test: nessun codice/test modificato; due run isolati verdi e suite 90 unit + 45 UI tutta verde. Bundle conservato in /tmp/mt-s33-full-main.xcresult. Se ricompare, conserva immediatamente il bundle del fallimento prima di nuovi run e prepara una diagnosi con video e gerarchia. Nessun push o merge.
 ```
-↩️ Riporta il prompt S-33 approvato; se non vuoi procedere, lascia il task in attesa.
+↩️ Riporta l'esito del collaudo del dossier oppure richiedi esplicitamente una campagna aggiuntiva di riproduzione.
 
 ### Approvazione traduzioni (APPROVAZIONI.md)
 📍 Apri `.cantiere/APPROVAZIONI.md`.

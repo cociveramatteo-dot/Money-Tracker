@@ -1,5 +1,4 @@
-# CONSEGNA — collaudo S-32 (collaudatore, Claude Code · Sonnet) · 2026-11-16 23:46
+# CONSEGNA — collaudo dossier S-33 (collaudatore, Claude Code · Sonnet) · 2026-11-17 00:36
 
-S-32 chiuso [x], collaudo ok. Diff 02c93a8 sul codice: solo MoneyTrackerUITests/DemoShowcaseUITests.swift; asserzioni/catture intatte; ricerca per nome (helper esistente) + attesa hittable 5 s, sensata. Verificato: demo isolato verde, 90 unit verdi, git diff --check pulito.
-
-Aperto: S-33 [?] RecurrenceFlowUITests.testCreateEditAndDeleteScheduledSeries riga 100 (preesistenza su main non accertata) — serve Matteo. Ramo fix-demo-showcase-test: nessun push/merge senza Matteo.
+Dossier f37fbca corretto: nessun file di codice/test cambiato (solo .cantiere), tre run verdi dichiarati coerenti, causa NON dichiarata accertata, git diff --check pulito. Conferma indipendente: test isolato verde in 101,716 s (/tmp/mt-s33-collaudo.log).
+S-33 resta [?] in osservazione; criterio di riapertura scritto in PIANO.md (ricomparsa del rosso riga 100 → salvare subito il bundle .xcresult). Ramo fix-recurrence-ui-test, nessun push/merge: decide Matteo.
