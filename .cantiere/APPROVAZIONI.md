@@ -23,7 +23,9 @@ Dal riferimento: «Multi-categoria», «Nessuna scadenza», «Aggiungi progresso
 ## S-7p · plurale giorni · ✅ approvato da Matteo 2026-11-16
 Forme singolari proposte, derivate dai testi esistenti: it «Manca %lld giorno»; en «%lld day left»; de «Noch %lld Tag»; es «Falta %lld día»; fr «Plus que %lld jour». Plurali e zero conservano i testi già presenti (italiano «Mancano %lld giorni» invariato). ja «残り%lld日» e zh-Hans «还剩%lld天» mantengono una sola forma. Nessun nuovo contenuto, solo accordo grammaticale; approvazione pendente.
 
-## S-14 · confronto mese su mese · ✅ approvato da Matteo 2026-11-16
+## S-14 · confronto mese su mese · ritirate — Matteo 2026-11-16 (S-31)
+Approvazioni ritirate: card rimossa su richiesta di Matteo; tabella conservata come storico.
+
 Testi funzionali proposti sui dati reali del confronto, non dati o percentuali fissi. Percentuali assenti quando la base è zero. Nessun termine lasciato ambiguo; tutte le proposte richiedono approvazione. I valori sono nelle sezioni `S-14` dei sette Localizable.strings.
 
 | Sorgente italiana | en | de | es | fr | ja | zh-Hans |
@@ -41,7 +43,7 @@ Testi funzionali proposti sui dati reali del confronto, non dati o percentuali f
 | Spesa pari a zero nei due periodi per %@ | Spending on %@ is zero in both periods | Für %@ liegen die Ausgaben in beiden Zeiträumen bei null | El gasto en %@ es cero en ambos períodos | Les dépenses pour %@ sont nulles sur les deux périodes | 両期間とも%@への支出はゼロです | 两个时段的%@支出均为零 |
 | Spesa totale pari a zero nei due periodi | Total spending is zero in both periods | Die Gesamtausgaben liegen in beiden Zeiträumen bei null | El gasto total es cero en ambos períodos | Les dépenses totales sont nulles sur les deux périodes | 両期間とも支出総額はゼロです | 两个时段的总支出均为零 |
 
-### S-14 · formulazione percentuali italiana · ✅ approvato da Matteo 2026-11-16
+### S-14 · formulazione percentuali italiana · ritirate — Matteo 2026-11-16 (S-31)
 Proposte italiane effettive senza articolo davanti al numero (valide anche per 1% e 8%); le chiavi precedenti restano identificativi del messaggio:
 - «Questo mese hai speso di più per %2$@ (+%1$@%%)»
 - «Questo mese hai speso di meno per %2$@ (−%1$@%%)»

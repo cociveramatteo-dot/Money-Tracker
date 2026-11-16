@@ -7,21 +7,6 @@ struct StatisticsView: View {
     @Environment(\.modelContext) private var context
     @State private var selectedMonth = Date()
     @State private var trendMonths: Int = 6   // toggle 6 / 12
-    @Environment(\.scenePhase) private var scenePhase
-    @State private var comparisonNow = Date()
-    @State private var cachedComparison: MonthlySpendingComparison?
-
-    /// Snapshot costruito fuori dal body: eseguito solo al cambio di transazioni, mese o giorno.
-    private func rebuildComparison() {
-        let entries: [MonthlySpendingComparison.Entry] = transactions.map {
-            .init(date: $0.date, amount: $0.amount, category: $0.category,
-                  isExpense: $0.transactionType == .uscita, isDone: $0.isDone, isTransfer: $0.isTransfer)
-        }
-        cachedComparison = MonthlySpendingComparison.make(
-            entries: entries, month: selectedMonth,
-            now: Calendar.current.startOfDay(for: comparisonNow), calendar: .current)
-    }
-
     // MARK: - Data per il mese selezionato
 
     private var monthPartitioned: (expenses: [Transaction], incomeTotal: Decimal) {
@@ -300,9 +285,6 @@ struct StatisticsView: View {
                 .padding(16).background(DS.surface, in: RoundedRectangle(cornerRadius: 22))
                 .padding(.horizontal, 16).padding(.top, 10)
 
-                SpendingComparisonCard(comparison: cachedComparison)
-                    .padding(.horizontal, 16).padding(.top, 10)
-
                 VStack(alignment: .leading, spacing: 6) {
                     Text("Per categoria").font(DS.Typo.rowName).padding(.bottom, 4)
                         .accessibilityIdentifier("statistics_categories_title")
@@ -439,12 +421,8 @@ struct StatisticsView: View {
         .onChange(of: pdfURL) { _, url in if url != nil { showShareSheet = true } }
         .onChange(of: selectedMonth) { _, _ in pdfURL = nil }
         // PERF-02: rebuild the byMonth dictionary only when the transaction list changes
-        .onAppear { rebuildByMonth(); comparisonNow = Date(); rebuildComparison() }
-        .onChange(of: selectedMonth) { _, _ in rebuildComparison() }
-        .onChange(of: comparisonNow) { _, _ in rebuildComparison() }
-        .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in comparisonNow = Date() }
-        .onChange(of: scenePhase) { _, phase in if phase == .active { comparisonNow = Date() } }
-        .onChange(of: transactions) { _, _ in rebuildByMonth(); rebuildComparison() }
+        .onAppear { rebuildByMonth() }
+        .onChange(of: transactions) { _, _ in rebuildByMonth() }
         } // NavigationStack
     }
 
