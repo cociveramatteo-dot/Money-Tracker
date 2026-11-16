@@ -116,6 +116,8 @@ struct PianificaView: View {
                     Spacer(minLength: 100)
                 }
             }
+            // Riserva la fascia del FAB anche all’inizio dello scroll.
+            .padding(.bottom, DS.Space.xxl + DS.Space.xl + DS.Space.l)
             .background(DS.paper)
             .scrollIndicators(.hidden)
             .refreshable { await SyncService.shared.manualRefresh(context: context) }

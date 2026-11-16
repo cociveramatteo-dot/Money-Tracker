@@ -101,7 +101,9 @@ il task e i file indicati.
 
 - **Eseguito Codex 2026-11-16 11:08:** segmented, hero budget/obiettivi con anello, card dedicate e + 44×44 verso editor esistente. Soglie delegate a BudgetStatus/ProgressBar invariati, progressi ponderati e speso invariati. Build senza warning, 82 unit e 7 UI mirati verdi tra run base e acquisizioni finali (dark separato); 16 screenshot finali ispezionati in `.cantiere/tmp/s7/comparison.png`. Primo run nuove prove rosso per ereditarietà identificatore SwiftUI, risolto con contenitore accessibile e selezione per etichetta senza togliere asserzioni. Sei chiavi nuove x7; traduzioni non fornite `[DA COMPLETARE]`, ⏳. Differenze sorgente: navigazione mese e azioni esistenti preservate, percentuale hero DS 30 anziché 28, importi con /, icone obiettivo tinta accent. Nessuna conformità dichiarata; collaudo definitivo pendente.
 
-### S-8 [!] Conti
+- **Correzione aggiuntiva richiesta da Matteo · 2026-11-16 11:48 · Codex:** padding esterno inferiore dello ScrollView di 76 pt (token DS), per riservare la fascia del FAB anche a inizio scroll, in Budget e Obiettivi. Aspetto delle card e logica invariati. UI light/dark/XL verificano frame scroll sopra FAB e screenshot iniziali/fondo. S-7 resta [x] dal collaudo precedente; il solo padding è da ricontrollare.
+
+### S-8 [~] Conti
 - **A chi:** Antigravity (o Codex)
 - **Obiettivo:** schermata come `Conti.dc.html`, raggruppamento per tipo solo visivo
 - **Leggere:** `DESIGN_HANDOFF.md` §4 Conti, `Views/AccountsView.swift`
@@ -111,6 +113,8 @@ il task e i file indicati.
 - **Collaudo 2026-11-16 11:34: [!] NON PASSA per un punto.** Correggere (Codex): in `Views/AccountsView.swift:~183` le righe archiviate espanse usano `.opacity(0.35)` sull'intera riga: testo e importi quasi illeggibili (contrasto ~1,5:1, vedi `.cantiere/tmp/s8/states.png` riquadro 3, e dark). Sostituire con attenuazione leggibile (es. opacity 0.6-0.65 o colori DS.ink2 senza opacity sull'intera riga) mantenendo la distinzione visiva e la riga ripristinabile; ricontrollare light/dark/XL. Tutto il resto conforme: swipe/long-press, archiviazione, esclusione dal totale, hideBalance, hero/gruppi/icone 40/13, tratteggiata Archiviati con conteggio separato accettata. Dopo il fix basta ricollaudo del solo stato archivi espansi. Aperto non bloccante: "[DA COMPLETARE]" in de (hero, gruppo Liquidità/Risparmio).
 
 - **Eseguito Codex 2026-11-16 11:31:** hero patrimonio, gruppi visivi per tipo, totali gruppo esclusi correttamente, icone tinta, avviso soglia da UserDefaults esistente, riga tratteggiata archiviati con apertura/ripristino. Totali globali, mutazioni e AddAccountView invariati. Build senza warning, 82 unit + 12 UI mirati con ultimi esiti verdi tra i run (non un singolo run completo). Corretto hit target Archiviati dopo primo test rosso, nessuna asserzione rimossa. 13 immagini finali ispezionate: light/dark/XL/de, escluso, archiviati chiusi/aperti, soglia lunga XL, saldi nascosti XL. `.cantiere/tmp/s8/`. Residui: traduzioni ⏳, Archiviati con conteggio separato, icone SF invece SVG, attenuazione preesistente righe archiviate da valutare al collaudo. Nessuna conformità dichiarata.
+
+- **Correzione collaudo · 2026-11-16 11:48 · Codex [~]:** rimossa opacity 0.35 dalle righe archiviate; testi/importi/icone usano DS.smoke opaco nello stato archiviato. Contrasto token testo/sfondo 5,60:1 light e 7,28:1 dark; icone almeno 5,14:1 / 5,32:1 sui fondi tinta. Distinzione dagli attivi conservata, menu/ripristino invariati e verificati in light/dark/XL. Build senza warning, 82 unit e 3 UI mirati verdi; 15 screenshot ispezionati in `.cantiere/tmp/review-s7-s8/`, incluso prima/dopo del riquadro 3 precedente. Localizable.strings non toccati. Ricollaudo dello stato archiviati espansi e del padding S-7.
 
 ### S-9 [ ] Impostazioni, sheet di inserimento, categorie, login
 - **A chi:** Antigravity

@@ -180,7 +180,6 @@ struct AccountsView: View {
                         Section {
                             ForEach(archived) { acc in
                                 AccountRow(account: acc, hidden: hideBalance)
-                                    .opacity(0.35)
                                     .contextMenu {
                                         Button {
                                             acc.isArchived = false
@@ -278,17 +277,17 @@ struct AccountRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: icon).font(DS.Typo.rowName).foregroundStyle(tint.foreground)
+            Image(systemName: icon).font(DS.Typo.rowName).foregroundStyle(account.isArchived ? DS.smoke : tint.foreground)
                 .frame(width: 40, height: 40)
                 .background(tint.background, in: RoundedRectangle(cornerRadius: 13))
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 2) {
-                Text(account.name).font(DS.Typo.rowName).foregroundStyle(DS.ink)
+                Text(account.name).font(DS.Typo.rowName).foregroundStyle(account.isArchived ? DS.smoke : DS.ink)
                 if account.isExcludedFromTotal {
                     Text("Escluso dal totale").font(DS.Typo.caption).foregroundStyle(DS.smoke)
                 } else if belowThreshold {
                     Text(String(format: String(localized: "Sotto la soglia di %@"), threshold.currencyFormatted))
-                        .font(DS.Typo.caption).fontWeight(.semibold).foregroundStyle(DS.plannedText)
+                        .font(DS.Typo.caption).fontWeight(.semibold).foregroundStyle(account.isArchived ? DS.smoke : DS.plannedText)
                 } else {
                     Text(account.accountType.localizedName).font(DS.Typo.caption).foregroundStyle(DS.smoke)
                 }
@@ -298,11 +297,11 @@ struct AccountRow: View {
                 Text(hidden ? "• • •" : account.currentBalance.currencyFormatted)
                     .font(DS.Typo.rowAmount)
                     .accessibilityLabel(hidden ? String(localized: "Saldo nascosto") : account.currentBalance.currencyFormatted)
-                    .foregroundStyle(account.isExcludedFromTotal ? DS.smoke : DS.ink)
+                    .foregroundStyle(account.isExcludedFromTotal || account.isArchived ? DS.smoke : DS.ink)
                     .lineLimit(1).minimumScaleFactor(0.7)
                 if !hidden, abs(account.futureBalance - account.currentBalance) > 0.001 {
                     Text("→ " + account.futureBalance.currencyFormatted)
-                        .font(DS.Typo.caption).foregroundStyle(DS.plannedText)
+                        .font(DS.Typo.caption).foregroundStyle(account.isArchived ? DS.smoke : DS.plannedText)
                         .lineLimit(1).minimumScaleFactor(0.7)
                 }
             }.layoutPriority(1)
