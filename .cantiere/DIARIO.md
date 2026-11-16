@@ -80,3 +80,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 10:03 | impresa (Codex · GPT-6) | correzione S-28 | tedesco XL su una riga con scala minima 0.6; build + 80 unit + 3 UI verdi, tre immagini verificate | ricollaudo S-28, Commissione S-13h, approvazione traduzioni |
 | 2026-11-16 10:05 | collaudatore (Claude Code · Sonnet) | S-28 ricollaudo | diff dd2d0a5 + screenshot: de XL su una riga, it L/XL ok, touch/selezione invariati: S-28 [x] | Commissione S-13h, approvazione traduzioni Matteo |
 | 2026-11-16 10:06 | collaudatore (Claude Code · Sonnet) | S-26 (riverifica) | già [x] dal 2026-11-16 01:22 (8f7ca44); ricontrollo: solo Debug/Tests/lingue toccati, 32 chiavi demo x 7 lingue, seed v6 con reset delle RecurringRule e override/effettuato; nessun cambio | S-13h, traduzioni Matteo |
+
+| 2026-11-16 10:13 | impresa (Codex · GPT-6) | S-29 | helper calendario, fetch per regola, errori localizzati, round-trip Decimal esatto; build + 81 unit + 3 UI verdi | ricollaudo S-29, nuova Commissione, approvazione traduzioni |

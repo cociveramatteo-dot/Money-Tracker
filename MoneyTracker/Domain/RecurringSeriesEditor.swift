@@ -34,10 +34,10 @@ struct RecurringSeriesEditor {
         case requiresMainContext, invalidOccurrence, invalidValues, crossMonthOverride
         var errorDescription: String? {
             switch self {
-            case .requiresMainContext: return "Le ricorrenze richiedono il contesto principale."
-            case .invalidOccurrence: return "L’occorrenza non appartiene alla serie."
-            case .invalidValues: return "I valori della ricorrenza non sono validi."
-            case .crossMonthOverride: return "La data deve restare nello stesso mese."
+            case .requiresMainContext: return String(localized: "Le ricorrenze richiedono il contesto principale.")
+            case .invalidOccurrence: return String(localized: "L’occorrenza non appartiene alla serie.")
+            case .invalidValues: return String(localized: "I valori della ricorrenza non sono validi.")
+            case .crossMonthOverride: return String(localized: "La data deve restare nello stesso mese.")
             }
         }
     }
@@ -73,7 +73,7 @@ struct RecurringSeriesEditor {
         var base = Self.snapshot(rule)
         base.exceptions = [:]
         base.endDate = nil
-        let interval = calendar.dateInterval(of: .month, for: original)!
+        let interval = calculator.monthInterval(original)
         guard rule.modelContext === context,
               calculator.occurrences(rule: base, in: interval).contains(where: { $0.originalDate == original })
         else { throw EditorError.invalidOccurrence }
@@ -92,13 +92,13 @@ struct RecurringSeriesEditor {
         var result: RecurringRule? = rule
         let key = calculator.key(for: original)
         var exceptions = old.exceptions
-        let previousDay = calendar.date(byAdding: .day, value: -1, to: original)!
+        let previousDay = calculator.adding(.day, value: -1, to: original)
         // IDs identify the original civil day even if the effective date was moved.
         var originalDays: [UUID: Date]?
         func originalDay(_ copy: Transaction) -> Date {
             if originalDays == nil {
                 let lastDate = max(copies.map(\.date).max() ?? original, oldWatermark ?? original, original)
-                let end = calendar.date(byAdding: .month, value: 1, to: lastDate)!
+                let end = calculator.adding(.month, value: 1, to: lastDate)
                 originalDays = Dictionary(uniqueKeysWithValues: calculator.occurrences(
                     rule: base, in: DateInterval(start: base.startDate, end: max(end, base.startDate.addingTimeInterval(1))))
                     .map { ($0.id, $0.originalDate) })
@@ -138,20 +138,20 @@ struct RecurringSeriesEditor {
             if source.frequency == "settimanale" {
                 index = max(0, (calendar.dateComponents([.day], from: source.startDate, to: day).day ?? 0) / 7)
             } else {
-                let a = calendar.dateInterval(of: .month, for: source.startDate)!.start
-                let b = calendar.dateInterval(of: .month, for: day)!.start
+                let a = calculator.monthStart(source.startDate)
+                let b = calculator.monthStart(day)
                 index = max(0, (calendar.dateComponents([.month], from: a, to: b).month ?? 0) / (source.frequency == "annuale" ? 12 : 1))
             }
             if target.frequency == "settimanale" {
-                return calendar.date(byAdding: .day, value: index * 7, to: calculator.noon(target.startDate))!
+                return calculator.adding(.day, value: index * 7, to: calculator.noon(target.startDate))
             }
-            let anchorMonth = calendar.dateInterval(of: .month, for: target.startDate)!.start
-            let month = calendar.date(byAdding: .month, value: index * (target.frequency == "annuale" ? 12 : 1), to: anchorMonth)!
-            let dayOfMonth = min(calendar.component(.day, from: target.startDate), calendar.range(of: .day, in: .month, for: month)!.count)
-            return calendar.date(byAdding: .day, value: dayOfMonth - 1, to: calculator.noon(month))!
+            let anchorMonth = calculator.monthStart(target.startDate)
+            let month = calculator.adding(.month, value: index * (target.frequency == "annuale" ? 12 : 1), to: anchorMonth)
+            let dayOfMonth = min(calendar.component(.day, from: target.startDate), calculator.daysInMonth(month))
+            return calculator.adding(.day, value: dayOfMonth - 1, to: calculator.noon(month))
         }
         func reconcile(_ target: RecurringRule) {
-            let month = calendar.dateInterval(of: .month, for: now)!
+            let month = calculator.monthInterval(now)
             let desired = calculator.occurrences(rule: Self.snapshot(target), in: month)
             let ids = Set(desired.map(\.id))
             // Deterministic IDs identify original dates even when a copy was moved manually.

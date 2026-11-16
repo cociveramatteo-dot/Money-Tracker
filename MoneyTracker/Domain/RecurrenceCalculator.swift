@@ -74,13 +74,36 @@ nonisolated struct RecurrenceCalculator: Sendable {
         self.calendar = calendar
     }
 
+    /// Calendar failures preserve the input date instead of crashing.
+    func adding(_ component: Calendar.Component, value: Int, to date: Date) -> Date {
+        guard let result = calendar.date(byAdding: component, value: value, to: date) else { return date }
+        return result
+    }
+
+    func monthInterval(_ date: Date) -> DateInterval {
+        guard let interval = calendar.dateInterval(of: .month, for: date) else {
+            return DateInterval(start: date, end: date)
+        }
+        return interval
+    }
+
+    func monthStart(_ date: Date) -> Date { monthInterval(date).start }
+
+    func daysInMonth(_ date: Date) -> Int {
+        guard let days = calendar.range(of: .day, in: .month, for: date) else {
+            return calendar.component(.day, from: date)
+        }
+        return days.count
+    }
+
     func noon(_ date: Date) -> Date {
-        calendar.date(bySettingHour: 12, minute: 0, second: 0, of: date)!
+        guard let result = calendar.date(bySettingHour: 12, minute: 0, second: 0, of: date) else { return date }
+        return result
     }
 
     func key(for date: Date) -> String {
-        let parts = calendar.dateComponents([.year, .month, .day], from: date)
-        return String(format: "%04d-%02d-%02d", parts.year!, parts.month!, parts.day!)
+        String(format: "%04d-%02d-%02d", calendar.component(.year, from: date),
+               calendar.component(.month, from: date), calendar.component(.day, from: date))
     }
 
     /// Translate the date shown for a selected copy back to its series anchor.
@@ -89,15 +112,15 @@ nonisolated struct RecurrenceCalculator: Sendable {
         guard !calendar.isDate(date, inSameDayAs: originalDate) else { return rule.startDate }
         if rule.frequency == "settimanale" {
             let days = calendar.dateComponents([.day], from: noon(originalDate), to: noon(date)).day ?? 0
-            return calendar.date(byAdding: .day, value: days, to: noon(rule.startDate))!
+            return adding(.day, value: days, to: noon(rule.startDate))
         }
-        let originalMonth = calendar.dateInterval(of: .month, for: originalDate)!.start
-        let editedMonth = calendar.dateInterval(of: .month, for: date)!.start
+        let originalMonth = monthStart(originalDate)
+        let editedMonth = monthStart(date)
         let months = calendar.dateComponents([.month], from: originalMonth, to: editedMonth).month ?? 0
-        let anchorMonth = calendar.dateInterval(of: .month, for: rule.startDate)!.start
-        let month = calendar.date(byAdding: .month, value: months, to: anchorMonth)!
-        let day = min(calendar.component(.day, from: date), calendar.range(of: .day, in: .month, for: month)!.count)
-        return calendar.date(byAdding: .day, value: day - 1, to: noon(month))!
+        let anchorMonth = monthStart(rule.startDate)
+        let month = adding(.month, value: months, to: anchorMonth)
+        let day = min(calendar.component(.day, from: date), daysInMonth(month))
+        return adding(.day, value: day - 1, to: noon(month))
     }
 
     /// Intervals are half-open [start, end). End dates on rules are inclusive civil days.
@@ -107,26 +130,26 @@ nonisolated struct RecurrenceCalculator: Sendable {
         let start = noon(rule.startDate)
         let end = rule.endDate.map(noon)
         let anchor = calendar.dateComponents([.year, .month, .day], from: start)
-        let firstMonth = calendar.dateInterval(of: .month, for: interval.start)!.start
-        let lastMonth = calendar.dateInterval(of: .month, for: interval.end)!.end
+        let firstMonth = monthStart(interval.start)
+        let lastMonth = monthInterval(interval.end.addingTimeInterval(-1)).end
         var dates: [Date] = []
         switch rule.frequency {
         case "settimanale":
             let days = calendar.dateComponents([.day], from: calendar.startOfDay(for: start),
-                                               to: calendar.startOfDay(for: firstMonth)).day!
+                                               to: calendar.startOfDay(for: firstMonth)).day ?? 0
             var k = max(0, days / 7)
             while let date = calendar.date(byAdding: .day, value: k * 7, to: start), date < lastMonth {
                 if date >= firstMonth { dates.append(date) }
                 k += 1
             }
         case "mensile", "annuale":
-            let anchorMonth = calendar.dateInterval(of: .month, for: start)!.start
-            let difference = calendar.dateComponents([.month], from: anchorMonth, to: firstMonth).month!
+            let anchorMonth = monthStart(start)
+            let difference = calendar.dateComponents([.month], from: anchorMonth, to: firstMonth).month ?? 0
             let step = rule.frequency == "mensile" ? 1 : 12
             var n = max(0, difference / step)
             while let month = calendar.date(byAdding: .month, value: n * step, to: anchorMonth), month < lastMonth {
-                let day = min(anchor.day!, calendar.range(of: .day, in: .month, for: month)!.count)
-                let date = calendar.date(byAdding: .day, value: day - 1, to: noon(month))!
+                let day = min((anchor.day ?? calendar.component(.day, from: start)), daysInMonth(month))
+                let date = adding(.day, value: day - 1, to: noon(month))
                 if date >= firstMonth { dates.append(date) }
                 n += 1
             }

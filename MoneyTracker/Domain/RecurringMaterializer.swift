@@ -3,7 +3,6 @@ import SwiftData
 
 @MainActor
 struct RecurringMaterializer {
-    private let calendar: Calendar
     private let calculator: RecurrenceCalculator
 
     enum MaterializationError: Error, Equatable {
@@ -12,9 +11,6 @@ struct RecurringMaterializer {
     }
 
     init(timeZone: TimeZone = .current) {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = timeZone
-        self.calendar = calendar
         self.calculator = RecurrenceCalculator(timeZone: timeZone)
     }
 
@@ -27,7 +23,7 @@ struct RecurringMaterializer {
             throw MaterializationError.requiresMainContext
         }
         let currentMonth = month(of: now)
-        let oldestMonth = calendar.date(byAdding: .month, value: -35, to: currentMonth)!
+        let oldestMonth = calculator.adding(.month, value: -35, to: currentMonth)
         let rules = try context.fetch(FetchDescriptor<RecurringRule>())
         // Resolve every fetch before mutating the mainContext: a fetch failure must not
         // leave a partially advanced watermark, nor roll back unrelated user edits.
@@ -38,14 +34,12 @@ struct RecurringMaterializer {
             guard ["mensile", "settimanale", "annuale"].contains(rule.frequency) else { continue }
             let startMonth = month(of: rule.startDate)
             let previous = rule.materializedThrough
-            let watermark = previous.map(month) ?? calendar.date(
-                byAdding: .month, value: -1, to: max(startMonth, currentMonth)
-            )!
+            let watermark = previous.map(month) ?? calculator.adding(.month, value: -1, to: max(startMonth, currentMonth))
             guard watermark < currentMonth else {
                 if previous == nil { updates.append((rule, previous, watermark)) }
                 continue
             }
-            var cursor = max(startMonth, oldestMonth, calendar.date(byAdding: .month, value: 1, to: watermark)!)
+            var cursor = max(startMonth, oldestMonth, calculator.adding(.month, value: 1, to: watermark))
             let snapshot = RuleSnapshot(
                 id: rule.id, name: rule.name, amount: rule.amount, type: rule.type,
                 category: rule.category, categoryIcon: rule.categoryIcon, notes: rule.notes,
@@ -53,13 +47,17 @@ struct RecurringMaterializer {
                 startDate: rule.startDate, endDate: rule.endDate,
                 exceptions: RecurrenceExceptionCodec.decode(rule.exceptionsJSON)
             )
+            let ruleIdString = rule.id.uuidString
+            let existing = try context.fetch(FetchDescriptor<Transaction>(
+                predicate: #Predicate { $0.templateId == ruleIdString }))
+            let existingIDs = Set(existing.map(\.id))
             while cursor <= currentMonth {
-                let nextMonth = calendar.date(byAdding: .month, value: 1, to: cursor)!
+                let nextMonth = calculator.adding(.month, value: 1, to: cursor)
+                // No mutations have occurred: preserve watermarks if the calendar cannot advance.
+                guard nextMonth > cursor else { return 0 }
                 for occurrence in calculator.occurrences(rule: snapshot, in: DateInterval(start: cursor, end: nextMonth)) {
                     let id = occurrence.id
-                    var descriptor = FetchDescriptor<Transaction>(predicate: #Predicate { $0.id == id })
-                    descriptor.fetchLimit = 1
-                    guard try context.fetch(descriptor).isEmpty, pendingIDs.insert(id).inserted else { continue }
+                    guard !existingIDs.contains(id), pendingIDs.insert(id).inserted else { continue }
                     pending.append(occurrence)
                 }
                 cursor = nextMonth
@@ -93,6 +91,6 @@ struct RecurringMaterializer {
     }
 
     private func month(of date: Date) -> Date {
-        calculator.noon(calendar.dateInterval(of: .month, for: date)!.start)
+        calculator.noon(calculator.monthStart(date))
     }
 }

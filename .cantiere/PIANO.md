@@ -291,3 +291,13 @@ Modello di task:
 
 - **Correzione Codex 2026-11-16:** lineLimit(1), minimumScaleFactor(0.6), rimosso allineamento multilinea. Padding/celle/target/selezione invariati. Build + 80 unit + 3 UI verdi. Screenshot de XL: Bewegungen intero su una riga, senza ellissi né lettera orfana; it L/XL confermati. Da ricollaudare; nuove evidenze in CONSEGNA.
 - **Ricollaudo 2026-11-16 10:05: collaudo ok, chiuso [x].** Diff dd2d0a5 solo FloatingTabBar.swift (lineLimit(1), minimumScaleFactor 0.6): target touch, selezione, identificatori, callback invariati; nessuna zona intoccabile né test toccato. Screenshot: de XL «Bewegungen» intero su una riga, niente ellissi/lettere isolate, separato da Startseite/Statistiken; it L e XL nomi completi e separati.
+
+### S-29 [~] Correzioni Commissione Suprema S-13h (autorizzate da Matteo 2026-11-16)
+- Helper calendario con guard/fallback nei tre componenti Domain, lastMonth da interval.end - 1.
+- Materializer: un fetch per regola e Set UUID, idempotenza/copie fatte/UUIDv5/36 mesi invariati.
+- Errori editor/status localizzati in 7 lingue, italiano invariato; nuove traduzioni da approvare.
+- Nuovo test Decimal 2 decimali: round-trip SwiftData e SBRecurringRule JSON. Eventuali discrepanze solo da riportare.
+- Autorizzati interventi mirati Domain (incluso RecurringSeriesEditor citato nel task) e Sync solo se necessario al test. Fuori perimetro TransactionsView, testi S-19/S-28, blocco reale S-24. Nessun test esistente modificato per farlo passare.
+- Verifica build + 80 unit esistenti e nuovo test + 3 UI TabBarAppearance. Nessun push/merge. Poi ricollaudo e nuova Commissione.
+
+- **S-29 eseguito Codex 2026-11-16:** helper calendario senza unwrap nei tre Domain, ultimo mese da end−1 s, fetch transazioni unico per regola e Set ID. Quattro errorDescription localizzati; messaggio status già NSLocalizedString, cinque chiavi verificate in tutte le 7 lingue senza nuovi testi. Nuovo test Decimal su store riaperto + DTO JSON + apply: 0.29/1234.56/999999.99 esatti. Build + 81 unit + 3 UI verdi. Da ricollaudare; poi nuova Commissione, non attribuiti voti.
