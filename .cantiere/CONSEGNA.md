@@ -22,3 +22,6 @@
 
 ## Prossimo
 Collaudo indipendente S-26 → collaudatore su Claude Code (Sonnet), leggendo solo il diff del commit e queste evidenze. Solo il collaudatore o Matteo può portare S-26 a [x]. Dopo: S-27 (full UI unico e altri miglioramenti già elencati); poi S-18/S-19 e Commissione S-13h. Nessun push/merge.
+
+## Collaudo S-26 (2026-11-16 01:22)
+Esito: OK. Nessuna modifica a zone intoccabili/test esistenti; seed solo su demoContainer separato; 32 chiavi demo.* in 7 lingue; unit test verdi (rilanciati). Note minori: force-unwrap solo in codice Debug (dateInterval, Category.defaults) accettabili. Prossimo: S-27.

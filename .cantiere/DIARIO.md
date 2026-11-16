@@ -62,3 +62,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-15 11:55 | collaudatore (Claude Code · Sonnet) | collaudo S-24/S-25/S-15 (125561c) | diff Domain/viste/test riletto; 78 unit verdi rilanciati; log UI verificati (rilanci mirati, no full 15/15 unico); esito [x] con riserva blocco reale su Tutte | S-18/S-19, Commissione S-13h; prova reale Tutte a Matteo |
 
 | 2026-11-16 01:13 | impresa (Codex · GPT-6) | S-26 Demo vetrina | seed v6: otto mesi, nove regole, override/oggi effettuato, pianificati, budget/obiettivi/conti e sette lingue; build + 79 unit + 4 UI verdi, dieci immagini confrontate; commit locale senza push | collaudo indipendente S-26; full UI unico S-27; grafica S-6/S-7/S-8/S-18 |
+| 2026-11-16 01:22 | collaudatore (Claude Code · Sonnet) | S-26 | collaudo ok: diff 0cde11c, zone intoccabili intatte, 32 chiavi demo x 7 lingue, unit test verdi | S-27 |

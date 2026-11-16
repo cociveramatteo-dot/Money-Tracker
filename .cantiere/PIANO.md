@@ -262,7 +262,7 @@ Modello di task:
 - **Perimetro:** Domain/RecurrenceCalculator.swift e RecurringSeriesEditor.swift; viste e test. Models/Persistence/Sync/Auth e grafica intatti. Corretto anche il tag del selettore Tipo (rawValue del modello).
 - **Da fare:** collaudo S-24/S-25/S-15; poi S-18/S-19 e Commissione S-13h. Nessun push/merge/checkpoint.
 
-### S-26 [~] Demo vetrina completa (DemoDataSeeder)
+### S-26 [x] Demo vetrina completa (DemoDataSeeder) — 2026-11-16 01:22 collaudo ok
 - **A chi:** Codex (Antigravity sospeso fino al 2026-11-20). Richiesto da Matteo 2026-11-15.
 - **Perché:** la demo serve a mostrare l'app ad altri senza i soldi veri di Matteo: oggi è poco completa (poche spese fisse, nessuna `RecurringRule`, ~30 movimenti su 3 mesi, grafico Home povero e piatto).
 - **Da fare:** riscrivere `MoneyTracker/Debug/DemoDataSeeder.swift` (alzare `seedVersion`): 6+ mesi di storia con andamento realistico e picchi; molte spese fisse come vere `RecurringRule` (affitto, bollette, abbonamenti, palestra, assicurazione, rata…) con occorrenze passate/oggi/future; almeno una serie con override singolo e una con «già effettuato»; entrata ricorrente e giroconto; tutte le categorie principali; budget a vari livelli (sotto/a rischio/sforato); obiettivi a vari stadi; conti diversi con saldi credibili; pianificati futuri (saldo atteso ≠ attuale); nomi localizzati nelle 7 lingue (chiavi `demo.*`).
