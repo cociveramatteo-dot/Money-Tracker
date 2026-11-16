@@ -89,13 +89,15 @@ il task e i file indicati.
 
 - **Eseguito Codex 2026-11-16 10:48:** tre tile, card Andamento/categorie, BarMark affiancati, 12M con iniziali leggibili a XL. Calcoli/cache/PDF invariati. Build + 82 unit + 3 UI TabBarAppearance + 4 nuovi UI S-6 verdi (dark separato). Dodici screenshot finali ispezionati, `.cantiere/tmp/s6/comparison.png`. Confronto con sorgente HTML, nessuna conformità dichiarata. Differenze: target 44 pt, impostazioni preservate, sezioni aggiuntive esistenti e confronto annuale anziché mensile nel footer; titoli Andamento/Per categoria da tradurre nelle sei lingue, ⏳.
 
-### S-7 [ ] Pianifica (Budget + Obiettivi)
+### S-7 [~] Pianifica (Budget + Obiettivi)
 - **A chi:** Antigravity (o Codex)
 - **Obiettivo:** schermata come `Pianifica.dc.html`
 - **Leggere:** `DESIGN_HANDOFF.md` §4 Pianifica, `Views/PianificaView.swift`
 - **Toccare:** `PianificaView.swift` e relative card
 - **Fatto quando:** soglie 80/100% lette dalla logica esistente (non ricalcolate nella vista); badge testuale di stato; progresso complessivo ponderato invariato; test verdi
 - **Non fare:** ricalcolare soglie, toccare modelli
+
+- **Eseguito Codex 2026-11-16 11:08:** segmented, hero budget/obiettivi con anello, card dedicate e + 44×44 verso editor esistente. Soglie delegate a BudgetStatus/ProgressBar invariati, progressi ponderati e speso invariati. Build senza warning, 82 unit e 7 UI mirati verdi tra run base e acquisizioni finali (dark separato); 16 screenshot finali ispezionati in `.cantiere/tmp/s7/comparison.png`. Primo run nuove prove rosso per ereditarietà identificatore SwiftUI, risolto con contenitore accessibile e selezione per etichetta senza togliere asserzioni. Sei chiavi nuove x7; traduzioni non fornite `[DA COMPLETARE]`, ⏳. Differenze sorgente: navigazione mese e azioni esistenti preservate, percentuale hero DS 30 anziché 28, importi con /, icone obiettivo tinta accent. Nessuna conformità dichiarata; collaudo definitivo pendente.
 
 ### S-8 [ ] Conti
 - **A chi:** Antigravity (o Codex)

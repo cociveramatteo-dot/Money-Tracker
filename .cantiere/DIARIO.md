@@ -88,3 +88,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 10:23 | impresa (Codex · GPT-6) | S-6 → S-7 → S-8 | turno libero, ramo verificato; letti task e riferimento S-6, verificata assenza runtime/anteprima; nessun codice modificato | S-6 bloccato sul confronto mockup; S-7/S-8 non iniziati |
 
 | 2026-11-16 10:48 | impresa (Codex · GPT-6) | S-6 Statistiche | redesign visivo, 82 unit + 7 UI mirati verdi, 12 screenshot finali ispezionati; dati/PDF invariati | collaudo S-6 e traduzioni; segue S-7 |
+
+| 2026-11-16 11:08 | impresa (Codex · GPT-6) | S-7 Pianifica | hero/card Sentiero, soglie esistenti, + editor verificato; 82 unit + 7 UI mirati verdi e 16 screenshot ispezionati | collaudo/traduzioni; segue S-8 |

@@ -12,3 +12,6 @@ Si aggiorna, non si cancella: quando cambia lo stato si aggiorna la riga e si an
 
 ## S-6 · testi del riferimento · ⏳
 Italiano dal mockup: «Andamento», «Per categoria», «PDF». «Netto» riusa la chiave già tradotta. PDF mantenuto come sigla nelle 7 lingue; per gli altri due testi le sei traduzioni non fornite sono `[DA COMPLETARE]`, senza inventarle. Approvazione e completamento Matteo/redattore pendenti.
+
+## S-7 · testi di presentazione · ⏳
+Dal riferimento: «Multi-categoria», «Nessuna scadenza», «Aggiungi progresso», «Progresso complessivo», «Avviso all’80%», «Mancano %lld giorni». «Storico Budget» riusa la chiave esistente. Nuove traduzioni non fornite: `[DA COMPLETARE]` nelle sei lingue; chiavi preesistenti riusate.
