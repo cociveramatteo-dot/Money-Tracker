@@ -292,7 +292,7 @@ Modello di task:
 - **Correzione Codex 2026-11-16:** lineLimit(1), minimumScaleFactor(0.6), rimosso allineamento multilinea. Padding/celle/target/selezione invariati. Build + 80 unit + 3 UI verdi. Screenshot de XL: Bewegungen intero su una riga, senza ellissi né lettera orfana; it L/XL confermati. Da ricollaudare; nuove evidenze in CONSEGNA.
 - **Ricollaudo 2026-11-16 10:05: collaudo ok, chiuso [x].** Diff dd2d0a5 solo FloatingTabBar.swift (lineLimit(1), minimumScaleFactor 0.6): target touch, selezione, identificatori, callback invariati; nessuna zona intoccabile né test toccato. Screenshot: de XL «Bewegungen» intero su una riga, niente ellissi/lettere isolate, separato da Startseite/Statistiken; it L e XL nomi completi e separati.
 
-### S-29 [~] Correzioni Commissione Suprema S-13h (autorizzate da Matteo 2026-11-16)
+### S-29 [x] Correzioni Commissione Suprema S-13h (autorizzate da Matteo 2026-11-16) — 2026-11-16 collaudo ok (diff a1c6c89; build+81 unit+3 UI dichiarati dall impresa, non rilanciati)
 - Helper calendario con guard/fallback nei tre componenti Domain, lastMonth da interval.end - 1.
 - Materializer: un fetch per regola e Set UUID, idempotenza/copie fatte/UUIDv5/36 mesi invariati.
 - Errori editor/status localizzati in 7 lingue, italiano invariato; nuove traduzioni da approvare.
