@@ -344,7 +344,7 @@
 /* ── Demo accounts ───────────────────────────── */
 "demo.account.conto"    = "Cuenta corriente";
 "demo.account.risparmi" = "Ahorros";
-"demo.account.carta"    = "Tarjeta de crédito";
+"demo.account.carta"    = "Tarjeta prepago";
 "demo.account.contanti" = "Efectivo";
 
 /* ── Demo transactions ───────────────────────── */
@@ -392,19 +392,8 @@
 "Nessun conto trovato. Apri l'app per aggiungerne uno." = "No se encontró ninguna cuenta. Abre la app para añadir una.";
 "💰 Saldo totale: %@" = "💰 Saldo total: %@";
 
-/* ── Onboarding tour — new steps ─────────────── */
-"tour.welcome.title"    = "Bienvenido a MoneyTracker";
-"tour.welcome.body"     = "Esta guía te presenta todas las funciones. Puedes interrumpirla en cualquier momento y retomarla desde Ajustes → Revisar tour.";
-"tour.shortcuts.title"  = "Automatización con Siri";
-"tour.shortcuts.body"   = "Registra gastos, ingresos y consulta tu saldo con un comando de voz. Di «Añadir gasto a MoneyTracker» o explora Ajustes → Siri y Búsqueda.";
-"tour.done.title"       = "Estás listo";
-"tour.done.body"        = "Has completado el tour de MoneyTracker. Cada función está diseñada para ser potente e inmediata. Puedes revisar esta guía en cualquier momento desde Ajustes.";
-"tour.startButton"      = "Iniciar tour";
-"tour.doneButton"       = "Empezar a usar la app";
-"tour.skipButton"       = "Saltar tour";
 "Avanti"                = "Siguiente";
 "Fine"                  = "Listo";
-"Rivedi tour"           = "Revisar tour";
 
 /* ── Settings / Siri section & accessibility ─── */
 "Siri & Shortcut" = "Siri y Atajos";
@@ -418,45 +407,116 @@
 "escluso dal totale" = "excluido del total";
 "saldo" = "saldo";
 
-/* ── Tour: pasos por elemento por pestaña (Nivel 1) ─── */
-"tour.stepProgress" = "%d de %d";
 
-"tour.home.balance.title" = "Saldo actual";
-"tour.home.balance.body" = "Fondos confirmados: solo los movimientos completados cuentan para este valor.";
-"tour.home.hide.title" = "Ocultar el saldo";
-"tour.home.hide.body" = "Toca el ojo para difuminar todos los importes — útil cuando tu pantalla es visible para otros.";
-"tour.home.expected.title" = "Saldo previsto";
-"tour.home.expected.body" = "Tu saldo futuro, incluidos los gastos fijos planificados que aún no han ocurrido.";
-"tour.home.accounts.title" = "Tus cuentas";
-"tour.home.accounts.body" = "Toca el icono para elegir qué cuentas se muestran aquí y en qué orden.";
+/* Sentiero — Budget status */
+"Sforato" = "Superado";
+"Soglia 80%" = "Umbral del 80%";
 
-"tour.movimenti.sections.title" = "Secciones";
-"tour.movimenti.sections.body" = "Cada bloque agrupa un tipo de movimiento: todos, fijos, recurrentes, transferencias.";
-"tour.movimenti.block.title" = "Todos los movimientos";
-"tour.movimenti.block.body" = "Abre la lista completa, con filtros por categoría y cuenta.";
-"tour.movimenti.search.title" = "Buscar en todas partes";
-"tour.movimenti.search.body" = "Encuentra cualquier movimiento, en cualquier sección, con solo escribir una palabra.";
+/* Sentiero — FAB */
+"Nuovo movimento" = "Nuevo movimiento";
 
-"tour.statistiche.summary.title" = "Resumen del mes";
-"tour.statistiche.summary.body" = "Gastos e ingresos de este mes, comparados con el anterior.";
-"tour.statistiche.trend.title" = "Tendencia en el tiempo";
-"tour.statistiche.trend.body" = "Compara los últimos 6 o 12 meses en un solo gráfico.";
-"tour.statistiche.category.title" = "Gastos por categoría";
-"tour.statistiche.category.body" = "Descubre a dónde va la mayor parte de tu dinero cada mes.";
+/* Sentiero — Home */
+"Vedi tutti" = "Ver todo";
+"Saldo atteso a fine mese" = "Saldo previsto a fin de mes";
+"nessun movimento" = "sin movimientos";
+"Oscura importi" = "Ocultar importes";
+"Mostra importi" = "Mostrar importes";
+"1 movimento pianificato" = "1 movimiento planificado";
+"%lld movimenti pianificati" = "%lld movimientos planificados";
 
-"tour.pianifica.budget.title" = "Presupuestos por categoría";
-"tour.pianifica.budget.body" = "Define un límite de gasto mensual y controla cuánto has usado hasta ahora.";
-"tour.pianifica.history.title" = "Historial de presupuestos";
-"tour.pianifica.history.body" = "Revisa los meses pasados para ver cómo han cambiado tus hábitos de gasto.";
-"tour.pianifica.goals.title" = "Objetivos de ahorro";
-"tour.pianifica.goals.body" = "Define un importe objetivo para cada meta y registra cuánto has ahorrado hasta ahora.";
+"In arrivo · pianificati" = "Próximos · planificados";
 
-"tour.conti.list.title" = "Tus cuentas";
-"tour.conti.list.body" = "Saldo, tipo y opciones de cada cuenta. Desliza a la derecha para editar, a la izquierda para eliminar.";
+/* Sentiero — Movimenti S-12 */
+"Tutte le categorie" = "Todas las categorías";
+"Questo mese" = "Este mes";
+"Mese precedente" = "Mes anterior";
+"Mese successivo" = "Mes siguiente";
+"Filtri (%lld)" = "Filtros (%lld)";
 
-/* ── Tour: mini-tour contestuali (Livello 2) ─── */
-"hint.movimentiSection.title" = "Acciones rápidas";
-"hint.movimentiSection.body" = "Desliza a la derecha en un elemento fijo para confirmarlo, a la izquierda para eliminarlo. Mantén pulsado para más opciones.";
-"hint.settings.title" = "Ajustes";
-"hint.settings.body" = "Idioma, moneda, seguridad, exportación de datos y más. Vuelve a ver este tour cuando quieras desde aquí.";
-"hint.gotIt" = "Entendido";
+"Cerca per nome" = "Buscar por nombre";
+"Rimuovi filtri" = "Quitar filtros";
+"Nessun movimento corrisponde alla ricerca." = "Ningún movimiento coincide con la búsqueda.";
+"Fissa" = "Fijo";
+"Nessun risultato" = "Sin resultados";
+
+/* S-13g — rivisto dal redattore (S-19). */
+"Ricorrenze" = "Recurrencias";
+"Impossibile aggiornare le ricorrenze. Riprova." = "No se pudieron actualizar las recurrencias. Inténtalo de nuevo.";
+"Ambito" = "Ámbito";
+"Solo questa" = "Solo esta";
+"Questa e le successive" = "Esta y las siguientes";
+"Tutte" = "Todas";
+"Le occorrenze già effettuate restano invariate." = "Las ocurrencias completadas no cambian.";
+"La data deve restare nello stesso mese." = "La fecha debe estar en el mismo mes.";
+"Salta mese" = "Omitir mes";
+"Termina da qui" = "Terminar desde aquí";
+"Eliminare le occorrenze selezionate?" = "¿Eliminar las ocurrencias seleccionadas?";
+"Serie programmate" = "Series programadas";
+"Virtuale · esclusa dai totali" = "Virtual · excluida de los totales";
+"Terminata" = "Terminada";
+"Termina il" = "Termina el";
+"Attiva" = "Activa";
+"Prossima occorrenza" = "Próxima ocurrencia";
+"Nessuno" = "Ninguna";
+"Tipo" = "Tipo";
+"Le ricorrenze richiedono il contesto principale." = "Las recurrencias requieren el contexto principal.";
+"L’occorrenza non appartiene alla serie." = "La ocurrencia no pertenece a esta serie.";
+"I valori della ricorrenza non sono validi." = "Los valores de la recurrencia no son válidos.";
+"Termina dopo questa" = "Terminar después de esta";
+
+// Fictional showcase data
+"demo.tx.internet" = "Internet de casa";
+"demo.tx.streaming" = "Vídeo en streaming";
+"demo.tx.music" = "Música";
+"demo.tx.gym" = "Gimnasio";
+"demo.tx.insurance" = "Seguro del coche";
+"demo.tx.installment" = "Cuota de muebles";
+"demo.tx.shopping" = "Compras personales";
+"demo.tx.course" = "Curso de idiomas";
+"demo.tx.other" = "Pequeños gastos";
+"demo.tx.bonus" = "Prima de productividad";
+"demo.goal.computer" = "Ordenador portátil";
+"demo.tx.interest" = "Intereses del ahorro";
+
+"Andamento" = "Evolución";
+
+"Per categoria" = "Por categoría";
+
+"PDF" = "PDF";
+
+"Multi-categoria" = "Varias categorías";
+
+"Nessuna scadenza" = "Sin fecha límite";
+
+"Aggiungi progresso" = "Añadir progreso";
+
+"Progresso complessivo" = "Progreso total";
+
+"Avviso all’80%" = "Aviso al 80 %";
+
+
+"Mancano %lld giorni" = "Faltan %lld días";
+
+"Patrimonio totale" = "Patrimonio total";
+
+"Liquidità" = "Liquidez";
+
+"Risparmio e investimenti" = "Ahorro e inversiones";
+
+"Sotto la soglia di %@" = "Por debajo de %@";
+
+"Escluso dal totale" = "Excluido del total";
+
+/* S-14 — confronto mese su mese (approvato) */
+"Confronto mese su mese" = "Comparación mensual";
+"Giorni 1–%lld · %@ / %@" = "Días 1–%lld · %@ / %@";
+"Questo mese hai speso il %@%% in più per %@" = "Este mes has gastado un %@%% más en %@";
+"Questo mese hai speso il %@%% in meno per %@" = "Este mes has gastado un %@%% menos en %@";
+"Questo mese hai speso il %@%% in più in totale" = "Este mes has gastado un %@%% más en total";
+"Questo mese hai speso il %@%% in meno in totale" = "Este mes has gastado un %@%% menos en total";
+"Questo mese hai speso quanto nel periodo precedente per %@" = "Este mes has gastado lo mismo en %@ que en el período anterior";
+"Questo mese hai speso quanto nel periodo precedente in totale" = "El gasto total de este mes es igual al del período anterior";
+"Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente" = "Este mes has gastado %@ en %@; no hubo gastos en el período anterior";
+"Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente" = "Este mes has gastado %@ en total; no hubo gastos en el período anterior";
+"Spesa pari a zero nei due periodi per %@" = "El gasto en %@ es cero en ambos períodos";
+"Spesa totale pari a zero nei due periodi" = "El gasto total es cero en ambos períodos";

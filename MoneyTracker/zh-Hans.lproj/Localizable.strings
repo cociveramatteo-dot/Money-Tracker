@@ -100,7 +100,7 @@
 "Nessuna serie ricorrente" = "暂无定期项目";
 "I pagamenti che si ripetono per almeno 2 mesi appariranno qui." = "至少连续2个月重复的付款将显示在此处。";
 "Serie eliminata"  = "系列已删除";
-"Tutte le occorrenze di questo pagamento ricorrente sono state cancellate." = "此定期付款的所有记录均已删除。";
+"Tutte le occorrenze di questo pagamento ricorrente sono state cancellate." = "此定期付款的所有项目均已删除。";
 
 /* ── Fixed items row ─────────────────────── */
 "Da pagare"  = "待支付";
@@ -345,7 +345,7 @@
 /* ── Demo accounts ───────────────────────────── */
 "demo.account.conto"    = "活期账户";
 "demo.account.risparmi" = "储蓄账户";
-"demo.account.carta"    = "信用卡";
+"demo.account.carta"    = "预付卡";
 "demo.account.contanti" = "现金";
 
 /* ── Demo transactions ───────────────────────── */
@@ -393,19 +393,8 @@
 "Nessun conto trovato. Apri l'app per aggiungerne uno." = "未找到账户。请打开应用程序添加一个。";
 "💰 Saldo totale: %@" = "💰 总余额：%@";
 
-/* ── Onboarding tour — new steps ─────────────── */
-"tour.welcome.title"    = "欢迎使用MoneyTracker";
-"tour.welcome.body"     = "本指南将引导您了解每项功能。您可以随时中断，并从设置→重看导览继续。";
-"tour.shortcuts.title"  = "Siri自动化";
-"tour.shortcuts.body"   = "通过语音命令记录支出、收入并查询余额。说「向MoneyTracker添加支出」或在设置→Siri与搜索中添加快捷指令。";
-"tour.done.title"       = "准备就绪";
-"tour.done.body"        = "您已完成MoneyTracker导览。每项功能都经过精心设计，强大而即时可用。您可以随时在设置中重看本指南。";
-"tour.startButton"      = "开始导览";
-"tour.doneButton"       = "开始使用应用";
-"tour.skipButton"       = "跳过导览";
 "Avanti"                = "下一步";
 "Fine"                  = "完成";
-"Rivedi tour"           = "重看导览";
 
 /* ── Settings / Siri section & accessibility ─── */
 "Siri & Shortcut" = "Siri 与快捷指令";
@@ -420,44 +409,117 @@
 "saldo" = "余额";
 
 /* ── Tour：每个标签页的元素步骤（第一级）─── */
-"tour.stepProgress" = "%d / %d";
 
-"tour.home.balance.title" = "当前余额";
-"tour.home.balance.body" = "已确认的资金：只有已完成的交易才计入此数值。";
-"tour.home.hide.title" = "隐藏余额";
-"tour.home.hide.body" = "点击眼睛图标可模糊所有金额——当屏幕可能被他人看到时很实用。";
-"tour.home.expected.title" = "预计余额";
-"tour.home.expected.body" = "包含尚未发生的计划固定支出的未来余额。";
-"tour.home.accounts.title" = "你的账户";
-"tour.home.accounts.body" = "点击图标可选择在此显示哪些账户，以及显示顺序。";
 
-"tour.movimenti.sections.title" = "分类区块";
-"tour.movimenti.sections.body" = "每个区块归类一种交易：全部、固定、定期、转账。";
-"tour.movimenti.block.title" = "全部交易";
-"tour.movimenti.block.body" = "打开完整列表，可按类别和账户筛选。";
-"tour.movimenti.search.title" = "全局搜索";
-"tour.movimenti.search.body" = "只需输入一个词，即可在任意分类中找到任意交易。";
+/* Sentiero — Budget status */
+"Sforato" = "已超支";
+"Soglia 80%" = "80%阈值";
 
-"tour.statistiche.summary.title" = "本月摘要";
-"tour.statistiche.summary.body" = "本月的支出与收入，并与上月对比。";
-"tour.statistiche.trend.title" = "趋势变化";
-"tour.statistiche.trend.body" = "在一张图表中对比最近6或12个月。";
-"tour.statistiche.category.title" = "分类支出";
-"tour.statistiche.category.body" = "了解每月大部分资金的去向。";
+/* Sentiero — FAB */
+"Nuovo movimento" = "新建交易";
 
-"tour.pianifica.budget.title" = "分类预算";
-"tour.pianifica.budget.body" = "设置每月支出限额，并跟踪已使用的额度。";
-"tour.pianifica.history.title" = "预算历史";
-"tour.pianifica.history.body" = "回顾过去几个月，了解你的消费习惯是如何变化的。";
-"tour.pianifica.goals.title" = "储蓄目标";
-"tour.pianifica.goals.body" = "为每个目标设置目标金额，并记录目前已储蓄的金额。";
+/* Sentiero — Home */
+"Vedi tutti" = "查看全部";
+"Saldo atteso a fine mese" = "月底预期余额";
+"nessun movimento" = "无交易";
+"Oscura importi" = "隐藏金额";
+"Mostra importi" = "显示金额";
+"1 movimento pianificato" = "1 笔计划交易";
+"%lld movimenti pianificati" = "%lld 笔计划交易";
 
-"tour.conti.list.title" = "你的账户";
-"tour.conti.list.body" = "每个账户的余额、类型和操作选项。右滑编辑，左滑删除。";
+"In arrivo · pianificati" = "即将到来 · 已计划";
 
-/* ── Tour: mini-tour contestuali (Livello 2) ─── */
-"hint.movimentiSection.title" = "快捷操作";
-"hint.movimentiSection.body" = "右滑固定项目可确认，左滑可删除。长按查看更多选项。";
-"hint.settings.title" = "设置";
-"hint.settings.body" = "语言、货币、安全性、数据导出等。随时可在此处重新查看引导教程。";
-"hint.gotIt" = "知道了";
+/* Sentiero — Movimenti S-12 */
+"Tutte le categorie" = "所有类别";
+"Questo mese" = "本月";
+"Mese precedente" = "上个月";
+"Mese successivo" = "下个月";
+"Filtri (%lld)" = "筛选 (%lld)";
+
+"Cerca per nome" = "按名称搜索";
+"Rimuovi filtri" = "清除筛选";
+"Nessun movimento corrisponde alla ricerca." = "没有符合搜索条件的交易。";
+"Fissa" = "固定";
+"Nessun risultato" = "无结果";
+
+/* S-13g — rivisto dal redattore (S-19). */
+"Ricorrenze" = "重复计划";
+"Impossibile aggiornare le ricorrenze. Riprova." = "无法更新重复计划。请重试。";
+"Ambito" = "范围";
+"Solo questa" = "仅本次";
+"Questa e le successive" = "本次及以后";
+"Tutte" = "全部";
+"Le occorrenze già effettuate restano invariate." = "已完成的项目保持不变。";
+"La data deve restare nello stesso mese." = "日期必须在同一个月内。";
+"Salta mese" = "跳过本月";
+"Termina da qui" = "从本次起结束";
+"Eliminare le occorrenze selezionate?" = "删除所选项目？";
+"Serie programmate" = "已计划的系列";
+"Virtuale · esclusa dai totali" = "虚拟 · 不计入总额";
+"Terminata" = "已结束";
+"Termina il" = "结束日期";
+"Attiva" = "有效";
+"Prossima occorrenza" = "下次计划";
+"Nessuno" = "无";
+"Tipo" = "类型";
+"Le ricorrenze richiedono il contesto principale." = "重复计划需要主上下文。";
+"L’occorrenza non appartiene alla serie." = "本次项目不属于此系列。";
+"I valori della ricorrenza non sono validi." = "重复计划的值无效。";
+"Termina dopo questa" = "本次之后结束";
+
+// Fictional showcase data
+"demo.tx.internet" = "家庭网络";
+"demo.tx.streaming" = "视频订阅";
+"demo.tx.music" = "音乐订阅";
+"demo.tx.gym" = "健身房";
+"demo.tx.insurance" = "汽车保险";
+"demo.tx.installment" = "家具分期";
+"demo.tx.shopping" = "个人购物";
+"demo.tx.course" = "语言课程";
+"demo.tx.other" = "日常杂费";
+"demo.tx.bonus" = "绩效奖金";
+"demo.goal.computer" = "笔记本电脑";
+"demo.tx.interest" = "储蓄利息";
+
+"Andamento" = "趋势";
+
+"Per categoria" = "按类别";
+
+"PDF" = "PDF";
+
+"Multi-categoria" = "多个类别";
+
+"Nessuna scadenza" = "无截止日期";
+
+"Aggiungi progresso" = "添加进度";
+
+"Progresso complessivo" = "总体进度";
+
+"Avviso all’80%" = "达到80%时提醒";
+
+
+"Mancano %lld giorni" = "还剩%lld天";
+
+"Patrimonio totale" = "总资产";
+
+"Liquidità" = "流动资金";
+
+"Risparmio e investimenti" = "储蓄与投资";
+
+"Sotto la soglia di %@" = "低于%@";
+
+"Escluso dal totale" = "不计入总额";
+
+/* S-14 — confronto mese su mese (approvato) */
+"Confronto mese su mese" = "月度对比";
+"Giorni 1–%lld · %@ / %@" = "%2$@ / %3$@ · 1–%1$lld日";
+"Questo mese hai speso il %@%% in più per %@" = "本月%2$@的支出比上月同期增加了%1$@%%";
+"Questo mese hai speso il %@%% in meno per %@" = "本月%2$@的支出比上月同期减少了%1$@%%";
+"Questo mese hai speso il %@%% in più in totale" = "本月总支出比上月同期增加了%@%%";
+"Questo mese hai speso il %@%% in meno in totale" = "本月总支出比上月同期减少了%@%%";
+"Questo mese hai speso quanto nel periodo precedente per %@" = "本月%@的支出与上月同期相同";
+"Questo mese hai speso quanto nel periodo precedente in totale" = "本月总支出与上月同期相同";
+"Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente" = "本月%2$@的支出为%1$@；上月同期没有支出";
+"Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente" = "本月总支出为%@；上月同期没有支出";
+"Spesa pari a zero nei due periodi per %@" = "两个时段的%@支出均为零";
+"Spesa totale pari a zero nei due periodi" = "两个时段的总支出均为零";

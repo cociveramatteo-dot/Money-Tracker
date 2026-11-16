@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 import Combine
 import OSLog
+import Auth
 
 @main
 struct MoneyTrackerApp: App {
@@ -10,9 +11,9 @@ struct MoneyTrackerApp: App {
     let demoContainer: ModelContainer
 
     @AppStorage("demoModeEnabled") private var demoModeEnabled = false
-    // Tour overlay is rendered HERE (app level) so it sits above UITabBarController
-    // and UITabBar — the only z-position from which the tab bar can be highlighted.
-    @ObservedObject private var tourManager = TourManager.shared
+    @State private var recurrenceStatus = RecurrenceOperationStatus()
+    @State private var recurrenceRefreshTask: Task<Void, Never>?
+    @State private var recurrenceSyncedUserID: UUID?
 
     // MARK: - UI testing hook
     //
@@ -27,23 +28,20 @@ struct MoneyTrackerApp: App {
 
     init() {
         if Self.isUITesting {
+            // Persisted advanced filters must not leak between UI test launches.
+            for key in ["txFilterMin", "txFilterMax", "txFilterUseDates"] {
+                UserDefaults.standard.removeObject(forKey: key)
+            }
             UserDefaults.standard.set(true, forKey: "demoModeEnabled")
             UserDefaults.standard.set(false, forKey: "appLockEnabled")
             UserDefaults.standard.set(true, forKey: "notificationsEnabled")
-            // Il tour di onboarding (panoramica + mini-tour contestuali) intercetterebbe
-            // i tap degli XCUITest: vanno marcati come già visti così i test partono
-            // direttamente sull'app, senza dover gestire nessun overlay del tour.
-            UserDefaults.standard.set(true, forKey: "onboarding.tour.overview.completed.v1")
-            for hint in ContextualHint.allCases {
-                UserDefaults.standard.set(true, forKey: "hint.\(hint.rawValue).seen")
-            }
-            UserDefaults.standard.set(true, forKey: "hint.settings.seen")
         }
 
         // Schema(versionedSchema:) invece di Schema([...]): necessario perché
         // MoneyTrackerMigrationPlan sappia riconoscere/convertire uno store SchemaV1
-        // (importi Double) esistente verso SchemaV2 (Decimal). Vedi Domain/SchemaMigration.swift.
-        let schema = Schema(versionedSchema: SchemaV2.self)
+        // (importi Double) verso V2 (Decimal), poi V3 (RecurringRule, solo aggiunta).
+        // Vedi Persistence/SchemaMigration.swift.
+        let schema = Schema(versionedSchema: SchemaV3.self)
 
         // Store reale nel container App Group condiviso con l'estensione Intents
         // (Tocco posteriore/Siri/Shortcuts, vedi Persistence/SharedStore.swift) — senza
@@ -157,29 +155,15 @@ struct MoneyTrackerApp: App {
                         .appLockGate()
                 }
             }
+            .recurrenceErrorAlert(recurrenceStatus)
             .animation(.easeInOut(duration: 0.25), value: auth.isLoggedIn)
-            // Sync al login / logout.
-            .onChange(of: auth.isLoggedIn) { _, loggedIn in
-                guard loggedIn, !demoModeEnabled else { return }
-                Task { await SyncService.shared.syncOnLogin(context: realContainer.mainContext) }
-                // NIENTE svuotamento locale qui quando `loggedIn` diventa false: questo
-                // onChange scatta anche per una sessione persa passivamente (token di
-                // refresh scaduto/fallito, rete instabile — il SDK Supabase emette
-                // comunque un "signed out"), non solo per un logout intenzionale
-                // dell'utente. Svuotare qui cancellava i dati locali senza preavviso al
-                // primo hiccup di rete, e il pull successivo al login li sostituiva con
-                // l'ultimo snapshot su Supabase — spesso vecchio di settimane/mesi se il
-                // push era rimasto indietro. Il logout esplicito (bottone "Esci" in
-                // SettingsView) e la cancellazione account chiamano già
-                // SyncService.clearLocalData() da soli; l'isolamento multi-utente resta
-                // garantito da syncOnLogin(), che svuota il locale quando rileva un login
-                // con un userId diverso dall'ultimo salvato.
-            }
+            // Login/restored session sync starts in mainAppView.task, after mounting
+            // the active container. Logout never clears local data here.
             // Sync su lifecycle app (solo se loggato e non in demo).
             .onChange(of: scenePhase) { _, phase in
-                guard auth.isLoggedIn, !demoModeEnabled else { return }
                 switch phase {
                 case .background:
+                    guard auth.isLoggedIn, !demoModeEnabled, !Self.isUITesting else { return }
                     // Push quando l'app va in background — garantisce che i dati
                     // siano su Supabase prima che l'utente chiuda l'app. Resiliente:
                     // se fallisce (rete assente proprio ora), resta in coda e riparte
@@ -188,7 +172,7 @@ struct MoneyTrackerApp: App {
                 case .active:
                     // Push resiliente (retry automatico con backoff se fallisce) e poi
                     // pull solo se il push è andato a buon fine — vedi SyncService.syncOnForeground.
-                    Task { await SyncService.shared.syncOnForeground(context: realContainer.mainContext) }
+                    scheduleRecurrenceRefresh(afterLogin: false)
                 default:
                     break
                 }
@@ -218,42 +202,38 @@ struct MoneyTrackerApp: App {
         let activeContainer = demoModeEnabled ? demoContainer : realContainer
 
         return ZStack {
-            ContentView()
+            VStack(spacing: 0) {
+                // Il banner visibile è nell'overlay sopra le barre native.
+                // Il segnaposto ne riserva l'altezza, anche alle taglie di accessibilità.
+                if demoModeEnabled {
+                    demoBanner.hidden()
+                        .fixedSize(horizontal: false, vertical: true)
+                        .layoutPriority(1)
+                        .zIndex(1)
+                }
+                ContentView()
+                    .frame(maxHeight: .infinity)
+                    .clipped()
+            }
+                .background(DS.paper)
                 .modelContainer(activeContainer)
                 // .id() forza la ricreazione completa dell'albero di viste al cambio
                 // di modalità, garantendo che @Query e @Environment siano agganciati
                 // al container giusto senza residui del precedente.
                 .id(demoModeEnabled ? "demo" : "real")
-                // Banner "DEMO" — in cima, sotto la status bar / Dynamic Island.
-                .overlay(alignment: .top) {
-                    if demoModeEnabled { demoBanner }
-                }
                 // Indicatore di sync silenzioso — mai un alert: se la rete manca o il
                 // cloud non risponde, l'utente vede "in corso"/"in sospeso", mai un
                 // errore. Il retry automatico (SyncService) risolve da solo appena possibile.
                 .overlay(alignment: .top) {
-                    if !demoModeEnabled { syncStatusBanner }
+                    if demoModeEnabled { demoBanner }
+                    else { syncStatusBanner }
                 }
                 .animation(.spring(response: 0.4, dampingFraction: 0.75), value: syncService.status)
-                .task {
-                    // Il seeding demo avviene in init() — qui processiamo solo le ricorrenti.
-                    // PERF-05: gira su un @ModelActor in background, non sul main actor,
-                    // così il primo render dopo il login non aspetta il fetch+confronto+save.
-                    let engine = RecurringTransactionActor(modelContainer: activeContainer)
-                    await engine.processRecurring()
+                .task(id: demoModeEnabled) {
+                    scheduleRecurrenceRefresh(afterLogin: true)
                 }
-                // .task sopra parte solo al primo montaggio della view (o al cambio
-                // demo/reale via .id) — se l'app resta viva in background e torna in
-                // foreground senza restart, non veniva mai rieseguito. Risultato: le
-                // ricorrenti del mese nuovo non comparivano finché l'utente non
-                // chiudeva e riapriva l'app da zero. La guardia giornaliera dentro
-                // processRecurring() rende sicuro rilanciarlo a ogni ritorno attivo.
-                .onChange(of: scenePhase) { _, phase in
-                    guard phase == .active else { return }
-                    Task {
-                        let engine = RecurringTransactionActor(modelContainer: activeContainer)
-                        await engine.processRecurring()
-                    }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                    scheduleRecurrenceRefresh(afterLogin: false)
                 }
         }
         // Real-time sync: ogni volta che il real store salva, triggera un push
@@ -274,21 +254,29 @@ struct MoneyTrackerApp: App {
             // Registro immutabile di ogni creazione/modifica/cancellazione (PROP-02).
             AuditLogger.shared.record(from: notification, context: ctx)
         }
-        // Tour overlay — collects .tourAnchor() preferences from all descendants
-        // and renders the spotlight ABOVE everything including UITabBar.
-        .onChange(of: tourManager.isActive) { _, active in
-            guard active else { return }
-            DemoDataSeeder.forceReset(context: demoContainer.mainContext)
-        }
-        .overlayPreferenceValue(TourAnchorKey.self) { anchors in
-            // I mini-tour contestuali (Livello 2) vivono in questa stessa view ma
-            // scattano DOPO che la panoramica è finita (isActive == false) — vanno
-            // montati anche in quel caso, altrimenti activeHint non ha mai una view
-            // che lo disegni e "Ho capito" non si vede mai.
-            if tourManager.isActive || tourManager.activeHint != nil {
-                TourOverlayView(anchors: anchors)
-                    .ignoresSafeArea()
-                    .transition(.opacity)
+    }
+
+    // All lifecycle entry points share one queue: initial login sync, foreground
+    // sync and clock/month changes must finish their pull before materialization.
+    private func scheduleRecurrenceRefresh(afterLogin: Bool) {
+        let previous = recurrenceRefreshTask
+        recurrenceRefreshTask = Task { @MainActor in
+            await previous?.value
+            let isDemo = demoModeEnabled || Self.isUITesting
+            let container = isDemo ? demoContainer : realContainer
+            if !isDemo {
+                guard auth.isLoggedIn else { return }
+                guard let userID = auth.session?.user.id else { return }
+                if afterLogin || recurrenceSyncedUserID != userID {
+                    await SyncService.shared.syncOnLogin(context: container.mainContext)
+                } else {
+                    await SyncService.shared.syncOnForeground(context: container.mainContext)
+                }
+                guard auth.isLoggedIn, auth.session?.user.id == userID, !demoModeEnabled else { return }
+                recurrenceSyncedUserID = userID
+            }
+            recurrenceStatus.perform {
+                try RecurringMaterializer().materializeDue(context: container.mainContext)
             }
         }
     }
@@ -303,12 +291,12 @@ struct MoneyTrackerApp: App {
                 .font(.system(size: 11, weight: .bold, design: .monospaced))
                 .kerning(0.5)
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(DS.plannedText)
         .padding(.horizontal, 12)
         .padding(.vertical, 5)
-        .background(Color.orange.opacity(0.92), in: Capsule())
-        .shadow(color: .black.opacity(0.18), radius: 6, y: 2)
-        .padding(.top, 8) // dentro la safe area top, sotto Dynamic Island / notch
+        .background(DS.plannedSoft, in: Capsule())
+        .shadow(color: DS.ink.opacity(0.12), radius: 6, y: 2)
+        .padding(.vertical, 4)
         .allowsHitTesting(false)
         .transition(.move(edge: .top).combined(with: .opacity))
         .animation(.spring(response: 0.4, dampingFraction: 0.75), value: demoModeEnabled)

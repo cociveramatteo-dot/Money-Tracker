@@ -6,3 +6,44 @@ Si aggiorna, non si cancella: quando cambia lo stato si aggiorna la riga e si an
 
 | ID | Cosa | Dove (file/sezione) | Chi deve approvare | Stato | Data | Note |
 |---|---|---|---|---|---|---|
+
+| S-19 | Revisione traduzioni ricorrenze (23 chiavi, blocco S-13g) in 7 lingue: de «Termin/Reihe», zh «项目/结束/系列», ja «シリーズ», fr «Sauter ce mois» | MoneyTracker/*.lproj/Localizable.strings | Matteo (+ madrelingua de/ja/zh/fr/es se possibile) | ✅ | 2026-11-16 | Approvato da Matteo in chat 2026-11-16 (senza rilettura di madrelingua); termini da far rileggere elencati in CONSEGNA |
+| S-18 | Serie programmate: card Sentiero, icona categoria 38×38, nome/importo, frequenza/stato, prossima data. Virtuali: riga Movimenti, icona tratteggiata e importo ambra, data e avviso esclusa dai totali; adattivo light/dark/XL/tedesco | ProgrammedRuleCard.swift | Matteo | ✅ approvato | 2026-11-16 | Proposta approvata in chat prima di implementare; risultato da collaudare |
+
+## S-6 · testi del riferimento · ✅ (13 traduzioni compilate dal redattore, approvate da Matteo 2026-11-16)
+Italiano dal mockup: «Andamento», «Per categoria», «PDF». «Netto» riusa la chiave già tradotta. PDF mantenuto come sigla nelle 7 lingue; per gli altri due testi le sei traduzioni non fornite sono `[DA COMPLETARE]`, senza inventarle. Approvazione e completamento Matteo/redattore pendenti.
+
+## S-7 · testi di presentazione · ✅ (idem)
+Dal riferimento: «Multi-categoria», «Nessuna scadenza», «Aggiungi progresso», «Progresso complessivo», «Avviso all’80%», «Mancano %lld giorni». «Storico Budget» riusa la chiave esistente. Nuove traduzioni non fornite: `[DA COMPLETARE]` nelle sei lingue; chiavi preesistenti riusate.
+
+## S-8 · testi del riferimento · ✅ (idem)
+«Patrimonio totale», «Liquidità», «Risparmio e investimenti», «Sotto la soglia di %@», «Escluso dal totale»: italiano dal sorgente/handoff. Traduzioni nuove non fornite `[DA COMPLETARE]` nelle sei lingue, riusate quelle già esistenti se presenti. «Archiviati» e «A conti fatti» riusano chiavi esistenti.
+| S-6/7/8 | 13 traduzioni nuove (Andamento, Per categoria, Multi-categoria, Nessuna scadenza, Aggiungi progresso, Progresso complessivo, Avviso all'80%, Mancano %lld giorni, Patrimonio totale, Liquidità, Risparmio e investimenti, Sotto la soglia di %@, Escluso dal totale) in 6 lingue, proposte dal redattore; dubbi: singolare «1 giorno», «Liquidità»=Cash/現金, de «Sparen & Anlagen»/«Nicht in Summe» | MoneyTracker/*.lproj/Localizable.strings | Matteo | ✅ | 2026-11-16 | Approvate da Matteo in chat 2026-11-16 (dubbio singolare «1 giorno» e madrelingua aperti); compilate al posto dei [DA COMPLETARE]; plutil ok, chiavi allineate |
+
+## S-7p · plurale giorni · ✅ approvato da Matteo 2026-11-16
+Forme singolari proposte, derivate dai testi esistenti: it «Manca %lld giorno»; en «%lld day left»; de «Noch %lld Tag»; es «Falta %lld día»; fr «Plus que %lld jour». Plurali e zero conservano i testi già presenti (italiano «Mancano %lld giorni» invariato). ja «残り%lld日» e zh-Hans «还剩%lld天» mantengono una sola forma. Nessun nuovo contenuto, solo accordo grammaticale; approvazione pendente.
+
+## S-14 · confronto mese su mese · ✅ approvato da Matteo 2026-11-16
+Testi funzionali proposti sui dati reali del confronto, non dati o percentuali fissi. Percentuali assenti quando la base è zero. Nessun termine lasciato ambiguo; tutte le proposte richiedono approvazione. I valori sono nelle sezioni `S-14` dei sette Localizable.strings.
+
+| Sorgente italiana | en | de | es | fr | ja | zh-Hans |
+|---|---|---|---|---|---|---|
+| Confronto mese su mese | Month-over-month comparison | Monatsvergleich | Comparación mensual | Comparaison mensuelle | 前月との比較 | 月度对比 |
+| Giorni 1–%lld · %@ / %@ | Days 1–%lld · %@ / %@ | Tage 1–%lld · %@ / %@ | Días 1–%lld · %@ / %@ | Jours 1–%lld · %@ / %@ | %2$@ / %3$@ · 1～%1$lld日 | %2$@ / %3$@ · 1–%1$lld日 |
+| Questo mese hai speso il %@%% in più per %@ | This month you spent %@%% more on %@ | Diesen Monat hast du für %2$@ %1$@%% mehr ausgegeben | Este mes has gastado un %@%% más en %@ | Ce mois-ci, tu as dépensé %@%% de plus pour %@ | 今月の%2$@への支出は、前月の同期間より%1$@%%増えました | 本月%2$@的支出比上月同期增加了%1$@%% |
+| Questo mese hai speso il %@%% in meno per %@ | This month you spent %@%% less on %@ | Diesen Monat hast du für %2$@ %1$@%% weniger ausgegeben | Este mes has gastado un %@%% menos en %@ | Ce mois-ci, tu as dépensé %@%% de moins pour %@ | 今月の%2$@への支出は、前月の同期間より%1$@%%減りました | 本月%2$@的支出比上月同期减少了%1$@%% |
+| Questo mese hai speso il %@%% in più in totale | In total, you spent %@%% more this month | Diesen Monat hast du insgesamt %@%% mehr ausgegeben | Este mes has gastado un %@%% más en total | Ce mois-ci, tu as dépensé %@%% de plus au total | 今月の支出総額は、前月の同期間より%@%%増えました | 本月总支出比上月同期增加了%@%% |
+| Questo mese hai speso il %@%% in meno in totale | In total, you spent %@%% less this month | Diesen Monat hast du insgesamt %@%% weniger ausgegeben | Este mes has gastado un %@%% menos en total | Ce mois-ci, tu as dépensé %@%% de moins au total | 今月の支出総額は、前月の同期間より%@%%減りました | 本月总支出比上月同期减少了%@%% |
+| Questo mese hai speso quanto nel periodo precedente per %@ | This month you spent the same on %@ as in the previous period | Diesen Monat hast du für %@ genauso viel ausgegeben wie im vorherigen Zeitraum | Este mes has gastado lo mismo en %@ que en el período anterior | Ce mois-ci, tu as dépensé autant pour %@ que pendant la période précédente | 今月の%@への支出は、前月の同期間と同じです | 本月%@的支出与上月同期相同 |
+| Questo mese hai speso quanto nel periodo precedente in totale | This month’s total spending matches the previous period | Deine Gesamtausgaben in diesem Monat entsprechen dem vorherigen Zeitraum | El gasto total de este mes es igual al del período anterior | Les dépenses totales de ce mois sont identiques à celles de la période précédente | 今月の支出総額は、前月の同期間と同じです | 本月总支出与上月同期相同 |
+| Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente | This month you spent %@ on %@; no spending in the previous period | Diesen Monat hast du %1$@ für %2$@ ausgegeben; im vorherigen Zeitraum gab es keine Ausgaben | Este mes has gastado %@ en %@; no hubo gastos en el período anterior | Ce mois-ci, tu as dépensé %@ pour %@ ; aucune dépense pendant la période précédente | 今月の%2$@への支出は%1$@です。前月の同期間の支出はありません | 本月%2$@的支出为%1$@；上月同期没有支出 |
+| Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente | This month you spent %@ in total; no spending in the previous period | Diesen Monat hast du insgesamt %@ ausgegeben; im vorherigen Zeitraum gab es keine Ausgaben | Este mes has gastado %@ en total; no hubo gastos en el período anterior | Ce mois-ci, tu as dépensé %@ au total ; aucune dépense pendant la période précédente | 今月の支出総額は%@です。前月の同期間の支出はありません | 本月总支出为%@；上月同期没有支出 |
+| Spesa pari a zero nei due periodi per %@ | Spending on %@ is zero in both periods | Für %@ liegen die Ausgaben in beiden Zeiträumen bei null | El gasto en %@ es cero en ambos períodos | Les dépenses pour %@ sont nulles sur les deux périodes | 両期間とも%@への支出はゼロです | 两个时段的%@支出均为零 |
+| Spesa totale pari a zero nei due periodi | Total spending is zero in both periods | Die Gesamtausgaben liegen in beiden Zeiträumen bei null | El gasto total es cero en ambos períodos | Les dépenses totales sont nulles sur les deux périodes | 両期間とも支出総額はゼロです | 两个时段的总支出均为零 |
+
+### S-14 · formulazione percentuali italiana · ✅ approvato da Matteo 2026-11-16
+Proposte italiane effettive senza articolo davanti al numero (valide anche per 1% e 8%); le chiavi precedenti restano identificativi del messaggio:
+- «Questo mese hai speso di più per %2$@ (+%1$@%%)»
+- «Questo mese hai speso di meno per %2$@ (−%1$@%%)»
+- «Questo mese hai speso di più in totale (+%@%%)»
+- «Questo mese hai speso di meno in totale (−%@%%)»

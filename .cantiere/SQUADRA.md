@@ -1,3 +1,5 @@
+> **ANTIGRAVITY SOSPESO fino al 2026-11-20 (Matteo, 2026-11-14): non assegnargli nulla e non proporlo nei cartellini.** Le sue mansioni (grafica, implementazione, test visivi) vanno a **Codex**, in riserva l'`operaio`. Dal 2026-11-21 torna impresa principale.
+
 # SQUADRA — organigramma, smistamento e albo delle assunzioni
 
 ## Squadra fissa

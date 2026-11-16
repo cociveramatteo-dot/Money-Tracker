@@ -145,7 +145,7 @@ enum SchemaV1: VersionedSchema {
     }
 }
 
-// MARK: - Schema V2 (attuale — importi in Decimal)
+// MARK: - Schema V2 (importi in Decimal)
 //
 // Nessun tipo da ridichiarare: SchemaV2 punta semplicemente ai modelli live
 // definiti in Models.swift (Account/Transaction/Budget/Goal/Category con Decimal).
@@ -158,16 +158,30 @@ enum SchemaV2: VersionedSchema {
     }
 }
 
+// MARK: - Schema V3 (additive only: no conversion of legacy recurrences)
+
+enum SchemaV3: VersionedSchema {
+    static let versionIdentifier = Schema.Version(3, 0, 0)
+
+    static var models: [any PersistentModel.Type] {
+        [Account.self, Transaction.self, Budget.self, Goal.self, Category.self, RecurringRule.self]
+    }
+}
+
 // MARK: - Migration plan
 
 enum MoneyTrackerMigrationPlan: SchemaMigrationPlan {
     static var schemas: [any VersionedSchema.Type] {
-        [SchemaV1.self, SchemaV2.self]
+        [SchemaV1.self, SchemaV2.self, SchemaV3.self]
     }
 
     static var stages: [MigrationStage] {
-        [migrateV1toV2]
+        [migrateV1toV2, migrateV2toV3]
     }
+
+    private static let migrateV2toV3 = MigrationStage.lightweight(
+        fromVersion: SchemaV2.self, toVersion: SchemaV3.self
+    )
 
     // Buffer temporaneo: `willMigrate` legge i Double dalla SchemaV1 (prima che la
     // colonna cambi tipo) e li tiene da parte per `didMigrate`, che li riscrive come

@@ -344,7 +344,7 @@
 /* ── Demo accounts ───────────────────────────── */
 "demo.account.conto"    = "普通預金口座";
 "demo.account.risparmi" = "貯蓄";
-"demo.account.carta"    = "クレジットカード";
+"demo.account.carta"    = "プリペイドカード";
 "demo.account.contanti" = "現金";
 
 /* ── Demo transactions ───────────────────────── */
@@ -392,19 +392,8 @@
 "Nessun conto trovato. Apri l'app per aggiungerne uno." = "アカウントが見つかりません。アプリを開いて追加してください。";
 "💰 Saldo totale: %@" = "💰 合計残高: %@";
 
-/* ── Onboarding tour — new steps ─────────────── */
-"tour.welcome.title"    = "MoneyTrackerへようこそ";
-"tour.welcome.body"     = "このガイドはすべての機能をご案内します。いつでも中断でき、設定→ツアーを見直すから再開できます。";
-"tour.shortcuts.title"  = "Siriオートメーション";
-"tour.shortcuts.body"   = "音声コマンドで支出・収入を記録し、残高を確認できます。「MoneyTrackerに支出を追加」と言うか、設定→SiriとSearchを探索してください。";
-"tour.done.title"       = "準備完了";
-"tour.done.body"        = "MoneyTrackerのツアーが完了しました。すべての機能は強力かつ即時に使えるよう設計されています。設定からいつでもこのガイドを見直せます。";
-"tour.startButton"      = "ツアーを開始";
-"tour.doneButton"       = "アプリを使い始める";
-"tour.skipButton"       = "ツアーをスキップ";
 "Avanti"                = "次へ";
 "Fine"                  = "完了";
-"Rivedi tour"           = "ツアーを見直す";
 
 /* ── Settings / Siri section & accessibility ─── */
 "Siri & Shortcut" = "Siri & ショートカット";
@@ -418,45 +407,116 @@
 "escluso dal totale" = "合計から除外";
 "saldo" = "残高";
 
-/* ── Tour: タブごとの要素ステップ（レベル1）─── */
-"tour.stepProgress" = "%d / %d";
 
-"tour.home.balance.title" = "現在の残高";
-"tour.home.balance.body" = "確定済みの資金です。完了した取引のみがこの値に反映されます。";
-"tour.home.hide.title" = "残高を非表示";
-"tour.home.hide.body" = "目のアイコンをタップするとすべての金額をぼかせます。画面が他人に見える場面で便利です。";
-"tour.home.expected.title" = "予測残高";
-"tour.home.expected.body" = "まだ発生していない予定の固定支出を含めた、将来の残高です。";
-"tour.home.accounts.title" = "あなたの口座";
-"tour.home.accounts.body" = "アイコンをタップして、ここに表示する口座とその順序を選べます。";
+/* Sentiero — Budget status */
+"Sforato" = "超過";
+"Soglia 80%" = "80%のしきい値";
 
-"tour.movimenti.sections.title" = "セクション";
-"tour.movimenti.sections.body" = "各ブロックは取引の種類をまとめます：すべて、固定、定期、振替。";
-"tour.movimenti.block.title" = "すべての取引";
-"tour.movimenti.block.body" = "カテゴリと口座でフィルタできる完全なリストを開きます。";
-"tour.movimenti.search.title" = "どこでも検索";
-"tour.movimenti.search.body" = "単語を入力するだけで、どのセクションの取引でも見つけられます。";
+/* Sentiero — FAB */
+"Nuovo movimento" = "新しい取引";
 
-"tour.statistiche.summary.title" = "今月のサマリー";
-"tour.statistiche.summary.body" = "今月の支出と収入を、前月と比較して表示します。";
-"tour.statistiche.trend.title" = "推移";
-"tour.statistiche.trend.body" = "過去6か月または12か月を1つのグラフで比較できます。";
-"tour.statistiche.category.title" = "カテゴリ別支出";
-"tour.statistiche.category.body" = "毎月お金の大部分がどこに使われているかを確認できます。";
+/* Sentiero — Home */
+"Vedi tutti" = "すべて見る";
+"Saldo atteso a fine mese" = "月末の予想残高";
+"nessun movimento" = "取引なし";
+"Oscura importi" = "金額を隠す";
+"Mostra importi" = "金額を表示";
+"1 movimento pianificato" = "予定の取引 1件";
+"%lld movimenti pianificati" = "予定の取引 %lld件";
 
-"tour.pianifica.budget.title" = "カテゴリ別予算";
-"tour.pianifica.budget.body" = "月次の支出上限を設定し、これまでの使用状況を管理できます。";
-"tour.pianifica.history.title" = "予算の履歴";
-"tour.pianifica.history.body" = "過去の月を振り返って、支出習慣の変化を確認できます。";
-"tour.pianifica.goals.title" = "貯蓄目標";
-"tour.pianifica.goals.body" = "各目標に目標金額を設定し、これまでの貯蓄額を記録できます。";
+"In arrivo · pianificati" = "今後の予定";
 
-"tour.conti.list.title" = "あなたの口座";
-"tour.conti.list.body" = "各口座の残高、種類、オプションです。右にスワイプで編集、左にスワイプで削除。";
+/* Sentiero — Movimenti S-12 */
+"Tutte le categorie" = "すべてのカテゴリー";
+"Questo mese" = "今月";
+"Mese precedente" = "前月";
+"Mese successivo" = "翌月";
+"Filtri (%lld)" = "フィルター (%lld)";
 
-/* ── Tour: mini-tour contestuali (Livello 2) ─── */
-"hint.movimentiSection.title" = "クイックアクション";
-"hint.movimentiSection.body" = "固定項目を右にスワイプで確定、左にスワイプで削除。長押しでその他のオプション。";
-"hint.settings.title" = "設定";
-"hint.settings.body" = "言語、通貨、セキュリティ、データエクスポートなど。このツアーはいつでもここから見直せます。";
-"hint.gotIt" = "わかりました";
+"Cerca per nome" = "名前で検索";
+"Rimuovi filtri" = "フィルターを解除";
+"Nessun movimento corrisponde alla ricerca." = "検索に一致する取引はありません。";
+"Fissa" = "固定";
+"Nessun risultato" = "結果なし";
+
+/* S-13g — rivisto dal redattore (S-19). */
+"Ricorrenze" = "繰り返し";
+"Impossibile aggiornare le ricorrenze. Riprova." = "繰り返しを更新できませんでした。もう一度お試しください。";
+"Ambito" = "適用範囲";
+"Solo questa" = "この回のみ";
+"Questa e le successive" = "この回以降";
+"Tutte" = "すべて";
+"Le occorrenze già effettuate restano invariate." = "完了済みの回は変更されません。";
+"La data deve restare nello stesso mese." = "日付は同じ月内にしてください。";
+"Salta mese" = "この月をスキップ";
+"Termina da qui" = "この回から終了";
+"Eliminare le occorrenze selezionate?" = "選択した回を削除しますか？";
+"Serie programmate" = "予定のシリーズ";
+"Virtuale · esclusa dai totali" = "仮の予定 · 合計に含まれません";
+"Terminata" = "終了済み";
+"Termina il" = "終了日";
+"Attiva" = "有効";
+"Prossima occorrenza" = "次回";
+"Nessuno" = "なし";
+"Tipo" = "種類";
+"Le ricorrenze richiedono il contesto principale." = "繰り返しにはメインコンテキストが必要です。";
+"L’occorrenza non appartiene alla serie." = "この回はこのシリーズに属していません。";
+"I valori della ricorrenza non sono validi." = "繰り返しの値が無効です。";
+"Termina dopo questa" = "この回の後に終了";
+
+// Fictional showcase data
+"demo.tx.internet" = "自宅のインターネット";
+"demo.tx.streaming" = "動画配信";
+"demo.tx.music" = "音楽配信";
+"demo.tx.gym" = "ジム会費";
+"demo.tx.insurance" = "自動車保険";
+"demo.tx.installment" = "家具の分割払い";
+"demo.tx.shopping" = "個人の買い物";
+"demo.tx.course" = "語学コース";
+"demo.tx.other" = "雑費";
+"demo.tx.bonus" = "業績賞与";
+"demo.goal.computer" = "ノートパソコン";
+"demo.tx.interest" = "預金利息";
+
+"Andamento" = "推移";
+
+"Per categoria" = "カテゴリ別";
+
+"PDF" = "PDF";
+
+"Multi-categoria" = "複数カテゴリ";
+
+"Nessuna scadenza" = "期限なし";
+
+"Aggiungi progresso" = "進捗を追加";
+
+"Progresso complessivo" = "全体の進捗";
+
+"Avviso all’80%" = "80%で通知";
+
+
+"Mancano %lld giorni" = "残り%lld日";
+
+"Patrimonio totale" = "総資産";
+
+"Liquidità" = "現金";
+
+"Risparmio e investimenti" = "貯蓄・投資";
+
+"Sotto la soglia di %@" = "%@未満";
+
+"Escluso dal totale" = "合計に含まず";
+
+/* S-14 — confronto mese su mese (approvato) */
+"Confronto mese su mese" = "前月との比較";
+"Giorni 1–%lld · %@ / %@" = "%2$@ / %3$@ · 1～%1$lld日";
+"Questo mese hai speso il %@%% in più per %@" = "今月の%2$@への支出は、前月の同期間より%1$@%%増えました";
+"Questo mese hai speso il %@%% in meno per %@" = "今月の%2$@への支出は、前月の同期間より%1$@%%減りました";
+"Questo mese hai speso il %@%% in più in totale" = "今月の支出総額は、前月の同期間より%@%%増えました";
+"Questo mese hai speso il %@%% in meno in totale" = "今月の支出総額は、前月の同期間より%@%%減りました";
+"Questo mese hai speso quanto nel periodo precedente per %@" = "今月の%@への支出は、前月の同期間と同じです";
+"Questo mese hai speso quanto nel periodo precedente in totale" = "今月の支出総額は、前月の同期間と同じです";
+"Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente" = "今月の%2$@への支出は%1$@です。前月の同期間の支出はありません";
+"Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente" = "今月の支出総額は%@です。前月の同期間の支出はありません";
+"Spesa pari a zero nei due periodi per %@" = "両期間とも%@への支出はゼロです";
+"Spesa totale pari a zero nei due periodi" = "両期間とも支出総額はゼロです";

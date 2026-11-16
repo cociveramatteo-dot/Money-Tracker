@@ -9,6 +9,7 @@ struct AccountsView: View {
     @State private var editing: Account?           = nil
     @State private var showSettings               = false
     @State private var accountToDelete: Account?  = nil
+    @State private var showArchived = false
     private var partitioned: (active: [Account], archived: [Account]) {
         var active:   [Account] = []
         var archived: [Account] = []
@@ -27,27 +28,48 @@ struct AccountsView: View {
     private var totalCurrent: Decimal { included.reduce(0) { $0 + $1.currentBalance } }
     private var totalFuture:  Decimal { included.reduce(0) { $0 + $1.futureBalance } }
 
+    // Raggruppamento esclusivamente di presentazione, senza modificare ordine o modelli.
+    private func isSavings(_ account: Account) -> Bool {
+        switch account.accountType {
+        case .risparmio, .investimento: return true
+        default: return false
+        }
+    }
+
     var body: some View {
         NavigationStack {
             List {
-                VStack(alignment: .leading, spacing: DS.Space.s) {
-                    SectionLabel(text: "Totale attuale")
-                    HeroAmount(amount: totalCurrent, hidden: hideBalance, colorBySign: true)
-                    HStack(spacing: DS.Space.xs) {
-                        Text("A conti fatti:")
-                            .font(.system(size: 13))
-                            .foregroundStyle(DS.smoke)
-                        Text(hideBalance ? "• • •" : totalFuture.currencyFormatted)
-                            .font(.system(size: 13, weight: .medium))
-                            .foregroundStyle(DS.ink)
-                    }
-                    .padding(.top, 2)
+                HStack {
+                    Text("Conti").font(DS.Typo.screenTitle).tracking(DS.Typo.screenTitleTracking)
+                    Spacer()
+                    Button { showSettings = true } label: {
+                        Image(systemName: "gearshape").frame(width: 44, height: 44).contentShape(Rectangle())
+                    }.buttonStyle(.plain).accessibilityLabel("Impostazioni")
                 }
-                .padding(.top, DS.Space.xl)
-                .padding(.bottom, DS.Space.m)
-                .listRowBackground(DS.paper)
-                .listRowSeparator(.hidden)
-                .listRowInsets(EdgeInsets(top: 0, leading: DS.Layout.margin, bottom: 0, trailing: DS.Layout.margin))
+                .foregroundStyle(DS.ink)
+                .listRowBackground(DS.paper).listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 0, leading: 20, bottom: 12, trailing: 20))
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Patrimonio totale").font(DS.Typo.secondary).foregroundStyle(DS.heroSecondary)
+                    Text(hideBalance ? "• • •" : totalCurrent.currencyFormatted)
+                        .font(DS.Typo.heroAmountSm).tracking(DS.Typo.heroAmountSmTracking)
+                        .foregroundStyle(DS.heroText).lineLimit(1).minimumScaleFactor(0.6)
+                        .accessibilityIdentifier("accounts_total")
+                        .accessibilityLabel(hideBalance ? String(localized: "Saldo nascosto") : totalCurrent.currencyFormatted)
+                    Rectangle().fill(DS.heroDivider).frame(height: 1).padding(.top, 10)
+                    HStack {
+                        Text("A conti fatti").font(DS.Typo.secondary).foregroundStyle(DS.heroSecondary)
+                        Spacer(minLength: 8)
+                        Text(hideBalance ? "• • •" : totalFuture.currencyFormatted)
+                            .font(DS.Typo.rowAmount).foregroundStyle(DS.heroPlanned)
+                            .lineLimit(1).minimumScaleFactor(0.7)
+                    }.padding(.top, 8)
+                }
+                .padding(.horizontal, 20).padding(.vertical, 18)
+                .background(DS.hero, in: RoundedRectangle(cornerRadius: 24))
+                .listRowBackground(DS.paper).listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
 
                 if active.isEmpty {
                     EmptyStateView(
@@ -61,112 +83,139 @@ struct AccountsView: View {
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: DS.Space.xl, leading: DS.Layout.margin, bottom: 0, trailing: DS.Layout.margin))
                 } else {
-                    let activeAccounts = included + excluded
-                    ForEach(Array(activeAccounts.enumerated()), id: \.element.id) { index, acc in
-                        AccountRow(account: acc, hidden: hideBalance)
-                            .contentShape(Rectangle())
-                            .accessibilityIdentifier("accountRow_\(acc.name)")
-                            .onTapGesture { editing = acc }
-                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                Button(role: .destructive) {
-                                    haptic(.medium)
-                                    accountToDelete = acc
-                                } label: {
-                                    Label("Elimina", systemImage: "trash")
-                                }
-                                .accessibilityIdentifier("btn_deleteAccount")
+                    ForEach([false, true], id: \.self) { savings in
+                        let groupAccounts = (included + excluded).filter { isSavings($0) == savings }
+                        if !groupAccounts.isEmpty {
+                            HStack(alignment: .firstTextBaseline) {
+                                Text(savings ? "Risparmio e investimenti" : "Liquidità")
+                                Spacer(minLength: 8)
+                                Text(hideBalance ? "• • •" : groupAccounts.filter { !$0.isExcludedFromTotal }
+                                    .reduce(Decimal(0)) { $0 + $1.currentBalance }.currencyFormatted)
+                                    .monospacedDigit().fixedSize(horizontal: true, vertical: false)
                             }
-                            .contextMenu {
-                                Button {
-                                    haptic(.soft)
-                                    editing = acc
-                                } label: {
-                                    Label("Modifica", systemImage: "pencil")
-                                }
-                                Button {
-                                    acc.isExcludedFromTotal.toggle()
-                                    context.safeSave()
-                                } label: {
-                                    Label(
-                                        acc.isExcludedFromTotal
-                                            ? "Includi nel totale"
-                                            : "Escludi dal totale",
-                                        systemImage: acc.isExcludedFromTotal
-                                            ? "eye" : "eye.slash"
+                            .font(DS.Typo.secondary).fontWeight(.semibold).foregroundStyle(DS.smoke)
+                            .listRowBackground(DS.paper).listRowSeparator(.hidden)
+                            .listRowInsets(EdgeInsets(top: 18, leading: 20, bottom: 8, trailing: 20))
+                            ForEach(Array(groupAccounts.enumerated()), id: \.element.id) { index, acc in
+                                AccountRow(account: acc, hidden: hideBalance)
+                                    .contentShape(Rectangle())
+                                    .accessibilityIdentifier("accountRow_\(acc.name)")
+                                    .onTapGesture { editing = acc }
+                                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                        Button(role: .destructive) {
+                                            haptic(.medium)
+                                            accountToDelete = acc
+                                        } label: {
+                                            Label("Elimina", systemImage: "trash")
+                                        }
+                                        .accessibilityIdentifier("btn_deleteAccount")
+                                    }
+                                    .contextMenu {
+                                        Button {
+                                            haptic(.soft)
+                                            editing = acc
+                                        } label: {
+                                            Label("Modifica", systemImage: "pencil")
+                                        }.accessibilityIdentifier("account_edit")
+                                        Button {
+                                            acc.isExcludedFromTotal.toggle()
+                                            context.safeSave()
+                                        } label: {
+                                            Label(
+                                                acc.isExcludedFromTotal
+                                                    ? "Includi nel totale"
+                                                    : "Escludi dal totale",
+                                                systemImage: acc.isExcludedFromTotal
+                                                    ? "eye" : "eye.slash"
+                                            )
+                                        }.accessibilityIdentifier("account_exclude")
+                                        Button {
+                                            acc.isArchived = true
+                                            context.safeSave()
+                                        } label: {
+                                            Label("Archivia", systemImage: "archivebox")
+                                        }.accessibilityIdentifier("account_archive")
+                                        Divider()
+                                        Button(role: .destructive) {
+                                            accountToDelete = acc
+                                        } label: {
+                                            Label("Elimina", systemImage: "trash")
+                                        }
+                                    }
+                                    .listRowBackground(
+                                        UnevenRoundedRectangle(
+                                            topLeadingRadius: index == 0 ? 20 : 0,
+                                            bottomLeadingRadius: index == groupAccounts.count - 1 ? 20 : 0,
+                                            bottomTrailingRadius: index == groupAccounts.count - 1 ? 20 : 0,
+                                            topTrailingRadius: index == 0 ? 20 : 0
+                                        ).fill(DS.surface).padding(.horizontal, 16)
                                     )
-                                }
-                                Button {
-                                    acc.isArchived = true
-                                    context.safeSave()
-                                } label: {
-                                    Label("Archivia", systemImage: "archivebox")
-                                }
-                                Divider()
-                                Button(role: .destructive) {
-                                    accountToDelete = acc
-                                } label: {
-                                    Label("Elimina", systemImage: "trash")
-                                }
+                                    .listRowSeparator(index == groupAccounts.count - 1 ? .hidden : .visible)
+                                    .listRowSeparatorTint(DS.divider)
+                                    .listRowInsets(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
                             }
-                            .listRowBackground(DS.paper)
-                            .listRowSeparatorTint(DS.fog)
-                            .listRowInsets(EdgeInsets(top: 0, leading: DS.Layout.margin, bottom: 0, trailing: DS.Layout.margin))
-                            // Bordo inferiore del tour (Livello 1, step "conti.list"):
-                            // lo spotlight si ferma qui invece che al frame dell'intera
-                            // List, che si estenderebbe ben oltre l'ultimo conto reale.
-                            .tourAnchor(index == activeAccounts.count - 1 ? "accountListEnd" : "accountListRow")
+                        }
                     }
                 }
 
                 if !archived.isEmpty {
-                    Section {
-                        ForEach(archived) { acc in
-                            AccountRow(account: acc, hidden: hideBalance)
-                                .opacity(0.35)
-                                .contextMenu {
-                                    Button {
-                                        acc.isArchived = false
-                                        context.safeSave()
-                                    } label: {
-                                        Label("Ripristina", systemImage: "arrow.uturn.left")
-                                    }
-                                    Divider()
-                                    Button(role: .destructive) {
-                                        context.delete(acc)
-                                        context.safeSave()
-                                    } label: {
-                                        Label("Elimina definitivamente", systemImage: "trash")
-                                    }
-                                }
-                                .listRowBackground(DS.paper)
-                                .listRowSeparatorTint(DS.fog)
-                                .listRowInsets(EdgeInsets(top: 0, leading: DS.Layout.margin, bottom: 0, trailing: DS.Layout.margin))
+                    Button { showArchived.toggle() } label: {
+                        HStack {
+                            Text("Archiviati")
+                            Spacer()
+                            Text(archived.count, format: .number).monospacedDigit()
+                            Image(systemName: showArchived ? "chevron.down" : "chevron.right")
                         }
-                    } header: {
-                        SectionLabel(text: "Archiviati")
-                            .padding(.top, DS.Space.xl)
-                            .textCase(nil)
+                        .font(DS.Typo.secondary).foregroundStyle(DS.smoke)
+                        .padding(.horizontal, 16).frame(minHeight: 48)
+                        .contentShape(Rectangle())
+                        .overlay(RoundedRectangle(cornerRadius: 16)
+                            .strokeBorder(DS.filterBorder, style: StrokeStyle(lineWidth: 1, dash: [5, 4])))
                     }
-                    .listRowBackground(DS.paper)
+                    .buttonStyle(.plain).accessibilityIdentifier("accounts_archived")
+                    .accessibilityValue(showArchived ? Text("Archiviati") : Text(archived.count, format: .number))
+                    .listRowSeparator(.hidden).listRowBackground(DS.paper)
+                    .listRowInsets(EdgeInsets(top: 10, leading: 16, bottom: 0, trailing: 16))
+                    if showArchived {
+                        Section {
+                            ForEach(archived) { acc in
+                                AccountRow(account: acc, hidden: hideBalance)
+                                    .contextMenu {
+                                        Button {
+                                            acc.isArchived = false
+                                            context.safeSave()
+                                        } label: {
+                                            Label("Ripristina", systemImage: "arrow.uturn.left")
+                                        }.accessibilityIdentifier("account_restore")
+                                        Divider()
+                                        Button(role: .destructive) {
+                                            context.delete(acc)
+                                            context.safeSave()
+                                        } label: {
+                                            Label("Elimina definitivamente", systemImage: "trash")
+                                        }
+                                    }
+                                    .listRowBackground(DS.paper)
+                                    .listRowSeparatorTint(DS.fog)
+                                    .listRowInsets(EdgeInsets(top: 0, leading: DS.Layout.margin, bottom: 0, trailing: DS.Layout.margin))
+                            }
+                        } header: {
+                            SectionLabel(text: "Archiviati")
+                                .padding(.top, DS.Space.xl)
+                                .textCase(nil)
+                        }
+                        .listRowBackground(DS.paper)
+                    }
                 }
+                Color.clear.frame(height: 100)
+                    .listRowBackground(DS.paper).listRowSeparator(.hidden)
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .background(DS.paper)
             .scrollIndicators(.hidden)
             .refreshable { await SyncService.shared.manualRefresh(context: context) }
-            .tourAnchor("accountList")
-            .navigationTitle("Conti")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button { showSettings = true } label: {
-                        Image(systemName: "gearshape")
-                            .font(.system(size: 16))
-                            .foregroundStyle(DS.ink)
-                    }
-                }
-            }
+            .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showAdd) { AddAccountView() }
             .sheet(item: $editing)        { AddAccountView(editing: $0) }
             .themedNavBar()
@@ -198,61 +247,67 @@ struct AccountsView: View {
 struct AccountRow: View {
     let account: Account
     var hidden: Bool = false
+    @AppStorage private var thresholdString: String
 
-    private var balanceColor: Color {
-        if account.currentBalance > 0 { return DS.positive }
-        if account.currentBalance < 0 { return DS.negative }
-        return DS.ink
+    init(account: Account, hidden: Bool = false) {
+        self.account = account
+        self.hidden = hidden
+        _thresholdString = AppStorage(wrappedValue: "0", "balanceThreshold_\(account.id.uuidString)")
+    }
+
+    private var threshold: Decimal { Decimal.parseAmount(thresholdString) ?? 0 }
+    private var belowThreshold: Bool { !hidden && threshold > 0 && account.currentBalance < threshold }
+    private var tint: CategoryTint {
+        switch account.accountType {
+        case .contanti, .investimento: return .violet
+        case .carta: return .amber
+        case .conto: return .green
+        case .risparmio: return .blue
+        }
+    }
+    private var icon: String {
+        switch account.accountType {
+        case .contanti: return "banknote"
+        case .carta: return "creditcard"
+        case .conto: return "building.columns"
+        case .risparmio: return "tray.full"
+        case .investimento: return "chart.line.uptrend.xyaxis"
+        }
     }
 
     var body: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: DS.Space.xs) {
-                HStack(spacing: DS.Space.xs) {
-                    Text(account.name)
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundStyle(DS.ink)
-                    if account.isExcludedFromTotal {
-                        Text("escluso")
-                            .font(.system(size: 10))
-                            .foregroundStyle(DS.smoke)
-                            .padding(.horizontal, 5)
-                            .padding(.vertical, 2)
-                            .background(DS.fog)
-                            .clipShape(Capsule())
-                    }
+        HStack(spacing: 12) {
+            Image(systemName: icon).font(DS.Typo.rowName).foregroundStyle(account.isArchived ? DS.smoke : tint.foreground)
+                .frame(width: 40, height: 40)
+                .background(tint.background, in: RoundedRectangle(cornerRadius: 13))
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(account.name).font(DS.Typo.rowName).foregroundStyle(account.isArchived ? DS.smoke : DS.ink)
+                if account.isExcludedFromTotal {
+                    Text("Escluso dal totale").font(DS.Typo.caption).foregroundStyle(DS.smoke)
+                } else if belowThreshold {
+                    Text(String(format: String(localized: "Sotto la soglia di %@"), threshold.currencyFormatted))
+                        .font(DS.Typo.caption).fontWeight(.semibold).foregroundStyle(account.isArchived ? DS.smoke : DS.plannedText)
+                } else {
+                    Text(account.accountType.localizedName).font(DS.Typo.caption).foregroundStyle(DS.smoke)
                 }
-                Text(account.accountType.localizedName)
-                    .font(.system(size: 12))
-                    .foregroundStyle(DS.smoke)
             }
-            Spacer()
-            VStack(alignment: .trailing, spacing: DS.Space.xs) {
+            Spacer(minLength: 4)
+            VStack(alignment: .trailing, spacing: 2) {
                 Text(hidden ? "• • •" : account.currentBalance.currencyFormatted)
-                    .font(.system(size: 17, weight: .semibold))
-                    .foregroundStyle(hidden ? DS.ink : balanceColor)
+                    .font(DS.Typo.rowAmount)
+                    .accessibilityLabel(hidden ? String(localized: "Saldo nascosto") : account.currentBalance.currencyFormatted)
+                    .foregroundStyle(account.isExcludedFromTotal || account.isArchived ? DS.smoke : DS.ink)
+                    .lineLimit(1).minimumScaleFactor(0.7)
                 if !hidden, abs(account.futureBalance - account.currentBalance) > 0.001 {
-                    HStack(spacing: 3) {
-                        Text("→")
-                        Text(account.futureBalance.currencyFormatted)
-                            .fontWeight(.medium)
-                    }
-                    .font(.system(size: 11))
-                    .foregroundStyle(DS.smoke)
+                    Text("→ " + account.futureBalance.currencyFormatted)
+                        .font(DS.Typo.caption).foregroundStyle(account.isArchived ? DS.smoke : DS.plannedText)
+                        .lineLimit(1).minimumScaleFactor(0.7)
                 }
-            }
+            }.layoutPriority(1)
         }
-        .padding(.vertical, DS.Layout.rowVPad)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel({
-            let excluded = account.isExcludedFromTotal
-                ? ", \(String(localized: "escluso dal totale"))"
-                : ""
-            let balance = hidden
-                ? String(localized: "Saldo nascosto")
-                : "\(String(localized: "saldo")) \(account.currentBalance.currencyFormatted)"
-            return "\(account.name), \(account.accountType.localizedName), \(balance)\(excluded)"
-        }())
+        .padding(.vertical, 11)
+        .accessibilityElement(children: .contain)
     }
 }
 

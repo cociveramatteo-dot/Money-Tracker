@@ -11,27 +11,44 @@ enum TxFilter: String, CaseIterable {
 }
 
 struct TransactionsView: View {
-    @ObservedObject private var tourManager = TourManager.shared
+    @Query private var rules: [RecurringRule]
+    @State private var recurrenceSelection: RecurrenceSelection?
+
+    @State private var occurrenceCache = RecurrencePresentationCache()
+
+    private var virtualOccurrences: [Occurrence] {
+        let calendar = Calendar(identifier: .gregorian)
+        guard let month = calendar.dateInterval(of: .month, for: selectedMonth),
+              let current = calendar.dateInterval(of: .month, for: Date()), month.start > current.start else { return [] }
+        let realIDs = Set(all.map(\.id))
+        return occurrenceCache.occurrences(rules: rules, in: month)
+            .filter { !realIDs.contains($0.id) && (selectedCat.isEmpty || $0.category == selectedCat)
+                && (hubSearchQuery.isEmpty || $0.name.localizedCaseInsensitiveContains(hubSearchQuery))
+                && (selectedType == .tutti || selectedType == .fisse && $0.isFixed
+                    || selectedType == .uscite && $0.type == "uscita" || selectedType == .entrate && $0.type == "entrata") }
+            .sorted { $0.date < $1.date }
+    }
+
     @Query(sort: \Transaction.date, order: .reverse) private var all: [Transaction]
     @Query(sort: \Category.sortOrder) private var categories: [Category]
     @Environment(\.modelContext) private var context
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @ScaledMetric(relativeTo: .footnote) private var secondaryChipHeight = 32
+    @ScaledMetric(relativeTo: .footnote) private var typeChipHeight = 34
 
     var isSearchActive: Binding<Bool>? = nil
 
-    @State private var selectedMonth  = Date()
-    @State private var selectedCat    = ""
-    // Testo digitato sull'hub: alimenta solo la tendina `searchResults` (tutti i
-    // movimenti, di qualunque sezione). Distinto da `sectionSearch`, che filtra
-    // localmente la lista quando si è già dentro una sezione.
-    @State private var hubSearchQuery = ""
-    @State private var sectionSearch  = ""
-    @State private var editing: Transaction? = nil
-    @State private var showSettings        = false
-    @State private var showAdvancedFilter  = false
+    @State private var selectedType:   TxFilter = .tutti
+    @State private var selectedMonth            = Date()
+    @State private var selectedCat              = ""
+    @State private var hubSearchQuery           = ""
+    @State private var sectionSearch            = ""
+    @State private var recurringCategory        = ""
+    @State private var editing: Transaction?    = nil
+    @State private var showSettings             = false
+    @State private var showAdvancedFilter       = false
     @State private var selectedSeries: RecurringSeries? = nil
-    // Pilotato dal tour (step "movimenti.block"): apre la sezione "Tutti" per
-    // mostrarne il contenuto mentre lo spiega, la richiude quando si avanza.
-    @State private var navPath: [TxFilter] = []
+    @State private var navPath: [TxFilter]      = []
     @FocusState private var searchFocused: Bool
     // Pending transfer delete — shows confirmationDialog before removing both legs.
     @State private var transferToDelete: Transaction? = nil
@@ -59,15 +76,16 @@ struct TransactionsView: View {
     private func filtered(for f: TxFilter) -> [Transaction] {
         let minAmt = Decimal.parseAmount(filterMinAmount)
         let maxAmt = Decimal.parseAmount(filterMaxAmount)
+        let query  = hubSearchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
         return all.filter { t in
             if filterUseCustomDates {
                 let from = Calendar.current.startOfDay(for: filterFromDate)
                 let to   = Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: filterToDate)) ?? filterToDate
                 guard t.date >= from && t.date < to else { return false }
-            } else {
+            } else if query.isEmpty {
                 guard t.date.isSameMonth(as: selectedMonth) else { return false }
             }
-            guard sectionSearch.isEmpty || t.name.localizedCaseInsensitiveContains(sectionSearch) else { return false }
+            guard query.isEmpty || t.name.localizedCaseInsensitiveContains(query) else { return false }
             switch f {
             case .tutti:      break
             case .fisse:      if !t.isFixed    { return false }
@@ -85,6 +103,14 @@ struct TransactionsView: View {
         }
     }
 
+    private var recentMonths: [Date] {
+        let cal = Calendar.current
+        let now = Date()
+        return (-6...6).compactMap { offset in
+            cal.date(byAdding: .month, value: offset, to: now)
+        }
+    }
+
     // "Ricorrenti" è all-time (ignora il mese) e usa il rilevamento automatico
     // invece del filtro per tipo/mese di `filtered(for:)`.
     private func recurringSeries(matchingCategory: String) -> [RecurringSeries] {
@@ -93,14 +119,6 @@ struct TransactionsView: View {
             ? detected
             : detected.filter { $0.name.localizedCaseInsensitiveContains(sectionSearch) }
         return matchingCategory.isEmpty ? bySearch : bySearch.filter { $0.category == matchingCategory }
-    }
-
-    // Tendina di ricerca sull'hub: TUTTI i movimenti (qualunque tipo/sezione, inclusi
-    // i trasferimenti) il cui nome corrisponde — a differenza di `filtered(for:)`/
-    // `recurringSeries`, nessuna esclusione per tipo, isFixed, isTransfer o mese.
-    private var searchResults: [Transaction] {
-        guard !hubSearchQuery.isEmpty else { return [] }
-        return all.filter { $0.name.localizedCaseInsensitiveContains(hubSearchQuery) }
     }
 
     private func grouped(from snapshot: [Transaction]) -> [(key: String, value: [Transaction])] {
@@ -119,145 +137,106 @@ struct TransactionsView: View {
     var body: some View {
         NavigationStack(path: $navPath) {
             VStack(spacing: 0) {
+                HStack(spacing: DS.Space.m) {
+                    Text("Movimenti")
+                        .font(DS.Typo.screenTitle)
+                        .tracking(DS.Typo.screenTitleTracking)
+                        .foregroundStyle(DS.ink)
+                        .accessibilityAddTraits(.isHeader)
+                    Spacer(minLength: DS.Space.s)
+                    Button { showAdvancedFilter = true } label: {
+                        Image(systemName: "line.3.horizontal.decrease")
+                            .font(.system(size: 16))
+                            .foregroundStyle(DS.ink)
+                            .frame(width: 44, height: 44)
+                    }
+                    .frame(width: 44, height: 44)
+                    .background(DS.surface, in: RoundedRectangle(cornerRadius: DS.Layout.buttonRadius))
+                    .overlay(RoundedRectangle(cornerRadius: DS.Layout.buttonRadius).strokeBorder(DS.fog))
+                    // Il badge sta DOPO il bordo: così il contorno del pulsante non lo taglia.
+                    .overlay(alignment: .topTrailing) {
+                        if activeAdvancedFilterCount > 0 {
+                            Text("\(activeAdvancedFilterCount)")
+                                .font(DS.Typo.tabLabelActive)
+                                .foregroundStyle(DS.onAccent)
+                                .frame(minWidth: 18, minHeight: 18)
+                                .background(DS.accent)
+                                .clipShape(Circle())
+                                .offset(x: 6, y: -6)
+                                .allowsHitTesting(false)
+                                .accessibilityHidden(true)
+                        }
+                    }
+                    .accessibilityLabel(Text("Filtri"))
+                    .accessibilityValue(Text("\(activeAdvancedFilterCount)"))
+                    .accessibilityIdentifier("btn_advancedFilter")
+                    Button { showSettings = true } label: {
+                        Image(systemName: "gearshape")
+                            .font(.system(size: 16))
+                            .foregroundStyle(DS.ink)
+                    }
+                    .accessibilityLabel(Text("Impostazioni"))
+                    .accessibilityIdentifier("btn_openSettings")
+                }
+                .padding(.horizontal, DS.Layout.margin)
+                .padding(.vertical, DS.Space.s)
                 searchField($hubSearchQuery, identifier: "tf_searchTransactions")
-                    .tourAnchor("searchField")
-                    .padding(.horizontal, DS.Layout.margin)
+                    .padding(.horizontal, 16)
                     .padding(.top, DS.Space.s)
                     .padding(.bottom, DS.Space.xs)
                     .focused($searchFocused)
 
-                if hubSearchQuery.isEmpty {
-                    MonthBar(month: $selectedMonth)
-                        .padding(.horizontal, DS.Layout.margin)
-                        .padding(.vertical, DS.Space.m)
-                    ThinDivider()
+                typeChips(selected: selectedType)
+                secondaryChips
 
-                    ScrollView {
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: DS.Space.m) {
-                            ForEach(TxFilter.allCases, id: \.self) { f in
-                                NavigationLink(value: f) { sectionBlock(f) }
-                                    .buttonStyle(.plain)
-                                    .accessibilityIdentifier("txFilterBlock_\(f.rawValue)")
-                            }
-                        }
-                        // L'anchor va sulla griglia stessa, non sullo ScrollView che la
-                        // contiene: uno ScrollView riporta il proprio frame (che riempie
-                        // lo spazio disponibile), non l'altezza reale del contenuto —
-                        // altrimenti lo spotlight si estenderebbe ben oltre i 6 blocchi.
-                        .tourAnchor("filterChips")
-                        .padding(.horizontal, DS.Layout.margin)
-                        .padding(.top, DS.Space.m)
-                        .padding(.bottom, DS.Space.xxl)
-                    }
+                let currentList = filtered(for: selectedType)
+                let virtual = virtualOccurrences
+                if currentList.isEmpty && virtual.isEmpty {
+                    EmptyStateView(
+                        icon: hubSearchQuery.isEmpty ? "tray" : "magnifyingglass",
+                        title: hubSearchQuery.isEmpty ? "Nessun movimento" : "Nessun risultato",
+                        subtitle: hubSearchQuery.isEmpty ? "I movimenti di questo periodo appariranno qui." : "Nessun movimento corrisponde alla ricerca."
+                    )
+                    Spacer()
                 } else {
-                    ThinDivider()
-                    // Tendina di ricerca: tutti i movimenti corrispondenti, di qualunque
-                    // sezione — riusa transactionCell (tap = modifica/alert trasferimento,
-                    // tieni premuto = elimina), nessuna funzionalità nuova da scrivere.
-                    if searchResults.isEmpty {
-                        Text("Nessun risultato")
-                            .font(.system(size: 13))
-                            .foregroundStyle(DS.smoke)
-                            .padding(.top, DS.Space.xl)
-                        Spacer()
-                    } else {
-                        ScrollView {
-                            LazyVStack(spacing: 0) {
-                                ForEach(searchResults) { t in
-                                    transactionCell(t)
-                                    ThinDivider()
-                                }
-                                Color.clear.frame(height: 60)
-                            }
-                            .padding(.top, DS.Space.s)
-                        }
-                        .scrollIndicators(.hidden)
-                    }
+                    movementList(currentList, virtual: virtual)
                 }
             }
             .background(DS.paper)
             .navigationTitle("Movimenti")
             .navigationBarTitleDisplayMode(.inline)
-            // isSearchActive aggiornato tramite onChange: nasconde il FAB in ContentView
-            // durante la ricerca (prima gestito da SearchActiveObserver + .searchable).
+            .toolbar(.hidden, for: .navigationBar)
             .onChange(of: hubSearchQuery) { _, v in
-                isSearchActive?.wrappedValue = !v.isEmpty || searchFocused
+                isSearchActive?.wrappedValue = navPath.isEmpty && (!v.isEmpty || searchFocused)
             }
-            .onChange(of: searchFocused)  { _, f in isSearchActive?.wrappedValue = f || !hubSearchQuery.isEmpty }
-            // Aprire una sezione non chiude da solo il focus sulla ricerca
-            // dell'hub (onDisappear non è affidabile su un push di
-            // NavigationStack) — lo resettiamo esplicitamente qui, altrimenti la
-            // tastiera ricompare da sola al ritorno sull'hub.
+            .onChange(of: searchFocused)  { _, f in isSearchActive?.wrappedValue = navPath.isEmpty && (f || !hubSearchQuery.isEmpty) }
             .onChange(of: navPath) { _, path in
                 if !path.isEmpty { searchFocused = false }
-            }
-            // Il tour (step "movimenti.block") apre la sezione "Tutti" per spiegarne
-            // il contenuto e la richiude non appena si avanza/torna indietro — vedi
-            // OverviewStep.usesNavigationPush in TourStep.swift.
-            .onChange(of: tourManager.currentStep) { _, step in
-                if step.id == "movimenti.block" {
-                    if navPath.isEmpty { navPath.append(.tutti) }
-                } else if !navPath.isEmpty {
-                    navPath.removeLast(navPath.count)
-                }
+                isSearchActive?.wrappedValue = path.isEmpty && (!hubSearchQuery.isEmpty || searchFocused)
             }
             .navigationDestination(for: TxFilter.self) { f in subListContent(for: f) }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack(spacing: DS.Space.m) {
-                        Button { showAdvancedFilter = true } label: {
-                            ZStack(alignment: .topTrailing) {
-                                Image(systemName: "line.3.horizontal.decrease")
-                                    .font(.system(size: 16))
-                                    .foregroundStyle(DS.ink)
-                                if activeAdvancedFilterCount > 0 {
-                                    Text("\(activeAdvancedFilterCount)")
-                                        .font(.system(size: 9, weight: .bold))
-                                        .foregroundStyle(DS.paper)
-                                        .frame(width: 14, height: 14)
-                                        .background(DS.ink)
-                                        .clipShape(Circle())
-                                        .offset(x: 6, y: -6)
-                                }
-                            }
-                        }
-                        .accessibilityIdentifier("btn_advancedFilter")
-                        Button { showSettings = true } label: {
-                            Image(systemName: "gearshape")
-                                .font(.system(size: 16))
-                                .foregroundStyle(DS.ink)
-                        }
-                        .accessibilityIdentifier("btn_openSettings")
-                    }
-                }
-            }
             .sheet(item: $editing) { AddTransactionView(editing: $0) }
+            .sheet(item: $recurrenceSelection) { RecurrenceEditorView(selection: $0) }
             .sheet(item: $transferEditing) { AddTransferView(editing: $0) }
             .sheet(isPresented: $showAdvancedFilter) { advancedFilterSheet }
-            // Fix iOS 26: .tint(DS.ink) sovrascrive il tint di sistema (verde di default
-            // in alcune versioni di iOS 26) per List, search bar e swipe actions.
             .tint(DS.ink)
             .themedNavBar()
             .sheet(isPresented: $showSettings) { SettingsView() }
             .sheet(item: $selectedSeries) { s in RecurringSeriesDetailView(seriesID: s.id) }
-            // Il dialog va agganciato anche qui (oltre che in subListContent) perché
-            // questa root smette di essere la vista in primo piano quando si entra in
-            // una sezione via NavigationLink: un .confirmationDialog attaccato a una
-            // vista non in cima allo stack di navigazione resta "in sospeso" e
-            // compare solo al ritorno sull'hub, invece che subito (era il Bug-04).
             .transferDeleteConfirmation(pending: $transferToDelete, onConfirm: deleteTransactionOrPair)
         }
     }
 
-    // MARK: - Search bar (riusata sull'hub e dentro ogni sezione)
+    // MARK: - Search bar
 
     private func searchField(_ text: Binding<String>, identifier: String) -> some View {
         HStack(spacing: DS.Space.s) {
             Image(systemName: "magnifyingglass")
                 .font(.system(size: 14))
                 .foregroundStyle(DS.smoke)
-            TextField("Cerca...", text: text)
-                .font(.system(size: 15))
+            TextField("", text: text, prompt: Text("Cerca per nome").foregroundStyle(DS.smoke))
+                .accessibilityLabel(Text("Cerca per nome"))
+                .font(DS.Typo.rowName)
                 .foregroundStyle(DS.ink)
                 .submitLabel(.done)
                 .accessibilityIdentifier(identifier)
@@ -272,67 +251,296 @@ struct TransactionsView: View {
             }
         }
         .padding(.horizontal, DS.Layout.margin)
-        .padding(.vertical, DS.Space.s + 2)
-        .background(DS.fog.opacity(0.45))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .frame(minHeight: 46)
+        .background(DS.surface, in: RoundedRectangle(cornerRadius: DS.Layout.cardRadius))
+        .overlay(RoundedRectangle(cornerRadius: DS.Layout.cardRadius).strokeBorder(DS.fog))
     }
 
-    // MARK: - Hub blocks
+    // MARK: - Presentation
 
-    private func sectionBlock(_ f: TxFilter) -> some View {
-        VStack(spacing: DS.Space.s) {
-            Image(systemName: iconFor(f))
-                .font(.system(size: 20, weight: .light))
-                .foregroundStyle(DS.ink)
-            Text(LocalizedStringKey(f.rawValue))
-                .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(DS.ink)
+    private func typeChips(selected: TxFilter) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 6) {
+                ForEach([TxFilter.tutti, .fisse, .trasf, .uscite, .entrate, .ricorrenti], id: \.self) { f in
+                    Button {
+                        if f == .ricorrenti {
+                            navPath.append(.ricorrenti)
+                        } else {
+                            withAnimation(.easeInOut(duration: 0.15)) {
+                                selectedType = f
+                            }
+                        }
+                    } label: {
+                        Text(LocalizedStringKey(f.rawValue))
+                            .font(DS.Typo.secondary.weight(selected == f ? .semibold : .medium))
+                            .foregroundStyle(selected == f ? DS.surface : DS.ink)
+                            .padding(.horizontal, 14)
+                            .frame(minHeight: typeChipHeight)
+                            .background(selected == f ? DS.ink : DS.surface, in: RoundedRectangle(cornerRadius: 12))
+                            .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(selected == f ? Color.clear : DS.fog))
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityAddTraits(selected == f ? [.isSelected] : [])
+                    .accessibilityIdentifier("txFilterBlock_\(f.rawValue)")
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, DS.Space.s)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, DS.Space.xl)
-        .background(DS.fog.opacity(0.5))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .accessibilityIdentifier("tx_typeChips")
     }
 
-    private func iconFor(_ f: TxFilter) -> String {
-        switch f {
-        case .tutti:      return "square.grid.2x2"
-        case .fisse:      return "pin.fill"
-        case .ricorrenti: return "arrow.triangle.2.circlepath"
-        case .trasf:      return "arrow.left.arrow.right"
-        case .uscite:     return "minus.circle"
-        case .entrate:    return "plus.circle"
-        }
-    }
-
-    // MARK: - Sezione (pagina di destinazione per ciascun blocco)
-
-    @ViewBuilder
-    private func subListContent(for f: TxFilter) -> some View {
-        VStack(spacing: 0) {
-            searchField($sectionSearch, identifier: "tf_sectionSearch")
-                .padding(.horizontal, DS.Layout.margin)
-                .padding(.top, DS.Space.s)
-                .padding(.bottom, DS.Space.xs)
-
-            if f != .trasf && !categories.isEmpty {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: DS.Space.xl) {
-                        ForEach(categories) { cat in
-                            filterChip(cat.name, active: selectedCat == cat.name) {
-                                selectedCat = selectedCat == cat.name ? "" : cat.name
+    private var secondaryChips: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 6) {
+                // 1. Mese ▾ (compatto con bordo tratteggiato, da mockup)
+                Menu {
+                    Button {
+                        selectedMonth = Date()
+                    } label: {
+                        Label(String(localized: "Questo mese"), systemImage: "calendar")
+                    }
+                    Button {
+                        selectedMonth = Calendar.current.date(byAdding: .month, value: -1, to: selectedMonth) ?? selectedMonth
+                    } label: {
+                        Label(String(localized: "Mese precedente"), systemImage: "chevron.left")
+                    }
+                    Button {
+                        selectedMonth = Calendar.current.date(byAdding: .month, value: 1, to: selectedMonth) ?? selectedMonth
+                    } label: {
+                        Label(String(localized: "Mese successivo"), systemImage: "chevron.right")
+                    }
+                    Divider()
+                    ForEach(recentMonths, id: \.self) { m in
+                        Button {
+                            selectedMonth = m
+                        } label: {
+                            HStack {
+                                Text(m.monthYearFormatted)
+                                if m.isSameMonth(as: selectedMonth) {
+                                    Image(systemName: "checkmark")
+                                }
                             }
                         }
                     }
-                    .padding(.horizontal, DS.Layout.margin)
-                    .padding(.vertical, DS.Space.m)
+                } label: {
+                    HStack(spacing: 4) {
+                        Text("\(selectedMonth.monthYearFormatted) ▾")
+                            .font(DS.Typo.secondary)
+                            .foregroundStyle(DS.ink)
+                    }
+                    .padding(.horizontal, 12)
+                    .frame(minHeight: secondaryChipHeight)
+                    .background(Color.clear)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(DS.filterBorder, style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+                    )
                 }
-                ThinDivider()
-            }
+                .accessibilityIdentifier("btn_monthPicker")
 
-            if f == .ricorrenti {
-                let series = recurringSeries(matchingCategory: selectedCat)
-                if series.isEmpty {
+                // 2. Categoria ▾ (menu pulito con icone e stato attivo)
+                Menu {
+                    Button {
+                        selectedCat = ""
+                    } label: {
+                        HStack {
+                            Text(String(localized: "Tutte le categorie"))
+                            if selectedCat.isEmpty {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                    Divider()
+                    ForEach(categories) { cat in
+                        Button {
+                            selectedCat = (selectedCat == cat.name ? "" : cat.name)
+                        } label: {
+                            HStack {
+                                DS.categoryText(cat.name)
+                                if selectedCat == cat.name {
+                                    Image(systemName: "checkmark")
+                                }
+                            }
+                        }
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        if selectedCat.isEmpty {
+                            Text(String(localized: "Categoria"))
+                        } else {
+                            DS.categoryText(selectedCat)
+                        }
+                        Text("▾")
+                    }
+                    .font(DS.Typo.secondary)
+                    .fontWeight(selectedCat.isEmpty ? .regular : .semibold)
+                    .foregroundStyle(selectedCat.isEmpty ? DS.ink : DS.accent)
+                    .padding(.horizontal, 12)
+                    .frame(minHeight: secondaryChipHeight)
+                    .background(selectedCat.isEmpty ? Color.clear : DS.accentSoft)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(selectedCat.isEmpty ? DS.filterBorder : Color.clear, style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
+                    )
+                }
+                .accessibilityIdentifier("btn_categoryFilter")
+
+                // 3. Filtri avanzati attivi (chip verde soft con xmark, presente solo se attivi)
+                if activeAdvancedFilterCount > 0 {
+                    HStack(spacing: 6) {
+                        Button {
+                            showAdvancedFilter = true
+                        } label: {
+                            Text(activeFilterSummaryLabel)
+                                .font(DS.Typo.secondary.weight(.semibold))
+                                .foregroundStyle(DS.accent)
+                        }
+                        Button {
+                            filterMinAmount = ""
+                            filterMaxAmount = ""
+                            filterUseCustomDates = false
+                        } label: {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 10, weight: .bold))
+                                .foregroundStyle(DS.accent)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(Text("Rimuovi filtri"))
+                    }
+                    .padding(.horizontal, 12)
+                    .frame(minHeight: secondaryChipHeight)
+                    .background(DS.accentSoft)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .accessibilityIdentifier("btn_activeFilterBadge")
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, DS.Space.xs)
+        }
+    }
+
+    private var activeFilterSummaryLabel: String {
+        let hasMin = !filterMinAmount.isEmpty
+        let hasMax = !filterMaxAmount.isEmpty
+        if hasMin && !hasMax && !filterUseCustomDates {
+            return "≥ \(filterMinAmount) \(Double.currencySymbol)"
+        } else if !hasMin && hasMax && !filterUseCustomDates {
+            return "≤ \(filterMaxAmount) \(Double.currencySymbol)"
+        } else if hasMin && hasMax && !filterUseCustomDates {
+            return "\(filterMinAmount)–\(filterMaxAmount) \(Double.currencySymbol)"
+        } else {
+            return String(format: String(localized: "Filtri (%lld)"), activeAdvancedFilterCount)
+        }
+    }
+
+    private func dayTitle(_ transactions: [Transaction], fallback: String) -> String {
+        guard let date = transactions.first?.date else { return fallback }
+        if Calendar.current.isDateInToday(date) { return NSLocalizedString("Oggi", comment: "") }
+        if Calendar.current.isDateInYesterday(date) { return NSLocalizedString("Ieri", comment: "") }
+        return fallback
+    }
+
+    private func groupHeader(_ title: String, transactions: [Transaction], planned: Bool = false) -> some View {
+        HStack {
+            Text(title)
+                .font(DS.Typo.secondary)
+                .fontWeight(.semibold)
+                .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
+            Spacer(minLength: DS.Space.s)
+            // Display-only subtotal; transfers do not represent income or expense.
+            Text(transactions.filter { !$0.isTransfer }.reduce(Decimal.zero) { $0 + $1.signedAmount }.currencyFormatted)
+                .font(DS.Typo.rowAmount)
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: false)
+        }
+        .foregroundStyle(planned ? DS.plannedText : DS.smoke)
+        .textCase(nil)
+        .padding(.top, DS.Space.s)
+        .listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: 6, trailing: 4))
+    }
+
+    private func movementList(_ snapshot: [Transaction], virtual: [Occurrence]) -> some View {
+        let planned = snapshot.filter { !$0.isDone }
+        let completed = snapshot.filter { $0.isDone }
+        return List {
+            if !virtual.isEmpty {
+                Section("Serie programmate") {
+                    ForEach(virtual) { occurrence in
+                        VirtualOccurrenceRow(occurrence: occurrence) {
+                            if let rule = rules.first(where: { $0.id == occurrence.ruleId }) {
+                                recurrenceSelection = RecurrenceSelection(rule: rule, occurrence: occurrence)
+                            }
+                        }
+                    }
+                }
+            }
+            if !planned.isEmpty {
+                Section {
+                    ForEach(planned) { t in
+                        swipeableRow(t, isFirst: t.id == planned.first?.id, isLast: t.id == planned.last?.id)
+                    }
+                } header: {
+                    groupHeader(NSLocalizedString("In arrivo · pianificati", comment: ""), transactions: planned, planned: true)
+                }
+                .listSectionSeparator(.hidden)
+            }
+            ForEach(grouped(from: completed), id: \.key) { group in
+                Section {
+                    ForEach(group.value) { t in
+                        swipeableRow(t, isFirst: t.id == group.value.first?.id, isLast: t.id == group.value.last?.id)
+                    }
+                } header: {
+                    groupHeader(dayTitle(group.value, fallback: group.key), transactions: group.value)
+                }
+                .listSectionSeparator(.hidden)
+            }
+            Section {
+                Color.clear.frame(height: 100)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+            }
+        }
+        .listStyle(.grouped)
+        .listSectionSpacing(DS.Space.m)
+        .contentMargins(.horizontal, 16, for: .scrollContent)
+        .scrollContentBackground(.hidden)
+        .scrollIndicators(.hidden)
+        .refreshable { await SyncService.shared.manualRefresh(context: context) }
+    }
+
+    // MARK: - Sezione Ricorrenti (l'unica che resta pagina a sé)
+
+    @ViewBuilder
+    private func subListContent(for f: TxFilter) -> some View {
+        if f == .ricorrenti {
+            VStack(spacing: 0) {
+                searchField($sectionSearch, identifier: "tf_sectionSearch")
+                    .padding(.horizontal, DS.Layout.margin)
+                    .padding(.top, DS.Space.s)
+                    .padding(.bottom, DS.Space.xs)
+
+                if !categories.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: DS.Space.s) {
+                            FilterChip(title: Text(String(localized: "Tutte le categorie")), isActive: recurringCategory.isEmpty, style: .secondary) {
+                                recurringCategory = ""
+                            }
+                            ForEach(categories) { cat in
+                                filterChip(cat.name, active: recurringCategory == cat.name) {
+                                    recurringCategory = (recurringCategory == cat.name ? "" : cat.name)
+                                }
+                            }
+                        }
+                        .padding(.horizontal, DS.Layout.margin)
+                        .padding(.vertical, DS.Space.s)
+                    }
+                }
+
+                let series = recurringSeries(matchingCategory: recurringCategory)
+                if series.isEmpty && rules.isEmpty {
                     EmptyStateView(
                         icon: "arrow.triangle.2.circlepath",
                         title: "Nessuna serie ricorrente",
@@ -342,73 +550,33 @@ struct TransactionsView: View {
                 } else {
                     ScrollView {
                         LazyVStack(spacing: DS.Space.m) {
+                            SectionLabel(text: "Serie programmate")
+                            ForEach(rules.filter { (recurringCategory.isEmpty || $0.category == recurringCategory) && (sectionSearch.isEmpty || $0.name.localizedCaseInsensitiveContains(sectionSearch)) }) { rule in
+                                ProgrammedRuleCard(rule: rule) { recurrenceSelection = $0 }
+                            }
                             ForEach(series) { s in
                                 RecurringSeriesCard(series: s)
                                     .contentShape(Rectangle())
                                     .onTapGesture { selectedSeries = s }
                             }
-                            Color.clear.frame(height: 60)
+                            Color.clear.frame(height: 100)
                         }
                         .padding(.horizontal, DS.Layout.margin)
                         .padding(.top, DS.Space.m)
                     }
                     .scrollIndicators(.hidden)
                 }
-            } else {
-                let snapshot = filtered(for: f)
-                if snapshot.isEmpty {
-                    EmptyStateView(
-                        icon: "tray",
-                        title: "Nessun movimento",
-                        subtitle: "I movimenti di questo periodo appariranno qui."
-                    )
-                    Spacer()
-                } else {
-                    List {
-                        ForEach(Array(grouped(from: snapshot).enumerated()), id: \.element.key) { _, group in
-                            Section {
-                                ForEach(group.value) { t in swipeableRow(t) }
-                            } header: {
-                                Text(LocalizedStringKey(group.key))
-                                    .font(.system(size: 11, weight: .medium))
-                                    .foregroundStyle(DS.smoke)
-                                    .tracking(1.5)
-                                    .padding(.horizontal, DS.Layout.margin)
-                                    .padding(.top, DS.Space.l)
-                                    .padding(.bottom, DS.Space.xs)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .background(DS.paper)
-                                    .listRowInsets(EdgeInsets())
-                            }
-                        }
-                        // Spacer per non coprire il FAB.
-                        Section {
-                            Color.clear.frame(height: 60)
-                                .listRowBackground(Color.clear)
-                                .listRowSeparator(.hidden)
-                        }
-                    }
-                    .listStyle(.plain)
-                    .scrollContentBackground(.hidden)
-                    .scrollIndicators(.hidden)
-                    .refreshable { await SyncService.shared.manualRefresh(context: context) }
-                    .tourAnchor("sectionContent")
-                }
             }
+            .background(DS.paper)
+            .toolbar(.visible, for: .navigationBar)
+            .navigationTitle(Text(LocalizedStringKey(f.rawValue)))
+            .navigationBarTitleDisplayMode(.inline)
+            .onDisappear { sectionSearch = ""; recurringCategory = "" }
+            .transferDeleteConfirmation(pending: $transferToDelete, onConfirm: deleteTransactionOrPair)
+        } else {
+            // Fallback difensivo nel caso improbabile di navigazione
+            movementList(filtered(for: f), virtual: virtualOccurrences)
         }
-        .background(DS.paper)
-        .navigationTitle(Text(LocalizedStringKey(f.rawValue)))
-        .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            if f != .ricorrenti { TourManager.shared.showHintIfNeeded(.movimentiSection) }
-        }
-        // Filtro categoria e ricerca sono locali alla sezione: uscendo si azzerano,
-        // così la prossima sezione aperta parte sempre senza stato ereditato per errore.
-        .onDisappear { selectedCat = ""; sectionSearch = "" }
-        // Vedi commento in `body`: questa è la vista realmente in primo piano quando si
-        // è dentro una sezione (es. "Trasf."), quindi il dialog va agganciato anche qui
-        // perché l'eliminazione con swipe funzioni subito, senza dover uscire e rientrare.
-        .transferDeleteConfirmation(pending: $transferToDelete, onConfirm: deleteTransactionOrPair)
     }
 
     // MARK: - Advanced filter sheet
@@ -541,24 +709,24 @@ struct TransactionsView: View {
 
     @ViewBuilder
     private func transactionCell(_ t: Transaction) -> some View {
-        Group {
-            if t.isFixed {
-                FixedExpenseRow(
-                    transaction: t,
-                    paid:     t.isDone,
-                    isIncome: t.transactionType == .entrata
-                ) {
-                    // tap sul checkmark → apri modifica (toggle è sullo swipe destra)
-                    editing = t
-                }
-                .padding(.horizontal, DS.Layout.margin)
-            } else {
-                DSTransactionRow(transaction: t)
-                    .padding(.horizontal, DS.Layout.margin)
-            }
-        }
+        MovementRow(
+            name: t.name,
+            metadata: (t.isDone
+                ? [NSLocalizedString(t.category, comment: ""), t.account?.name ?? ""]
+                : [NSLocalizedString(t.isFixed ? "Fissa" : t.category, comment: ""), t.date.dayMonthFormatted])
+                .filter { !$0.isEmpty }.joined(separator: " · "),
+            amount: t.amount.currencyFormatted,
+            categoryName: t.category,
+            categorySymbol: t.categoryIcon.isEmpty ? DS.categoryIcon(for: t.category) : t.categoryIcon,
+            kind: t.isTransfer ? .transfer : t.transactionType == .entrata ? .income : .expense,
+            isPlanned: !t.isDone,
+            compact: true,
+            isRecurring: rules.contains { $0.id.uuidString == t.templateId }
+        )
+        .padding(.horizontal, 14)
         .contentShape(Rectangle())
         .accessibilityIdentifier("txRow_\(t.id.uuidString)")
+        .accessibilityValue(Text(t.isDone ? "Fatto" : "Pianificato"))
         .onTapGesture {
             // I trasferimenti sono 2 transazioni collegate (transferGroupId): l'editor
             // generico modificherebbe solo una delle due gambe, disallineando i saldi
@@ -572,29 +740,13 @@ struct TransactionsView: View {
         }
         // long press → elimina, + interrompi ricorrenza da qualunque occorrenza della serie
         .contextMenu {
-            // Disponibile sia sul template originale (recurringFrequency valorizzato)
-            // sia su una qualunque copia generata (templateId valorizzato) — così non
-            // serve risalire fino alla transazione creata magari un anno fa: basta
-            // farlo dalla copia più recente/comoda da trovare. Svuota solo il campo
-            // ricorrenza sul template: non tocca questa transazione né le altre copie
-            // già generate, impedisce solo quelle dei mesi successivi.
-            if !t.recurringFrequency.isEmpty || !t.templateId.isEmpty {
-                Button {
-                    haptic(.soft)
-                    stopRecurrence(for: t)
-                } label: {
-                    Label("Interrompi ricorrenza", systemImage: "stop.circle")
-                }
-            }
-            Button(role: .destructive) {
+            RecurrenceContextMenu(transaction: t, rules: rules, onSelect: { recurrenceSelection = $0 }) {
                 haptic(.medium)
                 if t.isTransfer && !t.transferGroupId.isEmpty {
                     transferToDelete = t
                 } else {
                     deleteTransactionOrPair(t)
                 }
-            } label: {
-                Label("Elimina", systemImage: "trash")
             }
         }
     }
@@ -602,11 +754,19 @@ struct TransactionsView: View {
     // MARK: - Riga con swipe actions (riusata da tutte le sezioni non-Ricorrenti)
 
     @ViewBuilder
-    private func swipeableRow(_ t: Transaction) -> some View {
+    private func swipeableRow(_ t: Transaction, isFirst: Bool, isLast: Bool) -> some View {
         transactionCell(t)
+            .alignmentGuide(.listRowSeparatorLeading) { _ in 14 }
             .listRowInsets(EdgeInsets())
-            .listRowBackground(DS.paper)
-            .listRowSeparatorTint(DS.fog)
+            .listRowBackground(
+                UnevenRoundedRectangle(
+                    topLeadingRadius: isFirst ? 18 : 0,
+                    bottomLeadingRadius: isLast ? 18 : 0,
+                    bottomTrailingRadius: isLast ? 18 : 0,
+                    topTrailingRadius: isFirst ? 18 : 0
+                ).fill(DS.surface)
+            )
+            .listRowSeparatorTint(DS.divider)
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
                 if t.isFixed || !t.isDone {
                     Button {
@@ -616,11 +776,11 @@ struct TransactionsView: View {
                         }
                     } label: {
                         Label(
-                            t.isDone ? "Pianificato" : "Fatto",
+                            t.isDone ? "Pianificato" : "Conferma",
                             systemImage: t.isDone ? "clock" : "checkmark.circle.fill"
                         )
                     }
-                    .tint(DS.smoke)
+                    .tint(t.isDone ? DS.smoke : DS.accent)
                 }
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
@@ -646,16 +806,7 @@ struct TransactionsView: View {
     // MARK: - Helpers
 
     private func filterChip(_ label: String, active: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            VStack(spacing: 5) {
-                DS.categoryText(label)
-                    .font(.system(size: 13, weight: active ? .semibold : .regular))
-                    .foregroundStyle(active ? DS.ink : DS.smoke)
-                Rectangle()
-                    .fill(active ? DS.ink : Color.clear)
-                    .frame(height: 1)
-            }
-        }
+        FilterChip(title: DS.categoryText(label), isActive: active, style: .secondary, action: action)
     }
 
     private func toggleTransferOrFixed(_ t: Transaction) {
@@ -669,20 +820,11 @@ struct TransactionsView: View {
         context.safeSave()
     }
 
-    /// Ferma la generazione futura della serie a cui appartiene `t`, che sia essa
-    /// stessa il template originale o una qualunque copia già generata — evita di
-    /// dover risalire alla transazione creata magari mesi/anni fa per interromperla.
-    private func stopRecurrence(for t: Transaction) {
-        if !t.recurringFrequency.isEmpty {
-            t.recurringFrequency = ""
-        } else if !t.templateId.isEmpty,
-                  let template = all.first(where: { $0.id.uuidString == t.templateId }) {
-            template.recurringFrequency = ""
-        }
-        context.safeSave()
-    }
-
     private func deleteTransactionOrPair(_ t: Transaction) {
+        if let selection = RecurrenceSelection.resolve(t, rules: rules) {
+            recurrenceSelection = selection
+            return
+        }
         if t.isTransfer, !t.transferGroupId.isEmpty {
             if let pair = all.first(where: { $0.isTransfer && $0.id != t.id && $0.transferGroupId == t.transferGroupId }) {
                 context.delete(pair)

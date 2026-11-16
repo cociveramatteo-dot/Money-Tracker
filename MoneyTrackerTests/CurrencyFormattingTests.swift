@@ -7,6 +7,7 @@ import Foundation
 /// salvato esatto in `Transaction.amount` mentre ogni punto della UI arrotonda a 2
 /// cifre in visualizzazione, disallineando saldo mostrato e somma delle righe).
 @Suite("Decimal.parseAmount")
+@MainActor
 struct CurrencyFormattingTests {
 
     @Test("Accetta sia virgola che punto come separatore decimale")

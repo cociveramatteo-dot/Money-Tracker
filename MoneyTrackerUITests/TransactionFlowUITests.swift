@@ -56,19 +56,21 @@ final class TransactionFlowUITests: MoneyTrackerUITestCase {
     func testAddTransactionWithoutCategoryDefaultsToAltro() throws {
         goToTab("Movimenti")
         openTransactionsSection("Tutti")
+        clearTransactionFilters()
         let name = uniqueName("SenzaCategoria")
 
         tapFAB(menuItem: "fabMenu_addTransaction")
-        app.textFields["tf_amount"].tap()
-        app.textFields["tf_amount"].typeText("15")
-        app.textFields["tf_name"].tap()
-        app.textFields["tf_name"].typeText(name)
-        app.buttons["btn_saveTransaction"].tap()
+        enterTransactionField("tf_amount", text: "15")
+        enterTransactionField("tf_name", text: name)
+        saveTransactionForm()
 
-        XCTAssertTrue(app.staticTexts[name].waitForExistence(timeout: 5))
+        XCTAssertTrue(transactionRow(named: name).waitForExistence(timeout: 5))
+        XCTAssertTrue(transactionRow(named: name).label.contains("Altro"))
 
         // Pulizia: elimina la transazione appena creata
         swipeToDeleteTransaction(named: name)
+        XCTAssertTrue(XCTWaiter.wait(for: [XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"), object: transactionRow(named: name))], timeout: 5) == .completed)
     }
 
     func testCancelAddTransactionDiscardsInput() throws {

@@ -39,21 +39,30 @@ struct RecurringSeriesDetailView: View {
                         }
                         Section {
                             ForEach(series.occurrences.reversed()) { t in
-                                DSTransactionRow(transaction: t)
-                                    .padding(.horizontal, DS.Layout.margin)
-                                    .contentShape(Rectangle())
-                                    .onTapGesture { editing = t }
-                                    .listRowInsets(EdgeInsets())
-                                    .listRowBackground(DS.paper)
-                                    .listRowSeparatorTint(DS.fog)
-                                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                        Button(role: .destructive) {
-                                            haptic(.medium)
-                                            deleteTransaction(t)
-                                        } label: {
-                                            Label("Elimina", systemImage: "trash")
-                                        }
+                                MovementRow(
+                                    name: t.name,
+                                    metadata: [NSLocalizedString(t.category, comment: ""), t.account?.name ?? "", t.date.dayMonthFormatted]
+                                        .filter { !$0.isEmpty }.joined(separator: " · "),
+                                    amount: t.amount.currencyFormatted,
+                                    categoryName: t.category,
+                                    categorySymbol: t.categoryIcon.isEmpty ? DS.categoryIcon(for: t.category) : t.categoryIcon,
+                                    kind: t.isTransfer ? .transfer : t.transactionType == .entrata ? .income : .expense,
+                                    isPlanned: !t.isDone
+                                )
+                                .padding(.horizontal, DS.Layout.margin)
+                                .contentShape(Rectangle())
+                                .onTapGesture { editing = t }
+                                .listRowInsets(EdgeInsets())
+                                .listRowBackground(DS.surface)
+                                .listRowSeparatorTint(DS.divider)
+                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                    Button(role: .destructive) {
+                                        haptic(.medium)
+                                        deleteTransaction(t)
+                                    } label: {
+                                        Label("Elimina", systemImage: "trash")
                                     }
+                                }
                             }
                         } header: {
                             SectionLabel(text: "Storico")

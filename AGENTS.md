@@ -21,8 +21,8 @@
 | **Direttore dei lavori** | Matteo | decide, assegna, approva: ultima parola |
 | **Capocantiere** | Claude Code (Sonnet) | coordina, smista, controlla, checkpoint. Non esegue lavori lunghi |
 | **Architetto** | subagente `architetto` (Opus) | piani, scelte tecniche, bug difficili. Si chiama poco |
-| **Impresa principale** | **Antigravity** (Gemini: Flash col piano gratuito, modelli più forti con AI Pro) | implementazione, grafica, CSS, refactor, test nel browser, Lighthouse |
-| **Seconda impresa** | **Codex** | logica JS, script, contenuti; riserva quando Antigravity è senza quota |
+| **Impresa principale** | **Antigravity** — ⏸ **NON DISPONIBILE fino al 2026-11-20** (Matteo, 2026-11-14): non assegnargli né proporgli nulla, i suoi lavori vanno a Codex; poi torna principale (Gemini: Flash col piano gratuito, modelli più forti con AI Pro) | implementazione, grafica, CSS, refactor, test nel browser, Lighthouse |
+| **Seconda impresa** | **Codex** | logica JS, script, contenuti; riserva quando Antigravity è senza quota; **fino al 2026-11-20 fa anche le mansioni di Antigravity** |
 | **Operaio** | subagente `operaio` (Sonnet) | riserva: task piccoli o urgenti dentro Claude Code |
 | **Redattore** | subagente `redattore` (Sonnet) o Gemini | testi, traduzioni, SEO, messaggi al cliente |
 | **Collaudatore** | subagente `collaudatore` (Sonnet) | verifica ogni lavoro altrui (legge solo il diff) |

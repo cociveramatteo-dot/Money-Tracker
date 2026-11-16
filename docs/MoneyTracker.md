@@ -82,7 +82,10 @@ MoneyTracker/                    ← Source principale
 │   ├── KeywordCategoryClassifier.swift ← Classificatore keyword on-device
 │   ├── NotificationManager.swift ← Notifiche locali budget/saldo
 │   ├── NotificationScheduling.swift
-│   └── RecurringTransactionEngine.swift ← Engine ricorrenze automatiche
+│   ├── RecurrenceCalculator.swift ← Occorrenze virtuali deterministiche (UUIDv5)
+│   ├── RecurringMaterializer.swift ← Materializza le occorrenze dovute
+│   ├── RecurringSeriesEditor.swift ← Modifica/salta/termina/elimina serie
+│   └── RecurringSeriesDetector.swift ← Rilevamento passivo serie
 ├── Export/
 │   └── PDFReportGenerator.swift ← Generazione PDF mensile
 ├── Formatting/
@@ -96,12 +99,6 @@ MoneyTracker/                    ← Source principale
 │   ├── Category.swift
 │   ├── Goal.swift
 │   └── Transaction.swift
-├── OnboardingTour/
-│   ├── TabBarFrameCapture.swift
-│   ├── ContextualHint.swift
-│   ├── TourManager.swift
-│   ├── TourOverlayView.swift
-│   └── TourStep.swift
 ├── Persistence/
 │   ├── Logging.swift
 │   ├── ModelContextSaving.swift
@@ -229,14 +226,27 @@ Singleton centralizzato per formatter costosi. Ricrea i formatter solo quando ca
 
 ## 5. Design System (Theme.swift)
 
-### Palette colori semantica
+### Palette colori — «Sentiero»
 
-| Token | Descrizione |
-|---|---|
-| `DS.ink` | Testo principale (nero in light, bianco in dark) |
-| `DS.paper` | Sfondo principale |
-| `DS.fog` | Sfondo secondario (grigio chiarissimo) |
-| `DS.smoke` | Testo secondario, label, placeholder |
+Concetto: **verde, linea piena = già successo; ambra, tratteggiato = pianificato/atteso**. Tutti i colori sono adattivi (`Color(lightHex:darkHex:)`), nessun `preferredColorScheme`.
+
+| Token | Light | Dark | Uso |
+|---|---|---|---|
+| `DS.ink` | `#121614` | `#F1F3EF` | Testo primario |
+| `DS.paper` | `#F3F4EF` | `#0E1210` | Sfondo schermata (bg) |
+| `DS.surface` | `#FFFFFF` | `#171C19` | Card, liste, tab bar |
+| `DS.smoke` | `#5B635E` | `#9AA39D` | Testo secondario (inkSecondary) |
+| `DS.fog` | `#DCDFD8` | `#2A332E` | Bordi, riempimenti neutri |
+| `DS.divider` | `#ECEEE9` | `#232A26` | Separatori di riga, track barre |
+| `DS.accent` (`positive`) | `#1F7A4D` | `#5FD19B` | Entrate, FAB, progress OK |
+| `DS.planned` / `plannedText` | `#B45309` / `#8A4A0C` | `#F2A65A` | Pianificato, soglia 80% (testo < 18 pt: `plannedText`) |
+| `DS.danger` (`negative`) | `#B42318` | `#F26B5E` | Budget sforato |
+| `DS.transfer` | `#2F6FB0` | `#6FA8E0` | Trasferimenti |
+| `DS.hero`, `heroText`, `heroSecondary`, `heroDivider`, `heroAccent`, `heroPlanned` | — | — | Card scura (superficie scura in entrambi i temi) |
+
+Le varianti `*Soft` (`accentSoft`, `plannedSoft`, `dangerSoft`) sono gli sfondi dei badge. Valori dark e scarti dall'handoff: `DECISIONI.md` D-005.
+
+**Tinte categoria** (`CategoryTint`): 4 tinte (verde, ambra, blu, viola) assegnate per nome — mappa fissa per le 14 predefinite, hash FNV-1a del nome per le personalizzate (nessuna modifica al modello). **Tipografia** (`DS.Typo`): Space Grotesk (titoli, importi) e Inter (testo) nel bundle, Dynamic Type via `relativeTo:`, fallback SF Pro, importi con cifre tabulari.
 
 ### Spacing
 
@@ -356,25 +366,22 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 - Inserisci nome e importo → salvato direttamente nel database senza aprire l'app
 - `try?` safe init del ModelContainer (no crash in caso di store non disponibile)
 
-### Onboarding Tour (OnboardingTour/)
+### Tour archiviato
 
-Due livelli:
-- **Livello 1 — panoramica** (`TourStep`/`OverviewStep`): sequenza lineare mostrata una volta sola al primo avvio, uno step per tab con spotlight sulla sola icona della tab bar.
-- **Livello 2 — mini-tour contestuali** (`ContextualHint`): un singolo spotlight + card con "Ho capito", mostrato una sola volta la prima volta che l'utente arriva davvero su un elemento (dopo aver completato la panoramica).
+Fino al tag `tour-v1` l'app aveva un **onboarding tour a due livelli**: una panoramica lineare (`TourStep`/`OverviewStep`, uno step per tab con spotlight) e mini-tour contestuali (`ContextualHint`, spotlight + card «Ho capito»), pilotati da `TourManager` e disegnati da `TourOverlayView` tramite gli ancoraggi `.tourAnchor(...)`. Con il redesign «Sentiero» è stato **rimosso dal codice** (cartella `MoneyTracker/OnboardingTour/`, `TourFlowUITests`, ancoraggi nelle viste, voce «Rivedi tour» e banner hint in Impostazioni, stringhe `tour.*`/`hint.*` nelle 7 lingue). La **modalità demo** resta invariata.
 
-Altri componenti:
-- `TourManager`: stato pubblicato per entrambi i livelli, persistenza (UserDefaults) di "panoramica completata" e "hint visti"
-- `TourOverlayView`: overlay unico (ModalCard, StepCard, HintCard) che disegna sia la panoramica sia gli hint contestuali — montato in `MoneyTrackerApp` quando `isActive` **oppure** `activeHint != nil`
-- `TabBarFrameCapture`: cattura frame tab bar per posizionamento overlay
+- **Tag:** `tour-v1` (annotato, su GitHub), commit `1853496`.
+- **Ripristino:** `git checkout tour-v1 -- MoneyTracker/OnboardingTour MoneyTrackerUITests/TourFlowUITests.swift`, poi ricablare overlay (`.overlayPreferenceValue(TourAnchorKey…)` in `MoneyTrackerApp`), ancoraggi `.tourAnchor` nelle viste e stringhe `tour.*`/`hint.*` sulla nuova grafica.
+- Le chiavi `UserDefaults` del tour rimaste sui dispositivi sono innocue.
 
-### Ricorrenze Automatiche
+### Ricorrenze Automatiche (serie virtuali, D-008/D-009)
 
-- Campo "Ricorrenza" in AddTransactionView: nessuna / settimanale / mensile / annuale
-- `Transaction.recurringFrequency: String` nel modello; `Transaction.templateId: String` collega ogni copia generata alla transazione "template" originale (vuoto sul template stesso)
-- `RecurringTransactionActor.processRecurring()` genera automaticamente, per il solo periodo corrente, le occorrenze mancanti dei template attivi — mai per tutti i mesi futuri in blocco, per non sfasare il saldo
-- Le nuove tx vengono create come `isDone = false` (pianificate), stesso nome/importo/categoria/conto del template, data corrispondente nel nuovo periodo
-- **Trigger**: gira su un `@ModelActor` in background sia al lancio dell'app sia a ogni ritorno in foreground (`scenePhase == .active`, `MoneyTrackerApp.swift`) — prima girava solo al lancio da zero del processo, quindi restava silente per chi teneva l'app viva in background attraverso il cambio di mese. Una guardia giornaliera (`UserDefaults`) evita elaborazioni ridondanti.
-- **Interrompi ricorrenza**: voce nel context menu (long press) di `TransactionsView`, disponibile sia sul template originale sia su una qualunque copia già generata (risale al template via `templateId`) — svuota `recurringFrequency` sul template senza toccare le occorrenze già create.
+- Ogni serie è una `RecurringRule` (sincronizzata, schema V3); le occorrenze hanno ID deterministico (UUIDv5 da regola + data originale), così più dispositivi non creano duplicati. `Transaction.templateId` punta alla regola. I template legacy (`recurringFrequency`) non generano più copie.
+- Creazione: in `AddTransactionView` (solo nuova transazione) il picker "Ricorrenza" crea regola e prima occorrenza in un unico salvataggio.
+- `RecurringMaterializer` crea come pianificate (`isDone = false`) le occorrenze dovute, mai storico retroattivo oltre il mese corrente. Avvii: login (dopo il sync), foreground (`scenePhase == .active`, anche offline/demo) e cambio giorno (`significantTimeChange`). Gli errori compaiono in un alert localizzato (`RecurrenceOperationStatus`).
+- `RecurrenceEditorView`: ambiti *solo questa* (nome, importo, note, data nello stesso mese), *questa e successive* (split della serie), *tutte*; azioni *salta mese*, *termina da qui*, *termina dopo questa*, *elimina* con conferma. Le copie già fatte (`isDone`) restano invariate.
+- Movimenti: tab "Ricorrenti" mostra le serie programmate (importo, frequenza, prossima, stato) accanto alle serie rilevate; nei mesi futuri le occorrenze **virtuali** compaiono in una sezione separata, etichettate «esclusa dai totali», e non entrano mai in totali, saldi o filtri importo.
+- Sync: le regole viaggiano su Supabase; una regola locale non viene persa se il remoto è vuoto. La prova reale a due dispositivi è ancora da fare.
 
 ### Localizzazione
 
@@ -443,7 +450,7 @@ Altri componenti:
 
 | Feature | Stato |
 |---|---|
-| Tour onboarding / discoverability | ⚙️ In sviluppo (OnboardingTour/ presente) |
+| Tour onboarding / discoverability | 🗄️ Archiviato (tag `tour-v1`, vedi «Tour archiviato») |
 | Widget schermata Home e Lock Screen (WidgetKit + AppGroup) | ☐ |
 | Ricorrenze automatiche | ✅ Implementato |
 | Apple Watch App (watchOS target + WatchConnectivity) | ☐ |
@@ -515,6 +522,43 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ---
 
 ## 10. Changelog
+
+### v3.x (novembre 2026) — Redesign «Sentiero» completo: Statistiche, Pianifica, Conti, confronto mese su mese (S-6…S-10, S-14)
+
+- S-6 Statistiche, S-7 Pianifica, S-8 Conti ridisegnate dai mockup (stili letti dal sorgente HTML): grafico `BarMark` con `position(by:)`, hero con anello e badge di stato testuali, raggruppamento per tipo solo visivo. Soglie, progresso ponderato, PDF e archiviazione invariati. Righe archiviate leggibili (contrasto 5,60:1 light, 7,28:1 dark); spazio in fondo a Pianifica per il pulsante flottante.
+- S-14: card «Confronto mese su mese» in Statistiche (`Domain/MonthlySpendingComparison`, puro, `Decimal`): stesso periodo di giorni, per categoria e totale, freccia + testo, percentuali ≥100 senza decimali, righe per variazione assoluta decrescente, snapshot calcolato fuori dal `body`.
+- Plurale di «Mancano %lld giorni» (`Localizable.stringsdict` it/en/de/es/fr; ja/zh forma unica). Nuove traduzioni S-6/S-7/S-8/S-14 in 7 lingue, approvate da Matteo.
+- S-28: tab bar leggibile con Dynamic Type XL. S-29: helper calendario senza `!`, un fetch per regola nel materializer, errori localizzati, test round-trip `Decimal`.
+- Qualità: Commissione S-13h e S-10 senza difetti bloccanti. 92 unit test; UI 45 test (42 verdi nel run completo, i 3 falliti rilanciati singolarmente verdi: un test sbagliato corretto e due instabilità del simulatore).
+- Aperti: controlli manuali S-24 e S-21, prova Supabase reale (S-13f), precisione Decimal elevata (S-16), `TransactionsView` ancora 864 righe. Prossima funzione: S-30 «categoria dall'ultima volta» (D-011).
+
+### v3.x (novembre 2026) — Ricorrenze: rifinitura, demo vetrina e chiusura Commissione S-13h (S-17…S-29)
+
+- S-17: il pull non cancella più regole locali non ancora spedite. S-18/S-19: rifinitura grafica di virtuali e serie programmate, revisione di testi e traduzioni (de/es/zh).
+- S-21/S-22: meno ricalcoli per riga in `TransactionsView`, che viene spezzata in componenti. S-23/S-25: editor di singola occorrenza e uniformità dei campi per ambito (il tap normale applica «Tutte» alla serie). S-24: eliminazione delle serie con confronto per giorno originale; «già effettuato» resta della singola copia.
+- S-26: demo vetrina completa (`DemoDataSeeder`, `seedVersion` 6) con vere regole, override e occorrenza effettuata, 32 chiavi `demo.*` in 7 lingue. S-27: full run UI 16/16.
+- S-28: tab bar leggibile con Dynamic Type XL (`lineLimit(1)` + `minimumScaleFactor(0.6)`; «Bewegungen» completo su una riga).
+- S-29 (Commissione S-13h, ora 10/10): helper di calendario con fallback al posto dei `!`, `lastMonth` calcolato su `interval.end - 1`, un solo fetch per regola nel materializer, `errorDescription` localizzati, test round-trip `Decimal` SwiftData/DTO; test sull'estremo dell'intervallo e commento sul guard. 82 unit test verdi.
+- Aperti: approvazione traduzioni (Matteo), prova manuale S-24 sul caso reale, prova reale Supabase (S-13f).
+
+### v3.x (novembre 2026) — Ricorrenze a serie virtuali (S-13)
+
+- Nuovo motore: `RecurrenceCalculator`, `RecurringMaterializer`, `RecurringSeriesEditor`, `RecurringRule` sincronizzata; sostituisce `RecurringTransactionActor` (rimosso, commenti obsoleti aggiornati).
+- UI: creazione, editor a tre ambiti, salta/termina/elimina, serie programmate e virtuali esclusi dai totali, alert errori, avvii lifecycle. Rimosso «Interrompi ricorrenza» legacy.
+- S-20: `RecurringSeriesEditor` permette di eliminare/modificare una serie terminata prima della prima occorrenza (test di regressione). 68 unit test + `RecurrenceFlowUITests`.
+- Aperti: prova reale Supabase (S-13f), rifinitura grafica (S-18), revisione traduzioni (S-19).
+
+### v3.x (novembre 2026) — Redesign «Sentiero», step 1: token, font, dark mode
+
+- Palette «Sentiero» integrata in `DS` (adattiva light/dark, contrasto AA verificato); `ink/paper/fog/smoke` cambiano valore, `positive/negative` diventano alias di `accent/danger`; aggiunti `surface`, `divider`, `accentSoft`, `planned*`, `danger*`, `transfer`, `hero*`.
+- Font Space Grotesk e Inter nel bundle (`Resources/Fonts`, `UIAppFonts`, licenze OFL) e `DS.Typo` con Dynamic Type.
+- `CategoryTint`: tinta categoria deterministica (test `CategoryTintTests`); `FontRegistrationTests` verifica i font registrati.
+
+### v3.x (novembre 2026) — Redesign «Sentiero», step 0: rimozione del tour
+
+- Rimossi `OnboardingTour/`, `TourFlowUITests`, `.tourAnchor(...)` in Dashboard/Transactions/Statistics/Pianifica/Accounts/ContentView, avvio automatico del tour, hook `--forceTour`, voce «Rivedi tour» e banner hint in Impostazioni, flag UserDefaults del tour nell'init `--uitesting`, stringhe `tour.*`/`hint.*`/«Rivedi tour» in tutte e 7 le lingue.
+- Nessuna funzione dell'app toccata oltre al tour; modalità demo invariata.
+- Tour conservato nel tag `tour-v1` (vedi «Tour archiviato»).
 
 ### v3.x (settembre 2026) — Tre bug critici: Tocco posteriore che "sparisce", perdita dati al login, ricorrenze arretrate
 

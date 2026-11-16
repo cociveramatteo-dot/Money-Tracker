@@ -85,3 +85,131 @@ struct SchemaMigrationTests {
         #expect(goals.first?.currentAmount == Decimal(250.75))
     }
 }
+
+// Additive V3 coverage; existing V1 → V2 test above stays unchanged.
+extension SchemaMigrationTests {
+    private func seedV2Store(at url: URL) throws -> (UUID, UUID, UUID) {
+        let schema = Schema(versionedSchema: SchemaV2.self)
+        let container = try ModelContainer(for: schema, configurations: ModelConfiguration(schema: schema, url: url))
+        let context = container.mainContext
+        let account = Account(name: "Conto V2", type: .conto, initialBalance: Decimal(string: "1234.56")!)
+        context.insert(account)
+        let template = Transaction(name: "Legacy", amount: Decimal(string: "19.99")!, type: .uscita,
+                                   category: "Casa", categoryIcon: "house", date: Date(timeIntervalSince1970: 1_700_000_000),
+                                   isDone: true, isFixed: true, notes: "Originale", recurringFrequency: "mensile", account: account)
+        context.insert(template)
+        let copy = Transaction(name: "Copia", amount: Decimal(string: "0.10")!, type: .uscita,
+                               category: "Casa", categoryIcon: "house", date: Date(timeIntervalSince1970: 1_702_000_000),
+                               isDone: false, notes: "Pianificata", templateId: template.id.uuidString, account: account)
+        context.insert(copy)
+        let budget = Budget(category: "Casa", monthlyLimit: Decimal(string: "300.01")!, month: 11, year: 2026, account: account)
+        context.insert(budget)
+        context.insert(Goal(name: "Meta", targetAmount: Decimal(string: "1000.01")!, currentAmount: Decimal(string: "0.20")!))
+        try context.save()
+        return (account.id, template.id, copy.id)
+    }
+
+    @Test("V2 disk store opens as V3 without changing legacy transactions or creating rules")
+    func migratesV2ToV3WithoutConvertingLegacy() throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("MigrationV3-\(UUID())", isDirectory: true)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = directory.appendingPathComponent("test.store")
+        let (accountID, templateID, copyID) = try seedV2Store(at: url)
+        let schema = Schema(versionedSchema: SchemaV3.self)
+        let container = try ModelContainer(for: schema, migrationPlan: MoneyTrackerMigrationPlan.self,
+                                           configurations: ModelConfiguration(schema: schema, url: url))
+        let context = container.mainContext
+        let accounts = try context.fetch(FetchDescriptor<Account>())
+        #expect(accounts.count == 1)
+        let account = try #require(accounts.first)
+        #expect(account.id == accountID && account.name == "Conto V2")
+        #expect(account.initialBalance == Decimal(string: "1234.56")!)
+        #expect(account.transactions.count == 2)
+        let transactions = try context.fetch(FetchDescriptor<Transaction>())
+        #expect(transactions.count == 2)
+        let template = try #require(transactions.first { $0.id == templateID })
+        #expect(template.name == "Legacy" && template.amount == Decimal(string: "19.99")!)
+        #expect(template.recurringFrequency == "mensile" && template.templateId == "")
+        #expect(template.date == Date(timeIntervalSince1970: 1_700_000_000))
+        #expect(template.isDone && template.isFixed && !template.isTransfer)
+        #expect(template.notes == "Originale" && template.category == "Casa" && template.categoryIcon == "house")
+        #expect(template.account?.id == accountID)
+        let copy = try #require(transactions.first { $0.id == copyID })
+        #expect(copy.name == "Copia" && copy.amount == Decimal(string: "0.10")!)
+        #expect(copy.templateId == templateID.uuidString && copy.recurringFrequency == "")
+        #expect(!copy.isDone && copy.notes == "Pianificata")
+        #expect(copy.date == Date(timeIntervalSince1970: 1_702_000_000))
+        #expect(copy.account?.id == accountID)
+        let budgets = try context.fetch(FetchDescriptor<Budget>())
+        #expect(budgets.count == 1 && budgets.first?.monthlyLimit == Decimal(string: "300.01")!)
+        #expect(budgets.first?.account?.id == accountID)
+        let goals = try context.fetch(FetchDescriptor<Goal>())
+        #expect(goals.count == 1 && goals.first?.targetAmount == Decimal(string: "1000.01")!)
+        #expect(goals.first?.currentAmount == Decimal(string: "0.20")!)
+        #expect(try context.fetchCount(FetchDescriptor<RecurringRule>()) == 0)
+        // Materializer is S-13c; opening/migrating alone must never create occurrences.
+        try context.save()
+        #expect(try context.fetchCount(FetchDescriptor<Transaction>()) == 2)
+    }
+
+    @Test("V3 persists a new rule with exact Decimal and no account relationship")
+    func persistsV3Rule() throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("RuleV3-\(UUID())", isDirectory: true)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = directory.appendingPathComponent("test.store")
+        let id = UUID()
+        let accountID = UUID()
+        let start = Date(timeIntervalSince1970: 1_700_000_000)
+        let exceptions = try RecurrenceExceptionCodec.encode(["2026-11-15": RecurrenceException(amount: "0.1")])
+        func seed() throws {
+            let schema = Schema(versionedSchema: SchemaV3.self)
+            let container = try ModelContainer(for: schema, configurations: ModelConfiguration(schema: schema, url: url))
+            let rule = RecurringRule(id: id, name: "Nuova", amount: Decimal(string: "0.2")!, type: "Uscita",
+                                     notes: "Nota", isFixed: true, accountId: accountID, frequency: "mensile", startDate: start,
+                                     endDate: start.addingTimeInterval(86400), exceptionsJSON: exceptions,
+                                     materializedThrough: start, createdAt: start)
+            container.mainContext.insert(rule)
+            try container.mainContext.save()
+        }
+        try seed()
+        let schema = Schema(versionedSchema: SchemaV3.self)
+        let container = try ModelContainer(for: schema, migrationPlan: MoneyTrackerMigrationPlan.self,
+                                           configurations: ModelConfiguration(schema: schema, url: url))
+        let rules = try container.mainContext.fetch(FetchDescriptor<RecurringRule>())
+        #expect(rules.count == 1)
+        let rule = try #require(rules.first)
+        #expect(rule.id == id && rule.accountId == accountID)
+        #expect(rule.amount == Decimal(string: "0.2")! && rule.name == "Nuova")
+        #expect(rule.frequency == "mensile" && rule.isFixed && rule.notes == "Nota")
+        #expect(rule.startDate == RecurrenceCalculator().noon(start))
+        #expect(rule.endDate == RecurrenceCalculator().noon(start.addingTimeInterval(86400)))
+        #expect(rule.materializedThrough == start && rule.createdAt == start)
+        #expect(rule.exceptionsJSON == exceptions)
+        #expect(try container.mainContext.fetchCount(FetchDescriptor<Transaction>()) == 0)
+        #expect(try container.mainContext.fetchCount(FetchDescriptor<Account>()) == 0)
+    }
+}
+
+
+extension SchemaMigrationTests {
+    @Test("V1 store can migrate through V2 to the current V3 schema")
+    func migratesV1ThroughV3() throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("MigrationV1V3-\(UUID())", isDirectory: true)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = directory.appendingPathComponent("test.store")
+        try seedV1Store(at: url)
+        let schema = Schema(versionedSchema: SchemaV3.self)
+        let container = try ModelContainer(for: schema, migrationPlan: MoneyTrackerMigrationPlan.self,
+                                           configurations: ModelConfiguration(schema: schema, url: url))
+        let context = container.mainContext
+        #expect(try context.fetch(FetchDescriptor<Account>()).first?.initialBalance == Decimal(string: "123.45")!)
+        #expect(try context.fetch(FetchDescriptor<Transaction>()).first?.amount == Decimal(string: "42.5")!)
+        #expect(try context.fetchCount(FetchDescriptor<Transaction>()) == 1)
+        #expect(try context.fetchCount(FetchDescriptor<RecurringRule>()) == 0)
+        #expect(try context.fetch(FetchDescriptor<Budget>()).first?.monthlyLimit == 300)
+        #expect(try context.fetch(FetchDescriptor<Goal>()).first?.currentAmount == Decimal(string: "250.75")!)
+    }
+}

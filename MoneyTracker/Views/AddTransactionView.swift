@@ -4,7 +4,9 @@ import SwiftData
 struct AddTransactionView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @State private var recurrenceStatus = RecurrenceOperationStatus()
     @Query private var accounts: [Account]
+    @Query private var rules: [RecurringRule]
     @Query(sort: \Category.sortOrder) private var categories: [Category]
 
     var editing: Transaction? = nil
@@ -44,16 +46,11 @@ struct AddTransactionView: View {
         return name.isEmpty || v <= 0 || v > 1_000_000_000
     }
 
-    /// true quando si modifica una singola occorrenza già generata da una serie
-    /// ricorrente (templateId non vuoto), non il template stesso né una
-    /// transazione libera. Il picker "Ricorrenza" va nascosto in questo caso:
-    /// impostarne uno creerebbe una seconda serie parallela con lo stesso nome,
-    /// duplicando le occorrenze future ad ogni periodo.
-    private var isGeneratedOccurrence: Bool {
-        !(editing?.templateId.isEmpty ?? true)
+    var body: some View {
+        transactionForm
     }
 
-    var body: some View {
+    private var transactionForm: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: DS.Space.xxl) {
@@ -209,20 +206,7 @@ struct AddTransactionView: View {
 
                         ThinDivider()
 
-                        if isGeneratedOccurrence {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text("Ricorrenza")
-                                        .font(.system(size: 15))
-                                        .foregroundStyle(DS.ink)
-                                    Text("Fa parte di una serie ricorrente — tieni premuto sulla transazione per interromperla")
-                                        .font(.system(size: 11))
-                                        .foregroundStyle(DS.smoke)
-                                }
-                                Spacer()
-                            }
-                            .accessibilityElement(children: .combine)
-                        } else {
+                        if editing == nil {
                             HStack {
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text("Ricorrenza")
@@ -239,6 +223,7 @@ struct AddTransactionView: View {
                                     }
                                 }
                                 .pickerStyle(.menu)
+                                .accessibilityIdentifier("picker_recurrence")
                                 .tint(DS.ink)
                             }
                         }
@@ -291,6 +276,7 @@ struct AddTransactionView: View {
                     suggestedCat = ""
                 }
             }
+            .recurrenceErrorAlert(recurrenceStatus)
             .onAppear { load() }
         }
     }
@@ -333,7 +319,24 @@ struct AddTransactionView: View {
         let catName = selectedCat?.name ?? "Altro"
         let catIcon = selectedCat?.icon ?? "circle.dotted"
 
-        if let t = editing {
+        if let t = editing, let rule = rules.first(where: { $0.id.uuidString == t.templateId }) {
+            var values = RecurringSeriesEditor.snapshot(rule)
+            values.name = name; values.amount = amt; values.type = type.rawValue
+            values.category = catName; values.categoryIcon = catIcon; values.accountId = selectedAccount?.id
+            values.isFixed = isFixed; values.notes = notes
+            // Preserve the selected occurrence's position in the series. A prior single-date
+            // override shown in this form becomes the date shift for the entire series too.
+            let originalDate = RecurrenceSelection.resolve(t, rules: [rule])?.occurrence.originalDate ?? t.date
+            values.startDate = RecurrenceCalculator().anchorForSeriesEdit(rule: values, originalDate: originalDate, date: date)
+            // Completion remains local to this copy (Matteo, 2026-11-15).
+            // Apply it before reconciliation, which may replace a planned copy after a date change.
+            let previousDone = t.isDone
+            t.isDone = isDone
+            guard recurrenceStatus.perform({
+                try RecurringSeriesEditor().apply(.edit(.all, values), to: rule,
+                                                 originalDate: rule.startDate, context: context)
+            }) else { t.isDone = previousDone; return }
+        } else if let t = editing {
             t.name         = name
             t.amount       = amt
             t.type         = type.rawValue
@@ -343,10 +346,9 @@ struct AddTransactionView: View {
             t.date         = date
             t.isDone              = isDone
             t.isFixed             = isFixed
-            t.recurringFrequency  = recurringFrequency
             t.notes               = notes
         } else {
-            context.insert(Transaction(
+            let transaction = Transaction(
                 name:               name,
                 amount:             amt,
                 type:               type,
@@ -356,11 +358,30 @@ struct AddTransactionView: View {
                 isDone:             isDone,
                 isFixed:            isFixed,
                 notes:              notes,
-                recurringFrequency: recurringFrequency,
+                recurringFrequency: "",
                 account:            selectedAccount
-            ))
+            )
+            if !recurringFrequency.isEmpty {
+                let rule = RecurringRule(name: name, amount: amt, type: type.rawValue,
+                                         category: catName, categoryIcon: catIcon, notes: notes,
+                                         isFixed: isFixed, accountId: selectedAccount?.id,
+                                         frequency: recurringFrequency, startDate: date)
+                transaction.id = RecurrenceCalculator.occurrenceID(ruleId: rule.id, key: RecurrenceCalculator().key(for: date))
+                transaction.templateId = rule.id.uuidString
+                context.insert(rule)
+                context.insert(transaction)
+                // The materializer sees the pending first occurrence and saves it with the rule
+                // and this month's other copies in a single persistence operation.
+                guard recurrenceStatus.perform({ try RecurringMaterializer().materializeDue(context: context) }) else {
+                    context.delete(transaction); context.delete(rule)
+                    return
+                }
+            } else {
+                context.insert(transaction)
+                guard context.safeSave() else { return }
+            }
         }
-        context.safeSave()
+        guard context.safeSave() else { return }
 
         if type == .uscita && isDone {
             SystemNotificationManager.shared.checkBudgets(context: context, forMonth: date)

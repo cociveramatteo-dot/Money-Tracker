@@ -88,30 +88,40 @@ struct PianificaView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
 
-                    HStack(spacing: 0) {
-                        segButton("Budget",    tag: 0)
+                    HStack {
+                        Text("Pianifica").font(DS.Typo.screenTitle).tracking(DS.Typo.screenTitleTracking)
+                        Spacer()
+                        if segment == 0 {
+                            Button { showHistory = true } label: {
+                                Image(systemName: "clock.arrow.circlepath").frame(width: 44, height: 44)
+                            }.accessibilityLabel("Storico Budget")
+                        }
+                        Button { showSettings = true } label: {
+                            Image(systemName: "gearshape").frame(width: 44, height: 44)
+                        }.accessibilityLabel("Impostazioni")
+                    }.foregroundStyle(DS.ink).padding(.horizontal, 20)
+                    HStack(spacing: 4) {
+                        segButton("Budget", tag: 0)
                         segButton("Obiettivi", tag: 1)
                     }
-                    .padding(.horizontal, DS.Layout.margin)
-                    .padding(.top, DS.Space.l)
+                    .padding(4).background(DS.fog, in: RoundedRectangle(cornerRadius: 14))
+                    .padding(.horizontal, 16).padding(.top, 8)
 
                     if segment == 0 {
                         budgetContent
-                            .tourAnchor("budgetList")
                     } else {
                         goalsContent
-                            .tourAnchor("goalsList")
                     }
 
                     Spacer(minLength: 100)
                 }
             }
+            // Riserva la fascia del FAB anche all’inizio dello scroll.
+            .padding(.bottom, DS.Space.xxl + DS.Space.xl + DS.Space.l)
             .background(DS.paper)
             .scrollIndicators(.hidden)
             .refreshable { await SyncService.shared.manualRefresh(context: context) }
-            .navigationTitle(segment == 0 ? "Budget" : "Obiettivi")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar { toolbarContent }
+            .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showAddBudget) { AddBudgetView(month: selectedMonth) }
             .sheet(isPresented: $showAddGoal)   { AddGoalView() }
             .sheet(item: $editingGoal)          { AddGoalView(editing: $0) }
@@ -130,41 +140,14 @@ struct PianificaView: View {
         Button {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) { segment = tag }
         } label: {
-            VStack(spacing: 5) {
-                Text(title)
-                    .font(.system(size: 14, weight: segment == tag ? .semibold : .regular))
-                    .foregroundStyle(segment == tag ? DS.ink : DS.smoke)
-                Rectangle()
-                    .fill(segment == tag ? DS.ink : Color.clear)
-                    .frame(height: 1)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, DS.Space.s)
+            Text(title).font(DS.Typo.rowName)
+                .foregroundStyle(segment == tag ? DS.ink : DS.smoke)
+                .frame(maxWidth: .infinity, minHeight: 44)
+                .background(segment == tag ? DS.surface : DS.fog, in: RoundedRectangle(cornerRadius: 11))
         }
         .buttonStyle(.plain)
-    }
-
-    // MARK: - Toolbar
-
-    @ToolbarContentBuilder
-    private var toolbarContent: some ToolbarContent {
-        ToolbarItem(placement: .topBarTrailing) {
-            HStack(spacing: DS.Space.m) {
-                if segment == 0 {
-                    Button { showHistory = true } label: {
-                        Image(systemName: "clock.arrow.circlepath")
-                            .font(.system(size: 16))
-                            .foregroundStyle(DS.ink)
-                    }
-                    .tourAnchor("historyButton")
-                }
-                Button { showSettings = true } label: {
-                    Image(systemName: "gearshape")
-                        .font(.system(size: 16))
-                        .foregroundStyle(DS.ink)
-                }
-            }
-        }
+        .accessibilityIdentifier(tag == 0 ? "planning_budget" : "planning_goals")
+        .accessibilityAddTraits(segment == tag ? [.isSelected] : [])
     }
 
     // MARK: - Budget content
@@ -176,34 +159,27 @@ struct PianificaView: View {
         // ricalcolerebbe indipendentemente la mappa O(B×T), per un totale di N+2 passate.
         let map = spentMap
         let pct = overallBudgetPct(map: map)
-        // Hero
-        VStack(alignment: .leading, spacing: DS.Space.s) {
-            SectionLabel(text: "Budget usato")
-            HStack(alignment: .lastTextBaseline, spacing: 1) {
-                Text(String(Int(pct * 100)))
-                    .font(.system(size: 80, weight: .black))
-                    .foregroundStyle(DS.ink)
-                Text("%")
-                    .font(.system(size: 40, weight: .ultraLight))
-                    .foregroundStyle(DS.smoke)
+        let total = currentBudgets.reduce(Decimal(0)) { $0 + $1.monthlyLimit }
+        let used = map.values.reduce(Decimal(0), +)
+        MonthBar(month: $selectedMonth).frame(minHeight: 44)
+            .padding(.horizontal, 20).padding(.top, 8)
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .firstTextBaseline) {
+                Text("Budget usato").font(DS.Typo.secondary).foregroundStyle(DS.heroSecondary)
+                Spacer()
+                Text(pct, format: .percent.precision(.fractionLength(0)))
+                    .font(DS.Typo.screenTitle).foregroundStyle(DS.heroPlanned).monospacedDigit()
             }
-            GeometryReader { geo in
-                ZStack(alignment: .leading) {
-                    Rectangle().fill(DS.fog).frame(height: 2)
-                    Rectangle()
-                        .fill(pct > 0.9 ? DS.ink : DS.smoke)
-                        .frame(width: geo.size.width * pct, height: 2)
-                }
-            }
-            .frame(height: 2)
+            Text(used.currencyFormatted + " / " + total.currencyFormatted)
+                .font(DS.Typo.rowAmount).foregroundStyle(DS.heroText)
+            ProgressBar(progress: pct, onHero: true)
+            ViewThatFits(in: .horizontal) {
+                HStack { Text(daysRemaining); Spacer(minLength: 8); Text("Avviso all’80%") }
+                VStack(alignment: .leading, spacing: 4) { Text(daysRemaining); Text("Avviso all’80%") }
+            }.font(DS.Typo.caption).foregroundStyle(DS.heroSecondary)
         }
-        .padding(.horizontal, DS.Layout.margin)
-        .padding(.top, DS.Space.xl)
-
-        // Selettore mese
-        MonthBar(month: $selectedMonth)
-            .padding(.horizontal, DS.Layout.margin)
-            .padding(.top, DS.Space.xl)
+        .padding(18).background(DS.hero, in: RoundedRectangle(cornerRadius: 24))
+        .padding(.horizontal, 16).padding(.top, 4)
 
         // Lista budget
         if currentBudgets.isEmpty {
@@ -216,10 +192,9 @@ struct PianificaView: View {
             )
             .padding(.top, DS.Space.xl)
         } else {
-            VStack(spacing: 0) {
+            VStack(spacing: 8) {
                 ForEach(Array(currentBudgets.enumerated()), id: \.element.id) { _, budget in
-                    BudgetRow(budget: budget, spentAmount: map[budget.id] ?? 0)
-                        .padding(.horizontal, DS.Layout.margin)
+                    PlanningBudgetCard(budget: budget, spentAmount: map[budget.id] ?? 0)
                         .accessibilityIdentifier("budgetRow_\(budget.id.uuidString)")
                         .contextMenu {
                             Button(role: .destructive) {
@@ -230,44 +205,39 @@ struct PianificaView: View {
                             }
                             .accessibilityIdentifier("btn_deleteBudget")
                         }
-                    ThinDivider().padding(.leading, DS.Layout.margin)
                 }
             }
-            .padding(.top, DS.Space.xl)
+            .padding(.horizontal, 16).padding(.top, 10)
         }
+    }
+
+    // Countdown solo di presentazione: non partecipa ai calcoli del budget.
+    private var daysRemaining: String {
+        let calendar = Calendar.current
+        let end = calendar.dateInterval(of: .month, for: selectedMonth)?.end ?? selectedMonth
+        let days = max(0, calendar.dateComponents([.day], from: Date(), to: end).day ?? 0)
+        return String.localizedStringWithFormat(NSLocalizedString("Mancano %lld giorni", comment: "Budget days remaining"), Int64(days))
     }
 
     // MARK: - Goals content
 
     @ViewBuilder
     private var goalsContent: some View {
-        // Hero
-        VStack(alignment: .leading, spacing: DS.Space.s) {
-            SectionLabel(text: "Progresso totale")
-            HStack(alignment: .lastTextBaseline, spacing: 1) {
-                Text(String(Int(overallGoalProgress * 100)))
-                    .font(.system(size: 80, weight: .black))
-                    .foregroundStyle(DS.ink)
-                Text("%")
-                    .font(.system(size: 40, weight: .ultraLight))
-                    .foregroundStyle(DS.smoke)
+        HStack(spacing: 18) {
+            PlanningProgressRing(progress: overallGoalProgress)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Progresso complessivo").font(DS.Typo.secondary).foregroundStyle(DS.heroSecondary)
+                Text(overallGoalProgress, format: .percent.precision(.fractionLength(0)))
+                    .font(DS.Typo.screenTitle).foregroundStyle(DS.heroAccent).monospacedDigit()
+                Text(goals.reduce(Decimal(0)) { $0 + $1.currentAmount }.currencyFormatted
+                     + " / " + goals.reduce(Decimal(0)) { $0 + $1.targetAmount }.currencyFormatted)
+                    .font(DS.Typo.secondary).foregroundStyle(DS.heroText).monospacedDigit()
             }
-            GeometryReader { geo in
-                ZStack(alignment: .leading) {
-                    Rectangle().fill(DS.fog).frame(height: 2)
-                    Rectangle()
-                        .fill(DS.ink)
-                        .frame(width: geo.size.width * overallGoalProgress, height: 2)
-                        .animation(
-                            .spring(response: 0.5, dampingFraction: 0.8),
-                            value: overallGoalProgress
-                        )
-                }
-            }
-            .frame(height: 2)
+            Spacer(minLength: 0)
         }
-        .padding(.horizontal, DS.Layout.margin)
-        .padding(.top, DS.Space.xl)
+        .padding(18).frame(maxWidth: .infinity, alignment: .leading)
+        .background(DS.hero, in: RoundedRectangle(cornerRadius: 24))
+        .padding(.horizontal, 16).padding(.top, 12)
 
         // Lista obiettivi
         if goals.isEmpty {
@@ -280,13 +250,13 @@ struct PianificaView: View {
             )
             .padding(.top, DS.Space.xl)
         } else {
-            VStack(spacing: 0) {
+            VStack(spacing: 8) {
                 ForEach(Array(goals.enumerated()), id: \.element.id) { _, goal in
-                    GoalRow(goal: goal)
-                        .padding(.horizontal, DS.Layout.margin)
+                    PlanningGoalCard(goal: goal, addProgress: { editingGoal = goal })
                         .contentShape(Rectangle())
-                        .accessibilityIdentifier("goalRow_\(goal.id.uuidString)")
                         .onTapGesture { editingGoal = goal }
+                        .accessibilityElement(children: .contain)
+                        .accessibilityIdentifier("goalRow_\(goal.id.uuidString)")
                         .contextMenu {
                             Button { editingGoal = goal } label: {
                                 Label("Modifica", systemImage: "pencil")
@@ -300,10 +270,9 @@ struct PianificaView: View {
                             }
                             .accessibilityIdentifier("btn_deleteGoal")
                         }
-                    ThinDivider().padding(.leading, DS.Layout.margin)
                 }
             }
-            .padding(.top, DS.Space.xl)
+            .padding(.horizontal, 16).padding(.top, 10)
         }
     }
 }

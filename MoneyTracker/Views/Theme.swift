@@ -9,7 +9,7 @@ import SwiftData
 // tabbar, sheet, widget). Nessun observer, nessuna cache, nessun re-render
 // manuale: il cambio tema è istantaneo e gestito interamente da SwiftUI/UIKit.
 
-private extension Color {
+extension Color {
     nonisolated init(lightHex: UInt32, darkHex: UInt32) {
         self.init(uiColor: UIColor { trait in
             let hex = trait.userInterfaceStyle == .dark ? darkHex : lightHex
@@ -56,19 +56,85 @@ enum DS {
         static let cardRadius:   CGFloat = 16
     }
 
-    // MARK: Theme colors (adattivi, risolti dal sistema)
-    // Ogni colore incapsula la coppia light/dark: il sistema sceglie la variante
-    // giusta al momento del rendering. Valori identici alla palette originale.
-    static let ink   = Color(lightHex: 0x111111, darkHex: 0xF0F0F0)
-    static let paper = Color(lightHex: 0xFAFAFA, darkHex: 0x111111)
-    static let fog   = Color(lightHex: 0xE0E0E0, darkHex: 0x2A2A2A)
-    static let smoke = Color(lightHex: 0x888888, darkHex: 0x909090)
+    // MARK: Tipografia «Sentiero»
+    // Space Grotesk (titoli, importi) e Inter (testo) sono nel bundle (Resources/Fonts,
+    // UIAppFonts). `Font.custom(..., relativeTo:)` segue Dynamic Type; se un font non
+    // fosse registrato SwiftUI ripiega da solo su SF Pro. Gli importi usano cifre
+    // tabulari (`monospacedDigit`).
+    enum Typo {
+        private static func grotesk(_ weight: String, _ size: CGFloat, _ style: SwiftUI.Font.TextStyle) -> SwiftUI.Font {
+            .custom("SpaceGrotesk-\(weight)", size: size, relativeTo: style)
+        }
+        private static func inter(_ weight: String, _ size: CGFloat, _ style: SwiftUI.Font.TextStyle) -> SwiftUI.Font {
+            .custom("Inter18pt-\(weight)", size: size, relativeTo: style)
+        }
 
-    // Semantico, fisso a prescindere dal tema attivo (i 10 temi colorano solo
-    // gli accenti/tint) — usato solo sui saldi (positivo/negativo), non su
-    // ogni importo: toni smorzati per restare coerenti con l'estetica minimale.
-    static let positive = Color(lightHex: 0x2E7D32, darkHex: 0x66BB6A)
-    static let negative = Color(lightHex: 0xC62828, darkHex: 0xEF5350)
+        static let screenTitle   = grotesk("Bold", 30, .largeTitle)           // tracking −2%: `screenTitleTracking`
+        static let wordmark      = grotesk("Bold", 26, .title)
+        static let heroAmount    = grotesk("SemiBold", 44, .largeTitle).monospacedDigit()
+        static let heroAmountSm  = grotesk("SemiBold", 38, .largeTitle).monospacedDigit() // Conti
+        static let sectionTitle  = grotesk("SemiBold", 18, .title3)
+        static let rowName       = inter("Medium", 15, .body)
+        static let rowAmount     = inter("SemiBold", 15, .body).monospacedDigit()
+        static let secondary     = inter("Regular", 13, .footnote)
+        static let caption       = inter("Regular", 12, .caption)
+        static let tabLabel      = inter("Medium", 11, .caption2)
+        static let tabLabelActive = inter("SemiBold", 11, .caption2)
+
+        /// Tracking da applicare con `.tracking(_:)` (valori in pt: −2% di 30, −3% di 44 e di 38).
+        static let screenTitleTracking: CGFloat = -0.6
+        static let heroAmountTracking:  CGFloat = -1.32
+        static let heroAmountSmTracking: CGFloat = -1.14
+    }
+
+    // MARK: Theme colors — palette «Sentiero» (adattivi, risolti dal sistema)
+    // Ogni colore incapsula la coppia light/dark: il sistema sceglie la variante
+    // giusta al momento del rendering (mai `preferredColorScheme`, mai colori fissi).
+    // Light: DESIGN_HANDOFF §2. Dark: mapping dell'handoff (bg #0E1210, surface #171C19,
+    // testo #F1F3EF, hero #1F2622) con i verdi/ambra/rossi/blu schiariti per mantenere
+    // il contrasto AA sul testo (verificato ≥ 4.5:1 su bg e surface; vedi DECISIONI.md D-005).
+    //
+    // Nomi storici dell'app mantenuti (un solo token per ruolo, nessun doppione):
+    //   ink = testo primario · paper = sfondo schermata (bg) · fog = bordi/riempimenti
+    //   neutri (border) · smoke = testo secondario (inkSecondary).
+    static let ink   = Color(lightHex: 0x121614, darkHex: 0xF1F3EF)
+    static let paper = Color(lightHex: 0xF3F4EF, darkHex: 0x0E1210)
+    static let filterBorder = Color(lightHex: 0xB9BFB6, darkHex: 0x2A332E)
+    static let fog   = Color(lightHex: 0xDCDFD8, darkHex: 0x2A332E)
+    static let smoke = Color(lightHex: 0x5B635E, darkHex: 0x9AA39D)
+
+    /// Card, liste, tab bar.
+    static let surface     = Color(lightHex: 0xFFFFFF, darkHex: 0x171C19)
+    /// Separatori di riga e track delle progress bar.
+    static let divider     = Color(lightHex: 0xECEEE9, darkHex: 0x232A26)
+    /// Entrate, FAB, link, progress OK («verde = già successo»).
+    static let accent      = Color(lightHex: 0x1F7A4D, darkHex: 0x5FD19B)
+    /// Testo/icona su fill `accent` (bianco in light, quasi-nero in dark per il contrasto).
+    static let onAccent    = Color(lightHex: 0xFFFFFF, darkHex: 0x0E1210)
+    static let accentSoft  = Color(lightHex: 0xDDEEE3, darkHex: 0x1C2E25)
+    /// Pianificato / atteso («ambra = futuro»), soglia budget 80%.
+    static let planned     = Color(lightHex: 0xB45309, darkHex: 0xF2A65A)
+    /// Testo ambra: usare questo (non `planned`) per testo < 18 pt.
+    static let plannedText = Color(lightHex: 0x8A4A0C, darkHex: 0xF2A65A)
+    static let plannedSoft = Color(lightHex: 0xFBEBDD, darkHex: 0x3A2A16)
+    /// Budget sforato.
+    static let danger      = Color(lightHex: 0xB42318, darkHex: 0xF26B5E)
+    static let dangerSoft  = Color(lightHex: 0xFBE4E1, darkHex: 0x3A1D1A)
+    /// Trasferimenti.
+    static let transfer    = Color(lightHex: 0x2F6FB0, darkHex: 0x6FA8E0)
+
+    // Hero card (superficie scura in entrambi i temi) e relativi testi.
+    static let hero          = Color(lightHex: 0x121614, darkHex: 0x1F2622)
+    static let heroText      = Color(lightHex: 0xFFFFFF, darkHex: 0xF1F3EF)
+    static let heroSecondary = Color(lightHex: 0xA9B2AC, darkHex: 0xA9B2AC)
+    static let heroDivider   = Color(lightHex: 0x2A322D, darkHex: 0x323B35)
+    static let heroAccent    = Color(lightHex: 0x5FD19B, darkHex: 0x5FD19B)
+    static let heroPlanned   = Color(lightHex: 0xF2A65A, darkHex: 0xF2A65A)
+
+    // Semantico positivo/negativo dei saldi: alias dei token «Sentiero»
+    // (verde accent / rosso danger), unica fonte di verità per i colori.
+    static let positive = accent
+    static let negative = danger
 
     /// Verde/rosso in base al segno di un saldo, DS.ink se zero — unica fonte di
     /// verità per la colorazione "positivo/negativo" (HeroAmount, mini-saldi Home).
@@ -390,7 +456,9 @@ struct MonthBar: View {
             }
             Spacer()
             Text(label)
-                .font(.system(size: 15, weight: .medium))
+                .font(DS.Typo.rowName)
+                .minimumScaleFactor(0.8)
+                .lineLimit(1)
                 .foregroundStyle(DS.ink)
             Spacer()
             Button {
@@ -549,6 +617,7 @@ struct FixedExpenseRow: View {
 
 struct RecurringSeriesCard: View {
     let series: RecurringSeries
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var frequencyLabel: String {
         switch series.frequency {
@@ -587,35 +656,51 @@ struct RecurringSeriesCard: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: DS.Space.xs) {
+        let tint = CategoryTint.tint(for: series.category)
+        let iconName = series.categoryIcon.isEmpty ? DS.categoryIcon(for: series.category) : series.categoryIcon
+
+        VStack(alignment: .leading, spacing: DS.Space.s) {
             HStack(spacing: DS.Space.m) {
-                Image(systemName: series.categoryIcon.isEmpty ? "arrow.triangle.2.circlepath" : series.categoryIcon)
-                    .font(.system(size: 14))
-                    .foregroundStyle(DS.smoke)
-                    .frame(width: 18)
-                Text(series.name)
-                    .font(.system(size: 15))
-                    .foregroundStyle(DS.ink)
-                    .lineLimit(1)
+                ZStack {
+                    RoundedRectangle(cornerRadius: DS.Space.m)
+                        .fill(tint.background)
+                        .frame(width: 38, height: 38)
+                    Image(systemName: iconName)
+                        .font(.system(size: 16))
+                        .foregroundStyle(tint.foreground)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(series.name)
+                        .font(DS.Typo.rowName)
+                        .foregroundStyle(DS.ink)
+                        .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
+                    Text("\(series.count) \(String(localized: "volte")) · \(String(localized: "dal")) \(series.firstDate.dayMonthFormatted)")
+                        .font(DS.Typo.caption)
+                        .foregroundStyle(DS.smoke)
+                }
                 Spacer()
-                Text(frequencyLabel)
-                    .font(.system(size: 11))
-                    .foregroundStyle(DS.smoke)
+                if !dynamicTypeSize.isAccessibilitySize {
+                    Text(frequencyLabel)
+                        .font(DS.Typo.caption)
+                        .foregroundStyle(DS.smoke)
+                }
             }
-            Text("\(series.count) \(String(localized: "volte")) · \(String(localized: "dal")) \(series.firstDate.dayMonthFormatted)")
-                .font(.system(size: 12))
-                .foregroundStyle(DS.smoke)
+            if dynamicTypeSize.isAccessibilitySize {
+                Text(frequencyLabel).font(DS.Typo.caption).foregroundStyle(DS.smoke)
+            }
             Text(totalLine)
-                .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(isExpense ? DS.negative : DS.positive)
+                .font(DS.Typo.rowAmount)
+                .foregroundStyle(isExpense ? DS.ink : DS.positive)
+                .monospacedDigit()
             detailLine
-                .font(.system(size: 12))
+                .font(DS.Typo.caption)
                 .foregroundStyle(DS.smoke)
+                .monospacedDigit()
         }
         .padding(DS.Space.l)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(DS.fog.opacity(0.5))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .background(DS.surface, in: RoundedRectangle(cornerRadius: 18))
+        .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(DS.fog))
         .accessibilityElement(children: .combine)
     }
 }
