@@ -99,3 +99,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 
 | 2026-11-16 12:14 | impresa (Codex · GPT-6) | S-7p plurale giorni | sette stringsdict, 21 casi runtime 0/1/2, build + 83 unit e 1 UI Pianifica verdi | collaudo/approvazione forme singolari; segue S-14 |
 | 2026-11-16 14:34 | impresa (Codex · GPT-6) | S-14 confronto mese su mese | Funzione pura Decimal + 7 test; card totale/categorie, 12 chiavi × 7 lingue ⏳; build + 90 unit + 4 UI mirati verdi; 8 screenshot light/dark/XL/de verificati | collaudo indipendente, approvazione testi/grafica; le nuove chiavi e la card non sono nel mockup statico; modifiche esterne D-011/S-30 non incluse |
+| 2026-11-16 14:37 | collaudatore (Claude Code · Sonnet) | S-7p, S-14 | collaudo ok su diff e screenshot, entrambi [x] | approvazione traduzioni ⏳ da Matteo |

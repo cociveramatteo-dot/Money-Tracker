@@ -175,17 +175,17 @@ il task e i file indicati.
 
 - **Eseguito Codex 2026-11-15 (autorizzazione Matteo in chat):** causa dimostrata nella gerarchia del fallimento: filtro avanzato persistente ≥20€, non azzerato dal chip Tutti, nasconde i movimenti 10–15€ dei due test. Test corretti azzerando i filtri dalla UI; aggiunte attese del focus e chiusura form (osservato anche un errore XCUITest di digitazione senza focus), ricerca riga accessibile con nome e metadati, attesa reale della cancellazione. Nessun codice app cambiato per S-15. Entrambi verdi nel rilancio finale `/tmp/moneytracker-s25-s15-fixed.log` (TEST SUCCEEDED), da collaudare.
 
-### S-7p [~] Plurale dei giorni rimanenti
+### S-7p [x] Plurale dei giorni rimanenti
 - **A chi:** Codex, assegnato da Matteo in chat.
-- **Eseguito 2026-11-16 12:14:** sette Localizable.stringsdict; singolare in it/en/de/es/fr, sola forma other in ja/zh-Hans. Plurali italiani e testi plurali esistenti invariati. Pianifica usa localizedStringWithFormat. Verifica runtime di 0/1/2 in tutte sette lingue (21 casi), build + 83 unit e 1 UI Pianifica verdi. Nuove forme singolari ⏳ in APPROVAZIONI. Nessun test esistente modificato, nessuna zona intoccabile. Da collaudare.
+- **Eseguito 2026-11-16 12:14:** sette Localizable.stringsdict; singolare in it/en/de/es/fr, sola forma other in ja/zh-Hans. Plurali italiani e testi plurali esistenti invariati. Pianifica usa localizedStringWithFormat. Verifica runtime di 0/1/2 in tutte sette lingue (21 casi), build + 83 unit e 1 UI Pianifica verdi. Nuove forme singolari ⏳ in APPROVAZIONI. Nessun test esistente modificato, nessuna zona intoccabile. Collaudo ok 2026-11-16 14:37 (plutil ok, 0/1/2+ coerenti con le chiavi approvate; traduzioni singolari ⏳ Matteo).
 
-### S-14 [~] Statistiche: confronto mese su mese
+### S-14 [x] Statistiche: confronto mese su mese
 - **A chi:** Codex (o Antigravity) · dopo S-6 (stessa schermata)
 - **Obiettivo:** frase/card tipo «Questo mese hai speso il 12% in più per Cibo»: per categoria e totale, mese corrente vs mese precedente, stesso periodo di giorni; colori neutri/«danger» da Theme, mai solo colore (anche testo/freccia)
 - **Leggere:** `Statistiche.dc.html` (se il mockup non lo prevede, chiedere a Matteo dove metterlo), `Views/StatisticsView.swift`
 - **Fatto quando:** funzione pura in `Domain/` con `Decimal` + test (mese precedente vuoto, divisione per zero, categoria nuova, mese corrente a metà); resa confrontata col mockup in light/dark/XL/tedesco; testi nelle 7 lingue
 
-- **Eseguito Codex 2026-11-16:** confronto puro `Decimal` su periodi di uguale durata, card totale/per categoria, aggiornamento cache al cambio dati/giorno; 7 test Domain + 4 UI mirati. Build + 90 unit + 4 UI verdi; screenshot light/dark/XL/de in `.cantiere/tmp/s14/`. 12 nuove chiavi × 7 lingue ⏳ in APPROVAZIONI. Calcoli statistiche precedenti e Export invariati. Da collaudare.
+- **Eseguito Codex 2026-11-16:** confronto puro `Decimal` su periodi di uguale durata, card totale/per categoria, aggiornamento cache al cambio dati/giorno; 7 test Domain + 4 UI mirati. Build + 90 unit + 4 UI verdi; screenshot light/dark/XL/de in `.cantiere/tmp/s14/`. 12 nuove chiavi × 7 lingue ⏳ in APPROVAZIONI. Calcoli statistiche precedenti e Export invariati. Collaudo ok 2026-11-16 14:37 (diff + screenshot light/dark/XL/de; build/test non rilanciati, dichiarati verdi). Nota: percentuali >=1000% arrotondate a 3 cifre significative (1234 -> 1230), minore. Traduzioni ⏳ Matteo.
 - **Non fare:** cambiare i calcoli esistenti delle statistiche
 
 ### S-10 [ ] Verifica finale + Commissione Suprema
@@ -323,3 +323,12 @@ Modello di task:
 - Verifica build + 80 unit esistenti e nuovo test + 3 UI TabBarAppearance. Nessun push/merge. Poi ricollaudo e nuova Commissione.
 
 - **S-29 eseguito Codex 2026-11-16:** helper calendario senza unwrap nei tre Domain, ultimo mese da end−1 s, fetch transazioni unico per regola e Set ID. Quattro errorDescription localizzati; messaggio status già NSLocalizedString, cinque chiavi verificate in tutte le 7 lingue senza nuovi testi. Nuovo test Decimal su store riaperto + DTO JSON + apply: 0.29/1234.56/999999.99 esatti. Build + 81 unit + 3 UI verdi. Da ricollaudare; poi nuova Commissione, non attribuiti voti.
+
+### S-30 [ ] Categoria dall'ultima volta (nuova funzione) — DA FARE SOLO A RESTYLING CHIUSO
+- **Quando:** dopo S-14, S-10, checkpoint finale e merge/ok di Matteo sul restyling. Matteo lo avvia lui («partiamo con l'altro lavoro»). Non è restyling: tocca la logica dell'inserimento.
+- **A chi:** Codex (Antigravity sospeso fino al 2026-11-20) · collaudo indipendente + Commissione.
+- **Obiettivo:** se il nome di un movimento non ha categoria dalle parole chiave (`KeywordCategoryClassifier`), usare la categoria dell'ultimo movimento con lo stesso nome (D-011). Es.: «Mc» → ultima categoria scelta per «Mc».
+- **Leggere:** `Views/AddTransactionView.swift` (righe ~97-103, 124, 274-276: `suggestedCat`), `Domain/` classifier, `docs/MoneyTracker.md` §6
+- **Regole (D-011):** (1) nessuna nuova tabella né sync: si guarda la cronologia dei movimenti; (2) priorità: cronologia dell'utente, poi parole chiave fisse; (3) confronto nome senza maiuscole/accenti/spazi in eccesso, corrispondenza esatta (al massimo per prefisso, mai somiglianza «a occhio»); (4) due categorie per lo stesso nome → vince l'ultima; (5) preselezionata come oggi; se l'utente la cambia, il salvataggio aggiorna di fatto la «prossima volta»; (6) etichetta «Ultima usata» invece di «Suggerita» quando viene dalla cronologia (7 lingue, nuove traduzioni ⏳ in APPROVAZIONI.md); (7) contano solo i movimenti normali, non pianificati né trasferimenti.
+- **Fatto quando:** funzione pura in `Domain/` (nuovo file) con test: nome nuovo, maiuscole/accenti, due categorie diverse (vince l'ultima), movimento pianificato/trasferimento ignorati, categoria eliminata, DB vuoto; resa dell'etichetta in light/dark/XL/tedesco; test esistenti invariati.
+- **Non fare:** modificare modelli/Persistence/Sync, cambiare il classifier a parole chiave, suggerimenti per somiglianza.

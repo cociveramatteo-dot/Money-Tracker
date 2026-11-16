@@ -73,3 +73,9 @@ Le decisioni che non si devono ridiscutere ogni volta. Solo aggiunte.
 
 ## 2026-11-16 · Riferimenti S-6/S-7/S-8 (Matteo)
 Autorizzata lettura diretta del sorgente HTML inline dei mockup, comprese le strutture ripetute sc-for/hint-placeholder-count, senza rendering/support.js. DESIGN_HANDOFF §4 prevale in caso di conflitto. PNG originali assenti: confrontare screenshot simulatore light/dark/XL/de con misure, token e struttura del sorgente; dichiarare differenze residue, senza dichiarare conformità. Confronto visivo definitivo al collaudatore. Nessun push/merge.
+
+## D-011 · 2026-11-16 · Categoria dall'ultima volta (S-30)
+- **Chi decide:** Matteo. **Cosa:** per nomi senza categoria dalle parole chiave, si propone la categoria dell'ultimo movimento con lo stesso nome; preselezionata come oggi; etichetta «Ultima usata»; vince sempre l'ultima scelta.
+- **Quando:** solo dopo la chiusura del restyling (S-14, S-10, checkpoint, merge): Matteo avvia il lavoro.
+- **Perché:** impara dalle abitudini, copre i nomi che l'elenco fisso non conosce, nessuna migrazione o sync (si usa la cronologia).
+- **Alternative scartate:** tabella nome→categoria da sincronizzare (più parti in movimento); categoria più frequente (meno semplice, non coincide con la richiesta); somiglianza approssimata dei nomi (suggerimenti sbagliati).
