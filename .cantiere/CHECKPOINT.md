@@ -3,14 +3,14 @@
 > Il file per ripartire. Chi riapre il cantiere legge SOLO questo per capire dove siamo.
 > Gli storici stanno in `.cantiere/archivio/checkpoint/`.
 
-**Data:** 2026-11-16 22:49 · **Tag git:** checkpoint-2026-11-16-2249 · **Fatto da:** capocantiere (Claude Code · Sonnet)
+**Data:** 2026-11-17 00:47 · **Tag git:** checkpoint-2026-11-17-0047 · **Fatto da:** capocantiere (Claude Code · Sonnet)
 
 ## Siamo qui
-S-30 «categoria dall'ultima volta» collaudata e con Commissione Suprema 10/10 (secondo giro); traduzioni approvate da Matteo. S-13f e S-13 chiusi da Matteo; S-24 e S-21 verificati. Merge di `categoria-ultima-volta` su `main` e push in questo checkpoint.
+Tutto il piano è chiuso e su `main` (GitHub): redesign Sentiero, S-30 categoria dall'ultima volta, S-31, S-32. Cantiere NON archiviato (Matteo ha scelto solo il checkpoint). Rami di lavoro rimasti su GitHub: categoria-ultima-volta, fix-demo-showcase-test, fix-recurrence-ui-test, rimuovi-confronto-mese.
 
 ## Stato di salute
-🟢 build, 90 unit test, UI S-30 e S-6, collaudo.sh. 🟡 `DemoShowcaseUITests.testShowcaseScreens` rosso anche su main (S-32, da assegnare a Codex). Nota: il .strings italiano ha 88 chiavi contro 395 delle altre lingue (preesistente).
+🟢 build, 90 unit, UI 45/45 (run completo di Codex), collaudo.sh. S-33 in osservazione: test ricorrenze rosso una sola volta, non riproducibile; se ricompare salvare l'.xcresult e riaprire. Aperto: il .strings italiano ha 88 chiavi contro 395 (preesistente, da confermare che sia voluto).
 
 ## Domani si riparte così
-1. S-32: sistemare il test demo rosso → Codex (Antigravity sospeso fino al 2026-11-20).
-2. `TransactionsView` ancora 864 righe; S-16 precisione Decimal (opzionali).
+1. Nessun task obbligatorio. Opzionali: S-16 precisione Decimal, `TransactionsView` (864 righe).
+2. Eventuale pulizia dei rami già fusi su GitHub (con l'ok di Matteo).

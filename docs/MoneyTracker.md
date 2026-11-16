@@ -524,6 +524,11 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 
 ## 10. Changelog
 
+### v3.x (novembre 2026) — Manutenzione test UI (S-32, S-33)
+
+- S-32: `DemoShowcaseUITests.testShowcaseScreens` era rosso anche senza S-30 perché gli swipe saltavano la bolletta; ora apre la voce con la ricerca esistente e attende che sia tappabile (5 s). Asserzioni e catture invariate; nessun codice di produzione toccato.
+- S-33: `RecurrenceFlowUITests.testCreateEditAndDeleteScheduledSeries` era rosso una volta alla riga 100 (voce «Ricorrenza» non trovata) ma non si riproduce: 4 run verdi, suite UI 45/45, 90 unit. Causa non accertata, nessuna modifica; resta in osservazione (se ricompare si salva l'`.xcresult` e si riapre il task).
+
 ### v3.x (novembre 2026) — Categoria dall’ultima volta (S-30, D-011)
 
 - In inserimento la cronologia ha priorità sulle parole chiave: nome esatto normalizzato, ultimo movimento per inserimento, solo effettuati e non trasferimenti. Categoria eliminata: ripiego sulle parole chiave.
