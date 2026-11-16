@@ -82,3 +82,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 10:06 | collaudatore (Claude Code · Sonnet) | S-26 (riverifica) | già [x] dal 2026-11-16 01:22 (8f7ca44); ricontrollo: solo Debug/Tests/lingue toccati, 32 chiavi demo x 7 lingue, seed v6 con reset delle RecurringRule e override/effettuato; nessun cambio | S-13h, traduzioni Matteo |
 
 | 2026-11-16 10:13 | impresa (Codex · GPT-6) | S-29 | helper calendario, fetch per regola, errori localizzati, round-trip Decimal esatto; build + 81 unit + 3 UI verdi | ricollaudo S-29, nuova Commissione, approvazione traduzioni |
+| 2026-11-16 10:15 | collaudatore (Claude Code · Sonnet) | S-29 | collaudo ok da diff a1c6c89: perimetro rispettato, fallback calendario, end−1 equivalente, fetch per regola idempotente, 4 chiavi i18n ×7 lingue, test Decimal; S-29 [x] | build/test non rilanciati; nuova Commissione S-13h e approvazione traduzioni pendenti |
