@@ -14,7 +14,7 @@ Assegna al redattore il completamento delle sole traduzioni [DA COMPLETARE] intr
 ```
 ↩️ Riporta «traduzioni pronte da approvare» o le correzioni. Per S-19 resta utile la rilettura madrelingua di «Termin» tedesco. S-29 non ha introdotto nuove traduzioni: ha riusato chiavi esistenti.
 
-### S-21 — controllo manuale menu dopo il collaudo
+### S-21 — controllo manuale menu dopo il collaudo — ✅ fatto da Matteo 2026-11-16 21:49: tutto OK
 📍 Simulator Xcode, MoneyTracker, scheda Movimenti (dati demo).
 ▶️ Crea un movimento con ricorrenza Mensile, salva, tieni premuta la sua riga e tocca «Ricorrenza»: deve aprirsi l’editor con «Ambito». Se Simulator è bloccato, chiudilo con ⌘Q e riaprilo da Xcode → Open Developer Tool → Simulator; poi rilancia l’app con ▶︎ in Xcode.
 ↩️ Riporta «S-21 manuale OK» oppure cosa compare nel menu. Test automatico della stessa pressione prolungata già verde; controllo manuale non disponibile a Codex perché CUA non accede a Simulator.
@@ -35,7 +35,7 @@ Assegna al redattore il completamento delle sole traduzioni [DA COMPLETARE] intr
 - 2026-11-14 09:29 · Ripresa Codex completata: eseguiti i sei UI rimasti, note di sospensione sostituite con esito e istruzioni di collaudo.
 
 ## S-24 — verifica del blocco sul caso reale
-- [ ] 📍 Sull'iPhone o sul simulatore dove avveniva il blocco, con la versione contenente le modifiche S-24/S-25. ▶️ Aprire Movimenti, tenere premuto il movimento ricorrente che si bloccava, scegliere Elimina (oppure Ricorrenza), poi Tutte e confermare. Verificare che l'app risponda passando alla tab Home. L'eliminazione conserva le copie già effettuate.
+- [x] 📍 Sull'iPhone o sul simulatore dove avveniva il blocco, con la versione contenente le modifiche S-24/S-25. ▶️ Aprire Movimenti, tenere premuto il movimento ricorrente che si bloccava, scegliere Elimina (oppure Ricorrenza), poi Tutte e confermare. Verificare che l'app risponda passando alla tab Home. L'eliminazione conserva le copie già effettuate. ✅ Matteo 2026-11-16 21:49: tutto OK
   ↩️ Riportare questo testo compilato, senza dati personali:
 ```text
 Dispositivo: iPhone / simulatore. Avvio: da icona / da Xcode.
