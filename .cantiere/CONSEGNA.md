@@ -21,3 +21,6 @@ Tutto graphify-out/ già modificato/non tracciato all'inizio, aggiornato localme
 
 ## Prossimo
 Collaudo indipendente S-28 → collaudatore Claude Code (Sonnet): leggere solo il diff del commit S-28 e queste evidenze, confrontare tre screenshot finali, verificare separazione etichette, nomi completi, target touch e selezione invariata. Solo collaudatore o Matteo porta S-28 a [x]. Poi rivalutazione sei giudici Commissione S-13h; approvazione traduzioni Matteo ancora pendente. Nessun push/merge. Commissione non eseguita in questo turno.
+
+## Collaudo S-28 (collaudatore, 2026-11-16 09:59)
+Non passa: in de XL "Bewegungen" va a capo a metà parola (Bewegunge/n). Resto ok. Serve: correggere FloatingTabBar.swift (no a-capo mid-word, es. lineLimit(1)+minimumScaleFactor ~0.6), nuovo screenshot de XL, ricollaudo.

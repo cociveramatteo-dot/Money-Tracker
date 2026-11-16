@@ -75,3 +75,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 09:48 | collaudatore (Claude Code · Sonnet) | S-19 ricollaudo | 4 rilievi corretti, plutil ok, S-19 [x] | approvazione Matteo ⏳, rilettura madrelingua |
 
 | 2026-11-16 09:57 | impresa (Codex · GPT-6) | S-28 | tab bar celle uguali, margini testo e due righe; build + 80 unit + 3 UI verdi, tre screenshot finali ispezionati | collaudo S-28, Commissione S-13h, approvazione traduzioni Matteo |
+| 2026-11-16 09:59 | collaudatore (Claude Code · Sonnet) | S-28 collaudo | build+80 unit ok, it L/XL ok; de XL «Bewegungen» spezzato mid-word (n orfana): S-28 resta [ ] | correzione etichetta, poi ricollaudo |
