@@ -61,35 +61,47 @@ struct SpendingComparisonCard: View {
     private func sentence(_ change: MonthlySpendingComparison.Change) -> String {
         let category = change.category.map { NSLocalizedString($0, comment: "Category") }
         switch change.direction {
-        case .higher, .lower:
-            guard let percentage = change.percentage else { return String(localized: "Dati insufficienti.") }
-            let number = Self.formatPercentage(percentage, locale: locale)
-            let key: String
-            if let category {
-                key = change.direction == .higher ? "Questo mese hai speso il %@%% in più per %@"
-                    : "Questo mese hai speso il %@%% in meno per %@"
-                return String(format: NSLocalizedString(key, comment: "Category comparison"), number, category)
-            }
-            key = change.direction == .higher ? "Questo mese hai speso il %@%% in più in totale"
-                : "Questo mese hai speso il %@%% in meno in totale"
-            return String(format: NSLocalizedString(key, comment: "Total comparison"), number)
-        case .unchanged:
-            if let category {
-                return String(format: NSLocalizedString("Questo mese hai speso quanto nel periodo precedente per %@", comment: ""), category)
-            }
-            return String(localized: "Questo mese hai speso quanto nel periodo precedente in totale")
-        case .noPreviousData:
-            if let category {
-                return String(format: NSLocalizedString("Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente", comment: ""),
-                              change.current.currencyFormatted, category)
-            }
-            return String(format: NSLocalizedString("Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente", comment: ""),
-                          change.current.currencyFormatted)
-        case .noData:
-            if let category {
-                return String(format: NSLocalizedString("Spesa pari a zero nei due periodi per %@", comment: ""), category)
-            }
-            return String(localized: "Spesa totale pari a zero nei due periodi")
+        case .higher, .lower: return changedSentence(change, category: category)
+        case .unchanged: return unchangedSentence(category: category)
+        case .noPreviousData: return noPreviousDataSentence(change, category: category)
+        case .noData: return noDataSentence(category: category)
         }
+    }
+
+    private func changedSentence(_ change: MonthlySpendingComparison.Change, category: String?) -> String {
+        guard let percentage = change.percentage else { return String(localized: "Dati insufficienti.") }
+        let number = Self.formatPercentage(percentage, locale: locale)
+        let isHigher = change.direction == .higher
+        if let category {
+            let key = isHigher ? "Questo mese hai speso il %@%% in più per %@"
+                : "Questo mese hai speso il %@%% in meno per %@"
+            return String(format: NSLocalizedString(key, comment: "Category comparison"), number, category)
+        }
+        let key = isHigher ? "Questo mese hai speso il %@%% in più in totale"
+            : "Questo mese hai speso il %@%% in meno in totale"
+        return String(format: NSLocalizedString(key, comment: "Total comparison"), number)
+    }
+
+    private func unchangedSentence(category: String?) -> String {
+        if let category {
+            return String(format: NSLocalizedString("Questo mese hai speso quanto nel periodo precedente per %@", comment: ""), category)
+        }
+        return String(localized: "Questo mese hai speso quanto nel periodo precedente in totale")
+    }
+
+    private func noPreviousDataSentence(_ change: MonthlySpendingComparison.Change, category: String?) -> String {
+        if let category {
+            return String(format: NSLocalizedString("Questo mese hai speso %@ per %@; nessuna spesa nel periodo precedente", comment: ""),
+                          change.current.currencyFormatted, category)
+        }
+        return String(format: NSLocalizedString("Questo mese hai speso %@ in totale; nessuna spesa nel periodo precedente", comment: ""),
+                      change.current.currencyFormatted)
+    }
+
+    private func noDataSentence(category: String?) -> String {
+        if let category {
+            return String(format: NSLocalizedString("Spesa pari a zero nei due periodi per %@", comment: ""), category)
+        }
+        return String(localized: "Spesa totale pari a zero nei due periodi")
     }
 }

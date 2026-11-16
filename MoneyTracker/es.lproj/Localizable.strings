@@ -507,7 +507,7 @@
 
 "Escluso dal totale" = "Excluido del total";
 
-/* S-14 — proposte di traduzione, approvazione pendente */
+/* S-14 — confronto mese su mese (approvato) */
 "Confronto mese su mese" = "Comparación mensual";
 "Giorni 1–%lld · %@ / %@" = "Días 1–%lld · %@ / %@";
 "Questo mese hai speso il %@%% in più per %@" = "Este mes has gastado un %@%% más en %@";

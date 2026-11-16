@@ -510,7 +510,7 @@
 
 "Escluso dal totale" = "不计入总额";
 
-/* S-14 — proposte di traduzione, approvazione pendente */
+/* S-14 — confronto mese su mese (approvato) */
 "Confronto mese su mese" = "月度对比";
 "Giorni 1–%lld · %@ / %@" = "%2$@ / %3$@ · 1–%1$lld日";
 "Questo mese hai speso il %@%% in più per %@" = "本月%2$@的支出比上月同期增加了%1$@%%";

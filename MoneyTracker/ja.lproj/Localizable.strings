@@ -507,7 +507,7 @@
 
 "Escluso dal totale" = "合計に含まず";
 
-/* S-14 — proposte di traduzione, approvazione pendente */
+/* S-14 — confronto mese su mese (approvato) */
 "Confronto mese su mese" = "前月との比較";
 "Giorni 1–%lld · %@ / %@" = "%2$@ / %3$@ · 1～%1$lld日";
 "Questo mese hai speso il %@%% in più per %@" = "今月の%2$@への支出は、前月の同期間より%1$@%%増えました";

@@ -130,7 +130,7 @@
 
 "Escluso dal totale" = "Escluso dal totale";
 
-/* S-14 — proposte di traduzione, approvazione pendente */
+/* S-14 — confronto mese su mese (approvato) */
 "Confronto mese su mese" = "Confronto mese su mese";
 "Giorni 1–%lld · %@ / %@" = "Giorni 1–%lld · %@ / %@";
 "Questo mese hai speso il %@%% in più per %@" = "Questo mese hai speso di più per %2$@ (+%1$@%%)";

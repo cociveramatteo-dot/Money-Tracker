@@ -507,7 +507,7 @@
 
 "Escluso dal totale" = "Nicht in Summe";
 
-/* S-14 — proposte di traduzione, approvazione pendente */
+/* S-14 — confronto mese su mese (approvato) */
 "Confronto mese su mese" = "Monatsvergleich";
 "Giorni 1–%lld · %@ / %@" = "Tage 1–%lld · %@ / %@";
 "Questo mese hai speso il %@%% in più per %@" = "Diesen Monat hast du für %2$@ %1$@%% mehr ausgegeben";
