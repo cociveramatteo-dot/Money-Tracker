@@ -175,6 +175,10 @@ il task e i file indicati.
 
 - **Eseguito Codex 2026-11-15 (autorizzazione Matteo in chat):** causa dimostrata nella gerarchia del fallimento: filtro avanzato persistente ≥20€, non azzerato dal chip Tutti, nasconde i movimenti 10–15€ dei due test. Test corretti azzerando i filtri dalla UI; aggiunte attese del focus e chiusura form (osservato anche un errore XCUITest di digitazione senza focus), ricerca riga accessibile con nome e metadati, attesa reale della cancellazione. Nessun codice app cambiato per S-15. Entrambi verdi nel rilancio finale `/tmp/moneytracker-s25-s15-fixed.log` (TEST SUCCEEDED), da collaudare.
 
+### S-7p [~] Plurale dei giorni rimanenti
+- **A chi:** Codex, assegnato da Matteo in chat.
+- **Eseguito 2026-11-16 12:14:** sette Localizable.stringsdict; singolare in it/en/de/es/fr, sola forma other in ja/zh-Hans. Plurali italiani e testi plurali esistenti invariati. Pianifica usa localizedStringWithFormat. Verifica runtime di 0/1/2 in tutte sette lingue (21 casi), build + 83 unit e 1 UI Pianifica verdi. Nuove forme singolari ⏳ in APPROVAZIONI. Nessun test esistente modificato, nessuna zona intoccabile. Da collaudare.
+
 ### S-14 [ ] Statistiche: confronto mese su mese
 - **A chi:** Codex (o Antigravity) · dopo S-6 (stessa schermata)
 - **Obiettivo:** frase/card tipo «Questo mese hai speso il 12% in più per Cibo»: per categoria e totale, mese corrente vs mese precedente, stesso periodo di giorni; colori neutri/«danger» da Theme, mai solo colore (anche testo/freccia)

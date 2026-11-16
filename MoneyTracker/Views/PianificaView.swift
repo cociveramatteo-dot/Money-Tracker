@@ -216,7 +216,7 @@ struct PianificaView: View {
         let calendar = Calendar.current
         let end = calendar.dateInterval(of: .month, for: selectedMonth)?.end ?? selectedMonth
         let days = max(0, calendar.dateComponents([.day], from: Date(), to: end).day ?? 0)
-        return String(format: String(localized: "Mancano %lld giorni"), Int64(days))
+        return String.localizedStringWithFormat(NSLocalizedString("Mancano %lld giorni", comment: "Budget days remaining"), Int64(days))
     }
 
     // MARK: - Goals content
