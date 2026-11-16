@@ -65,3 +65,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 01:22 | collaudatore (Claude Code · Sonnet) | S-26 | collaudo ok: diff 0cde11c, zone intoccabili intatte, 32 chiavi demo x 7 lingue, unit test verdi | S-27 |
 
 | 2026-11-16 01:40 | impresa (Codex · GPT-6) | S-27 | fallback seeder, reset filtri test, test collisioni; build + 80 unit + 16/16 UI unico run verdi | collaudo indipendente; idle non riprodotto |
+| 2026-11-16 03:55 | collaudatore (Claude Code · Sonnet) | S-27 | collaudo ok: diff 35ea8d4, fallback seeder, reset filtri solo --uitesting, test collisioni valido, zone intoccabili intatte, build + 80 unit verdi | S-18/S-19, Commissione S-13h |

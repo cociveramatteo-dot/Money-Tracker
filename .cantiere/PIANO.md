@@ -271,11 +271,12 @@ Modello di task:
 - **Nota:** nessun push/merge.
 - **Eseguito Codex:** seed v6, otto mesi, nove regole vere, override/effettuato oggi, futuro virtuale dal mese successivo, quattro conti/obiettivi, budget di otto mesi, sette lingue. Build e 79 unit + 4 UI finali verdi; dieci screenshot ispezionati. Evidenze e limiti in CONSEGNA. Da collaudare indipendentemente; S-6/S-7/S-8/S-18 restano lavori grafici aperti.
 
-### S-27 [~] Migliorie dal collaudo di S-24/S-25/S-15 (suggerite 2026-11-15)
+### S-27 [x] Migliorie dal collaudo di S-24/S-25/S-15 (suggerite 2026-11-15)
 - **A chi:** Codex, dopo S-26. Non urgenti, da fare prima del checkpoint.
 - **a)** Un full run UI unico 16/16 verde (15 esistenti + showcase S-26), per sostituire la somma di full e rilanci mirati.
 - **b)** Gli UI test partono con i filtri avanzati azzerati (reset dell'AppStorage all'avvio), così non servono workaround via UI (causa dei 2 rossi S-15).
 - **c)** Test unit: due copie che finiscono sullo stesso giorno dopo una modifica di data non devono generare ID duplicati.
 - **Vincoli:** nessun cambio al codice app salvo l'hook di reset test; Domain/Models/Sync intatti; nessun push/merge.
+- **Esito collaudo (2026-11-16 03:55):** chiuso, collaudo ok. Diff 35ea8d4 letto; fallback seeder equivalenti (Decimal(275)/100 = 2,75), reset filtri solo dentro `isUITesting`, nuovo test non banale (ID distinti + stabilità dopo materializzazione + calendario virtuale); zone intoccabili intatte; build e 80 unit verdi (rilanciati). UI 16/16 dalla CONSEGNA.
 
 - **S-27 eseguito Codex (2026-11-16):** fallback seeder senza force-unwrap; reset txFilterMin/Max/UseDates solo --uitesting; nuovo RecurringCollisionTests (due copie nello stesso giorno, ID distinti anche dopo materializzazione e nel virtuale). Build + 80 unit + 16/16 UI in un unico run sequenziale verdi. Showcase 52,870 s; testNonRecurringEditCannotCreateSeries 22,802 s; nessun timeout idle riprodotto. Da collaudare; dettagli in CONSEGNA.

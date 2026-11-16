@@ -18,5 +18,8 @@
 ## File esclusi
 Tutto graphify-out/ era già modificato/non tracciato all'inizio. Aggiornato localmente, escluso interamente dal commit per non includere lavoro preesistente. Nessun altro file estraneo incluso.
 
+## Collaudo S-27 (collaudatore, 2026-11-16 03:55)
+Esito: **ok, S-27 [x]**. Build + 80 unit verdi (rilanciati su iPhone 18 Pro); UI 16/16 fidati dalla consegna. Nessun problema aperto.
+
 ## Prossimo
-S-27 [~] → collaudatore Claude Code (Sonnet): leggere solo il diff del commit S-27 e queste evidenze, verificare fallback e isolamento reset filtri, test collisioni e full run. Solo collaudatore o Matteo può portare S-27 a [x]. Restano S-18/S-19 e Commissione S-13h; Statistiche/Pianifica/Conti ancora da allineare secondo task aperti. Nessun push/merge.
+Restano S-18/S-19 e Commissione S-13h. Nessun push/merge.
