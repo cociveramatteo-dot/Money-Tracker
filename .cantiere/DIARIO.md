@@ -103,3 +103,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 15:40 | operaio (Claude Code · Sonnet) | correzioni S-14 + suite completa S-10 | 3 correzioni + 2 test; build ok, 92 unit ok, 45 UI: 42 ok / 3 falliti (testRapidTabSwitching, testCreateEditAndDeleteScheduledSeries, testGerman) | indagare i 3 falliti |
 
 | 2026-11-16 21:40 | impresa (Codex · GPT-6) | S-31 rimozione S-14 | quattro file + cache/card + 12 chiavi × 7 rimossi; build, 83 unit e 4 UI verdi; 12 screenshot verificati | collaudo S-31; nessun push/merge |
+| 2026-11-16 21:50 | collaudatore (Claude Code · Sonnet) | S-31 collaudo | rimozione completa, 12 chiavi x 7 lingue esclusive, nessun riferimento residuo, screenshot ok, diff --check ok, BUILD SUCCEEDED; S-31 [x] | merge/checkpoint su decisione di Matteo |

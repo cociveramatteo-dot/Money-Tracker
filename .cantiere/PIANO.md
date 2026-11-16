@@ -333,9 +333,9 @@ Modello di task:
 - **Fatto quando:** funzione pura in `Domain/` (nuovo file) con test: nome nuovo, maiuscole/accenti, due categorie diverse (vince l'ultima), movimento pianificato/trasferimento ignorati, categoria eliminata, DB vuoto; resa dell'etichetta in light/dark/XL/tedesco; test esistenti invariati.
 - **Non fare:** modificare modelli/Persistence/Sync, cambiare il classifier a parole chiave, suggerimenti per somiglianza.
 
-### S-31 [~] Rimozione confronto mese su mese
+### S-31 [x] Rimozione confronto mese su mese — 2026-11-16 collaudo ok
 - **A chi:** Codex, autorizzato da Matteo 2026-11-16 sul ramo rimuovi-confronto-mese.
 - **Obiettivo:** eliminare interamente S-14 preservando le altre statistiche, verificare lingue, build, unit e UI S-6 con screenshot light/dark/XL/de. Nessun push o merge.
 - **Eseguito Codex 2026-11-16 21:40:** eliminati i quattro file S-14, card/cache/eventi dedicati in StatisticsView e 12 chiavi esclusive × 7 lingue, previo controllo riferimenti con rg. «Dati insufficienti.» conservata perché condivisa. Nessun altro calcolo/test/Export/plurale S-7p modificato. S-14 segnato rimosso, approvazioni ritirate, decisione D-012.
 - **Verifica:** build riuscita; 83 unit in 17 suite verdi (92 meno 9 test S-14); 4 UI S-6 verdi; 12 screenshot light/dark/XL/de ispezionati senza vuoti. Tutti i .strings validi, sei lingue non italiane allineate a 392 chiavi. 541 warning Swift già riscontrati identici nei log precedenti, nessuno nuovo; secondo build dark senza warning. Dettagli/evidenze in CONSEGNA.
-- **Aperto:** collaudo indipendente S-31; nessun push/merge.
+- **Aperto:** niente (collaudo ok 2026-11-16); nessun push/merge.
