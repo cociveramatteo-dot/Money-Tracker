@@ -345,9 +345,15 @@ Modello di task:
 
 - **Collaudo 2026-11-16 22:40 (Claude Code · Sonnet):** conforme a D-011. Solo Domain/LastUsedCategory.swift nuovo + AddTransactionView; nessun Models/Persistence/Sync/Auth/Export/classifier toccato. Confronto esatto normalizzato, vince l'ultimo per createdAt, solo isDone && !isTransfer, categoria eliminata → nil, nessun force-unwrap. 7 .strings validi, 395 chiavi uguali nelle 6 lingue non it. Unit 90/90; UI nuovi 4/4; S-6 Sentiero verdi; screenshot dark/de ok; diff --check ok. Fetch dopo debounce 280 ms, non a ogni render. Note: (a) `DemoShowcaseUITests.testShowcaseScreens` fallisce (riga 29, bolletta Enel non hittable in S-26): file non toccato da S-30, da verificare su main → T aperto sotto; (b) il fetch carica tutta la cronologia a ogni pausa di digitazione (ok ora, da rivedere con molti movimenti).
 
-### S-32 [ ] Manutenzione: DemoShowcaseUITests.testShowcaseScreens rosso (anche su main)
+### S-32 [~] Manutenzione: DemoShowcaseUITests.testShowcaseScreens rosso (anche su main)
 - **A chi:** Codex (Antigravity sospeso fino al 2026-11-20) · collaudo indipendente.
 - **Trovato da:** collaudo S-30 (2026-11-16 22:40); verificato dal capocantiere il 2026-11-16 22:43 che fallisce anche su `main` (489154b, senza S-30): non dipende da S-30. Probabile causa riferita dal collaudatore, non confermata: riga 29 del test, bolletta Enel non tappabile nella schermata demo S-26.
 - **Obiettivo:** capire la causa reale (test fragile o difetto della demo) e sistemarla con la modifica minima. Se il difetto è nella vista, niente restyling; se serve toccare zone protette, fermarsi e chiedere a Matteo.
 - **Fatto quando:** il test passa da solo e nel run UI completo; nessun altro test modificato o indebolito.
 - **Prompt:** da preparare quando Matteo avvia il lavoro.
+- **Eseguito Codex 2026-11-16 23:39:** ramo `fix-demo-showcase-test` da `ca9d50c`. Riprodotto il rosso nella suite originale: gli swipe ampi saltano il bottone della bolletta (video xcresult verificato); il vecchio bundle main invece riporta SIGKILL nel setup. Solo test demo corretto con ricerca per nome e attesa hittable 5 s, asserzioni conservate. Test isolato e demo nel run completo verdi, 90 unit e 4/4 UI S-6 verdi. Suite UI 44/45: unico rosso estraneo S-33, non modificato; requisito suite tutta verde non soddisfatto. Dettaglio in CONSEGNA. Nessun push/merge; collaudo indipendente richiesto.
+
+### S-33 [?] Verificare RecurrenceFlowUITests.testCreateEditAndDeleteScheduledSeries
+- **Trovato da:** run completo S-32, 2026-11-16, `/tmp/mt-s32-full-fixed.log`.
+- **Evidenza:** riga 100, `recurrence.waitForExistence(timeout: 5)` fallisce: voce «Ricorrenza» non trovata dopo long press sul movimento. Test non modificato da S-32; causa e preesistenza da verificare, non attribuite.
+- **Serve Matteo:** autorizzare un task separato; S-32 vieta modifiche ad altri test o zone protette. Nessuna correzione tentata.

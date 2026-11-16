@@ -5,6 +5,14 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### S-33 — autorizzare diagnosi separata di un altro UI rosso
+📍 Nella chat del capocantiere (Claude Code), dopo il collaudo S-32.
+▶️ Incolla:
+```text
+Prepara il task S-33 del PIANO: nel run completo S-32 RecurrenceFlowUITests.testCreateEditAndDeleteScheduledSeries fallisce alla riga 100, voce Ricorrenza non trovata. Il log è /tmp/mt-s32-full-fixed.log. Verifica prima la causa dal bundle xcresult e la riproducibilità; non attribuirlo a S-32 senza prove. S-32 non autorizzava modifiche ad altri test, quindi è rimasto intatto. Definisci scope e prompt per la correzione minima, senza push o merge.
+```
+↩️ Riporta il prompt S-33 approvato; se non vuoi procedere, lascia il task in attesa.
+
 ### Approvazione traduzioni (APPROVAZIONI.md)
 📍 Apri `.cantiere/APPROVAZIONI.md`.
 ▶️ Controlla le voci ⏳ S-19/S-28 e S-6/S-7/S-8. Per i testi già tradotti scrivi ✅ o la correzione. I nuovi testi del redesign hanno `[DA COMPLETARE]` dove manca una traduzione fornita: prima vanno completati dal redattore.
