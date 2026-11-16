@@ -44,3 +44,10 @@ Copia: pianificata / già effettuata. Data iniziale serie: …
 Se sì: app si chiude / resta ferma / Xcode evidenzia una riga (quale: …).
 ```
 - Autorizzazioni Domain S-24/S-25 e test S-15 ricevute il 2026-11-15; nessuna autorizzazione ulteriore pendente. Già effettuato resta della singola copia (D-010).
+
+## S-30 — approvazione traduzioni (dopo il collaudo)
+- [ ] 📍 In questa chat, dopo il collaudo indipendente, leggere la tabella S-30 in `.cantiere/APPROVAZIONI.md` (it/en/de/es/fr/ja/zh-Hans). ▶️ Rispondere con il testo qui sotto, indicando eventuali correzioni. ↩️ Riportare approvazione o testo corretto per lingua.
+```text
+S-30: approvo le traduzioni di «Ultima usata» nelle sette lingue.
+Oppure: correggere [lingua] in «[testo]».
+```

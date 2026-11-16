@@ -324,7 +324,7 @@ Modello di task:
 
 - **S-29 eseguito Codex 2026-11-16:** helper calendario senza unwrap nei tre Domain, ultimo mese da end−1 s, fetch transazioni unico per regola e Set ID. Quattro errorDescription localizzati; messaggio status già NSLocalizedString, cinque chiavi verificate in tutte le 7 lingue senza nuovi testi. Nuovo test Decimal su store riaperto + DTO JSON + apply: 0.29/1234.56/999999.99 esatti. Build + 81 unit + 3 UI verdi. Da ricollaudare; poi nuova Commissione, non attribuiti voti.
 
-### S-30 [ ] Categoria dall'ultima volta (nuova funzione) — DA FARE SOLO A RESTYLING CHIUSO
+### S-30 [~] Categoria dall'ultima volta (nuova funzione) — eseguito, da collaudare
 - **Quando:** dopo S-14, S-10, checkpoint finale e merge/ok di Matteo sul restyling. Matteo lo avvia lui («partiamo con l'altro lavoro»). Non è restyling: tocca la logica dell'inserimento.
 - **A chi:** Codex (Antigravity sospeso fino al 2026-11-20) · collaudo indipendente + Commissione.
 - **Obiettivo:** se il nome di un movimento non ha categoria dalle parole chiave (`KeywordCategoryClassifier`), usare la categoria dell'ultimo movimento con lo stesso nome (D-011). Es.: «Mc» → ultima categoria scelta per «Mc».
@@ -332,6 +332,9 @@ Modello di task:
 - **Regole (D-011):** (1) nessuna nuova tabella né sync: si guarda la cronologia dei movimenti; (2) priorità: cronologia dell'utente, poi parole chiave fisse; (3) confronto nome senza maiuscole/accenti/spazi in eccesso, corrispondenza esatta (al massimo per prefisso, mai somiglianza «a occhio»); (4) due categorie per lo stesso nome → vince l'ultima; (5) preselezionata come oggi; se l'utente la cambia, il salvataggio aggiorna di fatto la «prossima volta»; (6) etichetta «Ultima usata» invece di «Suggerita» quando viene dalla cronologia (7 lingue, nuove traduzioni ⏳ in APPROVAZIONI.md); (7) contano solo i movimenti normali, non pianificati né trasferimenti.
 - **Fatto quando:** funzione pura in `Domain/` (nuovo file) con test: nome nuovo, maiuscole/accenti, due categorie diverse (vince l'ultima), movimento pianificato/trasferimento ignorati, categoria eliminata, DB vuoto; resa dell'etichetta in light/dark/XL/tedesco; test esistenti invariati.
 - **Non fare:** modificare modelli/Persistence/Sync, cambiare il classifier a parole chiave, suggerimenti per somiglianza.
+
+- **Eseguito Codex 2026-11-16:** avvio autorizzato da Matteo dopo chiusura restyling e merge su main; ramo `categoria-ultima-volta` da `489154b`. Funzione pura `LastUsedCategory`, priorità cronologia → keyword, nomi esatti normalizzati, solo effettuati/non trasferimenti, ultimo per `createdAt`, categoria eliminata → fallback. Etichetta in 7 lingue, traduzioni ⏳. Nessun modello/sync/classifier o test esistente modificato.
+- **Verifiche:** build e 90 unit (83 esistenti + 7 nuovi) verdi; 4 UI S-6 verdi; 4 nuovi UI S-30 verificano anche correzione manuale → prossimo suggerimento. Screenshot light/dark/XL/de e dettagli in CONSEGNA. Nessun push/merge. Prossimo: collaudo indipendente Claude Code · Sonnet.
 
 ### S-31 [x] Rimozione confronto mese su mese — 2026-11-16 collaudo ok
 - **A chi:** Codex, autorizzato da Matteo 2026-11-16 sul ramo rimuovi-confronto-mese.

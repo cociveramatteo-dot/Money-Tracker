@@ -23,6 +23,7 @@ struct AddTransactionView: View {
     @State private var notes:                String      = ""
     @State private var showCatPicker:        Bool        = false
     @State private var suggestedCat:         String      = ""
+    @State private var suggestionFromHistory = false
     /// true = l'utente ha scelto la categoria manualmente dal picker in questa sessione.
     /// Quando è true, il cambio del nome NON sovrascrive la categoria.
     @State private var categoryManuallyOverridden: Bool = false
@@ -94,15 +95,29 @@ struct AddTransactionView: View {
                                 classifyTask = Task {
                                     try? await Task.sleep(nanoseconds: 280_000_000)
                                     guard !Task.isCancelled else { return }
-                                    let suggestion = v.count > 2 ? KeywordCategoryClassifier.shared.classify(v) : "Altro"
-                                    await MainActor.run {
-                                        if suggestion != "Altro" {
-                                            suggestedCat = suggestion
-                                            selectedCat = categories.first { $0.name == suggestion }
-                                        } else {
-                                            suggestedCat = ""
-                                            selectedCat = nil
-                                        }
+                                    guard !categoryManuallyOverridden else { return }
+                                    let descriptor = FetchDescriptor<Transaction>(
+                                        predicate: #Predicate { $0.isDone && !$0.isTransfer },
+                                        sortBy: [SortDescriptor(\Transaction.createdAt)]
+                                    )
+                                    let history = (try? context.fetch(descriptor)) ?? []
+                                    let previous = LastUsedCategory.suggest(
+                                        for: v,
+                                        history: history.filter { $0.id != editing?.id }.map {
+                                            .init(name: $0.name, category: $0.category, createdAt: $0.createdAt,
+                                                  isDone: $0.isDone, isTransfer: $0.isTransfer)
+                                        },
+                                        availableCategories: Set(categories.map(\.name))
+                                    )
+                                    let suggestion = previous ?? (v.count > 2 ? KeywordCategoryClassifier.shared.classify(v) : "Altro")
+                                    suggestionFromHistory = previous != nil
+                                    if previous != nil || suggestion != "Altro",
+                                       let category = categories.first(where: { $0.name == suggestion }) {
+                                        suggestedCat = suggestion
+                                        selectedCat = category
+                                    } else {
+                                        suggestedCat = ""
+                                        selectedCat = nil
                                     }
                                 }
                             }
@@ -122,7 +137,7 @@ struct AddTransactionView: View {
                                     .font(.system(size: 17, weight: .medium))
                                     .foregroundStyle(selectedCat != nil ? DS.ink : DS.smoke)
                                 if let cat = selectedCat, cat.name == suggestedCat {
-                                    Text("· suggerita")
+                                    Text(suggestionFromHistory ? LocalizedStringKey("· Ultima usata") : LocalizedStringKey("· suggerita"))
                                         .font(.system(size: 12))
                                         .foregroundStyle(DS.smoke)
                                 }
@@ -295,6 +310,7 @@ struct AddTransactionView: View {
             recurringFrequency       = ""
             notes                    = ""
             suggestedCat             = ""
+            suggestionFromHistory    = false
             categoryManuallyOverridden = false
             selectedAccount          = activeAccounts.first
             return

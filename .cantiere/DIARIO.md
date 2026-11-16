@@ -107,3 +107,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 21:45 | capocantiere (Claude Code · Sonnet) | == CHECKPOINT | collaudo.sh 🟢, doc master + PDF (S-31/D-012), graphify update | merge su main (ok di Matteo) |
 | 2026-11-16 21:49 | Matteo | controlli manuali S-24 e S-21 | tutto OK | S-30 |
 | 2026-11-16 21:50 | Matteo | prova Supabase reale S-13f | già controllata da Matteo, OK | S-30 |
+
+| 2026-11-16 22:07 | impresa (Codex · GPT-6) | S-30 Categoria dall’ultima volta | Funzione pura, form, 7 lingue; build + 90 unit + 4 UI S-6 + 4 nuovi UI verdi; screenshot light/dark/XL/de ispezionati; ramo categoria-ultima-volta, nessun push/merge | Collaudo indipendente Claude Code · Sonnet; traduzioni ⏳ Matteo |

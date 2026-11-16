@@ -509,3 +509,6 @@
 "Sotto la soglia di %@" = "低于%@";
 
 "Escluso dal totale" = "不计入总额";
+
+/* S-30: history category suggestion */
+"· Ultima usata" = "· 上次使用";

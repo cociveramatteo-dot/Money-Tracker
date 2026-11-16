@@ -301,7 +301,8 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 - Campi: nome (con categorizzazione automatica on-device), importo, tipo (uscita/entrata), categoria, conto, data
 - Toggle "Già effettuato" (isDone), Toggle "Spesa fissa" (isFixed)
 - Attivando "Spesa fissa" disattiva automaticamente "Già effettuato"
-- Categorizzazione automatica: keyword matching on-device senza rete. L'utente può sovrascrivere manualmente
+- Categorizzazione automatica: prima la categoria dell’ultimo movimento effettuato con nome esattamente uguale (ignorando maiuscole, accenti e spazi in eccesso), poi keyword matching on-device senza rete. La cronologia esclude pianificati e trasferimenti; l’ordine usa `createdAt` (inserimento, anche per movimenti retrodatati). Se la categoria dell’ultimo movimento è stata eliminata si passa alle parole chiave, senza recuperare scelte precedenti. Nessuna nuova tabella o sync.
+- La categoria dalla cronologia è preselezionata e indicata da «Ultima usata»; l’utente può sovrascriverla manualmente e il nuovo movimento salvato guiderà il prossimo inserimento. In modifica il movimento stesso è escluso dalla ricerca.
 - Keyboard navigation: importo → nome → `.done` (auto-save)
 - Reset form corretto al riutilizzo (load() resetta tutto quando editing == nil)
 
@@ -522,6 +523,11 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ---
 
 ## 10. Changelog
+
+### v3.x (novembre 2026) — Categoria dall’ultima volta (S-30, D-011)
+
+- In inserimento la cronologia ha priorità sulle parole chiave: nome esatto normalizzato, ultimo movimento per inserimento, solo effettuati e non trasferimenti. Categoria eliminata: ripiego sulle parole chiave.
+- Etichetta «Ultima usata» in sette lingue (traduzioni in attesa di approvazione Matteo). Nessun modello, tabella, sync o classifier modificato. Funzione pura `LastUsedCategory` e test dedicati.
 
 ### v3.x (novembre 2026) — Rimozione del confronto mese su mese (S-31, D-012)
 
