@@ -84,3 +84,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-16 10:13 | impresa (Codex · GPT-6) | S-29 | helper calendario, fetch per regola, errori localizzati, round-trip Decimal esatto; build + 81 unit + 3 UI verdi | ricollaudo S-29, nuova Commissione, approvazione traduzioni |
 | 2026-11-16 10:15 | collaudatore (Claude Code · Sonnet) | S-29 | collaudo ok da diff a1c6c89: perimetro rispettato, fallback calendario, end−1 equivalente, fetch per regola idempotente, 4 chiavi i18n ×7 lingue, test Decimal; S-29 [x] | build/test non rilanciati; nuova Commissione S-13h e approvazione traduzioni pendenti |
 | 2026-11-16 10:17 | operaio (Claude Code · Sonnet) | S-29 follow-up | test intervallo semi-aperto a inizio mese (halfOpenEndAtMonthStart) + commento sul guard del materializer; 82 unit verdi | nuova Commissione S-13h, approvazione traduzioni |
+
+| 2026-11-16 10:23 | impresa (Codex · GPT-6) | S-6 → S-7 → S-8 | turno libero, ramo verificato; letti task e riferimento S-6, verificata assenza runtime/anteprima; nessun codice modificato | S-6 bloccato sul confronto mockup; S-7/S-8 non iniziati |

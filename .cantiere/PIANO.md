@@ -78,9 +78,10 @@ il task e i file indicati.
 - **Build separata:** BUILD SUCCEEDED, exit 0 (22:54), nessun errore o warning nuovo nel log finale.
 - **Verifica aperta:** i test non hanno prodotto un esito: il simulatore resta all'avvio e Xcode segnala il servizio `com.apple.instruments.deviceservice.lockdown` / `DTServiceHubClient` non disponibile. Tentati riavvio e rilancio. NON dichiarare test verdi. Richiesti collaudo indipendente e resa a vista light/dark, XL, tedesco (nessuno screenshot utile della schermata ottenuto).
 
-### S-6 [ ] Statistiche
+### S-6 [!] Statistiche
 - **A chi:** Antigravity col modello più forte (o Codex)
 - **Obiettivo:** schermata come `Statistiche.dc.html`; grafico con Swift Charts `BarMark` + `position(by:)`
+- **Blocco 2026-11-16 10:23 (Codex):** mockup letto, ma `reference/support.js` richiamato dall’HTML assente e nessuna anteprima renderizzata trovata. CUA restituisce «The browser access host is unavailable». Confronto visivo richiesto non eseguibile con il riferimento originale disponibile; nessuna modifica Swift, nessun test eseguito, nessuna conformità dichiarata. S-7/S-8 non iniziati, come richiesto in caso di arresto. Riprendere con runtime originale o screenshot completo del mockup.
 - **Leggere:** `DESIGN_HANDOFF.md` §4 Statistiche, `Views/StatisticsView.swift`
 - **Toccare:** `StatisticsView.swift`
 - **Fatto quando:** export PDF invariato, 6M/12M, media uscite e confronto anno precedente come prima; test verdi
