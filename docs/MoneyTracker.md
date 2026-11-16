@@ -527,7 +527,7 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ### v3.x (novembre 2026) — Categoria dall’ultima volta (S-30, D-011)
 
 - In inserimento la cronologia ha priorità sulle parole chiave: nome esatto normalizzato, ultimo movimento per inserimento, solo effettuati e non trasferimenti. Categoria eliminata: ripiego sulle parole chiave.
-- Etichetta «Ultima usata» in sette lingue (traduzioni in attesa di approvazione Matteo). Nessun modello, tabella, sync o classifier modificato. Funzione pura `LastUsedCategory` e test dedicati.
+- Etichetta «Ultima usata» in sette lingue (traduzioni approvate da Matteo il 2026-11-16). Nessun modello, tabella, sync o classifier modificato. Funzione pura `LastUsedCategory` e test dedicati.
 
 ### v3.x (novembre 2026) — Rimozione del confronto mese su mese (S-31, D-012)
 

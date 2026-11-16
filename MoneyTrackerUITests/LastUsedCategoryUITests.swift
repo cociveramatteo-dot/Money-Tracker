@@ -43,5 +43,6 @@ final class LastUsedCategoryUITests: MoneyTrackerUITestCase {
     @MainActor func testLight() { capture(language: "it", size: "UICTContentSizeCategoryL") }
     @MainActor func testXL() { capture(language: "it", size: "UICTContentSizeCategoryXL") }
     @MainActor func testGerman() { capture(language: "de", size: "UICTContentSizeCategoryL") }
+    // Da eseguire a parte dopo aver impostato l'aspetto scuro reale del simulatore (stessa convenzione di S-6).
     @MainActor func testDark() { capture(language: "it", size: "UICTContentSizeCategoryL") }
 }
