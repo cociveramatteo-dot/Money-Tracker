@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: agosto 2026 · Versione 3.x*
+*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.19*
 
 > **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
 
@@ -114,7 +114,8 @@ MoneyTracker/                    ← Source principale
 │   ├── AuditLogView.swift
 │   ├── BudgetView.swift
 │   ├── CategoryManagementView.swift
-│   ├── ContentView.swift        ← Tab bar principale
+│   ├── Components/              ← Componenti «Sentiero» (HeroCard, MovementRow, TrailView, FloatingTabBar, ...)
+│   ├── ContentView.swift        ← Tab bar flottante + FAB
 │   ├── DashboardView.swift      ← Home
 │   ├── GoalsView.swift
 │   ├── PianificaView.swift
@@ -254,16 +255,36 @@ Le varianti `*Soft` (`accentSoft`, `plannedSoft`, `dangerSoft`) sono gli sfondi 
 
 ### Componenti riutilizzabili
 
+Componenti «Sentiero» (`Views/Components/`, ciascuno con `#Preview` light/dark):
+
 | Componente | Descrizione |
 |---|---|
-| `HeroAmount(amount:size:hidden:)` | Importo in grande. Con `hidden == true` mostra "• • •" |
+| `Card` | Contenitore standard su `DS.surface` con raggio `cardRadius` |
+| `HeroCard` | Card scura (token `hero*`, raggio 24): titolo, importo grande, divisore e riga secondaria (es. «Atteso») |
+| `HomeHeroCard` | Hero della Home: «Saldo attuale», `TrailView`, «Saldo atteso» e riepilogo pianificati |
+| `TrailView` | Il «sentiero»: curva del saldo del mese, tratto pieno verde = reale, tratteggiato ambra = proiezione (nascosta a VoiceOver); i dati arrivano da `Domain/BalanceTrail` |
+| `MovementRow` | Riga movimento: icona con tinta categoria, nome (una riga), metadati, importo sempre intero |
+| `FilterChip` | Chip di filtro, stile primario o secondario, stato attivo |
+| `SegmentedPill` | Selettore a pillola generico |
+| `ProgressBar` | Barra di avanzamento; annuncia a VoiceOver il valore reale anche oltre il 100% |
+| `BudgetStatus` | Badge testuale di stato budget («Soglia 80%», «Sforato») |
+| `PlanningBudgetCard` / `PlanningGoalCard` / `PlanningProgressRing` | Card e anello di Pianifica (budget e obiettivi) |
+| `FloatingTabBar` | Tab bar flottante a 5 voci (id `tab_*`); la `TabView` nativa resta sotto con barra nascosta. Il **FAB** (58×58, `DS.accent`) sta in `ContentView` (`fabButton`, `fabMenu_*`) e cambia azione per tab |
+
+Componenti di base in `Theme.swift`, ancora in uso:
+
+| Componente | Descrizione |
+|---|---|
 | `SectionLabel(text:)` | Intestazione sezione in uppercase con letterspacing |
-| `PrimaryButton(title:action:)` | Bottone principale nero/bianco |
+| `PrimaryButton(title:action:)` | Bottone principale (sheet di inserimento, export CSV) |
 | `GhostButton(title:action:)` | Bottone secondario testo-only |
 | `ThinDivider()` | Separatore sottile in `DS.fog` |
-| `DSTransactionRow(transaction:)` | Riga transazione standard con VoiceOver completo |
-| `MonthBar` | Barra grafico mensile con label via `FormatterCache` |
+| `MonthBar` | Selettore mese (Statistiche, Pianifica) con label via `FormatterCache` |
+| `UnderlineSegment` | Selettore entrata/uscita nello sheet di inserimento |
 | `EmptyStateView(icon:title:subtitle:cta:)` | Empty state coerente con CTA opzionale |
+| `FixedTotalTile` | Mini-card «Spese fisse»/«Entrate fisse» della Home |
+
+`HeroAmount` e `DSTransactionRow` sono ancora definiti in `Theme.swift` ma non più usati da nessuna vista (sostituiti da `HeroCard` e `MovementRow`).
 
 ### Modalità chiara e scura
 
@@ -279,22 +300,24 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 
 ### Home (DashboardView)
 
-- **Saldo Attuale Hero** — totale conti inclusi in grande (HeroAmount, ~56pt bold)
-- **Chips conti** — riga orizzontale scrollabile con nome + saldo. Pulsante `⊟` apre pannello selezione/ordinamento (`HomeAccountOrderSheet`). Ordine persistito via `@AppStorage`
-- **Nascondi saldo** — pulsante occhio: HeroAmount e chips mostrano "• • •". Stato persistito via `@AppStorage("hideBalance")`
-- **Saldo Atteso** — appare solo se ci sono movimenti pianificati. Mostra saldo futuro + delta (▲/▼)
+- **Header** — data del giorno, wordmark «Bucktrail», pulsanti occhio (nascondi importi) e ingranaggio (Impostazioni)
+- **Hero con sentiero** — `HomeHeroCard`: «Saldo attuale» (totale dei conti inclusi) con sotto la `TrailView`, la curva del mese (verde pieno = reale, ambra tratteggiato = proiezione, serie da `Domain/BalanceTrail`, ricalcolata solo al cambio dei dati)
+- **Saldo atteso** — appare nella hero solo se ci sono movimenti pianificati: saldo futuro, numero di pianificati e delta. Senza pianificati niente tratto ambra
+- **Conti** — carte in scroll orizzontale (nome, saldo, saldo futuro se diverso). Link «Gestisci» porta al tab Conti; il pulsante a cursori apre selezione/ordinamento (`HomeAccountOrderSheet`), ordine persistito via `@AppStorage`
+- **Nascondi saldo** — pulsante occhio: hero, carte conti e tile mostrano gli importi oscurati (`•••• €`). Stato persistito via `@AppStorage("hideBalance")`
 - **Fissi del mese** — mini-card affiancate "Spese fisse"/"Entrate fisse": somma di tutte le transazioni `isFixed` del mese corrente (pagate o da pagare, `isDone` ignorato). Ciascuna mostrabile/nascondibile indipendentemente da Impostazioni → Home (`@AppStorage("showFixedExpensesTotal")`/`("showFixedIncomeTotal")`); rispetta "Nascondi saldo" (`hideBalance`)
-- **Ultimi Movimenti** — collassabile. Ultime 4 transazioni non fisse. Swipe destra = Modifica, sinistra = Elimina
-- **Toolbar:** pulsante tema (sinistra) + occhio + ingranaggio (destra)
+- **Ultimi movimenti** — collassabile, con link «Vedi tutti» verso il tab Movimenti. Ultime 4 transazioni non fisse (`MovementRow`). Swipe sinistra = Elimina, tap o menu contestuale = Modifica
+- Il tema non si sceglie: l'app segue il sistema (chiaro/scuro)
 
 ### Movimenti (TransactionsView)
 
-- Lista completa per data (più recenti in cima)
-- **Filtri a due righe:** Tutti · Fisse · Trasf. · Uscite · Entrate + tutte le categorie. Filtri combinabili
-- **Filtri avanzati** persistiti via `@AppStorage` (importo min/max, date)
-- Statistiche mensili in header con cambio mese (frecce avanti/indietro)
-- **Swipe destra:** "Fatto/Pianificato" per spese fisse e trasferimenti; "Modifica" per le altre
-- **Swipe sinistra:** Elimina (singola o entrambe le gambe del trasferimento via `transferGroupId`)
+- **Pagina unica** (S-12): titolo, pulsante filtri avanzati (con badge del numero di filtri attivi), impostazioni, ricerca per nome e chip restano fermi; cambia solo la lista sotto
+- **Chip tipo:** Tutti · Fisse · Trasf. · Uscite · Entrate (stessa pagina) + **Ricorrenti**, che apre una pagina a sé
+- **Zona sotto i chip:** menu **Mese ▾** (questo mese, precedente, successivo, ±6 mesi), menu **Categoria ▾** e, se attivi, chip verde dei filtri avanzati con ✕ per rimuoverli. Filtri combinabili
+- **Filtri avanzati** persistiti via `@AppStorage` (importo min/max, periodo personalizzato che sostituisce il filtro mese)
+- **Lista:** movimenti pianificati in cima nella sezione «In arrivo · pianificati», poi card giornaliere (più recenti in cima) con subtotale del giorno solo visivo (trasferimenti esclusi), righe `MovementRow`
+- **Swipe destra:** "Conferma"/"Pianificato" per i movimenti fissi o non ancora effettuati (trasferimenti inclusi); la modifica si apre dal tap sulla riga
+- **Swipe sinistra:** Elimina (singola o entrambe le gambe del trasferimento via `transferGroupId`, con conferma)
 
 ### Aggiunta Transazione (AddTransactionView)
 
@@ -318,15 +341,19 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 - Lista: prima conti inclusi nel totale, poi esclusi (badge "escluso")
 - **Swipe:** destra = Modifica, sinistra = Elimina (con haptic)
 - **Context menu** (long press): Modifica / Escludi-Includi / Archivia / Elimina
-- **Conti archiviati:** sezione separata, opacità 35%. Context menu: Ripristina / Elimina definitivamente
-- Hero: saldo attuale + futuro dei conti inclusi
+- **Conti archiviati:** riga tratteggiata «Archiviati» con conteggio, che si apre sulla sezione separata (testi in `DS.smoke` opaco, leggibili: contrasto 5,60:1 chiaro / 7,28:1 scuro). Context menu: Ripristina / Elimina definitivamente
+- Hero patrimonio: saldo attuale + futuro dei conti inclusi; conti raggruppati per tipo (raggruppamento solo visivo, totali di gruppo senza gli esclusi)
 - Nuovo conto non escluso → aggiunto automaticamente in home
 - **Modifica saldo attuale:** il campo mostra e accetta sempre il saldo *reale* (`currentBalance`), non il saldo iniziale interno. Su un conto con transazioni già registrate, digitare un nuovo valore non sovrascrive lo storico: viene creata una transazione di rettifica ("Rettifica saldo", categoria dedicata) per la sola differenza, datata oggi — così il conto riparte esattamente dal numero inserito senza dover registrare le spese/entrate mancanti una per una. Su un conto senza transazioni il valore aggiorna direttamente il saldo iniziale, come prima.
+
+### Pianifica: Budget e Obiettivi (PianificaView)
+
+Il tab Pianifica ha un selettore a pillola Budget / Obiettivi, con hero ad anello e card dedicate (`PlanningBudgetCard`, `PlanningGoalCard`); il pulsante + (44×44) apre gli editor esistenti.
 
 ### Budget (BudgetView)
 
 - Budget per categoria con limite mensile in valuta
-- Barra di avanzamento (verde/rosso per soglia superata)
+- Barra di avanzamento con badge testuale di stato (`BudgetStatus`: «Soglia 80%» in ambra, «Sforato» in rosso; soglie lette dalla logica esistente)
 - Filtro opzionale per conto specifico
 - Storico budget (ultimi mesi) via `BudgetHistorySheet`
 - Notifiche locali quando ci si avvicina o supera il limite
@@ -339,9 +366,13 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 
 ### Statistiche (StatisticsView)
 
-- Grafico a torta per categoria (solo tx `isDone == true`)
-- Trend mensile a barre (entrate vs uscite ultimi 6 mesi)
-- Confronto annuale: mese corrente vs stesso mese anno scorso
+- Header con titolo, pulsante PDF e impostazioni; selettore mese (`MonthBar`)
+- Tre tile del mese: Uscite · Entrate · Netto
+- **Andamento:** grafico a barre affiancate entrate/uscite per mese (Swift Charts, `BarMark` con `position(by:)`), con scelta **6M / 12M** e «Uscite medie»
+- **Per categoria:** elenco delle uscite del mese con percentuale, importo e barra con la tinta della categoria (non c'è più il grafico a torta)
+- Confronto con il mese scorso (frecce ▲/▼ e importo), se esiste un mese precedente con spese
+- Media mensile degli ultimi 12 mesi (uscite ed entrate)
+- Confronto annuale: anno corrente vs anno precedente (uscite ed entrate)
 - Esportazione PDF mensile (via `PDFReportGenerator`)
 - Esportazione CSV (via `Transferable`, nessun file temp su disco)
 - Loading indicator animato durante generazione PDF/CSV
@@ -349,8 +380,8 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 ### Impostazioni (SettingsView)
 
 - Cambio valuta (€, $, £, ¥, ecc.) — si aggiorna dinamicamente ovunque via `Double.currencySymbol`
-- Cambio lingua (7 lingue)
-- Selezione tema
+- Lingua: l'app segue la lingua di sistema (7 lingue supportate); una scorciatoia apre le impostazioni iOS dell'app
+- Nessuna selezione del tema: l'app segue il sistema chiaro/scuro (mai `preferredColorScheme`)
 - Toggle "Report mensile PDF" — notifica locale il 1° di ogni mese alle 10:00
 - Avviso saldo basso per conto (persistito in UserDefaults)
 - Sezione "Home": toggle indipendenti per mostrare/nascondere le mini-card "Spese fisse mensili"/"Entrate fisse mensili"
@@ -386,7 +417,7 @@ Fino al tag `tour-v1` l'app aveva un **onboarding tour a due livelli**: una pano
 
 ### Localizzazione
 
-7 lingue complete (IT, EN, ES, FR, DE, ZH-Hans, JA). 340 chiavi per file. Accessibility labels localizzate con `String(localized:)` (non string interpolation italiana).
+7 lingue (IT, EN, ES, FR, DE, ZH-Hans, JA). Le stringhe stanno in file `Localizable.strings` per lingua (non uno String Catalog): 395 chiavi in en/de/es/fr/ja/zh-Hans; il file italiano ne ha 89 perché l'italiano è la lingua di sviluppo e fa da testo di ripiego (la differenza è preesistente, da confermare che sia voluta). Accessibility labels localizzate con `String(localized:)` (non string interpolation italiana).
 
 ### Haptic Feedback
 
@@ -396,7 +427,9 @@ Fino al tag `tour-v1` l'app aveva un **onboarding tour a due livelli**: una pano
 
 ---
 
-## 7. Audit Qualità (Score: 7.2 / 10)
+## 7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»)
+
+> **Stato attuale (checkpoint del 2026-11-17):** build verde, **90 test unitari** e **45 UI test** verdi (run completo). Dopo il redesign il voto complessivo non è stato rivalutato: un nuovo audit/pagella è [DA COMPLETARE]. Il voto e i bug sotto restano come storico dell'audit originale.
 
 | Area | Voto |
 |---|---|
@@ -413,7 +446,7 @@ Fino al tag `tour-v1` l'app aveva un **onboarding tour a due livelli**: una pano
 - OSLog strutturato con subsystem/category separati
 - `NSFileProtectionComplete` sul database SwiftData
 - Formula injection prevention nel CSV export
-- Design system coerente (`DS` namespace, `EmptyStateView`, `HeroAmount`)
+- Design system coerente (`DS` namespace, `EmptyStateView`, componenti «Sentiero» in `Views/Components/`)
 - `LazyVStack` per liste lunghe (no List con altezza fissa)
 - Notifiche con ID idempotenti (remove-then-add)
 - VoiceOver completo su tutti i componenti principali
@@ -524,23 +557,25 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 
 ## 10. Changelog
 
-### v3.x (novembre 2026) — Manutenzione test UI (S-32, S-33)
+> Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
+
+### v3.19 (novembre 2026) — Manutenzione test UI (S-32, S-33)
 
 - S-32: `DemoShowcaseUITests.testShowcaseScreens` era rosso anche senza S-30 perché gli swipe saltavano la bolletta; ora apre la voce con la ricerca esistente e attende che sia tappabile (5 s). Asserzioni e catture invariate; nessun codice di produzione toccato.
 - S-33: `RecurrenceFlowUITests.testCreateEditAndDeleteScheduledSeries` era rosso una volta alla riga 100 (voce «Ricorrenza» non trovata) ma non si riproduce: 4 run verdi, suite UI 45/45, 90 unit. Causa non accertata, nessuna modifica; resta in osservazione (se ricompare si salva l'`.xcresult` e si riapre il task).
 
-### v3.x (novembre 2026) — Categoria dall’ultima volta (S-30, D-011)
+### v3.18 (novembre 2026) — Categoria dall’ultima volta (S-30, D-011)
 
 - In inserimento la cronologia ha priorità sulle parole chiave: nome esatto normalizzato, ultimo movimento per inserimento, solo effettuati e non trasferimenti. Categoria eliminata: ripiego sulle parole chiave.
 - Etichetta «Ultima usata» in sette lingue (traduzioni approvate da Matteo il 2026-11-16). Nessun modello, tabella, sync o classifier modificato. Funzione pura `LastUsedCategory` e test dedicati.
 
-### v3.x (novembre 2026) — Rimozione del confronto mese su mese (S-31, D-012)
+### v3.17 (novembre 2026) — Rimozione del confronto mese su mese (S-31, D-012)
 
 - Su richiesta di Matteo (2026-11-16) la card «Confronto mese su mese» (S-14) è rimossa: eliminati `SpendingComparisonCard`, `Domain/MonthlySpendingComparison` e i relativi test (unit e UI); da `StatisticsView` tolti card, cache, osservatori e notifica del cambio giorno dedicati.
 - Rimosse le 12 chiavi esclusive della card in tutte e 7 le lingue; «Dati insufficienti.» e i `.stringsdict` (S-7p) restano. Grafici, 6M/12M, medie, confronto annuale e PDF invariati.
 - Collaudo ok: build riuscita, 83 unit test e 4 UI test Statistiche verdi, screenshot light/dark/XL/tedesco senza vuoti. Il capitolo S-14 qui sotto resta come storico.
 
-### v3.x (novembre 2026) — Redesign «Sentiero» completo: Statistiche, Pianifica, Conti, confronto mese su mese (S-6…S-10, S-14)
+### v3.16 (novembre 2026) — Redesign «Sentiero» completo: Statistiche, Pianifica, Conti, confronto mese su mese (S-6…S-10, S-14)
 
 - S-6 Statistiche, S-7 Pianifica, S-8 Conti ridisegnate dai mockup (stili letti dal sorgente HTML): grafico `BarMark` con `position(by:)`, hero con anello e badge di stato testuali, raggruppamento per tipo solo visivo. Soglie, progresso ponderato, PDF e archiviazione invariati. Righe archiviate leggibili (contrasto 5,60:1 light, 7,28:1 dark); spazio in fondo a Pianifica per il pulsante flottante.
 - S-14: card «Confronto mese su mese» in Statistiche (`Domain/MonthlySpendingComparison`, puro, `Decimal`): stesso periodo di giorni, per categoria e totale, freccia + testo, percentuali ≥100 senza decimali, righe per variazione assoluta decrescente, snapshot calcolato fuori dal `body`.
@@ -549,7 +584,7 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 - Qualità: Commissione S-13h e S-10 senza difetti bloccanti. 92 unit test; UI 45 test (42 verdi nel run completo, i 3 falliti rilanciati singolarmente verdi: un test sbagliato corretto e due instabilità del simulatore).
 - Aperti: controlli manuali S-24 e S-21, prova Supabase reale (S-13f), precisione Decimal elevata (S-16), `TransactionsView` ancora 864 righe. Prossima funzione: S-30 «categoria dall'ultima volta» (D-011).
 
-### v3.x (novembre 2026) — Ricorrenze: rifinitura, demo vetrina e chiusura Commissione S-13h (S-17…S-29)
+### v3.15 (novembre 2026) — Ricorrenze: rifinitura, demo vetrina e chiusura Commissione S-13h (S-17…S-29)
 
 - S-17: il pull non cancella più regole locali non ancora spedite. S-18/S-19: rifinitura grafica di virtuali e serie programmate, revisione di testi e traduzioni (de/es/zh).
 - S-21/S-22: meno ricalcoli per riga in `TransactionsView`, che viene spezzata in componenti. S-23/S-25: editor di singola occorrenza e uniformità dei campi per ambito (il tap normale applica «Tutte» alla serie). S-24: eliminazione delle serie con confronto per giorno originale; «già effettuato» resta della singola copia.
@@ -558,26 +593,35 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 - S-29 (Commissione S-13h, ora 10/10): helper di calendario con fallback al posto dei `!`, `lastMonth` calcolato su `interval.end - 1`, un solo fetch per regola nel materializer, `errorDescription` localizzati, test round-trip `Decimal` SwiftData/DTO; test sull'estremo dell'intervallo e commento sul guard. 82 unit test verdi.
 - Aperti: approvazione traduzioni (Matteo), prova manuale S-24 sul caso reale, prova reale Supabase (S-13f).
 
-### v3.x (novembre 2026) — Ricorrenze a serie virtuali (S-13)
+### v3.14 (novembre 2026) — Ricorrenze a serie virtuali (S-13) — cambio di schema, sync e modello dati
 
 - Nuovo motore: `RecurrenceCalculator`, `RecurringMaterializer`, `RecurringSeriesEditor`, `RecurringRule` sincronizzata; sostituisce `RecurringTransactionActor` (rimosso, commenti obsoleti aggiornati).
 - UI: creazione, editor a tre ambiti, salta/termina/elimina, serie programmate e virtuali esclusi dai totali, alert errori, avvii lifecycle. Rimosso «Interrompi ricorrenza» legacy.
 - S-20: `RecurringSeriesEditor` permette di eliminare/modificare una serie terminata prima della prima occorrenza (test di regressione). 68 unit test + `RecurrenceFlowUITests`.
 - Aperti: prova reale Supabase (S-13f), rifinitura grafica (S-18), revisione traduzioni (S-19).
 
-### v3.x (novembre 2026) — Redesign «Sentiero», step 1: token, font, dark mode
+### v3.13 (novembre 2026) — Redesign «Sentiero», step 2–12: componenti, tab bar, Home, Movimenti, Impostazioni (S-2…S-5, S-9, S-12)
+
+- S-2 (2026-11-13): componenti base in `Views/Components/` — `Card`, `HeroCard`, `MovementRow`, `ProgressBar`, `BudgetStatus`, `SegmentedPill`, `FilterChip`, ciascuno con `#Preview` light/dark. Il collaudo ha chiesto S-2b: chiavi «Sforato» e «Soglia 80%» nelle 7 lingue, raggio hero 24 (senza toccare `cardRadius`), nome della riga su una riga e importo mai troncato, `ProgressBar` che annuncia il valore reale anche oltre il 100%. Ricollaudo ok alle 20:40; nessuna vista esistente modificata.
+- S-3 (2026-11-13): `FloatingTabBar` e FAB 58×58 con la grafica Sentiero. La `TabView` resta con la barra nativa nascosta: stessi indici di tab, stesse azioni del FAB, stessi identificatori `fabButton`/`fabMenu_*`; gli UI test passano agli id `tab_*`. Etichetta accessibile del FAB per tab («Nuovo movimento/budget/obiettivo/conto»). Collaudo ok alle 22:08; da riguardare le taglie di accessibilità oltre XL (altezza riservata fissa).
+- S-4 (2026-11-13): Home ridisegnata. Nuova funzione pura `Domain/BalanceTrail` (serie giornaliera cumulata + proiezione, `Decimal`, 6 test) calcolata fuori dal `body`; `TrailView` e `HomeHeroCard` (ultimo punto reale = «Saldo attuale», ultimo proiettato = «Saldo atteso», tratto ambra solo se ci sono pianificati); conti in scroll orizzontale, fissi del mese, ultimi movimenti con `MovementRow`. Collaudo ok alle 22:40.
+- S-5 (2026-11-13): Movimenti dal mockup: header, ricerca, chip tipo, selettore categorie con `SegmentedPill`, `MovementRow`, sezione «In arrivo · pianificati» in cima e card giornaliere con subtotali solo visivi (trasferimenti esclusi). `@Query`, filtri, swipe e mutazioni invariati. Collaudo ok alle 23:16 (27 unit + 12 UI verdi); le riserve cosmetiche sono confluite in S-12.
+- S-9 (2026-11-13): stessi token applicati a Impostazioni, sheet di inserimento (`AddTransactionView` e affini), gestione categorie e viste di login/registrazione; solo aspetto, nessuna logica di `Auth/`, sync o Face ID toccata. Collaudo ok alle 23:16, 7 lingue senza testi tagliati (tedesco incluso), light/dark.
+- S-12 (2026-11-14): Movimenti a pagina unica — titolo, impostazioni, ricerca e chip fermi, cambia solo la lista (Tutti/Fisse/Trasf./Uscite/Entrate); sotto i chip la zona mese · categoria · filtri avanzati come nel mockup; solo «Ricorrenti» resta pagina a sé. Assorbe le riserve di S-11 (importo a XL, badge demo). Collaudo ok alle 01:30 con confronto a vista (light, dark, XL, tedesco, filtri, swipe, Ricorrenti); 27 unit + 12 UI verdi. La tab bar a XL passa a S-10/S-28.
+
+### v3.12 (novembre 2026) — Redesign «Sentiero», step 1: token, font, dark mode
 
 - Palette «Sentiero» integrata in `DS` (adattiva light/dark, contrasto AA verificato); `ink/paper/fog/smoke` cambiano valore, `positive/negative` diventano alias di `accent/danger`; aggiunti `surface`, `divider`, `accentSoft`, `planned*`, `danger*`, `transfer`, `hero*`.
 - Font Space Grotesk e Inter nel bundle (`Resources/Fonts`, `UIAppFonts`, licenze OFL) e `DS.Typo` con Dynamic Type.
 - `CategoryTint`: tinta categoria deterministica (test `CategoryTintTests`); `FontRegistrationTests` verifica i font registrati.
 
-### v3.x (novembre 2026) — Redesign «Sentiero», step 0: rimozione del tour
+### v3.11 (novembre 2026) — Redesign «Sentiero», step 0: rimozione del tour
 
 - Rimossi `OnboardingTour/`, `TourFlowUITests`, `.tourAnchor(...)` in Dashboard/Transactions/Statistics/Pianifica/Accounts/ContentView, avvio automatico del tour, hook `--forceTour`, voce «Rivedi tour» e banner hint in Impostazioni, flag UserDefaults del tour nell'init `--uitesting`, stringhe `tour.*`/`hint.*`/«Rivedi tour» in tutte e 7 le lingue.
 - Nessuna funzione dell'app toccata oltre al tour; modalità demo invariata.
 - Tour conservato nel tag `tour-v1` (vedi «Tour archiviato»).
 
-### v3.x (settembre 2026) — Tre bug critici: Tocco posteriore che "sparisce", perdita dati al login, ricorrenze arretrate
+### v3.10 (settembre 2026) — Tre bug critici: Tocco posteriore che "sparisce", perdita dati al login, ricorrenze arretrate
 
 Tre segnalazioni indipendenti dell'utente, tutte con causa radice nella sincronizzazione locale↔cloud e nel motore ricorrenze.
 
@@ -591,7 +635,7 @@ Tre segnalazioni indipendenti dell'utente, tutte con causa radice nella sincroni
 - **Indurimento aggiuntivo** in `SyncService.pull()`: le transazioni locali ancora "sporche" (create/modificate ma non ancora confermate su Supabase — es. `markTransactionDirty` chiamato dall'Intent ma il push non ancora partito) non vengono più cancellate solo perché assenti dall'ultimo pull; prima venivano trattate come "cancellate su un altro dispositivo".
 
 **Bug fix — le transazioni ricorrenti non comparivano automaticamente all'inizio del mese:**
-- **Bug**: il fix precedente (v3.x agosto 2026, "fix trigger ricorrenze") faceva ripartire `processRecurring()` ad ogni ritorno in foreground, ma generava solo l'occorrenza del periodo **corrente** — se l'app non veniva aperta esattamente a cavallo del cambio mese/settimana/anno, quell'occorrenza restava persa per sempre, non recuperata nei lanci successivi.
+- **Bug**: il fix precedente (v3.8, agosto 2026, "fix trigger ricorrenze") faceva ripartire `processRecurring()` ad ogni ritorno in foreground, ma generava solo l'occorrenza del periodo **corrente** — se l'app non veniva aperta esattamente a cavallo del cambio mese/settimana/anno, quell'occorrenza restava persa per sempre, non recuperata nei lanci successivi.
 - **Fix**: `RecurringTransactionActor.processRecurring()` ora recupera tutte le occorrenze mancanti dall'ultima generata fino a oggi (backfill), non solo quella corrente — fino a un tetto di sicurezza di 60 per template (5 anni per le mensili) per evitare che un template dimenticato a lungo generi migliaia di righe in un colpo solo; oltre il tetto, il recupero prosegue nei run successivi. La ricerca dell'ultima occorrenza generata usa ora un fetch mirato per `templateId` invece di una finestra fissa di 2 mesi, che perdeva di vista le ricorrenze annuali e causava un duplicato ad ogni run. Coperto da `MoneyTrackerTests/RecurringTransactionEngineTests.swift` (backfill di mesi arretrati, non-duplicazione delle annuali dopo 2+ mesi, template appena creato).
 
 **Correttezza — precisione degli importi migrati da Double a Decimal (`SchemaMigration.swift`):**
@@ -600,7 +644,7 @@ Tre segnalazioni indipendenti dell'utente, tutte con causa radice nella sincroni
 
 ⚠️ **Passo manuale richiesto per il fix del Tocco posteriore**: in Xcode, target "MoneyTracker" → Signing & Capabilities → "+ Capability" → "App Groups" → verificare/aggiungere `group.com.matteo.moneytracker.shared`. Finché non viene fatto, il Tocco posteriore continua a comportarsi come prima (fix inattivo, nessuna regressione).
 
-### v3.x (agosto 2026) — Nuova icona, nuovo nome "Bucktrail", grafico trend a barre affiancate
+### v3.9 (agosto 2026) — Nuova icona, nuovo nome "Bucktrail", grafico trend a barre affiancate
 
 **Identità visiva — nuova App Icon:**
 - Sostituito il vecchio grafico bianco/nero (barre + linea spezzata con pallini) con un design più pulito: barre crescenti minimali con l'ultima colorata in oro/ambra come unico accento cromatico.
@@ -613,7 +657,7 @@ Tre segnalazioni indipendenti dell'utente, tutte con causa radice nella sincroni
 - `StatisticsView.swift`: il grafico "Uscite" (barre) + "Entrate" (linea con pallini) è stato sostituito con due `BarMark` affiancate per mese (`.position(by:)`), una per entrate e una per uscite — più leggibile del confronto barra/linea, specialmente quando le entrate erano ricorrenti a importo simile.
 - Rimosso il parametro `isDot` di `legendItem(color:label:)`, diventato morto dato che entrambe le serie sono ora barre (nessuna legenda "a pallino" residua).
 
-### v3.x (agosto 2026) — Rettifica saldo conto, fix trigger ricorrenze, interrompi ricorrenza
+### v3.8 (agosto 2026) — Rettifica saldo conto, fix trigger ricorrenze, interrompi ricorrenza
 
 **Bug fix — modifica del saldo di un conto con storico produceva un risultato sbagliato:**
 - **Bug**: il campo "Saldo attuale" in `AddAccountView` mostrava e sovrascriveva `Account.initialBalance`, che è solo l'ancora sommata a *tutte* le transazioni storiche (`AccountBalanceCache`). Su un conto con transazioni già registrate, scrivere un nuovo valore non produceva mai quel saldo: il risultato finale restava `nuovo_valore + storico`, non il numero digitato.
@@ -629,7 +673,7 @@ Tre segnalazioni indipendenti dell'utente, tutte con causa radice nella sincroni
 
 **i18n:** aggiunte le chiavi "Rettifica saldo" e "Interrompi ricorrenza" a tutti i 6 file di traduzione non italiani (EN/FR/ES/DE/JA/ZH-Hans).
 
-### v3.x (luglio 2026) — Card "Fissi del mese" in Home + tour onboarding testato end-to-end
+### v3.7 (luglio 2026) — Card "Fissi del mese" in Home + tour onboarding testato end-to-end
 
 **Nuova funzionalità — totali spese/entrate fisse del mese in Home:**
 - Nuova sezione "Fissi del mese" in `DashboardView` (tra "Saldo atteso" e "Ultimi movimenti"): due mini-card affiancate (`FixedTotalTile`, nuovo componente in `Theme.swift`) con il totale di tutte le transazioni `isFixed` del mese corrente, separate per Uscita/Entrata — a prescindere da `isDone`, così l'utente vede il totale dei fissi (affitto, auto, assicurazione, ecc.) indipendentemente dal fatto che siano già stati pagati.
@@ -642,7 +686,7 @@ Tre segnalazioni indipendenti dell'utente, tutte con causa radice nella sincroni
 - Nuovo `MoneyTrackerUITests/TourFlowUITests.swift`: percorre l'intera panoramica (17 step, incluse le due card modali iniziale/finale) con screenshot ad ogni passaggio, verificando titolo e presenza del testo atteso per ciascuno step. Utile come test di regressione per future modifiche al tour.
 - Verificato manualmente, screenshot per screenshot, che ogni spotlight punti all'elemento corretto e che i cambi tab/segmento (Movimenti → Statistiche → Pianifica → Conti) avvengano senza artefatti; nessun problema riscontrato.
 
-### v3.x (luglio 2026) — Trasferimenti: fix eliminazione e nuova modalità di modifica
+### v3.6 (luglio 2026) — Trasferimenti: fix eliminazione e nuova modalità di modifica
 
 **Bug fix — eliminazione trasferimento non funzionava dentro la sezione "Trasf." (`TransactionsView.swift`):**
 - **Bug**: il dialog di conferma "Elimina entrambi i movimenti" era agganciato solo alla vista hub (root della `NavigationStack`), non alla vista della sezione realmente in primo piano quando si è dentro "Trasferimenti". Un `.confirmationDialog`/`.alert` attaccato a una vista non in cima allo stack di navigazione resta "in sospeso": compariva solo tornando indietro all'hub, mai subito dopo lo swipe.
@@ -654,7 +698,7 @@ Tre segnalazioni indipendenti dell'utente, tutte con causa radice nella sincroni
 - `TransactionsView`: il tap su un trasferimento apre ora `AddTransferView(editing:)` in una sheet, al posto dell'alert bloccante rimosso.
 - Aggiunta la traduzione di "Modifica trasferimento" nelle 6 lingue non italiane.
 
-### v3.x (luglio 2026) — Colori semantici positivo/negativo, fix ricorrenze, tour a due livelli riscritto
+### v3.5 (luglio 2026) — Colori semantici positivo/negativo, fix ricorrenze, tour a due livelli riscritto
 
 **Colori (verde/rosso), indipendenti dal tema attivo:**
 - Nuovi `DS.positive`/`DS.negative` in `Theme.swift` (toni smorzati, adattivi chiaro/scuro) + `DS.signColor(_:)` come unica fonte di verità per "colora in base al segno"
@@ -677,19 +721,19 @@ Tre segnalazioni indipendenti dell'utente, tutte con causa radice nella sincroni
 - Bug fix: bottone "Elimina" nello swipe (Movimenti) ereditava un tint ambientale pensato per altro, mostrando sfondo bianco/icona nera in tema scuro invece del rosso di sistema
 - Bug fix: la tastiera della ricerca in Movimenti ricompariva da sola tornando all'hub dopo aver aperto una sezione — il focus non veniva mai resettato
 
-### v3.x (luglio 2026) — Fix mini-tour contestuali che non comparivano mai
+### v3.4 (luglio 2026) — Fix mini-tour contestuali che non comparivano mai
 
 - **Bug**: `MoneyTrackerApp` montava `TourOverlayView` solo quando `tourManager.isActive` era vero (panoramica in corso). I mini-tour contestuali di Livello 2 (`ContextualHint`, il tooltip "Ho capito" tab per tab) scattano invece **dopo** che la panoramica è finita — la view che li disegna non esisteva più in quel momento, quindi non comparivano mai.
 - **Fix**: la condizione di montaggio ora è `tourManager.isActive || tourManager.activeHint != nil` (`MoneyTrackerApp.swift`).
 - **Bug correlato**: al termine della panoramica l'utente resta sull'ultima tab visitata durante il tour; il trigger dei mini-tour in `ContentView` scattava solo su `onChange(of: selectedTab)`, quindi l'hint di quella tab non partiva mai finché non se ne usciva e vi si tornava. Aggiunto un secondo trigger su `onChange(of: tourManager.isActive)` che controlla subito la tab corrente a fine tour.
 - **Contenuto**: aggiunto il mini-tour `hint.goalsList` (anchor `goalsList`, già presente in `PianificaView` ma orfano) per spiegare gli obiettivi di risparmio quando si passa al segmento "Obiettivi" — prima quella sezione non aveva alcuna spiegazione contestuale. Rifiniti alcuni testi italiani per un tono più professionale (`hint.tabStatistiche.body`, `hint.movimentiHub.body`, `hint.fab.body`).
 
-### v3.x (luglio 2026) — Fix tocco posteriore/Siri: transazioni che sparivano dopo il salvataggio
+### v3.3 (luglio 2026) — Fix tocco posteriore/Siri: transazioni che sparivano dopo il salvataggio
 
 - **Bug**: `AddExpenseIntent`/`AddIncomeIntent` (App Intent usati dal tocco posteriore e da Siri/Comandi Rapidi) girano in un processo separato dall'app principale. Il salvataggio locale andava a buon fine (da qui il messaggio "salvato!"), ma il loro `ctx.save()` non generava la notifica `ModelContext.didSave` osservata da `SyncService.recordChanges()` nel processo principale — quindi la transazione non veniva mai marcata come "da sincronizzare". Alla riapertura dell'app, la sequenza push→pull di `SyncService` trattava la transazione (mai arrivata su Supabase) come cancellata da un altro dispositivo e la eliminava anche in locale.
 - **Fix**: aggiunto `SyncService.markTransactionDirty(_:)`, chiamato esplicitamente da entrambi gli Intent subito dopo `ctx.save()`, per marcare la transazione come dirty a prescindere dal processo in cui è stata creata (vedi `Sync/SyncService.swift`, `Intents/AddExpenseIntent.swift`).
 
-### v3.x (luglio 2026) — XCUITest e automazione notturna
+### v3.2 (luglio 2026) — XCUITest e automazione notturna
 
 - Nuovo target **MoneyTrackerUITests** (XCUITest) nel progetto Xcode, creato via script Ruby (`xcodeproj` gem) sul `project.pbxproj`
 - 12 test UI in 4 classi: flusso movimenti, conti, categorie, e uno stress test di navigazione (tab switching rapido, apertura/chiusura ripetuta di fogli, aggiunta/eliminazione multipla)
@@ -698,7 +742,7 @@ Tre segnalazioni indipendenti dell'utente, tutte con causa radice nella sincroni
 - `TestPlan.xctestplan` aggiornato per includere il nuovo target
 - **Routine notturna**: script `run_nightly_tests.sh` + LaunchAgent `com.moneytracker.nightlytests.plist` (fuori dal repo, in `~/Desktop/NightTestApp/`) — esegue i test ogni notte alle 4:00, corregge automaticamente il codice con Claude Code headless in caso di fallimento (fino a 5 tentativi), scrive `report_notturno.md` e apre una PR
 
-### v3.x (luglio 2026) — Riorganizzazione e documentazione
+### v3.1 (luglio 2026) — Riorganizzazione e documentazione
 
 - Riorganizzata struttura cartella: Views/, Domain/, Models/, Auth/, Export/, Intents/, Debug/, Persistence/, Formatting/, OnboardingTour/, Sync/
 - Eliminati file residui (.Rhistory, worktree stantio)

@@ -162,6 +162,15 @@ il task e i file indicati.
   - S-13h [x] (Commissione 10/10 il 2026-11-16 dopo S-29) Documento + collaudo + Commissione Suprema → collaudatore · aggiornare anche i soli commenti obsoleti sul vecchio actor in AccountBalanceCache, CurrencyFormatting e Logging (nessun riferimento eseguibile residuo). · 2026-11-14 11:08: commenti obsoleti sistemati (0 riferimenti a RecurringTransactionActor), docs/MoneyTracker.md+PDF aggiornati, 68 unit verdi. **Commissione Suprema NON a 10/10** → checkpoint (push) bloccato fino a S-21/S-22/S-19/S-18.
   - Ogni passo con confronto mockup dove c'è grafica. Piano completo: `.cantiere/piano-s13.md`
 
+### S-34 [x] (collaudo ok 2026-11-17, 2 difetti corretti) Libro: versioni vere nel changelog (D-013)
+- **Chi:** redattore, dopo il riallineo del libro (S-2…S-12 + sezione 6). Mappare le voci «v3.x» su versioni 3.1, 3.2…; S-13 rilascio a sé. Solo `docs/MoneyTracker.md`; criterio da confermare con Matteo se ambiguo.
+
+### S-35 [ ] Spezzare TransactionsView (864 righe)
+- **Chi:** Codex (Antigravity sospeso). Refactor puro, nessuna modifica visiva né di logica; collaudatore sul diff.
+
+### S-36 [ ] Potare i rami vecchi
+- **Chi:** pulizie (Haiku) elenca i rami già mergiati; Matteo approva la cancellazione. S-16 (precisione Decimal) resta [?] su decisione di Matteo.
+
 ### S-15 [x] Diagnosticare due test UI che non trovano il movimento appena salvato
 - **Collaudo 2026-11-15 11:55 (collaudatore):** [x] collaudo ok — test UI corretti (filtro persistente ≥20€ azzerato da UI), 2/2 verdi nei log; nessun codice app cambiato. 78 unit riverificate in locale (78 passed, Swift Testing). UI non rilanciati: log di Codex coerenti (full 13/15 prima del fix, S-15 2/2 verdi in rilancio mirato; nessun full run unico 15/15). Riserva: blocco reale su Tutte non riprodotto in demo, NON dichiarato risolto; serve prova di Matteo su dati reali (PER-MATTEO).
 - **Collaudo 2026-11-14:** i due test falliscono IDENTICI (righe 55 e 68) anche sul commit 0a76000, prima di S-13: indipendenti da S-13, regressione precedente (probabile S-12 o prima).

@@ -85,3 +85,13 @@ Autorizzata lettura diretta del sorgente HTML inline dei mockup, comprese le str
 - **Perché:** non gradito a Matteo. Il resto dell'app è confermato e resta invariato.
 - **Alternative scartate:** nasconderla senza cancellare il codice.
 - **Vincoli:** ramo rimuovi-confronto-mese; nessun push o merge. Medie, grafici, 6M/12M, confronto annuale, PDF/Export e plurale giorni S-7p invariati.
+
+## D-013 · 2026-11-17 · Changelog con versioni vere, S-13 rilascio a sé
+- **Chi decide:** Matteo. **Cosa:** il changelog del libro passa da «v3.x» a versioni numerate (3.1, 3.2…), una per blocco di lavoro coerente; il motore ricorrenze a serie virtuali (S-13, cambio di schema/sync/modello) è un rilascio a sé.
+- **Perché:** il libro diventa un vero libro di bordo dei rilasci; S-13 tocca la zona protetta e merita una voce di versione chiara.
+- **Alternative scartate:** lasciare «v3.x» ovunque.
+
+## D-014 · 2026-11-17 · Funzioni nuove: prima mockup approvato, poi codice
+- **Chi decide:** Matteo (ok «ci può stare»). **Cosa:** per ogni funzione nuova (non restyling) si presenta prima un mockup/descrizione a Matteo; il codice parte solo dopo l'approvazione.
+- **Perché:** S-14 (confronto mese su mese) è stato costruito con 7 lingue e test e rimosso il giorno dopo da S-31: lavoro buttato.
+- **Alternative scartate:** codice subito e verifica a posteriori.
