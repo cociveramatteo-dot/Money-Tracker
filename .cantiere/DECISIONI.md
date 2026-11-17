@@ -124,3 +124,5 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - **Cosa:** `@bucktrailapp` resta account personale; la voce «Passa all'account Business» non compare per Matteo e «verified business» richiede un'impresa registrata che non c'è. Nei primi video nessuna musica (solo voce ed effetti).
 - **Perché:** manuale §4.6/§7.7 (master senza musica, Commercial Sounds solo per Business). Non verificato come TikTok gestisca oggi i profili commerciali.
 - **Da rivedere:** quando c'è l'app sullo Store/un'impresa o se la voce Business riappare. Punto fiscale (partita IVA/regime) da chiarire prima di pagare Apple.
+
+- **Promemoria 2026-11-24:** nome visualizzato TikTok da cambiare in «Bucktrail · budget» (cambio consentito dopo 7 giorni). Vedi PER-MATTEO.md.

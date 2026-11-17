@@ -56,6 +56,7 @@ Assegna al redattore il completamento delle sole traduzioni [DA COMPLETARE] intr
   Nel cantiere MoneyTracker il controllo CUA dell'app Simulator va in timeout. xcodebuild compila (BUILD SUCCEEDED) ma il runner non avvia i test sul simulatore 37445D1E-DEF7-4A32-9A39-EA9EACCA3E48: DTServiceHubClient / com.apple.instruments.deviceservice.lockdown non disponibile. Anche dopo shutdown/boot il problema persiste. Verificare il collegamento tra strumenti Codex e simulatore; non modificare codice o test per aggirare il problema.
   ```
   ↩️ Riportare al collaudatore la risposta o la conferma del ripristino. (Codex)
+- [ ] 2026-11-24 · TikTok: cambiare il nome visualizzato da «bucktrailapp» a «Bucktrail · budget» (TikTok lo consente solo dopo 7 giorni dalla creazione; verificato da Matteo). 📍 TikTok → Profilo → Modifica profilo → Nome. ▶️ Scrivi: Bucktrail · budget. ↩️ Scrivi «nome TikTok fatto» (capocantiere)
 <!-- - [ ] AAAA-MM-GG · cosa · 📍 dove · ▶️ comando o testo esatto · ↩️ cosa riportare · (chi l'ha chiesto) -->
 
 ## Fatte
