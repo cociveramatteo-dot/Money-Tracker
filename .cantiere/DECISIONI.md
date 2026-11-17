@@ -119,3 +119,8 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - **Cosa:** `@bucktrailapp` su Instagram, TikTok e YouTube; email dedicata `bucktrailapp@gmail.com` (da creare). Nome visualizzato: «Bucktrail · budget senza abbonamento».
 - **Perché:** `@bucktrail` era occupato su Instagram e TikTok (libero solo su YouTube); `@bucktrailapp` è libero su tutte e tre. Deviazione dal manuale §8.4, che consigliava `@bucktrail`: lo stesso nome ovunque resta l'obiettivo.
 - **Da fare:** `testi-v1.md` e la landing citano `@bucktrail`: sostituire con `@bucktrailapp`. Capire chi occupa `@bucktrail` (rischio di confusione di marchio).
+
+## 2026-11-17 · TikTok: account personale, senza musica
+- **Cosa:** `@bucktrailapp` resta account personale; la voce «Passa all'account Business» non compare per Matteo e «verified business» richiede un'impresa registrata che non c'è. Nei primi video nessuna musica (solo voce ed effetti).
+- **Perché:** manuale §4.6/§7.7 (master senza musica, Commercial Sounds solo per Business). Non verificato come TikTok gestisca oggi i profili commerciali.
+- **Da rivedere:** quando c'è l'app sullo Store/un'impresa o se la voce Business riappare. Punto fiscale (partita IVA/regime) da chiarire prima di pagare Apple.
