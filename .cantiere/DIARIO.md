@@ -121,3 +121,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-17 11:10 | impresa (Codex · GPT-6) | S-35 | 4 sotto-viste estratte; clean build e 90 unit + 45 UI verdi, grafo aggiornato; ramo refactor-transactionsview, nessun push/merge | collaudo indipendente S-35; S-33 resta in osservazione |
 | 2026-11-17 11:48 | collaudatore (Claude Code · Sonnet) | S-35 | diff verificato (refactor puro, identico); suite 135/135 verdi (90 unit + 45 UI); S-35 [x] | merge su main solo con ok di Matteo |
 | 2026-11-17 11:56 | capocantiere (Claude Code · Sonnet) | S-36 | cancellati 8 rami mergiati (locale+origin) su ok di Matteo | decidere su 7 fix/nightly-* e tmp-stash-inspect |
+| 2026-11-17 11:59 | architetto (Opus) via capocantiere | Commissione Suprema | media 7,0/10 (6·7·8·8·7·6); libro §7 aggiornato; task S-37…S-40 | S-37 serve OK Matteo |

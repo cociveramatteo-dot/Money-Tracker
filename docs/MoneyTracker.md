@@ -429,7 +429,7 @@ Fino al tag `tour-v1` l'app aveva un **onboarding tour a due livelli**: una pano
 
 ## 7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»)
 
-> **Stato attuale (checkpoint del 2026-11-17):** build verde, **90 test unitari** e **45 UI test** verdi (run completo). Dopo il redesign il voto complessivo non è stato rivalutato: un nuovo audit/pagella è [DA COMPLETARE]. Il voto e i bug sotto restano come storico dell'audit originale.
+> **Stato attuale (checkpoint del 2026-11-17):** build verde, **90 test unitari** e **45 UI test** verdi (run completo). Dopo il redesign la Commissione Suprema (6 giudici, 2026-11-17, su `main` @ dd473ca) ha dato **7,0 / 10** di media: Sicurezza 6 · Architettura 7 · Logica 8 · Performance 8 · Robustezza 7 · Lingua/UX 6. Rilievi principali: push di sync con `try?` che può svuotare il cloud, ~40 stringhe non tradotte, `parseAmount` permissivo (correzioni in coda nel piano). Il voto e i bug sotto restano come storico dell'audit originale.
 
 | Area | Voto |
 |---|---|

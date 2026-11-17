@@ -173,6 +173,15 @@ il task e i file indicati.
 ### S-36 [~] Potare i rami vecchi — gruppo A (8 rami mergiati) cancellato 2026-11-17 11:56 in locale e su origin. Restano da decidere i 7 fix/nightly-* e tmp-stash-inspect (lavoro non in main, non toccati)
 - **Chi:** pulizie (Haiku) elenca i rami già mergiati; Matteo approva la cancellazione. S-16 (precisione Decimal) resta [?] su decisione di Matteo.
 
+### S-37 [?] Commissione 2026-11-17 — correzioni fuori restyling (serve OK di Matteo: zone Sync/Formatting/App)
+- (1) `Sync/SyncService.swift:584-587` fetch con `try?`→`?? []` prima di `deleteOrphans` (alta: può svuotare il cloud): usare `try context.fetch` come per le regole. (2) `Formatting/CurrencyFormatting.swift:65-66` `parseAmount` accetta input letti a metà («12abc»→12). (3) `MoneyTrackerApp.swift:85-93` store in memoria con push attivo: flag `usingVolatileStore`. Più decisione su S-16.
+
+### S-38 [ ] Commissione — pacchetto A (Codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per «Salta mese/Termina…», «•••• €» fisso, detector ricalcolato a ogni render, set di ID regole in `movementList`, force-unwrap (RecurrenceControls:69, RecurringSeriesDetector:58-66), `RecurringMaterializer` duplica `snapshot`, tipo/selected ridondanti in `typeChips`.
+
+### S-39 [ ] Commissione — traduzioni (redattore): ~40 stringhe visibili in italiano in tutte le lingue (Settings, notifiche, Login/SignUp, AuditLog, Budget, filtri…), frasi composte a pezzi, chiavi doppie «Fine»/«Tipo». Poi approvazione Matteo.
+
+### S-40 [ ] Commissione — font fissi (Codex): ~200 `.font(.system(size:))` → token `DS.Typo.*` (Dynamic Type), `SectionLabel` incluso.
+
 ### S-15 [x] Diagnosticare due test UI che non trovano il movimento appena salvato
 - **Collaudo 2026-11-15 11:55 (collaudatore):** [x] collaudo ok — test UI corretti (filtro persistente ≥20€ azzerato da UI), 2/2 verdi nei log; nessun codice app cambiato. 78 unit riverificate in locale (78 passed, Swift Testing). UI non rilanciati: log di Codex coerenti (full 13/15 prima del fix, S-15 2/2 verdi in rilancio mirato; nessun full run unico 15/15). Riserva: blocco reale su Tutte non riprodotto in demo, NON dichiarato risolto; serve prova di Matteo su dati reali (PER-MATTEO).
 - **Collaudo 2026-11-14:** i due test falliscono IDENTICI (righe 55 e 68) anche sul commit 0a76000, prima di S-13: indipendenti da S-13, regressione precedente (probabile S-12 o prima).
