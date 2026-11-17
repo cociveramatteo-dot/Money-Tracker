@@ -63,7 +63,11 @@ extension Decimal {
     /// da nessuna parte, disallineando saldo mostrato e somma delle righe mostrate.
     static func parseAmount(_ raw: String) -> Decimal? {
         let normalized = raw.replacingOccurrences(of: ",", with: ".")
-        guard let value = Decimal(string: normalized, locale: Locale(identifier: "en_US_POSIX")) else { return nil }
+        // Decimal(string:) accepts numeric prefixes; require the entire input.
+        let numericRange = normalized.range(of: #"^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)$"#,
+                                            options: .regularExpression)
+        guard numericRange == normalized.startIndex..<normalized.endIndex,
+              let value = Decimal(string: normalized, locale: Locale(identifier: "en_US_POSIX")) else { return nil }
         var rounded = Decimal()
         var source = value
         NSDecimalRound(&rounded, &source, 2, .plain)

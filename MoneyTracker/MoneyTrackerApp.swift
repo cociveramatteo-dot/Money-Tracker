@@ -7,6 +7,9 @@ import Auth
 @main
 struct MoneyTrackerApp: App {
 
+    // A fallback store must never become the source of cloud writes or deletions.
+    static private(set) var usingVolatileStore = false
+
     let realContainer: ModelContainer
     let demoContainer: ModelContainer
 
@@ -83,6 +86,7 @@ struct MoneyTrackerApp: App {
             SystemNotificationManager.shared.scheduleFixedReminderIfNeeded(context: ctx)
 
         } catch {
+            Self.usingVolatileStore = true
             // Logga prima di ripiegare in-memory: senza questa riga un container reale
             // corrotto/non migrabile fallisce in silenzio ad ogni lancio — l'utente vede
             // un'app "vuota" (store effimero) senza nessuna traccia in Console.app/crash

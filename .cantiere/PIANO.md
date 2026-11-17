@@ -173,8 +173,11 @@ il task e i file indicati.
 ### S-36 [~] Potare i rami vecchi — gruppo A (8 rami mergiati) cancellato 2026-11-17 11:56 in locale e su origin. Restano da decidere i 7 fix/nightly-* e tmp-stash-inspect (lavoro non in main, non toccati)
 - **Chi:** pulizie (Haiku) elenca i rami già mergiati; Matteo approva la cancellazione. S-16 (precisione Decimal) resta [?] su decisione di Matteo.
 
-### S-37 [?] Commissione 2026-11-17 — correzioni fuori restyling (serve OK di Matteo: zone Sync/Formatting/App)
-- (1) `Sync/SyncService.swift:584-587` fetch con `try?`→`?? []` prima di `deleteOrphans` (alta: può svuotare il cloud): usare `try context.fetch` come per le regole. (2) `Formatting/CurrencyFormatting.swift:65-66` `parseAmount` accetta input letti a metà («12abc»→12). (3) `MoneyTrackerApp.swift:85-93` store in memoria con push attivo: flag `usingVolatileStore`. Più decisione su S-16.
+### S-37 [x] Commissione 2026-11-17 — integrità sync e parsing (autorizzato da Matteo) — chiuso 2026-11-17 13:35, collaudo ok
+- (1) `Sync/SyncService.swift:584-587` fetch con `try?`→`?? []` prima di `deleteOrphans` (alta: può svuotare il cloud): usare `try context.fetch` come per le regole. (2) `Formatting/CurrencyFormatting.swift:65-66` `parseAmount` accetta input letti a metà («12abc»→12). (3) `MoneyTrackerApp.swift:85-93` store in memoria con push attivo: flag `usingVolatileStore`. S-16 esplicitamente escluso.
+
+- **Collaudo 2026-11-17 13:35 (collaudatore):** [x] collaudo ok. Fetch tutti throwing, nessun try?/?? [] nel push; unica delete remota in deleteOrphans con guardia volatile; flag impostato nel catch; parseAmount regex completa, test esistenti invariati. Suite su iPhone 18 Pro: 94 unit + 45 UI verdi, 0 falliti. `git diff --check` pulito. S-16 non toccato.
+- **Eseguito Codex 2026-11-17 12:52:** ramo `fix-sync-integrita` da main; quattro fetch throwing prima delle scritture remote, flag volatile con blocco push/debounce/retry/delete remoto, parsing completo degli importi e degli override ricorrenze (unica modifica Domain autorizzata in chat). Quattro nuovi test, nessun test esistente modificato. Build pulita e suite completa verdi: 94 unit + 45 UI. S-33 non riprodotto. S-16 invariato. Nessun push/merge. Dettagli in CONSEGNA.md.
 
 ### S-38 [ ] Commissione — pacchetto A (Codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per «Salta mese/Termina…», «•••• €» fisso, detector ricalcolato a ogni render, set di ID regole in `movementList`, force-unwrap (RecurrenceControls:69, RecurringSeriesDetector:58-66), `RecurringMaterializer` duplica `snapshot`, tipo/selected ridondanti in `typeChips`.
 

@@ -1,23 +1,7 @@
-# CONSEGNA — S-35 · impresa (Codex · GPT-6) · 2026-11-17 11:10
+# CONSEGNA — collaudo S-37 · collaudatore (Claude Code · Sonnet) · 2026-11-17 13:35
 
-Ramo `refactor-transactionsview` creato da `main` (nessun push, nessun merge).
-
-TransactionsView ridotta da 864 a 579 righe. Estratte quattro sotto-viste in MoneyTracker/Views/: TransactionsSearchField, TransactionsTypeChips, TransactionsSecondaryChips, TransactionsAdvancedFilterSheet. Stato mantenuto nel parent e passato tramite Binding; dimensioni adattive e valori derivati passati dal parent. Corpi estratti confrontati automaticamente con HEAD: identici, salvo la sintassi Binding della ricerca. Nessuna stringa, stile o calcolo introdotto; Models, Domain, Sync, Auth, Intents, Export, Formatting e test invariati.
-
-I nuovi file appartengono automaticamente al target MoneyTracker tramite PBXFileSystemSynchronizedRootGroup già associato al target nel progetto Xcode: nessuna modifica al pbxproj necessaria. Build conferma compilazione dei nuovi file.
-
-## Verifica
-- `xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' clean build`: BUILD SUCCEEDED; log `/tmp/mt-s35-clean-build.log`.
-- Stessa destinazione, `-parallel-testing-enabled NO -resultBundlePath /tmp/mt-s35-full.xcresult test`: TEST SUCCEEDED; 90 unit in 18 suite e 45 UI, zero fallimenti. Log `/tmp/mt-s35-full.log`. UI: 1647 secondi.
-- Tutti e tre RecurrenceFlowUITests verdi: S-33 non riprodotto, resta in osservazione.
-- `git diff --check` verde.
-- Grafo aggiornato con `graphify update .` (solo AST). Avviso: 9 file di metadati JSON non producono nodi, non i nuovi Swift. Backup automatico storico ripristinato ai contenuti originali per non alterare lo storico.
-
-## Aperto
-S-35 [~]: serve collaudatore indipendente sul diff rispetto a main, in particolare propagazione Binding, ricerca/focus e inclusione target. Nessuna modifica estranea presente all'inizio; tutti i file modificati appartengono a questo lavoro (codice, grafo generato, .cantiere).
-Questioni preesistenti di Matteo sul libro e lingue restano in PER-MATTEO; non affrontate da S-35.
-
-Prompt per il collaudatore: «Leggi AGENTS.md e .cantiere/STATO.md, apri turno se libero. Collauda S-35 sul ramo refactor-transactionsview leggendo il diff rispetto a main e CONSEGNA.md. Verifica che le quattro sotto-viste mantengano grafica, stringhe, Binding, focus e azioni, e siano incluse nel target sincronizzato. Build pulita e suite 90 unit + 45 UI già verdi, log in /tmp/mt-s35-*. Nessun push né merge. Aggiorna S-35 a [x] solo se il collaudo passa, poi chiudi turno secondo AGENTS.md §4.»
-
-## Collaudo 2026-11-17 11:48 (collaudatore)
-S-35 CONFORME e chiuso [x]. 135/135 test verdi. Nessun push/merge: il merge di refactor-transactionsview su main attende l'ok di Matteo.
+Esito: CONFORME, S-37 [x]. Ramo `fix-sync-integrita` (commit 638f8f8) non mergiato né pushato.
+Verificato: fetch push tutti `try` nel do/catch; unica cancellazione remota = deleteOrphans (guardata); flag `usingVolatileStore` impostato nel catch e bloccante su push/pushResilient/schedulePush/scheduleRetry/deleteOrphans; parseAmount rigoroso, test esistenti intatti; override ricorrenze validato senza arrotondare; nessun file Models/Auth/Intents/Export/S-16 toccato; `git diff --check` ok.
+Test: xcodebuild test su iPhone 18 Pro, 94 unit (20 suite) + 45 UI, 0 falliti.
+Note: il diff include graphify-out rigenerato (atteso). Le protezioni cloud non sono state provate con mock (errore fetch / store volatile): verificate solo per ispezione.
+Aperto: merge su main (decide Matteo).

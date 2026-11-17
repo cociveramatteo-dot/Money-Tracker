@@ -366,6 +366,7 @@ final class SyncService: ObservableObject {
     /// da solo il prossimo tentativo invece di richiedere un intervento esterno.
     @discardableResult
     func pushResilient(context: ModelContext) async -> Bool {
+        guard !MoneyTrackerApp.usingVolatileStore else { return false }
         lastContext = context
         status = .syncing
         let ok = await push(context: context)
@@ -382,6 +383,7 @@ final class SyncService: ObservableObject {
     }
 
     private func scheduleRetry(context: ModelContext) {
+        guard !MoneyTrackerApp.usingVolatileStore else { return }
         retryTask?.cancel()
         let delay = min(pow(2.0, Double(consecutiveFailures)), maxBackoff)
         status = .waitingForRetry(attempt: consecutiveFailures)
@@ -526,6 +528,7 @@ final class SyncService: ObservableObject {
     /// Chiamato automaticamente ad ogni salvataggio del ModelContext.
     /// Se arrivano più salvataggi ravvicinati, parte un solo push.
     func schedulePush(context: ModelContext) {
+        guard !MoneyTrackerApp.usingVolatileStore else { return }
         guard auth.isLoggedIn else { return }
         lastContext = context
         hasPendingChanges = true
@@ -577,14 +580,15 @@ final class SyncService: ObservableObject {
     /// caricate come "cancellate altrove" e le eliminerebbe (vedi pull(), sezione DELETE).
     @discardableResult
     func push(context: ModelContext) async -> Bool {
+        guard !MoneyTrackerApp.usingVolatileStore else { return false }
         guard let userId = auth.session?.user.id else { return false }
         Logger.persistence.info("SyncService: push started")
 
         do {
-            let accounts     = (try? context.fetch(FetchDescriptor<Account>()))     ?? []
-            let transactions = (try? context.fetch(FetchDescriptor<Transaction>())) ?? []
-            let budgets      = (try? context.fetch(FetchDescriptor<Budget>()))      ?? []
-            let goals        = (try? context.fetch(FetchDescriptor<Goal>()))        ?? []
+            let accounts     = try context.fetch(FetchDescriptor<Account>())
+            let transactions = try context.fetch(FetchDescriptor<Transaction>())
+            let budgets      = try context.fetch(FetchDescriptor<Budget>())
+            let goals        = try context.fetch(FetchDescriptor<Goal>())
 
             // Fetch must succeed before orphan deletion: a failed read is not an empty store.
             let rules = try context.fetch(FetchDescriptor<RecurringRule>())
@@ -882,6 +886,7 @@ final class SyncService: ObservableObject {
     /// precedente faceva N round-trip di rete sequenziali (classico N+1) — qui è O(1)
     /// indipendentemente da quanti record vanno cancellati.
     private func deleteOrphans(table: String, userId: UUID, localIds: Set<UUID>) async throws {
+        guard !MoneyTrackerApp.usingVolatileStore else { return }
         let remoteIds = try await fetchIds(table: table, userId: userId)
         let orphans   = remoteIds.subtracting(localIds)
         guard !orphans.isEmpty else { return }
