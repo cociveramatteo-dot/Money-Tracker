@@ -1,0 +1,40 @@
+import SwiftUI
+
+struct TransactionsTypeChips: View {
+    let selected: TxFilter
+    let typeChipHeight: CGFloat
+    @Binding var selectedType: TxFilter
+    @Binding var navPath: [TxFilter]
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 6) {
+                ForEach([TxFilter.tutti, .fisse, .trasf, .uscite, .entrate, .ricorrenti], id: \.self) { f in
+                    Button {
+                        if f == .ricorrenti {
+                            navPath.append(.ricorrenti)
+                        } else {
+                            withAnimation(.easeInOut(duration: 0.15)) {
+                                selectedType = f
+                            }
+                        }
+                    } label: {
+                        Text(LocalizedStringKey(f.rawValue))
+                            .font(DS.Typo.secondary.weight(selected == f ? .semibold : .medium))
+                            .foregroundStyle(selected == f ? DS.surface : DS.ink)
+                            .padding(.horizontal, 14)
+                            .frame(minHeight: typeChipHeight)
+                            .background(selected == f ? DS.ink : DS.surface, in: RoundedRectangle(cornerRadius: 12))
+                            .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(selected == f ? Color.clear : DS.fog))
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityAddTraits(selected == f ? [.isSelected] : [])
+                    .accessibilityIdentifier("txFilterBlock_\(f.rawValue)")
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, DS.Space.s)
+        }
+        .accessibilityIdentifier("tx_typeChips")
+    }
+}

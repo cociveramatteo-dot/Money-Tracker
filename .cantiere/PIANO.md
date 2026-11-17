@@ -165,8 +165,9 @@ il task e i file indicati.
 ### S-34 [x] (collaudo ok 2026-11-17, 2 difetti corretti) Libro: versioni vere nel changelog (D-013)
 - **Chi:** redattore, dopo il riallineo del libro (S-2…S-12 + sezione 6). Mappare le voci «v3.x» su versioni 3.1, 3.2…; S-13 rilascio a sé. Solo `docs/MoneyTracker.md`; criterio da confermare con Matteo se ambiguo.
 
-### S-35 [ ] Spezzare TransactionsView (864 righe)
+### S-35 [~] Spezzare TransactionsView (864 righe)
 - **Chi:** Codex (Antigravity sospeso). Refactor puro, nessuna modifica visiva né di logica; collaudatore sul diff.
+- **Esecuzione 2026-11-17 11:10:** ramo `refactor-transactionsview` da main; 4 sotto-viste estratte, TransactionsView 864 → 579 righe. Build clean verde, 90 unit + 45 UI verdi; S-33 non riprodotto. Nessun test o zona protetta modificati; nessun push/merge. Dettagli e log in CONSEGNA.md.
 
 ### S-36 [ ] Potare i rami vecchi
 - **Chi:** pulizie (Haiku) elenca i rami già mergiati; Matteo approva la cancellazione. S-16 (precisione Decimal) resta [?] su decisione di Matteo.

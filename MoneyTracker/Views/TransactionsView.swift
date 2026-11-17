@@ -230,196 +230,25 @@ struct TransactionsView: View {
     // MARK: - Search bar
 
     private func searchField(_ text: Binding<String>, identifier: String) -> some View {
-        HStack(spacing: DS.Space.s) {
-            Image(systemName: "magnifyingglass")
-                .font(.system(size: 14))
-                .foregroundStyle(DS.smoke)
-            TextField("", text: text, prompt: Text("Cerca per nome").foregroundStyle(DS.smoke))
-                .accessibilityLabel(Text("Cerca per nome"))
-                .font(DS.Typo.rowName)
-                .foregroundStyle(DS.ink)
-                .submitLabel(.done)
-                .accessibilityIdentifier(identifier)
-            if !text.wrappedValue.isEmpty {
-                Button {
-                    text.wrappedValue = ""
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 14))
-                        .foregroundStyle(DS.smoke)
-                }
-            }
-        }
-        .padding(.horizontal, DS.Layout.margin)
-        .frame(minHeight: 46)
-        .background(DS.surface, in: RoundedRectangle(cornerRadius: DS.Layout.cardRadius))
-        .overlay(RoundedRectangle(cornerRadius: DS.Layout.cardRadius).strokeBorder(DS.fog))
+        TransactionsSearchField(text: text, identifier: identifier)
     }
 
     // MARK: - Presentation
 
     private func typeChips(selected: TxFilter) -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 6) {
-                ForEach([TxFilter.tutti, .fisse, .trasf, .uscite, .entrate, .ricorrenti], id: \.self) { f in
-                    Button {
-                        if f == .ricorrenti {
-                            navPath.append(.ricorrenti)
-                        } else {
-                            withAnimation(.easeInOut(duration: 0.15)) {
-                                selectedType = f
-                            }
-                        }
-                    } label: {
-                        Text(LocalizedStringKey(f.rawValue))
-                            .font(DS.Typo.secondary.weight(selected == f ? .semibold : .medium))
-                            .foregroundStyle(selected == f ? DS.surface : DS.ink)
-                            .padding(.horizontal, 14)
-                            .frame(minHeight: typeChipHeight)
-                            .background(selected == f ? DS.ink : DS.surface, in: RoundedRectangle(cornerRadius: 12))
-                            .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(selected == f ? Color.clear : DS.fog))
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityAddTraits(selected == f ? [.isSelected] : [])
-                    .accessibilityIdentifier("txFilterBlock_\(f.rawValue)")
-                }
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, DS.Space.s)
-        }
-        .accessibilityIdentifier("tx_typeChips")
+        TransactionsTypeChips(selected: selected, typeChipHeight: typeChipHeight, selectedType: $selectedType, navPath: $navPath)
     }
 
     private var secondaryChips: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 6) {
-                // 1. Mese ▾ (compatto con bordo tratteggiato, da mockup)
-                Menu {
-                    Button {
-                        selectedMonth = Date()
-                    } label: {
-                        Label(String(localized: "Questo mese"), systemImage: "calendar")
-                    }
-                    Button {
-                        selectedMonth = Calendar.current.date(byAdding: .month, value: -1, to: selectedMonth) ?? selectedMonth
-                    } label: {
-                        Label(String(localized: "Mese precedente"), systemImage: "chevron.left")
-                    }
-                    Button {
-                        selectedMonth = Calendar.current.date(byAdding: .month, value: 1, to: selectedMonth) ?? selectedMonth
-                    } label: {
-                        Label(String(localized: "Mese successivo"), systemImage: "chevron.right")
-                    }
-                    Divider()
-                    ForEach(recentMonths, id: \.self) { m in
-                        Button {
-                            selectedMonth = m
-                        } label: {
-                            HStack {
-                                Text(m.monthYearFormatted)
-                                if m.isSameMonth(as: selectedMonth) {
-                                    Image(systemName: "checkmark")
-                                }
-                            }
-                        }
-                    }
-                } label: {
-                    HStack(spacing: 4) {
-                        Text("\(selectedMonth.monthYearFormatted) ▾")
-                            .font(DS.Typo.secondary)
-                            .foregroundStyle(DS.ink)
-                    }
-                    .padding(.horizontal, 12)
-                    .frame(minHeight: secondaryChipHeight)
-                    .background(Color.clear)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(DS.filterBorder, style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
-                    )
-                }
-                .accessibilityIdentifier("btn_monthPicker")
-
-                // 2. Categoria ▾ (menu pulito con icone e stato attivo)
-                Menu {
-                    Button {
-                        selectedCat = ""
-                    } label: {
-                        HStack {
-                            Text(String(localized: "Tutte le categorie"))
-                            if selectedCat.isEmpty {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                    Divider()
-                    ForEach(categories) { cat in
-                        Button {
-                            selectedCat = (selectedCat == cat.name ? "" : cat.name)
-                        } label: {
-                            HStack {
-                                DS.categoryText(cat.name)
-                                if selectedCat == cat.name {
-                                    Image(systemName: "checkmark")
-                                }
-                            }
-                        }
-                    }
-                } label: {
-                    HStack(spacing: 4) {
-                        if selectedCat.isEmpty {
-                            Text(String(localized: "Categoria"))
-                        } else {
-                            DS.categoryText(selectedCat)
-                        }
-                        Text("▾")
-                    }
-                    .font(DS.Typo.secondary)
-                    .fontWeight(selectedCat.isEmpty ? .regular : .semibold)
-                    .foregroundStyle(selectedCat.isEmpty ? DS.ink : DS.accent)
-                    .padding(.horizontal, 12)
-                    .frame(minHeight: secondaryChipHeight)
-                    .background(selectedCat.isEmpty ? Color.clear : DS.accentSoft)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(selectedCat.isEmpty ? DS.filterBorder : Color.clear, style: StrokeStyle(lineWidth: 1, dash: [3, 3]))
-                    )
-                }
-                .accessibilityIdentifier("btn_categoryFilter")
-
-                // 3. Filtri avanzati attivi (chip verde soft con xmark, presente solo se attivi)
-                if activeAdvancedFilterCount > 0 {
-                    HStack(spacing: 6) {
-                        Button {
-                            showAdvancedFilter = true
-                        } label: {
-                            Text(activeFilterSummaryLabel)
-                                .font(DS.Typo.secondary.weight(.semibold))
-                                .foregroundStyle(DS.accent)
-                        }
-                        Button {
-                            filterMinAmount = ""
-                            filterMaxAmount = ""
-                            filterUseCustomDates = false
-                        } label: {
-                            Image(systemName: "xmark")
-                                .font(.system(size: 10, weight: .bold))
-                                .foregroundStyle(DS.accent)
-                        }
-                        .buttonStyle(.plain)
-                        .accessibilityLabel(Text("Rimuovi filtri"))
-                    }
-                    .padding(.horizontal, 12)
-                    .frame(minHeight: secondaryChipHeight)
-                    .background(DS.accentSoft)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .accessibilityIdentifier("btn_activeFilterBadge")
-                }
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, DS.Space.xs)
-        }
+        TransactionsSecondaryChips(
+            selectedMonth: $selectedMonth, selectedCat: $selectedCat,
+            showAdvancedFilter: $showAdvancedFilter,
+            filterMinAmount: $filterMinAmount, filterMaxAmount: $filterMaxAmount,
+            filterUseCustomDates: $filterUseCustomDates, categories: categories,
+            recentMonths: recentMonths, secondaryChipHeight: secondaryChipHeight,
+            activeAdvancedFilterCount: activeAdvancedFilterCount,
+            activeFilterSummaryLabel: activeFilterSummaryLabel
+        )
     }
 
     private var activeFilterSummaryLabel: String {
@@ -582,127 +411,13 @@ struct TransactionsView: View {
     // MARK: - Advanced filter sheet
 
     private var advancedFilterSheet: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: DS.Space.xxl) {
-
-                    VStack(alignment: .leading, spacing: DS.Space.m) {
-                        SectionLabel(text: "Importo")
-                        HStack(spacing: DS.Space.l) {
-                            VStack(alignment: .leading, spacing: DS.Space.s) {
-                                Text("Minimo")
-                                    .font(.system(size: 12))
-                                    .foregroundStyle(DS.smoke)
-                                HStack(spacing: 4) {
-                                    Text(Double.currencySymbol)
-                                        .font(.system(size: 16, weight: .light))
-                                        .foregroundStyle(DS.smoke)
-                                    TextField("0", text: $filterMinAmount)
-                                        .font(.system(size: 20, weight: .medium))
-                                        .foregroundStyle(DS.ink)
-                                        .keyboardType(.decimalPad)
-                                }
-                                ThinDivider()
-                            }
-                            VStack(alignment: .leading, spacing: DS.Space.s) {
-                                Text("Massimo")
-                                    .font(.system(size: 12))
-                                    .foregroundStyle(DS.smoke)
-                                HStack(spacing: 4) {
-                                    Text(Double.currencySymbol)
-                                        .font(.system(size: 16, weight: .light))
-                                        .foregroundStyle(DS.smoke)
-                                    TextField("∞", text: $filterMaxAmount)
-                                        .font(.system(size: 20, weight: .medium))
-                                        .foregroundStyle(DS.ink)
-                                        .keyboardType(.decimalPad)
-                                }
-                                ThinDivider()
-                            }
-                        }
-                    }
-
-                    ThinDivider()
-
-                    VStack(alignment: .leading, spacing: DS.Space.m) {
-                        SectionLabel(text: "Periodo")
-                        HStack {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Periodo personalizzato")
-                                    .font(.system(size: 15))
-                                    .foregroundStyle(DS.ink)
-                                Text("Sostituisce il filtro mese")
-                                    .font(.system(size: 11))
-                                    .foregroundStyle(DS.smoke)
-                            }
-                            Spacer()
-                            Toggle("", isOn: $filterUseCustomDates)
-                                .tint(DS.ink)
-                                .labelsHidden()
-                        }
-
-                        if filterUseCustomDates {
-                            HStack {
-                                VStack(alignment: .leading, spacing: DS.Space.xs) {
-                                    Text("Da")
-                                        .font(.system(size: 12))
-                                        .foregroundStyle(DS.smoke)
-                                    DatePicker("", selection: $filterFromDate, displayedComponents: .date)
-                                        .labelsHidden()
-                                        .tint(DS.ink)
-                                }
-                                Spacer()
-                                VStack(alignment: .leading, spacing: DS.Space.xs) {
-                                    Text("A")
-                                        .font(.system(size: 12))
-                                        .foregroundStyle(DS.smoke)
-                                    DatePicker("", selection: $filterToDate,
-                                               in: filterFromDate...,
-                                               displayedComponents: .date)
-                                        .labelsHidden()
-                                        .tint(DS.ink)
-                                }
-                            }
-                            .padding(.top, DS.Space.xs)
-                        }
-                    }
-
-                    ThinDivider()
-
-                    if activeAdvancedFilterCount > 0 {
-                        Button {
-                            filterMinAmount = ""
-                            filterMaxAmount = ""
-                            filterUseCustomDates = false
-                        } label: {
-                            HStack {
-                                Image(systemName: "xmark.circle")
-                                    .font(.system(size: 14))
-                                Text("Rimuovi tutti i filtri")
-                                    .font(.system(size: 15))
-                            }
-                            .foregroundStyle(DS.smoke)
-                        }
-                    }
-                }
-                .padding(.horizontal, DS.Layout.margin)
-                .padding(.top, DS.Space.xl)
-                .padding(.bottom, DS.Space.xxl)
-            }
-            .background(DS.paper)
-            .scrollIndicators(.hidden)
-            .navigationTitle("Filtri")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Fine") { showAdvancedFilter = false }
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundStyle(DS.ink)
-                }
-            }
-        }
-        .presentationDetents([.medium, .large])
-        .presentationDragIndicator(.visible)
+        TransactionsAdvancedFilterSheet(
+            filterMinAmount: $filterMinAmount, filterMaxAmount: $filterMaxAmount,
+            filterUseCustomDates: $filterUseCustomDates,
+            filterFromDate: $filterFromDate, filterToDate: $filterToDate,
+            showAdvancedFilter: $showAdvancedFilter,
+            activeAdvancedFilterCount: activeAdvancedFilterCount
+        )
     }
 
     // MARK: - Transaction cell
