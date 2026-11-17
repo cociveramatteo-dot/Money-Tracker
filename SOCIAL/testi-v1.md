@@ -10,7 +10,7 @@ Fonte: Manuale strategico v2 (§1.1-1.3, 5.4, 6, 8.4, 10.3, 12). Conteggi fatti 
 
 ---
 
-## 1. Profili (@bucktrail)
+## 1. Profili (@bucktrailapp)
 
 Nome visualizzato: **Bucktrail · budget senza abbonamento** (37 caratteri)
 - Limite TikTok per il nome: 30 caratteri (da verificare in app) → versione corta TikTok: **Bucktrail · budget** (18).

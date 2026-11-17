@@ -33,8 +33,8 @@ for master in "$work/ass.mp4" "$work/srt.mp4"; do
     grep -qx "$expected" <<< "$stats"
   done
   awk -F= '
-    $1=="bit_rate" {rate=$2}
-    $1=="duration" {duration=$2}
+    $1=="bit_rate" {rate=$2+0}
+    $1=="duration" {duration=$2+0}
     END {exit !(rate>=15000000 && rate<=20000000 && duration>=4.9 && duration<=5.1)}
   ' <<< "$stats"
 done
