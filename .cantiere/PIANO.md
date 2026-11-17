@@ -186,7 +186,7 @@ il task e i file indicati.
 > Sorgente app: il redesign Sentiero e S-37 sono già su `main` (merge fatti): nessun merge da attendere.
 
 ### SC-0 [~] Calendario adattato (capocantiere, 2026-11-17 21:xx): `SOCIAL/calendario-v1.md` (settimana 0 dal 18/11, poi date del manuale, gate 06/12). Da verificare: date App Review natalizie.
-### SC-1 [?] Account social (Matteo): vedi PER-MATTEO. **Apple Developer Program NON pagato per scelta di Matteo (2026-11-17):** prima si cerca un segnale di interesse sui social; link in bio = landing con email (waitlist), non pre-order.
+### SC-1 [~] Account social creati 2026-11-17 (Gmail, IG Creator+2FA, TikTok personale+2FA, YouTube; @bucktrailapp). Restano: bio e foto su IG/TikTok, foto e descrizione YouTube, nome TikTok il 24/11 (Matteo): vedi PER-MATTEO. **Apple Developer Program NON pagato per scelta di Matteo (2026-11-17):** prima si cerca un segnale di interesse sui social; link in bio = landing con email (waitlist), non pre-order.
 ### SC-1b [x] chiuso 2026-11-17: Matteo ha confermato le soglie in DECISIONI.md Soglia di decisione per pagare Apple (Matteo): [DA COMPLETARE] quali numeri contano come «segnale» (es. iscritti alla waitlist, follower, tempo medio sopra la mediana) e entro quando. Il manuale non dà benchmark: la soglia è sua.
 ### SC-2 [?] Clip base dal telefono in modalità demo (Matteo): lista in PER-MATTEO.
 ### SC-3 [~] fatto dal redattore, approvazione Matteo ⏳ in APPROVAZIONI.md Testi di base (redattore): bio, caption, nome/sottotitolo/keyword/descrizione App Store IT+EN, hook dei primi format. Solo claim ammessi (manuale §1.1–1.3). Poi approvazione Matteo in APPROVAZIONI.md.
