@@ -1436,7 +1436,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "combine",
-      "community": 305,
+      "community": 70,
       "norm_label": "combine"
     },
     {
@@ -1613,8 +1613,8 @@
       "label": "Foundation",
       "file_type": "code",
       "type": "module",
-      "source_file": "MoneyTrackerTests/SchemaMigrationTests.swift",
-      "source_location": "L3",
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L1",
       "_origin": "ast",
       "id": "foundation",
       "community": 4,
@@ -1678,7 +1678,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_swift",
-      "community": 11,
+      "community": 113,
       "norm_label": "loginview.swift"
     },
     {
@@ -1688,7 +1688,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_loginview",
-      "community": 11,
+      "community": 113,
       "norm_label": "loginview"
     },
     {
@@ -1698,7 +1698,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "view",
-      "community": 198,
+      "community": 9,
       "norm_label": "view"
     },
     {
@@ -1728,7 +1728,7 @@
       "source_location": "L173",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_loginview_signin",
-      "community": 11,
+      "community": 113,
       "norm_label": ".signin()"
     },
     {
@@ -1738,7 +1738,7 @@
       "source_location": "L185",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_loginview_sendreset",
-      "community": 11,
+      "community": 113,
       "norm_label": ".sendreset()"
     },
     {
@@ -1748,7 +1748,7 @@
       "source_location": "L192",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_loginview_autherror",
-      "community": 11,
+      "community": 113,
       "norm_label": ".autherror()"
     },
     {
@@ -1768,7 +1768,7 @@
       "source_location": "L212",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_authfield",
-      "community": 11,
+      "community": 113,
       "norm_label": "authfield"
     },
     {
@@ -1778,7 +1778,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "uikeyboardtype",
-      "community": 11,
+      "community": 113,
       "norm_label": "uikeyboardtype"
     },
     {
@@ -1878,7 +1878,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_supabasemanager_swift",
-      "community": 305,
+      "community": 70,
       "norm_label": "supabasemanager.swift"
     },
     {
@@ -1889,7 +1889,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "supabase",
-      "community": 305,
+      "community": 70,
       "norm_label": "supabase"
     },
     {
@@ -1989,7 +1989,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_supabasemanager_supabasemanager_resetpassword",
-      "community": 11,
+      "community": 113,
       "norm_label": ".resetpassword()"
     },
     {
@@ -2030,7 +2030,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytracker_debug_demodataseeder_demodataseeder",
-      "community": 58,
+      "community": 200,
       "norm_label": "demodataseeder"
     },
     {
@@ -2040,7 +2040,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "moneytracker_debug_demodataseeder_demodataseeder_forcereset",
-      "community": 58,
+      "community": 200,
       "norm_label": ".forcereset()"
     },
     {
@@ -2050,7 +2050,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "moneytracker_debug_demodataseeder_demodataseeder_seedifneeded",
-      "community": 58,
+      "community": 200,
       "norm_label": ".seedifneeded()"
     },
     {
@@ -2060,7 +2060,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "moneytracker_debug_demodataseeder_demodataseeder_seed",
-      "community": 30,
+      "community": 200,
       "norm_label": ".seed()"
     },
     {
@@ -2080,7 +2080,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache",
-      "community": 112,
+      "community": 2,
       "norm_label": "accountbalancecache"
     },
     {
@@ -2100,7 +2100,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache_init",
-      "community": 112,
+      "community": 2,
       "norm_label": ".init()"
     },
     {
@@ -2110,7 +2110,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_swift_persistentidentifier",
-      "community": 112,
+      "community": 2,
       "norm_label": "persistentidentifier"
     },
     {
@@ -2120,7 +2120,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache_invalidateall",
-      "community": 183,
+      "community": 2,
       "norm_label": ".invalidateall()"
     },
     {
@@ -2130,7 +2130,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache_currentbalance",
-      "community": 112,
+      "community": 2,
       "norm_label": ".currentbalance()"
     },
     {
@@ -2140,7 +2140,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_swift_account",
-      "community": 112,
+      "community": 2,
       "norm_label": "account"
     },
     {
@@ -2150,7 +2150,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache_futurebalance",
-      "community": 112,
+      "community": 2,
       "norm_label": ".futurebalance()"
     },
     {
@@ -2181,7 +2181,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger",
-      "community": 22,
+      "community": 4,
       "norm_label": "auditlogger"
     },
     {
@@ -2191,7 +2191,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_init",
-      "community": 22,
+      "community": 4,
       "norm_label": ".init()"
     },
     {
@@ -2201,7 +2201,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_entry",
-      "community": 22,
+      "community": 4,
       "norm_label": "entry"
     },
     {
@@ -2221,7 +2221,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "identifiable",
-      "community": 2,
+      "community": 310,
       "norm_label": "identifiable"
     },
     {
@@ -2271,7 +2271,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_record",
-      "community": 22,
+      "community": 4,
       "norm_label": ".record()"
     },
     {
@@ -2291,7 +2291,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_appendifresolvable",
-      "community": 22,
+      "community": 4,
       "norm_label": ".appendifresolvable()"
     },
     {
@@ -2311,7 +2311,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_appenddeleted",
-      "community": 22,
+      "community": 4,
       "norm_label": ".appenddeleted()"
     },
     {
@@ -2321,7 +2321,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_summary",
-      "community": 22,
+      "community": 4,
       "norm_label": ".summary()"
     },
     {
@@ -2331,7 +2331,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_append",
-      "community": 22,
+      "community": 4,
       "norm_label": ".append()"
     },
     {
@@ -2341,7 +2341,7 @@
       "source_location": "L105",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_readall",
-      "community": 22,
+      "community": 4,
       "norm_label": ".readall()"
     },
     {
@@ -2351,7 +2351,7 @@
       "source_location": "L116",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_clearall",
-      "community": 22,
+      "community": 4,
       "norm_label": ".clearall()"
     },
     {
@@ -2481,7 +2481,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_swift",
-      "community": 4,
+      "community": 202,
       "norm_label": "keywordcategoryclassifier.swift"
     },
     {
@@ -2722,7 +2722,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager",
-      "community": 45,
+      "community": 8,
       "norm_label": "systemnotificationmanager"
     },
     {
@@ -2732,7 +2732,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_init",
-      "community": 45,
+      "community": 8,
       "norm_label": ".init()"
     },
     {
@@ -2752,7 +2752,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_requestpermission",
-      "community": 45,
+      "community": 58,
       "norm_label": ".requestpermission()"
     },
     {
@@ -2762,7 +2762,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_cancelall",
-      "community": 45,
+      "community": 8,
       "norm_label": ".cancelall()"
     },
     {
@@ -2772,7 +2772,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_checkbudgets",
-      "community": 45,
+      "community": 8,
       "norm_label": ".checkbudgets()"
     },
     {
@@ -2792,7 +2792,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_schedulebudgetwarning",
-      "community": 45,
+      "community": 8,
       "norm_label": ".schedulebudgetwarning()"
     },
     {
@@ -2812,7 +2812,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_schedulefixedreminderifneeded",
-      "community": 45,
+      "community": 8,
       "norm_label": ".schedulefixedreminderifneeded()"
     },
     {
@@ -2822,7 +2822,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_schedulefixedreminder",
-      "community": 45,
+      "community": 8,
       "norm_label": ".schedulefixedreminder()"
     },
     {
@@ -2842,7 +2842,7 @@
       "source_location": "L158",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_schedulegoaldeadline",
-      "community": 11,
+      "community": 113,
       "norm_label": ".schedulegoaldeadline()"
     },
     {
@@ -2852,7 +2852,7 @@
       "source_location": "L181",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_cancelgoaldeadline",
-      "community": 11,
+      "community": 113,
       "norm_label": ".cancelgoaldeadline()"
     },
     {
@@ -2862,7 +2862,7 @@
       "source_location": "L192",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_checkbalancethreshold",
-      "community": 45,
+      "community": 8,
       "norm_label": ".checkbalancethreshold()"
     },
     {
@@ -2872,7 +2872,7 @@
       "source_location": "L222",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_schedulemonthlyreportreminder",
-      "community": 45,
+      "community": 8,
       "norm_label": ".schedulemonthlyreportreminder()"
     },
     {
@@ -2892,7 +2892,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationscheduling_notificationscheduling",
-      "community": 45,
+      "community": 8,
       "norm_label": "notificationscheduling"
     },
     {
@@ -2902,7 +2902,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "anyobject",
-      "community": 45,
+      "community": 8,
       "norm_label": "anyobject"
     },
     {
@@ -3023,7 +3023,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "moneytracker_domain_recurrencecalculator_occurrence",
-      "community": 35,
+      "community": 310,
       "norm_label": "occurrence"
     },
     {
@@ -3170,10 +3170,10 @@
       "label": ".occurrenceID()",
       "file_type": "code",
       "source_file": "MoneyTracker/Domain/RecurrenceCalculator.swift",
-      "source_location": "L180",
+      "source_location": "L185",
       "_origin": "ast",
       "id": "moneytracker_domain_recurrencecalculator_recurrencecalculator_occurrenceid",
-      "community": 35,
+      "community": 6,
       "norm_label": ".occurrenceid()"
     },
     {
@@ -3193,7 +3193,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_recurringmaterializer",
-      "community": 35,
+      "community": 6,
       "norm_label": "recurringmaterializer"
     },
     {
@@ -3423,7 +3423,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor",
-      "community": 192,
+      "community": 4,
       "norm_label": "recurringserieseditor.swift"
     },
     {
@@ -3434,7 +3434,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "observation",
-      "community": 192,
+      "community": 4,
       "norm_label": "observation"
     },
     {
@@ -3444,7 +3444,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_recurrenceoperationstatus",
-      "community": 192,
+      "community": 6,
       "norm_label": "recurrenceoperationstatus"
     },
     {
@@ -3454,7 +3454,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_swift_string",
-      "community": 192,
+      "community": 6,
       "norm_label": "string"
     },
     {
@@ -3504,7 +3504,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_scope",
-      "community": 192,
+      "community": 4,
       "norm_label": "scope"
     },
     {
@@ -3514,7 +3514,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_scope_onlythis",
-      "community": 192,
+      "community": 4,
       "norm_label": "onlythis"
     },
     {
@@ -3524,7 +3524,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_scope_following",
-      "community": 192,
+      "community": 4,
       "norm_label": "following"
     },
     {
@@ -3534,7 +3534,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_scope_all",
-      "community": 192,
+      "community": 4,
       "norm_label": "all"
     },
     {
@@ -3594,7 +3594,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_editorerror",
-      "community": 192,
+      "community": 4,
       "norm_label": "editorerror"
     },
     {
@@ -3604,7 +3604,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "localizederror",
-      "community": 192,
+      "community": 4,
       "norm_label": "localizederror"
     },
     {
@@ -3614,7 +3614,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_editorerror_requiresmaincontext",
-      "community": 192,
+      "community": 4,
       "norm_label": "requiresmaincontext"
     },
     {
@@ -3624,7 +3624,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_editorerror_invalidoccurrence",
-      "community": 192,
+      "community": 4,
       "norm_label": "invalidoccurrence"
     },
     {
@@ -3634,7 +3634,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_editorerror_invalidvalues",
-      "community": 192,
+      "community": 4,
       "norm_label": "invalidvalues"
     },
     {
@@ -3644,7 +3644,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_editorerror_crossmonthoverride",
-      "community": 192,
+      "community": 4,
       "norm_label": "crossmonthoverride"
     },
     {
@@ -3724,7 +3724,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_swift",
-      "community": 8,
+      "community": 11,
       "norm_label": "pdfreportgenerator.swift"
     },
     {
@@ -3735,7 +3735,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "uikit",
-      "community": 307,
+      "community": 11,
       "norm_label": "uikit"
     },
     {
@@ -3745,7 +3745,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_pdftxsnapshot",
-      "community": 8,
+      "community": 11,
       "norm_label": "pdftxsnapshot"
     },
     {
@@ -3785,7 +3785,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_pdfreportgenerator",
-      "community": 8,
+      "community": 11,
       "norm_label": "pdfreportgenerator"
     },
     {
@@ -3805,7 +3805,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_pdfreportgenerator_generate",
-      "community": 8,
+      "community": 11,
       "norm_label": ".generate()"
     },
     {
@@ -3825,7 +3825,7 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_pdfreportgenerator_renderpages",
-      "community": 8,
+      "community": 11,
       "norm_label": ".renderpages()"
     },
     {
@@ -3835,7 +3835,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "uigraphicspdfrenderercontext",
-      "community": 8,
+      "community": 11,
       "norm_label": "uigraphicspdfrenderercontext"
     },
     {
@@ -3855,7 +3855,7 @@
       "source_location": "L162",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_pdfreportgenerator_drawheader",
-      "community": 8,
+      "community": 11,
       "norm_label": ".drawheader()"
     },
     {
@@ -3865,7 +3865,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "cgcontext",
-      "community": 8,
+      "community": 11,
       "norm_label": "cgcontext"
     },
     {
@@ -3875,7 +3875,7 @@
       "source_location": "L185",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_pdfreportgenerator_drawsummary",
-      "community": 8,
+      "community": 11,
       "norm_label": ".drawsummary()"
     },
     {
@@ -3885,7 +3885,7 @@
       "source_location": "L224",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_pdfreportgenerator_drawcategorysection",
-      "community": 8,
+      "community": 11,
       "norm_label": ".drawcategorysection()"
     },
     {
@@ -3895,7 +3895,7 @@
       "source_location": "L284",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_pdfreportgenerator_drawtransactions",
-      "community": 8,
+      "community": 11,
       "norm_label": ".drawtransactions()"
     },
     {
@@ -3905,7 +3905,7 @@
       "source_location": "L334",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_pdfreportgenerator_drawdivider",
-      "community": 8,
+      "community": 11,
       "norm_label": ".drawdivider()"
     },
     {
@@ -3915,7 +3915,7 @@
       "source_location": "L344",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_pdfreportgenerator_drawtext",
-      "community": 8,
+      "community": 11,
       "norm_label": ".drawtext()"
     },
     {
@@ -3925,7 +3925,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "cgpoint",
-      "community": 8,
+      "community": 11,
       "norm_label": "cgpoint"
     },
     {
@@ -3935,7 +3935,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "uifont",
-      "community": 311,
+      "community": 11,
       "norm_label": "uifont"
     },
     {
@@ -3945,7 +3945,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "uicolor",
-      "community": 8,
+      "community": 11,
       "norm_label": "uicolor"
     },
     {
@@ -3955,7 +3955,7 @@
       "source_location": "L377",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_pdfreportgenerator_monthfilelabel",
-      "community": 8,
+      "community": 11,
       "norm_label": ".monthfilelabel()"
     },
     {
@@ -3965,7 +3965,7 @@
       "source_location": "L384",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_numberformatter",
-      "community": 8,
+      "community": 11,
       "norm_label": "numberformatter"
     },
     {
@@ -3975,7 +3975,7 @@
       "source_location": "L385",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_export_pdfreportgenerator_numberformatter_fmt",
-      "community": 8,
+      "community": 11,
       "norm_label": ".fmt()"
     },
     {
@@ -3985,7 +3985,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting",
-      "community": 193,
+      "community": 3,
       "norm_label": "currencyformatting.swift"
     },
     {
@@ -4005,7 +4005,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_swift_string",
-      "community": 112,
+      "community": 3,
       "norm_label": "string"
     },
     {
@@ -4015,7 +4015,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_decimal",
-      "community": 112,
+      "community": 2,
       "norm_label": "decimal"
     },
     {
@@ -4025,37 +4025,37 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_decimal_parseamount",
-      "community": 112,
+      "community": 2,
       "norm_label": ".parseamount()"
     },
     {
       "label": ".init()",
       "file_type": "code",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L79",
+      "source_location": "L83",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_decimal_init",
-      "community": 3,
+      "community": 2,
       "norm_label": ".init()"
     },
     {
       "label": "Date",
       "file_type": "code",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L117",
+      "source_location": "L121",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_date",
-      "community": 193,
+      "community": 3,
       "norm_label": "date"
     },
     {
       "label": ".isSameMonth()",
       "file_type": "code",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L134",
+      "source_location": "L138",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_date_issamemonth",
-      "community": 193,
+      "community": 3,
       "norm_label": ".issamemonth()"
     },
     {
@@ -4065,27 +4065,27 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_swift_bool",
-      "community": 193,
+      "community": 3,
       "norm_label": "bool"
     },
     {
       "label": ".isSameWeek()",
       "file_type": "code",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L137",
+      "source_location": "L141",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_date_issameweek",
-      "community": 193,
+      "community": 3,
       "norm_label": ".issameweek()"
     },
     {
       "label": ".isSameYear()",
       "file_type": "code",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L140",
+      "source_location": "L144",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_date_issameyear",
-      "community": 193,
+      "community": 3,
       "norm_label": ".issameyear()"
     },
     {
@@ -4095,7 +4095,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_swift",
-      "community": 58,
+      "community": 1,
       "norm_label": "formattercache.swift"
     },
     {
@@ -4105,7 +4105,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_formattercache",
-      "community": 58,
+      "community": 1,
       "norm_label": "formattercache"
     },
     {
@@ -4135,7 +4135,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_formattercache_registerlocaleobserver",
-      "community": 58,
+      "community": 1,
       "norm_label": ".registerlocaleobserver()"
     },
     {
@@ -4145,7 +4145,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_formattercache_currencyformatter",
-      "community": 58,
+      "community": 1,
       "norm_label": ".currencyformatter()"
     },
     {
@@ -4256,7 +4256,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "moneytracker_intents_addexpenseintent_addexpenseintent_perform",
-      "community": 183,
+      "community": 2,
       "norm_label": ".perform()"
     },
     {
@@ -4266,7 +4266,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "intentresult",
-      "community": 183,
+      "community": 2,
       "norm_label": "intentresult"
     },
     {
@@ -4276,7 +4276,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "providesdialog",
-      "community": 183,
+      "community": 2,
       "norm_label": "providesdialog"
     },
     {
@@ -4296,7 +4296,7 @@
       "source_location": "L142",
       "_origin": "ast",
       "id": "moneytracker_intents_addexpenseintent_addincomeintent_perform",
-      "community": 183,
+      "community": 2,
       "norm_label": ".perform()"
     },
     {
@@ -4316,7 +4316,7 @@
       "source_location": "L207",
       "_origin": "ast",
       "id": "moneytracker_intents_addexpenseintent_checkbalanceintent_perform",
-      "community": 183,
+      "community": 2,
       "norm_label": ".perform()"
     },
     {
@@ -4406,7 +4406,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_swift",
-      "community": 37,
+      "community": 4,
       "norm_label": "account.swift"
     },
     {
@@ -4416,7 +4416,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype",
-      "community": 37,
+      "community": 195,
       "norm_label": "accounttype"
     },
     {
@@ -4426,7 +4426,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "string",
-      "community": 11,
+      "community": 113,
       "norm_label": "string"
     },
     {
@@ -4436,7 +4436,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "caseiterable",
-      "community": 36,
+      "community": 195,
       "norm_label": "caseiterable"
     },
     {
@@ -4446,7 +4446,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_contanti",
-      "community": 37,
+      "community": 195,
       "norm_label": "contanti"
     },
     {
@@ -4456,7 +4456,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_carta",
-      "community": 37,
+      "community": 195,
       "norm_label": "carta"
     },
     {
@@ -4466,7 +4466,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_conto",
-      "community": 37,
+      "community": 195,
       "norm_label": "conto"
     },
     {
@@ -4476,7 +4476,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_risparmio",
-      "community": 37,
+      "community": 195,
       "norm_label": "risparmio"
     },
     {
@@ -4486,7 +4486,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_investimento",
-      "community": 37,
+      "community": 195,
       "norm_label": "investimento"
     },
     {
@@ -4496,7 +4496,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_account",
-      "community": 37,
+      "community": 195,
       "norm_label": "account"
     },
     {
@@ -4556,7 +4556,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_account_init",
-      "community": 37,
+      "community": 195,
       "norm_label": ".init()"
     },
     {
@@ -4726,7 +4726,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_seedifneeded",
-      "community": 58,
+      "community": 45,
       "norm_label": ".seedifneeded()"
     },
     {
@@ -4736,7 +4736,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_migrateiconsifneeded",
-      "community": 165,
+      "community": 45,
       "norm_label": ".migrateiconsifneeded()"
     },
     {
@@ -4756,7 +4756,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_goal_goal",
-      "community": 11,
+      "community": 113,
       "norm_label": "goal"
     },
     {
@@ -4806,7 +4806,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_goal_goal_init",
-      "community": 11,
+      "community": 113,
       "norm_label": ".init()"
     },
     {
@@ -4826,7 +4826,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_recurringrule",
-      "community": 200,
+      "community": 310,
       "norm_label": "recurringrule"
     },
     {
@@ -4836,7 +4836,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_uuid",
-      "community": 200,
+      "community": 310,
       "norm_label": "uuid"
     },
     {
@@ -4846,7 +4846,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_string",
-      "community": 200,
+      "community": 310,
       "norm_label": "string"
     },
     {
@@ -4856,7 +4856,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_bool",
-      "community": 200,
+      "community": 310,
       "norm_label": "bool"
     },
     {
@@ -4866,7 +4866,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_date",
-      "community": 200,
+      "community": 310,
       "norm_label": "date"
     },
     {
@@ -4876,7 +4876,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_recurringrule_init",
-      "community": 200,
+      "community": 310,
       "norm_label": ".init()"
     },
     {
@@ -4886,7 +4886,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_swift",
-      "community": 37,
+      "community": 195,
       "norm_label": "transaction.swift"
     },
     {
@@ -4896,7 +4896,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype",
-      "community": 37,
+      "community": 195,
       "norm_label": "transactiontype"
     },
     {
@@ -4906,7 +4906,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
-      "community": 37,
+      "community": 195,
       "norm_label": "uscita"
     },
     {
@@ -4916,7 +4916,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
-      "community": 304,
+      "community": 195,
       "norm_label": "entrata"
     },
     {
@@ -4926,7 +4926,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
-      "community": 37,
+      "community": 195,
       "norm_label": "transaction"
     },
     {
@@ -4976,7 +4976,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction_init",
-      "community": 37,
+      "community": 195,
       "norm_label": ".init()"
     },
     {
@@ -4996,7 +4996,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_moneytrackerapp",
-      "community": 305,
+      "community": 4,
       "norm_label": "moneytrackerapp.swift"
     },
     {
@@ -5007,7 +5007,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "auth",
-      "community": 305,
+      "community": 4,
       "norm_label": "auth"
     },
     {
@@ -5094,7 +5094,7 @@
       "label": ".init()",
       "file_type": "code",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L29",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "community": 58,
@@ -5124,7 +5124,7 @@
       "label": ".scheduleRecurrenceRefresh()",
       "file_type": "code",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L261",
+      "source_location": "L265",
       "_origin": "ast",
       "id": "moneytracker_moneytrackerapp_moneytrackerapp_schedulerecurrencerefresh",
       "community": 184,
@@ -5144,10 +5144,10 @@
       "label": "applyFileProtection()",
       "file_type": "code",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L351",
+      "source_location": "L355",
       "_origin": "ast",
       "id": "moneytracker_moneytrackerapp_applyfileprotection",
-      "community": 305,
+      "community": 58,
       "norm_label": "applyfileprotection()"
     },
     {
@@ -5157,7 +5157,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_moneytrackerapp_swift_url",
-      "community": 305,
+      "community": 58,
       "norm_label": "url"
     },
     {
@@ -5167,7 +5167,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "fileprotectiontype",
-      "community": 305,
+      "community": 58,
       "norm_label": "fileprotectiontype"
     },
     {
@@ -5617,7 +5617,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_persistence_sharedstore_swift",
-      "community": 58,
+      "community": 4,
       "norm_label": "sharedstore.swift"
     },
     {
@@ -5778,7 +5778,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_codingkeys_name",
-      "community": 30,
+      "community": 200,
       "norm_label": "name"
     },
     {
@@ -5948,7 +5948,7 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_sbrecurringrule_apply",
-      "community": 200,
+      "community": 70,
       "norm_label": ".apply()"
     },
     {
@@ -6038,7 +6038,7 @@
       "source_location": "L170",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_codingkeys_date",
-      "community": 30,
+      "community": 200,
       "norm_label": "date"
     },
     {
@@ -6405,7 +6405,7 @@
       "label": ".scheduleRetry()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L384",
+      "source_location": "L385",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_scheduleretry",
       "community": 70,
@@ -6415,7 +6415,7 @@
       "label": ".syncOnForeground()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L399",
+      "source_location": "L401",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_synconforeground",
       "community": 70,
@@ -6435,7 +6435,7 @@
       "label": ".recordChanges()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L436",
+      "source_location": "L438",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_recordchanges",
       "community": 70,
@@ -6455,17 +6455,17 @@
       "label": ".markTransactionDirty()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L463",
+      "source_location": "L465",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_marktransactiondirty",
-      "community": 183,
+      "community": 2,
       "norm_label": ".marktransactiondirty()"
     },
     {
       "label": ".manualRefresh()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L485",
+      "source_location": "L487",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_manualrefresh",
       "community": 70,
@@ -6475,7 +6475,7 @@
       "label": ".syncOnLogin()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L497",
+      "source_location": "L499",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_synconlogin",
       "community": 70,
@@ -6485,7 +6485,7 @@
       "label": ".schedulePush()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L528",
+      "source_location": "L530",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_schedulepush",
       "community": 70,
@@ -6495,7 +6495,7 @@
       "label": ".clearLocalData()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L550",
+      "source_location": "L553",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_clearlocaldata",
       "community": 70,
@@ -6505,7 +6505,7 @@
       "label": ".push()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L578",
+      "source_location": "L581",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_push",
       "community": 70,
@@ -6515,7 +6515,7 @@
       "label": ".pull()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L656",
+      "source_location": "L660",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_pull",
       "community": 70,
@@ -6525,7 +6525,7 @@
       "label": ".mergeRecurringRules()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L848",
+      "source_location": "L852",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_mergerecurringrules",
       "community": 70,
@@ -6535,7 +6535,7 @@
       "label": ".fetchIds()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L870",
+      "source_location": "L874",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_fetchids",
       "community": 70,
@@ -6545,7 +6545,7 @@
       "label": ".deleteOrphans()",
       "file_type": "code",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L884",
+      "source_location": "L888",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_deleteorphans",
       "community": 70,
@@ -6558,7 +6558,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview",
-      "community": 191,
+      "community": 2,
       "norm_label": "accountsview.swift"
     },
     {
@@ -6568,7 +6568,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_accountsview",
-      "community": 191,
+      "community": 2,
       "norm_label": "accountsview"
     },
     {
@@ -6578,7 +6578,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_swift_account",
-      "community": 191,
+      "community": 2,
       "norm_label": "account"
     },
     {
@@ -6588,7 +6588,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_swift_bool",
-      "community": 191,
+      "community": 2,
       "norm_label": "bool"
     },
     {
@@ -6598,7 +6598,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_accountsview_issavings",
-      "community": 191,
+      "community": 2,
       "norm_label": ".issavings()"
     },
     {
@@ -6608,7 +6608,7 @@
       "source_location": "L247",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_accountrow",
-      "community": 191,
+      "community": 2,
       "norm_label": "accountrow"
     },
     {
@@ -6618,7 +6618,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_swift_string",
-      "community": 191,
+      "community": 2,
       "norm_label": "string"
     },
     {
@@ -6628,7 +6628,7 @@
       "source_location": "L252",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_accountrow_init",
-      "community": 191,
+      "community": 2,
       "norm_label": ".init()"
     },
     {
@@ -6638,7 +6638,7 @@
       "source_location": "L316",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_addaccountview",
-      "community": 191,
+      "community": 2,
       "norm_label": "addaccountview"
     },
     {
@@ -6648,7 +6648,7 @@
       "source_location": "L455",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_addaccountview_load",
-      "community": 191,
+      "community": 2,
       "norm_label": ".load()"
     },
     {
@@ -6658,7 +6658,7 @@
       "source_location": "L475",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_addaccountview_save",
-      "community": 191,
+      "community": 2,
       "norm_label": ".save()"
     },
     {
@@ -6668,7 +6668,7 @@
       "source_location": "L512",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_addaccountview_applybalanceadjustment",
-      "community": 191,
+      "community": 2,
       "norm_label": ".applybalanceadjustment()"
     },
     {
@@ -6838,7 +6838,7 @@
       "source_location": "L345",
       "_origin": "ast",
       "id": "moneytracker_views_addtransactionview_addtransactionview_save",
-      "community": 45,
+      "community": 6,
       "norm_label": ".save()"
     },
     {
@@ -6858,7 +6858,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_swift",
-      "community": 304,
+      "community": 195,
       "norm_label": "addtransferview.swift"
     },
     {
@@ -6868,7 +6868,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview",
-      "community": 304,
+      "community": 195,
       "norm_label": "addtransferview"
     },
     {
@@ -6928,7 +6928,7 @@
       "source_location": "L140",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_accountpicker",
-      "community": 37,
+      "community": 195,
       "norm_label": ".accountpicker()"
     },
     {
@@ -6948,7 +6948,7 @@
       "source_location": "L169",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_pairedleg",
-      "community": 304,
+      "community": 195,
       "norm_label": ".pairedleg()"
     },
     {
@@ -6958,7 +6958,7 @@
       "source_location": "L173",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_load",
-      "community": 304,
+      "community": 195,
       "norm_label": ".load()"
     },
     {
@@ -6968,7 +6968,7 @@
       "source_location": "L196",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_save",
-      "community": 304,
+      "community": 195,
       "norm_label": ".save()"
     },
     {
@@ -6978,7 +6978,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_auditlogview_swift",
-      "community": 11,
+      "community": 113,
       "norm_label": "auditlogview.swift"
     },
     {
@@ -6988,7 +6988,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_auditlogview_auditlogview",
-      "community": 11,
+      "community": 113,
       "norm_label": "auditlogview"
     },
     {
@@ -6998,7 +6998,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_auditlogview_auditlogview_icon",
-      "community": 11,
+      "community": 113,
       "norm_label": ".icon()"
     },
     {
@@ -7018,7 +7018,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_auditlogview_auditlogview_actionlabel",
-      "community": 11,
+      "community": 113,
       "norm_label": ".actionlabel()"
     },
     {
@@ -7028,7 +7028,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_auditlogview_auditlogview_entitylabel",
-      "community": 11,
+      "community": 113,
       "norm_label": ".entitylabel()"
     },
     {
@@ -7188,7 +7188,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_swift",
-      "community": 165,
+      "community": 45,
       "norm_label": "categorymanagementview.swift"
     },
     {
@@ -7198,7 +7198,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview",
-      "community": 165,
+      "community": 45,
       "norm_label": "categorymanagementview"
     },
     {
@@ -7238,7 +7238,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview_rebuildtxcount",
-      "community": 165,
+      "community": 45,
       "norm_label": ".rebuildtxcount()"
     },
     {
@@ -7248,7 +7248,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview_txcount",
-      "community": 165,
+      "community": 45,
       "norm_label": ".txcount()"
     },
     {
@@ -7258,7 +7258,7 @@
       "source_location": "L157",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categoryrow",
-      "community": 165,
+      "community": 45,
       "norm_label": "categoryrow"
     },
     {
@@ -7278,7 +7278,7 @@
       "source_location": "L198",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview",
-      "community": 165,
+      "community": 45,
       "norm_label": "addcategoryview"
     },
     {
@@ -7288,7 +7288,7 @@
       "source_location": "L312",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview_load",
-      "community": 165,
+      "community": 45,
       "norm_label": ".load()"
     },
     {
@@ -7298,7 +7298,7 @@
       "source_location": "L324",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview_save",
-      "community": 165,
+      "community": 45,
       "norm_label": ".save()"
     },
     {
@@ -7308,7 +7308,7 @@
       "source_location": "L344",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview_renamecategoryeverywhere",
-      "community": 165,
+      "community": 45,
       "norm_label": ".renamecategoryeverywhere()"
     },
     {
@@ -7778,7 +7778,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards",
-      "community": 198,
+      "community": 3,
       "norm_label": "planningcards.swift"
     },
     {
@@ -7788,7 +7788,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_planningbudgetcard",
-      "community": 198,
+      "community": 3,
       "norm_label": "planningbudgetcard"
     },
     {
@@ -7798,7 +7798,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_budget",
-      "community": 198,
+      "community": 3,
       "norm_label": "budget"
     },
     {
@@ -7808,7 +7808,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_bool",
-      "community": 198,
+      "community": 3,
       "norm_label": "bool"
     },
     {
@@ -7818,7 +7818,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_string",
-      "community": 198,
+      "community": 3,
       "norm_label": "string"
     },
     {
@@ -7828,7 +7828,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_planninggoalcard",
-      "community": 198,
+      "community": 3,
       "norm_label": "planninggoalcard"
     },
     {
@@ -7838,7 +7838,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_goal",
-      "community": 198,
+      "community": 3,
       "norm_label": "goal"
     },
     {
@@ -7848,7 +7848,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_void",
-      "community": 198,
+      "community": 3,
       "norm_label": "void"
     },
     {
@@ -7858,7 +7858,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_planningprogressring",
-      "community": 198,
+      "community": 3,
       "norm_label": "planningprogressring"
     },
     {
@@ -8328,7 +8328,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_swift",
-      "community": 11,
+      "community": 113,
       "norm_label": "goalsview.swift"
     },
     {
@@ -8338,7 +8338,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_goalrow",
-      "community": 11,
+      "community": 113,
       "norm_label": "goalrow"
     },
     {
@@ -8368,7 +8368,7 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_addgoalview",
-      "community": 11,
+      "community": 113,
       "norm_label": "addgoalview"
     },
     {
@@ -8388,7 +8388,7 @@
       "source_location": "L252",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_addgoalview_load",
-      "community": 11,
+      "community": 113,
       "norm_label": ".load()"
     },
     {
@@ -8398,7 +8398,7 @@
       "source_location": "L274",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_addgoalview_save",
-      "community": 11,
+      "community": 113,
       "norm_label": ".save()"
     },
     {
@@ -8568,7 +8568,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "moneytracker_views_programmedrulecard_programmedrulecard_nextoccurrence",
-      "community": 35,
+      "community": 310,
       "norm_label": ".nextoccurrence()"
     },
     {
@@ -8578,7 +8578,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_programmedrulecard_swift_date",
-      "community": 35,
+      "community": 310,
       "norm_label": "date"
     },
     {
@@ -8588,7 +8588,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_programmedrulecard_swift_calendar",
-      "community": 35,
+      "community": 310,
       "norm_label": "calendar"
     },
     {
@@ -8608,7 +8608,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols",
-      "community": 12,
+      "community": 310,
       "norm_label": "recurrencecontrols.swift"
     },
     {
@@ -8618,7 +8618,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_view",
-      "community": 12,
+      "community": 310,
       "norm_label": "view"
     },
     {
@@ -8628,7 +8628,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_view_recurrenceerroralert",
-      "community": 12,
+      "community": 310,
       "norm_label": ".recurrenceerroralert()"
     },
     {
@@ -8638,7 +8638,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_recurrenceselection",
-      "community": 12,
+      "community": 310,
       "norm_label": "recurrenceselection"
     },
     {
@@ -8648,7 +8648,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_swift_uuid",
-      "community": 12,
+      "community": 6,
       "norm_label": "uuid"
     },
     {
@@ -8658,7 +8658,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_recurrenceselection_resolve",
-      "community": 17,
+      "community": 310,
       "norm_label": ".resolve()"
     },
     {
@@ -8668,7 +8668,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_swift_transaction",
-      "community": 17,
+      "community": 310,
       "norm_label": "transaction"
     },
     {
@@ -8678,7 +8678,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "self",
-      "community": 17,
+      "community": 310,
       "norm_label": "self"
     },
     {
@@ -8688,7 +8688,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_recurrenceeditorview",
-      "community": 12,
+      "community": 6,
       "norm_label": "recurrenceeditorview"
     },
     {
@@ -8698,7 +8698,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_swift_account",
-      "community": 12,
+      "community": 6,
       "norm_label": "account"
     },
     {
@@ -8708,7 +8708,7 @@
       "source_location": "L126",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_recurrenceeditorview_load",
-      "community": 12,
+      "community": 6,
       "norm_label": ".load()"
     },
     {
@@ -8738,7 +8738,7 @@
       "source_location": "L156",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_recurrencecontextmenu",
-      "community": 12,
+      "community": 310,
       "norm_label": "recurrencecontextmenu"
     },
     {
@@ -8748,7 +8748,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_swift_void",
-      "community": 12,
+      "community": 310,
       "norm_label": "void"
     },
     {
@@ -8758,7 +8758,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencepresentationcache",
-      "community": 10,
+      "community": 310,
       "norm_label": "recurrencepresentationcache.swift"
     },
     {
@@ -8768,7 +8768,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencepresentationcache_recurrencepresentationcache",
-      "community": 35,
+      "community": 310,
       "norm_label": "recurrencepresentationcache"
     },
     {
@@ -8778,7 +8778,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencepresentationcache_rulekey",
-      "community": 10,
+      "community": 310,
       "norm_label": "rulekey"
     },
     {
@@ -8788,7 +8788,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencepresentationcache_swift_uuid",
-      "community": 10,
+      "community": 310,
       "norm_label": "uuid"
     },
     {
@@ -8798,7 +8798,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencepresentationcache_swift_string",
-      "community": 10,
+      "community": 310,
       "norm_label": "string"
     },
     {
@@ -8808,7 +8808,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencepresentationcache_swift_bool",
-      "community": 10,
+      "community": 310,
       "norm_label": "bool"
     },
     {
@@ -8818,7 +8818,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencepresentationcache_swift_date",
-      "community": 10,
+      "community": 310,
       "norm_label": "date"
     },
     {
@@ -8828,7 +8828,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencepresentationcache_rulekey_init",
-      "community": 10,
+      "community": 310,
       "norm_label": ".init()"
     },
     {
@@ -8838,7 +8838,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencepresentationcache_swift_dateinterval",
-      "community": 35,
+      "community": 310,
       "norm_label": "dateinterval"
     },
     {
@@ -8848,7 +8848,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencepresentationcache_swift_timezone",
-      "community": 35,
+      "community": 310,
       "norm_label": "timezone"
     },
     {
@@ -8858,7 +8858,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencepresentationcache_recurrencepresentationcache_occurrences",
-      "community": 35,
+      "community": 310,
       "norm_label": ".occurrences()"
     },
     {
@@ -8868,7 +8868,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_recurringseriesdetailview",
-      "community": 308,
+      "community": 4,
       "norm_label": "recurringseriesdetailview.swift"
     },
     {
@@ -8878,7 +8878,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "moneytracker_views_recurringseriesdetailview_recurringseriesdetailview",
-      "community": 308,
+      "community": 4,
       "norm_label": "recurringseriesdetailview"
     },
     {
@@ -8888,7 +8888,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurringseriesdetailview_swift_string",
-      "community": 308,
+      "community": 4,
       "norm_label": "string"
     },
     {
@@ -8898,7 +8898,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurringseriesdetailview_swift_transaction",
-      "community": 308,
+      "community": 4,
       "norm_label": "transaction"
     },
     {
@@ -8908,7 +8908,7 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "moneytracker_views_recurringseriesdetailview_recurringseriesdetailview_deletetransaction",
-      "community": 308,
+      "community": 4,
       "norm_label": ".deletetransaction()"
     },
     {
@@ -9139,7 +9139,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_statisticsview",
-      "community": 307,
+      "community": 2,
       "norm_label": "statisticsview.swift"
     },
     {
@@ -9150,7 +9150,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "charts",
-      "community": 307,
+      "community": 2,
       "norm_label": "charts"
     },
     {
@@ -9300,7 +9300,7 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "moneytracker_views_statisticsview_statisticsview_generatepdf",
-      "community": 8,
+      "community": 11,
       "norm_label": ".generatepdf()"
     },
     {
@@ -9400,7 +9400,7 @@
       "source_location": "L526",
       "_origin": "ast",
       "id": "moneytracker_views_statisticsview_sharesheet",
-      "community": 306,
+      "community": 12,
       "norm_label": "sharesheet"
     },
     {
@@ -9410,7 +9410,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "uiviewcontrollerrepresentable",
-      "community": 306,
+      "community": 12,
       "norm_label": "uiviewcontrollerrepresentable"
     },
     {
@@ -9420,7 +9420,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "any",
-      "community": 306,
+      "community": 12,
       "norm_label": "any"
     },
     {
@@ -9430,7 +9430,7 @@
       "source_location": "L528",
       "_origin": "ast",
       "id": "moneytracker_views_statisticsview_sharesheet_makeuiviewcontroller",
-      "community": 306,
+      "community": 12,
       "norm_label": ".makeuiviewcontroller()"
     },
     {
@@ -9440,7 +9440,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "context",
-      "community": 306,
+      "community": 12,
       "norm_label": "context"
     },
     {
@@ -9450,7 +9450,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "uiactivityviewcontroller",
-      "community": 306,
+      "community": 12,
       "norm_label": "uiactivityviewcontroller"
     },
     {
@@ -9460,7 +9460,7 @@
       "source_location": "L531",
       "_origin": "ast",
       "id": "moneytracker_views_statisticsview_sharesheet_updateuiviewcontroller",
-      "community": 306,
+      "community": 12,
       "norm_label": ".updateuiviewcontroller()"
     },
     {
@@ -9610,7 +9610,7 @@
       "source_location": "L208",
       "_origin": "ast",
       "id": "moneytracker_views_theme_ds_categoryicon",
-      "community": 183,
+      "community": 2,
       "norm_label": ".categoryicon()"
     },
     {
@@ -9890,7 +9890,7 @@
       "source_location": "L441",
       "_origin": "ast",
       "id": "moneytracker_views_theme_monthbar",
-      "community": 137,
+      "community": 0,
       "norm_label": "monthbar"
     },
     {
@@ -9900,7 +9900,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_theme_swift_date",
-      "community": 137,
+      "community": 0,
       "norm_label": "date"
     },
     {
@@ -10020,7 +10020,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssearchfield",
-      "community": 309,
+      "community": 9,
       "norm_label": "transactionssearchfield.swift"
     },
     {
@@ -10030,7 +10030,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssearchfield_transactionssearchfield",
-      "community": 309,
+      "community": 9,
       "norm_label": "transactionssearchfield"
     },
     {
@@ -10040,7 +10040,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssearchfield_swift_string",
-      "community": 309,
+      "community": 9,
       "norm_label": "string"
     },
     {
@@ -10120,7 +10120,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_transactionstypechips",
-      "community": 198,
+      "community": 9,
       "norm_label": "transactionstypechips.swift"
     },
     {
@@ -10130,7 +10130,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "moneytracker_views_transactionstypechips_transactionstypechips",
-      "community": 198,
+      "community": 9,
       "norm_label": "transactionstypechips"
     },
     {
@@ -10140,7 +10140,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionstypechips_swift_cgfloat",
-      "community": 198,
+      "community": 9,
       "norm_label": "cgfloat"
     },
     {
@@ -10150,7 +10150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview",
-      "community": 194,
+      "community": 9,
       "norm_label": "transactionsview.swift"
     },
     {
@@ -10160,7 +10160,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_txfilter",
-      "community": 194,
+      "community": 9,
       "norm_label": "txfilter"
     },
     {
@@ -10170,7 +10170,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_txfilter_tutti",
-      "community": 194,
+      "community": 9,
       "norm_label": "tutti"
     },
     {
@@ -10180,7 +10180,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_txfilter_fisse",
-      "community": 194,
+      "community": 9,
       "norm_label": "fisse"
     },
     {
@@ -10190,7 +10190,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_txfilter_ricorrenti",
-      "community": 194,
+      "community": 9,
       "norm_label": "ricorrenti"
     },
     {
@@ -10200,7 +10200,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_txfilter_trasf",
-      "community": 194,
+      "community": 9,
       "norm_label": "trasf"
     },
     {
@@ -10210,7 +10210,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_txfilter_uscite",
-      "community": 194,
+      "community": 9,
       "norm_label": "uscite"
     },
     {
@@ -10220,7 +10220,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_txfilter_entrate",
-      "community": 194,
+      "community": 9,
       "norm_label": "entrate"
     },
     {
@@ -10250,7 +10250,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_swift_binding",
-      "community": 309,
+      "community": 9,
       "norm_label": "binding"
     },
     {
@@ -10280,7 +10280,7 @@
       "source_location": "L76",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_transactionsview_filtered",
-      "community": 194,
+      "community": 9,
       "norm_label": ".filtered()"
     },
     {
@@ -10320,7 +10320,7 @@
       "source_location": "L232",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_transactionsview_searchfield",
-      "community": 309,
+      "community": 9,
       "norm_label": ".searchfield()"
     },
     {
@@ -10330,7 +10330,7 @@
       "source_location": "L238",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_transactionsview_typechips",
-      "community": 198,
+      "community": 9,
       "norm_label": ".typechips()"
     },
     {
@@ -10370,7 +10370,7 @@
       "source_location": "L345",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_transactionsview_sublistcontent",
-      "community": 194,
+      "community": 9,
       "norm_label": ".sublistcontent()"
     },
     {
@@ -10400,7 +10400,7 @@
       "source_location": "L523",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_transactionsview_filterchip",
-      "community": 194,
+      "community": 9,
       "norm_label": ".filterchip()"
     },
     {
@@ -10410,7 +10410,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_swift_void",
-      "community": 194,
+      "community": 9,
       "norm_label": "void"
     },
     {
@@ -10440,7 +10440,7 @@
       "source_location": "L555",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_view",
-      "community": 194,
+      "community": 9,
       "norm_label": "view"
     },
     {
@@ -10450,7 +10450,7 @@
       "source_location": "L561",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_view_transferdeleteconfirmation",
-      "community": 194,
+      "community": 9,
       "norm_label": ".transferdeleteconfirmation()"
     },
     {
@@ -10460,29 +10460,29 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytrackertests_accountbalancetests_swift",
-      "community": 185,
+      "community": 4,
       "norm_label": "accountbalancetests.swift"
     },
     {
       "label": "Testing",
       "file_type": "code",
       "type": "module",
-      "source_file": "MoneyTrackerTests/SchemaMigrationTests.swift",
-      "source_location": "L1",
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L2",
       "_origin": "ast",
       "id": "testing",
-      "community": 185,
+      "community": 4,
       "norm_label": "testing"
     },
     {
       "label": "MoneyTracker",
       "file_type": "code",
       "type": "module",
-      "source_file": "MoneyTrackerTests/SchemaMigrationTests.swift",
-      "source_location": "L4",
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L3",
       "_origin": "ast",
       "id": "moneytracker",
-      "community": 185,
+      "community": 4,
       "norm_label": "moneytracker"
     },
     {
@@ -10492,7 +10492,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytrackertests_accountbalancetests_accountbalancetests",
-      "community": 183,
+      "community": 2,
       "norm_label": "accountbalancetests"
     },
     {
@@ -10502,7 +10502,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytrackertests_accountbalancetests_accountbalancetests_balancesreflectdonevsplanned",
-      "community": 183,
+      "community": 2,
       "norm_label": ".balancesreflectdonevsplanned()"
     },
     {
@@ -10512,7 +10512,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytrackertests_accountbalancetests_accountbalancetests_cacheinvalidatesondemand",
-      "community": 183,
+      "community": 2,
       "norm_label": ".cacheinvalidatesondemand()"
     },
     {
@@ -10522,7 +10522,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytrackertests_accountbalancetests_accountbalancetests_decimalavoidsbinaryroundingerrors",
-      "community": 183,
+      "community": 2,
       "norm_label": ".decimalavoidsbinaryroundingerrors()"
     },
     {
@@ -10532,7 +10532,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_balancetrailtests",
-      "community": 185,
+      "community": 4,
       "norm_label": "balancetrailtests.swift"
     },
     {
@@ -10672,7 +10672,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_categorytinttests",
-      "community": 185,
+      "community": 4,
       "norm_label": "categorytinttests.swift"
     },
     {
@@ -10722,7 +10722,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_currencyformattingtests",
-      "community": 185,
+      "community": 4,
       "norm_label": "currencyformattingtests.swift"
     },
     {
@@ -10732,7 +10732,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "moneytrackertests_currencyformattingtests_currencyformattingtests",
-      "community": 112,
+      "community": 2,
       "norm_label": "currencyformattingtests"
     },
     {
@@ -10742,7 +10742,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "moneytrackertests_currencyformattingtests_currencyformattingtests_acceptscommaanddot",
-      "community": 112,
+      "community": 2,
       "norm_label": ".acceptscommaanddot()"
     },
     {
@@ -10752,7 +10752,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "moneytrackertests_currencyformattingtests_currencyformattingtests_roundstotwodecimaldigits",
-      "community": 112,
+      "community": 2,
       "norm_label": ".roundstotwodecimaldigits()"
     },
     {
@@ -10762,7 +10762,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "moneytrackertests_currencyformattingtests_currencyformattingtests_invalidinputreturnsnil",
-      "community": 112,
+      "community": 2,
       "norm_label": ".invalidinputreturnsnil()"
     },
     {
@@ -10772,7 +10772,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "moneytrackertests_currencyformattingtests_currencyformattingtests_wholenumbersunaffected",
-      "community": 112,
+      "community": 2,
       "norm_label": ".wholenumbersunaffected()"
     },
     {
@@ -10812,7 +10812,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_demodataseedertests",
-      "community": 185,
+      "community": 4,
       "norm_label": "demodataseedertests.swift"
     },
     {
@@ -10822,7 +10822,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "moneytrackertests_demodataseedertests_demodataseedertests",
-      "community": 181,
+      "community": 4,
       "norm_label": "demodataseedertests"
     },
     {
@@ -10832,7 +10832,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "moneytrackertests_demodataseedertests_demodataseedertests_showcaseandreset",
-      "community": 181,
+      "community": 6,
       "norm_label": ".showcaseandreset()"
     },
     {
@@ -10842,7 +10842,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_fontregistrationtests",
-      "community": 185,
+      "community": 4,
       "norm_label": "fontregistrationtests.swift"
     },
     {
@@ -10852,7 +10852,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "moneytrackertests_fontregistrationtests_fontregistrationtests",
-      "community": 311,
+      "community": 11,
       "norm_label": "fontregistrationtests"
     },
     {
@@ -10862,7 +10862,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "moneytrackertests_fontregistrationtests_fontregistrationtests_fontsareregistered",
-      "community": 311,
+      "community": 11,
       "norm_label": ".fontsareregistered()"
     },
     {
@@ -10872,7 +10872,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytrackertests_keywordcategoryclassifiertests_swift",
-      "community": 185,
+      "community": 4,
       "norm_label": "keywordcategoryclassifiertests.swift"
     },
     {
@@ -10962,7 +10962,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_lastusedcategorytests",
-      "community": 185,
+      "community": 4,
       "norm_label": "lastusedcategorytests.swift"
     },
     {
@@ -11102,7 +11102,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencecalculatortests",
-      "community": 185,
+      "community": 4,
       "norm_label": "recurrencecalculatortests.swift"
     },
     {
@@ -11292,7 +11292,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationcachetests",
-      "community": 185,
+      "community": 4,
       "norm_label": "recurrencepresentationcachetests.swift"
     },
     {
@@ -11302,7 +11302,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationcachetests_recurrencepresentationcachetests",
-      "community": 35,
+      "community": 310,
       "norm_label": "recurrencepresentationcachetests"
     },
     {
@@ -11312,7 +11312,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationcachetests_recurrencepresentationcachetests_invalidation",
-      "community": 35,
+      "community": 310,
       "norm_label": ".invalidation()"
     },
     {
@@ -11332,7 +11332,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_recurrencepresentationtests",
-      "community": 17,
+      "community": 310,
       "norm_label": "recurrencepresentationtests"
     },
     {
@@ -11342,7 +11342,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_recurrencepresentationtests_date",
-      "community": 17,
+      "community": 310,
       "norm_label": ".date()"
     },
     {
@@ -11352,7 +11352,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_swift_int",
-      "community": 17,
+      "community": 310,
       "norm_label": "int"
     },
     {
@@ -11362,7 +11362,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_swift_date",
-      "community": 17,
+      "community": 310,
       "norm_label": "date"
     },
     {
@@ -11372,7 +11372,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_recurrencepresentationtests_resolvesoriginaldateaftercopywasmovedbackwards",
-      "community": 17,
+      "community": 310,
       "norm_label": ".resolvesoriginaldateaftercopywasmovedbackwards()"
     },
     {
@@ -11382,7 +11382,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_recurrencepresentationtests_legacycopydoesnotopenserieseditor",
-      "community": 17,
+      "community": 310,
       "norm_label": ".legacycopydoesnotopenserieseditor()"
     },
     {
@@ -11392,7 +11392,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_recurringcollisiontests",
-      "community": 185,
+      "community": 4,
       "norm_label": "recurringcollisiontests.swift"
     },
     {
@@ -11402,7 +11402,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytrackertests_recurringcollisiontests_recurringcollisiontests",
-      "community": 185,
+      "community": 4,
       "norm_label": "recurringcollisiontests"
     },
     {
@@ -11422,7 +11422,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_recurringdecimalroundtriptests",
-      "community": 185,
+      "community": 4,
       "norm_label": "recurringdecimalroundtriptests.swift"
     },
     {
@@ -11432,7 +11432,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "moneytrackertests_recurringdecimalroundtriptests_recurringdecimalroundtriptests",
-      "community": 226,
+      "community": 2,
       "norm_label": "recurringdecimalroundtriptests"
     },
     {
@@ -11442,7 +11442,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "moneytrackertests_recurringdecimalroundtriptests_recurringdecimalroundtriptests_centssurviveswiftdataanddtojson",
-      "community": 226,
+      "community": 2,
       "norm_label": ".centssurviveswiftdataanddtojson()"
     },
     {
@@ -11452,7 +11452,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "moneytrackertests_recurringdecimalroundtriptests_recurringdecimalroundtriptests_saverule",
-      "community": 226,
+      "community": 2,
       "norm_label": ".saverule()"
     },
     {
@@ -11462,7 +11462,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_recurringdecimalroundtriptests_swift_schema",
-      "community": 226,
+      "community": 2,
       "norm_label": "schema"
     },
     {
@@ -11472,7 +11472,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "modelconfiguration",
-      "community": 181,
+      "community": 2,
       "norm_label": "modelconfiguration"
     },
     {
@@ -11482,7 +11482,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_recurringdecimalroundtriptests_swift_uuid",
-      "community": 226,
+      "community": 2,
       "norm_label": "uuid"
     },
     {
@@ -11652,7 +11652,7 @@
       "source_location": "L157",
       "_origin": "ast",
       "id": "moneytrackertests_recurringmaterializertests_recurringmaterializertests_deterministiccontainers",
-      "community": 8,
+      "community": 11,
       "norm_label": ".deterministiccontainers()"
     },
     {
@@ -11702,7 +11702,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_recurringrulesynctests",
-      "community": 185,
+      "community": 4,
       "norm_label": "recurringrulesynctests.swift"
     },
     {
@@ -11812,7 +11812,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_recurringserieseditortests",
-      "community": 185,
+      "community": 4,
       "norm_label": "recurringserieseditortests.swift"
     },
     {
@@ -12142,7 +12142,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_schemamigrationtests",
-      "community": 185,
+      "community": 4,
       "norm_label": "schemamigrationtests.swift"
     },
     {
@@ -12152,7 +12152,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "moneytrackertests_schemamigrationtests_schemamigrationtests",
-      "community": 181,
+      "community": 2,
       "norm_label": "schemamigrationtests"
     },
     {
@@ -12162,7 +12162,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "moneytrackertests_schemamigrationtests_schemamigrationtests_seedv1store",
-      "community": 181,
+      "community": 2,
       "norm_label": ".seedv1store()"
     },
     {
@@ -12172,7 +12172,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_schemamigrationtests_swift_url",
-      "community": 181,
+      "community": 2,
       "norm_label": "url"
     },
     {
@@ -12182,7 +12182,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "moneytrackertests_schemamigrationtests_schemamigrationtests_migratesdoubletodecimal",
-      "community": 181,
+      "community": 2,
       "norm_label": ".migratesdoubletodecimal()"
     },
     {
@@ -12192,7 +12192,7 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "moneytrackertests_schemamigrationtests_schemamigrationtests_seedv2store",
-      "community": 181,
+      "community": 2,
       "norm_label": ".seedv2store()"
     },
     {
@@ -12202,7 +12202,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_schemamigrationtests_swift_uuid",
-      "community": 181,
+      "community": 2,
       "norm_label": "uuid"
     },
     {
@@ -12212,7 +12212,7 @@
       "source_location": "L112",
       "_origin": "ast",
       "id": "moneytrackertests_schemamigrationtests_schemamigrationtests_migratesv2tov3withoutconvertinglegacy",
-      "community": 181,
+      "community": 2,
       "norm_label": ".migratesv2tov3withoutconvertinglegacy()"
     },
     {
@@ -12222,7 +12222,7 @@
       "source_location": "L156",
       "_origin": "ast",
       "id": "moneytrackertests_schemamigrationtests_schemamigrationtests_persistsv3rule",
-      "community": 181,
+      "community": 2,
       "norm_label": ".persistsv3rule()"
     },
     {
@@ -12232,8 +12232,88 @@
       "source_location": "L197",
       "_origin": "ast",
       "id": "moneytrackertests_schemamigrationtests_schemamigrationtests_migratesv1throughv3",
-      "community": 181,
+      "community": 2,
       "norm_label": ".migratesv1throughv3()"
+    },
+    {
+      "label": "StrictAmountParsingTests.swift",
+      "file_type": "code",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "moneytrackertests_strictamountparsingtests",
+      "community": 4,
+      "norm_label": "strictamountparsingtests.swift"
+    },
+    {
+      "label": "StrictAmountParsingTests",
+      "file_type": "code",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "moneytrackertests_strictamountparsingtests_strictamountparsingtests",
+      "community": 2,
+      "norm_label": "strictamountparsingtests"
+    },
+    {
+      "label": ".rejectsPartialNumbers()",
+      "file_type": "code",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "moneytrackertests_strictamountparsingtests_strictamountparsingtests_rejectspartialnumbers",
+      "community": 2,
+      "norm_label": ".rejectspartialnumbers()"
+    },
+    {
+      "label": ".rejectsEmptyInput()",
+      "file_type": "code",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "moneytrackertests_strictamountparsingtests_strictamountparsingtests_rejectsemptyinput",
+      "community": 2,
+      "norm_label": ".rejectsemptyinput()"
+    },
+    {
+      "label": ".preservesValidInputs()",
+      "file_type": "code",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "moneytrackertests_strictamountparsingtests_strictamountparsingtests_preservesvalidinputs",
+      "community": 2,
+      "norm_label": ".preservesvalidinputs()"
+    },
+    {
+      "label": "StrictRecurrenceAmountTests.swift",
+      "file_type": "code",
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "moneytrackertests_strictrecurrenceamounttests",
+      "community": 4,
+      "norm_label": "strictrecurrenceamounttests.swift"
+    },
+    {
+      "label": "StrictRecurrenceAmountTests",
+      "file_type": "code",
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "moneytrackertests_strictrecurrenceamounttests_strictrecurrenceamounttests",
+      "community": 35,
+      "norm_label": "strictrecurrenceamounttests"
+    },
+    {
+      "label": ".validatesWholeOverride()",
+      "file_type": "code",
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "moneytrackertests_strictrecurrenceamounttests_strictrecurrenceamounttests_validateswholeoverride",
+      "community": 35,
+      "norm_label": ".validateswholeoverride()"
     },
     {
       "label": "AccountFlowUITests.swift",
@@ -14297,20 +14377,60 @@
       "norm_label": "s-35 [x] spezzare transactionsview (864 righe)"
     },
     {
-      "label": "S-36 [ ] Potare i rami vecchi",
+      "label": "S-36 [~] Potare i rami vecchi \u2014 gruppo A (8 rami mergiati) cancellato 2026-11-17 11:56 in locale e su origin. Restano da decidere i 7 fix/nightly-* e tmp-stash-inspect (lavoro non in main, non toccati)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
       "source_location": "L173",
       "_origin": "ast",
-      "id": "cantiere_piano_s_36_potare_i_rami_vecchi",
+      "id": "cantiere_piano_s_36_potare_i_rami_vecchi_gruppo_a_8_rami_mergiati_cancellato_2026_11_17_11_56_in_locale_e_su_origin_restano_da_decidere_i_7_fix_nightly_e_tmp_stash_inspect_lavoro_non_in_main_non_toccati",
       "community": 38,
-      "norm_label": "s-36 [ ] potare i rami vecchi"
+      "norm_label": "s-36 [~] potare i rami vecchi \u2014 gruppo a (8 rami mergiati) cancellato 2026-11-17 11:56 in locale e su origin. restano da decidere i 7 fix/nightly-* e tmp-stash-inspect (lavoro non in main, non toccati)"
+    },
+    {
+      "label": "S-37 [?] Commissione 2026-11-17 \u2014 correzioni fuori restyling (serve OK di Matteo: zone Sync/Formatting/App)",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L176",
+      "_origin": "ast",
+      "id": "cantiere_piano_s_37_commissione_2026_11_17_correzioni_fuori_restyling_serve_ok_di_matteo_zone_sync_formatting_app",
+      "community": 38,
+      "norm_label": "s-37 [?] commissione 2026-11-17 \u2014 correzioni fuori restyling (serve ok di matteo: zone sync/formatting/app)"
+    },
+    {
+      "label": "S-38 [ ] Commissione \u2014 pacchetto A (Codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per \u00abSalta mese/Termina\u2026\u00bb, \u00ab\u2022\u2022\u2022\u2022 \u20ac\u00bb fisso, detector ricalcolato a ogni render, set di ID regole in `movementList`, force-unwrap (RecurrenceControls:69, RecurringSeriesDetector:58-66), `RecurringMaterializer` duplica `snapshot`, tipo/selected ridondanti in `typeChips`.",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L179",
+      "_origin": "ast",
+      "id": "cantiere_piano_s_38_commissione_pacchetto_a_codex_virtuali_che_ignorano_filtri_avanzati_date_filtro_personalizzato_non_salvate_conferma_per_salta_mese_termina_fisso_detector_ricalcolato_a_ogni_render_set_di_id_regole_in_movementlist_force_unwrap_recurrencecontrols_69_recurringseriesdetector_58_66_recurringmaterializer_duplica_snapshot_tipo_selected_ridondanti_in_typechips",
+      "community": 38,
+      "norm_label": "s-38 [ ] commissione \u2014 pacchetto a (codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per \u00absalta mese/termina...\u00bb, \u00ab\u2022\u2022\u2022\u2022 \u20ac\u00bb fisso, detector ricalcolato a ogni render, set di id regole in `movementlist`, force-unwrap (recurrencecontrols:69, recurringseriesdetector:58-66), `recurringmaterializer` duplica `snapshot`, tipo/selected ridondanti in `typechips`."
+    },
+    {
+      "label": "S-39 [ ] Commissione \u2014 traduzioni (redattore): ~40 stringhe visibili in italiano in tutte le lingue (Settings, notifiche, Login/SignUp, AuditLog, Budget, filtri\u2026), frasi composte a pezzi, chiavi doppie \u00abFine\u00bb/\u00abTipo\u00bb. Poi approvazione Matteo.",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L181",
+      "_origin": "ast",
+      "id": "cantiere_piano_s_39_commissione_traduzioni_redattore_40_stringhe_visibili_in_italiano_in_tutte_le_lingue_settings_notifiche_login_signup_auditlog_budget_filtri_frasi_composte_a_pezzi_chiavi_doppie_fine_tipo_poi_approvazione_matteo",
+      "community": 38,
+      "norm_label": "s-39 [ ] commissione \u2014 traduzioni (redattore): ~40 stringhe visibili in italiano in tutte le lingue (settings, notifiche, login/signup, auditlog, budget, filtri...), frasi composte a pezzi, chiavi doppie \u00abfine\u00bb/\u00abtipo\u00bb. poi approvazione matteo."
+    },
+    {
+      "label": "S-40 [ ] Commissione \u2014 font fissi (Codex): ~200 `.font(.system(size:))` \u2192 token `DS.Typo.*` (Dynamic Type), `SectionLabel` incluso.",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L183",
+      "_origin": "ast",
+      "id": "cantiere_piano_s_40_commissione_font_fissi_codex_200_font_system_size_token_ds_typo_dynamic_type_sectionlabel_incluso",
+      "community": 38,
+      "norm_label": "s-40 [ ] commissione \u2014 font fissi (codex): ~200 `.font(.system(size:))` \u2192 token `ds.typo.*` (dynamic type), `sectionlabel` incluso."
     },
     {
       "label": "S-15 [x] Diagnosticare due test UI che non trovano il movimento appena salvato",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L176",
+      "source_location": "L185",
       "_origin": "ast",
       "id": "cantiere_piano_s_15_x_diagnosticare_due_test_ui_che_non_trovano_il_movimento_appena_salvato",
       "community": 38,
@@ -14320,7 +14440,7 @@
       "label": "S-7p [x] Plurale dei giorni rimanenti",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L189",
+      "source_location": "L198",
       "_origin": "ast",
       "id": "cantiere_piano_s_7p_x_plurale_dei_giorni_rimanenti",
       "community": 38,
@@ -14330,7 +14450,7 @@
       "label": "S-14 [x] Statistiche: confronto mese su mese \u2014 rimosso su richiesta di Matteo 2026-11-16",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L193",
+      "source_location": "L202",
       "_origin": "ast",
       "id": "cantiere_piano_s_14_x_statistiche_confronto_mese_su_mese_rimosso_su_richiesta_di_matteo_2026_11_16",
       "community": 38,
@@ -14340,7 +14460,7 @@
       "label": "S-10 [x] (2026-11-16: Commissione S-10, nessun difetto bloccante; 92 unit verdi; UI 42/45 nel run completo, i 3 falliti rilanciati singolarmente verdi; 2 voti 9 per commento obsoleto e sentence() lunga, corretti in 1748ef5 senza nuova valutazione) Verifica finale + Commissione Suprema",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L202",
+      "source_location": "L211",
       "_origin": "ast",
       "id": "cantiere_piano_s_10_x_2026_11_16_commissione_s_10_nessun_difetto_bloccante_92_unit_verdi_ui_42_45_nel_run_completo_i_3_falliti_rilanciati_singolarmente_verdi_2_voti_9_per_commento_obsoleto_e_sentence_lunga_corretti_in_1748ef5_senza_nuova_valutazione_verifica_finale_commissione_suprema",
       "community": 38,
@@ -14350,7 +14470,7 @@
       "label": "Fatti",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L211",
+      "source_location": "L220",
       "_origin": "ast",
       "id": "cantiere_piano_fatti",
       "community": 38,
@@ -14360,7 +14480,7 @@
       "label": "S-16 [?] FUORI DAL RESTYLING (serve decisione di Matteo: test su precisione Decimal elevata) Verificare precisione Decimal elevata nella persistenza RecurringRule",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L230",
+      "source_location": "L239",
       "_origin": "ast",
       "id": "cantiere_piano_s_16_fuori_dal_restyling_serve_decisione_di_matteo_test_su_precisione_decimal_elevata_verificare_precisione_decimal_elevata_nella_persistenza_recurringrule",
       "community": 38,
@@ -14370,7 +14490,7 @@
       "label": "S-17 [x] (collaudo ok 2026-11-14) Pull: non cancellare regole locali non ancora spedite",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L236",
+      "source_location": "L245",
       "_origin": "ast",
       "id": "cantiere_piano_s_17_x_collaudo_ok_2026_11_14_pull_non_cancellare_regole_locali_non_ancora_spedite",
       "community": 38,
@@ -14380,7 +14500,7 @@
       "label": "S-18 [x] Rifinitura grafica dei virtuali e delle serie programmate",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L244",
+      "source_location": "L253",
       "_origin": "ast",
       "id": "cantiere_piano_s_18_x_rifinitura_grafica_dei_virtuali_e_delle_serie_programmate",
       "community": 38,
@@ -14390,7 +14510,7 @@
       "label": "S-19 [x] Revisione testi e traduzioni S-13g \u00b7 collaudato 2026-11-16 09:47: collaudo ok (solo 7 strings + .cantiere, plutil ok, 380 chiavi allineate, nessuna chiave persa, 0 marker). Approvazione Matteo in APPROVAZIONI.md ancora \u23f3. Note: de \"Keine\" per \"Conto\" (neutro) \u2192 \"Keines\"; es \"Ninguno\" per \"Conto\" (cuenta) \u2192 \"Ninguna\"; de riga 103 resta \"Vorkommen\"; zh riga 103 \"\u8bb0\u5f55\" per occorrenze (vs \u9879\u76ee). \u00b7 **chiuso 2026-11-16 09:48: collaudo ok** (5ca721e): de \u00abKeines\u00bb/\u00abTermine\u00bb, es \u00abNinguna\u00bb, zh \u00ab\u9879\u76ee\u00bb applicati, chiavi invariate, plutil ok, nessun altro \u00abVorkommen\u00bb/\u00ab\u8bb0\u5f55\u00bb residuo (99 \u00ab\u5386\u53f2\u8bb0\u5f55\u00bb = Storico ok). Approvazione Matteo in APPROVAZIONI.md resta \u23f3; \u00abTermin\u00bb (de) e i termini segnalati vanno riletti da un madrelingua.",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L250",
+      "source_location": "L259",
       "_origin": "ast",
       "id": "cantiere_piano_s_19_x_revisione_testi_e_traduzioni_s_13g_collaudato_2026_11_16_09_47_collaudo_ok_solo_7_strings_cantiere_plutil_ok_380_chiavi_allineate_nessuna_chiave_persa_0_marker_approvazione_matteo_in_approvazioni_md_ancora_note_de_keine_per_conto_neutro_keines_es_ninguno_per_conto_cuenta_ninguna_de_riga_103_resta_vorkommen_zh_riga_103_\u8bb0\u5f55_per_occorrenze_vs_\u9879\u76ee_chiuso_2026_11_16_09_48_collaudo_ok_5ca721e_de_keines_termine_es_ninguna_zh_\u9879\u76ee_applicati_chiavi_invariate_plutil_ok_nessun_altro_vorkommen_\u8bb0\u5f55_residuo_99_\u5386\u53f2\u8bb0\u5f55_storico_ok_approvazione_matteo_in_approvazioni_md_resta_termin_de_e_i_termini_segnalati_vanno_riletti_da_un_madrelingua",
       "community": 38,
@@ -14400,7 +14520,7 @@
       "label": "S-20 [x] collaudato 2026-11-14 11:06 (bf9727e: guard ok, regressione ok, 68 unit verdi) CONFERMATO Verificare editor di una serie terminata prima della prima occorrenza",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L254",
+      "source_location": "L263",
       "_origin": "ast",
       "id": "cantiere_piano_s_20_x_collaudato_2026_11_14_11_06_bf9727e_guard_ok_regressione_ok_68_unit_verdi_confermato_verificare_editor_di_una_serie_terminata_prima_della_prima_occorrenza",
       "community": 38,
@@ -14410,7 +14530,7 @@
       "label": "S-21 [x] Performance: ricalcoli per riga in TransactionsView (Commissione S-13h, giudice 4: 8/10)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L263",
+      "source_location": "L272",
       "_origin": "ast",
       "id": "cantiere_piano_s_21_x_performance_ricalcoli_per_riga_in_transactionsview_commissione_s_13h_giudice_4_8_10",
       "community": 38,
@@ -14420,7 +14540,7 @@
       "label": "S-22 [x] Architettura: spezzare TransactionsView (giudice 2: 8/10)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L269",
+      "source_location": "L278",
       "_origin": "ast",
       "id": "cantiere_piano_s_22_x_architettura_spezzare_transactionsview_giudice_2_8_10",
       "community": 38,
@@ -14430,7 +14550,7 @@
       "label": "Commissione Suprema S-13h (2026-11-14 11:08)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L272",
+      "source_location": "L281",
       "_origin": "ast",
       "id": "cantiere_piano_commissione_suprema_s_13h_2026_11_14_11_08",
       "community": 38,
@@ -14440,7 +14560,7 @@
       "label": "S-23 [x] (2026-11-14 12:55, collaudo ok) Editor singola occorrenza e indicatore ricorrenza",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L275",
+      "source_location": "L284",
       "_origin": "ast",
       "id": "cantiere_piano_s_23_x_2026_11_14_12_55_collaudo_ok_editor_singola_occorrenza_e_indicatore_ricorrenza",
       "community": 38,
@@ -14450,7 +14570,7 @@
       "label": "S-24 [x] Eliminazione ricorrenze: regressioni e confronto per giorno originale",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L284",
+      "source_location": "L293",
       "_origin": "ast",
       "id": "cantiere_piano_s_24_x_eliminazione_ricorrenze_regressioni_e_confronto_per_giorno_originale",
       "community": 38,
@@ -14460,7 +14580,7 @@
       "label": "S-25 [x] Uniformit\u00e0 campi ricorrenti secondo scope (sostituisce S-23)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L291",
+      "source_location": "L300",
       "_origin": "ast",
       "id": "cantiere_piano_s_25_x_uniformit\u00e0_campi_ricorrenti_secondo_scope_sostituisce_s_23",
       "community": 38,
@@ -14470,7 +14590,7 @@
       "label": "S-26 [x] Demo vetrina completa (DemoDataSeeder) \u2014 2026-11-16 01:22 collaudo ok",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L300",
+      "source_location": "L309",
       "_origin": "ast",
       "id": "cantiere_piano_s_26_x_demo_vetrina_completa_demodataseeder_2026_11_16_01_22_collaudo_ok",
       "community": 38,
@@ -14480,7 +14600,7 @@
       "label": "S-27 [x] Migliorie dal collaudo di S-24/S-25/S-15 (suggerite 2026-11-15)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L309",
+      "source_location": "L318",
       "_origin": "ast",
       "id": "cantiere_piano_s_27_x_migliorie_dal_collaudo_di_s_24_s_25_s_15_suggerite_2026_11_15",
       "community": 38,
@@ -14490,7 +14610,7 @@
       "label": "S-28 [x] Tab bar affollata con Dynamic Type XL",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L319",
+      "source_location": "L328",
       "_origin": "ast",
       "id": "cantiere_piano_s_28_x_tab_bar_affollata_con_dynamic_type_xl",
       "community": 38,
@@ -14500,7 +14620,7 @@
       "label": "S-29 [x] Correzioni Commissione Suprema S-13h (autorizzate da Matteo 2026-11-16) \u2014 2026-11-16 collaudo ok (diff a1c6c89; build+81 unit+3 UI dichiarati dall impresa, non rilanciati)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L328",
+      "source_location": "L337",
       "_origin": "ast",
       "id": "cantiere_piano_s_29_x_correzioni_commissione_suprema_s_13h_autorizzate_da_matteo_2026_11_16_2026_11_16_collaudo_ok_diff_a1c6c89_build_81_unit_3_ui_dichiarati_dall_impresa_non_rilanciati",
       "community": 38,
@@ -14510,7 +14630,7 @@
       "label": "S-30 [x] Categoria dall'ultima volta (nuova funzione) \u2014 2026-11-16 collaudo ok (traduzioni ancora \u23f3 per Matteo)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L338",
+      "source_location": "L347",
       "_origin": "ast",
       "id": "cantiere_piano_s_30_x_categoria_dall_ultima_volta_nuova_funzione_2026_11_16_collaudo_ok_traduzioni_ancora_per_matteo",
       "community": 38,
@@ -14520,7 +14640,7 @@
       "label": "S-31 [x] Rimozione confronto mese su mese \u2014 2026-11-16 collaudo ok",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L350",
+      "source_location": "L359",
       "_origin": "ast",
       "id": "cantiere_piano_s_31_x_rimozione_confronto_mese_su_mese_2026_11_16_collaudo_ok",
       "community": 38,
@@ -14530,7 +14650,7 @@
       "label": "S-32 [x] Manutenzione: DemoShowcaseUITests.testShowcaseScreens rosso (anche su main)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L359",
+      "source_location": "L368",
       "_origin": "ast",
       "id": "cantiere_piano_s_32_x_manutenzione_demoshowcaseuitests_testshowcasescreens_rosso_anche_su_main",
       "community": 38,
@@ -14540,7 +14660,7 @@
       "label": "S-33 [?] Verificare RecurrenceFlowUITests.testCreateEditAndDeleteScheduledSeries",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L368",
+      "source_location": "L377",
       "_origin": "ast",
       "id": "cantiere_piano_s_33_verificare_recurrenceflowuitests_testcreateeditanddeletescheduledseries",
       "community": 38,
@@ -16069,7 +16189,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 307,
+      "community": 2,
       "norm_label": "app icon (dark mode, 1024x1024)",
       "community_name": "Community 12",
       "id": "moneytracker_assets_xcassets_appicon_appiconset_appicon_dark_1024"
@@ -16083,7 +16203,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 307,
+      "community": 2,
       "norm_label": "app icon (light mode, 1024x1024)",
       "community_name": "Community 12",
       "id": "moneytracker_assets_xcassets_appicon_appiconset_appicon_light_1024"
@@ -16097,7 +16217,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 307,
+      "community": 2,
       "norm_label": "app icon (tinted, 1024x1024)",
       "community_name": "Community 12",
       "id": "moneytracker_assets_xcassets_appicon_appiconset_appicon_tinted_1024"
@@ -20561,6 +20681,28 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictamountparsingtests",
+      "target": "foundation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictrecurrenceamounttests",
+      "target": "foundation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Auth/SupabaseConfig.swift",
       "source_location": "L1",
       "weight": 1.0,
@@ -22432,7 +22574,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L117",
+      "source_location": "L121",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "target": "moneytracker_debug_demodataseeder_demodataseeder_forcereset"
@@ -22465,7 +22607,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L113",
+      "source_location": "L117",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "target": "moneytracker_debug_demodataseeder_demodataseeder_seedifneeded"
@@ -23524,7 +23666,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L569",
+      "source_location": "L572",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_clearlocaldata",
       "target": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_clearall"
@@ -24653,7 +24795,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L82",
+      "source_location": "L85",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "target": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_requestpermission"
@@ -24708,7 +24850,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L83",
+      "source_location": "L86",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "target": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_schedulefixedreminderifneeded"
@@ -25059,6 +25201,17 @@
       "target": "moneytracker_domain_recurrencecalculator_recurrenceexception"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictrecurrenceamounttests_strictrecurrenceamounttests_validateswholeoverride",
+      "target": "moneytracker_domain_recurrencecalculator_recurrenceexception"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Domain/RecurrenceCalculator.swift",
@@ -25106,7 +25259,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Domain/RecurrenceCalculator.swift",
-      "source_location": "L180",
+      "source_location": "L185",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_domain_recurrencecalculator_recurrencecalculator_occurrenceid",
@@ -25261,7 +25414,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Domain/RecurrenceCalculator.swift",
-      "source_location": "L180",
+      "source_location": "L185",
       "weight": 1.0,
       "source": "moneytracker_domain_recurrencecalculator_recurrencecalculator_occurrenceid",
       "target": "moneytracker_domain_recurrencecalculator_swift_uuid",
@@ -25574,6 +25727,17 @@
       "target": "moneytracker_domain_recurrencecalculator_rulesnapshot"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictrecurrenceamounttests_strictrecurrenceamounttests_validateswholeoverride",
+      "target": "moneytracker_domain_recurrencecalculator_rulesnapshot"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Domain/RecurrenceCalculator.swift",
@@ -25756,7 +25920,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Domain/RecurrenceCalculator.swift",
-      "source_location": "L180",
+      "source_location": "L185",
       "weight": 1.0,
       "source": "moneytracker_domain_recurrencecalculator_recurrencecalculator",
       "target": "moneytracker_domain_recurrencecalculator_recurrencecalculator_occurrenceid",
@@ -25960,6 +26124,17 @@
       "target": "moneytracker_domain_recurrencecalculator_recurrencecalculator"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictrecurrenceamounttests_strictrecurrenceamounttests_validateswholeoverride",
+      "target": "moneytracker_domain_recurrencecalculator_recurrencecalculator"
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Domain/RecurrenceCalculator.swift",
@@ -26100,6 +26275,17 @@
       "source_location": "L76",
       "weight": 1.0,
       "source": "moneytracker_domain_recurringserieseditor_recurringserieseditor_apply",
+      "target": "moneytracker_domain_recurrencecalculator_recurrencecalculator_monthinterval"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictrecurrenceamounttests_strictrecurrenceamounttests_validateswholeoverride",
       "target": "moneytracker_domain_recurrencecalculator_recurrencecalculator_monthinterval"
     },
     {
@@ -26272,7 +26458,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Domain/RecurrenceCalculator.swift",
-      "source_location": "L170",
+      "source_location": "L174",
       "weight": 1.0,
       "source": "moneytracker_domain_recurrencecalculator_recurrencecalculator_occurrences",
       "target": "moneytracker_formatting_currencyformatting_decimal",
@@ -26424,6 +26610,17 @@
     {
       "relation": "calls",
       "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictrecurrenceamounttests_strictrecurrenceamounttests_validateswholeoverride",
+      "target": "moneytracker_domain_recurrencecalculator_recurrencecalculator_occurrences"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/Domain/RecurringSeriesEditor.swift",
@@ -26554,7 +26751,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L279",
+      "source_location": "L283",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_schedulerecurrencerefresh",
       "target": "moneytracker_domain_recurringmaterializer_recurringmaterializer"
@@ -26903,7 +27100,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseries",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -26976,7 +27173,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseriesdetector_detect",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -27031,7 +27228,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseriesdetector_groupkey",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -27075,7 +27272,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseriesdetector_inferfrequency",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -27166,7 +27363,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L14",
+      "source_location": "L17",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
       "target": "moneytracker_domain_recurringserieseditor_recurrenceoperationstatus"
@@ -27254,7 +27451,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L278",
+      "source_location": "L282",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_schedulerecurrencerefresh",
       "target": "moneytracker_domain_recurringserieseditor_recurrenceoperationstatus_perform"
@@ -28862,7 +29059,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L117",
+      "source_location": "L121",
       "weight": 1.0,
       "source": "moneytracker_formatting_currencyformatting",
       "target": "moneytracker_formatting_currencyformatting_date",
@@ -28892,7 +29089,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L86",
+      "source_location": "L90",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_formatting_currencyformatting_decimal",
@@ -28903,7 +29100,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L79",
+      "source_location": "L83",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_formatting_currencyformatting_decimal_init",
@@ -29147,7 +29344,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L386",
+      "source_location": "L388",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_scheduleretry",
       "target": "moneytracker_formatting_currencyformatting_double"
@@ -29277,7 +29474,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L121",
+      "source_location": "L125",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_formatting_currencyformatting_date",
@@ -29288,7 +29485,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L106",
+      "source_location": "L110",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_formatting_currencyformatting_decimal",
@@ -29310,7 +29507,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L80",
+      "source_location": "L84",
       "weight": 1.0,
       "context": "call",
       "source": "moneytracker_formatting_currencyformatting_decimal_init",
@@ -30059,6 +30256,28 @@
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictamountparsingtests_strictamountparsingtests_preservesvalidinputs",
+      "target": "moneytracker_formatting_currencyformatting_decimal"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictrecurrenceamounttests_strictrecurrenceamounttests_validateswholeoverride",
+      "target": "moneytracker_formatting_currencyformatting_decimal"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
       "source_file": "/Users/matteo/Desktop/MoneyTracker/MoneyTrackerTests/AccountBalanceTests.swift",
       "source_location": "L19",
       "weight": 1.0,
@@ -30191,6 +30410,39 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictamountparsingtests_strictamountparsingtests_preservesvalidinputs",
+      "target": "moneytracker_formatting_currencyformatting_decimal_parseamount"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictamountparsingtests_strictamountparsingtests_rejectsemptyinput",
+      "target": "moneytracker_formatting_currencyformatting_decimal_parseamount"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictamountparsingtests_strictamountparsingtests_rejectspartialnumbers",
+      "target": "moneytracker_formatting_currencyformatting_decimal_parseamount"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "/Users/matteo/Desktop/MoneyTracker/MoneyTracker/Views/AddTransferView.swift",
       "source_location": "L198",
       "weight": 1.0,
@@ -30223,7 +30475,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L134",
+      "source_location": "L138",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_formatting_currencyformatting_date_issamemonth",
@@ -30234,7 +30486,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L137",
+      "source_location": "L141",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_formatting_currencyformatting_date_issameweek",
@@ -30245,7 +30497,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L140",
+      "source_location": "L144",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_formatting_currencyformatting_date_issameyear",
@@ -30256,7 +30508,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L134",
+      "source_location": "L138",
       "weight": 1.0,
       "context": "return_type",
       "source": "moneytracker_formatting_currencyformatting_date_issamemonth",
@@ -30267,7 +30519,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L137",
+      "source_location": "L141",
       "weight": 1.0,
       "context": "return_type",
       "source": "moneytracker_formatting_currencyformatting_date_issameweek",
@@ -30278,7 +30530,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Formatting/CurrencyFormatting.swift",
-      "source_location": "L140",
+      "source_location": "L144",
       "weight": 1.0,
       "context": "return_type",
       "source": "moneytracker_formatting_currencyformatting_date_issameyear",
@@ -30343,7 +30595,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L66",
+      "source_location": "L69",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "target": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_formattercache_registerlocaleobserver"
@@ -30840,7 +31092,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L692",
+      "source_location": "L696",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_pull",
       "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype"
@@ -31327,7 +31579,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_models_account_account",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -31624,6 +31876,17 @@
     },
     {
       "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Views/BudgetView.swift",
+      "source_location": "L90",
+      "weight": 1.0,
+      "context": "field",
+      "source": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_addbudgetview",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
@@ -31634,12 +31897,67 @@
       "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category"
     },
     {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Views/CategoryManagementView.swift",
+      "source_location": "L203",
+      "weight": 1.0,
+      "context": "field",
+      "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Views/CategoryManagementView.swift",
+      "source_location": "L338",
+      "weight": 1.0,
+      "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview_save",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Views/CategoryManagementView.swift",
+      "source_location": "L18",
+      "weight": 1.0,
+      "context": "field",
+      "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Views/CategoryManagementView.swift",
+      "source_location": "L26",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview_txcount",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Views/CategoryManagementView.swift",
+      "source_location": "L158",
+      "weight": 1.0,
+      "context": "field",
+      "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categoryrow",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L79",
+      "source_location": "L82",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_seedifneeded"
@@ -31698,72 +32016,6 @@
       "weight": 1.0,
       "source": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_migrateiconsifneeded",
       "target": "users_matteo_desktop_moneytracker_moneytracker_persistence_modelcontextsaving_modelcontext_safesave"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Views/BudgetView.swift",
-      "source_location": "L90",
-      "weight": 1.0,
-      "context": "field",
-      "source": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_addbudgetview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_migrateiconsifneeded",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Views/CategoryManagementView.swift",
-      "source_location": "L203",
-      "weight": 1.0,
-      "context": "field",
-      "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_migrateiconsifneeded",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Views/CategoryManagementView.swift",
-      "source_location": "L338",
-      "weight": 1.0,
-      "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview_save",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_migrateiconsifneeded",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Views/CategoryManagementView.swift",
-      "source_location": "L18",
-      "weight": 1.0,
-      "context": "field",
-      "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_migrateiconsifneeded",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Views/CategoryManagementView.swift",
-      "source_location": "L26",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview_txcount",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_migrateiconsifneeded",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Views/CategoryManagementView.swift",
-      "source_location": "L158",
-      "weight": 1.0,
-      "context": "field",
-      "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categoryrow",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_migrateiconsifneeded",
-      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -31909,7 +32161,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L857",
+      "source_location": "L861",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_mergerecurringrules",
       "target": "moneytracker_models_recurringrule_recurringrule",
@@ -32183,7 +32435,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L738",
+      "source_location": "L742",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_pull",
       "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype"
@@ -32249,7 +32501,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -32260,7 +32512,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_pairedleg",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -32271,7 +32523,7 @@
       "source_location": "L222",
       "weight": 1.0,
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_save",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -32282,7 +32534,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_budgethistorysheet",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -32293,7 +32545,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_budgethistorysheet_init",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -32304,7 +32556,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_budgethistorysheet_spent",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -32315,7 +32567,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
       "confidence_score": 1.0
     },
     {
@@ -32343,7 +32595,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L351",
+      "source_location": "L355",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp",
       "target": "moneytracker_moneytrackerapp_applyfileprotection",
@@ -32373,7 +32625,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L29",
+      "source_location": "L32",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
       "target": "moneytracker_moneytrackerapp_moneytrackerapp_init",
@@ -32383,7 +32635,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L261",
+      "source_location": "L265",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
       "target": "moneytracker_moneytrackerapp_moneytrackerapp_schedulerecurrencerefresh",
@@ -32393,7 +32645,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L333",
+      "source_location": "L337",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
@@ -32404,7 +32656,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L11",
+      "source_location": "L14",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
@@ -32415,7 +32667,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L15",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
@@ -32426,7 +32678,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L333",
+      "source_location": "L337",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
@@ -32437,7 +32689,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L15",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
@@ -32448,7 +32700,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L16",
+      "source_location": "L19",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
@@ -32459,7 +32711,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L310",
+      "source_location": "L314",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
@@ -32470,7 +32722,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L15",
+      "source_location": "L18",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
@@ -32481,7 +32733,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L136",
+      "source_location": "L140",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_moneytrackerapp_moneytrackerapp",
@@ -32493,7 +32745,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L69",
+      "source_location": "L72",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "target": "moneytracker_moneytrackerapp_swift_modelcontainer",
@@ -32504,7 +32756,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L263",
+      "source_location": "L267",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_schedulerecurrencerefresh",
       "target": "moneytracker_moneytrackerapp_swift_task",
@@ -32514,7 +32766,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L261",
+      "source_location": "L265",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_schedulerecurrencerefresh",
@@ -32527,7 +32779,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L52",
+      "source_location": "L55",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "target": "modelconfiguration"
@@ -32537,7 +32789,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L76",
+      "source_location": "L79",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "target": "moneytracker_moneytrackerapp_applyfileprotection",
@@ -32549,7 +32801,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L90",
+      "source_location": "L94",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "target": "moneytracker_persistence_logging_logger"
@@ -32560,7 +32812,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L49",
+      "source_location": "L52",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_init",
       "target": "users_matteo_desktop_moneytracker_moneytracker_persistence_sharedstore_sharedstore_migratelegacystoreifneeded"
@@ -32571,7 +32823,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L273",
+      "source_location": "L277",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_schedulerecurrencerefresh",
       "target": "moneytracker_sync_syncservice_syncservice_synconforeground"
@@ -32582,7 +32834,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L271",
+      "source_location": "L275",
       "weight": 1.0,
       "source": "moneytracker_moneytrackerapp_moneytrackerapp_schedulerecurrencerefresh",
       "target": "moneytracker_sync_syncservice_syncservice_synconlogin"
@@ -32591,7 +32843,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L351",
+      "source_location": "L355",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_moneytrackerapp_applyfileprotection",
@@ -32602,7 +32854,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/MoneyTrackerApp.swift",
-      "source_location": "L351",
+      "source_location": "L355",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_moneytrackerapp_applyfileprotection",
@@ -32625,7 +32877,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L556",
+      "source_location": "L559",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_clearlocaldata",
       "target": "moneytracker_persistence_logging_logger"
@@ -32636,7 +32888,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L658",
+      "source_location": "L662",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_pull",
       "target": "moneytracker_persistence_logging_logger"
@@ -32647,7 +32899,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L581",
+      "source_location": "L585",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_push",
       "target": "moneytracker_persistence_logging_logger"
@@ -32658,7 +32910,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L388",
+      "source_location": "L390",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_scheduleretry",
       "target": "moneytracker_persistence_logging_logger"
@@ -32710,7 +32962,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L550",
+      "source_location": "L553",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_clearlocaldata",
@@ -32721,7 +32973,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L485",
+      "source_location": "L487",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_manualrefresh",
@@ -32732,7 +32984,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L848",
+      "source_location": "L852",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_mergerecurringrules",
@@ -32743,7 +32995,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L656",
+      "source_location": "L660",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_pull",
@@ -32754,7 +33006,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L578",
+      "source_location": "L581",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_push",
@@ -32776,7 +33028,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L436",
+      "source_location": "L438",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_recordchanges",
@@ -32787,7 +33039,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L528",
+      "source_location": "L530",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_schedulepush",
@@ -32798,7 +33050,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L384",
+      "source_location": "L385",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_scheduleretry",
@@ -32809,7 +33061,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L399",
+      "source_location": "L401",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_synconforeground",
@@ -32820,7 +33072,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L497",
+      "source_location": "L499",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_synconlogin",
@@ -33041,7 +33293,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L565",
+      "source_location": "L568",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_clearlocaldata",
       "target": "users_matteo_desktop_moneytracker_moneytracker_persistence_modelcontextsaving_modelcontext_safesave"
@@ -33052,7 +33304,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L838",
+      "source_location": "L842",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_pull",
       "target": "users_matteo_desktop_moneytracker_moneytracker_persistence_modelcontextsaving_modelcontext_safesave"
@@ -34197,7 +34449,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L848",
+      "source_location": "L852",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_mergerecurringrules",
@@ -34209,7 +34461,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L641",
+      "source_location": "L645",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_push",
       "target": "moneytracker_sync_syncservice_sbrecurringrule",
@@ -34362,7 +34614,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L420",
+      "source_location": "L422",
       "weight": 1.0,
       "context": "generic_arg",
       "source": "moneytracker_sync_syncservice_syncservice",
@@ -34373,7 +34625,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L884",
+      "source_location": "L888",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_deleteorphans",
@@ -34384,7 +34636,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L870",
+      "source_location": "L874",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_fetchids",
@@ -34395,7 +34647,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L463",
+      "source_location": "L465",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_marktransactiondirty",
@@ -34460,7 +34712,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L884",
+      "source_location": "L888",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_deleteorphans",
@@ -34471,7 +34723,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L870",
+      "source_location": "L874",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_fetchids",
@@ -34515,7 +34767,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L471",
+      "source_location": "L473",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_sync_syncservice_syncservice",
@@ -34526,7 +34778,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L578",
+      "source_location": "L581",
       "weight": 1.0,
       "context": "return_type",
       "source": "moneytracker_sync_syncservice_syncservice_push",
@@ -34954,7 +35206,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L855",
+      "source_location": "L859",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_mergerecurringrules",
       "target": "moneytracker_sync_syncservice_sbrecurringrule_apply",
@@ -34975,7 +35227,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L594",
+      "source_location": "L598",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_push",
       "target": "moneytracker_sync_syncservice_sbaccount",
@@ -34997,7 +35249,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L691",
+      "source_location": "L695",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_pull",
       "target": "moneytracker_sync_syncservice_swift_account",
@@ -35018,7 +35270,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L609",
+      "source_location": "L613",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_push",
       "target": "moneytracker_sync_syncservice_sbtransaction",
@@ -35040,7 +35292,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L735",
+      "source_location": "L739",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_pull",
       "target": "moneytracker_sync_syncservice_swift_transaction",
@@ -35072,7 +35324,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L622",
+      "source_location": "L626",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_push",
       "target": "moneytracker_sync_syncservice_sbbudget",
@@ -35105,7 +35357,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L786",
+      "source_location": "L790",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_pull",
       "target": "moneytracker_sync_syncservice_swift_budget",
@@ -35126,7 +35378,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L631",
+      "source_location": "L635",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_push",
       "target": "moneytracker_sync_syncservice_sbgoal",
@@ -35148,7 +35400,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L819",
+      "source_location": "L823",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_pull",
       "target": "moneytracker_sync_syncservice_swift_goal",
@@ -35220,7 +35472,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L420",
+      "source_location": "L422",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_sync_syncservice_syncservice",
@@ -35253,7 +35505,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L550",
+      "source_location": "L553",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_clearlocaldata",
@@ -35263,7 +35515,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L884",
+      "source_location": "L888",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_deleteorphans",
@@ -35273,7 +35525,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L870",
+      "source_location": "L874",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_fetchids",
@@ -35293,7 +35545,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L485",
+      "source_location": "L487",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_manualrefresh",
@@ -35303,7 +35555,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L463",
+      "source_location": "L465",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_marktransactiondirty",
@@ -35313,7 +35565,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L848",
+      "source_location": "L852",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_mergerecurringrules",
@@ -35323,7 +35575,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L656",
+      "source_location": "L660",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_pull",
@@ -35333,7 +35585,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L578",
+      "source_location": "L581",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_push",
@@ -35353,7 +35605,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L436",
+      "source_location": "L438",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_recordchanges",
@@ -35363,7 +35615,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L528",
+      "source_location": "L530",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_schedulepush",
@@ -35373,7 +35625,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L384",
+      "source_location": "L385",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_scheduleretry",
@@ -35393,7 +35645,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L399",
+      "source_location": "L401",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_synconforeground",
@@ -35403,7 +35655,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L497",
+      "source_location": "L499",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice",
       "target": "moneytracker_sync_syncservice_syncservice_synconlogin",
@@ -35447,7 +35699,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L533",
+      "source_location": "L536",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_schedulepush",
       "target": "moneytracker_sync_syncservice_swift_task",
@@ -35458,7 +35710,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L389",
+      "source_location": "L391",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_scheduleretry",
       "target": "moneytracker_sync_syncservice_swift_task",
@@ -35491,7 +35743,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L487",
+      "source_location": "L489",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_manualrefresh",
       "target": "moneytracker_sync_syncservice_syncservice_pushresilient",
@@ -35502,7 +35754,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L371",
+      "source_location": "L372",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_pushresilient",
       "target": "moneytracker_sync_syncservice_syncservice_push",
@@ -35513,7 +35765,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L379",
+      "source_location": "L380",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_pushresilient",
       "target": "moneytracker_sync_syncservice_syncservice_scheduleretry",
@@ -35524,20 +35776,9 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L541",
+      "source_location": "L544",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_schedulepush",
-      "target": "moneytracker_sync_syncservice_syncservice_pushresilient",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L400",
-      "weight": 1.0,
-      "source": "moneytracker_sync_syncservice_syncservice_synconforeground",
       "target": "moneytracker_sync_syncservice_syncservice_pushresilient",
       "confidence_score": 1.0
     },
@@ -35549,6 +35790,17 @@
       "source_location": "L402",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_synconforeground",
+      "target": "moneytracker_sync_syncservice_syncservice_pushresilient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Sync/SyncService.swift",
+      "source_location": "L404",
+      "weight": 1.0,
+      "source": "moneytracker_sync_syncservice_syncservice_synconforeground",
       "target": "moneytracker_sync_syncservice_syncservice_pull",
       "confidence_score": 1.0
     },
@@ -35556,7 +35808,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L884",
+      "source_location": "L888",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_deleteorphans",
@@ -35567,7 +35819,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L870",
+      "source_location": "L874",
       "weight": 1.0,
       "context": "return_type",
       "source": "moneytracker_sync_syncservice_syncservice_fetchids",
@@ -35578,7 +35830,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L436",
+      "source_location": "L438",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_sync_syncservice_syncservice_recordchanges",
@@ -35590,7 +35842,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L488",
+      "source_location": "L490",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_manualrefresh",
       "target": "moneytracker_sync_syncservice_syncservice_pull",
@@ -35612,7 +35864,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L504",
+      "source_location": "L506",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_synconlogin",
       "target": "moneytracker_sync_syncservice_syncservice_clearlocaldata",
@@ -35623,7 +35875,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L509",
+      "source_location": "L511",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_synconlogin",
       "target": "moneytracker_sync_syncservice_syncservice_fetchids",
@@ -35634,7 +35886,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L515",
+      "source_location": "L517",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_synconlogin",
       "target": "moneytracker_sync_syncservice_syncservice_pull",
@@ -35645,7 +35897,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L512",
+      "source_location": "L514",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_synconlogin",
       "target": "moneytracker_sync_syncservice_syncservice_push",
@@ -35678,7 +35930,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L597",
+      "source_location": "L601",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_push",
       "target": "moneytracker_sync_syncservice_syncservice_deleteorphans",
@@ -35689,7 +35941,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L836",
+      "source_location": "L840",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_pull",
       "target": "moneytracker_sync_syncservice_syncservice_mergerecurringrules",
@@ -35722,7 +35974,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Sync/SyncService.swift",
-      "source_location": "L885",
+      "source_location": "L890",
       "weight": 1.0,
       "source": "moneytracker_sync_syncservice_syncservice_deleteorphans",
       "target": "moneytracker_sync_syncservice_syncservice_fetchids",
@@ -42176,6 +42428,28 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictamountparsingtests",
+      "target": "testing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictrecurrenceamounttests",
+      "target": "testing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "MoneyTrackerTests/KeywordCategoryClassifierTests.swift",
       "source_location": "L1",
       "weight": 1.0,
@@ -42345,6 +42619,28 @@
       "source_location": "L4",
       "weight": 1.0,
       "source": "moneytrackertests_schemamigrationtests",
+      "target": "moneytracker",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictamountparsingtests",
+      "target": "moneytracker",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictrecurrenceamounttests",
       "target": "moneytracker",
       "confidence_score": 1.0
     },
@@ -46382,6 +46678,66 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictamountparsingtests",
+      "target": "moneytrackertests_strictamountparsingtests_strictamountparsingtests",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictamountparsingtests_strictamountparsingtests",
+      "target": "moneytrackertests_strictamountparsingtests_strictamountparsingtests_preservesvalidinputs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictamountparsingtests_strictamountparsingtests",
+      "target": "moneytrackertests_strictamountparsingtests_strictamountparsingtests_rejectsemptyinput",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictAmountParsingTests.swift",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictamountparsingtests_strictamountparsingtests",
+      "target": "moneytrackertests_strictamountparsingtests_strictamountparsingtests_rejectspartialnumbers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictrecurrenceamounttests",
+      "target": "moneytrackertests_strictrecurrenceamounttests_strictrecurrenceamounttests",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/StrictRecurrenceAmountTests.swift",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "moneytrackertests_strictrecurrenceamounttests_strictrecurrenceamounttests",
+      "target": "moneytrackertests_strictrecurrenceamounttests_strictrecurrenceamounttests_validateswholeoverride",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "MoneyTrackerUITests/AccountFlowUITests.swift",
       "source_location": "L4",
       "weight": 1.0,
@@ -49894,7 +50250,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L211",
+      "source_location": "L220",
       "weight": 1.0,
       "source": "cantiere_piano_piano_dei_lavori",
       "target": "cantiere_piano_fatti",
@@ -49924,7 +50280,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L202",
+      "source_location": "L211",
       "weight": 1.0,
       "source": "cantiere_piano_in_corso_prossimi",
       "target": "cantiere_piano_s_10_x_2026_11_16_commissione_s_10_nessun_difetto_bloccante_92_unit_verdi_ui_42_45_nel_run_completo_i_3_falliti_rilanciati_singolarmente_verdi_2_voti_9_per_commento_obsoleto_e_sentence_lunga_corretti_in_1748ef5_senza_nuova_valutazione_verifica_finale_commissione_suprema",
@@ -49964,7 +50320,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L193",
+      "source_location": "L202",
       "weight": 1.0,
       "source": "cantiere_piano_in_corso_prossimi",
       "target": "cantiere_piano_s_14_x_statistiche_confronto_mese_su_mese_rimosso_su_richiesta_di_matteo_2026_11_16",
@@ -49974,7 +50330,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L176",
+      "source_location": "L185",
       "weight": 1.0,
       "source": "cantiere_piano_in_corso_prossimi",
       "target": "cantiere_piano_s_15_x_diagnosticare_due_test_ui_che_non_trovano_il_movimento_appena_salvato",
@@ -50037,7 +50393,37 @@
       "source_location": "L173",
       "weight": 1.0,
       "source": "cantiere_piano_in_corso_prossimi",
-      "target": "cantiere_piano_s_36_potare_i_rami_vecchi",
+      "target": "cantiere_piano_s_36_potare_i_rami_vecchi_gruppo_a_8_rami_mergiati_cancellato_2026_11_17_11_56_in_locale_e_su_origin_restano_da_decidere_i_7_fix_nightly_e_tmp_stash_inspect_lavoro_non_in_main_non_toccati",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L176",
+      "weight": 1.0,
+      "source": "cantiere_piano_in_corso_prossimi",
+      "target": "cantiere_piano_s_37_commissione_2026_11_17_correzioni_fuori_restyling_serve_ok_di_matteo_zone_sync_formatting_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L179",
+      "weight": 1.0,
+      "source": "cantiere_piano_in_corso_prossimi",
+      "target": "cantiere_piano_s_38_commissione_pacchetto_a_codex_virtuali_che_ignorano_filtri_avanzati_date_filtro_personalizzato_non_salvate_conferma_per_salta_mese_termina_fisso_detector_ricalcolato_a_ogni_render_set_di_id_regole_in_movementlist_force_unwrap_recurrencecontrols_69_recurringseriesdetector_58_66_recurringmaterializer_duplica_snapshot_tipo_selected_ridondanti_in_typechips",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L181",
+      "weight": 1.0,
+      "source": "cantiere_piano_in_corso_prossimi",
+      "target": "cantiere_piano_s_39_commissione_traduzioni_redattore_40_stringhe_visibili_in_italiano_in_tutte_le_lingue_settings_notifiche_login_signup_auditlog_budget_filtri_frasi_composte_a_pezzi_chiavi_doppie_fine_tipo_poi_approvazione_matteo",
       "confidence_score": 1.0
     },
     {
@@ -50048,6 +50434,16 @@
       "weight": 1.0,
       "source": "cantiere_piano_in_corso_prossimi",
       "target": "cantiere_piano_s_3_x_floatingtabbar_fab_2026_11_13_22_08_collaudo_ok",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L183",
+      "weight": 1.0,
+      "source": "cantiere_piano_in_corso_prossimi",
+      "target": "cantiere_piano_s_40_commissione_font_fissi_codex_200_font_system_size_token_ds_typo_dynamic_type_sectionlabel_incluso",
       "confidence_score": 1.0
     },
     {
@@ -50094,7 +50490,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L189",
+      "source_location": "L198",
       "weight": 1.0,
       "source": "cantiere_piano_in_corso_prossimi",
       "target": "cantiere_piano_s_7p_x_plurale_dei_giorni_rimanenti",
@@ -50124,7 +50520,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L272",
+      "source_location": "L281",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_commissione_suprema_s_13h_2026_11_14_11_08",
@@ -50134,7 +50530,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L230",
+      "source_location": "L239",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_16_fuori_dal_restyling_serve_decisione_di_matteo_test_su_precisione_decimal_elevata_verificare_precisione_decimal_elevata_nella_persistenza_recurringrule",
@@ -50144,7 +50540,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L236",
+      "source_location": "L245",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_17_x_collaudo_ok_2026_11_14_pull_non_cancellare_regole_locali_non_ancora_spedite",
@@ -50154,7 +50550,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L244",
+      "source_location": "L253",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_18_x_rifinitura_grafica_dei_virtuali_e_delle_serie_programmate",
@@ -50164,7 +50560,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L250",
+      "source_location": "L259",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_19_x_revisione_testi_e_traduzioni_s_13g_collaudato_2026_11_16_09_47_collaudo_ok_solo_7_strings_cantiere_plutil_ok_380_chiavi_allineate_nessuna_chiave_persa_0_marker_approvazione_matteo_in_approvazioni_md_ancora_note_de_keine_per_conto_neutro_keines_es_ninguno_per_conto_cuenta_ninguna_de_riga_103_resta_vorkommen_zh_riga_103_\u8bb0\u5f55_per_occorrenze_vs_\u9879\u76ee_chiuso_2026_11_16_09_48_collaudo_ok_5ca721e_de_keines_termine_es_ninguna_zh_\u9879\u76ee_applicati_chiavi_invariate_plutil_ok_nessun_altro_vorkommen_\u8bb0\u5f55_residuo_99_\u5386\u53f2\u8bb0\u5f55_storico_ok_approvazione_matteo_in_approvazioni_md_resta_termin_de_e_i_termini_segnalati_vanno_riletti_da_un_madrelingua",
@@ -50174,7 +50570,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L254",
+      "source_location": "L263",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_20_x_collaudato_2026_11_14_11_06_bf9727e_guard_ok_regressione_ok_68_unit_verdi_confermato_verificare_editor_di_una_serie_terminata_prima_della_prima_occorrenza",
@@ -50184,7 +50580,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L263",
+      "source_location": "L272",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_21_x_performance_ricalcoli_per_riga_in_transactionsview_commissione_s_13h_giudice_4_8_10",
@@ -50194,7 +50590,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L269",
+      "source_location": "L278",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_22_x_architettura_spezzare_transactionsview_giudice_2_8_10",
@@ -50204,7 +50600,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L275",
+      "source_location": "L284",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_23_x_2026_11_14_12_55_collaudo_ok_editor_singola_occorrenza_e_indicatore_ricorrenza",
@@ -50214,7 +50610,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L284",
+      "source_location": "L293",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_24_x_eliminazione_ricorrenze_regressioni_e_confronto_per_giorno_originale",
@@ -50224,7 +50620,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L291",
+      "source_location": "L300",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_25_x_uniformit\u00e0_campi_ricorrenti_secondo_scope_sostituisce_s_23",
@@ -50234,7 +50630,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L300",
+      "source_location": "L309",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_26_x_demo_vetrina_completa_demodataseeder_2026_11_16_01_22_collaudo_ok",
@@ -50244,7 +50640,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L309",
+      "source_location": "L318",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_27_x_migliorie_dal_collaudo_di_s_24_s_25_s_15_suggerite_2026_11_15",
@@ -50254,7 +50650,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L319",
+      "source_location": "L328",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_28_x_tab_bar_affollata_con_dynamic_type_xl",
@@ -50264,7 +50660,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L328",
+      "source_location": "L337",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_29_x_correzioni_commissione_suprema_s_13h_autorizzate_da_matteo_2026_11_16_2026_11_16_collaudo_ok_diff_a1c6c89_build_81_unit_3_ui_dichiarati_dall_impresa_non_rilanciati",
@@ -50274,7 +50670,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L338",
+      "source_location": "L347",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_30_x_categoria_dall_ultima_volta_nuova_funzione_2026_11_16_collaudo_ok_traduzioni_ancora_per_matteo",
@@ -50284,7 +50680,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L350",
+      "source_location": "L359",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_31_x_rimozione_confronto_mese_su_mese_2026_11_16_collaudo_ok",
@@ -50294,7 +50690,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L359",
+      "source_location": "L368",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_32_x_manutenzione_demoshowcaseuitests_testshowcasescreens_rosso_anche_su_main",
@@ -50304,7 +50700,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L368",
+      "source_location": "L377",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_33_verificare_recurrenceflowuitests_testcreateeditanddeletescheduledseries",
@@ -51632,5 +52028,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "02ef9723f3b0f8685430e23f2a518865d362e3c3"
+  "built_at_commit": "8ac97b77cde14f73a57d32bb93e2f20182d0d542"
 }

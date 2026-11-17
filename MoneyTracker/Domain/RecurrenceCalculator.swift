@@ -167,7 +167,12 @@ nonisolated struct RecurrenceCalculator: Sendable {
             } ?? original
             guard date >= interval.start, date < interval.end else { return nil }
             return Occurrence(ruleId: rule.id, key: key, originalDate: original, date: date,
-                              amount: exception?.amount.flatMap { Decimal(string: $0, locale: Locale(identifier: "en_US_POSIX")) } ?? rule.amount,
+                              amount: exception?.amount.flatMap { raw in
+                                  // Validate the whole stored override without rounding its precision.
+                                  guard raw.range(of: #"^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)$"#,
+                                                  options: .regularExpression) == raw.startIndex..<raw.endIndex else { return nil }
+                                  return Decimal(string: raw, locale: Locale(identifier: "en_US_POSIX"))
+                              } ?? rule.amount,
                               name: exception?.name ?? rule.name, category: exception?.category ?? rule.category,
                               categoryIcon: exception?.categoryIcon ?? rule.categoryIcon, type: exception?.type ?? rule.type,
                               accountId: exception?.overridesAccount == true ? exception?.accountId : rule.accountId,
