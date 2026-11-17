@@ -1,5 +1,8 @@
 # Antigravity = IMPRESA PRINCIPALE
 
+> Questo file vale SOLO per Antigravity. Se sei un altro strumento (Copilot, Codex, Claude Code) ignoralo:
+> per te valgono AGENTS.md e il tuo file (Copilot: `.github/copilot-instructions.md`).
+
 Le regole del cantiere sono in AGENTS.md: rispettale tutte, a partire da Turni (§4) e Lettura a strati (§5).
 Le frasi-comando funzionano anche qui: le skill sono in `.agents/skills/` (copia anche in `.agent/skills/`).
 

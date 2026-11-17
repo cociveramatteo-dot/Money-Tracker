@@ -1,6 +1,6 @@
 ---
 name: operaio
-description: Operaio di riserva dentro Claude Code. Usalo per UN task piccolo (meno di 15 minuti) di .cantiere/PIANO.md già descritto, o quando Antigravity e Codex sono senza quota. Non prende decisioni architetturali.
+description: Operaio di riserva dentro Claude Code. Usalo per UN task piccolo (meno di 15 minuti) di .cantiere/PIANO.md già descritto, o quando Antigravity, Codex e Copilot sono senza quota. Non prende decisioni architetturali.
 model: sonnet
 tools: Read, Grep, Glob, Bash, Write, Edit
 ---

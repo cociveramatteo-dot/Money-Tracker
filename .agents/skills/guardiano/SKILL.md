@@ -11,7 +11,7 @@ Il guardiano è uno script, non un'IA: gira su GitHub ogni notte e a ogni push, 
 1. `bash .cantiere/strumenti/guardiano/scarica.sh` → porta l'ultimo rapporto in `.cantiere/guardiano/ultimo/` (veloce; `--foto` per scaricare anche gli screenshot, solo se servono)
    e ne stampa il riassunto (5 righe). Leggi SOLO quello; apri `RAPPORTO.md` solo per i problemi 🔴.
 2. Per ogni problema 🔴 (o 🟡 ricorrente) crea un task in PIANO.md, raggruppando quelli con la stessa causa.
-   Assegna con la skill `assegna` (di solito Antigravity per layout e grafica, Codex per JS).
+   Assegna con la skill `assegna` (di solito Antigravity per layout e grafica, Codex o Copilot per JS e correzioni piccole).
 3. Rispondi a Matteo in max 5 righe: semaforo, i 3 problemi principali, task creati.
    Gli screenshot per dispositivo sono in `.cantiere/guardiano/ultimo/screenshot/` (i file `__diff` mostrano
    cosa è cambiato rispetto alla notte prima).

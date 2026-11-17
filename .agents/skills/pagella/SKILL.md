@@ -12,7 +12,7 @@ Voti **misurati** (strumenti, 0 crediti) + voti dei **giudici** (2 IA diverse, s
 2. **Solo misurata** (checkpoint): `python3 .cantiere/strumenti/pagella.py --misurata` e fermati qui.
 3. **Giudici** (pagella completa, prima delle consegne):
    - giudice 1: in Claude Code il subagente `giudice` (scrive `.cantiere/tmp/giudice-claude.md`);
-   - giudice 2: un'IA DIVERSA da chi ha costruito il sito (Gemini in Antigravity o Codex) con il prompt di
+   - giudice 2: un'IA DIVERSA da chi ha costruito il sito (Gemini in Antigravity, Codex o Copilot) con il prompt di
      `PROMPT_GIUDICE.md`; il verdetto va in `.cantiere/tmp/giudice-<nome>.md`.
    Entrambi usano SOLO `CRITERI.md` e guardano gli screenshot del guardiano.
 4. `python3 .cantiere/strumenti/pagella.py` → storico in `.cantiere/PAGELLE.md`, dettaglio in `.cantiere/archivio/pagelle/`.

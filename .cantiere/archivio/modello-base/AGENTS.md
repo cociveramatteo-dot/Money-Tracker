@@ -1,6 +1,6 @@
 # REGOLAMENTO DI CANTIERE — {{NOME_PROGETTO}}
 
-> Lo leggono TUTTI: Claude Code, Antigravity, Codex, subagenti, consulenti. È corto apposta (viene caricato
+> Lo leggono TUTTI: Claude Code, Antigravity, Codex, Copilot, subagenti, consulenti. È corto apposta (viene caricato
 > a ogni sessione): i dettagli stanno nelle skill (`.agents/skills/`), da aprire solo quando servono.
 
 ## 1. Il progetto
@@ -23,7 +23,8 @@
 | **Capocantiere** | Claude Code (Sonnet) | coordina, smista, controlla, checkpoint. Non esegue lavori lunghi |
 | **Architetto** | subagente `architetto` (Opus) | piani, scelte tecniche, bug difficili. Si chiama poco |
 | **Impresa principale** | **Antigravity** (Gemini: Flash col piano gratuito, modelli più forti con AI Pro) | implementazione, grafica, CSS, refactor, test nel browser, Lighthouse |
-| **Seconda impresa** | **Codex** | logica JS, script, contenuti; riserva quando Antigravity è senza quota |
+| **Seconda impresa** | **Codex** | logica JS, script, contenuti; riserva quando Antigravity è senza quota (abbonamento fino al 9/12 circa) |
+| **Terza impresa** | **GitHub Copilot** (CLI `copilot`, Copilot Fusion: sceglie il modello da solo) | task piccoli e medi già descritti, correzioni del guardiano, logica JS; 200 crediti al mese (~1,5 per task piccolo) |
 | **Operaio** | subagente `operaio` (Sonnet) | riserva: task piccoli o urgenti dentro Claude Code |
 | **Redattore** | subagente `redattore` (Sonnet) o Gemini | testi, traduzioni, SEO, messaggi al cliente |
 | **Collaudatore** | subagente `collaudatore` (Sonnet) | verifica ogni lavoro altrui (legge solo il diff) |
@@ -113,6 +114,7 @@ Fermati appena hai quello che ti serve:
     🌐 crediti Netlify prima di ogni push del sito · 💽 spazio sul Mac sotto soglia.
     **🧰 Serve un attrezzo:** se il task richiede qualcosa di spento o non installato (skill dello scaffale,
     claude-in-chrome, un connettore), dillo PRIMA di iniziare: cosa, perché, comando esatto o "lo accendo io?".
+    Chrome è spento in ogni cantiere: per un task che lo usa, Matteo esce e rientra con `claude --chrome`.
     Finito il task proponi di rispegnerlo. Matteo non deve ricordarsi niente.
 13. **Quando serve Matteo, istruzione completa.** Matteo non deve sapere comandi né procedure: le sa l'azienda.
     Ogni volta che deve fare qualcosa (Terminale, NotebookLM, sito, cliente, chat Azienda) scrivi:

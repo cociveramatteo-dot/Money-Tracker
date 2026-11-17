@@ -27,6 +27,7 @@ Ogni skill installata pesa su OGNI sessione di ogni IA: nel cantiere solo quello
 3. Al sì di Matteo: lui lancia il comando (tu non puoi leggere lo scaffale fuori dal cantiere). Poi scrivi
    Hosting e Stack in AGENTS.md §1 e la scelta in `.cantiere/DECISIONI.md` (cosa, perché, alternative).
    La riga "Skill in più" la aggiorna il comando da solo.
-4. A metà lavoro (regola 🧰): stessa cosa per un solo attrezzo, PRIMA di iniziare il task. Chrome e
-   connettori: in Claude Code `/mcp` → selezionalo → Enable (e Disable a fine task).
+4. A metà lavoro (regola 🧰): stessa cosa per un solo attrezzo, PRIMA di iniziare il task. Chrome: è spento
+   in ogni cantiere; si accende solo per quella sessione con `claude --chrome`. Connettori: in Claude Code `/mcp` →
+   selezionalo → Enable (e Disable a fine task).
 - **Non fare:** installare skill che non sono sullo scaffale (vanno prima controllate dalla chat Azienda).

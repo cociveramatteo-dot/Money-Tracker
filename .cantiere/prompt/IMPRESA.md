@@ -1,4 +1,4 @@
-# Prompt d'ingresso · IMPRESA (Antigravity, Codex o altri agenti con accesso alla cartella)
+# Prompt d'ingresso · IMPRESA (Antigravity, Codex, Copilot o altri agenti con accesso alla cartella)
 
 ```
 Entri in turno nel cantiere come IMPRESA. Segui AGENTS.md §4 (inizio turno) e §5 (lettura a strati).

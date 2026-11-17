@@ -1,4 +1,4 @@
-# Prompt per il secondo giudice (Gemini in Antigravity, Codex o altra IA diversa da chi ha costruito il sito)
+# Prompt per il secondo giudice (Gemini in Antigravity, Codex, Copilot o altra IA diversa da chi ha costruito il sito)
 
 Da incollare in una sessione nuova aperta nella cartella del cantiere:
 
