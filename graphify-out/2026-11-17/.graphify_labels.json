@@ -199,8 +199,8 @@
   "197": "ThemeNavBarModifier",
   "198": "NavigationStressUITests",
   "199": ".capture",
-  "200": "Option",
-  "201": "RecurringRule",
+  "200": "RecurringRule",
+  "201": "TransactionsAdvancedFilterSheet",
   "202": "DaysRemainingPluralTests.swift",
   "203": "Account",
   "204": "Binding",
@@ -302,5 +302,5 @@
   "300": "Smart categorization (keyword-based)",
   "301": "Visual insights (color-coded charts)",
   "302": "Esito test notturno: TEST OK (tentativo 1/5)",
-  "303": "ProgrammedRuleCard"
+  "303": "8. Roadmap"
 }
