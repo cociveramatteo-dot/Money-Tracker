@@ -41,4 +41,20 @@ else
   echo "      bash .cantiere/strumenti/backup.sh"
   ESITO=1
 fi
+# 3. Specchio dei file fuori da git (nuovi non tracciati o modificati e non committati: screenshot, cartelle extra,
+#    PDF, icone...). Percorsi mantenuti in <magazzino>/02_RISORSE/lavorate/fuori-git/. Poi controllo byte per byte.
+SPEC="$MAGC/02_RISORSE/lavorate/fuori-git"
+LISTA="$(mktemp)"
+{ git ls-files --others --exclude-standard -z; git ls-files --modified -z; } | tr '\0' '\n' | grep -v -E '(^|/)\.DS_Store$' | sort -u | tr '\n' '\0' > "$LISTA"
+if [ -s "$LISTA" ]; then
+  mkdir -p "$SPEC" && rsync -a --from0 --files-from="$LISTA" "$RADICE/" "$SPEC/" 2>/dev/null
+  DIFF=0; N=0
+  while IFS= read -r -d '' f; do
+    N=$((N+1)); cmp -s "$RADICE/$f" "$SPEC/$f" || { echo "🔴 non allineato: $f"; DIFF=1; }
+  done < "$LISTA"
+  if [ $DIFF -eq 0 ]; then echo "✅ Fuori da git: $N file copiati nel magazzino e verificati (fuori-git/)"; else ESITO=1; fi
+else
+  echo "✅ Fuori da git: nessun file da copiare"
+fi
+rm -f "$LISTA"
 exit $ESITO

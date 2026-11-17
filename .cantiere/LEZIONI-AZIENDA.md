@@ -11,6 +11,8 @@
 5. **Un turno alla volta rallenta.** Mentre un'impresa lavora non si può collaudare né avviare l'altra. → Va bene per sicurezza; per i task su file diversi valutare turni paralleli espliciti (es. grafica vs dati) con elenco dei file riservati.
 6. **I rapporti dei subagenti si verificano.** L'architetto ha dato una causa convincente (copie cancellate dal sync); l'ho controllata nel codice prima di riferirla. → Regola: la prova della conclusione principale si controlla sempre.
 
+7. **Copie non allineate (2026-11-18).** Il checkpoint committava solo i file tracciati: screenshot, cartelle extra e modifiche non committate restavano solo sul Mac, e Matteo doveva ricordarlo ogni volta. → `backup.sh` ora copia nel magazzino (percorsi mantenuti) tutti i file non tracciati o modificati e li verifica con `cmp`; da portare nel modello dell'azienda.
+
 ## Cosa va bene (da tenere)
 - **Lettura a strati + graphify**: il capocantiere trova il punto giusto senza leggere il progetto.
 - **Architetto prima del codice** su lavori che toccano dati/schema/sync: piano con rischi e domande per Matteo, senza modificare il repository.

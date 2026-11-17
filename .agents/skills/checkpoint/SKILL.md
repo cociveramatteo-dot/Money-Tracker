@@ -26,7 +26,7 @@ Con altre IA esegui tu le fasi, nello stesso ordine. Ordine: si ripara → si pu
    Le voci ⏳ di APPROVAZIONI vanno tra le "Cose che deve fare Matteo".
 7. **Sigillo** (capocantiere): STATO `In turno: nessuno` + ultimo checkpoint; `git add -A && git commit -m "== checkpoint AAAA-MM-GG HH:MM"`;
    `git tag checkpoint-AAAA-MM-GG-HHMM`; poi `bash .cantiere/strumenti/backup.sh` (push su GitHub + copia aggiornata
-   nel magazzino; se dice che serve Matteo, scrivi la voce in PER-MATTEO.md col comando che stampa).
+   nel magazzino + specchio verificato dei file fuori da git in `02_RISORSE/lavorate/fuori-git/`; se compare 🔴 «non allineato» il checkpoint NON è chiuso; se dice che serve Matteo, scrivi la voce in PER-MATTEO.md col comando che stampa).
    Rispondi in max 10 righe: salute, cosa è stato sistemato, prime 3 cose di domani, e le voci aperte di
    `PER-MATTEO.md` (ognuna con 📍 dove · ▶️ cosa · ↩️ cosa riportare).
    Chiudi con: "Puoi chiudere. Domani apri una sessione nuova e scrivi: riprendiamo."
