@@ -189,7 +189,7 @@ il task e i file indicati.
 ### SC-1 [?] Account social (Matteo): vedi PER-MATTEO. **Apple Developer Program NON pagato per scelta di Matteo (2026-11-17):** prima si cerca un segnale di interesse sui social; link in bio = landing con email (waitlist), non pre-order.
 ### SC-1b [?] (proposta di soglie scritta in DECISIONI.md il 2026-11-17: Matteo conferma o cambia) Soglia di decisione per pagare Apple (Matteo): [DA COMPLETARE] quali numeri contano come «segnale» (es. iscritti alla waitlist, follower, tempo medio sopra la mediana) e entro quando. Il manuale non dà benchmark: la soglia è sua.
 ### SC-2 [?] Clip base dal telefono in modalità demo (Matteo): lista in PER-MATTEO.
-### SC-3 [~ in corso, redattore] Testi di base (redattore): bio, caption, nome/sottotitolo/keyword/descrizione App Store IT+EN, hook dei primi format. Solo claim ammessi (manuale §1.1–1.3). Poi approvazione Matteo in APPROVAZIONI.md.
+### SC-3 [~] fatto dal redattore, approvazione Matteo ⏳ in APPROVAZIONI.md Testi di base (redattore): bio, caption, nome/sottotitolo/keyword/descrizione App Store IT+EN, hook dei primi format. Solo claim ammessi (manuale §1.1–1.3). Poi approvazione Matteo in APPROVAZIONI.md.
 ### SC-4 [ ] → Codex, prompt in PER-MATTEO (ora critica: è l'unico punto di raccolta del segnale) Landing con modulo email + privacy policy (Codex; fino al 2026-11-20 anche mansioni di Antigravity): serve prima decisione di Matteo su dove ospitarla (nessun hosting oggi, AGENTS.md §1).
 ### SC-5 [ ] Pipeline di montaggio (Codex): script ffmpeg 1080×1920, master senza musica né watermark, sottotitoli Space Grotesk/Inter, firma curva verde/ambra con i colori veri. Tagli netti, niente zoom lento.
 ### SC-6 [ ] Diario delle metriche (Codex): foglio come manuale §9.7.
