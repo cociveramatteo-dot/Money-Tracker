@@ -18,3 +18,6 @@ S-35 [~]: serve collaudatore indipendente sul diff rispetto a main, in particola
 Questioni preesistenti di Matteo sul libro e lingue restano in PER-MATTEO; non affrontate da S-35.
 
 Prompt per il collaudatore: «Leggi AGENTS.md e .cantiere/STATO.md, apri turno se libero. Collauda S-35 sul ramo refactor-transactionsview leggendo il diff rispetto a main e CONSEGNA.md. Verifica che le quattro sotto-viste mantengano grafica, stringhe, Binding, focus e azioni, e siano incluse nel target sincronizzato. Build pulita e suite 90 unit + 45 UI già verdi, log in /tmp/mt-s35-*. Nessun push né merge. Aggiorna S-35 a [x] solo se il collaudo passa, poi chiudi turno secondo AGENTS.md §4.»
+
+## Collaudo 2026-11-17 11:48 (collaudatore)
+S-35 CONFORME e chiuso [x]. 135/135 test verdi. Nessun push/merge: il merge di refactor-transactionsview su main attende l'ok di Matteo.

@@ -165,8 +165,9 @@ il task e i file indicati.
 ### S-34 [x] (collaudo ok 2026-11-17, 2 difetti corretti) Libro: versioni vere nel changelog (D-013)
 - **Chi:** redattore, dopo il riallineo del libro (S-2…S-12 + sezione 6). Mappare le voci «v3.x» su versioni 3.1, 3.2…; S-13 rilascio a sé. Solo `docs/MoneyTracker.md`; criterio da confermare con Matteo se ambiguo.
 
-### S-35 [~] Spezzare TransactionsView (864 righe)
+### S-35 [x] Spezzare TransactionsView (864 righe)
 - **Chi:** Codex (Antigravity sospeso). Refactor puro, nessuna modifica visiva né di logica; collaudatore sul diff.
+- **Collaudo 2026-11-17 11:48 (collaudatore):** [x] collaudo ok. Spostamento identico riga per riga (modificatori, chiavi, accessibilityIdentifier), Binding corretti, file nuovi coperti dal gruppo sincronizzato del target, TransactionsView 579 righe, `git diff --check` pulito, nessuna zona protetta/test toccati. Suite completa su iPhone 18 Pro: 135/135 verdi (90 unit + 45 UI), 0 falliti.
 - **Esecuzione 2026-11-17 11:10:** ramo `refactor-transactionsview` da main; 4 sotto-viste estratte, TransactionsView 864 → 579 righe. Build clean verde, 90 unit + 45 UI verdi; S-33 non riprodotto. Nessun test o zona protetta modificati; nessun push/merge. Dettagli e log in CONSEGNA.md.
 
 ### S-36 [ ] Potare i rami vecchi

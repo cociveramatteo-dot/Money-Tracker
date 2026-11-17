@@ -119,3 +119,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-17 10:38 | capocantiere + redattore + collaudatore (Claude Code · Sonnet) | riallineo libro + S-34 | §3/§5/§6/§7 riscritte sulla nuova app, changelog S-2…S-12, versioni 3.1…3.19 (S-13 = 3.14), PDF rigenerato; collaudo: 2 difetti corretti | S-30/S-31 ordine da confermare; 89 chiavi it da confermare; voto audit [DA COMPLETARE] |
 
 | 2026-11-17 11:10 | impresa (Codex · GPT-6) | S-35 | 4 sotto-viste estratte; clean build e 90 unit + 45 UI verdi, grafo aggiornato; ramo refactor-transactionsview, nessun push/merge | collaudo indipendente S-35; S-33 resta in osservazione |
+| 2026-11-17 11:48 | collaudatore (Claude Code · Sonnet) | S-35 | diff verificato (refactor puro, identico); suite 135/135 verdi (90 unit + 45 UI); S-35 [x] | merge su main solo con ok di Matteo |
