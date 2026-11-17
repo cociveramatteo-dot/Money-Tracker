@@ -126,3 +126,8 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - **Da rivedere:** quando c'è l'app sullo Store/un'impresa o se la voce Business riappare. Punto fiscale (partita IVA/regime) da chiarire prima di pagare Apple.
 
 - **Promemoria 2026-11-24:** nome visualizzato TikTok da cambiare in «Bucktrail · budget» (cambio consentito dopo 7 giorni). Vedi PER-MATTEO.md.
+
+## 2026-11-17 · Nessun premium in abbonamento
+- **Cosa:** Matteo esclude il premium opzionale a €1,99/mese citato nel manuale §1.1. L'app resta a pagamento una tantum (€4,99, prezzo di lancio previsto), senza abbonamento.
+- **Perché:** coerenza del messaggio «paghi una volta, le altre ogni mese» (F2, F12) e fiducia.
+- **Effetto sui testi:** «senza abbonamento» e «4,99 € una volta» sono ora promesse pienamente coerenti; restano vietate le promesse su sincronizzazione/cloud («mai cloud»), che sono un'altra cosa (§1.3). Il manuale §1.1 su questo punto è superato.
