@@ -2,4 +2,4 @@
 
 In turno: nessuno
 Ultimo checkpoint: 2026-11-17 13:52 (merge S-37, Commissione 7,0)
-Fase: redesign Sentiero e S-37 già su main. Avviato il progetto SOCIAL (SC-0…SC-6 in PIANO.md).
+Fase: progetto SOCIAL avviato (SC-1…SC-6 fatti o in attesa di Matteo). Ramo corrente redesign-sentiero (da portare su main con l'ok di Matteo).
