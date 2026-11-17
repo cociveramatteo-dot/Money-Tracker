@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Bucktrail · Quanto puoi spendere, adesso.</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="waitlist.js" defer></script>
+</head>
+<body>
+  <header class="top wrap">
+    <a class="brand" href="index.html"><span aria-hidden="true">↗</span> Bucktrail</a>
+    <nav aria-label="Lingua">
+      <a href="index.html" hreflang="it" lang="it" aria-current="page">IT</a>
+      <a href="en.html" hreflang="en" lang="en" data-language>EN</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div>
+        <h1 id="title">Quanto puoi spendere, adesso.</h1>
+        <p class="intro">Bucktrail è l'app di budget per iPhone che ti mostra quanto ti resterà a fine mese. In arrivo: lascia la tua email e ti avviso al lancio.</p>
+      </div>
+      <figure class="trail" aria-hidden="true">
+        <svg viewBox="0 0 440 245" xmlns="http://www.w3.org/2000/svg">
+          <path class="guides" d="M20 48h400M20 99h400M20 150h400M20 201h400M246 32v185"/>
+          <path class="actual" d="M20 185C42 185 54 143 85 143S130 164 153 143 183 96 204 102 228 121 246 109"/>
+          <path class="forecast" d="M246 109C282 86 288 134 315 126S364 79 388 92 407 83 420 65"/>
+          <circle cx="246" cy="109" r="5"/>
+        </svg>
+        <figcaption><span>Reale</span><span>Previsto</span></figcaption>
+      </figure>
+    </section>
+    <ul class="strengths">
+      <li><h2>Vedi come finisce il mese.</h2><p>La curva verde è ciò che è già successo, quella ambra la proiezione fino a fine mese.</p></li>
+<li><h2>Si paga una volta.</h2><p>Prezzo di lancio previsto: 4,99 € una tantum. Niente abbonamento, niente pubblicità.</p></li>
+<li><h2>Funziona offline.</h2><p>Nessun collegamento bancario obbligatorio.</p></li>
+    </ul>
+    <form class="waitlist" method="post" action="[DA COMPLETARE]">
+      <label for="email">La tua email</label>
+      <div class="fields">
+        <input id="email" name="email" type="email" autocomplete="email" required>
+        <button type="submit" disabled>Avvisami al lancio</button>
+      </div>
+      <label class="consent"><input type="checkbox" name="consent" value="launch-v1" required>
+        <span>Accetto di ricevere un'email quando Bucktrail sarà disponibile. Userò il tuo indirizzo solo per questo e puoi cancellarti quando vuoi. I parametri della campagna, se presenti, vengono associati all’iscrizione.</span>
+      </label>
+      <a href="privacy.html">Informativa privacy</a>
+      <p id="waitlist-status" role="status">La lista d’attesa non è ancora attiva.</p>
+    </form>
+  </main>
+  <footer class="wrap foot">Bucktrail · sviluppata da uno studente di Parma · <a href="privacy.html">Informativa privacy</a><br>Apple e iPhone sono marchi di Apple Inc.</footer>
+</body>
+</html>

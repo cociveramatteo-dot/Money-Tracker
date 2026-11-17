@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Bucktrail · What you can spend, right now.</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="waitlist.js" defer></script>
+</head>
+<body>
+  <header class="top wrap">
+    <a class="brand" href="en.html"><span aria-hidden="true">↗</span> Bucktrail</a>
+    <nav aria-label="Language">
+      <a href="index.html" hreflang="it" lang="it" data-language>IT</a>
+      <a href="en.html" hreflang="en" lang="en" aria-current="page">EN</a>
+    </nav>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div>
+        <h1 id="title">What you can spend, right now.</h1>
+        <p class="intro">Bucktrail is the iPhone budget app that shows what you'll have left at month end. Coming soon: leave your email and I'll tell you when it launches.</p>
+      </div>
+      <figure class="trail" aria-hidden="true">
+        <svg viewBox="0 0 440 245" xmlns="http://www.w3.org/2000/svg">
+          <path class="guides" d="M20 48h400M20 99h400M20 150h400M20 201h400M246 32v185"/>
+          <path class="actual" d="M20 185C42 185 54 143 85 143S130 164 153 143 183 96 204 102 228 121 246 109"/>
+          <path class="forecast" d="M246 109C282 86 288 134 315 126S364 79 388 92 407 83 420 65"/>
+          <circle cx="246" cy="109" r="5"/>
+        </svg>
+        <figcaption><span>Actual</span><span>Projected</span></figcaption>
+      </figure>
+    </section>
+    <ul class="strengths">
+      <li><h2>See how the month ends.</h2><p>The green curve is what has already happened, the amber one is the projection to month end.</p></li>
+<li><h2>Pay once.</h2><p>Expected launch price: €4.99, one-time. No subscription, no ads.</p></li>
+<li><h2>Works offline.</h2><p>No bank connection required.</p></li>
+    </ul>
+    <form class="waitlist" method="post" action="[DA COMPLETARE]">
+      <label for="email">Your email</label>
+      <div class="fields">
+        <input id="email" name="email" type="email" autocomplete="email" required>
+        <button type="submit" disabled>Notify me at launch</button>
+      </div>
+      <label class="consent"><input type="checkbox" name="consent" value="launch-v1" required>
+        <span>I agree to receive an email when Bucktrail is available. I will only use your address for this and you can unsubscribe any time. Campaign parameters, when present, are stored with your signup.</span>
+      </label>
+      <a href="privacy.html">Privacy policy (Italian)</a>
+      <p id="waitlist-status" role="status">The waitlist is not open yet.</p>
+    </form>
+  </main>
+  <footer class="wrap foot">Bucktrail · built by a student from Parma, Italy · <a href="privacy.html">Privacy policy (Italian)</a><br>Apple and iPhone are trademarks of Apple Inc.</footer>
+</body>
+</html>

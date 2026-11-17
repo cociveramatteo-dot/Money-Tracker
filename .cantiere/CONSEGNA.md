@@ -1,7 +1,12 @@
-# CONSEGNA — chiusura sessione (capocantiere, Claude Code · Sonnet) · 2026-11-17 13:52
+# CONSEGNA — SC-4 · 2026-11-17 21:07
 
-**Aggiunta 2026-11-17 15:51:** uniti AGENTS.md e CLAUDE.md col modello 2.4.0 (Copilot terza impresa, riga Chrome, nota CLAUDE solo-Claude); sezioni di progetto e pausa Antigravity mantenute; *.cantiere-nuovo eliminati.
+Landing statica in `SOCIAL/landing/`, in italiano e inglese, con font locali e informativa italiana da far rivedere a Matteo. Test JavaScript superati per l'inoltro dei campi UTM, il cambio lingua e il blocco dell'invio finché l'azione è segnaposto. Restano la verifica visiva del collaudatore e la prova di iscrizione con il servizio effettivo.
 
-Oggi: libro riallineato (versioni 3.1…3.19, S-13 = 3.14, PDF), S-35 (TransactionsView spezzata) e S-37 (Sync `try?`, store volatile, parseAmount rigoroso) collaudati e in main (089fd2b), 8 rami mergiati cancellati, Commissione Suprema 7,0/10 (voto nel libro §7). main = origin/main, repository pulito, grafo aggiornato.
+## Opzioni per Matteo
 
-Aperto, lasciato fermo da Matteo: S-38 (pacchetto A, Codex), S-39 (traduzioni, redattore), S-40 (font fissi, Codex), S-16 (decisione Decimal), S-36 resto (7 rami fix/nightly-*, tmp-stash-inspect), pull con try? (solo dati locali), S-33 in osservazione. AGENTS.md cita ancora il ramo redesign-sentiero (cancellato): aggiornare al prossimo ramo.
+- **Brevo Free** · 300 invii al giorno. Offre registri del consenso e mette a disposizione un DPA. Dichiara hosting dei dati in Francia e Germania per l'offerta transazionale. Per il modulo scelto verificare subfornitori e trasferimenti, disattivare il tracciamento e verificare che il POST conservi consenso e campi UTM. [Piano](https://help.brevo.com/hc/en-us/articles/208580669-FAQs-What-are-the-limits-of-the-Free-plan) · [Registri](https://www.brevo.com/products/marketing-platform/) · [Hosting](https://www.brevo.com/products/transactional-email/) · [DPA](https://help.brevo.com/hc/en-us/articles/15403782599570-Where-can-I-find-the-Data-Processing-Agreement-DPA)
+- **MailerLite Free** · 250 iscritti attivi e 2.500 invii al mese. DPA disponibile e archiviazione nei Paesi Bassi per il servizio attuale. Il DPA disciplina anche i trasferimenti internazionali. Verificare le condizioni applicabili all'account italiano e che il modulo accetti campi nascosti senza script di tracciamento. [Piano](https://www.mailerlite.com/help/free-plan-update-faq) · [DPA](https://www.mailerlite.com/legal/data-processing-agreement)
+
+Prima dell'attivazione scegliere hosting e servizio, compilare e approvare l'informativa (art. 13 GDPR), configurare un endpoint HTTPS per il POST, mappare i campi email, consenso e UTM e usare la conferma del redattore dopo l'accettazione effettiva. Configurare cancellazione e prova del consenso. [GDPR](https://eur-lex.europa.eu/eli/reg/2016/679/)
+
+File preesistenti fuori dal commit: `Claude outputs/`.
