@@ -5,14 +5,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### SOCIAL · SC-5 — pipeline di montaggio (stessa sessione Codex, dopo SC-4)
-📍 Nella sessione Codex già aperta per SC-4, quando ha chiuso il turno.
-▶️ Incolla:
-```text
-Task SC-5 (progetto SOCIAL). Segui SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf §4.6, §7 e §6 (F1, F4). Crea in SOCIAL/montaggio/ uno script (bash + ffmpeg, verifica con `which ffmpeg` e dimmi se manca) che prende una clip da ~/Desktop/clip-social/ e produce un master 1080x1920, 30 fps, SDR, H.264 15-20 Mbps, senza musica e senza watermark, con: sottotitoli/testo a schermo da un file .srt o .ass (Space Grotesk Bold titoli, Inter sottotitoli, bianco con contorno nero 1-2 px; parole chiave in verde #5FD19B e ambra #F2A65A), testo dentro la safe zone (y 280-1250, x 120-900), tagli netti (NIENTE zoom lento continuo), opzione per accelerare un tratto 2x. Aggiungi un README breve con un esempio d'uso e un test di fumo su una clip di prova generata con ffmpeg (nessun file pesante in git: ignora i video in .gitignore di SOCIAL/). Non toccare codice Swift. Chiudi il turno come da AGENTS.md §4.
-```
-↩️ Riportami «SC-5 fatto».
-
 ### SOCIAL · SC-6 — avvia Copilot per il diario metriche
 📍 Terminale, nuova scheda, nella cartella del cantiere: `copilot`.
 ▶️ Incolla:

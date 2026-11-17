@@ -131,3 +131,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-17 20:54 | capocantiere (Claude Code · Sonnet) | avvio progetto SOCIAL | letto manuale, SOCIAL/ ammessa in root, task SC-0…SC-6 in PIANO, azioni Matteo in PER-MATTEO | SC-0 calendario, SC-1/SC-2 a Matteo |
 
 | 2026-11-17 21:07 | impresa (Codex · GPT-6) | SC-4 | Landing IT/EN, privacy e verifica UTM | Collaudo, servizio, hosting e approvazione privacy |
+| 2026-11-17 21:18 | impresa (Codex · GPT-6) | SC-5 | Script FFmpeg, modello ASS, README, test ASS/SRT e HDR sintetico | Collaudo con clip reale F1/F4 |

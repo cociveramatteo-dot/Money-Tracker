@@ -1,0 +1,20 @@
+[Script Info]
+Title: Bucktrail F1 — esempio
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Inter 18pt,48,&H00FFFFFF,&H00FFFFFF,&H00000000,&H70000000,0,0,0,0,100,100,0,0,1,2,1,2,128,188,680,1
+Style: Titolo,Space Grotesk,68,&H00FFFFFF,&H00FFFFFF,&H00000000,&H70000000,-1,0,0,0,100,100,0,0,1,2,1,8,128,188,288,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.60,Titolo,,0,0,0,,Il saldo di fine mese
+Dialogue: 0,0:00:01.60,0:00:03.20,Default,,0,0,0,,{\c&H9BD15F&}Verde: reale{\c} · {\c&H5AA6F2&}Ambra: previsto{\c}
+Dialogue: 0,0:00:03.20,0:00:04.80,Default,,0,0,0,,Bucktrail · link in bio
+Dialogue: 1,0:00:03.20,0:00:04.80,Default,,0,0,0,,{\an7\pos(300,940)\bord0\shad0\c&H9BD15F&\p1}m 0 105 b 45 105 60 27 110 45 b 144 57 166 32 205 28 l 205 36 b 166 40 145 65 108 53 b 65 37 48 113 0 113
+Dialogue: 1,0:00:03.20,0:00:04.80,Default,,0,0,0,,{\an7\pos(300,940)\bord0\shad0\c&H5AA6F2&\p1}m 213 27 l 228 23 230 31 215 35 m 239 20 l 254 18 256 26 241 28 m 265 16 l 280 12 282 20 267 24 m 291 9 l 306 5 308 13 293 17
