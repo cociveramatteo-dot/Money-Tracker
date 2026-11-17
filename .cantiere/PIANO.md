@@ -181,15 +181,16 @@ il task e i file indicati.
 
 ## Progetto SOCIAL (avviato 2026-11-17)
 
+> **Regola permanente:** ogni lavoro social segue sempre il manuale in `SOCIAL/` (vedi DECISIONI 2026-11-17).
 > Fonte unica: `SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf` (54 pagine; claim vietati in §1.3, format F1–F13 in §6, calendario in §15). Il calendario del manuale parte il 23/11: Matteo ha deciso di **iniziare il 2026-11-17 e adattare le date** (lancio previsto 12/01/2027, da riverificare). Zero budget pubblicitario; solo spese e budget, mai investimenti.
 > Sorgente app: il redesign Sentiero e S-37 sono già su `main` (merge fatti): nessun merge da attendere.
 
-### SC-0 [ ] Calendario adattato (capocantiere): ricalcolare i 56 giorni da 17/11 con lancio fisso al 12/01/2027 e settimane compresse; verificare le date App Review natalizie. Output: tabella in `SOCIAL/calendario-v1.md`.
+### SC-0 [~] Calendario adattato (capocantiere, 2026-11-17 21:xx): `SOCIAL/calendario-v1.md` (settimana 0 dal 18/11, poi date del manuale, gate 06/12). Da verificare: date App Review natalizie.
 ### SC-1 [?] Account social (Matteo): vedi PER-MATTEO. **Apple Developer Program NON pagato per scelta di Matteo (2026-11-17):** prima si cerca un segnale di interesse sui social; link in bio = landing con email (waitlist), non pre-order.
-### SC-1b [?] Soglia di decisione per pagare Apple (Matteo): [DA COMPLETARE] quali numeri contano come «segnale» (es. iscritti alla waitlist, follower, tempo medio sopra la mediana) e entro quando. Il manuale non dà benchmark: la soglia è sua.
+### SC-1b [?] (proposta di soglie scritta in DECISIONI.md il 2026-11-17: Matteo conferma o cambia) Soglia di decisione per pagare Apple (Matteo): [DA COMPLETARE] quali numeri contano come «segnale» (es. iscritti alla waitlist, follower, tempo medio sopra la mediana) e entro quando. Il manuale non dà benchmark: la soglia è sua.
 ### SC-2 [?] Clip base dal telefono in modalità demo (Matteo): lista in PER-MATTEO.
-### SC-3 [ ] Testi di base (redattore): bio, caption, nome/sottotitolo/keyword/descrizione App Store IT+EN, hook dei primi format. Solo claim ammessi (manuale §1.1–1.3). Poi approvazione Matteo in APPROVAZIONI.md.
-### SC-4 [ ] (ora critica: è l'unico punto di raccolta del segnale) Landing con modulo email + privacy policy (Codex; fino al 2026-11-20 anche mansioni di Antigravity): serve prima decisione di Matteo su dove ospitarla (nessun hosting oggi, AGENTS.md §1).
+### SC-3 [~ in corso, redattore] Testi di base (redattore): bio, caption, nome/sottotitolo/keyword/descrizione App Store IT+EN, hook dei primi format. Solo claim ammessi (manuale §1.1–1.3). Poi approvazione Matteo in APPROVAZIONI.md.
+### SC-4 [ ] → Codex, prompt in PER-MATTEO (ora critica: è l'unico punto di raccolta del segnale) Landing con modulo email + privacy policy (Codex; fino al 2026-11-20 anche mansioni di Antigravity): serve prima decisione di Matteo su dove ospitarla (nessun hosting oggi, AGENTS.md §1).
 ### SC-5 [ ] Pipeline di montaggio (Codex): script ffmpeg 1080×1920, master senza musica né watermark, sottotitoli Space Grotesk/Inter, firma curva verde/ambra con i colori veri. Tagli netti, niente zoom lento.
 ### SC-6 [ ] Diario delle metriche (Codex): foglio come manuale §9.7.
 

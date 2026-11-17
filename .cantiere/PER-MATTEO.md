@@ -5,6 +5,19 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### SOCIAL · SC-4 — avvia Codex per la landing
+📍 Terminale, nuova scheda, nella cartella del cantiere: apri Codex.
+▶️ Incolla:
+```text
+Task SC-4 (MoneyTracker, progetto SOCIAL). Segui sempre SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf (testo estraibile con pdftotext) e SOCIAL/testi-v1.md (testi della landing IT/EN, scritti dal redattore: se non c'è ancora, aspetta o usa [DA COMPLETARE]). Costruisci una landing statica one-page (HTML+CSS, nessun framework, nessun tracker, niente cookie) in SOCIAL/landing/: titolo, 3 punti di forza, modulo email con consenso privacy, link privacy policy (pagina separata privacy.html in italiano, da far rivedere a Matteo), parametri UTM letti da URL e salvati con l'iscrizione. Grafica coerente con i token «Sentiero»: sfondo #0E1210, verde #5FD19B, ambra #F2A65A, Space Grotesk (titoli) e Inter (testo), curva verde piena + ambra tratteggiata come firma; mobile first, dark. Claim ammessi solo da manuale §1.1-1.3 (vietati: 6 mesi, 100% offline/mai cloud, investimenti). Il modulo deve inviare a un servizio esterno: NON sceglierlo tu, lascia un attributo action [DA COMPLETARE] e descrivi 2-3 opzioni gratuite con pro/contro privacy in CONSEGNA. Non pubblicare niente, non toccare codice Swift. Chiudi il turno come da AGENTS.md §4 con commit solo di SOCIAL/landing e .cantiere.
+```
+↩️ Quando ha finito, riportami «SC-4 fatto»: faccio il collaudo e ti chiedo dove pubblicare.
+
+### SOCIAL · SC-1b — conferma le soglie del segnale (entro 22/11)
+📍 Apri `.cantiere/DECISIONI.md`, sezione «Soglie del segnale di interesse».
+▶️ Leggi verde/giallo/rosso e le 4 cifre proposte (40 iscritti, 200 visite, 5%, 5 commenti).
+↩️ Scrivimi «soglie ok» oppure le cifre che vuoi.
+
 ### SOCIAL · SC-1 — account social (oggi)
 📍 Browser.
 ▶️ 1) (Apple Developer Program: rimandato, vedi DECISIONI.) 2) Crea TikTok Business, Instagram professionale e canale YouTube, tutti `@bucktrail`. 3) Bio: «Budget senza abbonamento · app iOS in arrivo».

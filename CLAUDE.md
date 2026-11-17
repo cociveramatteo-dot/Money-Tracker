@@ -22,6 +22,10 @@ Ammessi nella root **solo** le cartelle e i file elencati sopra (più i file di 
 (romperebbe i percorsi del progetto Xcode). L'unico documento di riferimento del prodotto è `docs/MoneyTracker.pdf`
 (generato da `docs/MoneyTracker.md`); non creare nuovi documenti. Eccezione: i materiali del progetto social stanno in `SOCIAL/`.
 
+## Progetto SOCIAL
+
+Ogni lavoro sul lancio social (testi, format, montaggio, calendario, metriche, legale) segue **sempre** `SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf`. Decisioni, soglie e calendario: `.cantiere/DECISIONI.md`, `SOCIAL/calendario-v1.md`, task SC-* in `.cantiere/PIANO.md`.
+
 ## Workflow checkpoint
 
 Ogni volta che si fa un checkpoint significativo, nell'ordine:

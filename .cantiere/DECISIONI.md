@@ -101,3 +101,16 @@ Autorizzata lettura diretta del sorgente HTML inline dei mockup, comprese le str
 - **Perché:** Matteo non vuole spendere prima di sapere se c'è interesse.
 - **Conseguenze:** niente pre-order né campaign link Apple: i link in bio vanno a una landing con email (fallback del manuale §10.1), misurata con UTM. Il lancio del 12/01/2027 regge solo se si paga entro circa metà dicembre (build, App Review, pre-order: manuale §15, giorni 9-15); oltre, il lancio slitta. Soglia del «segnale» da definire (SC-1b).
 - **Alternative scartate:** pagare subito (rischio di spesa a vuoto).
+
+## 2026-11-17 · Regola permanente del progetto SOCIAL
+- **Cosa:** per tutto il lavoro social (testi, format, montaggio, calendario, pubblicazione, metriche, rischi legali) si seguono sempre le direttive di `SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf`: claim ammessi/vietati (§1), format F1–F13 (§6), produzione (§7), pubblicazione (§8), metriche (§9), legale (§12). Conflitti: vince il manuale; le deviazioni si scrivono qui con il motivo.
+- **Perché:** sono le fonti che Matteo considera importanti; il manuale distingue fatti verificati da opinioni.
+- **Deviazioni decise finora:** niente pagamento Apple prima del gate (vedi sotto); inizio anticipato al 18/11; link in bio = landing con email.
+
+## 2026-11-17 · Soglie del segnale di interesse (PROPOSTA del capocantiere, da confermare da Matteo — SC-1b)
+Il manuale non dà benchmark (§9.5, §15.4): le soglie sono relative ai dati di Matteo e di processo. Quindi sono mie **inferenze** costruite su §9.5, §9.3, §15.4. Gate: **dom 06/12/2026** (≈17 giorni di pubblicazione, ≥10 video per piattaforma).
+**Segnali che contano** (dal più forte): 1) iscrizioni alla landing con email; 2) commenti/DM «quando esce? dov'è il link?»; 3) invii (DM) e salvataggi su Reels/caroselli; 4) tempo medio e completamento sopra la mediana dei propri ultimi 10 video; 5) click bio → landing. Le view da sole non contano (§9 intro). Un video virale isolato non basta: il caso dumbphone mostra risultati asimmetrici (13% dei video oltre 50× la media).
+**Verde (si paga):** almeno 3 su 4: (a) ≥1 format sopra la mediana in 2 varianti su 3 (§15.4 punto 2); (b) landing: iscritti [DA COMPLETARE: proposta 40 organici] e conversione visita→email almeno ~5% con ≥200 visite [proposta, INFERENZA]; (c) ≥5 commenti o DM che chiedono link/uscita; (d) trend crescente di invii/salvataggi settimana su settimana. Nota: un solo iscritto o poche view = non è un segnale.
+**Giallo (una settimana in più):** 1–2 criteri su 4, o tutti ma con dati troppo pochi (<10 video).
+**Rosso (stop o cambio angolo):** 0 criteri dopo 10+ video, con format già variati (3 angoli per argomento, §9.6).
+Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non fonti): Matteo le conferma o le cambia prima del 22/11, poi non si spostano.
