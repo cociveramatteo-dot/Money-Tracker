@@ -1,7 +1,5 @@
-# CONSEGNA — collaudo S-37 · collaudatore (Claude Code · Sonnet) · 2026-11-17 13:35
+# CONSEGNA — chiusura sessione (capocantiere, Claude Code · Sonnet) · 2026-11-17 13:52
 
-Esito: CONFORME, S-37 [x]. Ramo `fix-sync-integrita` (commit 638f8f8) non mergiato né pushato.
-Verificato: fetch push tutti `try` nel do/catch; unica cancellazione remota = deleteOrphans (guardata); flag `usingVolatileStore` impostato nel catch e bloccante su push/pushResilient/schedulePush/scheduleRetry/deleteOrphans; parseAmount rigoroso, test esistenti intatti; override ricorrenze validato senza arrotondare; nessun file Models/Auth/Intents/Export/S-16 toccato; `git diff --check` ok.
-Test: xcodebuild test su iPhone 18 Pro, 94 unit (20 suite) + 45 UI, 0 falliti.
-Note: il diff include graphify-out rigenerato (atteso). Le protezioni cloud non sono state provate con mock (errore fetch / store volatile): verificate solo per ispezione.
-Aperto: merge su main (decide Matteo).
+Oggi: libro riallineato (versioni 3.1…3.19, S-13 = 3.14, PDF), S-35 (TransactionsView spezzata) e S-37 (Sync `try?`, store volatile, parseAmount rigoroso) collaudati e in main (089fd2b), 8 rami mergiati cancellati, Commissione Suprema 7,0/10 (voto nel libro §7). main = origin/main, repository pulito, grafo aggiornato.
+
+Aperto, lasciato fermo da Matteo: S-38 (pacchetto A, Codex), S-39 (traduzioni, redattore), S-40 (font fissi, Codex), S-16 (decisione Decimal), S-36 resto (7 rami fix/nightly-*, tmp-stash-inspect), pull con try? (solo dati locali), S-33 in osservazione. AGENTS.md cita ancora il ramo redesign-sentiero (cancellato): aggiornare al prossimo ramo.
