@@ -131,3 +131,7 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - **Cosa:** Matteo esclude il premium opzionale a €1,99/mese citato nel manuale §1.1. L'app resta a pagamento una tantum (€4,99, prezzo di lancio previsto), senza abbonamento.
 - **Perché:** coerenza del messaggio «paghi una volta, le altre ogni mese» (F2, F12) e fiducia.
 - **Effetto sui testi:** «senza abbonamento» e «4,99 € una volta» sono ora promesse pienamente coerenti; restano vietate le promesse su sincronizzazione/cloud («mai cloud»), che sono un'altra cosa (§1.3). Il manuale §1.1 su questo punto è superato.
+
+## 2026-11-17 · Social senza elementi personali; video in IA in valutazione
+- **Cosa:** niente volto, voce, nome, «studente», «di Parma», storie personali in testi e video. Il brand parla come «Bucktrail». Deroga alla scelta del manuale §4.4/F8 (build in public personale). F8 diventa un video di brand a solo testo; F9 solo come esempio dichiarato (manuale §12.4). Task SC-3b al redattore.
+- **Video interamente con IA:** richiesta di Matteo, parere del capocantiere in chat. Il manuale (§4.7) consiglia l'IA solo per test sugli hook, sempre etichettata; schermo reale dell'app e curva restano reali. Decisione in attesa.
