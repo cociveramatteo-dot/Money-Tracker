@@ -29,11 +29,6 @@ Task SC-4 (MoneyTracker, progetto SOCIAL). Segui sempre SOCIAL/Bucktrail_Manuale
 ```
 ↩️ Quando ha finito, riportami «SC-4 fatto»: faccio il collaudo e ti chiedo dove pubblicare.
 
-### SOCIAL · SC-1b — conferma le soglie del segnale (entro 22/11)
-📍 Apri `.cantiere/DECISIONI.md`, sezione «Soglie del segnale di interesse».
-▶️ Leggi verde/giallo/rosso e le 4 cifre proposte (40 iscritti, 200 visite, 5%, 5 commenti).
-↩️ Scrivimi «soglie ok» oppure le cifre che vuoi.
-
 ### SOCIAL · SC-1 — account social (oggi)
 📍 Browser.
 ▶️ 1) (Apple Developer Program: rimandato, vedi DECISIONI.) 2) Crea TikTok Business, Instagram professionale e canale YouTube, tutti `@bucktrail`. 3) Bio: «Budget senza abbonamento · app iOS in arrivo».

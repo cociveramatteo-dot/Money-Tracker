@@ -107,7 +107,7 @@ Autorizzata lettura diretta del sorgente HTML inline dei mockup, comprese le str
 - **Perché:** sono le fonti che Matteo considera importanti; il manuale distingue fatti verificati da opinioni.
 - **Deviazioni decise finora:** niente pagamento Apple prima del gate (vedi sotto); inizio anticipato al 18/11; link in bio = landing con email.
 
-## 2026-11-17 · Soglie del segnale di interesse (PROPOSTA del capocantiere, da confermare da Matteo — SC-1b)
+## 2026-11-17 · Soglie del segnale di interesse (✅ CONFERMATE da Matteo il 2026-11-17, cifre comprese: 40 iscritti, 200 visite, 5%, 5 commenti — non si spostano più) — SC-1b
 Il manuale non dà benchmark (§9.5, §15.4): le soglie sono relative ai dati di Matteo e di processo. Quindi sono mie **inferenze** costruite su §9.5, §9.3, §15.4. Gate: **dom 06/12/2026** (≈17 giorni di pubblicazione, ≥10 video per piattaforma).
 **Segnali che contano** (dal più forte): 1) iscrizioni alla landing con email; 2) commenti/DM «quando esce? dov'è il link?»; 3) invii (DM) e salvataggi su Reels/caroselli; 4) tempo medio e completamento sopra la mediana dei propri ultimi 10 video; 5) click bio → landing. Le view da sole non contano (§9 intro). Un video virale isolato non basta: il caso dumbphone mostra risultati asimmetrici (13% dei video oltre 50× la media).
 **Verde (si paga):** almeno 3 su 4: (a) ≥1 format sopra la mediana in 2 varianti su 3 (§15.4 punto 2); (b) landing: iscritti [DA COMPLETARE: proposta 40 organici] e conversione visita→email almeno ~5% con ≥200 visite [proposta, INFERENZA]; (c) ≥5 commenti o DM che chiedono link/uscita; (d) trend crescente di invii/salvataggi settimana su settimana. Nota: un solo iscritto o poche view = non è un segnale.
