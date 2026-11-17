@@ -5,10 +5,10 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### SOCIAL · SC-1 — account e Apple Developer Program (oggi)
+### SOCIAL · SC-1 — account social (oggi)
 📍 Browser.
-▶️ 1) Iscriviti all'Apple Developer Program (developer.apple.com/programs, a pagamento; senza non c'è pre-order). 2) Crea TikTok Business, Instagram professionale e canale YouTube, tutti `@bucktrail`. 3) Bio: «Budget senza abbonamento · app iOS in arrivo».
-↩️ Scrivi «account fatti» e dimmi se l'iscrizione Apple è partita (l'approvazione può richiedere giorni).
+▶️ 1) (Apple Developer Program: rimandato, vedi DECISIONI.) 2) Crea TikTok Business, Instagram professionale e canale YouTube, tutti `@bucktrail`. 3) Bio: «Budget senza abbonamento · app iOS in arrivo».
+↩️ Scrivi «account fatti» 
 
 ### SOCIAL · SC-2 — clip base (questa settimana, 20-30 min)
 📍 iPhone vero (il Simulatore non ha tocco posteriore), app in modalità demo, Non disturbare, batteria piena.

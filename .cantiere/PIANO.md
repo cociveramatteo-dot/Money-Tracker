@@ -185,10 +185,11 @@ il task e i file indicati.
 > Sorgente app: il redesign Sentiero e S-37 sono già su `main` (merge fatti): nessun merge da attendere.
 
 ### SC-0 [ ] Calendario adattato (capocantiere): ricalcolare i 56 giorni da 17/11 con lancio fisso al 12/01/2027 e settimane compresse; verificare le date App Review natalizie. Output: tabella in `SOCIAL/calendario-v1.md`.
-### SC-1 [?] Account e Apple Developer Program (Matteo): vedi PER-MATTEO. Senza Developer Program niente pre-order.
+### SC-1 [?] Account social (Matteo): vedi PER-MATTEO. **Apple Developer Program NON pagato per scelta di Matteo (2026-11-17):** prima si cerca un segnale di interesse sui social; link in bio = landing con email (waitlist), non pre-order.
+### SC-1b [?] Soglia di decisione per pagare Apple (Matteo): [DA COMPLETARE] quali numeri contano come «segnale» (es. iscritti alla waitlist, follower, tempo medio sopra la mediana) e entro quando. Il manuale non dà benchmark: la soglia è sua.
 ### SC-2 [?] Clip base dal telefono in modalità demo (Matteo): lista in PER-MATTEO.
 ### SC-3 [ ] Testi di base (redattore): bio, caption, nome/sottotitolo/keyword/descrizione App Store IT+EN, hook dei primi format. Solo claim ammessi (manuale §1.1–1.3). Poi approvazione Matteo in APPROVAZIONI.md.
-### SC-4 [ ] Landing con modulo email + privacy policy (Codex; fino al 2026-11-20 anche mansioni di Antigravity): serve prima decisione di Matteo su dove ospitarla (nessun hosting oggi, AGENTS.md §1).
+### SC-4 [ ] (ora critica: è l'unico punto di raccolta del segnale) Landing con modulo email + privacy policy (Codex; fino al 2026-11-20 anche mansioni di Antigravity): serve prima decisione di Matteo su dove ospitarla (nessun hosting oggi, AGENTS.md §1).
 ### SC-5 [ ] Pipeline di montaggio (Codex): script ffmpeg 1080×1920, master senza musica né watermark, sottotitoli Space Grotesk/Inter, firma curva verde/ambra con i colori veri. Tagli netti, niente zoom lento.
 ### SC-6 [ ] Diario delle metriche (Codex): foglio come manuale §9.7.
 

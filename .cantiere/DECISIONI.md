@@ -95,3 +95,9 @@ Autorizzata lettura diretta del sorgente HTML inline dei mockup, comprese le str
 - **Chi decide:** Matteo (ok «ci può stare»). **Cosa:** per ogni funzione nuova (non restyling) si presenta prima un mockup/descrizione a Matteo; il codice parte solo dopo l'approvazione.
 - **Perché:** S-14 (confronto mese su mese) è stato costruito con 7 lingue e test e rimosso il giorno dopo da S-31: lavoro buttato.
 - **Alternative scartate:** codice subito e verifica a posteriori.
+
+## 2026-11-17 · Social prima di Apple Developer Program
+- **Cosa:** si parte coi social senza pagare l'Apple Developer Program; il pagamento dipende da un segnale di interesse nelle prime settimane.
+- **Perché:** Matteo non vuole spendere prima di sapere se c'è interesse.
+- **Conseguenze:** niente pre-order né campaign link Apple: i link in bio vanno a una landing con email (fallback del manuale §10.1), misurata con UTM. Il lancio del 12/01/2027 regge solo se si paga entro circa metà dicembre (build, App Review, pre-order: manuale §15, giorni 9-15); oltre, il lancio slitta. Soglia del «segnale» da definire (SC-1b).
+- **Alternative scartate:** pagare subito (rischio di spesa a vuoto).
