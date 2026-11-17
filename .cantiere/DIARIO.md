@@ -124,3 +124,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-17 11:59 | architetto (Opus) via capocantiere | Commissione Suprema | media 7,0/10 (6·7·8·8·7·6); libro §7 aggiornato; task S-37…S-40 | S-37 serve OK Matteo |
 
 | 2026-11-17 12:52 | impresa (Codex · GPT-6) | S-37 | fetch push throwing, blocco store volatile, parsing completo anche override autorizzato; clean build e 94 unit + 45 UI verdi; nessun push/merge | collaudo S-37; S-33 in osservazione; S-16 escluso |
+| 2026-11-17 13:35 | collaudatore (Claude Code · Sonnet) | S-37 | collaudo ok: 94 unit + 45 UI verdi, diff conforme ai tre punti + override ricorrenze autorizzato | merge su main solo con ok di Matteo |
