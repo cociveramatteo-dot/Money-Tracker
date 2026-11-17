@@ -5,6 +5,14 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### SOCIAL · SC-6 — avvia Copilot per il diario metriche
+📍 Terminale, nuova scheda, nella cartella del cantiere: `copilot`.
+▶️ Incolla:
+```text
+Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (una riga per pubblicazione): data, ora, piattaforma, codice_format, variante_hook, durata_s, view, tempo_medio_s, pct_completamento, invii, salvataggi, commenti, visite_profilo, click_link, iscritti_landing. Crea SOCIAL/diario-metriche.md con le istruzioni d'uso e queste regole del manuale §9.5/9.7: ogni domenica si calcola la mediana (non la media) degli ultimi 10 video per piattaforma; un format si promuove se 2 varianti su 3 superano la mediana, si abbandona dopo 6 pubblicazioni sotto; engagement rate = interazioni totali / copertura × 100. Aggiungi una riga di esempio chiaramente segnata come ESEMPIO. Non inventare numeri reali. Niente altro. Commit solo di SOCIAL/diario-metriche.* e .cantiere come da AGENTS.md §4.
+```
+↩️ Riportami «SC-6 fatto».
+
 ### SOCIAL · SC-4 — avvia Codex per la landing
 📍 Terminale, nuova scheda, nella cartella del cantiere: apri Codex.
 ▶️ Incolla:
