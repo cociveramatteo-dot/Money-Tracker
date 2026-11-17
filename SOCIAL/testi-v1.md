@@ -1,5 +1,7 @@
 # Bucktrail — testi social, App Store, landing (v1)
 
+Revisione SC-3b 2026-11-17: tolti elementi personali (studente, Parma, "io/mio", storie vissute). Voce di brand, nessuna persona.
+
 Stato: BOZZA, tutto ⏳ da approvare da Matteo. Nulla è da pubblicare.
 Fonte: Manuale strategico v2 (§1.1-1.3, 5.4, 6, 8.4, 10.3, 12). Conteggi fatti a mano: ricontrollare incollando nei campi reali.
 
@@ -17,14 +19,14 @@ Nome visualizzato: **Bucktrail · budget senza abbonamento** (37 caratteri)
 - Link in bio: landing con modulo email (sezione 4). Niente link all'App Store.
 
 **Instagram (144/150)**
-> Vedi quanto ti resterà a fine mese. App budget per iPhone, senza abbonamento né pubblicità. Fatta da uno studente di Parma. Link: lista d'attesa
+> Vedi quanto ti resterà a fine mese. App budget per iPhone, senza abbonamento né pubblicità. Funziona offline. Link: lista d'attesa
 
 **TikTok (bio lunga, 144/150)** — stessa dell'Instagram.
 Se TikTok taglia a 80 caratteri (limite da verificare in app), versione corta (58):
 > App budget per iPhone. Senza abbonamento. Lista d'attesa 👇
 
 **YouTube (descrizione canale, 142/150)**
-> Budget senza abbonamento: l'app per iPhone che ti mostra il saldo di fine mese. Sviluppata da uno studente di Parma. Lista d'attesa nel link.
+> Budget senza abbonamento: l'app per iPhone che ti mostra il saldo di fine mese. Senza pubblicità. Lista d'attesa nel link.
 
 ---
 
@@ -32,26 +34,26 @@ Se TikTok taglia a 80 caratteri (limite da verificare in app), versione corta (5
 
 Hashtag: 3-5 per post (Instagram max 5). I testi a schermo hanno max 5 parole per riga. Prezzo sempre "di lancio previsto".
 
-### F8 — Build in public
+### F8 — Build in public (voce di brand: solo testo a schermo, nessuna voce né volto)
 Hook (3 varianti):
-1. «Sono uno studente di Parma e sto facendo un'app senza abbonamenti. Giorno 1.»
+1. «Giorno 1 di Bucktrail: un'app di budget senza abbonamento.»
 2. «Quanto costa pubblicare un'app sull'App Store (numeri veri).» → [DA COMPLETARE: cifre reali, le dà Matteo]
-3. «Ho rifiutato di mettere la pubblicità nella mia app. Ecco perché.»
+3. «Bucktrail non avrà pubblicità. Ecco perché.»
 
 Testi a schermo (esempio, adattare alla variante):
 - Giorno 1
-- Studente di Parma
+- Bucktrail
 - Un'app senza abbonamenti
 - [DA COMPLETARE: 1 numero reale dello sviluppo]
 - Segui per il giorno del lancio
 
 Caption:
-> App di budget senza abbonamento: giorno 1. Sono uno studente di Parma e la sto sviluppando da solo. Niente pubblicità, prezzo di lancio previsto 4,99 € una tantum. Segui per il giorno del lancio, lista d'attesa nel link in bio.
+> App di budget senza abbonamento: giorno 1 di Bucktrail. Niente pubblicità, prezzo di lancio previsto 4,99 € una tantum. Segui per il giorno del lancio, lista d'attesa nel link in bio.
 > #buildinpublic #bucktrail #appiphone #budget
 
 ### F1 — La curva ambra
 Hook:
-1. «Il 18 del mese ho visto questo e ho smesso di ordinare sushi.»
+1. «Il 18 del mese vedi questo e capisci quanto puoi ancora spendere.»
 2. «Questa linea tratteggiata ti dice se arrivi a fine mese.»
 3. «Verde: già speso. Ambra: quello che succederà.»
 
@@ -66,12 +68,12 @@ Caption:
 > Vuoi sapere quanto ti resterà a fine mese? Bucktrail ti mostra il saldo previsto con la linea ambra: verde ciò che è già successo, ambra la proiezione fino a fine mese. Funziona offline, niente abbonamento. Link in bio 👇
 > #budget #finanzapersonale #appiphone #bucktrail
 
-Nota: la variante 1 racconta un'esperienza personale: va usata solo se vera (§12.4, storie inventate).
+Nota: niente esperienze vissute in prima persona (§12.4): ogni scenario è un esempio dichiarato.
 
 ### F13 (n. 1) — Spese fisse e variabili
 Hook:
 1. «Il saldo di oggi ti sta mentendo.»
-2. «Sai già quanto avrai il 30? Io sì.»
+2. «Sai già quanto avrai il 30? Con le ricorrenze sì.»
 3. «Perché l'estratto conto a fine mese non ti dice niente?»
 
 Testi a schermo:
@@ -81,7 +83,7 @@ Testi a schermo:
 - Spesa, uscite, imprevisti
 - Esempio: 1.200 € di entrate…
 - [DA COMPLETARE: cifre dell'esempio, dichiarate "esempio"]
-- Io lo vedo così
+- Così lo vedi in Bucktrail
 - Salvalo · segui per la prossima
 
 Caption:
@@ -111,7 +113,7 @@ Caption:
 
 ### F4 — Spesa registrata in 2 secondi
 Hook:
-1. «Registro una spesa senza aprire l'app. Guarda.»
+1. «Una spesa registrata senza aprire l'app. Guarda.»
 2. «Doppio tocco sul retro dell'iPhone: spesa salvata.»
 3. «Smetti di segnare le spese perché ci vuole troppo. Risolto.»
 
@@ -186,7 +188,7 @@ Descrizione (limite 4.000, circa 1.300 usati):
 > • Funziona offline.
 > • Nessun collegamento bancario obbligatorio.
 >
-> Bucktrail è sviluppata da una sola persona, uno studente di Parma. [DA COMPLETARE: contatti / supporto]
+> [DA COMPLETARE: contatti / supporto]
 
 ### English
 | Field | Text | Count |
@@ -217,7 +219,7 @@ Description (limit 4,000, about 1,200 used):
 > • Works offline.
 > • No bank connection required.
 >
-> Bucktrail is built by one person, a student from Parma, Italy. [DA COMPLETARE: contact / support]
+> [DA COMPLETARE: contact / support]
 
 Termini da far rileggere a un madrelingua: "trail" nel senso di curva, "month end" come keyword, "No strings", "overspend".
 
@@ -240,11 +242,11 @@ Prezzo: dove citato, sempre "prezzo di lancio previsto". Nessun pre-order né Ap
 **Consenso (da spuntare):** Accetto di ricevere un'email quando Bucktrail sarà disponibile. Userò il tuo indirizzo solo per questo e puoi cancellarti quando vuoi. [DA COMPLETARE: titolare del trattamento, link informativa privacy, servizio di invio email]
 **Conferma:** Fatto. Ti scrivo solo quando c'è novità.
 
-**Footer:** Bucktrail · sviluppata da uno studente di Parma · [DA COMPLETARE: email contatti] · Informativa privacy · Apple e iPhone sono marchi di Apple Inc.
+**Footer:** Bucktrail · [DA COMPLETARE: email contatti] · Informativa privacy · Apple e iPhone sono marchi di Apple Inc.
 
 ### English
 **Title:** What you can spend, right now.
-**Subtitle:** Bucktrail is the iPhone budget app that shows what you'll have left at month end. Coming soon: leave your email and I'll tell you when it launches.
+**Subtitle:** Bucktrail is the iPhone budget app that shows what you'll have left at month end. Coming soon: leave your email and we'll tell you when it launches.
 
 **Three strengths**
 1. **See how the month ends.** The green curve is what has already happened, the amber one is the projection to month end.
@@ -253,9 +255,9 @@ Prezzo: dove citato, sempre "prezzo di lancio previsto". Nessun pre-order né Ap
 
 **Form:** field "Your email" · button "Notify me at launch"
 **Consent (checkbox):** I agree to receive an email when Bucktrail is available. I will only use your address for this and you can unsubscribe any time. [DA COMPLETARE: data controller, privacy policy link, email service]
-**Confirmation:** Done. I'll only write when there's news.
+**Confirmation:** Done. We'll only write when there's news.
 
-**Footer:** Bucktrail · built by a student from Parma, Italy · [DA COMPLETARE: contact email] · Privacy policy · Apple and iPhone are trademarks of Apple Inc.
+**Footer:** Bucktrail · [DA COMPLETARE: contact email] · Privacy policy · Apple and iPhone are trademarks of Apple Inc.
 
 ---
 
