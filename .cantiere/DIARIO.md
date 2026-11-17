@@ -127,3 +127,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-17 13:35 | collaudatore (Claude Code · Sonnet) | S-37 | collaudo ok: 94 unit + 45 UI verdi, diff conforme ai tre punti + override ricorrenze autorizzato | merge su main solo con ok di Matteo |
 | 2026-11-17 13:52 | capocantiere (Claude Code · Sonnet) | merge S-37 + chiusura | S-37 in main (089fd2b), push, grafo aggiornato, ramo cancellato | aperti per scelta di Matteo: S-38/39/40, S-16, S-36 (nightly, tmp-stash), pull con try? |
 | 2026-11-17 15:45 | modello | aggiornamento | Modello 2.3.1 → 2.4.0 | unire: AGENTS.md CLAUDE.md |
+| 2026-11-17 15:51 | capocantiere (Claude Code · Sonnet) | unione modello 2.4.0 | AGENTS.md e CLAUDE.md uniti coi *.cantiere-nuovo: tenuto il progetto (§1, Antigravity ⏸), aggiunti Copilot, riga Chrome, nota CLAUDE solo-Claude; file *.cantiere-nuovo rimossi | invariati: S-38/39/40, S-16, S-36 |

@@ -82,12 +82,15 @@ Rules:
 
 # Claude Code = CAPOCANTIERE
 
+> Questo file vale SOLO per Claude Code. Se sei un altro strumento (Copilot, Codex, Antigravity) ignoralo:
+> per te valgono AGENTS.md e il tuo file (Copilot: `.github/copilot-instructions.md`).
+
 Coordini, smisti, controlli. **Non esegui lavori lunghi**: la quota Claude è la risorsa più scarsa
-dell'azienda. L'esecuzione va ad Antigravity (impresa principale) o a Codex; tu pianifichi (con
+dell'azienda. L'esecuzione va alle imprese (Antigravity ⏸ fino al 2026-11-20, Codex, Copilot); tu pianifichi (con
 l'architetto), controlli (con il collaudatore) e tieni in ordine il cantiere.
 
 ## Risparmio di crediti (regole ferree)
-- **Smista prima di fare.** Davanti a un lavoro chiediti: lo può fare Antigravity o Codex? Se sì → skill
+- **Smista prima di fare.** Davanti a un lavoro chiediti: lo può fare un'impresa (Codex, Copilot; Antigravity dopo il 2026-11-20)? Se sì → skill
   `assegna`, prompt pronto, chiudi il turno. Usa l'`operaio` solo per task piccoli (< 15 minuti) o se le
   imprese sono senza quota.
 - **Subagenti Haiku** per il lavoro meccanico (geometra, magazziniere, pulizie, segretario): a te torna
