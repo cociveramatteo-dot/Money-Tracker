@@ -134,3 +134,5 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-17 21:18 | impresa (Codex · GPT-6) | SC-5 | Script FFmpeg, modello ASS, README, test ASS/SRT e HDR sintetico | Collaudo con clip reale F1/F4 |
 | 2026-11-17 21:21 | terza impresa (GitHub Copilot · Fusion) | SC-6 | Creati il CSV e le istruzioni del diario metriche, con riga ESEMPIO senza numeri reali | Collaudo SC-6 |
 | 2026-11-17 23:14 | capocantiere (Claude Code · Sonnet) | avvio progetto SOCIAL | SC-0 calendario, soglie confermate, account creati (Gmail, IG, TikTok, YouTube), SC-3/3b testi, SC-4/5/6 collaudati, video di prova ibrido | decisione video IA, clip SC-2, hosting+servizio email+privacy, bio/foto account |
+| 2026-11-18 00:50 | capocantiere (Claude Code · Sonnet) | SC-4 landing v2 + fix Pianifica | Nuova landing IT/EN con screenshot reali (SOCIAL/landing); fix lista tagliata in PianificaView (contentMargins), build verde | Collaudo di Matteo su Pianifica; immagini Higgsfield; email, hosting, privacy |
+| 2026-11-18 00:50 | == CHECKPOINT (veloce) | capocantiere | collaudo.sh 🟢, graphify aggiornato, pagella misurata 99 | vedi CHECKPOINT.md |

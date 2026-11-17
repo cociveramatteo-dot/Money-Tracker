@@ -116,8 +116,9 @@ struct PianificaView: View {
                     Spacer(minLength: 100)
                 }
             }
-            // Riserva la fascia del FAB anche all’inizio dello scroll.
-            .padding(.bottom, DS.Space.xxl + DS.Space.xl + DS.Space.l)
+            // Riserva la fascia del FAB dentro il contenuto: la lista scorre sotto la barra
+            // senza essere tagliata (un padding sullo ScrollView lascia una striscia vuota).
+            .contentMargins(.bottom, DS.Space.xxl + DS.Space.xl + DS.Space.l, for: .scrollContent)
             .background(DS.paper)
             .scrollIndicators(.hidden)
             .refreshable { await SyncService.shared.manualRefresh(context: context) }

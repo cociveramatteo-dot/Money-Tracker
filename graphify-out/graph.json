@@ -1414,7 +1414,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_applockgate_swift",
-      "community": 43,
+      "community": 1,
       "norm_label": "applockgate.swift"
     },
     {
@@ -1446,7 +1446,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_applockgate_applockstate",
-      "community": 43,
+      "community": 1,
       "norm_label": "applockstate"
     },
     {
@@ -1456,7 +1456,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "observableobject",
-      "community": 191,
+      "community": 70,
       "norm_label": "observableobject"
     },
     {
@@ -1476,7 +1476,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_applockgate_applockstate_init",
-      "community": 43,
+      "community": 1,
       "norm_label": ".init()"
     },
     {
@@ -1486,7 +1486,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_applockgate_applockstate_lock",
-      "community": 43,
+      "community": 1,
       "norm_label": ".lock()"
     },
     {
@@ -1496,7 +1496,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_applockgate_applockstate_unlockifneeded",
-      "community": 43,
+      "community": 1,
       "norm_label": ".unlockifneeded()"
     },
     {
@@ -1506,7 +1506,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_applockgate_applockgate",
-      "community": 43,
+      "community": 1,
       "norm_label": "applockgate"
     },
     {
@@ -1526,7 +1526,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_applockgate_applockgate_init",
-      "community": 43,
+      "community": 1,
       "norm_label": ".init()"
     },
     {
@@ -1536,7 +1536,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_applockgate_applockgate_body",
-      "community": 43,
+      "community": 1,
       "norm_label": ".body()"
     },
     {
@@ -1566,7 +1566,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_applockgate_lockoverlay",
-      "community": 43,
+      "community": 1,
       "norm_label": "lockoverlay"
     },
     {
@@ -1586,7 +1586,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_applockgate_view",
-      "community": 43,
+      "community": 1,
       "norm_label": "view"
     },
     {
@@ -1596,7 +1596,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_applockgate_view_applockgate",
-      "community": 43,
+      "community": 1,
       "norm_label": ".applockgate()"
     },
     {
@@ -1606,7 +1606,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_biometricauthenticating_swift",
-      "community": 43,
+      "community": 1,
       "norm_label": "biometricauthenticating.swift"
     },
     {
@@ -1628,7 +1628,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "localauthentication",
-      "community": 43,
+      "community": 1,
       "norm_label": "localauthentication"
     },
     {
@@ -1638,7 +1638,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_biometricauthenticating_biometricauthenticating",
-      "community": 43,
+      "community": 1,
       "norm_label": "biometricauthenticating"
     },
     {
@@ -1648,7 +1648,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_biometricauthenticating_lacontextauthenticator",
-      "community": 43,
+      "community": 1,
       "norm_label": "lacontextauthenticator"
     },
     {
@@ -1668,7 +1668,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_biometricauthenticating_lacontextauthenticator_authenticate",
-      "community": 43,
+      "community": 1,
       "norm_label": ".authenticate()"
     },
     {
@@ -1678,7 +1678,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_swift",
-      "community": 194,
+      "community": 113,
       "norm_label": "loginview.swift"
     },
     {
@@ -1688,7 +1688,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_loginview",
-      "community": 194,
+      "community": 113,
       "norm_label": "loginview"
     },
     {
@@ -1698,7 +1698,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "view",
-      "community": 17,
+      "community": 112,
       "norm_label": "view"
     },
     {
@@ -1728,7 +1728,7 @@
       "source_location": "L173",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_loginview_signin",
-      "community": 194,
+      "community": 113,
       "norm_label": ".signin()"
     },
     {
@@ -1738,7 +1738,7 @@
       "source_location": "L185",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_loginview_sendreset",
-      "community": 194,
+      "community": 113,
       "norm_label": ".sendreset()"
     },
     {
@@ -1748,7 +1748,7 @@
       "source_location": "L192",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_loginview_autherror",
-      "community": 194,
+      "community": 113,
       "norm_label": ".autherror()"
     },
     {
@@ -1768,7 +1768,7 @@
       "source_location": "L212",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_loginview_authfield",
-      "community": 194,
+      "community": 113,
       "norm_label": "authfield"
     },
     {
@@ -1778,7 +1778,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "uikeyboardtype",
-      "community": 194,
+      "community": 113,
       "norm_label": "uikeyboardtype"
     },
     {
@@ -1788,7 +1788,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_signupview_swift",
-      "community": 193,
+      "community": 113,
       "norm_label": "signupview.swift"
     },
     {
@@ -1798,7 +1798,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_signupview_signupview",
-      "community": 193,
+      "community": 113,
       "norm_label": "signupview"
     },
     {
@@ -1828,7 +1828,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_signupview_signupview_signup",
-      "community": 193,
+      "community": 113,
       "norm_label": ".signup()"
     },
     {
@@ -1838,7 +1838,7 @@
       "source_location": "L167",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_signupview_signupview_signuperror",
-      "community": 193,
+      "community": 113,
       "norm_label": ".signuperror()"
     },
     {
@@ -1899,7 +1899,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_supabasemanager_supabasemanager",
-      "community": 191,
+      "community": 70,
       "norm_label": "supabasemanager"
     },
     {
@@ -1909,7 +1909,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "session",
-      "community": 191,
+      "community": 70,
       "norm_label": "session"
     },
     {
@@ -1919,7 +1919,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_supabasemanager_supabasemanager_init",
-      "community": 191,
+      "community": 70,
       "norm_label": ".init()"
     },
     {
@@ -1929,7 +1929,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_supabasemanager_supabasemanager_bootstrap",
-      "community": 191,
+      "community": 70,
       "norm_label": ".bootstrap()"
     },
     {
@@ -1959,7 +1959,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_supabasemanager_supabasemanager_signup",
-      "community": 191,
+      "community": 70,
       "norm_label": ".signup()"
     },
     {
@@ -1969,7 +1969,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_supabasemanager_supabasemanager_signin",
-      "community": 191,
+      "community": 70,
       "norm_label": ".signin()"
     },
     {
@@ -1979,7 +1979,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_supabasemanager_supabasemanager_signout",
-      "community": 191,
+      "community": 70,
       "norm_label": ".signout()"
     },
     {
@@ -1989,7 +1989,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_supabasemanager_supabasemanager_resetpassword",
-      "community": 194,
+      "community": 113,
       "norm_label": ".resetpassword()"
     },
     {
@@ -1999,7 +1999,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_auth_supabasemanager_supabasemanager_deleteaccount",
-      "community": 191,
+      "community": 70,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -2080,7 +2080,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache",
-      "community": 226,
+      "community": 181,
       "norm_label": "accountbalancecache"
     },
     {
@@ -2100,7 +2100,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache_init",
-      "community": 226,
+      "community": 181,
       "norm_label": ".init()"
     },
     {
@@ -2110,7 +2110,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_swift_persistentidentifier",
-      "community": 226,
+      "community": 181,
       "norm_label": "persistentidentifier"
     },
     {
@@ -2130,7 +2130,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache_currentbalance",
-      "community": 226,
+      "community": 181,
       "norm_label": ".currentbalance()"
     },
     {
@@ -2140,7 +2140,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_swift_account",
-      "community": 226,
+      "community": 181,
       "norm_label": "account"
     },
     {
@@ -2150,7 +2150,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache_futurebalance",
-      "community": 226,
+      "community": 181,
       "norm_label": ".futurebalance()"
     },
     {
@@ -2181,7 +2181,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger",
-      "community": 4,
+      "community": 1,
       "norm_label": "auditlogger"
     },
     {
@@ -2191,7 +2191,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_init",
-      "community": 4,
+      "community": 1,
       "norm_label": ".init()"
     },
     {
@@ -2201,7 +2201,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_entry",
-      "community": 4,
+      "community": 1,
       "norm_label": "entry"
     },
     {
@@ -2221,7 +2221,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "identifiable",
-      "community": 2,
+      "community": 310,
       "norm_label": "identifiable"
     },
     {
@@ -2271,7 +2271,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_record",
-      "community": 4,
+      "community": 1,
       "norm_label": ".record()"
     },
     {
@@ -2291,7 +2291,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_appendifresolvable",
-      "community": 4,
+      "community": 1,
       "norm_label": ".appendifresolvable()"
     },
     {
@@ -2311,7 +2311,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_appenddeleted",
-      "community": 4,
+      "community": 1,
       "norm_label": ".appenddeleted()"
     },
     {
@@ -2321,7 +2321,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_summary",
-      "community": 4,
+      "community": 1,
       "norm_label": ".summary()"
     },
     {
@@ -2331,7 +2331,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_append",
-      "community": 4,
+      "community": 1,
       "norm_label": ".append()"
     },
     {
@@ -2341,7 +2341,7 @@
       "source_location": "L105",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_readall",
-      "community": 4,
+      "community": 1,
       "norm_label": ".readall()"
     },
     {
@@ -2351,7 +2351,7 @@
       "source_location": "L116",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_auditlogger_auditlogger_clearall",
-      "community": 4,
+      "community": 1,
       "norm_label": ".clearall()"
     },
     {
@@ -2461,7 +2461,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_categoryclassifying_swift",
-      "community": 10,
+      "community": 202,
       "norm_label": "categoryclassifying.swift"
     },
     {
@@ -2471,7 +2471,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_categoryclassifying_categoryclassifying",
-      "community": 10,
+      "community": 202,
       "norm_label": "categoryclassifying"
     },
     {
@@ -2842,7 +2842,7 @@
       "source_location": "L158",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_schedulegoaldeadline",
-      "community": 113,
+      "community": 8,
       "norm_label": ".schedulegoaldeadline()"
     },
     {
@@ -2852,7 +2852,7 @@
       "source_location": "L181",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_cancelgoaldeadline",
-      "community": 113,
+      "community": 8,
       "norm_label": ".cancelgoaldeadline()"
     },
     {
@@ -3203,7 +3203,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_materializationerror",
-      "community": 193,
+      "community": 10,
       "norm_label": "materializationerror"
     },
     {
@@ -3213,7 +3213,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "error",
-      "community": 193,
+      "community": 10,
       "norm_label": "error"
     },
     {
@@ -3223,7 +3223,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_materializationerror_requiresmaincontext",
-      "community": 193,
+      "community": 10,
       "norm_label": "requiresmaincontext"
     },
     {
@@ -3233,7 +3233,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_materializationerror_savefailed",
-      "community": 193,
+      "community": 10,
       "norm_label": "savefailed"
     },
     {
@@ -3303,7 +3303,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_swift",
-      "community": 304,
+      "community": 113,
       "norm_label": "recurringseriesdetector.swift"
     },
     {
@@ -3313,7 +3313,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseries",
-      "community": 304,
+      "community": 113,
       "norm_label": "recurringseries"
     },
     {
@@ -3373,7 +3373,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseriesdetector",
-      "community": 304,
+      "community": 113,
       "norm_label": "recurringseriesdetector"
     },
     {
@@ -3383,7 +3383,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseriesdetector_detect",
-      "community": 304,
+      "community": 113,
       "norm_label": ".detect()"
     },
     {
@@ -3393,7 +3393,7 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseriesdetector_groupkey",
-      "community": 304,
+      "community": 113,
       "norm_label": ".groupkey()"
     },
     {
@@ -3403,7 +3403,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseriesdetector_monthkey",
-      "community": 304,
+      "community": 113,
       "norm_label": ".monthkey()"
     },
     {
@@ -3413,7 +3413,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseriesdetector_inferfrequency",
-      "community": 304,
+      "community": 113,
       "norm_label": ".inferfrequency()"
     },
     {
@@ -3444,7 +3444,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_recurrenceoperationstatus",
-      "community": 4,
+      "community": 6,
       "norm_label": "recurrenceoperationstatus"
     },
     {
@@ -3454,7 +3454,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_swift_string",
-      "community": 4,
+      "community": 6,
       "norm_label": "string"
     },
     {
@@ -3735,7 +3735,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "uikit",
-      "community": 11,
+      "community": 191,
       "norm_label": "uikit"
     },
     {
@@ -3985,7 +3985,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting",
-      "community": 3,
+      "community": 192,
       "norm_label": "currencyformatting.swift"
     },
     {
@@ -4005,7 +4005,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_swift_string",
-      "community": 3,
+      "community": 192,
       "norm_label": "string"
     },
     {
@@ -4045,7 +4045,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_date",
-      "community": 3,
+      "community": 192,
       "norm_label": "date"
     },
     {
@@ -4055,7 +4055,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_date_issamemonth",
-      "community": 3,
+      "community": 192,
       "norm_label": ".issamemonth()"
     },
     {
@@ -4065,7 +4065,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_swift_bool",
-      "community": 3,
+      "community": 192,
       "norm_label": "bool"
     },
     {
@@ -4075,7 +4075,7 @@
       "source_location": "L141",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_date_issameweek",
-      "community": 3,
+      "community": 192,
       "norm_label": ".issameweek()"
     },
     {
@@ -4085,7 +4085,7 @@
       "source_location": "L144",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_date_issameyear",
-      "community": 3,
+      "community": 192,
       "norm_label": ".issameyear()"
     },
     {
@@ -4095,7 +4095,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_swift",
-      "community": 1,
+      "community": 304,
       "norm_label": "formattercache.swift"
     },
     {
@@ -4105,7 +4105,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_formattercache",
-      "community": 1,
+      "community": 304,
       "norm_label": "formattercache"
     },
     {
@@ -4135,7 +4135,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_formattercache_registerlocaleobserver",
-      "community": 1,
+      "community": 304,
       "norm_label": ".registerlocaleobserver()"
     },
     {
@@ -4145,7 +4145,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_formattercache_currencyformatter",
-      "community": 1,
+      "community": 304,
       "norm_label": ".currencyformatter()"
     },
     {
@@ -4446,7 +4446,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_contanti",
-      "community": 185,
+      "community": 195,
       "norm_label": "contanti"
     },
     {
@@ -4576,7 +4576,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_budget_budget",
-      "community": 185,
+      "community": 195,
       "norm_label": "budget"
     },
     {
@@ -4636,7 +4636,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_budget_budget_init",
-      "community": 185,
+      "community": 195,
       "norm_label": ".init()"
     },
     {
@@ -4716,7 +4716,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_init",
-      "community": 192,
+      "community": 45,
       "norm_label": ".init()"
     },
     {
@@ -4726,7 +4726,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_seedifneeded",
-      "community": 45,
+      "community": 70,
       "norm_label": ".seedifneeded()"
     },
     {
@@ -4736,7 +4736,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_migrateiconsifneeded",
-      "community": 45,
+      "community": 70,
       "norm_label": ".migrateiconsifneeded()"
     },
     {
@@ -4826,7 +4826,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_recurringrule",
-      "community": 198,
+      "community": 22,
       "norm_label": "recurringrule"
     },
     {
@@ -4836,7 +4836,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_uuid",
-      "community": 198,
+      "community": 22,
       "norm_label": "uuid"
     },
     {
@@ -4846,7 +4846,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_string",
-      "community": 198,
+      "community": 22,
       "norm_label": "string"
     },
     {
@@ -4856,7 +4856,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_bool",
-      "community": 198,
+      "community": 22,
       "norm_label": "bool"
     },
     {
@@ -4866,7 +4866,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_date",
-      "community": 198,
+      "community": 22,
       "norm_label": "date"
     },
     {
@@ -4876,7 +4876,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_recurringrule_init",
-      "community": 198,
+      "community": 22,
       "norm_label": ".init()"
     },
     {
@@ -4886,7 +4886,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_swift",
-      "community": 195,
+      "community": 4,
       "norm_label": "transaction.swift"
     },
     {
@@ -4906,7 +4906,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
-      "community": 304,
+      "community": 195,
       "norm_label": "uscita"
     },
     {
@@ -5948,7 +5948,7 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_sbrecurringrule_apply",
-      "community": 198,
+      "community": 22,
       "norm_label": ".apply()"
     },
     {
@@ -6338,7 +6338,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "supabaseclient",
-      "community": 191,
+      "community": 70,
       "norm_label": "supabaseclient"
     },
     {
@@ -6858,7 +6858,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_swift",
-      "community": 304,
+      "community": 195,
       "norm_label": "addtransferview.swift"
     },
     {
@@ -6868,7 +6868,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview",
-      "community": 304,
+      "community": 195,
       "norm_label": "addtransferview"
     },
     {
@@ -6928,7 +6928,7 @@
       "source_location": "L140",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_accountpicker",
-      "community": 185,
+      "community": 195,
       "norm_label": ".accountpicker()"
     },
     {
@@ -6948,7 +6948,7 @@
       "source_location": "L169",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_pairedleg",
-      "community": 304,
+      "community": 195,
       "norm_label": ".pairedleg()"
     },
     {
@@ -6958,7 +6958,7 @@
       "source_location": "L173",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_load",
-      "community": 304,
+      "community": 195,
       "norm_label": ".load()"
     },
     {
@@ -6968,7 +6968,7 @@
       "source_location": "L196",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_save",
-      "community": 304,
+      "community": 195,
       "norm_label": ".save()"
     },
     {
@@ -7038,7 +7038,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_swift",
-      "community": 185,
+      "community": 195,
       "norm_label": "budgetview.swift"
     },
     {
@@ -7048,7 +7048,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_budgetrow",
-      "community": 185,
+      "community": 195,
       "norm_label": "budgetrow"
     },
     {
@@ -7078,7 +7078,7 @@
       "source_location": "L87",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_addbudgetview",
-      "community": 185,
+      "community": 45,
       "norm_label": "addbudgetview"
     },
     {
@@ -7128,7 +7128,7 @@
       "source_location": "L257",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_addbudgetview_save",
-      "community": 185,
+      "community": 45,
       "norm_label": ".save()"
     },
     {
@@ -7138,7 +7138,7 @@
       "source_location": "L284",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_budgethistorysheet",
-      "community": 185,
+      "community": 195,
       "norm_label": "budgethistorysheet"
     },
     {
@@ -7158,7 +7158,7 @@
       "source_location": "L297",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_budgethistorysheet_init",
-      "community": 185,
+      "community": 195,
       "norm_label": ".init()"
     },
     {
@@ -7168,7 +7168,7 @@
       "source_location": "L319",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_budgethistorysheet_budgetsfor",
-      "community": 185,
+      "community": 195,
       "norm_label": ".budgetsfor()"
     },
     {
@@ -7178,7 +7178,7 @@
       "source_location": "L326",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_budgethistorysheet_spent",
-      "community": 185,
+      "community": 195,
       "norm_label": ".spent()"
     },
     {
@@ -7188,7 +7188,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_swift",
-      "community": 192,
+      "community": 45,
       "norm_label": "categorymanagementview.swift"
     },
     {
@@ -7198,7 +7198,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview",
-      "community": 192,
+      "community": 45,
       "norm_label": "categorymanagementview"
     },
     {
@@ -7238,7 +7238,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview_rebuildtxcount",
-      "community": 192,
+      "community": 45,
       "norm_label": ".rebuildtxcount()"
     },
     {
@@ -7248,7 +7248,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview_txcount",
-      "community": 192,
+      "community": 45,
       "norm_label": ".txcount()"
     },
     {
@@ -7258,7 +7258,7 @@
       "source_location": "L157",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categoryrow",
-      "community": 192,
+      "community": 45,
       "norm_label": "categoryrow"
     },
     {
@@ -7278,7 +7278,7 @@
       "source_location": "L198",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview",
-      "community": 192,
+      "community": 45,
       "norm_label": "addcategoryview"
     },
     {
@@ -7288,7 +7288,7 @@
       "source_location": "L312",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview_load",
-      "community": 192,
+      "community": 45,
       "norm_label": ".load()"
     },
     {
@@ -7298,7 +7298,7 @@
       "source_location": "L324",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview_save",
-      "community": 192,
+      "community": 45,
       "norm_label": ".save()"
     },
     {
@@ -7308,7 +7308,7 @@
       "source_location": "L344",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview_renamecategoryeverywhere",
-      "community": 192,
+      "community": 45,
       "norm_label": ".renamecategoryeverywhere()"
     },
     {
@@ -7778,7 +7778,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards",
-      "community": 17,
+      "community": 3,
       "norm_label": "planningcards.swift"
     },
     {
@@ -7788,7 +7788,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_planningbudgetcard",
-      "community": 17,
+      "community": 3,
       "norm_label": "planningbudgetcard"
     },
     {
@@ -7798,7 +7798,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_budget",
-      "community": 17,
+      "community": 3,
       "norm_label": "budget"
     },
     {
@@ -7808,7 +7808,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_bool",
-      "community": 17,
+      "community": 3,
       "norm_label": "bool"
     },
     {
@@ -7818,7 +7818,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_string",
-      "community": 17,
+      "community": 3,
       "norm_label": "string"
     },
     {
@@ -7828,7 +7828,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_planninggoalcard",
-      "community": 17,
+      "community": 3,
       "norm_label": "planninggoalcard"
     },
     {
@@ -7838,7 +7838,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_goal",
-      "community": 17,
+      "community": 3,
       "norm_label": "goal"
     },
     {
@@ -7848,7 +7848,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_void",
-      "community": 17,
+      "community": 3,
       "norm_label": "void"
     },
     {
@@ -7858,7 +7858,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_planningprogressring",
-      "community": 17,
+      "community": 3,
       "norm_label": "planningprogressring"
     },
     {
@@ -8328,7 +8328,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_swift",
-      "community": 113,
+      "community": 112,
       "norm_label": "goalsview.swift"
     },
     {
@@ -8338,7 +8338,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_goalrow",
-      "community": 113,
+      "community": 112,
       "norm_label": "goalrow"
     },
     {
@@ -8368,7 +8368,7 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_addgoalview",
-      "community": 113,
+      "community": 112,
       "norm_label": "addgoalview"
     },
     {
@@ -8388,7 +8388,7 @@
       "source_location": "L252",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_addgoalview_load",
-      "community": 113,
+      "community": 112,
       "norm_label": ".load()"
     },
     {
@@ -8398,7 +8398,7 @@
       "source_location": "L274",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_addgoalview_save",
-      "community": 113,
+      "community": 8,
       "norm_label": ".save()"
     },
     {
@@ -8505,7 +8505,7 @@
       "label": ".segButton()",
       "file_type": "code",
       "source_file": "MoneyTracker/Views/PianificaView.swift",
-      "source_location": "L138",
+      "source_location": "L139",
       "_origin": "ast",
       "id": "moneytracker_views_pianificaview_pianificaview_segbutton",
       "community": 3,
@@ -8608,7 +8608,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols",
-      "community": 22,
+      "community": 6,
       "norm_label": "recurrencecontrols.swift"
     },
     {
@@ -8618,7 +8618,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_view",
-      "community": 22,
+      "community": 6,
       "norm_label": "view"
     },
     {
@@ -8628,7 +8628,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_view_recurrenceerroralert",
-      "community": 4,
+      "community": 6,
       "norm_label": ".recurrenceerroralert()"
     },
     {
@@ -8638,7 +8638,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_recurrenceselection",
-      "community": 22,
+      "community": 310,
       "norm_label": "recurrenceselection"
     },
     {
@@ -8648,7 +8648,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_swift_uuid",
-      "community": 22,
+      "community": 6,
       "norm_label": "uuid"
     },
     {
@@ -8688,7 +8688,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_recurrenceeditorview",
-      "community": 22,
+      "community": 6,
       "norm_label": "recurrenceeditorview"
     },
     {
@@ -8698,7 +8698,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_swift_account",
-      "community": 22,
+      "community": 6,
       "norm_label": "account"
     },
     {
@@ -8708,7 +8708,7 @@
       "source_location": "L126",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_recurrenceeditorview_load",
-      "community": 22,
+      "community": 6,
       "norm_label": ".load()"
     },
     {
@@ -8868,7 +8868,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_recurringseriesdetailview",
-      "community": 305,
+      "community": 4,
       "norm_label": "recurringseriesdetailview.swift"
     },
     {
@@ -8878,7 +8878,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "moneytracker_views_recurringseriesdetailview_recurringseriesdetailview",
-      "community": 305,
+      "community": 4,
       "norm_label": "recurringseriesdetailview"
     },
     {
@@ -8888,7 +8888,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurringseriesdetailview_swift_string",
-      "community": 305,
+      "community": 4,
       "norm_label": "string"
     },
     {
@@ -8898,7 +8898,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurringseriesdetailview_swift_transaction",
-      "community": 305,
+      "community": 4,
       "norm_label": "transaction"
     },
     {
@@ -8908,7 +8908,7 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "moneytracker_views_recurringseriesdetailview_recurringseriesdetailview_deletetransaction",
-      "community": 305,
+      "community": 4,
       "norm_label": ".deletetransaction()"
     },
     {
@@ -9079,7 +9079,7 @@
       "source_location": "L714",
       "_origin": "ast",
       "id": "moneytracker_views_settingsview_settingsview_deleteaccountaction",
-      "community": 191,
+      "community": 70,
       "norm_label": ".deleteaccountaction()"
     },
     {
@@ -9139,7 +9139,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_statisticsview",
-      "community": 2,
+      "community": 191,
       "norm_label": "statisticsview.swift"
     },
     {
@@ -9150,7 +9150,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "charts",
-      "community": 2,
+      "community": 191,
       "norm_label": "charts"
     },
     {
@@ -9300,7 +9300,7 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "moneytracker_views_statisticsview_statisticsview_generatepdf",
-      "community": 11,
+      "community": 2,
       "norm_label": ".generatepdf()"
     },
     {
@@ -9390,7 +9390,7 @@
       "source_location": "L513",
       "_origin": "ast",
       "id": "moneytracker_views_statisticsview_date",
-      "community": 2,
+      "community": 191,
       "norm_label": "date"
     },
     {
@@ -9480,7 +9480,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "moneytracker_views_theme_color",
-      "community": 0,
+      "community": 186,
       "norm_label": "color"
     },
     {
@@ -9490,7 +9490,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "moneytracker_views_theme_color_init",
-      "community": 7,
+      "community": 186,
       "norm_label": ".init()"
     },
     {
@@ -9500,7 +9500,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_theme_swift_uint32",
-      "community": 7,
+      "community": 186,
       "norm_label": "uint32"
     },
     {
@@ -9600,7 +9600,7 @@
       "source_location": "L141",
       "_origin": "ast",
       "id": "moneytracker_views_theme_ds_signcolor",
-      "community": 137,
+      "community": 186,
       "norm_label": ".signcolor()"
     },
     {
@@ -9890,7 +9890,7 @@
       "source_location": "L441",
       "_origin": "ast",
       "id": "moneytracker_views_theme_monthbar",
-      "community": 137,
+      "community": 0,
       "norm_label": "monthbar"
     },
     {
@@ -9900,7 +9900,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_theme_swift_date",
-      "community": 137,
+      "community": 0,
       "norm_label": "date"
     },
     {
@@ -10020,7 +10020,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssearchfield",
-      "community": 17,
+      "community": 112,
       "norm_label": "transactionssearchfield.swift"
     },
     {
@@ -10030,7 +10030,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssearchfield_transactionssearchfield",
-      "community": 17,
+      "community": 112,
       "norm_label": "transactionssearchfield"
     },
     {
@@ -10040,7 +10040,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssearchfield_swift_string",
-      "community": 17,
+      "community": 112,
       "norm_label": "string"
     },
     {
@@ -10150,7 +10150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview",
-      "community": 112,
+      "community": 9,
       "norm_label": "transactionsview.swift"
     },
     {
@@ -10250,7 +10250,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_swift_binding",
-      "community": 17,
+      "community": 9,
       "norm_label": "binding"
     },
     {
@@ -10300,7 +10300,7 @@
       "source_location": "L116",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_transactionsview_recurringseries",
-      "community": 304,
+      "community": 113,
       "norm_label": ".recurringseries()"
     },
     {
@@ -10320,7 +10320,7 @@
       "source_location": "L232",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_transactionsview_searchfield",
-      "community": 17,
+      "community": 9,
       "norm_label": ".searchfield()"
     },
     {
@@ -10370,7 +10370,7 @@
       "source_location": "L345",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_transactionsview_sublistcontent",
-      "community": 17,
+      "community": 9,
       "norm_label": ".sublistcontent()"
     },
     {
@@ -10400,7 +10400,7 @@
       "source_location": "L523",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_transactionsview_filterchip",
-      "community": 17,
+      "community": 9,
       "norm_label": ".filterchip()"
     },
     {
@@ -10410,7 +10410,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_swift_void",
-      "community": 17,
+      "community": 9,
       "norm_label": "void"
     },
     {
@@ -10440,7 +10440,7 @@
       "source_location": "L555",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_view",
-      "community": 112,
+      "community": 9,
       "norm_label": "view"
     },
     {
@@ -10450,7 +10450,7 @@
       "source_location": "L561",
       "_origin": "ast",
       "id": "moneytracker_views_transactionsview_view_transferdeleteconfirmation",
-      "community": 17,
+      "community": 9,
       "norm_label": ".transferdeleteconfirmation()"
     },
     {
@@ -10792,7 +10792,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytrackertests_daysremainingpluraltests_daysremainingpluraltests",
-      "community": 4,
+      "community": 202,
       "norm_label": "daysremainingpluraltests"
     },
     {
@@ -10802,7 +10802,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "moneytrackertests_daysremainingpluraltests_daysremainingpluraltests_pluralforms",
-      "community": 4,
+      "community": 202,
       "norm_label": ".pluralforms()"
     },
     {
@@ -11432,7 +11432,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "moneytrackertests_recurringdecimalroundtriptests_recurringdecimalroundtriptests",
-      "community": 37,
+      "community": 226,
       "norm_label": "recurringdecimalroundtriptests"
     },
     {
@@ -11442,7 +11442,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "moneytrackertests_recurringdecimalroundtriptests_recurringdecimalroundtriptests_centssurviveswiftdataanddtojson",
-      "community": 37,
+      "community": 226,
       "norm_label": ".centssurviveswiftdataanddtojson()"
     },
     {
@@ -11452,7 +11452,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "moneytrackertests_recurringdecimalroundtriptests_recurringdecimalroundtriptests_saverule",
-      "community": 37,
+      "community": 226,
       "norm_label": ".saverule()"
     },
     {
@@ -11462,7 +11462,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_recurringdecimalroundtriptests_swift_schema",
-      "community": 37,
+      "community": 226,
       "norm_label": "schema"
     },
     {
@@ -11482,7 +11482,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_recurringdecimalroundtriptests_swift_uuid",
-      "community": 37,
+      "community": 226,
       "norm_label": "uuid"
     },
     {
@@ -13557,6 +13557,160 @@
       "norm_label": ".uniquename()"
     },
     {
+      "label": "waitlist.js",
+      "file_type": "code",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_landing_waitlist",
+      "community": 194,
+      "norm_label": "waitlist.js"
+    },
+    {
+      "label": "campaign",
+      "file_type": "code",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_landing_waitlist_campaign",
+      "community": 194,
+      "norm_label": "campaign"
+    },
+    {
+      "label": "form",
+      "file_type": "code",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "social_landing_waitlist_form",
+      "community": 194,
+      "norm_label": "form"
+    },
+    {
+      "label": "fields",
+      "file_type": "code",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "social_landing_waitlist_fields",
+      "community": 194,
+      "norm_label": "fields"
+    },
+    {
+      "label": "attribution",
+      "file_type": "code",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "social_landing_waitlist_attribution",
+      "community": 194,
+      "norm_label": "attribution"
+    },
+    {
+      "label": "endpoint",
+      "file_type": "code",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "social_landing_waitlist_endpoint",
+      "community": 194,
+      "norm_label": "endpoint"
+    },
+    {
+      "label": "active",
+      "file_type": "code",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "social_landing_waitlist_active",
+      "community": 194,
+      "norm_label": "active"
+    },
+    {
+      "label": "master.sh",
+      "file_type": "code",
+      "source_file": "SOCIAL/montaggio/master.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "social_montaggio_master",
+      "community": 305,
+      "norm_label": "master.sh"
+    },
+    {
+      "label": "master.sh script",
+      "file_type": "code",
+      "source_file": "SOCIAL/montaggio/master.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "social_montaggio_master_sh__entry",
+      "community": 305,
+      "norm_label": "master.sh script"
+    },
+    {
+      "label": "fail()",
+      "file_type": "code",
+      "source_file": "SOCIAL/montaggio/master.sh",
+      "source_location": "L4",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "social_montaggio_master_fail",
+      "community": 305,
+      "norm_label": "fail()"
+    },
+    {
+      "label": "test-fumo.sh",
+      "file_type": "code",
+      "source_file": "SOCIAL/montaggio/test-fumo.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast",
+      "id": "social_montaggio_test_fumo",
+      "community": 306,
+      "norm_label": "test-fumo.sh"
+    },
+    {
+      "label": "test-fumo.sh script",
+      "file_type": "code",
+      "source_file": "SOCIAL/montaggio/test-fumo.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast",
+      "id": "social_montaggio_test_fumo_sh__entry",
+      "community": 306,
+      "norm_label": "test-fumo.sh script"
+    },
+    {
+      "label": "audio_codec()",
+      "file_type": "code",
+      "source_file": "SOCIAL/montaggio/test-fumo.sh",
+      "source_location": "L42",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast",
+      "id": "social_montaggio_test_fumo_audio_codec",
+      "community": 306,
+      "norm_label": "audio_codec()"
+    },
+    {
       "label": "APPROVAZIONI.md",
       "file_type": "document",
       "source_file": ".cantiere/APPROVAZIONI.md",
@@ -13647,6 +13801,16 @@
       "norm_label": "s-30 \u00b7 categoria dall\u2019ultima volta \u00b7 \u2705 traduzioni approvate da matteo 2026-11-16"
     },
     {
+      "label": "SC-3 \u00b7 Testi social, scheda App Store e landing (IT/EN) \u00b7 \u23f3 da approvare da Matteo",
+      "file_type": "document",
+      "source_file": ".cantiere/APPROVAZIONI.md",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "cantiere_approvazioni_sc_3_testi_social_scheda_app_store_e_landing_it_en_da_approvare_da_matteo",
+      "community": 85,
+      "norm_label": "sc-3 \u00b7 testi social, scheda app store e landing (it/en) \u00b7 \u23f3 da approvare da matteo"
+    },
+    {
       "label": "AVVIO.md",
       "file_type": "document",
       "source_file": ".cantiere/AVVIO.md",
@@ -13727,14 +13891,44 @@
       "norm_label": "consegna.md"
     },
     {
-      "label": "CONSEGNA \u2014 collaudo S-37 \u00b7 collaudatore (Claude Code \u00b7 Sonnet) \u00b7 2026-11-17 13:35",
+      "label": "CONSEGNA \u2014 capocantiere \u00b7 2026-11-17 23:14",
       "file_type": "document",
       "source_file": ".cantiere/CONSEGNA.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "cantiere_consegna_consegna_collaudo_s_37_collaudatore_claude_code_sonnet_2026_11_17_13_35",
+      "id": "cantiere_consegna_consegna_capocantiere_2026_11_17_23_14",
       "community": 72,
-      "norm_label": "consegna \u2014 collaudo s-37 \u00b7 collaudatore (claude code \u00b7 sonnet) \u00b7 2026-11-17 13:35"
+      "norm_label": "consegna \u2014 capocantiere \u00b7 2026-11-17 23:14"
+    },
+    {
+      "label": "Fatto oggi (progetto SOCIAL, regola: sempre il manuale in SOCIAL/)",
+      "file_type": "document",
+      "source_file": ".cantiere/CONSEGNA.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "cantiere_consegna_fatto_oggi_progetto_social_regola_sempre_il_manuale_in_social",
+      "community": 72,
+      "norm_label": "fatto oggi (progetto social, regola: sempre il manuale in social/)"
+    },
+    {
+      "label": "Aperto",
+      "file_type": "document",
+      "source_file": ".cantiere/CONSEGNA.md",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "cantiere_consegna_aperto",
+      "community": 72,
+      "norm_label": "aperto"
+    },
+    {
+      "label": "Fuori dal commit (non miei)",
+      "file_type": "document",
+      "source_file": ".cantiere/CONSEGNA.md",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "cantiere_consegna_fuori_dal_commit_non_miei",
+      "community": 72,
+      "norm_label": "fuori dal commit (non miei)"
     },
     {
       "label": "DECISIONI.md",
@@ -13917,6 +14111,76 @@
       "norm_label": "d-014 \u00b7 2026-11-17 \u00b7 funzioni nuove: prima mockup approvato, poi codice"
     },
     {
+      "label": "2026-11-17 \u00b7 Social prima di Apple Developer Program",
+      "file_type": "document",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L99",
+      "_origin": "ast",
+      "id": "cantiere_decisioni_2026_11_17_social_prima_di_apple_developer_program",
+      "community": 56,
+      "norm_label": "2026-11-17 \u00b7 social prima di apple developer program"
+    },
+    {
+      "label": "2026-11-17 \u00b7 Regola permanente del progetto SOCIAL",
+      "file_type": "document",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L105",
+      "_origin": "ast",
+      "id": "cantiere_decisioni_2026_11_17_regola_permanente_del_progetto_social",
+      "community": 56,
+      "norm_label": "2026-11-17 \u00b7 regola permanente del progetto social"
+    },
+    {
+      "label": "2026-11-17 \u00b7 Soglie del segnale di interesse (\u2705 CONFERMATE da Matteo il 2026-11-17, cifre comprese: 40 iscritti, 200 visite, 5%, 5 commenti \u2014 non si spostano pi\u00f9) \u2014 SC-1b",
+      "file_type": "document",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L110",
+      "_origin": "ast",
+      "id": "cantiere_decisioni_2026_11_17_soglie_del_segnale_di_interesse_confermate_da_matteo_il_2026_11_17_cifre_comprese_40_iscritti_200_visite_5_5_commenti_non_si_spostano_pi\u00f9_sc_1b",
+      "community": 56,
+      "norm_label": "2026-11-17 \u00b7 soglie del segnale di interesse (\u2705 confermate da matteo il 2026-11-17, cifre comprese: 40 iscritti, 200 visite, 5%, 5 commenti \u2014 non si spostano piu) \u2014 sc-1b"
+    },
+    {
+      "label": "2026-11-17 \u00b7 Nome utente dei profili social: @bucktrailapp",
+      "file_type": "document",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L118",
+      "_origin": "ast",
+      "id": "cantiere_decisioni_2026_11_17_nome_utente_dei_profili_social_bucktrailapp",
+      "community": 56,
+      "norm_label": "2026-11-17 \u00b7 nome utente dei profili social: @bucktrailapp"
+    },
+    {
+      "label": "2026-11-17 \u00b7 TikTok: account personale, senza musica",
+      "file_type": "document",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L123",
+      "_origin": "ast",
+      "id": "cantiere_decisioni_2026_11_17_tiktok_account_personale_senza_musica",
+      "community": 56,
+      "norm_label": "2026-11-17 \u00b7 tiktok: account personale, senza musica"
+    },
+    {
+      "label": "2026-11-17 \u00b7 Nessun premium in abbonamento",
+      "file_type": "document",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L130",
+      "_origin": "ast",
+      "id": "cantiere_decisioni_2026_11_17_nessun_premium_in_abbonamento",
+      "community": 56,
+      "norm_label": "2026-11-17 \u00b7 nessun premium in abbonamento"
+    },
+    {
+      "label": "2026-11-17 \u00b7 Social senza elementi personali; video in IA in valutazione",
+      "file_type": "document",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L135",
+      "_origin": "ast",
+      "id": "cantiere_decisioni_2026_11_17_social_senza_elementi_personali_video_in_ia_in_valutazione",
+      "community": 56,
+      "norm_label": "2026-11-17 \u00b7 social senza elementi personali; video in ia in valutazione"
+    },
+    {
       "label": "DIARIO.md",
       "file_type": "document",
       "source_file": ".cantiere/DIARIO.md",
@@ -14097,10 +14361,50 @@
       "norm_label": "da fare"
     },
     {
-      "label": "S-33 \u2014 decidere osservazione dopo diagnosi non riproducibile",
+      "label": "SOCIAL \u00b7 SC-6 \u2014 avvia Copilot per il diario metriche",
       "file_type": "document",
       "source_file": ".cantiere/PER-MATTEO.md",
       "source_location": "L8",
+      "_origin": "ast",
+      "id": "cantiere_per_matteo_social_sc_6_avvia_copilot_per_il_diario_metriche",
+      "community": 79,
+      "norm_label": "social \u00b7 sc-6 \u2014 avvia copilot per il diario metriche"
+    },
+    {
+      "label": "SOCIAL \u00b7 SC-4 \u2014 collaudo e decisioni per la landing",
+      "file_type": "document",
+      "source_file": ".cantiere/PER-MATTEO.md",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "cantiere_per_matteo_social_sc_4_collaudo_e_decisioni_per_la_landing",
+      "community": 79,
+      "norm_label": "social \u00b7 sc-4 \u2014 collaudo e decisioni per la landing"
+    },
+    {
+      "label": "SOCIAL \u00b7 SC-1 \u2014 account social (oggi)",
+      "file_type": "document",
+      "source_file": ".cantiere/PER-MATTEO.md",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "cantiere_per_matteo_social_sc_1_account_social_oggi",
+      "community": 79,
+      "norm_label": "social \u00b7 sc-1 \u2014 account social (oggi)"
+    },
+    {
+      "label": "SOCIAL \u00b7 SC-2 \u2014 clip base (questa settimana, 20-30 min)",
+      "file_type": "document",
+      "source_file": ".cantiere/PER-MATTEO.md",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "cantiere_per_matteo_social_sc_2_clip_base_questa_settimana_20_30_min",
+      "community": 79,
+      "norm_label": "social \u00b7 sc-2 \u2014 clip base (questa settimana, 20-30 min)"
+    },
+    {
+      "label": "S-33 \u2014 decidere osservazione dopo diagnosi non riproducibile",
+      "file_type": "document",
+      "source_file": ".cantiere/PER-MATTEO.md",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "cantiere_per_matteo_s_33_decidere_osservazione_dopo_diagnosi_non_riproducibile",
       "community": 79,
@@ -14110,7 +14414,7 @@
       "label": "Approvazione traduzioni (APPROVAZIONI.md)",
       "file_type": "document",
       "source_file": ".cantiere/PER-MATTEO.md",
-      "source_location": "L17",
+      "source_location": "L40",
       "_origin": "ast",
       "id": "cantiere_per_matteo_approvazione_traduzioni_approvazioni_md",
       "community": 79,
@@ -14120,7 +14424,7 @@
       "label": "S-21 \u2014 controllo manuale menu dopo il collaudo \u2014 \u2705 fatto da Matteo 2026-11-16 21:49: tutto OK",
       "file_type": "document",
       "source_file": ".cantiere/PER-MATTEO.md",
-      "source_location": "L26",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "cantiere_per_matteo_s_21_controllo_manuale_menu_dopo_il_collaudo_fatto_da_matteo_2026_11_16_21_49_tutto_ok",
       "community": 79,
@@ -14130,7 +14434,7 @@
       "label": "Fatte",
       "file_type": "document",
       "source_file": ".cantiere/PER-MATTEO.md",
-      "source_location": "L38",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "cantiere_per_matteo_fatte",
       "community": 79,
@@ -14140,7 +14444,7 @@
       "label": "S-24 \u2014 verifica del blocco sul caso reale",
       "file_type": "document",
       "source_file": ".cantiere/PER-MATTEO.md",
-      "source_location": "L46",
+      "source_location": "L70",
       "_origin": "ast",
       "id": "cantiere_per_matteo_s_24_verifica_del_blocco_sul_caso_reale",
       "community": 79,
@@ -14150,7 +14454,7 @@
       "label": "S-30 \u2014 approvazione traduzioni (dopo il collaudo)",
       "file_type": "document",
       "source_file": ".cantiere/PER-MATTEO.md",
-      "source_location": "L57",
+      "source_location": "L81",
       "_origin": "ast",
       "id": "cantiere_per_matteo_s_30_approvazione_traduzioni_dopo_il_collaudo",
       "community": 79,
@@ -14163,7 +14467,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cantiere_piano",
-      "community": 38,
+      "community": 307,
       "norm_label": "piano.md"
     },
     {
@@ -14173,7 +14477,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "cantiere_piano_piano_dei_lavori",
-      "community": 38,
+      "community": 307,
       "norm_label": "piano dei lavori"
     },
     {
@@ -14183,7 +14487,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "cantiere_piano_in_corso_prossimi",
-      "community": 38,
+      "community": 17,
       "norm_label": "in corso / prossimi"
     },
     {
@@ -14193,7 +14497,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "cantiere_piano_s_0_x_rimozione_del_tour",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-0 [x] rimozione del tour"
     },
     {
@@ -14203,7 +14507,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "cantiere_piano_s_1_x_token_font_dark_mode",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-1 [x] token, font, dark mode"
     },
     {
@@ -14213,7 +14517,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "cantiere_piano_s_2_x_componenti_base_chiuso_2026_11_13_20_40_collaudatore",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-2 [x] componenti base (chiuso 2026-11-13 20:40, collaudatore)"
     },
     {
@@ -14223,7 +14527,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "cantiere_piano_s_2b_x_correzioni_componenti_base",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-2b [x] correzioni componenti base"
     },
     {
@@ -14233,7 +14537,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "cantiere_piano_s_3_x_floatingtabbar_fab_2026_11_13_22_08_collaudo_ok",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-3 [x] floatingtabbar + fab (2026-11-13 22:08 collaudo ok)"
     },
     {
@@ -14243,7 +14547,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "cantiere_piano_s_4_x_home_con_trailview_2026_11_13_22_40_collaudo_ok",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-4 [x] home con trailview (2026-11-13 22:40, collaudo ok)"
     },
     {
@@ -14253,7 +14557,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "cantiere_piano_s_5_x_movimenti",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-5 [x] movimenti"
     },
     {
@@ -14263,7 +14567,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "cantiere_piano_s_6_x_statistiche",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-6 [x] statistiche"
     },
     {
@@ -14273,7 +14577,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "cantiere_piano_s_7_x_pianifica_budget_obiettivi",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-7 [x] pianifica (budget + obiettivi)"
     },
     {
@@ -14283,7 +14587,7 @@
       "source_location": "L106",
       "_origin": "ast",
       "id": "cantiere_piano_s_8_x_conti_2026_11_16_11_52_collaudo_ok",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-8 [x] conti (2026-11-16 11:52 \u00b7 collaudo ok)"
     },
     {
@@ -14293,7 +14597,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "cantiere_piano_s_9_x_collaudo_ok_2026_11_13_23_16_impostazioni_sheet_di_inserimento_categorie_login",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-9 [x] (collaudo ok 2026-11-13 23:16) impostazioni, sheet di inserimento, categorie, login"
     },
     {
@@ -14303,7 +14607,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "cantiere_piano_s_11_x_riserve_da_s_5_xl_e_badge_demo_assorbito_da_s_12_resta_solo_tab_bar_xl_in_s_10",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-11 [x] riserve da s-5 (xl e badge demo) \u2014 assorbito da s-12; resta solo tab bar xl in s-10"
     },
     {
@@ -14313,7 +14617,7 @@
       "source_location": "L135",
       "_origin": "ast",
       "id": "cantiere_piano_s_12_x_movimenti_pagina_unica_zona_sotto_i_chip_ricorrenti_da_mockup_collaudo_2026_11_14_01_30_ok",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-12 [x] movimenti: pagina unica + zona sotto i chip + ricorrenti (da mockup) \u2014 collaudo 2026-11-14 01:30 ok"
     },
     {
@@ -14323,7 +14627,7 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "cantiere_piano_s_13_x_s_13f_chiuso_da_matteo_2026_11_16_motore_ricorrenze_a_serie_virtuali_d_008",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-13 [x] (s-13f chiuso da matteo 2026-11-16) motore ricorrenze a serie virtuali (d-008)"
     },
     {
@@ -14333,7 +14637,7 @@
       "source_location": "L165",
       "_origin": "ast",
       "id": "cantiere_piano_s_34_x_collaudo_ok_2026_11_17_2_difetti_corretti_libro_versioni_vere_nel_changelog_d_013",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-34 [x] (collaudo ok 2026-11-17, 2 difetti corretti) libro: versioni vere nel changelog (d-013)"
     },
     {
@@ -14343,7 +14647,7 @@
       "source_location": "L168",
       "_origin": "ast",
       "id": "cantiere_piano_s_35_x_spezzare_transactionsview_864_righe",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-35 [x] spezzare transactionsview (864 righe)"
     },
     {
@@ -14353,7 +14657,7 @@
       "source_location": "L173",
       "_origin": "ast",
       "id": "cantiere_piano_s_36_potare_i_rami_vecchi_gruppo_a_8_rami_mergiati_cancellato_2026_11_17_11_56_in_locale_e_su_origin_restano_da_decidere_i_7_fix_nightly_e_tmp_stash_inspect_lavoro_non_in_main_non_toccati",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-36 [~] potare i rami vecchi \u2014 gruppo a (8 rami mergiati) cancellato 2026-11-17 11:56 in locale e su origin. restano da decidere i 7 fix/nightly-* e tmp-stash-inspect (lavoro non in main, non toccati)"
     },
     {
@@ -14363,84 +14667,174 @@
       "source_location": "L176",
       "_origin": "ast",
       "id": "cantiere_piano_s_37_x_commissione_2026_11_17_integrit\u00e0_sync_e_parsing_autorizzato_da_matteo_chiuso_2026_11_17_13_35_collaudo_ok",
-      "community": 38,
+      "community": 17,
       "norm_label": "s-37 [x] commissione 2026-11-17 \u2014 integrita sync e parsing (autorizzato da matteo) \u2014 chiuso 2026-11-17 13:35, collaudo ok"
+    },
+    {
+      "label": "Progetto SOCIAL (avviato 2026-11-17)",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L182",
+      "_origin": "ast",
+      "id": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "community": 185,
+      "norm_label": "progetto social (avviato 2026-11-17)"
+    },
+    {
+      "label": "SC-0 [~] Calendario adattato (capocantiere, 2026-11-17 21:xx): `SOCIAL/calendario-v1.md` (settimana 0 dal 18/11, poi date del manuale, gate 06/12). Da verificare: date App Review natalizie.",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L188",
+      "_origin": "ast",
+      "id": "cantiere_piano_sc_0_calendario_adattato_capocantiere_2026_11_17_21_xx_social_calendario_v1_md_settimana_0_dal_18_11_poi_date_del_manuale_gate_06_12_da_verificare_date_app_review_natalizie",
+      "community": 185,
+      "norm_label": "sc-0 [~] calendario adattato (capocantiere, 2026-11-17 21:xx): `social/calendario-v1.md` (settimana 0 dal 18/11, poi date del manuale, gate 06/12). da verificare: date app review natalizie."
+    },
+    {
+      "label": "SC-1 [~] Account social creati 2026-11-17 (Gmail, IG Creator+2FA, TikTok personale+2FA, YouTube; @bucktrailapp). Restano: bio e foto su IG/TikTok, foto e descrizione YouTube, nome TikTok il 24/11 (Matteo): vedi PER-MATTEO. **Apple Developer Program NON pagato per scelta di Matteo (2026-11-17):** prima si cerca un segnale di interesse sui social; link in bio = landing con email (waitlist), non pre-order.",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L189",
+      "_origin": "ast",
+      "id": "cantiere_piano_sc_1_account_social_creati_2026_11_17_gmail_ig_creator_2fa_tiktok_personale_2fa_youtube_bucktrailapp_restano_bio_e_foto_su_ig_tiktok_foto_e_descrizione_youtube_nome_tiktok_il_24_11_matteo_vedi_per_matteo_apple_developer_program_non_pagato_per_scelta_di_matteo_2026_11_17_prima_si_cerca_un_segnale_di_interesse_sui_social_link_in_bio_landing_con_email_waitlist_non_pre_order",
+      "community": 185,
+      "norm_label": "sc-1 [~] account social creati 2026-11-17 (gmail, ig creator+2fa, tiktok personale+2fa, youtube; @bucktrailapp). restano: bio e foto su ig/tiktok, foto e descrizione youtube, nome tiktok il 24/11 (matteo): vedi per-matteo. **apple developer program non pagato per scelta di matteo (2026-11-17):** prima si cerca un segnale di interesse sui social; link in bio = landing con email (waitlist), non pre-order."
+    },
+    {
+      "label": "SC-1b [x] chiuso 2026-11-17: Matteo ha confermato le soglie in DECISIONI.md Soglia di decisione per pagare Apple (Matteo): [DA COMPLETARE] quali numeri contano come \u00absegnale\u00bb (es. iscritti alla waitlist, follower, tempo medio sopra la mediana) e entro quando. Il manuale non d\u00e0 benchmark: la soglia \u00e8 sua.",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L190",
+      "_origin": "ast",
+      "id": "cantiere_piano_sc_1b_x_chiuso_2026_11_17_matteo_ha_confermato_le_soglie_in_decisioni_md_soglia_di_decisione_per_pagare_apple_matteo_da_completare_quali_numeri_contano_come_segnale_es_iscritti_alla_waitlist_follower_tempo_medio_sopra_la_mediana_e_entro_quando_il_manuale_non_d\u00e0_benchmark_la_soglia_\u00e8_sua",
+      "community": 185,
+      "norm_label": "sc-1b [x] chiuso 2026-11-17: matteo ha confermato le soglie in decisioni.md soglia di decisione per pagare apple (matteo): [da completare] quali numeri contano come \u00absegnale\u00bb (es. iscritti alla waitlist, follower, tempo medio sopra la mediana) e entro quando. il manuale non da benchmark: la soglia e sua."
+    },
+    {
+      "label": "SC-2 [?] Clip base dal telefono in modalit\u00e0 demo (Matteo): lista in PER-MATTEO.",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L191",
+      "_origin": "ast",
+      "id": "cantiere_piano_sc_2_clip_base_dal_telefono_in_modalit\u00e0_demo_matteo_lista_in_per_matteo",
+      "community": 185,
+      "norm_label": "sc-2 [?] clip base dal telefono in modalita demo (matteo): lista in per-matteo."
+    },
+    {
+      "label": "SC-3 [~] fatto dal redattore, approvazione Matteo \u23f3 in APPROVAZIONI.md Testi di base (redattore): bio, caption, nome/sottotitolo/keyword/descrizione App Store IT+EN, hook dei primi format. Solo claim ammessi (manuale \u00a71.1\u20131.3). Poi approvazione Matteo in APPROVAZIONI.md.",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L192",
+      "_origin": "ast",
+      "id": "cantiere_piano_sc_3_fatto_dal_redattore_approvazione_matteo_in_approvazioni_md_testi_di_base_redattore_bio_caption_nome_sottotitolo_keyword_descrizione_app_store_it_en_hook_dei_primi_format_solo_claim_ammessi_manuale_1_1_1_3_poi_approvazione_matteo_in_approvazioni_md",
+      "community": 185,
+      "norm_label": "sc-3 [~] fatto dal redattore, approvazione matteo \u23f3 in approvazioni.md testi di base (redattore): bio, caption, nome/sottotitolo/keyword/descrizione app store it+en, hook dei primi format. solo claim ammessi (manuale \u00a71.1\u20131.3). poi approvazione matteo in approvazioni.md."
+    },
+    {
+      "label": "SC-4 [~] Landing IT/EN e informativa pronte per il collaudo. Matteo deve scegliere servizio e hosting e approvare l\u2019informativa.",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L193",
+      "_origin": "ast",
+      "id": "cantiere_piano_sc_4_landing_it_en_e_informativa_pronte_per_il_collaudo_matteo_deve_scegliere_servizio_e_hosting_e_approvare_l_informativa",
+      "community": 185,
+      "norm_label": "sc-4 [~] landing it/en e informativa pronte per il collaudo. matteo deve scegliere servizio e hosting e approvare l\u2019informativa."
+    },
+    {
+      "label": "SC-5 [~] Script FFmpeg e modello ASS pronti per il collaudo. Test di fumo ASS/SRT e conversione HDR sintetica superati.",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L194",
+      "_origin": "ast",
+      "id": "cantiere_piano_sc_5_script_ffmpeg_e_modello_ass_pronti_per_il_collaudo_test_di_fumo_ass_srt_e_conversione_hdr_sintetica_superati",
+      "community": 185,
+      "norm_label": "sc-5 [~] script ffmpeg e modello ass pronti per il collaudo. test di fumo ass/srt e conversione hdr sintetica superati."
+    },
+    {
+      "label": "SC-6 [~] Diario delle metriche (Copilot: task piccolo e gi\u00e0 descritto): foglio come manuale \u00a79.7. Creati `SOCIAL/diario-metriche.csv` e `SOCIAL/diario-metriche.md`; una riga ESEMPIO vuota, nessun dato reale; da collaudare.",
+      "file_type": "document",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L195",
+      "_origin": "ast",
+      "id": "cantiere_piano_sc_6_diario_delle_metriche_copilot_task_piccolo_e_gi\u00e0_descritto_foglio_come_manuale_9_7_creati_social_diario_metriche_csv_e_social_diario_metriche_md_una_riga_esempio_vuota_nessun_dato_reale_da_collaudare",
+      "community": 185,
+      "norm_label": "sc-6 [~] diario delle metriche (copilot: task piccolo e gia descritto): foglio come manuale \u00a79.7. creati `social/diario-metriche.csv` e `social/diario-metriche.md`; una riga esempio vuota, nessun dato reale; da collaudare."
     },
     {
       "label": "S-38 [ ] Commissione \u2014 pacchetto A (Codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per \u00abSalta mese/Termina\u2026\u00bb, \u00ab\u2022\u2022\u2022\u2022 \u20ac\u00bb fisso, detector ricalcolato a ogni render, set di ID regole in `movementList`, force-unwrap (RecurrenceControls:69, RecurringSeriesDetector:58-66), `RecurringMaterializer` duplica `snapshot`, tipo/selected ridondanti in `typeChips`.",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L182",
+      "source_location": "L197",
       "_origin": "ast",
       "id": "cantiere_piano_s_38_commissione_pacchetto_a_codex_virtuali_che_ignorano_filtri_avanzati_date_filtro_personalizzato_non_salvate_conferma_per_salta_mese_termina_fisso_detector_ricalcolato_a_ogni_render_set_di_id_regole_in_movementlist_force_unwrap_recurrencecontrols_69_recurringseriesdetector_58_66_recurringmaterializer_duplica_snapshot_tipo_selected_ridondanti_in_typechips",
-      "community": 38,
+      "community": 185,
       "norm_label": "s-38 [ ] commissione \u2014 pacchetto a (codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per \u00absalta mese/termina...\u00bb, \u00ab\u2022\u2022\u2022\u2022 \u20ac\u00bb fisso, detector ricalcolato a ogni render, set di id regole in `movementlist`, force-unwrap (recurrencecontrols:69, recurringseriesdetector:58-66), `recurringmaterializer` duplica `snapshot`, tipo/selected ridondanti in `typechips`."
     },
     {
       "label": "S-39 [ ] Commissione \u2014 traduzioni (redattore): ~40 stringhe visibili in italiano in tutte le lingue (Settings, notifiche, Login/SignUp, AuditLog, Budget, filtri\u2026), frasi composte a pezzi, chiavi doppie \u00abFine\u00bb/\u00abTipo\u00bb. Poi approvazione Matteo.",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L184",
+      "source_location": "L199",
       "_origin": "ast",
       "id": "cantiere_piano_s_39_commissione_traduzioni_redattore_40_stringhe_visibili_in_italiano_in_tutte_le_lingue_settings_notifiche_login_signup_auditlog_budget_filtri_frasi_composte_a_pezzi_chiavi_doppie_fine_tipo_poi_approvazione_matteo",
-      "community": 38,
+      "community": 185,
       "norm_label": "s-39 [ ] commissione \u2014 traduzioni (redattore): ~40 stringhe visibili in italiano in tutte le lingue (settings, notifiche, login/signup, auditlog, budget, filtri...), frasi composte a pezzi, chiavi doppie \u00abfine\u00bb/\u00abtipo\u00bb. poi approvazione matteo."
     },
     {
       "label": "S-40 [ ] Commissione \u2014 font fissi (Codex): ~200 `.font(.system(size:))` \u2192 token `DS.Typo.*` (Dynamic Type), `SectionLabel` incluso.",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L186",
+      "source_location": "L201",
       "_origin": "ast",
       "id": "cantiere_piano_s_40_commissione_font_fissi_codex_200_font_system_size_token_ds_typo_dynamic_type_sectionlabel_incluso",
-      "community": 38,
+      "community": 185,
       "norm_label": "s-40 [ ] commissione \u2014 font fissi (codex): ~200 `.font(.system(size:))` \u2192 token `ds.typo.*` (dynamic type), `sectionlabel` incluso."
     },
     {
       "label": "S-15 [x] Diagnosticare due test UI che non trovano il movimento appena salvato",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L188",
+      "source_location": "L203",
       "_origin": "ast",
       "id": "cantiere_piano_s_15_x_diagnosticare_due_test_ui_che_non_trovano_il_movimento_appena_salvato",
-      "community": 38,
+      "community": 185,
       "norm_label": "s-15 [x] diagnosticare due test ui che non trovano il movimento appena salvato"
     },
     {
       "label": "S-7p [x] Plurale dei giorni rimanenti",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L201",
+      "source_location": "L216",
       "_origin": "ast",
       "id": "cantiere_piano_s_7p_x_plurale_dei_giorni_rimanenti",
-      "community": 38,
+      "community": 185,
       "norm_label": "s-7p [x] plurale dei giorni rimanenti"
     },
     {
       "label": "S-14 [x] Statistiche: confronto mese su mese \u2014 rimosso su richiesta di Matteo 2026-11-16",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L205",
+      "source_location": "L220",
       "_origin": "ast",
       "id": "cantiere_piano_s_14_x_statistiche_confronto_mese_su_mese_rimosso_su_richiesta_di_matteo_2026_11_16",
-      "community": 38,
+      "community": 185,
       "norm_label": "s-14 [x] statistiche: confronto mese su mese \u2014 rimosso su richiesta di matteo 2026-11-16"
     },
     {
       "label": "S-10 [x] (2026-11-16: Commissione S-10, nessun difetto bloccante; 92 unit verdi; UI 42/45 nel run completo, i 3 falliti rilanciati singolarmente verdi; 2 voti 9 per commento obsoleto e sentence() lunga, corretti in 1748ef5 senza nuova valutazione) Verifica finale + Commissione Suprema",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L214",
+      "source_location": "L229",
       "_origin": "ast",
       "id": "cantiere_piano_s_10_x_2026_11_16_commissione_s_10_nessun_difetto_bloccante_92_unit_verdi_ui_42_45_nel_run_completo_i_3_falliti_rilanciati_singolarmente_verdi_2_voti_9_per_commento_obsoleto_e_sentence_lunga_corretti_in_1748ef5_senza_nuova_valutazione_verifica_finale_commissione_suprema",
-      "community": 38,
+      "community": 185,
       "norm_label": "s-10 [x] (2026-11-16: commissione s-10, nessun difetto bloccante; 92 unit verdi; ui 42/45 nel run completo, i 3 falliti rilanciati singolarmente verdi; 2 voti 9 per commento obsoleto e sentence() lunga, corretti in 1748ef5 senza nuova valutazione) verifica finale + commissione suprema"
     },
     {
       "label": "Fatti",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L223",
+      "source_location": "L238",
       "_origin": "ast",
       "id": "cantiere_piano_fatti",
       "community": 38,
@@ -14450,7 +14844,7 @@
       "label": "S-16 [?] FUORI DAL RESTYLING (serve decisione di Matteo: test su precisione Decimal elevata) Verificare precisione Decimal elevata nella persistenza RecurringRule",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L242",
+      "source_location": "L257",
       "_origin": "ast",
       "id": "cantiere_piano_s_16_fuori_dal_restyling_serve_decisione_di_matteo_test_su_precisione_decimal_elevata_verificare_precisione_decimal_elevata_nella_persistenza_recurringrule",
       "community": 38,
@@ -14460,7 +14854,7 @@
       "label": "S-17 [x] (collaudo ok 2026-11-14) Pull: non cancellare regole locali non ancora spedite",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L248",
+      "source_location": "L263",
       "_origin": "ast",
       "id": "cantiere_piano_s_17_x_collaudo_ok_2026_11_14_pull_non_cancellare_regole_locali_non_ancora_spedite",
       "community": 38,
@@ -14470,7 +14864,7 @@
       "label": "S-18 [x] Rifinitura grafica dei virtuali e delle serie programmate",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L256",
+      "source_location": "L271",
       "_origin": "ast",
       "id": "cantiere_piano_s_18_x_rifinitura_grafica_dei_virtuali_e_delle_serie_programmate",
       "community": 38,
@@ -14480,7 +14874,7 @@
       "label": "S-19 [x] Revisione testi e traduzioni S-13g \u00b7 collaudato 2026-11-16 09:47: collaudo ok (solo 7 strings + .cantiere, plutil ok, 380 chiavi allineate, nessuna chiave persa, 0 marker). Approvazione Matteo in APPROVAZIONI.md ancora \u23f3. Note: de \"Keine\" per \"Conto\" (neutro) \u2192 \"Keines\"; es \"Ninguno\" per \"Conto\" (cuenta) \u2192 \"Ninguna\"; de riga 103 resta \"Vorkommen\"; zh riga 103 \"\u8bb0\u5f55\" per occorrenze (vs \u9879\u76ee). \u00b7 **chiuso 2026-11-16 09:48: collaudo ok** (5ca721e): de \u00abKeines\u00bb/\u00abTermine\u00bb, es \u00abNinguna\u00bb, zh \u00ab\u9879\u76ee\u00bb applicati, chiavi invariate, plutil ok, nessun altro \u00abVorkommen\u00bb/\u00ab\u8bb0\u5f55\u00bb residuo (99 \u00ab\u5386\u53f2\u8bb0\u5f55\u00bb = Storico ok). Approvazione Matteo in APPROVAZIONI.md resta \u23f3; \u00abTermin\u00bb (de) e i termini segnalati vanno riletti da un madrelingua.",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L262",
+      "source_location": "L277",
       "_origin": "ast",
       "id": "cantiere_piano_s_19_x_revisione_testi_e_traduzioni_s_13g_collaudato_2026_11_16_09_47_collaudo_ok_solo_7_strings_cantiere_plutil_ok_380_chiavi_allineate_nessuna_chiave_persa_0_marker_approvazione_matteo_in_approvazioni_md_ancora_note_de_keine_per_conto_neutro_keines_es_ninguno_per_conto_cuenta_ninguna_de_riga_103_resta_vorkommen_zh_riga_103_\u8bb0\u5f55_per_occorrenze_vs_\u9879\u76ee_chiuso_2026_11_16_09_48_collaudo_ok_5ca721e_de_keines_termine_es_ninguna_zh_\u9879\u76ee_applicati_chiavi_invariate_plutil_ok_nessun_altro_vorkommen_\u8bb0\u5f55_residuo_99_\u5386\u53f2\u8bb0\u5f55_storico_ok_approvazione_matteo_in_approvazioni_md_resta_termin_de_e_i_termini_segnalati_vanno_riletti_da_un_madrelingua",
       "community": 38,
@@ -14490,7 +14884,7 @@
       "label": "S-20 [x] collaudato 2026-11-14 11:06 (bf9727e: guard ok, regressione ok, 68 unit verdi) CONFERMATO Verificare editor di una serie terminata prima della prima occorrenza",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L266",
+      "source_location": "L281",
       "_origin": "ast",
       "id": "cantiere_piano_s_20_x_collaudato_2026_11_14_11_06_bf9727e_guard_ok_regressione_ok_68_unit_verdi_confermato_verificare_editor_di_una_serie_terminata_prima_della_prima_occorrenza",
       "community": 38,
@@ -14500,7 +14894,7 @@
       "label": "S-21 [x] Performance: ricalcoli per riga in TransactionsView (Commissione S-13h, giudice 4: 8/10)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L275",
+      "source_location": "L290",
       "_origin": "ast",
       "id": "cantiere_piano_s_21_x_performance_ricalcoli_per_riga_in_transactionsview_commissione_s_13h_giudice_4_8_10",
       "community": 38,
@@ -14510,7 +14904,7 @@
       "label": "S-22 [x] Architettura: spezzare TransactionsView (giudice 2: 8/10)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L281",
+      "source_location": "L296",
       "_origin": "ast",
       "id": "cantiere_piano_s_22_x_architettura_spezzare_transactionsview_giudice_2_8_10",
       "community": 38,
@@ -14520,7 +14914,7 @@
       "label": "Commissione Suprema S-13h (2026-11-14 11:08)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L284",
+      "source_location": "L299",
       "_origin": "ast",
       "id": "cantiere_piano_commissione_suprema_s_13h_2026_11_14_11_08",
       "community": 38,
@@ -14530,7 +14924,7 @@
       "label": "S-23 [x] (2026-11-14 12:55, collaudo ok) Editor singola occorrenza e indicatore ricorrenza",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L287",
+      "source_location": "L302",
       "_origin": "ast",
       "id": "cantiere_piano_s_23_x_2026_11_14_12_55_collaudo_ok_editor_singola_occorrenza_e_indicatore_ricorrenza",
       "community": 38,
@@ -14540,7 +14934,7 @@
       "label": "S-24 [x] Eliminazione ricorrenze: regressioni e confronto per giorno originale",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L296",
+      "source_location": "L311",
       "_origin": "ast",
       "id": "cantiere_piano_s_24_x_eliminazione_ricorrenze_regressioni_e_confronto_per_giorno_originale",
       "community": 38,
@@ -14550,7 +14944,7 @@
       "label": "S-25 [x] Uniformit\u00e0 campi ricorrenti secondo scope (sostituisce S-23)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L303",
+      "source_location": "L318",
       "_origin": "ast",
       "id": "cantiere_piano_s_25_x_uniformit\u00e0_campi_ricorrenti_secondo_scope_sostituisce_s_23",
       "community": 38,
@@ -14560,7 +14954,7 @@
       "label": "S-26 [x] Demo vetrina completa (DemoDataSeeder) \u2014 2026-11-16 01:22 collaudo ok",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L312",
+      "source_location": "L327",
       "_origin": "ast",
       "id": "cantiere_piano_s_26_x_demo_vetrina_completa_demodataseeder_2026_11_16_01_22_collaudo_ok",
       "community": 38,
@@ -14570,7 +14964,7 @@
       "label": "S-27 [x] Migliorie dal collaudo di S-24/S-25/S-15 (suggerite 2026-11-15)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L321",
+      "source_location": "L336",
       "_origin": "ast",
       "id": "cantiere_piano_s_27_x_migliorie_dal_collaudo_di_s_24_s_25_s_15_suggerite_2026_11_15",
       "community": 38,
@@ -14580,7 +14974,7 @@
       "label": "S-28 [x] Tab bar affollata con Dynamic Type XL",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L331",
+      "source_location": "L346",
       "_origin": "ast",
       "id": "cantiere_piano_s_28_x_tab_bar_affollata_con_dynamic_type_xl",
       "community": 38,
@@ -14590,7 +14984,7 @@
       "label": "S-29 [x] Correzioni Commissione Suprema S-13h (autorizzate da Matteo 2026-11-16) \u2014 2026-11-16 collaudo ok (diff a1c6c89; build+81 unit+3 UI dichiarati dall impresa, non rilanciati)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L340",
+      "source_location": "L355",
       "_origin": "ast",
       "id": "cantiere_piano_s_29_x_correzioni_commissione_suprema_s_13h_autorizzate_da_matteo_2026_11_16_2026_11_16_collaudo_ok_diff_a1c6c89_build_81_unit_3_ui_dichiarati_dall_impresa_non_rilanciati",
       "community": 38,
@@ -14600,7 +14994,7 @@
       "label": "S-30 [x] Categoria dall'ultima volta (nuova funzione) \u2014 2026-11-16 collaudo ok (traduzioni ancora \u23f3 per Matteo)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L350",
+      "source_location": "L365",
       "_origin": "ast",
       "id": "cantiere_piano_s_30_x_categoria_dall_ultima_volta_nuova_funzione_2026_11_16_collaudo_ok_traduzioni_ancora_per_matteo",
       "community": 38,
@@ -14610,7 +15004,7 @@
       "label": "S-31 [x] Rimozione confronto mese su mese \u2014 2026-11-16 collaudo ok",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L362",
+      "source_location": "L377",
       "_origin": "ast",
       "id": "cantiere_piano_s_31_x_rimozione_confronto_mese_su_mese_2026_11_16_collaudo_ok",
       "community": 38,
@@ -14620,7 +15014,7 @@
       "label": "S-32 [x] Manutenzione: DemoShowcaseUITests.testShowcaseScreens rosso (anche su main)",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L371",
+      "source_location": "L386",
       "_origin": "ast",
       "id": "cantiere_piano_s_32_x_manutenzione_demoshowcaseuitests_testshowcasescreens_rosso_anche_su_main",
       "community": 38,
@@ -14630,7 +15024,7 @@
       "label": "S-33 [?] Verificare RecurrenceFlowUITests.testCreateEditAndDeleteScheduledSeries",
       "file_type": "document",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L380",
+      "source_location": "L395",
       "_origin": "ast",
       "id": "cantiere_piano_s_33_verificare_recurrenceflowuitests_testcreateeditanddeletescheduledseries",
       "community": 38,
@@ -14670,7 +15064,7 @@
       "label": "Da controllare prima di entrare sullo scaffale",
       "file_type": "document",
       "source_file": ".cantiere/SCAFFALE.md",
-      "source_location": "L25",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "cantiere_scaffale_da_controllare_prima_di_entrare_sullo_scaffale",
       "community": 64,
@@ -14680,7 +15074,7 @@
       "label": "Scartate",
       "file_type": "document",
       "source_file": ".cantiere/SCAFFALE.md",
-      "source_location": "L31",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "cantiere_scaffale_scartate",
       "community": 64,
@@ -14690,7 +15084,7 @@
       "label": "Impronte (sha256, primi 16 caratteri)",
       "file_type": "document",
       "source_file": ".cantiere/SCAFFALE.md",
-      "source_location": "L38",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "cantiere_scaffale_impronte_sha256_primi_16_caratteri",
       "community": 64,
@@ -14710,7 +15104,7 @@
       "label": "SQUADRA \u2014 organigramma, smistamento e albo delle assunzioni",
       "file_type": "document",
       "source_file": ".cantiere/SQUADRA.md",
-      "source_location": "L3",
+      "source_location": "L1",
       "_origin": "ast",
       "id": "cantiere_squadra_squadra_organigramma_smistamento_e_albo_delle_assunzioni",
       "community": 65,
@@ -14720,7 +15114,7 @@
       "label": "Squadra fissa",
       "file_type": "document",
       "source_file": ".cantiere/SQUADRA.md",
-      "source_location": "L5",
+      "source_location": "L3",
       "_origin": "ast",
       "id": "cantiere_squadra_squadra_fissa",
       "community": 65,
@@ -14730,7 +15124,7 @@
       "label": "Smistamento (chi fa cosa) \u2014 regola: il pi\u00f9 economico che lo fa bene",
       "file_type": "document",
       "source_file": ".cantiere/SQUADRA.md",
-      "source_location": "L8",
+      "source_location": "L6",
       "_origin": "ast",
       "id": "cantiere_squadra_smistamento_chi_fa_cosa_regola_il_pi\u00f9_economico_che_lo_fa_bene",
       "community": 65,
@@ -14740,7 +15134,7 @@
       "label": "Quando un'IA \u00e8 senza quota",
       "file_type": "document",
       "source_file": ".cantiere/SQUADRA.md",
-      "source_location": "L28",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "cantiere_squadra_quando_un_ia_\u00e8_senza_quota",
       "community": 65,
@@ -14750,7 +15144,7 @@
       "label": "Albo delle assunzioni",
       "file_type": "document",
       "source_file": ".cantiere/SQUADRA.md",
-      "source_location": "L31",
+      "source_location": "L30",
       "_origin": "ast",
       "id": "cantiere_squadra_albo_delle_assunzioni",
       "community": 65,
@@ -14947,14 +15341,34 @@
       "norm_label": "impresa.md"
     },
     {
-      "label": "Prompt d'ingresso \u00b7 IMPRESA (Antigravity, Codex o altri agenti con accesso alla cartella)",
+      "label": "Prompt d'ingresso \u00b7 IMPRESA (Antigravity, Codex, Copilot o altri agenti con accesso alla cartella)",
       "file_type": "document",
       "source_file": ".cantiere/prompt/IMPRESA.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "cantiere_prompt_impresa_prompt_d_ingresso_impresa_antigravity_codex_o_altri_agenti_con_accesso_alla_cartella",
+      "id": "cantiere_prompt_impresa_prompt_d_ingresso_impresa_antigravity_codex_copilot_o_altri_agenti_con_accesso_alla_cartella",
       "community": 93,
-      "norm_label": "prompt d'ingresso \u00b7 impresa (antigravity, codex o altri agenti con accesso alla cartella)"
+      "norm_label": "prompt d'ingresso \u00b7 impresa (antigravity, codex, copilot o altri agenti con accesso alla cartella)"
+    },
+    {
+      "label": "copilot-instructions.md",
+      "file_type": "document",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "github_copilot_instructions",
+      "community": 308,
+      "norm_label": "copilot-instructions.md"
+    },
+    {
+      "label": "GitHub Copilot = TERZA IMPRESA",
+      "file_type": "document",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "github_copilot_instructions_github_copilot_terza_impresa",
+      "community": 308,
+      "norm_label": "github copilot = terza impresa"
     },
     {
       "label": "AGENTS.md",
@@ -15000,7 +15414,7 @@
       "label": "3. Frasi-comando (uguali con ogni IA: le skill sono in `.agents/skills/`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L37",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "agents_3_frasi_comando_uguali_con_ogni_ia_le_skill_sono_in_agents_skills",
       "community": 55,
@@ -15010,7 +15424,7 @@
       "label": "4. Turni (uno alla volta, sempre)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L55",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "agents_4_turni_uno_alla_volta_sempre",
       "community": 55,
@@ -15020,7 +15434,7 @@
       "label": "5. Lettura a strati (per risparmiare crediti)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L83",
+      "source_location": "L84",
       "_origin": "ast",
       "id": "agents_5_lettura_a_strati_per_risparmiare_crediti",
       "community": 55,
@@ -15030,7 +15444,7 @@
       "label": "6. Regole ferree",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L92",
+      "source_location": "L93",
       "_origin": "ast",
       "id": "agents_6_regole_ferree",
       "community": 55,
@@ -15040,7 +15454,7 @@
       "label": "7. Cartelle e nomi",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L123",
+      "source_location": "L125",
       "_origin": "ast",
       "id": "agents_7_cartelle_e_nomi",
       "community": 55,
@@ -15077,10 +15491,20 @@
       "norm_label": "struttura cartella"
     },
     {
+      "label": "Progetto SOCIAL",
+      "file_type": "document",
+      "source_file": "CLAUDE.md",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "claude_progetto_social",
+      "community": 31,
+      "norm_label": "progetto social"
+    },
+    {
       "label": "Workflow checkpoint",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L24",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "claude_workflow_checkpoint",
       "community": 31,
@@ -15090,7 +15514,7 @@
       "label": "Commissione Suprema (controllo qualit\u00e0 pre-checkpoint)",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L46",
+      "source_location": "L51",
       "_origin": "ast",
       "id": "claude_commissione_suprema_controllo_qualit\u00e0_pre_checkpoint",
       "community": 31,
@@ -15100,7 +15524,7 @@
       "label": "Graphify",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L59",
+      "source_location": "L64",
       "_origin": "ast",
       "id": "claude_graphify",
       "community": 31,
@@ -15110,9 +15534,9 @@
       "label": "graphify",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L67",
+      "source_location": "L72",
       "_origin": "ast",
-      "id": "claude_graphify_67",
+      "id": "claude_graphify_72",
       "community": 31,
       "norm_label": "graphify"
     },
@@ -15120,7 +15544,7 @@
       "label": "Regole del cantiere (il resto di questo file ha la precedenza in caso di conflitto)",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L79",
+      "source_location": "L84",
       "_origin": "ast",
       "id": "claude_regole_del_cantiere_il_resto_di_questo_file_ha_la_precedenza_in_caso_di_conflitto",
       "community": 31,
@@ -15130,7 +15554,7 @@
       "label": "Claude Code = CAPOCANTIERE",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L83",
+      "source_location": "L88",
       "_origin": "ast",
       "id": "claude_claude_code_capocantiere",
       "community": 31,
@@ -15140,7 +15564,7 @@
       "label": "Risparmio di crediti (regole ferree)",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L89",
+      "source_location": "L97",
       "_origin": "ast",
       "id": "claude_risparmio_di_crediti_regole_ferree",
       "community": 31,
@@ -15150,7 +15574,7 @@
       "label": "Quando un'impresa o un subagente ha finito",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L101",
+      "source_location": "L109",
       "_origin": "ast",
       "id": "claude_quando_un_impresa_o_un_subagente_ha_finito",
       "community": 31,
@@ -15160,7 +15584,7 @@
       "label": "Cartellino",
       "file_type": "document",
       "source_file": "CLAUDE.md",
-      "source_location": "L105",
+      "source_location": "L113",
       "_origin": "ast",
       "id": "claude_cartellino",
       "community": 31,
@@ -15245,6 +15669,356 @@
       "id": "readme_cantiere_di_sviluppo",
       "community": 71,
       "norm_label": "cantiere di sviluppo"
+    },
+    {
+      "label": "calendario-v1.md",
+      "file_type": "document",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_calendario_v1",
+      "community": 193,
+      "norm_label": "calendario-v1.md"
+    },
+    {
+      "label": "Calendario social v1 (adattato il 2026-11-17)",
+      "file_type": "document",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_calendario_v1_calendario_social_v1_adattato_il_2026_11_17",
+      "community": 193,
+      "norm_label": "calendario social v1 (adattato il 2026-11-17)"
+    },
+    {
+      "label": "Cosa cambia rispetto al manuale",
+      "file_type": "document",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "social_calendario_v1_cosa_cambia_rispetto_al_manuale",
+      "community": 193,
+      "norm_label": "cosa cambia rispetto al manuale"
+    },
+    {
+      "label": "Settimana 0 \u00b7 18\u201322 novembre",
+      "file_type": "document",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "social_calendario_v1_settimana_0_18_22_novembre",
+      "community": 193,
+      "norm_label": "settimana 0 \u00b7 18\u201322 novembre"
+    },
+    {
+      "label": "Dal 23/11 al gate",
+      "file_type": "document",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L20",
+      "_origin": "ast",
+      "id": "social_calendario_v1_dal_23_11_al_gate",
+      "community": 193,
+      "norm_label": "dal 23/11 al gate"
+    },
+    {
+      "label": "Gate \u00b7 dom 06/12",
+      "file_type": "document",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "social_calendario_v1_gate_dom_06_12",
+      "community": 193,
+      "norm_label": "gate \u00b7 dom 06/12"
+    },
+    {
+      "label": "Domeniche e feste",
+      "file_type": "document",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "social_calendario_v1_domeniche_e_feste",
+      "community": 193,
+      "norm_label": "domeniche e feste"
+    },
+    {
+      "label": "diario-metriche.md",
+      "file_type": "document",
+      "source_file": "SOCIAL/diario-metriche.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_diario_metriche",
+      "community": 198,
+      "norm_label": "diario-metriche.md"
+    },
+    {
+      "label": "Diario delle metriche social",
+      "file_type": "document",
+      "source_file": "SOCIAL/diario-metriche.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_diario_metriche_diario_delle_metriche_social",
+      "community": 198,
+      "norm_label": "diario delle metriche social"
+    },
+    {
+      "label": "Uso",
+      "file_type": "document",
+      "source_file": "SOCIAL/diario-metriche.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "social_diario_metriche_uso",
+      "community": 198,
+      "norm_label": "uso"
+    },
+    {
+      "label": "Calcolo settimanale",
+      "file_type": "document",
+      "source_file": "SOCIAL/diario-metriche.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "social_diario_metriche_calcolo_settimanale",
+      "community": 198,
+      "norm_label": "calcolo settimanale"
+    },
+    {
+      "label": "Decisione sui format",
+      "file_type": "document",
+      "source_file": "SOCIAL/diario-metriche.md",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "social_diario_metriche_decisione_sui_format",
+      "community": 198,
+      "norm_label": "decisione sui format"
+    },
+    {
+      "label": "Engagement rate",
+      "file_type": "document",
+      "source_file": "SOCIAL/diario-metriche.md",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "social_diario_metriche_engagement_rate",
+      "community": 198,
+      "norm_label": "engagement rate"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "SOCIAL/landing/mockup-v1/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_landing_mockup_v1_readme",
+      "community": 309,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "Mockup landing Bucktrail \u00b7 v1 (17 nov 2026)",
+      "file_type": "document",
+      "source_file": "SOCIAL/landing/mockup-v1/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_landing_mockup_v1_readme_mockup_landing_bucktrail_v1_17_nov_2026",
+      "community": 309,
+      "norm_label": "mockup landing bucktrail \u00b7 v1 (17 nov 2026)"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "SOCIAL/montaggio/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_montaggio_readme",
+      "community": 311,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "Master social Bucktrail",
+      "file_type": "document",
+      "source_file": "SOCIAL/montaggio/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_montaggio_readme_master_social_bucktrail",
+      "community": 311,
+      "norm_label": "master social bucktrail"
+    },
+    {
+      "label": "testi-v1.md",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_testi_v1",
+      "community": 43,
+      "norm_label": "testi-v1.md"
+    },
+    {
+      "label": "Bucktrail \u2014 testi social, App Store, landing (v1)",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "social_testi_v1_bucktrail_testi_social_app_store_landing_v1",
+      "community": 43,
+      "norm_label": "bucktrail \u2014 testi social, app store, landing (v1)"
+    },
+    {
+      "label": "Regole applicate",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "social_testi_v1_regole_applicate",
+      "community": 43,
+      "norm_label": "regole applicate"
+    },
+    {
+      "label": "1. Profili (@bucktrailapp)",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "social_testi_v1_1_profili_bucktrailapp",
+      "community": 43,
+      "norm_label": "1. profili (@bucktrailapp)"
+    },
+    {
+      "label": "2. Caption per format (primo blocco)",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "social_testi_v1_2_caption_per_format_primo_blocco",
+      "community": 43,
+      "norm_label": "2. caption per format (primo blocco)"
+    },
+    {
+      "label": "F8 \u2014 Build in public (voce di brand: solo testo a schermo, nessuna voce n\u00e9 volto)",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "social_testi_v1_f8_build_in_public_voce_di_brand_solo_testo_a_schermo_nessuna_voce_n\u00e9_volto",
+      "community": 43,
+      "norm_label": "f8 \u2014 build in public (voce di brand: solo testo a schermo, nessuna voce ne volto)"
+    },
+    {
+      "label": "F1 \u2014 La curva ambra",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L54",
+      "_origin": "ast",
+      "id": "social_testi_v1_f1_la_curva_ambra",
+      "community": 43,
+      "norm_label": "f1 \u2014 la curva ambra"
+    },
+    {
+      "label": "F13 (n. 1) \u2014 Spese fisse e variabili",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L73",
+      "_origin": "ast",
+      "id": "social_testi_v1_f13_n_1_spese_fisse_e_variabili",
+      "community": 43,
+      "norm_label": "f13 (n. 1) \u2014 spese fisse e variabili"
+    },
+    {
+      "label": "F3 \u2014 Non collegare il conto",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L95",
+      "_origin": "ast",
+      "id": "social_testi_v1_f3_non_collegare_il_conto",
+      "community": 43,
+      "norm_label": "f3 \u2014 non collegare il conto"
+    },
+    {
+      "label": "F4 \u2014 Spesa registrata in 2 secondi",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L114",
+      "_origin": "ast",
+      "id": "social_testi_v1_f4_spesa_registrata_in_2_secondi",
+      "community": 43,
+      "norm_label": "f4 \u2014 spesa registrata in 2 secondi"
+    },
+    {
+      "label": "F5 \u2014 Carosello \"titolo di giornale\" (6-7 slide)",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L133",
+      "_origin": "ast",
+      "id": "social_testi_v1_f5_carosello_titolo_di_giornale_6_7_slide",
+      "community": 43,
+      "norm_label": "f5 \u2014 carosello \"titolo di giornale\" (6-7 slide)"
+    },
+    {
+      "label": "3. Scheda App Store",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L156",
+      "_origin": "ast",
+      "id": "social_testi_v1_3_scheda_app_store",
+      "community": 43,
+      "norm_label": "3. scheda app store"
+    },
+    {
+      "label": "Italiano",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L160",
+      "_origin": "ast",
+      "id": "social_testi_v1_italiano",
+      "community": 43,
+      "norm_label": "italiano"
+    },
+    {
+      "label": "English",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L193",
+      "_origin": "ast",
+      "id": "social_testi_v1_english",
+      "community": 43,
+      "norm_label": "english"
+    },
+    {
+      "label": "4. Landing",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L228",
+      "_origin": "ast",
+      "id": "social_testi_v1_4_landing",
+      "community": 43,
+      "norm_label": "4. landing"
+    },
+    {
+      "label": "Italiano",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L232",
+      "_origin": "ast",
+      "id": "social_testi_v1_italiano_232",
+      "community": 43,
+      "norm_label": "italiano"
+    },
+    {
+      "label": "English",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L247",
+      "_origin": "ast",
+      "id": "social_testi_v1_english_247",
+      "community": 43,
+      "norm_label": "english"
+    },
+    {
+      "label": "Dubbi per Matteo",
+      "file_type": "document",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L264",
+      "_origin": "ast",
+      "id": "social_testi_v1_dubbi_per_matteo",
+      "community": 43,
+      "norm_label": "dubbi per matteo"
     },
     {
       "label": "MoneyTracker.md",
@@ -16159,7 +16933,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 191,
       "norm_label": "app icon (dark mode, 1024x1024)",
       "community_name": "Community 12",
       "id": "moneytracker_assets_xcassets_appicon_appiconset_appicon_dark_1024"
@@ -16173,7 +16947,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 191,
       "norm_label": "app icon (light mode, 1024x1024)",
       "community_name": "Community 12",
       "id": "moneytracker_assets_xcassets_appicon_appiconset_appicon_light_1024"
@@ -16187,7 +16961,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 2,
+      "community": 191,
       "norm_label": "app icon (tinted, 1024x1024)",
       "community_name": "Community 12",
       "id": "moneytracker_assets_xcassets_appicon_appiconset_appicon_tinted_1024"
@@ -21238,7 +22012,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Views/PianificaView.swift",
-      "source_location": "L224",
+      "source_location": "L225",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_views_pianificaview_pianificaview",
@@ -21249,7 +22023,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Views/PianificaView.swift",
-      "source_location": "L138",
+      "source_location": "L139",
       "weight": 1.0,
       "context": "return_type",
       "source": "moneytracker_views_pianificaview_pianificaview_segbutton",
@@ -27070,7 +27844,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseries",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -27143,7 +27917,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseriesdetector_detect",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -27198,7 +27972,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseriesdetector_groupkey",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -27242,7 +28016,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_domain_recurringseriesdetector_recurringseriesdetector_inferfrequency",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -31538,7 +32312,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_models_budget_budget",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_contanti",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_risparmio",
       "confidence_score": 1.0
     },
     {
@@ -31549,7 +32323,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_models_budget_budget_init",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_contanti",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_risparmio",
       "confidence_score": 1.0
     },
     {
@@ -31560,7 +32334,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_contanti",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_risparmio",
       "confidence_score": 1.0
     },
     {
@@ -31571,7 +32345,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction_init",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_contanti",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_risparmio",
       "confidence_score": 1.0
     },
     {
@@ -31582,7 +32356,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_contanti",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_risparmio",
       "confidence_score": 1.0
     },
     {
@@ -31593,7 +32367,7 @@
       "weight": 1.0,
       "context": "generic_arg",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_accountpicker",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_contanti",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_risparmio",
       "confidence_score": 1.0
     },
     {
@@ -31604,7 +32378,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_addbudgetview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_contanti",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_risparmio",
       "confidence_score": 1.0
     },
     {
@@ -31626,7 +32400,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_models_account_account",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -31857,6 +32631,17 @@
     },
     {
       "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Views/BudgetView.swift",
+      "source_location": "L90",
+      "weight": 1.0,
+      "context": "field",
+      "source": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_addbudgetview",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
@@ -31869,23 +32654,12 @@
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Views/BudgetView.swift",
-      "source_location": "L90",
-      "weight": 1.0,
-      "context": "field",
-      "source": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_addbudgetview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_init",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Views/CategoryManagementView.swift",
       "source_location": "L203",
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_init",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
       "confidence_score": 1.0
     },
     {
@@ -31896,7 +32670,7 @@
       "source_location": "L338",
       "weight": 1.0,
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_addcategoryview_save",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_init",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
       "confidence_score": 1.0
     },
     {
@@ -31907,7 +32681,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_init",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
       "confidence_score": 1.0
     },
     {
@@ -31918,7 +32692,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview_txcount",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_init",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
       "confidence_score": 1.0
     },
     {
@@ -31929,7 +32703,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categoryrow",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category_init",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_category_category",
       "confidence_score": 1.0
     },
     {
@@ -32009,16 +32783,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Models/Goal.swift",
-      "source_location": "L17",
-      "weight": 1.0,
-      "source": "users_matteo_desktop_moneytracker_moneytracker_models_goal_goal",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_goal_goal_init",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Views/GoalsView.swift",
@@ -32026,7 +32790,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_addgoalview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_goal_goal_init",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_goal_swift",
       "confidence_score": 1.0
     },
     {
@@ -32037,7 +32801,7 @@
       "source_location": "L293",
       "weight": 1.0,
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_addgoalview_save",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_goal_goal_init",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_goal_swift",
       "confidence_score": 1.0
     },
     {
@@ -32048,6 +32812,16 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_goalsview_goalrow",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_goal_swift",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Models/Goal.swift",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "users_matteo_desktop_moneytracker_moneytracker_models_goal_goal",
       "target": "users_matteo_desktop_moneytracker_moneytracker_models_goal_goal_init",
       "confidence_score": 1.0
     },
@@ -32475,6 +33249,16 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Models/Transaction.swift",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction_init",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Views/AddTransferView.swift",
@@ -32482,7 +33266,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -32493,7 +33277,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_pairedleg",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -32504,7 +33288,7 @@
       "source_location": "L222",
       "weight": 1.0,
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_addtransferview_addtransferview_save",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -32515,7 +33299,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_budgethistorysheet",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -32526,7 +33310,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_budgethistorysheet_init",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -32537,7 +33321,7 @@
       "weight": 1.0,
       "context": "parameter_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_budgetview_budgethistorysheet_spent",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -32548,17 +33332,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_views_categorymanagementview_categorymanagementview",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Models/Transaction.swift",
-      "source_location": "L35",
-      "weight": 1.0,
-      "source": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction_init",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
       "confidence_score": 1.0
     },
     {
@@ -38204,7 +38978,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Views/PianificaView.swift",
-      "source_location": "L138",
+      "source_location": "L139",
       "weight": 1.0,
       "source": "moneytracker_views_pianificaview_pianificaview",
       "target": "moneytracker_views_pianificaview_pianificaview_segbutton",
@@ -38279,7 +39053,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Views/PianificaView.swift",
-      "source_location": "L215",
+      "source_location": "L216",
       "weight": 1.0,
       "context": "field",
       "source": "moneytracker_views_pianificaview_pianificaview",
@@ -38312,7 +39086,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Views/PianificaView.swift",
-      "source_location": "L138",
+      "source_location": "L139",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_views_pianificaview_pianificaview_segbutton",
@@ -38334,7 +39108,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Views/PianificaView.swift",
-      "source_location": "L138",
+      "source_location": "L139",
       "weight": 1.0,
       "context": "parameter_type",
       "source": "moneytracker_views_pianificaview_pianificaview_segbutton",
@@ -49690,6 +50464,117 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "social_landing_waitlist",
+      "target": "social_landing_waitlist_active",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "social_landing_waitlist",
+      "target": "social_landing_waitlist_attribution",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "social_landing_waitlist",
+      "target": "social_landing_waitlist_campaign",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "social_landing_waitlist",
+      "target": "social_landing_waitlist_endpoint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "social_landing_waitlist",
+      "target": "social_landing_waitlist_fields",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/landing/waitlist.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "social_landing_waitlist",
+      "target": "social_landing_waitlist_form",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/montaggio/master.sh",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "social_montaggio_master",
+      "target": "social_montaggio_master_fail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/montaggio/master.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "social_montaggio_master",
+      "target": "social_montaggio_master_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/montaggio/master.sh",
+      "source_location": "L7",
+      "weight": 1.0,
+      "context": "call",
+      "source": "social_montaggio_master_sh__entry",
+      "target": "social_montaggio_master_fail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/montaggio/test-fumo.sh",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "social_montaggio_test_fumo",
+      "target": "social_montaggio_test_fumo_audio_codec",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/montaggio/test-fumo.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "social_montaggio_test_fumo",
+      "target": "social_montaggio_test_fumo_sh__entry",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": ".cantiere/APPROVAZIONI.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -49761,6 +50646,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/APPROVAZIONI.md",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "cantiere_approvazioni_approvazioni_del_committente",
+      "target": "cantiere_approvazioni_sc_3_testi_social_scheda_app_store_e_landing_it_en_da_approvare_da_matteo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/APPROVAZIONI.md",
       "source_location": "L46",
       "weight": 1.0,
       "source": "cantiere_approvazioni_s_14_confronto_mese_su_mese_ritirate_matteo_2026_11_16_s_31",
@@ -49824,7 +50719,37 @@
       "source_location": "L1",
       "weight": 1.0,
       "source": "cantiere_consegna",
-      "target": "cantiere_consegna_consegna_collaudo_s_37_collaudatore_claude_code_sonnet_2026_11_17_13_35",
+      "target": "cantiere_consegna_consegna_capocantiere_2026_11_17_23_14",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/CONSEGNA.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "cantiere_consegna_consegna_capocantiere_2026_11_17_23_14",
+      "target": "cantiere_consegna_aperto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/CONSEGNA.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "cantiere_consegna_consegna_capocantiere_2026_11_17_23_14",
+      "target": "cantiere_consegna_fatto_oggi_progetto_social_regola_sempre_il_manuale_in_social",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/CONSEGNA.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "cantiere_consegna_consegna_capocantiere_2026_11_17_23_14",
+      "target": "cantiere_consegna_fuori_dal_commit_non_miei",
       "confidence_score": 1.0
     },
     {
@@ -49845,6 +50770,76 @@
       "weight": 1.0,
       "source": "cantiere_decisioni_registro_delle_decisioni",
       "target": "cantiere_decisioni_2026_11_16_riferimenti_s_6_s_7_s_8_matteo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L130",
+      "weight": 1.0,
+      "source": "cantiere_decisioni_registro_delle_decisioni",
+      "target": "cantiere_decisioni_2026_11_17_nessun_premium_in_abbonamento",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L118",
+      "weight": 1.0,
+      "source": "cantiere_decisioni_registro_delle_decisioni",
+      "target": "cantiere_decisioni_2026_11_17_nome_utente_dei_profili_social_bucktrailapp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "cantiere_decisioni_registro_delle_decisioni",
+      "target": "cantiere_decisioni_2026_11_17_regola_permanente_del_progetto_social",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L99",
+      "weight": 1.0,
+      "source": "cantiere_decisioni_registro_delle_decisioni",
+      "target": "cantiere_decisioni_2026_11_17_social_prima_di_apple_developer_program",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L135",
+      "weight": 1.0,
+      "source": "cantiere_decisioni_registro_delle_decisioni",
+      "target": "cantiere_decisioni_2026_11_17_social_senza_elementi_personali_video_in_ia_in_valutazione",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "cantiere_decisioni_registro_delle_decisioni",
+      "target": "cantiere_decisioni_2026_11_17_soglie_del_segnale_di_interesse_confermate_da_matteo_il_2026_11_17_cifre_comprese_40_iscritti_200_visite_5_5_commenti_non_si_spostano_pi\u00f9_sc_1b",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/DECISIONI.md",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "cantiere_decisioni_registro_delle_decisioni",
+      "target": "cantiere_decisioni_2026_11_17_tiktok_account_personale_senza_musica",
       "confidence_score": 1.0
     },
     {
@@ -50131,7 +51126,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PER-MATTEO.md",
-      "source_location": "L38",
+      "source_location": "L62",
       "weight": 1.0,
       "source": "cantiere_per_matteo_per_matteo_le_cose_che_aspettano_te",
       "target": "cantiere_per_matteo_fatte",
@@ -50141,7 +51136,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PER-MATTEO.md",
-      "source_location": "L46",
+      "source_location": "L70",
       "weight": 1.0,
       "source": "cantiere_per_matteo_per_matteo_le_cose_che_aspettano_te",
       "target": "cantiere_per_matteo_s_24_verifica_del_blocco_sul_caso_reale",
@@ -50151,7 +51146,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PER-MATTEO.md",
-      "source_location": "L57",
+      "source_location": "L81",
       "weight": 1.0,
       "source": "cantiere_per_matteo_per_matteo_le_cose_che_aspettano_te",
       "target": "cantiere_per_matteo_s_30_approvazione_traduzioni_dopo_il_collaudo",
@@ -50161,7 +51156,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PER-MATTEO.md",
-      "source_location": "L17",
+      "source_location": "L40",
       "weight": 1.0,
       "source": "cantiere_per_matteo_da_fare",
       "target": "cantiere_per_matteo_approvazione_traduzioni_approvazioni_md",
@@ -50171,7 +51166,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PER-MATTEO.md",
-      "source_location": "L26",
+      "source_location": "L49",
       "weight": 1.0,
       "source": "cantiere_per_matteo_da_fare",
       "target": "cantiere_per_matteo_s_21_controllo_manuale_menu_dopo_il_collaudo_fatto_da_matteo_2026_11_16_21_49_tutto_ok",
@@ -50181,10 +51176,50 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PER-MATTEO.md",
-      "source_location": "L8",
+      "source_location": "L31",
       "weight": 1.0,
       "source": "cantiere_per_matteo_da_fare",
       "target": "cantiere_per_matteo_s_33_decidere_osservazione_dopo_diagnosi_non_riproducibile",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PER-MATTEO.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "cantiere_per_matteo_da_fare",
+      "target": "cantiere_per_matteo_social_sc_1_account_social_oggi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PER-MATTEO.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "cantiere_per_matteo_da_fare",
+      "target": "cantiere_per_matteo_social_sc_2_clip_base_questa_settimana_20_30_min",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PER-MATTEO.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "cantiere_per_matteo_da_fare",
+      "target": "cantiere_per_matteo_social_sc_4_collaudo_e_decisioni_per_la_landing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PER-MATTEO.md",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "cantiere_per_matteo_da_fare",
+      "target": "cantiere_per_matteo_social_sc_6_avvia_copilot_per_il_diario_metriche",
       "confidence_score": 1.0
     },
     {
@@ -50201,7 +51236,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L223",
+      "source_location": "L238",
       "weight": 1.0,
       "source": "cantiere_piano_piano_dei_lavori",
       "target": "cantiere_piano_fatti",
@@ -50221,20 +51256,20 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L14",
+      "source_location": "L182",
       "weight": 1.0,
-      "source": "cantiere_piano_in_corso_prossimi",
-      "target": "cantiere_piano_s_0_x_rimozione_del_tour",
+      "source": "cantiere_piano_piano_dei_lavori",
+      "target": "cantiere_piano_progetto_social_avviato_2026_11_17",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L214",
+      "source_location": "L14",
       "weight": 1.0,
       "source": "cantiere_piano_in_corso_prossimi",
-      "target": "cantiere_piano_s_10_x_2026_11_16_commissione_s_10_nessun_difetto_bloccante_92_unit_verdi_ui_42_45_nel_run_completo_i_3_falliti_rilanciati_singolarmente_verdi_2_voti_9_per_commento_obsoleto_e_sentence_lunga_corretti_in_1748ef5_senza_nuova_valutazione_verifica_finale_commissione_suprema",
+      "target": "cantiere_piano_s_0_x_rimozione_del_tour",
       "confidence_score": 1.0
     },
     {
@@ -50265,26 +51300,6 @@
       "weight": 1.0,
       "source": "cantiere_piano_in_corso_prossimi",
       "target": "cantiere_piano_s_13_x_s_13f_chiuso_da_matteo_2026_11_16_motore_ricorrenze_a_serie_virtuali_d_008",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".cantiere/PIANO.md",
-      "source_location": "L205",
-      "weight": 1.0,
-      "source": "cantiere_piano_in_corso_prossimi",
-      "target": "cantiere_piano_s_14_x_statistiche_confronto_mese_su_mese_rimosso_su_richiesta_di_matteo_2026_11_16",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".cantiere/PIANO.md",
-      "source_location": "L188",
-      "weight": 1.0,
-      "source": "cantiere_piano_in_corso_prossimi",
-      "target": "cantiere_piano_s_15_x_diagnosticare_due_test_ui_che_non_trovano_il_movimento_appena_salvato",
       "confidence_score": 1.0
     },
     {
@@ -50361,40 +51376,10 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L182",
-      "weight": 1.0,
-      "source": "cantiere_piano_in_corso_prossimi",
-      "target": "cantiere_piano_s_38_commissione_pacchetto_a_codex_virtuali_che_ignorano_filtri_avanzati_date_filtro_personalizzato_non_salvate_conferma_per_salta_mese_termina_fisso_detector_ricalcolato_a_ogni_render_set_di_id_regole_in_movementlist_force_unwrap_recurrencecontrols_69_recurringseriesdetector_58_66_recurringmaterializer_duplica_snapshot_tipo_selected_ridondanti_in_typechips",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".cantiere/PIANO.md",
-      "source_location": "L184",
-      "weight": 1.0,
-      "source": "cantiere_piano_in_corso_prossimi",
-      "target": "cantiere_piano_s_39_commissione_traduzioni_redattore_40_stringhe_visibili_in_italiano_in_tutte_le_lingue_settings_notifiche_login_signup_auditlog_budget_filtri_frasi_composte_a_pezzi_chiavi_doppie_fine_tipo_poi_approvazione_matteo",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".cantiere/PIANO.md",
       "source_location": "L50",
       "weight": 1.0,
       "source": "cantiere_piano_in_corso_prossimi",
       "target": "cantiere_piano_s_3_x_floatingtabbar_fab_2026_11_13_22_08_collaudo_ok",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".cantiere/PIANO.md",
-      "source_location": "L186",
-      "weight": 1.0,
-      "source": "cantiere_piano_in_corso_prossimi",
-      "target": "cantiere_piano_s_40_commissione_font_fissi_codex_200_font_system_size_token_ds_typo_dynamic_type_sectionlabel_incluso",
       "confidence_score": 1.0
     },
     {
@@ -50441,16 +51426,6 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L201",
-      "weight": 1.0,
-      "source": "cantiere_piano_in_corso_prossimi",
-      "target": "cantiere_piano_s_7p_x_plurale_dei_giorni_rimanenti",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": ".cantiere/PIANO.md",
       "source_location": "L106",
       "weight": 1.0,
       "source": "cantiere_piano_in_corso_prossimi",
@@ -50471,7 +51446,157 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L284",
+      "source_location": "L229",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_s_10_x_2026_11_16_commissione_s_10_nessun_difetto_bloccante_92_unit_verdi_ui_42_45_nel_run_completo_i_3_falliti_rilanciati_singolarmente_verdi_2_voti_9_per_commento_obsoleto_e_sentence_lunga_corretti_in_1748ef5_senza_nuova_valutazione_verifica_finale_commissione_suprema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L220",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_s_14_x_statistiche_confronto_mese_su_mese_rimosso_su_richiesta_di_matteo_2026_11_16",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L203",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_s_15_x_diagnosticare_due_test_ui_che_non_trovano_il_movimento_appena_salvato",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L197",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_s_38_commissione_pacchetto_a_codex_virtuali_che_ignorano_filtri_avanzati_date_filtro_personalizzato_non_salvate_conferma_per_salta_mese_termina_fisso_detector_ricalcolato_a_ogni_render_set_di_id_regole_in_movementlist_force_unwrap_recurrencecontrols_69_recurringseriesdetector_58_66_recurringmaterializer_duplica_snapshot_tipo_selected_ridondanti_in_typechips",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L199",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_s_39_commissione_traduzioni_redattore_40_stringhe_visibili_in_italiano_in_tutte_le_lingue_settings_notifiche_login_signup_auditlog_budget_filtri_frasi_composte_a_pezzi_chiavi_doppie_fine_tipo_poi_approvazione_matteo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L201",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_s_40_commissione_font_fissi_codex_200_font_system_size_token_ds_typo_dynamic_type_sectionlabel_incluso",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L216",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_s_7p_x_plurale_dei_giorni_rimanenti",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L188",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_sc_0_calendario_adattato_capocantiere_2026_11_17_21_xx_social_calendario_v1_md_settimana_0_dal_18_11_poi_date_del_manuale_gate_06_12_da_verificare_date_app_review_natalizie",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L189",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_sc_1_account_social_creati_2026_11_17_gmail_ig_creator_2fa_tiktok_personale_2fa_youtube_bucktrailapp_restano_bio_e_foto_su_ig_tiktok_foto_e_descrizione_youtube_nome_tiktok_il_24_11_matteo_vedi_per_matteo_apple_developer_program_non_pagato_per_scelta_di_matteo_2026_11_17_prima_si_cerca_un_segnale_di_interesse_sui_social_link_in_bio_landing_con_email_waitlist_non_pre_order",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L190",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_sc_1b_x_chiuso_2026_11_17_matteo_ha_confermato_le_soglie_in_decisioni_md_soglia_di_decisione_per_pagare_apple_matteo_da_completare_quali_numeri_contano_come_segnale_es_iscritti_alla_waitlist_follower_tempo_medio_sopra_la_mediana_e_entro_quando_il_manuale_non_d\u00e0_benchmark_la_soglia_\u00e8_sua",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L191",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_sc_2_clip_base_dal_telefono_in_modalit\u00e0_demo_matteo_lista_in_per_matteo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L192",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_sc_3_fatto_dal_redattore_approvazione_matteo_in_approvazioni_md_testi_di_base_redattore_bio_caption_nome_sottotitolo_keyword_descrizione_app_store_it_en_hook_dei_primi_format_solo_claim_ammessi_manuale_1_1_1_3_poi_approvazione_matteo_in_approvazioni_md",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L193",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_sc_4_landing_it_en_e_informativa_pronte_per_il_collaudo_matteo_deve_scegliere_servizio_e_hosting_e_approvare_l_informativa",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L194",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_sc_5_script_ffmpeg_e_modello_ass_pronti_per_il_collaudo_test_di_fumo_ass_srt_e_conversione_hdr_sintetica_superati",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L195",
+      "weight": 1.0,
+      "source": "cantiere_piano_progetto_social_avviato_2026_11_17",
+      "target": "cantiere_piano_sc_6_diario_delle_metriche_copilot_task_piccolo_e_gi\u00e0_descritto_foglio_come_manuale_9_7_creati_social_diario_metriche_csv_e_social_diario_metriche_md_una_riga_esempio_vuota_nessun_dato_reale_da_collaudare",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".cantiere/PIANO.md",
+      "source_location": "L299",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_commissione_suprema_s_13h_2026_11_14_11_08",
@@ -50481,7 +51606,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L242",
+      "source_location": "L257",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_16_fuori_dal_restyling_serve_decisione_di_matteo_test_su_precisione_decimal_elevata_verificare_precisione_decimal_elevata_nella_persistenza_recurringrule",
@@ -50491,7 +51616,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L248",
+      "source_location": "L263",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_17_x_collaudo_ok_2026_11_14_pull_non_cancellare_regole_locali_non_ancora_spedite",
@@ -50501,7 +51626,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L256",
+      "source_location": "L271",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_18_x_rifinitura_grafica_dei_virtuali_e_delle_serie_programmate",
@@ -50511,7 +51636,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L262",
+      "source_location": "L277",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_19_x_revisione_testi_e_traduzioni_s_13g_collaudato_2026_11_16_09_47_collaudo_ok_solo_7_strings_cantiere_plutil_ok_380_chiavi_allineate_nessuna_chiave_persa_0_marker_approvazione_matteo_in_approvazioni_md_ancora_note_de_keine_per_conto_neutro_keines_es_ninguno_per_conto_cuenta_ninguna_de_riga_103_resta_vorkommen_zh_riga_103_\u8bb0\u5f55_per_occorrenze_vs_\u9879\u76ee_chiuso_2026_11_16_09_48_collaudo_ok_5ca721e_de_keines_termine_es_ninguna_zh_\u9879\u76ee_applicati_chiavi_invariate_plutil_ok_nessun_altro_vorkommen_\u8bb0\u5f55_residuo_99_\u5386\u53f2\u8bb0\u5f55_storico_ok_approvazione_matteo_in_approvazioni_md_resta_termin_de_e_i_termini_segnalati_vanno_riletti_da_un_madrelingua",
@@ -50521,7 +51646,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L266",
+      "source_location": "L281",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_20_x_collaudato_2026_11_14_11_06_bf9727e_guard_ok_regressione_ok_68_unit_verdi_confermato_verificare_editor_di_una_serie_terminata_prima_della_prima_occorrenza",
@@ -50531,7 +51656,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L275",
+      "source_location": "L290",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_21_x_performance_ricalcoli_per_riga_in_transactionsview_commissione_s_13h_giudice_4_8_10",
@@ -50541,7 +51666,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L281",
+      "source_location": "L296",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_22_x_architettura_spezzare_transactionsview_giudice_2_8_10",
@@ -50551,7 +51676,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L287",
+      "source_location": "L302",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_23_x_2026_11_14_12_55_collaudo_ok_editor_singola_occorrenza_e_indicatore_ricorrenza",
@@ -50561,7 +51686,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L296",
+      "source_location": "L311",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_24_x_eliminazione_ricorrenze_regressioni_e_confronto_per_giorno_originale",
@@ -50571,7 +51696,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L303",
+      "source_location": "L318",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_25_x_uniformit\u00e0_campi_ricorrenti_secondo_scope_sostituisce_s_23",
@@ -50581,7 +51706,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L312",
+      "source_location": "L327",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_26_x_demo_vetrina_completa_demodataseeder_2026_11_16_01_22_collaudo_ok",
@@ -50591,7 +51716,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L321",
+      "source_location": "L336",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_27_x_migliorie_dal_collaudo_di_s_24_s_25_s_15_suggerite_2026_11_15",
@@ -50601,7 +51726,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L331",
+      "source_location": "L346",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_28_x_tab_bar_affollata_con_dynamic_type_xl",
@@ -50611,7 +51736,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L340",
+      "source_location": "L355",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_29_x_correzioni_commissione_suprema_s_13h_autorizzate_da_matteo_2026_11_16_2026_11_16_collaudo_ok_diff_a1c6c89_build_81_unit_3_ui_dichiarati_dall_impresa_non_rilanciati",
@@ -50621,7 +51746,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L350",
+      "source_location": "L365",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_30_x_categoria_dall_ultima_volta_nuova_funzione_2026_11_16_collaudo_ok_traduzioni_ancora_per_matteo",
@@ -50631,7 +51756,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L362",
+      "source_location": "L377",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_31_x_rimozione_confronto_mese_su_mese_2026_11_16_collaudo_ok",
@@ -50641,7 +51766,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L371",
+      "source_location": "L386",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_32_x_manutenzione_demoshowcaseuitests_testshowcasescreens_rosso_anche_su_main",
@@ -50651,7 +51776,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/PIANO.md",
-      "source_location": "L380",
+      "source_location": "L395",
       "weight": 1.0,
       "source": "cantiere_piano_fatti",
       "target": "cantiere_piano_s_33_verificare_recurrenceflowuitests_testcreateeditanddeletescheduledseries",
@@ -50681,7 +51806,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/SCAFFALE.md",
-      "source_location": "L25",
+      "source_location": "L30",
       "weight": 1.0,
       "source": "cantiere_scaffale_scaffale_delle_skill",
       "target": "cantiere_scaffale_da_controllare_prima_di_entrare_sullo_scaffale",
@@ -50691,7 +51816,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/SCAFFALE.md",
-      "source_location": "L38",
+      "source_location": "L43",
       "weight": 1.0,
       "source": "cantiere_scaffale_scaffale_delle_skill",
       "target": "cantiere_scaffale_impronte_sha256_primi_16_caratteri",
@@ -50701,7 +51826,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/SCAFFALE.md",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1.0,
       "source": "cantiere_scaffale_scaffale_delle_skill",
       "target": "cantiere_scaffale_scartate",
@@ -50711,7 +51836,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/SQUADRA.md",
-      "source_location": "L3",
+      "source_location": "L1",
       "weight": 1.0,
       "source": "cantiere_squadra",
       "target": "cantiere_squadra_squadra_organigramma_smistamento_e_albo_delle_assunzioni",
@@ -50721,7 +51846,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/SQUADRA.md",
-      "source_location": "L31",
+      "source_location": "L30",
       "weight": 1.0,
       "source": "cantiere_squadra_squadra_organigramma_smistamento_e_albo_delle_assunzioni",
       "target": "cantiere_squadra_albo_delle_assunzioni",
@@ -50731,7 +51856,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/SQUADRA.md",
-      "source_location": "L28",
+      "source_location": "L27",
       "weight": 1.0,
       "source": "cantiere_squadra_squadra_organigramma_smistamento_e_albo_delle_assunzioni",
       "target": "cantiere_squadra_quando_un_ia_\u00e8_senza_quota",
@@ -50741,7 +51866,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/SQUADRA.md",
-      "source_location": "L8",
+      "source_location": "L6",
       "weight": 1.0,
       "source": "cantiere_squadra_squadra_organigramma_smistamento_e_albo_delle_assunzioni",
       "target": "cantiere_squadra_smistamento_chi_fa_cosa_regola_il_pi\u00f9_economico_che_lo_fa_bene",
@@ -50751,7 +51876,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": ".cantiere/SQUADRA.md",
-      "source_location": "L5",
+      "source_location": "L3",
       "weight": 1.0,
       "source": "cantiere_squadra_squadra_organigramma_smistamento_e_albo_delle_assunzioni",
       "target": "cantiere_squadra_squadra_fissa",
@@ -50894,7 +52019,17 @@
       "source_location": "L1",
       "weight": 1.0,
       "source": "cantiere_prompt_impresa",
-      "target": "cantiere_prompt_impresa_prompt_d_ingresso_impresa_antigravity_codex_o_altri_agenti_con_accesso_alla_cartella",
+      "target": "cantiere_prompt_impresa_prompt_d_ingresso_impresa_antigravity_codex_copilot_o_altri_agenti_con_accesso_alla_cartella",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".github/copilot-instructions.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "github_copilot_instructions",
+      "target": "github_copilot_instructions_github_copilot_terza_impresa",
       "confidence_score": 1.0
     },
     {
@@ -50931,7 +52066,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0,
       "source": "agents_regolamento_di_cantiere_moneytracker",
       "target": "agents_3_frasi_comando_uguali_con_ogni_ia_le_skill_sono_in_agents_skills",
@@ -50941,7 +52076,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L55",
+      "source_location": "L56",
       "weight": 1.0,
       "source": "agents_regolamento_di_cantiere_moneytracker",
       "target": "agents_4_turni_uno_alla_volta_sempre",
@@ -50951,7 +52086,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L83",
+      "source_location": "L84",
       "weight": 1.0,
       "source": "agents_regolamento_di_cantiere_moneytracker",
       "target": "agents_5_lettura_a_strati_per_risparmiare_crediti",
@@ -50961,7 +52096,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L92",
+      "source_location": "L93",
       "weight": 1.0,
       "source": "agents_regolamento_di_cantiere_moneytracker",
       "target": "agents_6_regole_ferree",
@@ -50971,7 +52106,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L123",
+      "source_location": "L125",
       "weight": 1.0,
       "source": "agents_regolamento_di_cantiere_moneytracker",
       "target": "agents_7_cartelle_e_nomi",
@@ -50981,7 +52116,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L83",
+      "source_location": "L88",
       "weight": 1.0,
       "source": "claude",
       "target": "claude_claude_code_capocantiere",
@@ -51001,7 +52136,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L79",
+      "source_location": "L84",
       "weight": 1.0,
       "source": "claude",
       "target": "claude_regole_del_cantiere_il_resto_di_questo_file_ha_la_precedenza_in_caso_di_conflitto",
@@ -51011,7 +52146,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L59",
+      "source_location": "L64",
       "weight": 1.0,
       "source": "claude_moneytracker_istruzioni_per_claude",
       "target": "claude_graphify",
@@ -51021,10 +52156,20 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L67",
+      "source_location": "L72",
       "weight": 1.0,
       "source": "claude_moneytracker_istruzioni_per_claude",
-      "target": "claude_graphify_67",
+      "target": "claude_graphify_72",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CLAUDE.md",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "claude_moneytracker_istruzioni_per_claude",
+      "target": "claude_progetto_social",
       "confidence_score": 1.0
     },
     {
@@ -51041,7 +52186,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L24",
+      "source_location": "L29",
       "weight": 1.0,
       "source": "claude_moneytracker_istruzioni_per_claude",
       "target": "claude_workflow_checkpoint",
@@ -51051,7 +52196,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L46",
+      "source_location": "L51",
       "weight": 1.0,
       "source": "claude_workflow_checkpoint",
       "target": "claude_commissione_suprema_controllo_qualit\u00e0_pre_checkpoint",
@@ -51061,7 +52206,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L105",
+      "source_location": "L113",
       "weight": 1.0,
       "source": "claude_claude_code_capocantiere",
       "target": "claude_cartellino",
@@ -51071,7 +52216,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L101",
+      "source_location": "L109",
       "weight": 1.0,
       "source": "claude_claude_code_capocantiere",
       "target": "claude_quando_un_impresa_o_un_subagente_ha_finito",
@@ -51081,7 +52226,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
-      "source_location": "L89",
+      "source_location": "L97",
       "weight": 1.0,
       "source": "claude_claude_code_capocantiere",
       "target": "claude_risparmio_di_crediti_regole_ferree",
@@ -51145,6 +52290,306 @@
       "weight": 1.0,
       "source": "readme_personal_finance_tracker",
       "target": "readme_tech_stack",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "social_calendario_v1",
+      "target": "social_calendario_v1_calendario_social_v1_adattato_il_2026_11_17",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "social_calendario_v1_calendario_social_v1_adattato_il_2026_11_17",
+      "target": "social_calendario_v1_cosa_cambia_rispetto_al_manuale",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "social_calendario_v1_calendario_social_v1_adattato_il_2026_11_17",
+      "target": "social_calendario_v1_dal_23_11_al_gate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "social_calendario_v1_calendario_social_v1_adattato_il_2026_11_17",
+      "target": "social_calendario_v1_domeniche_e_feste",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "social_calendario_v1_calendario_social_v1_adattato_il_2026_11_17",
+      "target": "social_calendario_v1_gate_dom_06_12",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/calendario-v1.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "social_calendario_v1_calendario_social_v1_adattato_il_2026_11_17",
+      "target": "social_calendario_v1_settimana_0_18_22_novembre",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/diario-metriche.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "social_diario_metriche",
+      "target": "social_diario_metriche_diario_delle_metriche_social",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/diario-metriche.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "social_diario_metriche_diario_delle_metriche_social",
+      "target": "social_diario_metriche_calcolo_settimanale",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/diario-metriche.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "social_diario_metriche_diario_delle_metriche_social",
+      "target": "social_diario_metriche_decisione_sui_format",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/diario-metriche.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "social_diario_metriche_diario_delle_metriche_social",
+      "target": "social_diario_metriche_engagement_rate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/diario-metriche.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "social_diario_metriche_diario_delle_metriche_social",
+      "target": "social_diario_metriche_uso",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/landing/mockup-v1/README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "social_landing_mockup_v1_readme",
+      "target": "social_landing_mockup_v1_readme_mockup_landing_bucktrail_v1_17_nov_2026",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/montaggio/README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "social_montaggio_readme",
+      "target": "social_montaggio_readme_master_social_bucktrail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "social_testi_v1",
+      "target": "social_testi_v1_bucktrail_testi_social_app_store_landing_v1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "social_testi_v1_bucktrail_testi_social_app_store_landing_v1",
+      "target": "social_testi_v1_1_profili_bucktrailapp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "social_testi_v1_bucktrail_testi_social_app_store_landing_v1",
+      "target": "social_testi_v1_2_caption_per_format_primo_blocco",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L156",
+      "weight": 1.0,
+      "source": "social_testi_v1_bucktrail_testi_social_app_store_landing_v1",
+      "target": "social_testi_v1_3_scheda_app_store",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L228",
+      "weight": 1.0,
+      "source": "social_testi_v1_bucktrail_testi_social_app_store_landing_v1",
+      "target": "social_testi_v1_4_landing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L264",
+      "weight": 1.0,
+      "source": "social_testi_v1_bucktrail_testi_social_app_store_landing_v1",
+      "target": "social_testi_v1_dubbi_per_matteo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "social_testi_v1_bucktrail_testi_social_app_store_landing_v1",
+      "target": "social_testi_v1_regole_applicate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "social_testi_v1_2_caption_per_format_primo_blocco",
+      "target": "social_testi_v1_f13_n_1_spese_fisse_e_variabili",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "social_testi_v1_2_caption_per_format_primo_blocco",
+      "target": "social_testi_v1_f1_la_curva_ambra",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "social_testi_v1_2_caption_per_format_primo_blocco",
+      "target": "social_testi_v1_f3_non_collegare_il_conto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "social_testi_v1_2_caption_per_format_primo_blocco",
+      "target": "social_testi_v1_f4_spesa_registrata_in_2_secondi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L133",
+      "weight": 1.0,
+      "source": "social_testi_v1_2_caption_per_format_primo_blocco",
+      "target": "social_testi_v1_f5_carosello_titolo_di_giornale_6_7_slide",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "social_testi_v1_2_caption_per_format_primo_blocco",
+      "target": "social_testi_v1_f8_build_in_public_voce_di_brand_solo_testo_a_schermo_nessuna_voce_n\u00e9_volto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L193",
+      "weight": 1.0,
+      "source": "social_testi_v1_3_scheda_app_store",
+      "target": "social_testi_v1_english",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L160",
+      "weight": 1.0,
+      "source": "social_testi_v1_3_scheda_app_store",
+      "target": "social_testi_v1_italiano",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L247",
+      "weight": 1.0,
+      "source": "social_testi_v1_4_landing",
+      "target": "social_testi_v1_english_247",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "SOCIAL/testi-v1.md",
+      "source_location": "L232",
+      "weight": 1.0,
+      "source": "social_testi_v1_4_landing",
+      "target": "social_testi_v1_italiano_232",
       "confidence_score": 1.0
     },
     {
@@ -51979,5 +53424,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "089fd2ba8973fbe3d42a3f4d3da2105cb5f898ab"
+  "built_at_commit": "6f6e1cdfea132870124f6b44717e75379de788a1"
 }

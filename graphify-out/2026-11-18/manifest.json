@@ -1,0 +1,812 @@
+{
+  ".claude/settings.local.json": {
+    "mtime": 1784711374.6423395,
+    "ast_hash": "1784e739055bd6fbaf2f5c8ff14a5e0b",
+    "semantic_hash": "1784e739055bd6fbaf2f5c8ff14a5e0b"
+  },
+  "MoneyTracker/Assets.xcassets/AccentColor.colorset/Contents.json": {
+    "mtime": 1782038113.3302462,
+    "ast_hash": "55019f7265dde0a78318b0807f98e847",
+    "semantic_hash": "55019f7265dde0a78318b0807f98e847"
+  },
+  "MoneyTracker/Assets.xcassets/AppIcon.appiconset/Contents.json": {
+    "mtime": 1787092701.4527507,
+    "ast_hash": "b1c16a69dd628ebccb98e7289e600730",
+    "semantic_hash": "b1c16a69dd628ebccb98e7289e600730"
+  },
+  "MoneyTracker/Assets.xcassets/AppIcon_light_1024.imageset/Contents.json": {
+    "mtime": 1782053023.245551,
+    "ast_hash": "24a872b26b3f1f80719e1d7d53d10f8f",
+    "semantic_hash": "24a872b26b3f1f80719e1d7d53d10f8f"
+  },
+  "MoneyTracker/Assets.xcassets/Contents.json": {
+    "mtime": 1782053021.369507,
+    "ast_hash": "9deb2ada1cc834bbebf8bbad9c8978a1",
+    "semantic_hash": "9deb2ada1cc834bbebf8bbad9c8978a1"
+  },
+  "MoneyTracker/Auth/AppLockGate.swift": {
+    "mtime": 1783277755.6846266,
+    "ast_hash": "0578765f7842379544b06bb2f8976563",
+    "semantic_hash": "0578765f7842379544b06bb2f8976563"
+  },
+  "MoneyTracker/Auth/BiometricAuthenticating.swift": {
+    "mtime": 1783277755.684888,
+    "ast_hash": "395836ec09cd185015a4bad596b6b92a",
+    "semantic_hash": "395836ec09cd185015a4bad596b6b92a"
+  },
+  "MoneyTracker/Auth/LoginView.swift": {
+    "mtime": 1782820399.7686057,
+    "ast_hash": "f75bf298ea7345b688bd2b259093638e",
+    "semantic_hash": "f75bf298ea7345b688bd2b259093638e"
+  },
+  "MoneyTracker/Auth/SignUpView.swift": {
+    "mtime": 1782820429.3487513,
+    "ast_hash": "d8fc65df3b56f203c38cf860724db611",
+    "semantic_hash": "d8fc65df3b56f203c38cf860724db611"
+  },
+  "MoneyTracker/Auth/SupabaseManager.swift": {
+    "mtime": 1787302879.8056548,
+    "ast_hash": "3dd5bdb21e6e94e3c717187063928842",
+    "semantic_hash": "3dd5bdb21e6e94e3c717187063928842"
+  },
+  "MoneyTracker/Domain/AccountBalanceCache.swift": {
+    "mtime": 1794860913.2741969,
+    "ast_hash": "3b9c4f15ad287f54fde965f88c6ddfae",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Domain/CategoryClassifying.swift": {
+    "mtime": 1783277755.6885464,
+    "ast_hash": "9f1d3a6b2b5738e6b1379533e140eef5",
+    "semantic_hash": "9f1d3a6b2b5738e6b1379533e140eef5"
+  },
+  "MoneyTracker/Domain/KeywordCategoryClassifier.swift": {
+    "mtime": 1783277755.6889071,
+    "ast_hash": "5d4367bb7a14da7c5169e5f5cae3bc8c",
+    "semantic_hash": "5d4367bb7a14da7c5169e5f5cae3bc8c"
+  },
+  "MoneyTracker/Domain/NotificationScheduling.swift": {
+    "mtime": 1783504906.1125264,
+    "ast_hash": "7dd4ec0529dfa3b1d905ee7fd45712a8",
+    "semantic_hash": "7dd4ec0529dfa3b1d905ee7fd45712a8"
+  },
+  "MoneyTracker/Formatting/CurrencyFormatting.swift": {
+    "mtime": 1794919945.0501702,
+    "ast_hash": "362270f5ed72a6b0b9553cfa56516ea0",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Formatting/FormatterCache.swift": {
+    "mtime": 1783277755.6897342,
+    "ast_hash": "97b96adfc9625f515cffd98463b9260a",
+    "semantic_hash": "97b96adfc9625f515cffd98463b9260a"
+  },
+  "MoneyTracker/Models/Account.swift": {
+    "mtime": 1783277755.6904435,
+    "ast_hash": "013669265cb85ea60a64d85ee337b6a0",
+    "semantic_hash": "013669265cb85ea60a64d85ee337b6a0"
+  },
+  "MoneyTracker/Models/Budget.swift": {
+    "mtime": 1783277755.6906073,
+    "ast_hash": "eee4e1f3ecd95251c3a4f8964ec73d08",
+    "semantic_hash": "eee4e1f3ecd95251c3a4f8964ec73d08"
+  },
+  "MoneyTracker/Models/Category.swift": {
+    "mtime": 1785546345.6966884,
+    "ast_hash": "5b0ab64dd1929a1f95806874c767379c",
+    "semantic_hash": "5b0ab64dd1929a1f95806874c767379c"
+  },
+  "MoneyTracker/Models/Goal.swift": {
+    "mtime": 1783277755.6909096,
+    "ast_hash": "4c06440c9441f417955800b0abfc07d6",
+    "semantic_hash": "4c06440c9441f417955800b0abfc07d6"
+  },
+  "MoneyTracker/Models/Transaction.swift": {
+    "mtime": 1783277755.6910608,
+    "ast_hash": "0995ca6920163dcd1c7533d5888542e6",
+    "semantic_hash": "0995ca6920163dcd1c7533d5888542e6"
+  },
+  "MoneyTracker/MoneyTracker-Bridging-Header.h": {
+    "mtime": 1777529809.0,
+    "ast_hash": "55b58464e072a50d044333f74a8f3bfd",
+    "semantic_hash": "55b58464e072a50d044333f74a8f3bfd"
+  },
+  "MoneyTracker/MoneyTrackerApp.swift": {
+    "mtime": 1794919945.0521421,
+    "ast_hash": "9dcf229cfbac905e9fbb64d5ac920ee2",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Persistence/Logging.swift": {
+    "mtime": 1794860913.280746,
+    "ast_hash": "9f2bb2199625fcc6c8b0e76cb8d4773d",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Persistence/ModelContextSaving.swift": {
+    "mtime": 1787129051.7843554,
+    "ast_hash": "e6c709b4d556fc97449956fd6359d53f",
+    "semantic_hash": "e6c709b4d556fc97449956fd6359d53f"
+  },
+  "MoneyTracker/Persistence/SchemaMigration.swift": {
+    "mtime": 1794860913.2814295,
+    "ast_hash": "5853358a2f4c418a34231b280e050f08",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Resources/CategoryKeywords.json": {
+    "mtime": 1783277755.6953232,
+    "ast_hash": "8c4a572e1cf416850fe9ca8cb0f03d7a",
+    "semantic_hash": "8c4a572e1cf416850fe9ca8cb0f03d7a"
+  },
+  "MoneyTracker/Sync/SyncService.swift": {
+    "mtime": 1794919945.052896,
+    "ast_hash": "78fc2a9d4f54b3ba21d02dcde4bc1386",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/AccountBalanceTests.swift": {
+    "mtime": 1784512986.202111,
+    "ast_hash": "e5709378c7ab07f93ce437afcdc1071e",
+    "semantic_hash": "e5709378c7ab07f93ce437afcdc1071e"
+  },
+  "MoneyTrackerTests/KeywordCategoryClassifierTests.swift": {
+    "mtime": 1783277755.7029996,
+    "ast_hash": "17b757234f275af656f4bea6276b1bf7",
+    "semantic_hash": "17b757234f275af656f4bea6276b1bf7"
+  },
+  "MoneyTrackerTests/SchemaMigrationTests.swift": {
+    "mtime": 1794860913.3276095,
+    "ast_hash": "fe0f128f10c50a066f8247302383217f",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1794581527.3486772,
+    "ast_hash": "315139135acf0575a62d02a26d58cdb5",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Assets.xcassets/AppIcon.appiconset/AppIcon_light_1024.png": {
+    "mtime": 1787092697.019763,
+    "ast_hash": "9e1e0113a1c04d71df890e431e57256a",
+    "semantic_hash": "9e1e0113a1c04d71df890e431e57256a"
+  },
+  "MoneyTracker/Debug/DemoDataSeeder.swift": {
+    "mtime": 1794860913.2736638,
+    "ast_hash": "7497b538efef804bdc58fcacfadcefe4",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Domain/AuditLogger.swift": {
+    "mtime": 1783508088.5375912,
+    "ast_hash": "78351775ade350055c0a1db2a224d7b3",
+    "semantic_hash": "78351775ade350055c0a1db2a224d7b3"
+  },
+  "MoneyTracker/Domain/NotificationManager.swift": {
+    "mtime": 1787129051.730008,
+    "ast_hash": "260edd644f05e7d6ba567f58a12044e3",
+    "semantic_hash": "260edd644f05e7d6ba567f58a12044e3"
+  },
+  "MoneyTracker/Export/PDFReportGenerator.swift": {
+    "mtime": 1783500399.2600284,
+    "ast_hash": "7f25ca0b134fa8ad53ac0e900f733b6e",
+    "semantic_hash": "7f25ca0b134fa8ad53ac0e900f733b6e"
+  },
+  "MoneyTracker/Intents/AddExpenseIntent.swift": {
+    "mtime": 1794860913.2775645,
+    "ast_hash": "95a24bdbf11c7fe07c3843afb1a5161e",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/AccountsView.swift": {
+    "mtime": 1794860913.305521,
+    "ast_hash": "c26ceb1141b2835177d3dabd2530ae22",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/AddTransactionView.swift": {
+    "mtime": 1794865768.9344392,
+    "ast_hash": "36fc20844506af249b1c4da434c49df4",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/AddTransferView.swift": {
+    "mtime": 1784114985.7088342,
+    "ast_hash": "d39a5c2d718cfa117562287e01bc7196",
+    "semantic_hash": "d39a5c2d718cfa117562287e01bc7196"
+  },
+  "MoneyTracker/Views/AuditLogView.swift": {
+    "mtime": 1783508139.0769835,
+    "ast_hash": "0878ea8806066911593fe0f84dbb74a8",
+    "semantic_hash": "0878ea8806066911593fe0f84dbb74a8"
+  },
+  "MoneyTracker/Views/BudgetView.swift": {
+    "mtime": 1787129051.7488124,
+    "ast_hash": "f0cfcbd32b722aa0e031c48989cebc66",
+    "semantic_hash": "f0cfcbd32b722aa0e031c48989cebc66"
+  },
+  "MoneyTracker/Views/CategoryManagementView.swift": {
+    "mtime": 1787129051.7540731,
+    "ast_hash": "ee537c9a1df16b95b34b6f39ecdbc6a2",
+    "semantic_hash": "ee537c9a1df16b95b34b6f39ecdbc6a2"
+  },
+  "MoneyTracker/Views/ContentView.swift": {
+    "mtime": 1794860913.313515,
+    "ast_hash": "47648ac5137a0d7cb288c727be75e559",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/DashboardView.swift": {
+    "mtime": 1794860913.3137486,
+    "ast_hash": "3b8ea67681f768671bc6600f53a2fc79",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/GoalsView.swift": {
+    "mtime": 1783518060.6557498,
+    "ast_hash": "19a0b584b33416f081d7eedaef9e0ec7",
+    "semantic_hash": "19a0b584b33416f081d7eedaef9e0ec7"
+  },
+  "MoneyTracker/Views/PianificaView.swift": {
+    "mtime": 1794860913.3141387,
+    "ast_hash": "0d0b7b74a0d84b2eaa24d5dd6d00f520",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/SettingsView.swift": {
+    "mtime": 1794860913.3150887,
+    "ast_hash": "728ff5625aba0c90ed408944f084b270",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/StatisticsView.swift": {
+    "mtime": 1794862099.052521,
+    "ast_hash": "5264e4e66a3e64e659a83da4d4411cac",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Theme.swift": {
+    "mtime": 1794860913.3159554,
+    "ast_hash": "7ed3b2aaf38f24e9d1d8bb74306cd10f",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/TransactionsView.swift": {
+    "mtime": 1794912866.0622478,
+    "ast_hash": "c3bf7a0195fae4493127a0b3778881c4",
+    "semantic_hash": ""
+  },
+  "docs/MoneyTracker.md": {
+    "mtime": 1794913196.5501826,
+    "ast_hash": "d51599ba96335eeae6237252cd611a86",
+    "semantic_hash": ""
+  },
+  "docs/MoneyTracker.pdf": {
+    "mtime": 1788862206.4926085,
+    "ast_hash": "63ca8cd573b7b2c34fb9aa1604c08dba",
+    "semantic_hash": "63ca8cd573b7b2c34fb9aa1604c08dba"
+  },
+  "MoneyTrackerUITests/AccountFlowUITests.swift": {
+    "mtime": 1785144371.701084,
+    "ast_hash": "1e03fbfb3d493a72d954de126dbfbeef",
+    "semantic_hash": "1e03fbfb3d493a72d954de126dbfbeef"
+  },
+  "MoneyTrackerUITests/CategoryFlowUITests.swift": {
+    "mtime": 1783519683.2591715,
+    "ast_hash": "a12f89c714314cd243f537b5491b0421",
+    "semantic_hash": "a12f89c714314cd243f537b5491b0421"
+  },
+  "MoneyTrackerUITests/NavigationStressUITests.swift": {
+    "mtime": 1794860913.3282838,
+    "ast_hash": "6a0f575c32e05bb01bbf1bd9425643bd",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/TransactionFlowUITests.swift": {
+    "mtime": 1794860913.3294034,
+    "ast_hash": "610d2f7fae57462116db26b4661b7cbd",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/UITestSupport.swift": {
+    "mtime": 1794860913.3295987,
+    "ast_hash": "6eb4b4548c553e74e1859f936b2824e8",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Domain/RecurringSeriesDetector.swift": {
+    "mtime": 1783582653.765757,
+    "ast_hash": "1c386cb06fc864849c2b10cd577c7240",
+    "semantic_hash": "1c386cb06fc864849c2b10cd577c7240"
+  },
+  "MoneyTracker/Views/RecurringSeriesDetailView.swift": {
+    "mtime": 1794860913.3148134,
+    "ast_hash": "9333c090bc70194efc35ef17938203f1",
+    "semantic_hash": ""
+  },
+  "report_notturno.md": {
+    "mtime": 1785144371.701398,
+    "ast_hash": "b562c3cc9c874802eac75b2f67db9e5b",
+    "semantic_hash": "b562c3cc9c874802eac75b2f67db9e5b"
+  },
+  "MoneyTracker/Assets.xcassets/AppIcon.appiconset/AppIcon_dark_1024.png": {
+    "mtime": 1787092697.0235803,
+    "ast_hash": "f946f860796c5e128bf00a9f764bdd21",
+    "semantic_hash": "f946f860796c5e128bf00a9f764bdd21"
+  },
+  "MoneyTracker/Assets.xcassets/AppIcon.appiconset/AppIcon_tinted_1024.png": {
+    "mtime": 1787092697.0266485,
+    "ast_hash": "b733e459b6fb5d16f6561c269c46c9df",
+    "semantic_hash": "b733e459b6fb5d16f6561c269c46c9df"
+  },
+  "MoneyTracker/Auth/SupabaseConfig.swift": {
+    "mtime": 1787302875.7257454,
+    "ast_hash": "eb04362dac0648fdac196b8e7d640887",
+    "semantic_hash": "eb04362dac0648fdac196b8e7d640887"
+  },
+  "MoneyTracker/Persistence/SharedStore.swift": {
+    "mtime": 1788861827.1241088,
+    "ast_hash": "faf4402e8dbe62bc2f46999120dee592",
+    "semantic_hash": "faf4402e8dbe62bc2f46999120dee592"
+  },
+  "MoneyTrackerTests/CurrencyFormattingTests.swift": {
+    "mtime": 1794860913.3246045,
+    "ast_hash": "5fdb7aabff9f4dbe847bbff051415961",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1794581534.7574668,
+    "ast_hash": "7b281e865357623455e0fc064635b677",
+    "semantic_hash": ""
+  },
+  ".cantiere/cantiere.json": {
+    "mtime": 1794581341.5483167,
+    "ast_hash": "25f1925da78e2fa74b23d6c48118d5c6",
+    "semantic_hash": ""
+  },
+  ".cantiere/guardiano.json": {
+    "mtime": 1794581340.661915,
+    "ast_hash": "6566bf93d7fe95e2ce8b6a2dfcede8c0",
+    "semantic_hash": ""
+  },
+  ".cantiere/magazzino.json": {
+    "mtime": 1794581340.8732615,
+    "ast_hash": "d458411a1d15c0b9756a61e267f4a6de",
+    "semantic_hash": ""
+  },
+  ".cantiere/pagella.json": {
+    "mtime": 1794581340.628082,
+    "ast_hash": "be87ec57d30b9bd127adca2e6bfb7f9c",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/backup.sh": {
+    "mtime": 1794581340.7925742,
+    "ast_hash": "6a034a79f750c946f8e4dbf2771c0490",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/biblioteca.py": {
+    "mtime": 1794581340.7371705,
+    "ast_hash": "161f789b2a19875da3da91848b1b0eb6",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/bilingue.py": {
+    "mtime": 1794581340.853808,
+    "ast_hash": "ee51a77d7ca3bc480417a763bb1828ab",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/catalogo.py": {
+    "mtime": 1794581340.7235801,
+    "ast_hash": "dc1eeb18f304df8f07111b0526981664",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/collaudo.sh": {
+    "mtime": 1794581340.7166748,
+    "ast_hash": "eac41718bcd3a14c5bda26a04bcf2494",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/controlli.py": {
+    "mtime": 1794581340.799894,
+    "ast_hash": "e131592309a6fc8199b3769b8e7753e3",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/guardiano/esegui.sh": {
+    "mtime": 1794581340.806544,
+    "ast_hash": "750abf899de2c2c1971a1dd2197bf583",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/guardiano/giro.mjs": {
+    "mtime": 1794581340.840341,
+    "ast_hash": "a209755e197a69a2042e0f9a1fcb6a6d",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/guardiano/installa-nel-repo.sh": {
+    "mtime": 1794581340.820269,
+    "ast_hash": "2ffdaf11f25e545752bcbf9faf8c08ea",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/guardiano/package.json": {
+    "mtime": 1794581340.8136303,
+    "ast_hash": "713f7640ac591c47b280b72271668b99",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/guardiano/riassunto.mjs": {
+    "mtime": 1794581340.846973,
+    "ast_hash": "0037e506ec63afe52e76dcb50e949ce3",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/guardiano/scarica.sh": {
+    "mtime": 1794581340.8269415,
+    "ast_hash": "5bcc870dcd78dc7cc6a7968ac672e749",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/magazzino.py": {
+    "mtime": 1794581340.8605437,
+    "ast_hash": "4b173729ac7bc4bb092b2964115ff50a",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/pagella.py": {
+    "mtime": 1794581340.7442083,
+    "ast_hash": "4ea841d8729148c1117524ddf3355b09",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/spazio.sh": {
+    "mtime": 1794581340.7100432,
+    "ast_hash": "3e12004526809811365a2163b60fd1ca",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/trasloco.sh": {
+    "mtime": 1794581340.7302437,
+    "ast_hash": "3e1cfcaddc6fd85d930ca1928773b743",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Domain/BalanceTrail.swift": {
+    "mtime": 1794860913.274301,
+    "ast_hash": "598cb3558a855d1600375e4d063f50ac",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/CategoryTint.swift": {
+    "mtime": 1794860913.3068597,
+    "ast_hash": "9ea1de6541b69c033493dde2ef235d80",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Components/BudgetStatus.swift": {
+    "mtime": 1794860913.3072674,
+    "ast_hash": "f8663686b8297ff39bd579053d567a96",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Components/Card.swift": {
+    "mtime": 1794860913.30757,
+    "ast_hash": "67fbc98f5e6ef3a4b3162850f8a2ee75",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Components/FilterChip.swift": {
+    "mtime": 1794860913.3078375,
+    "ast_hash": "f7d4fd0375ade32df7b6519b2afc5c4a",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Components/FloatingTabBar.swift": {
+    "mtime": 1794860913.3079643,
+    "ast_hash": "e405b5596d0cdf4911b450ba9b605959",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Components/HeroCard.swift": {
+    "mtime": 1794860913.3082838,
+    "ast_hash": "bdbb87d973e8217b982109db7ae8dd4a",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Components/HomeHeroCard.swift": {
+    "mtime": 1794860913.3091075,
+    "ast_hash": "00ff6a9f347218e6bc07eb28aa065ef6",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Components/MovementRow.swift": {
+    "mtime": 1794860913.3092444,
+    "ast_hash": "d54149ae4b24254dd14e75e849deb9a3",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Components/ProgressBar.swift": {
+    "mtime": 1794860913.3099537,
+    "ast_hash": "d14fd5c56c1c55062d6a833a5ae0e529",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Components/SegmentedPill.swift": {
+    "mtime": 1794860913.3100967,
+    "ast_hash": "f0ca819f6cb3c788fe439ce759932713",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Components/TrailView.swift": {
+    "mtime": 1794860913.3132033,
+    "ast_hash": "4b74f524786a793976217cf0eef318a4",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/BalanceTrailTests.swift": {
+    "mtime": 1794860913.3224719,
+    "ast_hash": "65ae63404b5b666f3e7f357341b3567e",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/CategoryTintTests.swift": {
+    "mtime": 1794860913.322774,
+    "ast_hash": "cebcc3064fa27c395b379f113807774f",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/FontRegistrationTests.swift": {
+    "mtime": 1794860913.3257465,
+    "ast_hash": "247c8a8126e92b099148cd01276bf85d",
+    "semantic_hash": ""
+  },
+  ".cantiere/APPROVAZIONI.md": {
+    "mtime": 1794865768.9312105,
+    "ast_hash": "4184b28460a77bcdb2e9da60c5bff5eb",
+    "semantic_hash": ""
+  },
+  ".cantiere/AVVIO.md": {
+    "mtime": 1794581340.6214967,
+    "ast_hash": "770de188ce843d22e07db462ef95bea5",
+    "semantic_hash": ""
+  },
+  ".cantiere/CHECKPOINT.md": {
+    "mtime": 1794872834.6937437,
+    "ast_hash": "4debefdec24065a56fb4e8f23e1c5317",
+    "semantic_hash": ""
+  },
+  ".cantiere/CONSEGNA.md": {
+    "mtime": 1794919945.0441656,
+    "ast_hash": "6882b648a29850b4e0dc4ac3a63d72af",
+    "semantic_hash": ""
+  },
+  ".cantiere/DECISIONI.md": {
+    "mtime": 1794908091.193694,
+    "ast_hash": "5c2a407bf4fdd378f10832bcc6b25b06",
+    "semantic_hash": ""
+  },
+  ".cantiere/DIARIO.md": {
+    "mtime": 1794919945.0448759,
+    "ast_hash": "d8fb43e402864e554f308192aa2a4ed1",
+    "semantic_hash": ""
+  },
+  ".cantiere/MAPPA.md": {
+    "mtime": 1794581544.6225524,
+    "ast_hash": "5567fb1eea8336a9b9efe132ad28a94f",
+    "semantic_hash": ""
+  },
+  ".cantiere/PAGELLE.md": {
+    "mtime": 1794908363.8806891,
+    "ast_hash": "96e688664e1c8dc2715432c29df34540",
+    "semantic_hash": ""
+  },
+  ".cantiere/PER-MATTEO.md": {
+    "mtime": 1794872286.504282,
+    "ast_hash": "7ec23346f86cd511542ef7e22896f487",
+    "semantic_hash": ""
+  },
+  ".cantiere/PIANO.md": {
+    "mtime": 1794919945.0473824,
+    "ast_hash": "981ae85253d808165b9db67df3047ca8",
+    "semantic_hash": ""
+  },
+  ".cantiere/SCAFFALE.md": {
+    "mtime": 1794581341.2333195,
+    "ast_hash": "3b55d0ca8e2abcf167fa336529dc5dc3",
+    "semantic_hash": ""
+  },
+  ".cantiere/SQUADRA.md": {
+    "mtime": 1794860913.2700047,
+    "ast_hash": "41ee9a46aeff68e29896a88664f8b0c8",
+    "semantic_hash": ""
+  },
+  ".cantiere/STATO.md": {
+    "mtime": 1794919945.0477982,
+    "ast_hash": "23a13d57a62996e53e7315d9cc3c2bdc",
+    "semantic_hash": ""
+  },
+  ".cantiere/bibliotecario/FONTI.md": {
+    "mtime": 1794581340.6828198,
+    "ast_hash": "01ff8db9f26844abef66820e979ebd9a",
+    "semantic_hash": ""
+  },
+  ".cantiere/bibliotecario/RISPOSTE.md": {
+    "mtime": 1794581340.6762993,
+    "ast_hash": "3bcde8ac98b65c2a58c1c4fb237e1c4c",
+    "semantic_hash": ""
+  },
+  ".cantiere/prompt/CONSULENTE.md": {
+    "mtime": 1794581340.6967402,
+    "ast_hash": "ba54b9f1d48199f80f5533ca95c57f22",
+    "semantic_hash": ""
+  },
+  ".cantiere/prompt/IMPRESA.md": {
+    "mtime": 1794581340.6901915,
+    "ast_hash": "caa870f4952778059010c814d8e1402d",
+    "semantic_hash": ""
+  },
+  ".cantiere/strumenti/guardiano/guardiano.yml": {
+    "mtime": 1794581340.8336408,
+    "ast_hash": "62b297ccab77decd3b2ff69ace344f7e",
+    "semantic_hash": ""
+  },
+  "AGENTS.md": {
+    "mtime": 1794860913.273113,
+    "ast_hash": "b117a47983101cb1047519d86853a913",
+    "semantic_hash": ""
+  },
+  "GEMINI.md": {
+    "mtime": 1794581341.1101334,
+    "ast_hash": "d6071fbc3076e74b85ec751c1da6aae6",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Resources/Fonts/OFL-Inter.txt": {
+    "mtime": 1794860913.294363,
+    "ast_hash": "09ed978d55339d326caa5e1495a6feb2",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Resources/Fonts/OFL-SpaceGrotesk.txt": {
+    "mtime": 1794860913.2945185,
+    "ast_hash": "46244c88f5c8dc59711305e032cacb56",
+    "semantic_hash": ""
+  },
+  ".cantiere/LEZIONI-AZIENDA.md": {
+    "mtime": 1794860913.2663,
+    "ast_hash": "89265f39442dfd7188fad8fedef608a1",
+    "semantic_hash": ""
+  },
+  ".cantiere/piano-s13.md": {
+    "mtime": 1794860913.2712173,
+    "ast_hash": "b31f7b96e835f9a94b651f51dc70ddec",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Domain/RecurrenceCalculator.swift": {
+    "mtime": 1794919945.049281,
+    "ast_hash": "05c724c14677465e6001ae4eba2d28a1",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Models/RecurringRule.swift": {
+    "mtime": 1794860913.2776742,
+    "ast_hash": "ad4ec63946f4c97f02e139216690074f",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/RecurrenceCalculatorTests.swift": {
+    "mtime": 1794860913.3263037,
+    "ast_hash": "912c6b130c4ccd31670bd2fb55f9f6d2",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Domain/RecurringMaterializer.swift": {
+    "mtime": 1794860913.2749958,
+    "ast_hash": "38e0c578869ed2d0c838b7777b71c4ec",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/RecurringMaterializerTests.swift": {
+    "mtime": 1794860913.3269546,
+    "ast_hash": "bda3131914ec374e3a56882d9fa33b40",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Domain/RecurringSeriesEditor.swift": {
+    "mtime": 1794860913.2751498,
+    "ast_hash": "fed08f45318d80187ccec6dd96310bb2",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/RecurringSeriesEditorTests.swift": {
+    "mtime": 1794860913.3271883,
+    "ast_hash": "dd27260d4b1f1e74931bfb09f9b7a3d0",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/RecurringRuleSyncTests.swift": {
+    "mtime": 1794860913.3270733,
+    "ast_hash": "21c7898fc104ba1ea5276aa518631402",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/RecurrenceControls.swift": {
+    "mtime": 1794860913.3144479,
+    "ast_hash": "65e31d3a22c6daf76a52db1edfc69094",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/RecurrencePresentationTests.swift": {
+    "mtime": 1794860913.3266563,
+    "ast_hash": "a0972da9c1a363b93a011fcedda58e0a",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/RecurrenceFlowUITests.swift": {
+    "mtime": 1794860913.3285706,
+    "ast_hash": "b6315bfee8346ee489486f1aff94b3b3",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/ProgrammedRuleCard.swift": {
+    "mtime": 1794860913.314244,
+    "ast_hash": "9a7dd0b76929ce9900accbb4c9b7ab35",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/RecurrencePresentationCache.swift": {
+    "mtime": 1794860913.3145506,
+    "ast_hash": "04a06a4dc0a84ccdaff448eb1f380626",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/RecurrencePresentationCacheTests.swift": {
+    "mtime": 1794860913.3264003,
+    "ast_hash": "1426573f99579f96fa4b527e330bcdcf",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/DemoDataSeederTests.swift": {
+    "mtime": 1794860913.3251553,
+    "ast_hash": "e1a743ead778e818257aad1ab1bffbb5",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/DemoShowcaseUITests.swift": {
+    "mtime": 1794869239.7176416,
+    "ast_hash": "c057359a4cccc1ff66d54ff209f0e0ad",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/RecurringCollisionTests.swift": {
+    "mtime": 1794860913.3267517,
+    "ast_hash": "0552b5e2c5b018ec320ce278d6e5b690",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/RecurrenceAppearanceUITests.swift": {
+    "mtime": 1794860913.32838,
+    "ast_hash": "a620b2ced38e51050f80dc0039d8c974",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/TabBarAppearanceUITests.swift": {
+    "mtime": 1794860913.329148,
+    "ast_hash": "83f010f1f114cd1102cad21679a9887e",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/RecurringDecimalRoundTripTests.swift": {
+    "mtime": 1794860913.3268476,
+    "ast_hash": "577ae68210612118a7cf856e34ed2e44",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/SentieroStatisticsUITests.swift": {
+    "mtime": 1794860913.3290515,
+    "ast_hash": "c880e1fb51d70639c92913a46f603fe9",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/Components/PlanningCards.swift": {
+    "mtime": 1794860913.3098443,
+    "ast_hash": "2bfd0ee20321f3fe4d1ee57650741b20",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/SentieroPlanningUITests.swift": {
+    "mtime": 1794860913.328846,
+    "ast_hash": "16358fb157ff0660ee441eee3fa750b8",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/SentieroAccountsUITests.swift": {
+    "mtime": 1794860913.328665,
+    "ast_hash": "cccaaf59a109f2a55cc70fec81762632",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/SentieroReviewFixUITests.swift": {
+    "mtime": 1794860913.3289542,
+    "ast_hash": "2f6348dd2127f3d8f25078167df8cd68",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/DaysRemainingPluralTests.swift": {
+    "mtime": 1794860913.3250597,
+    "ast_hash": "4773449cba1aaf598cc5b5f1be06f234",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Domain/LastUsedCategory.swift": {
+    "mtime": 1794865768.934064,
+    "ast_hash": "7adf6ec1e2ec1a8e428fa0828626a3e4",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/LastUsedCategoryTests.swift": {
+    "mtime": 1794865768.9380925,
+    "ast_hash": "773e2915d952b163de811a6dedf4ce1e",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/LastUsedCategoryUITests.swift": {
+    "mtime": 1794865768.9384034,
+    "ast_hash": "fc325303f1c2e5fc38adb5a40b238eca",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/TransactionsAdvancedFilterSheet.swift": {
+    "mtime": 1794912866.0544806,
+    "ast_hash": "649ed2a8a9008812214125934d7c7840",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/TransactionsSearchField.swift": {
+    "mtime": 1794912866.0561378,
+    "ast_hash": "2f15590ec990c62f61b04a60825b6e6a",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/TransactionsSecondaryChips.swift": {
+    "mtime": 1794912866.0582163,
+    "ast_hash": "a36e6e165a1f88d3cd265bd03bf8f110",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/TransactionsTypeChips.swift": {
+    "mtime": 1794912866.0601647,
+    "ast_hash": "aa05559536d613cce0b0ef7e401828c9",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/StrictAmountParsingTests.swift": {
+    "mtime": 1794919945.0533698,
+    "ast_hash": "45e82519608c2eba93e1606d0e202fbf",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/StrictRecurrenceAmountTests.swift": {
+    "mtime": 1794919945.0551517,
+    "ast_hash": "7f65e6de8af25d73dbef407de60e004e",
+    "semantic_hash": ""
+  }
+}

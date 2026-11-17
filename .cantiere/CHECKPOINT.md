@@ -3,14 +3,15 @@
 > Il file per ripartire. Chi riapre il cantiere legge SOLO questo per capire dove siamo.
 > Gli storici stanno in `.cantiere/archivio/checkpoint/`.
 
-**Data:** 2026-11-17 00:47 · **Tag git:** checkpoint-2026-11-17-0047 · **Fatto da:** capocantiere (Claude Code · Sonnet)
+**Data:** 2026-11-18 00:50 · **Tag git:** checkpoint-2026-11-18-0050 · **Fatto da:** capocantiere (Claude Code · Sonnet) · veloce
 
 ## Siamo qui
-Tutto il piano è chiuso e su `main` (GitHub): redesign Sentiero, S-30 categoria dall'ultima volta, S-31, S-32. Cantiere NON archiviato (Matteo ha scelto solo il checkpoint). Rami di lavoro rimasti su GitHub: categoria-ultima-volta, fix-demo-showcase-test, fix-recurrence-ui-test, rimuovi-confronto-mese.
+Ramo `redesign-sentiero`. Landing v2 IT/EN pronta in `SOCIAL/landing/` (screenshot reali, da collaudare). Fix Pianifica (S-34) fatto, collaudo di Matteo. Progetto SOCIAL in corso: gate Apple il 06/12.
 
 ## Stato di salute
-🟢 build, 90 unit, UI 45/45 (run completo di Codex), collaudo.sh. S-33 in osservazione: test ricorrenze rosso una sola volta, non riproducibile; se ricompare salvare l'.xcresult e riaprire. Aperto: il .strings italiano ha 88 chiavi contro 395 (preesistente, da confermare che sia voluto).
+🟢 build, collaudo.sh. Pagella misurata 99 (non consegnabile: 1 approvazione, giudici e guardiano mancanti). Fuori posto in radice: `screenshot app/`, `Claude outputs/` (da spostare nel magazzino).
 
 ## Domani si riparte così
-1. Nessun task obbligatorio. Opzionali: S-16 precisione Decimal, `TransactionsView` (864 righe).
-2. Eventuale pulizia dei rami già fusi su GitHub (con l'ok di Matteo).
+1. Matteo: collaudo Pianifica; email di contatto e endpoint waitlist; immagini Higgsfield.
+2. SC-4: hosting, servizio email, informativa (recapito titolare, conservazione).
+3. Portare `redesign-sentiero` su `main` con l'ok di Matteo.

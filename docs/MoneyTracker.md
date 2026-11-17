@@ -559,6 +559,11 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
 
+### v3.20 (novembre 2026) — Pianifica: lista non più tagliata (fix) e nuova landing
+
+- `PianificaView`: il margine in basso per la fascia del pulsante + era un `.padding` sullo `ScrollView`, che accorciava la lista e la tagliava di netto sopra la barra (Budget e Obiettivi). Ora è `.contentMargins(.bottom, …, for: .scrollContent)`: la lista scorre fino alla barra. Solo layout, nessun calcolo toccato; build verde. Collaudo visivo a cura di Matteo.
+- Progetto SOCIAL: nuova landing statica IT/EN (`SOCIAL/landing/`, struttura del mockup v1, screenshot reali dell'app in demo, nessuna dipendenza esterna, ~720 KB). Funzioni descritte dalla sezione 6; claim secondo manuale 1.3 e 12.
+
 ### v3.19 (novembre 2026) — Manutenzione test UI (S-32, S-33)
 
 - S-32: `DemoShowcaseUITests.testShowcaseScreens` era rosso anche senza S-30 perché gli swipe saltavano la bolletta; ora apre la voce con la ricerca esistente e attende che sia tappabile (5 s). Asserzioni e catture invariate; nessun codice di produzione toccato.
