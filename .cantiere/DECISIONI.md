@@ -114,3 +114,8 @@ Il manuale non dà benchmark (§9.5, §15.4): le soglie sono relative ai dati di
 **Giallo (una settimana in più):** 1–2 criteri su 4, o tutti ma con dati troppo pochi (<10 video).
 **Rosso (stop o cambio angolo):** 0 criteri dopo 10+ video, con format già variati (3 angoli per argomento, §9.6).
 Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non fonti): Matteo le conferma o le cambia prima del 22/11, poi non si spostano.
+
+## 2026-11-17 · Nome utente dei profili social: @bucktrailapp
+- **Cosa:** `@bucktrailapp` su Instagram, TikTok e YouTube; email dedicata `bucktrailapp@gmail.com` (da creare). Nome visualizzato: «Bucktrail · budget senza abbonamento».
+- **Perché:** `@bucktrail` era occupato su Instagram e TikTok (libero solo su YouTube); `@bucktrailapp` è libero su tutte e tre. Deviazione dal manuale §8.4, che consigliava `@bucktrail`: lo stesso nome ovunque resta l'obiettivo.
+- **Da fare:** `testi-v1.md` e la landing citano `@bucktrail`: sostituire con `@bucktrailapp`. Capire chi occupa `@bucktrail` (rischio di confusione di marchio).

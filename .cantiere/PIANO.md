@@ -192,7 +192,7 @@ il task e i file indicati.
 ### SC-3 [~] fatto dal redattore, approvazione Matteo ⏳ in APPROVAZIONI.md Testi di base (redattore): bio, caption, nome/sottotitolo/keyword/descrizione App Store IT+EN, hook dei primi format. Solo claim ammessi (manuale §1.1–1.3). Poi approvazione Matteo in APPROVAZIONI.md.
 ### SC-4 [~] Landing IT/EN e informativa pronte per il collaudo. Matteo deve scegliere servizio e hosting e approvare l’informativa.
 ### SC-5 [~] Script FFmpeg e modello ASS pronti per il collaudo. Test di fumo ASS/SRT e conversione HDR sintetica superati.
-### SC-6 [ ] Diario delle metriche (Copilot: task piccolo e già descritto): foglio come manuale §9.7.
+### SC-6 [~] Diario delle metriche (Copilot: task piccolo e già descritto): foglio come manuale §9.7. Creati `SOCIAL/diario-metriche.csv` e `SOCIAL/diario-metriche.md`; una riga ESEMPIO vuota, nessun dato reale; da collaudare.
 
 ### S-38 [ ] Commissione — pacchetto A (Codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per «Salta mese/Termina…», «•••• €» fisso, detector ricalcolato a ogni render, set di ID regole in `movementList`, force-unwrap (RecurrenceControls:69, RecurringSeriesDetector:58-66), `RecurringMaterializer` duplica `snapshot`, tipo/selected ridondanti in `typeChips`.
 

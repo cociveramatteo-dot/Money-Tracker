@@ -20,7 +20,7 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 
 ### SOCIAL · SC-1 — account social (oggi)
 📍 Browser.
-▶️ 1) (Apple Developer Program: rimandato, vedi DECISIONI.) 2) Crea TikTok Business, Instagram professionale e canale YouTube, tutti `@bucktrail`. 3) Bio: «Budget senza abbonamento · app iOS in arrivo».
+▶️ 1) (Apple Developer Program: rimandato, vedi DECISIONI.) 2) Crea TikTok Business, Instagram professionale e canale YouTube, tutti `@bucktrailapp`. 3) Bio: «Budget senza abbonamento · app iOS in arrivo».
 ↩️ Scrivi «account fatti» 
 
 ### SOCIAL · SC-2 — clip base (questa settimana, 20-30 min)
