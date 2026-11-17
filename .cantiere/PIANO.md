@@ -179,6 +179,19 @@ il task e i file indicati.
 - **Collaudo 2026-11-17 13:35 (collaudatore):** [x] collaudo ok. Fetch tutti throwing, nessun try?/?? [] nel push; unica delete remota in deleteOrphans con guardia volatile; flag impostato nel catch; parseAmount regex completa, test esistenti invariati. Suite su iPhone 18 Pro: 94 unit + 45 UI verdi, 0 falliti. `git diff --check` pulito. S-16 non toccato.
 - **Eseguito Codex 2026-11-17 12:52:** ramo `fix-sync-integrita` da main; quattro fetch throwing prima delle scritture remote, flag volatile con blocco push/debounce/retry/delete remoto, parsing completo degli importi e degli override ricorrenze (unica modifica Domain autorizzata in chat). Quattro nuovi test, nessun test esistente modificato. Build pulita e suite completa verdi: 94 unit + 45 UI. S-33 non riprodotto. S-16 invariato. Nessun push/merge. Dettagli in CONSEGNA.md.
 
+## Progetto SOCIAL (avviato 2026-11-17)
+
+> Fonte unica: `SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf` (54 pagine; claim vietati in §1.3, format F1–F13 in §6, calendario in §15). Il calendario del manuale parte il 23/11: Matteo ha deciso di **iniziare il 2026-11-17 e adattare le date** (lancio previsto 12/01/2027, da riverificare). Zero budget pubblicitario; solo spese e budget, mai investimenti.
+> Sorgente app: il redesign Sentiero e S-37 sono già su `main` (merge fatti): nessun merge da attendere.
+
+### SC-0 [ ] Calendario adattato (capocantiere): ricalcolare i 56 giorni da 17/11 con lancio fisso al 12/01/2027 e settimane compresse; verificare le date App Review natalizie. Output: tabella in `SOCIAL/calendario-v1.md`.
+### SC-1 [?] Account e Apple Developer Program (Matteo): vedi PER-MATTEO. Senza Developer Program niente pre-order.
+### SC-2 [?] Clip base dal telefono in modalità demo (Matteo): lista in PER-MATTEO.
+### SC-3 [ ] Testi di base (redattore): bio, caption, nome/sottotitolo/keyword/descrizione App Store IT+EN, hook dei primi format. Solo claim ammessi (manuale §1.1–1.3). Poi approvazione Matteo in APPROVAZIONI.md.
+### SC-4 [ ] Landing con modulo email + privacy policy (Codex; fino al 2026-11-20 anche mansioni di Antigravity): serve prima decisione di Matteo su dove ospitarla (nessun hosting oggi, AGENTS.md §1).
+### SC-5 [ ] Pipeline di montaggio (Codex): script ffmpeg 1080×1920, master senza musica né watermark, sottotitoli Space Grotesk/Inter, firma curva verde/ambra con i colori veri. Tagli netti, niente zoom lento.
+### SC-6 [ ] Diario delle metriche (Codex): foglio come manuale §9.7.
+
 ### S-38 [ ] Commissione — pacchetto A (Codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per «Salta mese/Termina…», «•••• €» fisso, detector ricalcolato a ogni render, set di ID regole in `movementList`, force-unwrap (RecurrenceControls:69, RecurringSeriesDetector:58-66), `RecurringMaterializer` duplica `snapshot`, tipo/selected ridondanti in `typeChips`.
 
 ### S-39 [ ] Commissione — traduzioni (redattore): ~40 stringhe visibili in italiano in tutte le lingue (Settings, notifiche, Login/SignUp, AuditLog, Budget, filtri…), frasi composte a pezzi, chiavi doppie «Fine»/«Tipo». Poi approvazione Matteo.

@@ -8,6 +8,7 @@ MoneyTracker.xcodeproj ← progetto Xcode
 MoneyTrackerTests/     ← unit test XCTest
 MoneyTrackerUITests/   ← UI test
 graphify-out/          ← knowledge graph del progetto
+SOCIAL/                ← piano di lancio social (manuale strategico, calendario, materiali)
 docs/
 ├── MoneyTracker.md    ← documento master (sorgente)
 └── MoneyTracker.pdf   ← documento master (PDF distribuibile)
@@ -19,7 +20,7 @@ docs/
 Ammessi nella root **solo** le cartelle e i file elencati sopra (più i file di progetto già tracciati: `README.md`,
 `TestPlan.xctestplan`, `report_notturno.md`). Non aggiungere altro. Il codice non si sposta in `03_CODICE`
 (romperebbe i percorsi del progetto Xcode). L'unico documento di riferimento del prodotto è `docs/MoneyTracker.pdf`
-(generato da `docs/MoneyTracker.md`); non creare nuovi documenti.
+(generato da `docs/MoneyTracker.md`); non creare nuovi documenti. Eccezione: i materiali del progetto social stanno in `SOCIAL/`.
 
 ## Workflow checkpoint
 
