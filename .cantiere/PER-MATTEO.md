@@ -13,11 +13,6 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ```
 ↩️ Riportami «SC-6 fatto».
 
-### SOCIAL · SC-4b — hosting su Cloudflare Pages (dopo SC-4a)
-📍 Browser: cloudflare.com, crea un account gratuito (con 2FA).
-▶️ Scrivimi «Cloudflare pronto»: ti do io i passi per pubblicare `SOCIAL/landing/` e per collegare il dominio (cambio dei server DNS su Aruba).
-↩️ Riportami «Cloudflare pronto».
-
 ### SOCIAL · SC-4c — servizio per la lista d'attesa e privacy
 📍 Questa chat.
 ▶️ Il form non salva ancora le email: serve un servizio che le riceva. Dimmi se vuoi che ti proponga le opzioni gratuite o ne hai già una in mente. Poi si completa `privacy.html` (fornitori, conservazione; proposta: cancellare tutto entro 30 giorni dal lancio).
@@ -70,6 +65,8 @@ Assegna al redattore il completamento delle sole traduzioni [DA COMPLETARE] intr
 <!-- - [ ] AAAA-MM-GG · cosa · 📍 dove · ▶️ comando o testo esatto · ↩️ cosa riportare · (chi l'ha chiesto) -->
 
 ## Fatte
+
+- 2026-11-18 · SC-4b: landing online su Cloudflare Pages (progetto `bucktrailapp`, caricata a mano da `SOCIAL/landing`), dominio `bucktrailapp.com` e `www` attivi con https. Ogni modifica va ricaricata: Pages, Create deployment, cartella `landing`. Nameserver Aruba → Cloudflare (`melissa`/`randy`). Il form non è ancora attivo (SC-4c).
 
 - 2026-11-18 · SC-4a: dominio `bucktrailapp.com` preso su Aruba (1,83 € il primo anno; prezzo di rinnovo da verificare, scade circa il 18/11/2027). Promemoria 10-15/11/2027 nel calendario (file `.ics` importato).
 
