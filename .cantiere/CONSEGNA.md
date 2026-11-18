@@ -1,13 +1,12 @@
-# CONSEGNA — capocantiere · 2026-11-18 10:32
+# CONSEGNA — capocantiere · 2026-11-18 13:29
 
 ## Fatto
-- **Landing definitiva** (`SOCIAL/landing/`, IT+EN): telefono sticky in «Come funziona», tab «Ogni funzione», bento «Perché Bucktrail», box lista d'attesa prima dei contatti, barra sticky con logo scuro, chip con icone, screenshot 780 px senza banner demo, link social con icone, email `bucktrailapp@gmail.com`, titolare Matteo Cocivera in privacy.
-- Tolti `mockup-v1/` e `anteprime/` (recuperabili da git).
+- **Landing online** su https://bucktrailapp.com (dominio Aruba, DNS e hosting Cloudflare Pages). Lista d'attesa: `_worker.js` → Brevo con double opt-in, notifica a Gmail, `ciao@bucktrailapp.com`, logo nell'email. Privacy completa e approvata.
 - Checkpoint veloce: collaudo.sh 🟢, graphify aggiornato, pagella misurata 99.
 
 ## Aperto
-- Matteo: guardare la landing nel browser (animazioni, sticky) e approvare la grafica; scegliere servizio lista d'attesa e hosting; collaudo Pianifica.
-- Privacy: fornitori e conservazione ancora [DA COMPLETARE]; endpoint del form non collegato.
+- Matteo: approvare la grafica della landing; link in bio; SC-1 (bio/foto, TikTok 24/11), SC-2 (clip).
+- Promemoria: chiave API Brevo da rigenerare entro 18/11/2027; dominio Aruba da controllare 10-15/11/2027.
 - Stesse voci SOCIAL di prima (bio/foto, TikTok 24/11, SC-2, hosting, approvazione testi).
 
 ## Fuori dal commit (non miei, lasciati dove sono)

@@ -141,3 +141,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-18 01:07 | capocantiere (Claude Code · Sonnet) | regole per tutti | Regole del progetto spostate da CLAUDE.md a .cantiere/REGOLE-PROGETTO.md (lette da tutti); modello 2.5.0 | niente |
 | 2026-11-18 10:18 | capocantiere (Claude Code · Sonnet) | SC-4 landing: telefono sticky, tab «Ogni funzione», box lista d'attesa in fondo, barra sticky, tolto banner demo dagli screenshot | fatto IT+EN | da collaudare; restano [LA TUA EMAIL], endpoint waitlist |
 | 2026-11-18 10:32 | capocantiere (Claude Code · Sonnet) | == CHECKPOINT (veloce) | landing definitiva, tolti mockup-v1/anteprime, collaudo 🟢, pagella 99 | hosting, servizio waitlist, privacy da completare |
+| 2026-11-18 13:29 | capocantiere (Claude Code · Sonnet) | == CHECKPOINT (veloce) | landing online su bucktrailapp.com, lista d'attesa con double opt-in (Brevo), privacy approvata, collaudo 🟢, pagella 99 | approvazione grafica, SC-1/SC-2 |
