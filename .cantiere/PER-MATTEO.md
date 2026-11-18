@@ -13,15 +13,10 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ```
 ↩️ Riportami «SC-6 fatto».
 
-### SOCIAL · SC-4d — guardare e approvare la landing
-📍 Finder: `SOCIAL/landing/index.html`, doppio clic (si apre nel browser).
-▶️ Scorri la pagina: telefono sticky, tab «Ogni funzione», barra in alto, animazioni. Prova anche `en.html`.
-↩️ Riportami «landing ok» oppure cosa cambiare (la grafica va in APPROVAZIONI).
-
-### SOCIAL · SC-1 — account social (oggi)
-📍 Browser.
-▶️ 1) (Apple Developer Program: rimandato, vedi DECISIONI.) 2) Crea TikTok Business, Instagram professionale e canale YouTube, tutti `@bucktrailapp`. 3) Bio: «Budget senza abbonamento · app iOS in arrivo».
-↩️ Scrivi «account fatti» 
+### SOCIAL · TikTok — dal 24/11
+📍 TikTok → Modifica profilo.
+▶️ Dal 24/11 cambia il nome in `Bucktrail · budget`. Dopo il primo post passa ad Account Business (Impostazioni e privacy → Account) e metti nel campo Sito web: `https://bucktrailapp.com/?utm_source=tiktok&utm_medium=bio`; poi la bio può tornare a «link in bio».
+↩️ Scrivi «tiktok ok».
 
 ### SOCIAL · SC-2 — clip base (questa settimana, 20-30 min)
 📍 iPhone vero (il Simulatore non ha tocco posteriore), app in modalità demo, Non disturbare, batteria piena.

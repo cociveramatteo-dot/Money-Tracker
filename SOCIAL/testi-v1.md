@@ -16,14 +16,15 @@ Fonte: Manuale strategico v2 (§1.1-1.3, 5.4, 6, 8.4, 10.3, 12). Conteggi fatti 
 
 Nome visualizzato: **Bucktrail · budget senza abbonamento** (37 caratteri)
 - Limite TikTok per il nome: 30 caratteri (da verificare in app) → versione corta TikTok: **Bucktrail · budget** (18).
-- Link in bio: landing con modulo email (sezione 4). Niente link all'App Store.
+- Link in bio: landing con modulo email (sezione 4); su TikTok vale la regola della sezione Profili. Niente link all'App Store.
 
 **Instagram (144/150)**
 > Vedi quanto ti resterà a fine mese. App budget per iPhone, senza abbonamento né pubblicità. Funziona offline. Link: lista d'attesa
 
-**TikTok (bio lunga, 144/150)** — stessa dell'Instagram.
-Se TikTok taglia a 80 caratteri (limite da verificare in app), versione corta (58):
-> App budget per iPhone. Senza abbonamento. Lista d'attesa 👇
+**TikTok (bio in uso dal 2026-11-18, 58/80)**
+> App budget per iPhone, senza abbonamento. bucktrailapp.com
+
+Regola TikTok (account personale, niente campo link finché non si passa a Business, dopo il primo post): in caption, testi a schermo e voce **«link in bio» diventa «lista d'attesa su bucktrailapp.com»**. L'indirizzo in bio è solo testo, non cliccabile; niente UTM. Quando il campo link compare: `https://bucktrailapp.com/?utm_source=tiktok&utm_medium=bio` e si torna a «link in bio».
 
 **YouTube (descrizione canale, 142/150)**
 > Budget senza abbonamento: l'app per iPhone che ti mostra il saldo di fine mese. Senza pubblicità. Lista d'attesa nel link.
