@@ -13,10 +13,10 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ```
 ↩️ Riportami «SC-6 fatto».
 
-### SOCIAL · SC-4c — servizio per la lista d'attesa e privacy
-📍 Questa chat.
-▶️ Il form non salva ancora le email: serve un servizio che le riceva. Dimmi se vuoi che ti proponga le opzioni gratuite o ne hai già una in mente. Poi si completa `privacy.html` (fornitori, conservazione; proposta: cancellare tutto entro 30 giorni dal lancio).
-↩️ Riportami «SC-4c: servizio = …, conservazione = …».
+### SOCIAL · SC-4c — approva la privacy e pulisci Brevo
+📍 Finder: `SOCIAL/landing/privacy.html` (doppio clic), poi Brevo, Contatti.
+▶️ Leggi l'informativa (titolare, fornitori Cloudflare/Brevo/Google, conservazione «fino al lancio + 30 giorni») e dimmi «privacy ok» oppure cosa cambiare. Poi in Brevo cancella i contatti di prova (`prova-landing@example.org`, `diagnostica-landing@example.org`, e le tue iscrizioni di prova).
+↩️ Riportami «privacy ok» e «contatti puliti».
 
 ### SOCIAL · SC-4d — guardare e approvare la landing
 📍 Finder: `SOCIAL/landing/index.html`, doppio clic (si apre nel browser).
@@ -65,6 +65,8 @@ Assegna al redattore il completamento delle sole traduzioni [DA COMPLETARE] intr
 <!-- - [ ] AAAA-MM-GG · cosa · 📍 dove · ▶️ comando o testo esatto · ↩️ cosa riportare · (chi l'ha chiesto) -->
 
 ## Fatte
+
+- 2026-11-18 · SC-4c: lista d'attesa attiva con double opt-in (Brevo, modello ID 1), email `ciao@bucktrailapp.com`, notifica a Gmail, logo nell'email. Promemoria futuri: chiave API Brevo da rigenerare entro 18/11/2027 (e se resta 90 giorni senza uso); dominio Aruba da rinnovare (calendario 10-15/11/2027).
 
 - 2026-11-18 · SC-4b: landing online su Cloudflare Pages (progetto `bucktrailapp`, caricata a mano da `SOCIAL/landing`), dominio `bucktrailapp.com` e `www` attivi con https. Ogni modifica va ricaricata: Pages, Create deployment, cartella `landing`. Nameserver Aruba → Cloudflare (`melissa`/`randy`). Il form non è ancora attivo (SC-4c).
 

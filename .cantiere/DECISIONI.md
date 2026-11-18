@@ -135,3 +135,10 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 ## 2026-11-17 · Social senza elementi personali; video in IA in valutazione
 - **Cosa:** niente volto, voce, nome, «studente», «di Parma», storie personali in testi e video. Il brand parla come «Bucktrail». Deroga alla scelta del manuale §4.4/F8 (build in public personale). F8 diventa un video di brand a solo testo; F9 solo come esempio dichiarato (manuale §12.4). Task SC-3b al redattore.
 - **Video interamente con IA:** richiesta di Matteo, parere del capocantiere in chat. Il manuale (§4.7) consiglia l'IA solo per test sugli hook, sempre etichettata; schermo reale dell'app e curva restano reali. Decisione in attesa.
+
+## 2026-11-18 · Landing online: dominio, hosting, lista d'attesa (SC-4)
+- **Cosa:** dominio `bucktrailapp.com` comprato su Aruba (1,83 € il primo anno, rinnovo da verificare, scade circa 18/11/2027) con DNS su Cloudflare; landing su Cloudflare Pages (progetto `bucktrailapp`, caricamento manuale della cartella `SOCIAL/landing`); form della lista d'attesa → `_worker.js` → Brevo (lista «Bucktrail lancio», ID 3) con double opt-in (modello ID 1, tag `optin`); notifica a `bucktrailapp@gmail.com` a ogni iscrizione; mittente `ciao@bucktrailapp.com` (inoltro Cloudflare Email Routing → Gmail).
+- **Perché:** tutto gratuito tranne il dominio, fornitori UE/USA con garanzie GDPR, nessun cookie, nessun codice lato app.
+- **Privacy:** titolare Matteo Cocivera come persona fisica (obbligo di legge: il nome compare solo nell'informativa, non nei contenuti social, quindi nessuna deroga alla regola «social senza elementi personali»). Conservazione proposta: fino al lancio + 30 giorni. **[DA APPROVARE da Matteo]**
+- **Alternative scartate:** hosting Aruba (inutile per un sito statico), Google Forms/servizi USA per le email (privacy più delicata), form senza conferma (meno prova di consenso).
+- **Da ricordare:** la chiave API Brevo scade il 18/11/2027 e dopo 90 giorni senza uso; il mittente `bucktrailapp@gmail.com` in Brevo non è autenticabile e non va usato per inviare.
