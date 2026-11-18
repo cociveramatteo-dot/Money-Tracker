@@ -190,7 +190,7 @@ il task e i file indicati.
 ### SC-1b [x] chiuso 2026-11-17: Matteo ha confermato le soglie in DECISIONI.md Soglia di decisione per pagare Apple (Matteo): [DA COMPLETARE] quali numeri contano come «segnale» (es. iscritti alla waitlist, follower, tempo medio sopra la mediana) e entro quando. Il manuale non dà benchmark: la soglia è sua.
 ### SC-2 [?] Clip base dal telefono in modalità demo (Matteo): lista in PER-MATTEO.
 ### SC-3 [~] fatto dal redattore, approvazione Matteo ⏳ in APPROVAZIONI.md Testi di base (redattore): bio, caption, nome/sottotitolo/keyword/descrizione App Store IT+EN, hook dei primi format. Solo claim ammessi (manuale §1.1–1.3). Poi approvazione Matteo in APPROVAZIONI.md.
-### SC-4 [~] Landing IT/EN rifatta il 2026-11-18 (struttura mockup v1, screenshot reali, ~720 KB; da collaudare). Restano [LA TUA EMAIL], endpoint waitlist, immagini Higgsfield. Informativa pronta per il collaudo. Matteo deve scegliere servizio e hosting e approvare l’informativa.
+### SC-4 [~] Landing IT/EN **definitiva** 2026-11-18 (sticky phone, tab, bento, box waitlist, barra sticky, email e titolare inseriti). Restano: endpoint waitlist + servizio e hosting (Matteo), privacy (fornitori, conservazione), approvazione grafica, collaudo nel browser.
 ### SC-5 [~] Script FFmpeg e modello ASS pronti per il collaudo. Test di fumo ASS/SRT e conversione HDR sintetica superati.
 ### SC-6 [~] Diario delle metriche (Copilot: task piccolo e già descritto): foglio come manuale §9.7. Creati `SOCIAL/diario-metriche.csv` e `SOCIAL/diario-metriche.md`; una riga ESEMPIO vuota, nessun dato reale; da collaudare.
 
