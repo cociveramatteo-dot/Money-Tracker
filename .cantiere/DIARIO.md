@@ -137,3 +137,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-18 00:50 | capocantiere (Claude Code · Sonnet) | SC-4 landing v2 + fix Pianifica | Nuova landing IT/EN con screenshot reali (SOCIAL/landing); fix lista tagliata in PianificaView (contentMargins), build verde | Collaudo di Matteo su Pianifica; immagini Higgsfield; email, hosting, privacy |
 | 2026-11-18 00:50 | == CHECKPOINT (veloce) | capocantiere | collaudo.sh 🟢, graphify aggiornato, pagella misurata 99 | vedi CHECKPOINT.md |
 | 2026-11-18 00:47 | modello | aggiornamento | Modello 2.4.0 → 2.4.1 | — |
+| 2026-11-18 01:07 | modello | aggiornamento | Modello 2.4.1 → 2.5.0 | unire: AGENTS.md CLAUDE.md |

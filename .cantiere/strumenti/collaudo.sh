@@ -22,6 +22,21 @@ peggiora() { [ "$1" -gt "$STATO" ] && STATO="$1"; return 0; }
   echo
 } > "$OUT"
 
+# Parità delle regole: ogni strumento deve essere mandato alle regole del progetto, e nessuna regola resta solo in un file di strumento.
+{
+  echo "## Regole lette da tutti"
+  MANCANO=""
+  [ -f .cantiere/REGOLE-PROGETTO.md ] || MANCANO="$MANCANO .cantiere/REGOLE-PROGETTO.md(assente)"
+  for f in AGENTS.md CLAUDE.md GEMINI.md .github/copilot-instructions.md; do
+    [ -f "$f" ] && ! grep -q "REGOLE-PROGETTO" "$f" && MANCANO="$MANCANO $f"
+  done
+  if [ -z "$MANCANO" ]; then echo "- 🟢 AGENTS, CLAUDE, GEMINI e Copilot rimandano tutti a REGOLE-PROGETTO.md"
+  else echo "- 🔴 Non rimandano alle regole del progetto:$MANCANO (le leggerebbe solo qualcuno: AGENTS.md §6.14)"; peggiora 2; fi
+  EXTRA="$(grep -n -E '^## ' CLAUDE.md GEMINI.md 2>/dev/null | grep -v -i -E 'risparmio|quando un|cartellino|graphify' | head -5)"
+  [ -n "$EXTRA" ] && { echo "- 🟡 Sezioni in CLAUDE.md/GEMINI.md da controllare (sono regole del progetto? Vanno in REGOLE-PROGETTO.md):"; echo "$EXTRA" | sed 's/^/    /'; peggiora 1; }
+  echo
+} >> "$OUT"
+
 esegui() { # esegui "Titolo" livello_se_fallisce comando...
   local titolo="$1" livello="$2"; shift 2
   local log=".cantiere/tmp/ultimo.log"

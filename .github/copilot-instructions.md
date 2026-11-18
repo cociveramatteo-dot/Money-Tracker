@@ -1,6 +1,7 @@
 # GitHub Copilot = TERZA IMPRESA
 
 Le regole del cantiere sono in AGENTS.md: rispettale tutte, a partire da Turni (§4) e Lettura a strati (§5).
+Leggi SEMPRE anche `.cantiere/REGOLE-PROGETTO.md`: sono le regole del progetto, valgono per tutti.
 **CLAUDE.md e GEMINI.md non sono per te** (ruoli di Claude Code e Antigravity): non seguirli.
 Le frasi-comando funzionano anche qui: le skill sono in `.agents/skills/`.
 

@@ -4,6 +4,7 @@
 > per te valgono AGENTS.md e il tuo file (Copilot: `.github/copilot-instructions.md`).
 
 Le regole del cantiere sono in AGENTS.md: rispettale tutte, a partire da Turni (§4) e Lettura a strati (§5).
+Leggi SEMPRE anche `.cantiere/REGOLE-PROGETTO.md`: sono le regole del progetto, valgono per tutti.
 Le frasi-comando funzionano anche qui: le skill sono in `.agents/skills/` (copia anche in `.agent/skills/`).
 
 - Esegui SOLO il task indicato da Matteo (di solito uno di `.cantiere/PIANO.md` assegnato a "impresa").

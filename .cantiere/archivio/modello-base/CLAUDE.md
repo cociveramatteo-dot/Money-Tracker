@@ -1,4 +1,5 @@
 @AGENTS.md
+@.cantiere/REGOLE-PROGETTO.md
 
 # Claude Code = CAPOCANTIERE
 

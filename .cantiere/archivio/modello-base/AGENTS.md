@@ -12,6 +12,7 @@
   intestazioni o anteprime: lo propone il capocantiere all'avvio e si scrive qui con il motivo)
 - **Skill in più dallo scaffale:** [nessuna] (skill `attrezza`)
 - **Vincoli non negoziabili:** [DA COMPILARE]
+- **Regole specifiche del progetto:** `.cantiere/REGOLE-PROGETTO.md` — da leggere SEMPRE, valgono per TUTTI gli strumenti
 - **Sito online / anteprima:** [DA COMPILARE] · **Repository GitHub:** [DA COMPILARE]
 - **Notebook NotebookLM (bibliotecario):** [DA COMPILARE: link]
 - **Magazzino:** `{{MAGAZZINO_CANTIERE}}`
@@ -84,7 +85,7 @@ Un task che richiede informazioni o decisioni di Matteo (es. T-001 impianto) non
 
 ## 5. Lettura a strati (per risparmiare crediti)
 Fermati appena hai quello che ti serve:
-1. `.cantiere/STATO.md` + sezione "Siamo qui" di `.cantiere/CHECKPOINT.md` (+ `AVVIO.md` finché non è completo)
+1. `.cantiere/STATO.md` + `.cantiere/REGOLE-PROGETTO.md` + sezione "Siamo qui" di `.cantiere/CHECKPOINT.md` (+ `AVVIO.md` finché non è completo)
 2. il tuo task in `.cantiere/PIANO.md` (e `CONSEGNA.md` se riprendi un lavoro altrui)
 3. `CATALOGO.md` del magazzino (`00_CLIENTE/../CATALOGO.md`) o `.cantiere/MAPPA.md` per sapere DOVE sta una cosa
 4. solo il file o la funzione che serve: per il codice chiedi prima al grafo (`graphify query "…"`)
@@ -122,6 +123,11 @@ Fermati appena hai quello che ti serve:
     blocco da copiare) · ↩️ cosa riportarti. Mai «aggiorna il notebook» o «fai il push» senza il come.
     Le azioni che aspettano lui stanno in `.cantiere/PER-MATTEO.md` (le scrivi tu, le togli quando sono fatte).
     Problema del modello (strumento rotto, regola che non funziona)? Scrivi il messaggio da incollare nella chat «Azienda».
+
+14. **Una regola, un posto, per tutti.** Nessuna regola del progetto può stare solo in CLAUDE.md, GEMINI.md o
+    `.github/copilot-instructions.md` (ognuno leggerebbe solo il suo): quei file hanno solo il ruolo dello strumento.
+    Le regole del progetto stanno in `.cantiere/REGOLE-PROGETTO.md` (o qui). Se ne trovi una in un file di strumento,
+    spostala e scrivilo in DIARIO. Il collaudo lo controlla.
 
 ## 7. Cartelle e nomi
 ```
