@@ -9,7 +9,7 @@ const json = (body, status = 200) =>
     headers: { "content-type": "application/json", "cache-control": "no-store" },
   });
 
-async function subscribe(request, env) {
+async function subscribe(request, env, ctx) {
   if (request.method !== "POST") return json({ ok: false }, 405);
   const origin = request.headers.get("origin");
   if (origin && new URL(origin).host !== new URL(request.url).host) return json({ ok: false }, 403);
@@ -36,14 +36,44 @@ async function subscribe(request, env) {
       body: JSON.stringify({ email, listIds: [LIST_ID], updateEnabled: true, attributes: attrs }),
     });
 
-  let res = await call(attributes);
-  if (res.status === 400) res = await call({}); // se un attributo non esiste ancora in Brevo, salva comunque l'email
-  return res.ok ? json({ ok: true }) : json({ ok: false, error: "upstream" }, 502);
+  // Con DOI_TEMPLATE_ID configurato l'iscritto riceve un'email e entra in lista solo dopo il clic (double opt-in).
+  const doi = Number(env.DOI_TEMPLATE_ID) || 0;
+  const lang = String(form.get("lang") || "it") === "en" ? "en" : "it";
+  const send = (attrs) =>
+    doi
+      ? fetch("https://api.brevo.com/v3/contacts/doubleOptinConfirmation", {
+          method: "POST",
+          headers: { "api-key": env.BREVO_API_KEY, "content-type": "application/json", accept: "application/json" },
+          body: JSON.stringify({
+            email, attributes: attrs, includeListIds: [LIST_ID], templateId: doi,
+            redirectionUrl: `https://bucktrailapp.com/${lang === "en" ? "confirmed" : "confermato"}`,
+          }),
+        })
+      : call(attrs);
+
+  let res = await send(attributes);
+  if (res.status === 400) res = await send({}); // se un attributo non esiste ancora in Brevo, salva comunque l'email
+  if (!res.ok) return json({ ok: false, error: "upstream" }, 502);
+
+  if (env.NOTIFY_EMAIL && env.SENDER_EMAIL) {
+    const note = fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: { "api-key": env.BREVO_API_KEY, "content-type": "application/json", accept: "application/json" },
+      body: JSON.stringify({
+        sender: { email: env.SENDER_EMAIL, name: "Bucktrail" },
+        to: [{ email: env.NOTIFY_EMAIL }],
+        subject: doi ? "Nuova iscrizione (da confermare)" : "Nuova iscrizione",
+        textContent: `${email}\nProvenienza: ${attributes.UTM_SOURCE || "diretta"}${attributes.UTM_CAMPAIGN ? " / " + attributes.UTM_CAMPAIGN : ""}`,
+      }),
+    }).catch(() => {});
+    ctx?.waitUntil?.(note);
+  }
+  return json({ ok: true, mode: doi ? "confirm" : "added" });
 }
 
 export default {
-  async fetch(request, env) {
-    if (new URL(request.url).pathname === "/api/subscribe") return subscribe(request, env);
+  async fetch(request, env, ctx) {
+    if (new URL(request.url).pathname === "/api/subscribe") return subscribe(request, env, ctx);
     return env.ASSETS.fetch(request);
   },
 };

@@ -22,6 +22,7 @@ for (const link of document.querySelectorAll("[data-language]")) {
 const it = document.documentElement.lang === "it";
 const msg = {
   ok: it ? "Fatto: ti scriveremo il giorno del lancio." : "Done: we'll write to you on launch day.",
+  confirm: it ? "Quasi fatto: ti abbiamo scritto, clicca il link nell'email per confermare (controlla anche la posta indesiderata)." : "Almost done: we've emailed you, click the link to confirm (check your spam folder too).",
   fail: it ? "Qualcosa non ha funzionato. Riprova tra poco o scrivi a bucktrailapp@gmail.com." : "Something went wrong. Try again soon or write to bucktrailapp@gmail.com.",
   sending: it ? "Invio in corso…" : "Sending…",
 };
@@ -34,10 +35,12 @@ form.addEventListener("submit", async (event) => {
   status.hidden = false;
   status.textContent = msg.sending;
   try {
-    const res = await fetch(form.action, { method: "POST", body: new FormData(form) });
+    const body = new FormData(form);
+    body.set("lang", document.documentElement.lang);
+    const res = await fetch(form.action, { method: "POST", body });
     const data = await res.json();
     if (!data.ok) throw new Error(data.error);
-    status.textContent = msg.ok;
+    status.textContent = data.mode === "confirm" ? msg.confirm : msg.ok;
     form.reset();
   } catch {
     status.textContent = msg.fail;
