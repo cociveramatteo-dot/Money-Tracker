@@ -1,7 +1,7 @@
 # Carosello di presentazione — «Bucktrail: tutta l'app in 8 slide» (v1)
 
 Stato: BOZZA, ⏳ da approvare da Matteo. Nulla è da pubblicare.
-Montaggio 2026-11-19: 9 slide 4:5 (1080×1350) generate da `SOCIAL/caroselli/presentazione-v1/build.py` con gli screenshot di Matteo (banner «modalità demo» tolto, status bar 9:41, nota «Dati di esempio»). Uscite in `SOCIAL/clip-social/uscite/presentazione-v1/` (fuori da git). Hook A scelto come predefinito; Obiettivi su slide separata. Da rifare: screen «Aggiungi spesa» compilato e screen Ricorrenze con «Salta mese / Termina da qui» visibili.
+Montaggio 2026-11-19: 9 slide 4:5 (1080×1350) generate da `SOCIAL/caroselli/presentazione-v1/build.py` con gli screenshot di Matteo (banner «modalità demo» tolto, status bar 9:41, nota «Dati di esempio»). Uscite in `SOCIAL/clip-social/uscite/presentazione-v1/` (fuori da git). Hook A scelto come predefinito; Obiettivi su slide separata. Screen «Aggiungi spesa» e Ricorrenze rifatti da Matteo (IMG_7921, IMG_7922) e montati.
 Formato: faceless (DECISIONI 2026-11-19). Nessuna voce, volto, persona, «io». Voce di brand «Bucktrail».
 Piattaforme: TikTok photo mode + Instagram carosello. Lingua: italiano.
 Stile: slide bianche pulite (stile @easlonotes), titolo grande + una frase corta (max 5 parole per riga, max ~12 parole totali), mockup iPhone con lo screenshot indicato.

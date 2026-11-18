@@ -20,9 +20,9 @@ WORK.mkdir(parents=True, exist_ok=True)
 # (file, titolo, frase, ha_banner_demo)
 SLIDES = [
     ("IMG_7914.PNG", "La Home", "La linea tratteggiata dice se arrivi a fine mese", True),
-    ("IMG_7915.PNG", "Aggiungi una spesa", "Importo, categoria, conto: fatto", False),
+    ("IMG_7921.PNG", "Aggiungi una spesa", "Importo, descrizione, categoria: fatto", False),
     ("IMG_7916.PNG", "Movimenti", "Tutto ciò che entra ed esce", True),
-    ("IMG_7917.PNG", "Ricorrenze", "Salta un mese o termina quando vuoi", False),
+    ("IMG_7922.PNG", "Ricorrenze", "Salta un mese o termina quando vuoi", False, 500),
     ("IMG_7918.PNG", "Budget", "Avviso all'80%, prima di sforare", True),
     ("IMG_7919.PNG", "Obiettivi", "Metti da parte, un passo alla volta", True),
     ("IMG_7920.PNG", "Statistiche", "Capisci dove vanno i soldi", True),
@@ -65,10 +65,10 @@ p.f{{position:absolute;top:250px;left:64px;width:900px;text-wrap:balance;font-si
 def html(corpo):
     return f"<!doctype html><meta charset=utf-8><style>{CSS}</style><body>{corpo}</body>"
 
-def slide_app(n, tot, img, titolo, frase):
+def slide_app(n, tot, img, titolo, frase, w=650):
     return html(f"""<div class=meta><span>{n:02d} / {tot:02d}</span><span>Dati di esempio</span></div>
 <h1>{titolo}</h1><p class=f>{frase}</p>
-<div class=phone><img src="file://{img}"></div>""")
+<div class=phone style="width:{w}px;top:{480 if w==650 else 430}px;border-radius:{100 if w==650 else 80}px"><img style="border-radius:{86 if w==650 else 66}px {86 if w==650 else 66}px 0 0" src="file://{img}"></div>""")
 
 def slide_titolo(tot):
     return html(f"""<div class=meta><span>01 / {tot:02d}</span><span></span></div>
@@ -104,8 +104,8 @@ def render(corpo, out):
 if __name__ == "__main__":
     tot = len(SLIDES) + 2
     render(slide_titolo(tot), OUT / "slide-01.png")
-    for i, (f, t, fr, b) in enumerate(SLIDES, start=2):
-        render(slide_app(i, tot, pulisci(f, b), t, fr), OUT / f"slide-{i:02d}.png")
+    for i, (f, t, fr, b, *w) in enumerate(SLIDES, start=2):
+        render(slide_app(i, tot, pulisci(f, b), t, fr, *w), OUT / f"slide-{i:02d}.png")
     render(slide_fine(tot, False), OUT / f"slide-{tot:02d}-instagram.png")
     render(slide_fine(tot, True), OUT / f"slide-{tot:02d}-tiktok.png")
     print("ok", sorted(p.name for p in OUT.glob("slide-*.png")))
