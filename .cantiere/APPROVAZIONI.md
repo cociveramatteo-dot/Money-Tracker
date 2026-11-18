@@ -60,3 +60,7 @@ Chiave `· Ultima usata` in `MoneyTracker/*.lproj/Localizable.strings`, approvat
 ## SC-3 · Testi social, scheda App Store e landing (IT/EN) · ⏳ da approvare da Matteo
 ⚠️ 2026-11-19: il formato è cambiato (faceless, SC-7): i testi vanno rivisti prima dell'approvazione. File: `SOCIAL/testi-v1.md` (redattore, 2026-11-17). Bio per TikTok/Instagram/YouTube, caption e hook di F8/F1/F13/F3/F4/F5, scheda App Store IT+EN, testi landing IT+EN. Da decidere/completare: fonte esatta Banca d'Italia; cifre reali per F8 e per l'esempio di F13; titolare e informativa privacy della landing; contatti; conteggi caratteri App Store da ricontrollare nei campi reali; limiti di TikTok su nome/bio; procedura del tocco posteriore per F4; hook F3 «restano sul tuo telefono» escluso finché la sincronizzazione Supabase non è chiarita.
 | Stato | ⏳ |
+
+## SC-7 · Carosello di presentazione (testi) · ⏳ da approvare da Matteo
+File: `SOCIAL/caroselli/presentazione-v1.md` (redattore, 2026-11-19). 8 slide, caption TikTok/Instagram, mood musica. Da decidere: variante hook A/B, Obiettivi su slide separata sì/no.
+| Stato | ⏳ |
