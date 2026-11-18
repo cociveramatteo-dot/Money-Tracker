@@ -13,10 +13,25 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ```
 ↩️ Riportami «SC-6 fatto».
 
-### SOCIAL · SC-4 — collaudo e decisioni per la landing
-📍 Apri `SOCIAL/landing/index.html` e `SOCIAL/landing/privacy.html` dal Finder. Leggi le opzioni in `.cantiere/CONSEGNA.md`.
-▶️ Rispondi in questa chat con «SC-4: servizio = …, hosting = …, informativa = …» e indica recapito del titolare e durata di conservazione.
-↩️ Riporta eventuali modifiche ai testi.
+### SOCIAL · SC-4a — dominio su Aruba
+📍 Sito di Aruba, sezione Domini, nel browser.
+▶️ Cerca `bucktrailapp.com` (libero al 2026-11-18; `bucktrail.com` è già preso). Prendi solo il dominio, senza hosting né PEC né altri extra. Intestalo a Matteo Cocivera come persona fisica, con protezione dati/WHOIS privacy e rinnovo automatico.
+↩️ Riportami prezzo del primo anno, prezzo del rinnovo e «dominio preso».
+
+### SOCIAL · SC-4b — hosting su Cloudflare Pages (dopo SC-4a)
+📍 Browser: cloudflare.com, crea un account gratuito (con 2FA).
+▶️ Scrivimi «Cloudflare pronto»: ti do io i passi per pubblicare `SOCIAL/landing/` e per collegare il dominio (cambio dei server DNS su Aruba).
+↩️ Riportami «Cloudflare pronto».
+
+### SOCIAL · SC-4c — servizio per la lista d'attesa e privacy
+📍 Questa chat.
+▶️ Il form non salva ancora le email: serve un servizio che le riceva. Dimmi se vuoi che ti proponga le opzioni gratuite o ne hai già una in mente. Poi si completa `privacy.html` (fornitori, conservazione; proposta: cancellare tutto entro 30 giorni dal lancio).
+↩️ Riportami «SC-4c: servizio = …, conservazione = …».
+
+### SOCIAL · SC-4d — guardare e approvare la landing
+📍 Finder: `SOCIAL/landing/index.html`, doppio clic (si apre nel browser).
+▶️ Scorri la pagina: telefono sticky, tab «Ogni funzione», barra in alto, animazioni. Prova anche `en.html`.
+↩️ Riportami «landing ok» oppure cosa cambiare (la grafica va in APPROVAZIONI).
 
 ### SOCIAL · SC-1 — account social (oggi)
 📍 Browser.
