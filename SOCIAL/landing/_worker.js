@@ -10,6 +10,14 @@ const json = (body, status = 200) =>
   });
 
 async function subscribe(request, env, ctx) {
+  try {
+    return await handle(request, env, ctx);
+  } catch (e) {
+    return json({ ok: false, error: "exception", detail: String(e && e.message || e).slice(0, 200) }, 500);
+  }
+}
+
+async function handle(request, env, ctx) {
   if (request.method !== "POST") return json({ ok: false }, 405);
   const origin = request.headers.get("origin");
   if (origin && new URL(origin).host !== new URL(request.url).host) return json({ ok: false }, 403);
@@ -53,7 +61,10 @@ async function subscribe(request, env, ctx) {
 
   let res = await send(attributes);
   if (res.status === 400) res = await send({}); // se un attributo non esiste ancora in Brevo, salva comunque l'email
-  if (!res.ok) return json({ ok: false, error: "upstream" }, 502);
+  if (!res.ok) {
+    const detail = (await res.text().catch(() => "")).slice(0, 300);
+    return json({ ok: false, error: "upstream", status: res.status, detail }, 502);
+  }
 
   if (env.NOTIFY_EMAIL && env.SENDER_EMAIL) {
     const note = fetch("https://api.brevo.com/v3/smtp/email", {
