@@ -1,8 +1,8 @@
 # CONSEGNA — capocantiere · 2026-11-18 10:32
 
 ## Fatto
-- **Landing definitiva** (, IT+EN): telefono sticky in «Come funziona», tab «Ogni funzione», bento «Perché Bucktrail», box lista d'attesa prima dei contatti, barra sticky con logo scuro, chip con icone, screenshot 780 px senza banner demo, link social con icone, email , titolare Matteo Cocivera in privacy.
-- Tolti  e  (recuperabili da git).
+- **Landing definitiva** (`SOCIAL/landing/`, IT+EN): telefono sticky in «Come funziona», tab «Ogni funzione», bento «Perché Bucktrail», box lista d'attesa prima dei contatti, barra sticky con logo scuro, chip con icone, screenshot 780 px senza banner demo, link social con icone, email `bucktrailapp@gmail.com`, titolare Matteo Cocivera in privacy.
+- Tolti `mockup-v1/` e `anteprime/` (recuperabili da git).
 - Checkpoint veloce: collaudo.sh 🟢, graphify aggiornato, pagella misurata 99.
 
 ## Aperto
