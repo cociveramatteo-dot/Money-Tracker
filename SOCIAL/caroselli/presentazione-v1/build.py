@@ -83,16 +83,32 @@ body.d{background:#0E1210}
 .phone.d{background:#050706;box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 2px #2a312d}
 """
 
-def hero(img, alto):
+# Hook della prima slide / copertina: (righe del titolo, n. righe, sottotitolo)
+HOOKS = {
+    "B": ("Il tuo mese,<br><em>in una linea.</em>", 2,
+          "Bucktrail mostra come finisce il mese,<br>prima che finisca."),
+    "C": ("Basta<br><em>abbonamenti</em><br>per il tuo budget.", 3,
+          "Bucktrail, per iPhone.<br>Si paga una volta sola."),
+    "F": ("Vedi come finisce<br>il mese. <em>Prima<br>che finisca.</em>", 3,
+          "Bucktrail, il budget per iPhone<br>senza abbonamenti."),
+}
+HOOK = "B"
+
+def hero(img, alto, hook=None):
     """Prima slide / copertina: scura, di impatto. alto=1350 (carosello 4:5) o 1920 (copertina 9:16)."""
+    titolo, n, sub = HOOKS[hook or HOOK]
     k = alto == 1920
+    fs = ({2: 150, 3: 128} if k else {2: 132, 3: 112})[n]
+    top = 290 if k else 190
+    sub_top = int(top + n * fs * 0.98 + 50)
+    phone_top = max(1010, sub_top + 190) if k else sub_top + 170
     return html(f"""<style>{HERO_CSS}body{{height:{alto}px}}</style><script>document.body.className='d'</script>
 <div class=glow></div>
 <div class=brand style="top:{90 if k else 60}px"><img src="file://{ICON}/AppIcon_light_1024.png"><span>BUCKTRAIL</span></div>
 <span class=hint style="top:{104 if k else 74}px">{'' if k else 'Scorri →'}</span>
-<div class=hero style="top:{290 if k else 190}px;font-size:{150 if k else 132}px">Arrivi a<br><em>fine mese?</em></div>
-<div class=sub style="top:{(290+360) if k else (190+330)}px">Il budget senza abbonamenti.<br>Per iPhone.</div>
-<div class="phone d" style="top:{1010 if k else 700}px;width:{720 if k else 640}px;border-radius:104px"><img style="border-radius:90px 90px 0 0" src="file://{img}"></div>""")
+<div class=hero style="top:{top}px;font-size:{fs}px">{titolo}</div>
+<div class=sub style="top:{sub_top}px">{sub}</div>
+<div class="phone d" style="top:{phone_top}px;width:{720 if k else 640}px;border-radius:104px"><img style="border-radius:90px 90px 0 0" src="file://{img}"></div>""")
 
 def slide_fine(tot, tiktok):
     riga = "Lista d'attesa: bucktrailapp.com" if tiktok else "Lista d'attesa: link in bio"
@@ -113,6 +129,12 @@ def render(corpo, out, alto=1350):
                    check=True, capture_output=True)
 
 if __name__ == "__main__":
+    if "--opzioni" in sys.argv:                      # anteprime delle varianti di hook
+        od = OUT / "_opzioni-hook"; od.mkdir(parents=True, exist_ok=True)
+        home = pulisci(SLIDES[0][0], SLIDES[0][3])
+        for h in HOOKS:
+            render(hero(home, 1350, h), od / f"hook-{h}.png")
+        print("ok opzioni"); sys.exit()
     tot = len(SLIDES) + 2
     home = pulisci(SLIDES[0][0], SLIDES[0][3])
     render(hero(home, 1350), OUT / "slide-01.png")
