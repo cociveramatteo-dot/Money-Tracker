@@ -82,9 +82,26 @@ async function handle(request, env, ctx) {
   return json({ ok: true, mode: doi ? "confirm" : "added" });
 }
 
+// Intestazioni di sicurezza su ogni risposta del sito
+const SECURITY = {
+  "content-security-policy":
+    "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+  "strict-transport-security": "max-age=31536000",
+  "x-content-type-options": "nosniff",
+  "x-frame-options": "DENY",
+  "referrer-policy": "strict-origin-when-cross-origin",
+  "permissions-policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()",
+  "cross-origin-opener-policy": "same-origin",
+};
+const secure = (res) => {
+  const out = new Response(res.body, res);
+  for (const [k, v] of Object.entries(SECURITY)) out.headers.set(k, v);
+  return out;
+};
+
 export default {
   async fetch(request, env, ctx) {
-    if (new URL(request.url).pathname === "/api/subscribe") return subscribe(request, env, ctx);
-    return env.ASSETS.fetch(request);
+    if (new URL(request.url).pathname === "/api/subscribe") return secure(await subscribe(request, env, ctx));
+    return secure(await env.ASSETS.fetch(request));
   },
 };

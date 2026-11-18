@@ -40,3 +40,16 @@ if (bento && "IntersectionObserver" in window) {
   const io2 = new IntersectionObserver((e) => { if (e[0].isIntersecting) { bento.classList.add("in"); io2.disconnect(); } }, { threshold: .3 });
   io2.observe(bento);
 } else if (bento) bento.classList.add("in");
+
+// Link interni senza #sezione nell'indirizzo: scorre alla sezione e lascia l'URL pulito
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+for (const a of document.querySelectorAll('a[href^="#"]')) {
+  a.addEventListener("click", (e) => {
+    const id = a.getAttribute("href").slice(1);
+    const target = id === "top" ? document.body : document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: id === "top" ? "start" : "start" });
+    if (id !== "main") target.setAttribute("tabindex", "-1"), target.focus({ preventScroll: true });
+  });
+}
