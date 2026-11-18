@@ -13,11 +13,6 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ```
 ↩️ Riportami «SC-6 fatto».
 
-### SOCIAL · SC-4a — dominio su Aruba
-📍 Sito di Aruba, sezione Domini, nel browser.
-▶️ Cerca `bucktrailapp.com` (libero al 2026-11-18; `bucktrail.com` è già preso). Prendi solo il dominio, senza hosting né PEC né altri extra. Intestalo a Matteo Cocivera come persona fisica, con protezione dati/WHOIS privacy e rinnovo automatico.
-↩️ Riportami prezzo del primo anno, prezzo del rinnovo e «dominio preso».
-
 ### SOCIAL · SC-4b — hosting su Cloudflare Pages (dopo SC-4a)
 📍 Browser: cloudflare.com, crea un account gratuito (con 2FA).
 ▶️ Scrivimi «Cloudflare pronto»: ti do io i passi per pubblicare `SOCIAL/landing/` e per collegare il dominio (cambio dei server DNS su Aruba).
@@ -75,6 +70,8 @@ Assegna al redattore il completamento delle sole traduzioni [DA COMPLETARE] intr
 <!-- - [ ] AAAA-MM-GG · cosa · 📍 dove · ▶️ comando o testo esatto · ↩️ cosa riportare · (chi l'ha chiesto) -->
 
 ## Fatte
+
+- 2026-11-18 · SC-4a: dominio `bucktrailapp.com` preso su Aruba (1,83 € il primo anno; prezzo di rinnovo da verificare, scade circa il 18/11/2027). Promemoria 10-15/11/2027 nel calendario (file `.ics` importato).
 
 - 2026-11-16 · Ripulita la lista: rimossi S-26 (collaudo già [x]), S-13e (SQL eseguito), collaudo S-13a/b/c (già [x] 2026-11-14) e il controllo manuale S-23 (superato da S-25: il tap normale ora applica Tutte).
 
