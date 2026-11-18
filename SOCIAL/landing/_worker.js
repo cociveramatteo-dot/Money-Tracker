@@ -13,7 +13,7 @@ async function subscribe(request, env, ctx) {
   try {
     return await handle(request, env, ctx);
   } catch (e) {
-    return json({ ok: false, error: "exception", detail: String(e && e.message || e).slice(0, 200) }, 500);
+    return json({ ok: false, error: "exception", detail: String(e && e.message || e).slice(0, 200) }, 424);
   }
 }
 
@@ -63,7 +63,7 @@ async function handle(request, env, ctx) {
   if (res.status === 400) res = await send({}); // se un attributo non esiste ancora in Brevo, salva comunque l'email
   if (!res.ok) {
     const detail = (await res.text().catch(() => "")).slice(0, 300);
-    return json({ ok: false, error: "upstream", status: res.status, detail }, 502);
+    return json({ ok: false, error: "upstream", status: res.status, detail }, 424);
   }
 
   if (env.NOTIFY_EMAIL && env.SENDER_EMAIL) {
