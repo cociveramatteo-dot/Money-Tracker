@@ -525,13 +525,13 @@
     "semantic_hash": ""
   },
   ".cantiere/CHECKPOINT.md": {
-    "mtime": 1794994339.922198,
-    "ast_hash": "4203dc93d99d723ab0f54f034aee1d6a",
+    "mtime": 1795004940.7168489,
+    "ast_hash": "65de2bf8cd8dce389eabf7cd56549655",
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1794994356.507192,
-    "ast_hash": "988d4809a61653fa517a63b5ec724901",
+    "mtime": 1795004940.7186697,
+    "ast_hash": "010c66341919b5b354dd791e64036ff5",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
@@ -540,8 +540,8 @@
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1794994339.923735,
-    "ast_hash": "48f2bf55b2395bc5dec150605cb8fcd7",
+    "mtime": 1795004940.7179227,
+    "ast_hash": "fc15d7dc5bedfa41c51f2be91fee7125",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -550,18 +550,18 @@
     "semantic_hash": ""
   },
   ".cantiere/PAGELLE.md": {
-    "mtime": 1794994329.3530467,
-    "ast_hash": "422d70614ce576242f833e039d78fa03",
+    "mtime": 1795004925.8768148,
+    "ast_hash": "db10c130bbbd7ba1b6655449970b20a9",
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795004788.8588715,
-    "ast_hash": "ae96ce97455a51aa0a7797d3cfc9bafe",
+    "mtime": 1795004940.719418,
+    "ast_hash": "1ae80c979d48703ac076acb3f9b00935",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1794994339.9230928,
-    "ast_hash": "ff74f8db690b3c6b28ec521861baaf97",
+    "mtime": 1795004940.7175033,
+    "ast_hash": "bfc45e71d70076f7cedab06e8e1ff662",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795004923.2268448,
-    "ast_hash": "2a02a4f1f8ae10098c690b2ebee33588",
+    "mtime": 1795005343.0396335,
+    "ast_hash": "8de3709af986a7cc77a62485520ad3d2",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -845,8 +845,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/en.html": {
-    "mtime": 1794999130.4344697,
-    "ast_hash": "e1726cb21aee63997c17ad1e6ec8d107",
+    "mtime": 1795005172.202031,
+    "ast_hash": "8c84f2c21402c8e1e5640899ea22cf1b",
     "semantic_hash": ""
   },
   "SOCIAL/landing/fonts/OFL-Inter.txt": {
@@ -860,13 +860,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/index.html": {
-    "mtime": 1794999130.433649,
-    "ast_hash": "fa89290aa789f0de2adc14fe1b1ade41",
+    "mtime": 1795005172.201009,
+    "ast_hash": "324192df085a45c6af1f8aecf4f2cad7",
     "semantic_hash": ""
   },
   "SOCIAL/landing/privacy.html": {
-    "mtime": 1795004742.0326412,
-    "ast_hash": "2ed4dff25c6c1a81fba9d95add41749a",
+    "mtime": 1795005172.2024376,
+    "ast_hash": "48d20f35b96f1fc8b4e8f233fb9d96d8",
     "semantic_hash": ""
   },
   "SOCIAL/montaggio/README.md": {
@@ -935,8 +935,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/script.js": {
-    "mtime": 1794993799.8392274,
-    "ast_hash": "ba14a8b2f14befc504913e94b7073ddf",
+    "mtime": 1795005172.2655034,
+    "ast_hash": "d80cc24117df3bfd9cf5b3e81e8f8057",
     "semantic_hash": ""
   },
   ".cantiere/REGOLE-PROGETTO.md": {
@@ -955,18 +955,18 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/_worker.js": {
-    "mtime": 1795003601.282773,
-    "ast_hash": "67c930241e8a9b2db69f99249f4f5aec",
+    "mtime": 1795005172.2650356,
+    "ast_hash": "b0d83407277081e550dee6028e6aa450",
     "semantic_hash": ""
   },
   "SOCIAL/landing/confermato.html": {
-    "mtime": 1795000121.7211177,
-    "ast_hash": "fd9a97f5dd3a7621ce7893ac15037bda",
+    "mtime": 1795005172.2028902,
+    "ast_hash": "89b8013db5092ba669fbb12cb3604a2d",
     "semantic_hash": ""
   },
   "SOCIAL/landing/confirmed.html": {
-    "mtime": 1795000121.7212033,
-    "ast_hash": "ff86787aeedb267af0243df87b182af3",
+    "mtime": 1795005172.2031882,
+    "ast_hash": "593a0f33c99849ad2fd79809b3adf076",
     "semantic_hash": ""
   }
 }

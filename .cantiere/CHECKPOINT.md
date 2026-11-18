@@ -3,10 +3,10 @@
 > Il file per ripartire. Chi riapre il cantiere legge SOLO questo per capire dove siamo.
 > Gli storici stanno in `.cantiere/archivio/checkpoint/`.
 
-**Data:** 2026-11-18 13:29 · **Tag git:** checkpoint-2026-11-18-1329 · **Fatto da:** capocantiere (Claude Code · Sonnet) · veloce
+**Data:** 2026-11-18 13:35 · **Tag git:** checkpoint-2026-11-18-1335 · **Fatto da:** capocantiere (Claude Code · Sonnet) · veloce
 
 ## Siamo qui
-Ramo `redesign-sentiero`. **Landing online su https://bucktrailapp.com** (IT/EN, Cloudflare Pages, dominio Aruba con DNS Cloudflare). Lista d'attesa attiva: form → `_worker.js` → Brevo (lista ID 3) con double opt-in (modello ID 1, tag `optin`), notifica a Gmail, mittente `ciao@bucktrailapp.com`, logo nell'email. Privacy completa e approvata. Progetto SOCIAL in corso: gate Apple il 06/12.
+Ramo `redesign-sentiero`. **Landing online su https://bucktrailapp.com** (IT/EN, Cloudflare Pages, dominio Aruba con DNS Cloudflare). Lista d'attesa attiva: form → `_worker.js` → Brevo (lista ID 3) con double opt-in (modello ID 1, tag `optin`), notifica a Gmail, mittente `ciao@bucktrailapp.com`, logo nell'email. Privacy completa e approvata. Sicurezza: intestazioni (CSP, HSTS, X-Frame-Options ecc.) impostate dal `_worker.js`; favicon su ogni pagina; link interni senza `#sezione` nell'indirizzo (`script.js`). Progetto SOCIAL in corso: gate Apple il 06/12.
 
 ## Stato di salute
 🟢 collaudo.sh. Pagella misurata 99 (non consegnabile: 1 approvazione grafica, giudici e guardiano mancanti). Form provato end-to-end con email vera. Contatti di prova cancellati. Fuori posto in radice: `screenshot app/`, `Claude outputs/` (da spostare nel magazzino).
