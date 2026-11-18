@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 """Carosello di presentazione Bucktrail (4:5, 1080x1350).
 Uso (dalla radice del repo): python3 SOCIAL/caroselli/presentazione-v1/build.py
-Entrata: SOCIAL/clip-social/IMG_79xx.PNG (screenshot dell'iPhone, fuori da git)
-Uscita:  SOCIAL/clip-social/uscite/presentazione-v1/slide-XX.png (fuori da git)
+Entrata: SOCIAL/clip-social/post-1/materiale/IMG_79xx.PNG (screenshot dell'iPhone, fuori da git)
+Uscita:  SOCIAL/clip-social/post-1/pronto/slide-XX.png + copertina.png (fuori da git)
 Pulizia screenshot: via il banner «MODALITÀ DEMO», status bar rifatta pulita (9:41)."""
 import subprocess, sys
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[3]
-IN = ROOT / "SOCIAL/clip-social"
-OUT = IN / "uscite/presentazione-v1"
-WORK = OUT / "_lavoro"
+POST = ROOT / "SOCIAL/clip-social/post-1"
+IN = POST / "materiale"
+OUT = POST / "pronto"
+WORK = POST / "_lavoro"
 FONTS = ROOT / "SOCIAL/landing/fonts"
 ICON = ROOT / "MoneyTracker/Assets.xcassets/AppIcon.appiconset"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
@@ -70,18 +71,28 @@ def slide_app(n, tot, img, titolo, frase, w=650):
 <h1>{titolo}</h1><p class=f>{frase}</p>
 <div class=phone style="width:{w}px;top:{480 if w==650 else 430}px;border-radius:{100 if w==650 else 80}px"><img style="border-radius:{86 if w==650 else 66}px {86 if w==650 else 66}px 0 0" src="file://{img}"></div>""")
 
-def slide_titolo(tot):
-    return html(f"""<div class=meta><span>01 / {tot:02d}</span><span></span></div>
-<div class=c style="position:absolute;top:250px;left:0;right:0">
-<img class=logo src="file://{ICON}/AppIcon_light_1024.png"
- onerror="this.style.display='none'">
-<h1 style="position:static;margin:60px 70px 0;font-size:112px">Bucktrail: il budget senza abbonamenti</h1>
-<p class=f style="position:static;width:auto;margin-top:40px;font-size:48px;color:#3c423f">Il giro completo dell'app</p></div>
-<svg style="position:absolute;left:0;bottom:120px" width=1080 height=200 viewBox="0 0 1080 200">
-<path d="M60 120 L330 150 L560 110" stroke="#2CB98A" stroke-width="10" fill="none" stroke-linecap="round"/>
-<circle cx=560 cy=110 r=16 fill="#2CB98A"/>
-<path d="M560 110 L1010 60" stroke="#F0A050" stroke-width="10" stroke-dasharray="2 26" stroke-linecap="round" fill="none"/>
-<circle cx=1010 cy=60 r=16 fill="#F0A050"/></svg>""")
+HERO_CSS = """
+body.d{background:#0E1210}
+.glow{position:absolute;inset:0;background:radial-gradient(900px 700px at 88% 8%,rgba(44,185,138,.28),transparent 60%),radial-gradient(900px 700px at 0% 100%,rgba(240,160,80,.22),transparent 60%)}
+.brand{position:absolute;left:64px;display:flex;align-items:center;gap:22px;font-family:SG;font-weight:700;font-size:34px;letter-spacing:6px;color:#F6F6F2}
+.brand img{width:72px;height:72px;border-radius:18px}
+.hint{position:absolute;right:64px;font-size:30px;color:#9aa39e;letter-spacing:1px}
+.hero{position:absolute;left:64px;right:64px;font-family:SG;font-weight:700;color:#F6F6F2;letter-spacing:-3px;line-height:.98}
+.hero em{font-style:normal;color:#F0A050}
+.sub{position:absolute;left:64px;right:64px;font-size:46px;line-height:1.3;color:#C9D0CC}
+.phone.d{background:#050706;box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 2px #2a312d}
+"""
+
+def hero(img, alto):
+    """Prima slide / copertina: scura, di impatto. alto=1350 (carosello 4:5) o 1920 (copertina 9:16)."""
+    k = alto == 1920
+    return html(f"""<style>{HERO_CSS}body{{height:{alto}px}}</style><script>document.body.className='d'</script>
+<div class=glow></div>
+<div class=brand style="top:{90 if k else 60}px"><img src="file://{ICON}/AppIcon_light_1024.png"><span>BUCKTRAIL</span></div>
+<span class=hint style="top:{104 if k else 74}px">{'' if k else 'Scorri →'}</span>
+<div class=hero style="top:{290 if k else 190}px;font-size:{150 if k else 132}px">Arrivi a<br><em>fine mese?</em></div>
+<div class=sub style="top:{(290+360) if k else (190+330)}px">Il budget senza abbonamenti.<br>Per iPhone.</div>
+<div class="phone d" style="top:{1010 if k else 700}px;width:{720 if k else 640}px;border-radius:104px"><img style="border-radius:90px 90px 0 0" src="file://{img}"></div>""")
 
 def slide_fine(tot, tiktok):
     riga = "Lista d'attesa: bucktrailapp.com" if tiktok else "Lista d'attesa: link in bio"
@@ -93,17 +104,19 @@ def slide_fine(tot, tiktok):
 <p class=f style="position:static;width:auto;margin-top:36px;font-size:54px;color:#1E7F4F">4,99 € una volta</p>
 <p class=f style="position:static;width:auto;margin-top:6px;font-size:30px;color:#8a8f8c">prezzo di lancio previsto</p></div>""")
 
-def render(corpo, out):
+def render(corpo, out, alto=1350):
     h = WORK / (out.stem + ".html")
     h.write_text(corpo, encoding="utf-8")
     subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars",
-                    "--force-device-scale-factor=1", "--window-size=1080,1350",
+                    "--force-device-scale-factor=1", f"--window-size=1080,{alto}",
                     "--virtual-time-budget=3000", f"--screenshot={out}", f"file://{h}"],
                    check=True, capture_output=True)
 
 if __name__ == "__main__":
     tot = len(SLIDES) + 2
-    render(slide_titolo(tot), OUT / "slide-01.png")
+    home = pulisci(SLIDES[0][0], SLIDES[0][3])
+    render(hero(home, 1350), OUT / "slide-01.png")
+    render(hero(home, 1920), OUT / "copertina.png", 1920)
     for i, (f, t, fr, b, *w) in enumerate(SLIDES, start=2):
         render(slide_app(i, tot, pulisci(f, b), t, fr, *w), OUT / f"slide-{i:02d}.png")
     render(slide_fine(tot, False), OUT / f"slide-{tot:02d}-instagram.png")
