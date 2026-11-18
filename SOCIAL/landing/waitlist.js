@@ -19,10 +19,28 @@ for (const link of document.querySelectorAll("[data-language]")) {
   if (attribution.size) link.search = attribution.toString();
 }
 
-const endpoint = form.getAttribute("action");
-const active = endpoint.startsWith("https://");
-form.addEventListener("submit", (event) => {
-  if (!active) event.preventDefault();
+const it = document.documentElement.lang === "it";
+const msg = {
+  ok: it ? "Fatto: ti scriveremo il giorno del lancio." : "Done: we'll write to you on launch day.",
+  fail: it ? "Qualcosa non ha funzionato. Riprova tra poco o scrivi a bucktrailapp@gmail.com." : "Something went wrong. Try again soon or write to bucktrailapp@gmail.com.",
+  sending: it ? "Invio in corso…" : "Sending…",
+};
+const status = document.querySelector("#waitlist-status");
+const button = form.querySelector("button");
+button.disabled = false;
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  button.disabled = true;
+  status.hidden = false;
+  status.textContent = msg.sending;
+  try {
+    const res = await fetch(form.action, { method: "POST", body: new FormData(form) });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error);
+    status.textContent = msg.ok;
+    form.reset();
+  } catch {
+    status.textContent = msg.fail;
+    button.disabled = false;
+  }
 });
-form.querySelector("button").disabled = !active;
-document.querySelector("#waitlist-status").hidden = active;

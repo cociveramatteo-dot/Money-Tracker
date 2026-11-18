@@ -76,7 +76,8 @@
       <div class="wrap">
         <div class="wlbox">
           <div class="wlbox__text"><p class="eyebrow">Waitlist</p><h2 id="wl-h">Tell me when it’s out.</h2><p class="lead">Leave your email: we’ll write once, on launch day.</p></div>
-          <form class="waitlist" method="post" action="[DA COMPLETARE]">
+          <form class="waitlist" method="post" action="/api/subscribe">
+            <input class="vh" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
             <label class="vh" for="email">Your email</label>
             <div class="fields">
               <input id="email" name="email" type="email" autocomplete="email" placeholder="Your email" required>
@@ -84,7 +85,7 @@
             </div>
             <label class="consent"><input type="checkbox" name="consent" value="launch-v1" required><span>I agree to receive an email when Bucktrail is available. We will only use your address for this and you can unsubscribe any time. Campaign parameters, when present, are stored with your signup.</span></label>
             <p class="small"><a href="privacy.html">Privacy policy (Italian)</a> · One email at launch. No spam.</p>
-            <p id="waitlist-status" role="status" class="small">The waitlist is not open yet.</p>
+            <p id="waitlist-status" role="status" class="small" hidden></p>
           </form>
         </div>
       </div>
