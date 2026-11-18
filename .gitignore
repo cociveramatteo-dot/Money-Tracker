@@ -58,3 +58,6 @@ __pycache__/
 .env
 .env.*
 !.env.example
+
+# materiale grezzo social (pesante, resta fuori da git)
+SOCIAL/clip-social/

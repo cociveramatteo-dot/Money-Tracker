@@ -4,10 +4,10 @@
 
 Serve FFmpeg con libass, libx264 e ffprobe. La conversione HDR richiede anche zscale. Su macOS, `brew install ffmpeg-full`. Lo script rileva la formula Homebrew oppure usa i binari nel PATH. Per percorsi diversi, imposta `FFMPEG_BIN` e `FFPROBE_BIN`.
 
-Dalla radice del repository, con la clip nella cartella `~/Desktop/clip-social/`:
+Dalla radice del repository, con la clip nella cartella `SOCIAL/clip-social/`:
 
 ```bash
-SOCIAL/montaggio/master.sh ripresa.mov SOCIAL/montaggio/modello.ass ~/Desktop/clip-social/master.mp4 0:3 3:7:2 7:12
+SOCIAL/montaggio/master.sh ripresa.mov SOCIAL/montaggio/modello.ass SOCIAL/clip-social/master.mp4 0:3 3:7:2 7:12
 SOCIAL/montaggio/test-fumo.sh
 ```
 
