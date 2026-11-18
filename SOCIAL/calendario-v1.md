@@ -2,6 +2,9 @@
 
 Base: manuale `Bucktrail_Manuale_Strategico_v2.pdf` §15. Il dettaglio giorno per giorno (cosa pubblicare, hook, orari di test 13:00 / 18:30 / 21:00) resta quello del manuale: qui sono solo le differenze.
 
+## Formato dei contenuti (decisione 2026-11-19)
+**Faceless:** niente voce né volto, solo mani + iPhone o caroselli bianchi puliti, titolo grande in sovrimpressione, musica di tendenza TikTok. Ogni voce «a voce» di questo calendario e del manuale (es. F8) diventa video mani+telefono o carosello con lo stesso hook scritto. Dettagli in `.cantiere/DECISIONI.md`.
+
 ## Cosa cambia rispetto al manuale
 1. **Partenza anticipata:** si inizia mer 18/11 con una «settimana 0» (18–22/11). Dal lun 23/11 le date sono quelle del manuale (settimane 1–8 invariate). Lancio target: **mar 12/01/2027**.
 2. **Apple Developer Program non pagato** (decisione 2026-11-17, `DECISIONI.md`). Link in bio = landing con email, non pre-order. Misura con UTM (`utm_source=tt|ig|yt`).
@@ -12,8 +15,8 @@ Base: manuale `Bucktrail_Manuale_Strategico_v2.pdf` §15. Il dettaglio giorno pe
 | Giorno | Pubblicazione | Lavoro dietro le quinte |
 |---|---|---|
 | mer 18/11 | — | Matteo: account `@bucktrail` (SC-1) e clip base (SC-2). Io: calendario (SC-0). Redattore: testi (SC-3). Codex: landing (SC-4) |
-| gio 19/11 | F8 «Studente, app senza abbonamenti. Giorno 1.» TT+R+S 13:00 (serve solo voce + 30 s di Xcode) | Bio senza link: «landing in arrivo». Approvazione testi |
-| ven 20/11 | F1 «Questa linea tratteggiata ti dice se arrivi a fine mese.» 18:30 | Landing online e in bio (serve ok di Matteo per pubblicare e hosting). Parte il diario metriche (SC-6) |
+| gio 19/11 | ~~F8 a voce~~ **SOSPESO**: si rifà in formato faceless (carosello/mani+telefono) appena Matteo porta il materiale (SC-2) | Bio senza link: «landing in arrivo». Approvazione testi |
+| ven 20/11 | F1 «Questa linea tratteggiata ti dice se arrivi a fine mese.» 18:30, in formato mani+telefono con titolo a schermo e musica | Landing online e in bio (serve ok di Matteo per pubblicare e hosting). Parte il diario metriche (SC-6) |
 | sab 21/11 | Storie: sondaggio «Sai già quanto ti resta a fine mese?» | — |
 | dom 22/11 | nessun post | Diario; prime metriche |
 

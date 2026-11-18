@@ -8,5 +8,5 @@
 
 ## Aperto
 - SC-3 testi ancora ⏳ in APPROVAZIONI (Matteo ha usato le bio ma non ha scritto «testi ok»).
-- Matteo: SC-2 clip; nome TikTok e Business dal 24/11; gio 19/11 primo video F8.
+- Matteo: SC-2 materiale (schermo, mani+telefono, screenshot); nome TikTok e Business dal 24/11. 2026-11-19: formato social cambiato in faceless (DECISIONI), F8 a voce sospeso, SC-7 al redattore.
 - SC-6 diario metriche da collaudare. Nessun file di sorgente app toccato.

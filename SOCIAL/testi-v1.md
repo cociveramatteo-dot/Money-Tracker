@@ -2,6 +2,8 @@
 
 Revisione SC-3b 2026-11-17: tolti elementi personali (studente, Parma, "io/mio", storie vissute). Voce di brand, nessuna persona.
 
+**FORMATO 2026-11-19 (prevale su tutto il resto del file):** contenuti faceless: mai voce né volto, solo mani + iPhone o caroselli bianchi puliti, titolo grande in sovrimpressione, musica/suoni di tendenza TikTok. Ogni «voce» o «a voce» qui sotto = testo a schermo. Hook, caption, claim e hashtag restano; la forma (script, slide, materiale richiesto) si riscrive in SC-7. Vedi `.cantiere/DECISIONI.md` 2026-11-19.
+
 Stato: BOZZA, tutto ⏳ da approvare da Matteo. Nulla è da pubblicare.
 Fonte: Manuale strategico v2 (§1.1-1.3, 5.4, 6, 8.4, 10.3, 12). Conteggi fatti a mano: ricontrollare incollando nei campi reali.
 
@@ -35,7 +37,7 @@ Regola TikTok (account personale, niente campo link finché non si passa a Busin
 
 Hashtag: 3-5 per post (Instagram max 5). I testi a schermo hanno max 5 parole per riga. Prezzo sempre "di lancio previsto".
 
-### F8 — Build in public (voce di brand: solo testo a schermo, nessuna voce né volto)
+### F8 — Build in public (formato faceless 2026-11-19: carosello o mani+telefono, titolo a schermo, musica TikTok; nessuna voce né volto)
 Hook (3 varianti):
 1. «Giorno 1 di Bucktrail: un'app di budget senza abbonamento.»
 2. «Quanto costa pubblicare un'app sull'App Store (numeri veri).» → [DA COMPLETARE: cifre reali, le dà Matteo]

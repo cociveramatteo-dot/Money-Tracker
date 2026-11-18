@@ -18,10 +18,10 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ▶️ Dal 24/11 cambia il nome in `Bucktrail · budget`. Dopo il primo post passa ad Account Business (Impostazioni e privacy → Account) e metti nel campo Sito web: `https://bucktrailapp.com/?utm_source=tiktok&utm_medium=bio`; poi la bio può tornare a «link in bio».
 ↩️ Scrivi «tiktok ok».
 
-### SOCIAL · SC-2 — clip base (questa settimana, 20-30 min)
-📍 iPhone vero (il Simulatore non ha tocco posteriore), app in modalità demo, Non disturbare, batteria piena.
-▶️ Registra lo schermo, in chiaro e in scuro: Home con la curva, aggiunta spesa, ricorrenti, budget, obiettivi, statistiche; modalità aereo + Face ID; tocco posteriore «Aggiungi spesa». Più 30 s di schermo di Xcode. Salva in `~/Desktop/clip-social/` (non in git).
-↩️ Scrivi «clip pronte».
+### SOCIAL · SC-2 — materiale per i contenuti (formato faceless, 2026-11-19)
+📍 iPhone vero, app in modalità demo, Non disturbare, batteria piena. Il capocantiere ti dice di volta in volta cosa serve; il primo giro:
+▶️ 1) **Registrazione schermo** (sia chiaro che scuro): Home con la curva tratteggiata, aggiunta di una spesa, ricorrenti, budget, obiettivi, statistiche. 2) **Video delle mani**: tieni l'iPhone con l'app davanti a un muro/scrivania chiari e puliti, luce di finestra, telefono dritto, scorri e tocca lentamente la Home (10-15 s per clip, verticale 9:16, senza volto né voce). 3) **Screenshot** puliti della Home, aggiunta spesa e statistiche. Salva in `~/Desktop/clip-social/` (non in git).
+↩️ Scrivi «materiale pronto».
 
 ### S-33 — decidere osservazione dopo diagnosi non riproducibile
 Diagnosi autorizzata il 2026-11-16 ed eseguita: due run isolati e tutta la suite verdi sul main `4fb666a`, senza modificare codice/test. Causa del vecchio rosso non accertata; dettagli in CONSEGNA. Proposta: mantenerlo in osservazione.
