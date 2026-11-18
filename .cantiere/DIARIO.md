@@ -138,3 +138,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-18 00:50 | == CHECKPOINT (veloce) | capocantiere | collaudo.sh 🟢, graphify aggiornato, pagella misurata 99 | vedi CHECKPOINT.md |
 | 2026-11-18 00:47 | modello | aggiornamento | Modello 2.4.0 → 2.4.1 | — |
 | 2026-11-18 01:07 | modello | aggiornamento | Modello 2.4.1 → 2.5.0 | unire: AGENTS.md CLAUDE.md |
+| 2026-11-18 01:07 | capocantiere (Claude Code · Sonnet) | regole per tutti | Regole del progetto spostate da CLAUDE.md a .cantiere/REGOLE-PROGETTO.md (lette da tutti); modello 2.5.0 | niente |
