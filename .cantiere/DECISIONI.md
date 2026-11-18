@@ -149,3 +149,5 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - **Effetto sul manuale:** cambia il FORMATO (F8 «Giorno 1» a voce e ogni parlato decadono, cfr. deroga 2026-11-17); restano validi strategia, claim vietati §1.3, gate 06/12, soglie, diario metriche.
 - **Da verificare:** la decisione 2026-11-17 «niente musica» valeva per l'account Business; con l'account personale la libreria musicale TikTok è disponibile (da controllare in app). Prima di passare a Business il 24/11 considerare che lì le musiche di tendenza sono limitate.
 - **Procedura:** per ogni contenuto il capocantiere dice a Matteo cosa serve (video schermo, screenshot, foto/video delle mani); poi testi (redattore) e montaggio (script `SOCIAL/montaggio`, caroselli in `SOCIAL/caroselli`).
+
+- **Regola 2026-11-19 (Matteo):** negli screenshot e nelle registrazioni dell'app per i social si toglie SEMPRE la scritta «modalità demo» prima di usarli (montaggio: ritaglio/copertura, controllo finale; se non pulito, si rifà lo screen).
