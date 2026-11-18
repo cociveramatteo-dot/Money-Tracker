@@ -33,3 +33,10 @@ for (const box of document.querySelectorAll(".tabs")) {
     });
   });
 }
+
+// Animazione della curva «Perché Bucktrail»
+const bento = document.querySelector(".bento");
+if (bento && "IntersectionObserver" in window) {
+  const io2 = new IntersectionObserver((e) => { if (e[0].isIntersecting) { bento.classList.add("in"); io2.disconnect(); } }, { threshold: .3 });
+  io2.observe(bento);
+} else if (bento) bento.classList.add("in");
