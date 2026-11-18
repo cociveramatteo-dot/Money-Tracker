@@ -193,11 +193,11 @@ dd { color: var(--muted); font-size: .9375rem; line-height: 1.55; }
 .sec--line { border-top: 1px solid var(--border); }
 .tabs { display: grid; gap: 1.25rem; }
 .tablist { display: flex; gap: .5rem; overflow-x: auto; padding-bottom: .25rem; }
-.tablist button { flex: none; display: flex; align-items: center; gap: .75rem; min-height: 48px; padding: 0 1rem; border: 1px solid transparent; border-radius: 14px; background: transparent; color: #3E4640; font: 700 .9375rem var(--head); cursor: pointer; text-align: left; white-space: nowrap; }
-.tablist .n { font-size: .8125rem; color: var(--amber); }
+.tablist button { flex: none; display: flex; align-items: center; gap: .75rem; min-height: 48px; padding: .5rem 1rem; border: 1px solid transparent; border-radius: 14px; background: transparent; color: #3E4640; font: 700 .9375rem/1.25 var(--head); cursor: pointer; text-align: left; white-space: nowrap; }
+.tablist .n { flex: none; width: 1.4rem; font-size: .8125rem; color: var(--amber); font-variant-numeric: tabular-nums; }
 .tablist button[aria-selected="true"] { background: var(--surface); border-color: var(--border); color: var(--text); }
 .tablist button[aria-selected="true"] .n { color: var(--green); }
-.fgrid { display: grid; gap: 1rem; align-items: start; }
+.fgrid { display: grid; gap: 1rem; align-items: stretch; }
 .fcard { padding: 1.25rem 1.4rem; border: 1px solid var(--border); border-radius: 22px; background: var(--surface); }
 .fcard h4 { margin: 0 0 .4rem; font: 700 1.0625rem var(--head); }
 .fcard p { color: var(--muted); font-size: .9375rem; line-height: 1.55; }
@@ -210,7 +210,7 @@ html:not(.js) .tablist { display: none; }
 @media (min-width: 56rem) {
   .tabs { grid-template-columns: 17.5rem 1fr; gap: 2rem; }
   .tablist { flex-direction: column; overflow: visible; }
-  .tablist button { width: 100%; }
+  .tablist button { width: 100%; white-space: normal; }
   .fgrid { grid-template-columns: repeat(2, 1fr); }
 }
 
