@@ -92,16 +92,20 @@ HOOKS = {
     "F": ("Vedi come finisce<br>il mese. <em>Prima<br>che finisca.</em>", 3,
           "Bucktrail, il budget per iPhone<br>senza abbonamenti."),
 }
-HOOK = "B"
+HOOKS["G"] = ("Ogni conto<br>al suo posto.<br><em>Ogni euro<br>in chiaro.</em>", 4,
+              "Dal saldo al dettaglio di ogni spesa.<br>Un'unica app, senza abbonamento.")
+HOOKS["H"] = ("Chiudi Excel.<br><em>I tuoi conti<br>sono già qui.</em>", 3,
+              "Tutti i conti e i movimenti in un'unica app,<br>senza IA da pagare né abbonamenti.")
+HOOK = "G"
 
 def hero(img, alto, hook=None):
     """Prima slide / copertina: scura, di impatto. alto=1350 (carosello 4:5) o 1920 (copertina 9:16)."""
     titolo, n, sub = HOOKS[hook or HOOK]
     k = alto == 1920
-    fs = ({2: 150, 3: 128} if k else {2: 132, 3: 112})[n]
-    top = 290 if k else 190
+    fs = ({2: 150, 3: 128, 4: 118} if k else {2: 132, 3: 112, 4: 92})[n]
+    top = 290 if k else (170 if n == 4 else 190)
     sub_top = int(top + n * fs * 0.98 + 50)
-    phone_top = max(1010, sub_top + 190) if k else sub_top + 170
+    phone_top = max(1010, sub_top + 190) if k else sub_top + (150 if n == 4 else 170)
     return html(f"""<style>{HERO_CSS}body{{height:{alto}px}}</style><script>document.body.className='d'</script>
 <div class=glow></div>
 <div class=brand style="top:{90 if k else 60}px"><img src="file://{ICON}/AppIcon_light_1024.png"><span>BUCKTRAIL</span></div>
