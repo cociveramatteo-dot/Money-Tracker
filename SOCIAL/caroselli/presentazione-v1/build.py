@@ -66,8 +66,10 @@ p.f{{position:absolute;top:250px;left:64px;width:900px;text-wrap:balance;font-si
 def html(corpo):
     return f"<!doctype html><meta charset=utf-8><style>{CSS}</style><body>{corpo}</body>"
 
-def slide_app(n, tot, img, titolo, frase, w=650):
-    return html(f"""<div class=meta><span>{n:02d} / {tot:02d}</span><span>Dati di esempio</span></div>
+ESEMPIO = {"IMG_home-nuova.PNG", "IMG_7916.PNG", "IMG_7920.PNG"}   # slide con cifre: Home, Movimenti, Statistiche
+
+def slide_app(n, tot, img, titolo, frase, w=650, esempio=False):
+    return html(f"""<div class=meta><span>{n:02d} / {tot:02d}</span><span>{"Dati di esempio" if esempio else ""}</span></div>
 <h1>{titolo}</h1><p class=f>{frase}</p>
 <div class=phone style="width:{w}px;top:{480 if w==650 else 430}px;border-radius:{100 if w==650 else 80}px"><img style="border-radius:{86 if w==650 else 66}px {86 if w==650 else 66}px 0 0" src="file://{img}"></div>""")
 
@@ -116,13 +118,15 @@ def hero(img, alto, hook=None):
 
 def slide_fine(tot, tiktok):
     riga = "Lista d'attesa: bucktrailapp.com" if tiktok else "Lista d'attesa: link in bio"
-    return html(f"""<div class=meta><span>{tot:02d} / {tot:02d}</span><span></span></div>
-<div class=c style="position:absolute;top:300px;left:0;right:0">
-<img class=logo src="file://{ICON}/AppIcon_light_1024.png" onerror="this.style.display='none'">
-<h1 style="position:static;margin:60px 70px 0;font-size:104px">Seguici per altro</h1>
-<p class=f style="position:static;width:auto;margin-top:50px;font-size:54px;color:#121614">{riga}</p>
-<p class=f style="position:static;width:auto;margin-top:36px;font-size:54px;color:#1E7F4F">4,99 € una volta</p>
-<p class=f style="position:static;width:auto;margin-top:6px;font-size:30px;color:#8a8f8c">prezzo di lancio previsto</p></div>""")
+    return html(f"""<style>{HERO_CSS}</style><script>document.body.className='d'</script>
+<div class=glow></div>
+<div class=meta style="color:#9aa39e"><span>{tot:02d} / {tot:02d}</span><span></span></div>
+<div class=c style="position:absolute;top:230px;left:0;right:0;color:#F6F6F2">
+<img class=logo style="width:300px;height:300px;border-radius:70px;box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 0 2px #2a312d" src="file://{ICON}/AppIcon_light_1024.png">
+<h1 style="position:static;margin:80px 70px 0;font-size:112px;color:#F6F6F2">Seguici per altro</h1>
+<p class=f style="position:static;width:auto;margin-top:60px;font-size:54px;color:#F6F6F2">{riga}</p>
+<p class=f style="position:static;width:auto;margin-top:40px;font-size:58px;color:#F0A050;font-family:SG;font-weight:700">4,99 € una volta</p>
+<p class=f style="position:static;width:auto;margin-top:8px;font-size:30px;color:#9aa39e">prezzo di lancio previsto</p></div>""")
 
 def render(corpo, out, alto=1350):
     h = WORK / (out.stem + ".html")
@@ -144,7 +148,7 @@ if __name__ == "__main__":
     render(hero(home, 1350), OUT / "slide-01.png")
     render(hero(home, 1920), OUT / "copertina.png", 1920)
     for i, (f, t, fr, b, *w) in enumerate(SLIDES, start=2):
-        render(slide_app(i, tot, pulisci(f, b), t, fr, *w), OUT / f"slide-{i:02d}.png")
+        render(slide_app(i, tot, pulisci(f, b), t, fr, *w, esempio=f in ESEMPIO), OUT / f"slide-{i:02d}.png")
     render(slide_fine(tot, False), OUT / f"slide-{tot:02d}-instagram.png")
     render(slide_fine(tot, True), OUT / f"slide-{tot:02d}-tiktok.png")
     print("ok", sorted(p.name for p in OUT.glob("slide-*.png")))
