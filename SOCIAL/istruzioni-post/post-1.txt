@@ -1,0 +1,72 @@
+POST 1 - CAROSELLO "OGNI CONTO AL SUO POSTO"
+============================================================
+
+QUANDO
+Giorno: giovedi 19 novembre 2026
+Ora: 13:00
+Dove: TikTok e Instagram (stesso giorno, stessa ora)
+
+COSA PUBBLICARE
+Cartella "TikTok": 9 immagini numerate 01-09. Selezionale tutte nell'ordine.
+Cartella "Instagram": 9 immagini numerate 01-09. Selezionale tutte nell'ordine.
+(La cartella "Copertina facoltativa" e' un'immagine in piu: NON va nel carosello.)
+
+PRIMA DI PUBBLICARE (1 minuto)
+1. Sul telefono: File > Google Drive > MAGAZZINO > CANTIERI > moneytracker > 04_CONSEGNE > social > post-1
+2. Apri la cartella TikTok, tocca "Seleziona", "Seleziona tutto", poi Condividi > "Salva 9 immagini". Vanno nell'app Foto.
+3. Stessa cosa con la cartella Instagram (solo se pubblichi anche li).
+
+============================================================
+TIKTOK
+============================================================
+
+COME
+Apri TikTok > tocca + > "Carica" > scheda "Foto" > tocca le immagini nell'ordine 01, 02, ... 09 > "Avanti".
+
+SUONO
+Tocca "Aggiungi suono". Cerca musica strumentale, calma e pulita (per esempio lo-fi leggero o pianoforte morbido). Senza parlato, senza voce cantata.
+Suono scelto: ______________________
+
+DESCRIZIONE (copia tutto quello che sta tra le due linee)
+--- INIZIO TESTO DA COPIARE ---
+Ogni conto al suo posto. Ogni euro in chiaro.
+Bucktrail riunisce in un'unica app per iPhone conti, movimenti, ricorrenze, budget, obiettivi e statistiche. Senza abbonamento: 4,99 € una volta (prezzo di lancio previsto).
+Lista d'attesa su bucktrailapp.com
+#bucktrail #finanzapersonale #budget #appiphone
+--- FINE TESTO DA COPIARE ---
+
+POI
+Tocca "Pubblica". Non aggiungere altro testo o hashtag.
+
+============================================================
+INSTAGRAM
+============================================================
+
+COME
+Apri Instagram > tocca + > "Post" > icona dei quadratini sovrapposti (selezione multipla) > tocca le immagini nell'ordine 01, 02, ... 09 > "Avanti" > "Avanti" (niente filtri).
+
+MUSICA (facoltativa)
+Tocca "Aggiungi musica". Stesso stile: strumentale, calma, senza parlato.
+Musica scelta: ______________________
+
+DESCRIZIONE (copia tutto quello che sta tra le due linee)
+--- INIZIO TESTO DA COPIARE ---
+Ogni conto al suo posto. Ogni euro in chiaro.
+Bucktrail riunisce in un'unica app per iPhone conti, movimenti, ricorrenze, budget, obiettivi e statistiche. Senza abbonamento: 4,99 € una volta (prezzo di lancio previsto).
+Lista d'attesa: link in bio.
+#bucktrail #finanzapersonale #budget #appiphone #risparmio
+--- FINE TESTO DA COPIARE ---
+
+POI
+Tocca "Condividi".
+
+============================================================
+DOPO LA PUBBLICAZIONE
+============================================================
+1. Controlla che la prima immagine si veda intera nella griglia del profilo.
+2. Scrivi a Claude "pubblicato" e incolla i due link dei post.
+3. Dopo 24 ore: scrivi a Claude le visualizzazioni, i salvataggi e i commenti (servono per il diario delle metriche).
+
+NOTE
+- L'app non e' ancora sullo Store: non scrivere "scarica" in nessun commento. Se qualcuno chiede, rispondi "lista d'attesa su bucktrailapp.com".
+- Non rispondere a domande sui dati, sul cloud o sulle IA finche' non ne parliamo con Claude.

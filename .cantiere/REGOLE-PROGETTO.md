@@ -38,6 +38,7 @@ Bucktrail = **l'app unica per conti e movimenti personali**. I temi da far passa
 3. **C'è tutto ciò che serve**, quello che si cerca nelle app simili, **in un'app sola**.
 4. **Senza abbonamento** (4,99 € una volta, «prezzo di lancio previsto» finché non è sullo Store).
 5. **Basta Excel, basta pagare altri servizi (anche IA):** tutto in un'app.
+**Consegna dei post a Matteo (2026-11-19):** niente AirDrop. Ogni post si esporta su Drive con `python3 SOCIAL/esporta-post.py N` in `04_CONSEGNE/social/post-N/` (cartelle `TikTok/` e `Instagram/` con le immagini numerate 01-09, copertina facoltativa, e `00 LEGGIMI - POST N.txt`). Lì dentro SOLO cose da pubblicare. Il file di testo è `.txt` semplice (non md), da copiare e incollare: giorno, ora, piattaforme, ordine dei file, musica, descrizioni, hashtag, link, passi di pubblicazione, cosa fare dopo. Si scrive in `SOCIAL/istruzioni-post/post-N.txt` (versionato) e lo script lo copia.
 Cautele (manuale §1.3): niente «definitiva» o confronti con altre app per nome; niente promesse su privacy/dati verso le IA o sul cloud finché non sono verificate sul codice (l'app ha la sincronizzazione Supabase); niente dati inventati. Frase-titolo: Matteo sta scegliendo (opzioni in `SOCIAL/caroselli/presentazione-v1.md` e DECISIONI 2026-11-19).
 
 ## Workflow checkpoint
