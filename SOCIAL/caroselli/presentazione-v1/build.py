@@ -29,6 +29,8 @@ SLIDES = [
     ("IMG_7920.PNG", "Statistiche", "Capisci dove vanno i soldi", True),
 ]
 
+BATTERIA_DA = "IMG_7916.PNG"   # screenshot con la batteria originale più usata (59%)
+
 def pulisci(nome, banner):
     im = Image.open(IN / nome).convert("RGB")
     d = ImageDraw.Draw(im)
@@ -40,14 +42,18 @@ def pulisci(nome, banner):
     f = ImageFont.truetype(str(FONTS / "SpaceGrotesk-Bold.ttf"), 54)
     d.text((88, 80), "9:41", font=f, fill=(17, 17, 17), anchor="lm")
     d.rounded_rectangle([465, 46, 705, 112], radius=33, fill=(8, 8, 8))   # isola
-    for i, h in enumerate((16, 24, 32, 40)):                                # segnale
-        d.rounded_rectangle([822 + i * 17, 100 - h, 834 + i * 17, 100], radius=4, fill=(17, 17, 17))
-    # batteria come sull'iPhone di Matteo: 100% in carica (verde, numero, fulmine)
-    d.rounded_rectangle([918, 56, 1046, 104], radius=14, fill=(52, 199, 89))
-    d.rounded_rectangle([1050, 70, 1058, 90], radius=3, fill=(52, 199, 89))
-    fb = ImageFont.truetype(str(FONTS / "SpaceGrotesk-Bold.ttf"), 32)
-    d.text((964, 81), "100", font=fb, fill=(17, 17, 17), anchor="mm")
-    d.polygon([(1030, 63), (1016, 83), (1025, 83), (1020, 98), (1036, 76), (1027, 76), (1032, 63)], fill=(255, 255, 255))
+    # segnale + 5G + batteria VERI, ritagliati dallo screenshot originale (batteria più frequente: 59%)
+    sorg = Image.open(IN / BATTERIA_DA).convert("RGB")
+    box = (850, 48, 1105, 112)
+    cr = sorg.crop(box)
+    bg0 = sorg.getpixel((600, 80))
+    alfa = Image.new("L", cr.size)
+    ap, cp = alfa.load(), cr.load()
+    for yy in range(cr.height):
+        for xx in range(cr.width):
+            dmax = max(abs(cp[xx, yy][k] - bg0[k]) for k in range(3))
+            ap[xx, yy] = min(255, dmax * 4)
+    im.paste(cr, box[:2], alfa)
     p = WORK / ("pulito-" + nome.lower())
     im.save(p)
     return p
