@@ -151,3 +151,8 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - **Procedura:** per ogni contenuto il capocantiere dice a Matteo cosa serve (video schermo, screenshot, foto/video delle mani); poi testi (redattore) e montaggio (script `SOCIAL/montaggio`, caroselli in `SOCIAL/caroselli`).
 
 - **Regola 2026-11-19 (Matteo):** negli screenshot e nelle registrazioni dell'app per i social si toglie SEMPRE la scritta «modalità demo» prima di usarli (montaggio: ritaglio/copertura, controllo finale; se non pulito, si rifà lo screen).
+
+## 2026-11-19 · Messaggio di brand dei social (Matteo)
+- **Cosa:** i cinque temi (design pulito e professionale; tanta complessità ben divisa; c'è tutto in un'app sola; senza abbonamento; basta Excel e basta pagare altri servizi/IA) vanno in tutti i contenuti. Testo completo in `.cantiere/REGOLE-PROGETTO.md`, sezione «Messaggio di brand dei social».
+- **Da verificare prima di dirlo:** la parte «soldi dati alle IA» (cosa si intende e se è vera: l'app sincronizza con Supabase). Finché non è chiaro non è una promessa pubblica.
+- **Frase del titolo (prima slide):** in scelta. Opzione consigliata «Basta Excel. Basta abbonamenti. Un'app sola.» sotto «Conti, movimenti, budget, obiettivi e statistiche.»

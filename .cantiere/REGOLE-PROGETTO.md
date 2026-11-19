@@ -31,6 +31,15 @@ Ammessi nella root **solo** le cartelle e i file elencati sopra (più i file di 
 
 Ogni lavoro sul lancio social (testi, format, montaggio, calendario, metriche, legale) segue **sempre** `SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf`. Decisioni, soglie e calendario: `.cantiere/DECISIONI.md`, `SOCIAL/calendario-v1.md`, task SC-* in `.cantiere/PIANO.md`.
 
+### Messaggio di brand dei social (Matteo, 2026-11-19) — da usare in OGNI contenuto
+Bucktrail = **l'app unica per conti e movimenti personali**. I temi da far passare, in ogni post, titolo o caption:
+1. **Design pulito e professionale** (Sentiero), semplice da usare.
+2. **Tanta complessità, ben divisa e spiegata:** conti, movimenti, ricorrenze, budget, obiettivi, statistiche; ogni cosa al suo posto.
+3. **C'è tutto ciò che serve**, quello che si cerca nelle app simili, **in un'app sola**.
+4. **Senza abbonamento** (4,99 € una volta, «prezzo di lancio previsto» finché non è sullo Store).
+5. **Basta Excel, basta pagare altri servizi (anche IA):** tutto in un'app.
+Cautele (manuale §1.3): niente «definitiva» o confronti con altre app per nome; niente promesse su privacy/dati verso le IA o sul cloud finché non sono verificate sul codice (l'app ha la sincronizzazione Supabase); niente dati inventati. Frase-titolo: Matteo sta scegliendo (opzioni in `SOCIAL/caroselli/presentazione-v1.md` e DECISIONI 2026-11-19).
+
 ## Workflow checkpoint
 
 Ogni volta che si fa un checkpoint significativo, nell'ordine:
