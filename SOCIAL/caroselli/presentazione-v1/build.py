@@ -21,7 +21,7 @@ WORK.mkdir(parents=True, exist_ok=True)
 # (file, titolo, frase, ha_banner_demo)
 SLIDES = [
     ("IMG_home-nuova.PNG", "La Home", "La linea tratteggiata dice se arrivi a fine mese", True),
-    ("IMG_7921.PNG", "Aggiungi una spesa", "Importo, descrizione, categoria: fatto", False),
+    ("IMG_7925.PNG", "Aggiungi una spesa", "Scrivi il nome: la categoria arriva da sola", False),
     ("IMG_7916.PNG", "Movimenti", "Tutto ciò che entra ed esce", True),
     ("IMG_7922.PNG", "Ricorrenze", "Salta un mese o termina quando vuoi", False, 500),
     ("IMG_7918.PNG", "Budget", "Avviso all'80%, prima di sforare", True),
@@ -41,10 +41,13 @@ def pulisci(nome, banner):
     d.text((88, 80), "9:41", font=f, fill=(17, 17, 17), anchor="lm")
     d.rounded_rectangle([465, 46, 705, 112], radius=33, fill=(8, 8, 8))   # isola
     for i, h in enumerate((16, 24, 32, 40)):                                # segnale
-        d.rounded_rectangle([862 + i * 17, 100 - h, 874 + i * 17, 100], radius=4, fill=(17, 17, 17))
-    d.rounded_rectangle([945, 62, 1040, 98], radius=11, outline=(17, 17, 17), width=4)
-    d.rounded_rectangle([951, 68, 1030, 92], radius=6, fill=(17, 17, 17))
-    d.rounded_rectangle([1046, 72, 1054, 88], radius=3, fill=(17, 17, 17))
+        d.rounded_rectangle([822 + i * 17, 100 - h, 834 + i * 17, 100], radius=4, fill=(17, 17, 17))
+    # batteria come sull'iPhone di Matteo: 100% in carica (verde, numero, fulmine)
+    d.rounded_rectangle([918, 56, 1046, 104], radius=14, fill=(52, 199, 89))
+    d.rounded_rectangle([1050, 70, 1058, 90], radius=3, fill=(52, 199, 89))
+    fb = ImageFont.truetype(str(FONTS / "SpaceGrotesk-Bold.ttf"), 32)
+    d.text((964, 81), "100", font=fb, fill=(17, 17, 17), anchor="mm")
+    d.polygon([(1030, 63), (1016, 83), (1025, 83), (1020, 98), (1036, 76), (1027, 76), (1032, 63)], fill=(255, 255, 255))
     p = WORK / ("pulito-" + nome.lower())
     im.save(p)
     return p
