@@ -18,6 +18,11 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ▶️ Dal 24/11 cambia il nome in `Bucktrail · budget`. Dopo il primo post passa ad Account Business (Impostazioni e privacy → Account) e metti nel campo Sito web: `https://bucktrailapp.com/?utm_source=tiktok&utm_medium=bio`; poi la bio può tornare a «link in bio».
 ↩️ Scrivi «tiktok ok».
 
+### SOCIAL · Post 1 — pubblicazione carosello (ven 20/11, 18:30)
+📍 Qui in chat + TikTok e Instagram sull'iPhone.
+▶️ 1) Scrivimi «testi ok» dopo aver letto `SOCIAL/caroselli/presentazione-v1.md` (caption TikTok e Instagram). 2) Porta sull'iPhone (AirDrop) le slide da `SOCIAL/clip-social/post-1/pronto/`: per TikTok `slide-01`…`slide-08` + `slide-09-tiktok`; per Instagram `slide-01`…`slide-08` + `slide-09-instagram`. 3) Pubblica da app con musica scelta da te. Il passo per passo te lo scrivo io al momento.
+↩️ Scrivi «pubblicato» con il link del post.
+
 ### SOCIAL · SC-2 — materiale per i contenuti (formato faceless, 2026-11-19)
 📍 iPhone vero, app in modalità demo, Non disturbare, batteria piena. Il capocantiere ti dice di volta in volta cosa serve; il primo giro:
 ▶️ **Per il primo post (carosello tour, ven 20/11) bastano gli screenshot:** Home con la curva, aggiungi spesa, Movimenti, Ricorrenti, Budget, Obiettivi, Statistiche, in chiaro (scuro opzionale). Il resto serve dopo. Elenco completo: 1) **Registrazione schermo** (sia chiaro che scuro): Home con la curva tratteggiata, aggiunta di una spesa, ricorrenti, budget, obiettivi, statistiche. 2) **Video delle mani**: tieni l'iPhone con l'app davanti a un muro/scrivania chiari e puliti, luce di finestra, telefono dritto, scorri e tocca lentamente la Home (10-15 s per clip, verticale 9:16, senza volto né voce). 3) **Screenshot** puliti della Home, aggiunta spesa e statistiche. Salva in `SOCIAL/clip-social/post-N/materiale/` (la cartella è esclusa da git).
