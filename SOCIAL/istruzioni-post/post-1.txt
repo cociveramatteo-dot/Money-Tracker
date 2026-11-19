@@ -12,7 +12,7 @@ Cartella "Instagram": 9 immagini numerate 01-09. Selezionale tutte nell'ordine.
 (La cartella "Copertina facoltativa" e' un'immagine in piu: NON va nel carosello.)
 
 PRIMA DI PUBBLICARE (1 minuto)
-1. Sul telefono: File > Google Drive > MAGAZZINO > CANTIERI > moneytracker > 04_CONSEGNE > social > post-1
+1. Sul telefono: app File > Google Drive > Da postare > post-1
 2. Apri la cartella TikTok, tocca "Seleziona", "Seleziona tutto", poi Condividi > "Salva 9 immagini". Vanno nell'app Foto.
 3. Stessa cosa con la cartella Instagram (solo se pubblichi anche li).
 
