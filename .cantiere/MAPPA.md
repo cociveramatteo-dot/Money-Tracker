@@ -32,3 +32,16 @@
 
 ## Dettaglio
 <!-- il magazziniere elenca qui sottocartelle e file chiave del banco di lavoro, una riga ciascuno -->
+- `SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf` — manuale strategico social (fonte obbligatoria, git)
+- `SOCIAL/calendario-v1.md` — calendario dei post (git)
+- `SOCIAL/testi-v1.md`, `SOCIAL/diario-metriche.md` / `.csv` — testi e metriche (git)
+- `SOCIAL/esporta-post.py` — esporta un post su Drive: `python3 SOCIAL/esporta-post.py N` → «Il mio Drive/Da postare/post-N/» (radice del Drive, NON nel magazzino)
+- `SOCIAL/istruzioni-post/post-N.txt` — testo e istruzioni del post N (git)
+- `SOCIAL/clip-social/post-N/materiale/` — screenshot grezzi di Matteo (fuori da git, non si tocca)
+- `SOCIAL/clip-social/post-N/pronto/` — slide pronte del post N (fuori da git)
+- `SOCIAL/clip-social/post-N/_lavoro/` — HTML e PNG di lavorazione del post 1 (fuori da git)
+- `SOCIAL/caroselli/presentazione-v1/build.py` — genera le slide del carosello da `materiale/` a `pronto/` (`python3 SOCIAL/caroselli/presentazione-v1/build.py`)
+- `SOCIAL/caroselli/presentazione-v1.md` — testo del carosello di presentazione (git)
+- Carosello di prova superato (17/11): spostato nel magazzino in `02_RISORSE/lavorate/social-prove/prova-01/` (doppione anche in `social-caroselli/` e `fuori-git/`)
+- `SOCIAL/landing/`, `SOCIAL/montaggio/` — sito landing e script di montaggio (git)
+- `.cantiere/tmp/` — appunti e screenshot di collaudo (da decidere, vedi rapporto magazziniere)

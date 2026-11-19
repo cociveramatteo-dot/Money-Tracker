@@ -18,10 +18,20 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ▶️ Dal 24/11 cambia il nome in `Bucktrail · budget`. Dopo il primo post passa ad Account Business (Impostazioni e privacy → Account) e metti nel campo Sito web: `https://bucktrailapp.com/?utm_source=tiktok&utm_medium=bio`; poi la bio può tornare a «link in bio».
 ↩️ Scrivi «tiktok ok».
 
+### CHECKPOINT 2026-11-19 · Decisioni di pulizia (solo un sì/no, a parole va bene)
+📍 In chat, quando riprendiamo.
+▶️ Dimmi cosa fare di: 1) `.cantiere/tmp/`: 19 PNG di collaudo (14/11) e le cartelle `review-*` (s6, s7, s8, s14, s31): le sposto nel magazzino o le cancello? 2) il vecchio carosello di prova (17/11, con frasi personali): ora ci sono 3 copie nel magazzino (`lavorate/social-prove/prova-01`, `lavorate/social-caroselli/prova-01`, `lavorate/fuori-git/...`): ne tengo una sola? 3) nella radice del progetto restano `.Rhistory` (vuoto) e `.agent/` (doppione di `.agents/`): li tolgo?
+↩️ Scrivi «tmp: sposta/cancella · prova: tieni una · radice: togli/lascia».
+
+### CHECKPOINT 2026-11-19 · NotebookLM (bibliotecario): 6 fonti da aggiungere
+📍 notebooklm.google.com → notebook «MoneyTracker App».
+▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi: `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt`/`README.txt` di Inter e Space Grotesk) sono facoltative.
+↩️ Scrivi «notebook ok».
+
 ### SOCIAL · Post 1 — pubblicazione carosello (gio 19/11, ore 13:00)
-📍 Qui in chat + TikTok e Instagram sull'iPhone.
-▶️ 1) Scrivimi «testi ok» dopo aver letto `SOCIAL/caroselli/presentazione-v1.md` (caption TikTok e Instagram). 2) Porta sull'iPhone (AirDrop) le slide da `SOCIAL/clip-social/post-1/pronto/`: per TikTok `slide-01`…`slide-08` + `slide-09-tiktok`; per Instagram `slide-01`…`slide-08` + `slide-09-instagram`. 3) Pubblica da app con musica scelta da te. Il passo per passo te lo scrivo io al momento.
-↩️ Scrivi «pubblicato» con il link del post.
+📍 iPhone: app File → Google Drive → Da postare → post-1.
+▶️ Apri `00 LEGGIMI - POST 1.txt` (tutte le istruzioni, la musica, le descrizioni da copiare). Nelle cartelle `TikTok/` e `Instagram/` tieni premute le immagini → Seleziona tutto → Condividi → «Salva immagini» (TikTok e Instagram leggono solo da Foto). Pubblica da app, nell'ordine 01-09, con la musica che scegli.
+↩️ Scrivi «pubblicato» con i link dei post.
 
 ### SOCIAL · SC-2 — materiale per i contenuti (formato faceless, 2026-11-19)
 📍 iPhone vero, app in modalità demo, Non disturbare, batteria piena. Il capocantiere ti dice di volta in volta cosa serve; il primo giro:

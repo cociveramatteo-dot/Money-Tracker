@@ -559,6 +559,11 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
 
+### v3.21 (novembre 2026) — Home: curva del saldo allineata (S-36) e progetto SOCIAL in formato «faceless»
+
+- `TrailView`: il tratteggio ambra parte ora dal punto reale di oggi (il pallino verde) e usa solo i punti proiettati dei giorni successivi; con movimenti pianificati per oggi prima partiva più in basso e il cerchio vuoto si sovrapponeva al pallino. Il cerchio dei pianificati di oggi non è più disegnato. Se oggi è l'ultimo giorno del mese il tratteggio unisce al «Saldo atteso». Nessun calcolo, modello o test modificato; collaudo 10/10 (6 giudici), build e test verdi.
+- Progetto SOCIAL (nessun codice dell'app): formato dei contenuti «faceless» (mani + telefono, caroselli puliti, musica TikTok, mai voce o volto), messaggio di brand in 5 temi (regole di progetto), primo post pronto (carosello «Ogni conto al suo posto. Ogni euro in chiaro.», 9 slide + copertina, generato da `SOCIAL/caroselli/presentazione-v1/build.py`), consegna dei post su Drive in «Da postare» con file di istruzioni `.txt` (`SOCIAL/esporta-post.py`). Dettagli in `.cantiere/DECISIONI.md`.
+
 ### v3.20 (novembre 2026) — Pianifica: lista non più tagliata (fix) e nuova landing
 
 - `PianificaView`: il margine in basso per la fascia del pulsante + era un `.padding` sullo `ScrollView`, che accorciava la lista e la tagliava di netto sopra la barra (Budget e Obiettivi). Ora è `.contentMargins(.bottom, …, for: .scrollContent)`: la lista scorre fino alla barra. Solo layout, nessun calcolo toccato; build verde. Collaudo visivo a cura di Matteo.

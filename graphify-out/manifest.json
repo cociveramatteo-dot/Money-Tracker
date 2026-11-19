@@ -260,8 +260,8 @@
     "semantic_hash": ""
   },
   "docs/MoneyTracker.md": {
-    "mtime": 1794958989.5147426,
-    "ast_hash": "2a1f0d7abc0348bf2a97b718500ac8ed",
+    "mtime": 1795048521.9326613,
+    "ast_hash": "189be6d2a4367a55cef7ff30e78ec1c4",
     "semantic_hash": ""
   },
   "docs/MoneyTracker.pdf": {
@@ -495,8 +495,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/Components/TrailView.swift": {
-    "mtime": 1794860913.3132033,
-    "ast_hash": "4b74f524786a793976217cf0eef318a4",
+    "mtime": 1795046431.9577708,
+    "ast_hash": "7d458345e83b5b4bc7ac7f9ef1030838",
     "semantic_hash": ""
   },
   "MoneyTrackerTests/BalanceTrailTests.swift": {
@@ -515,8 +515,8 @@
     "semantic_hash": ""
   },
   ".cantiere/APPROVAZIONI.md": {
-    "mtime": 1794945630.6206434,
-    "ast_hash": "31ae08d11b488f2fce94736ce204da1e",
+    "mtime": 1795047757.6044283,
+    "ast_hash": "d31ea153ce5bb9cf8af6afa6a05cd055",
     "semantic_hash": ""
   },
   ".cantiere/AVVIO.md": {
@@ -525,43 +525,43 @@
     "semantic_hash": ""
   },
   ".cantiere/CHECKPOINT.md": {
-    "mtime": 1795004940.7168489,
-    "ast_hash": "65de2bf8cd8dce389eabf7cd56549655",
+    "mtime": 1795005345.2394035,
+    "ast_hash": "dd42794d2c6e914e9809116ca7b45c12",
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795004940.7186697,
-    "ast_hash": "010c66341919b5b354dd791e64036ff5",
+    "mtime": 1795045100.3653395,
+    "ast_hash": "543ec095ff4d64a0213c48172ffc826c",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
-    "mtime": 1795004788.8680756,
-    "ast_hash": "134fb62339bb2c5002744c3453c7f476",
+    "mtime": 1795046771.7401938,
+    "ast_hash": "5b24e81307c0af4c11232b4087d83990",
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795004940.7179227,
-    "ast_hash": "fc15d7dc5bedfa41c51f2be91fee7125",
+    "mtime": 1795008524.316178,
+    "ast_hash": "e37dc04be359aefd372f0da347d64be6",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
-    "mtime": 1794581544.6225524,
-    "ast_hash": "5567fb1eea8336a9b9efe132ad28a94f",
+    "mtime": 1795048607.3114114,
+    "ast_hash": "3bb2ce601da2cf926e3b2f6a7e6f30a7",
     "semantic_hash": ""
   },
   ".cantiere/PAGELLE.md": {
-    "mtime": 1795004925.8768148,
-    "ast_hash": "db10c130bbbd7ba1b6655449970b20a9",
+    "mtime": 1795048626.7496178,
+    "ast_hash": "0215997ab4fa26e2b30653dcee2ad464",
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795004940.719418,
-    "ast_hash": "1ae80c979d48703ac076acb3f9b00935",
+    "mtime": 1795047796.6779795,
+    "ast_hash": "64faf3a9890bd615ec00b6136350f6c8",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795004940.7175033,
-    "ast_hash": "bfc45e71d70076f7cedab06e8e1ff662",
+    "mtime": 1795047757.6052315,
+    "ast_hash": "7172e4d8431424e2b4a8c665955b4c2c",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795005343.0396335,
-    "ast_hash": "8de3709af986a7cc77a62485520ad3d2",
+    "mtime": 1795048474.202648,
+    "ast_hash": "e26df0ba7856ff45994beffdd9c9be55",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -835,8 +835,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/calendario-v1.md": {
-    "mtime": 1794945535.0193975,
-    "ast_hash": "c3e25d932a2014f4a4d1aaa17411dd99",
+    "mtime": 1795047796.6775053,
+    "ast_hash": "977599a5c0c624b826cfe2ff8db6280d",
     "semantic_hash": ""
   },
   "SOCIAL/diario-metriche.md": {
@@ -870,68 +870,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/montaggio/README.md": {
-    "mtime": 1794946266.2942533,
-    "ast_hash": "a222377fa45792aa95deee27cb09d7ed",
+    "mtime": 1795045572.8115141,
+    "ast_hash": "7776553894f667e8d12a84ba31ea9350",
     "semantic_hash": ""
   },
   "SOCIAL/testi-v1.md": {
-    "mtime": 1794949807.9485726,
-    "ast_hash": "8dc74a7afb7095b7e508f7f5e7278394",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7880.PNG": {
-    "mtime": 1794957456.0,
-    "ast_hash": "3f18cd5923992b972d9dd79ffc6a74d9",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7882.PNG": {
-    "mtime": 1794957473.0,
-    "ast_hash": "48241b047b47049ec58eb942d2d927af",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7883.PNG": {
-    "mtime": 1794957481.0,
-    "ast_hash": "29118fc1fc175975ed3ecbe019e529e1",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7884.PNG": {
-    "mtime": 1794957484.0,
-    "ast_hash": "6eaf72b5a4ba655649ecfab2a6b9aecc",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7885.PNG": {
-    "mtime": 1794957495.0,
-    "ast_hash": "3a656950e1536985837221b8f06fac37",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7886.PNG": {
-    "mtime": 1794957503.0,
-    "ast_hash": "4ccb0439b8c04e15b1385f5a52a8e5f4",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7887.PNG": {
-    "mtime": 1794957506.0,
-    "ast_hash": "c544a0067ac564a4ffc71cae6d6b9bc8",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7888.PNG": {
-    "mtime": 1794957507.0,
-    "ast_hash": "6bdfb58f8f21f78e158af97d50e27192",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7889.PNG": {
-    "mtime": 1794957510.0,
-    "ast_hash": "fa101f0b18c3dab79367f54e95cd26f6",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7890.PNG": {
-    "mtime": 1794957525.0,
-    "ast_hash": "dda5b2ea5479fbf655b581d164628e8c",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7891.PNG": {
-    "mtime": 1794957528.0,
-    "ast_hash": "ebafda81191fb41e618af22c91fd5c19",
+    "mtime": 1795045100.3637407,
+    "ast_hash": "7f0dbbf602c861cea0551e6ebbfb69ec",
     "semantic_hash": ""
   },
   "SOCIAL/landing/script.js": {
@@ -940,18 +885,8 @@
     "semantic_hash": ""
   },
   ".cantiere/REGOLE-PROGETTO.md": {
-    "mtime": 1794960443.716283,
-    "ast_hash": "3376c0082130c72df50dbb65454a4558",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7892.PNG": {
-    "mtime": 1794959116.5422263,
-    "ast_hash": "34b7964ff61b42bd8ea5853cf834aec4",
-    "semantic_hash": ""
-  },
-  "screenshot app/IMG_7893.PNG": {
-    "mtime": 1794959116.5447206,
-    "ast_hash": "f72b87904bfe74326296d44962c4aae9",
+    "mtime": 1795048276.904539,
+    "ast_hash": "b1e63d27fc98251ae34eeb67ffc0736e",
     "semantic_hash": ""
   },
   "SOCIAL/landing/_worker.js": {
@@ -967,6 +902,26 @@
   "SOCIAL/landing/confirmed.html": {
     "mtime": 1795005172.2031882,
     "ast_hash": "593a0f33c99849ad2fd79809b3adf076",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/presentazione-v1/build.py": {
+    "mtime": 1795047559.032161,
+    "ast_hash": "c3b8d8da55b48990f1a2bdac95d7a23e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/esporta-post.py": {
+    "mtime": 1795048276.9037397,
+    "ast_hash": "9299016ca1f33c50a939c61270d2da3a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/presentazione-v1.md": {
+    "mtime": 1795047661.327406,
+    "ast_hash": "fb8cb495437eab9707fbe69e60e4fc1e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-1.txt": {
+    "mtime": 1795048276.904097,
+    "ast_hash": "66cd9e5407afc0001a09d209beda7acf",
     "semantic_hash": ""
   }
 }
