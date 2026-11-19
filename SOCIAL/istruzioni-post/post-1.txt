@@ -7,13 +7,13 @@ Ora: 13:00
 Dove: TikTok e Instagram (stesso giorno, stessa ora)
 
 COSA PUBBLICARE
-Cartella "TikTok": 9 immagini numerate 01-09. Selezionale tutte nell'ordine.
-Cartella "Instagram": 9 immagini numerate 01-09. Selezionale tutte nell'ordine.
+Cartella "TikTok": 10 immagini numerate 01-10. Selezionale tutte nell'ordine.
+Cartella "Instagram": 10 immagini numerate 01-10. Selezionale tutte nell'ordine.
 (La cartella "Copertina facoltativa" e' un'immagine in piu: NON va nel carosello.)
 
 PRIMA DI PUBBLICARE (1 minuto)
 1. Sul telefono: app File > Google Drive > Da postare > post-1
-2. Apri la cartella TikTok, tocca "Seleziona", "Seleziona tutto", poi Condividi > "Salva 9 immagini". Vanno nell'app Foto.
+2. Apri la cartella TikTok, tocca "Seleziona", "Seleziona tutto", poi Condividi > "Salva 10 immagini". Vanno nell'app Foto.
 3. Stessa cosa con la cartella Instagram (solo se pubblichi anche li).
 
 ============================================================
@@ -21,40 +21,50 @@ TIKTOK
 ============================================================
 
 COME
-Apri TikTok > tocca + > "Carica" > scheda "Foto" > tocca le immagini nell'ordine 01, 02, ... 09 > "Avanti".
+Apri TikTok > tocca + > "Carica" > scheda "Foto" > tocca le immagini nell'ordine 01, 02, ... 10 > "Avanti".
 
 SUONO
 Tocca "Aggiungi suono". Cerca musica strumentale, calma e pulita (per esempio lo-fi leggero o pianoforte morbido). Senza parlato, senza voce cantata.
 Suono scelto: ______________________
 
+TITOLO (massimo 90 caratteri: se TikTok lo chiede, incolla questo)
+--- INIZIO TESTO DA COPIARE ---
+Ogni conto al suo posto, ogni euro in chiaro. Senza abbonamento
+--- FINE TESTO DA COPIARE ---
+
 DESCRIZIONE (copia tutto quello che sta tra le due linee)
 --- INIZIO TESTO DA COPIARE ---
 Ogni conto al suo posto. Ogni euro in chiaro.
-Bucktrail riunisce in un'unica app per iPhone conti, movimenti, ricorrenze, budget, obiettivi e statistiche. Senza abbonamento: 4,99 € una volta (prezzo di lancio previsto).
+Conti, movimenti, ricorrenze, budget, obiettivi e statistiche: tutto in un'unica app per iPhone, con un design pulito e semplice. Basta Excel, basta abbonamenti: 4,99 € una volta (prezzo di lancio previsto).
 Lista d'attesa su bucktrailapp.com
-#bucktrail #finanzapersonale #budget #appiphone
+#bucktrail #finanzapersonale #educazionefinanziaria #risparmiare #budget #soldi #moneytok #fintok #appiphone #apputili
 --- FINE TESTO DA COPIARE ---
 
 POI
-Tocca "Pubblica". Non aggiungere altro testo o hashtag.
+Tocca "Pubblica". Non aggiungere altro testo o hashtag oltre a questi.
 
 ============================================================
 INSTAGRAM
 ============================================================
 
 COME
-Apri Instagram > tocca + > "Post" > icona dei quadratini sovrapposti (selezione multipla) > tocca le immagini nell'ordine 01, 02, ... 09 > "Avanti" > "Avanti" (niente filtri).
+Apri Instagram > tocca + > "Post" > icona dei quadratini sovrapposti (selezione multipla) > tocca le immagini nell'ordine 01, 02, ... 10 > "Avanti" > "Avanti" (niente filtri).
 
 MUSICA (facoltativa)
 Tocca "Aggiungi musica". Stesso stile: strumentale, calma, senza parlato.
 Musica scelta: ______________________
 
+TITOLO (massimo 90 caratteri: se Instagram lo chiede, incolla questo)
+--- INIZIO TESTO DA COPIARE ---
+Ogni conto al suo posto, ogni euro in chiaro. Senza abbonamento
+--- FINE TESTO DA COPIARE ---
+
 DESCRIZIONE (copia tutto quello che sta tra le due linee)
 --- INIZIO TESTO DA COPIARE ---
 Ogni conto al suo posto. Ogni euro in chiaro.
-Bucktrail riunisce in un'unica app per iPhone conti, movimenti, ricorrenze, budget, obiettivi e statistiche. Senza abbonamento: 4,99 € una volta (prezzo di lancio previsto).
+Conti, movimenti, ricorrenze, budget, obiettivi e statistiche: tutto in un'unica app per iPhone, con un design pulito e semplice. Basta Excel, basta abbonamenti: 4,99 € una volta (prezzo di lancio previsto).
 Lista d'attesa: link in bio.
-#bucktrail #finanzapersonale #budget #appiphone #risparmio
+#bucktrail #finanzapersonale #educazionefinanziaria #risparmiare #risparmio #budget #soldi #gestionefinanziaria #moneytok #fintok #appiphone #iphoneapp #apputili #organizzazione #finanzepersonali
 --- FINE TESTO DA COPIARE ---
 
 POI

@@ -21,6 +21,7 @@ WORK.mkdir(parents=True, exist_ok=True)
 # (file, titolo, frase, ha_banner_demo)
 SLIDES = [
     ("IMG_home-nuova.PNG", "La Home", "La linea tratteggiata dice se arrivi a fine mese", True),
+    ("IMG_7954.PNG", "Conti", "Ogni conto al suo posto, il patrimonio in chiaro", True),
     ("IMG_7925.PNG", "Aggiungi una spesa", "Scrivi il nome: la categoria arriva da sola", False),
     ("IMG_7916.PNG", "Movimenti", "Tutto ciò che entra ed esce", True),
     ("IMG_7922.PNG", "Ricorrenze", "Salta un mese o termina quando vuoi", False, 500),
@@ -75,7 +76,7 @@ p.f{{position:absolute;top:250px;left:64px;width:900px;text-wrap:balance;font-si
 def html(corpo):
     return f"<!doctype html><meta charset=utf-8><style>{CSS}</style><body>{corpo}</body>"
 
-ESEMPIO = {"IMG_home-nuova.PNG", "IMG_7916.PNG", "IMG_7920.PNG"}   # slide con cifre: Home, Movimenti, Statistiche
+ESEMPIO = {"IMG_home-nuova.PNG", "IMG_7954.PNG", "IMG_7916.PNG", "IMG_7920.PNG"}   # slide con cifre: Home, Movimenti, Statistiche
 
 def slide_app(n, tot, img, titolo, frase, w=650, esempio=False):
     return html(f"""<div class=meta><span>{n:02d} / {tot:02d}</span><span>{"Dati di esempio" if esempio else ""}</span></div>
