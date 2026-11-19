@@ -57,15 +57,22 @@ struct TrailView: View {
 
         // Tratto proiettato: tratteggiato ambra (solo con pianificati).
         if trail.hasPlanned {
+            // Il tratteggio parte SEMPRE dal punto reale di oggi (il pallino): `projected.first` può essere
+            // più in basso, perché include i pianificati di oggi. Si usano solo i punti dei giorni dopo oggi.
+            var route = [BalanceTrail.Point]()
+            if let now = trail.actual.last { route.append(now) }
+            route += trail.projected.filter { $0.day > trail.today }
+            if route.count == 1, let end = trail.projected.last { route.append(end) }  // oggi = ultimo giorno
             var projectedPath = Path()
-            for (i, p) in trail.projected.enumerated() {
+            for (i, p) in route.enumerated() {
                 i == 0 ? projectedPath.move(to: point(p)) : projectedPath.addLine(to: point(p))
             }
             context.stroke(projectedPath, with: .color(DS.heroPlanned),
                            style: StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round, dash: [1, 7]))
 
             // Un cerchio vuoto per ogni movimento pianificato; pieno a fine mese.
-            for mark in trail.plannedMarks where mark.day != trail.daysInMonth {
+            // (niente cerchio per i pianificati di oggi: finirebbe sotto il pallino «oggi»)
+            for mark in trail.plannedMarks where mark.day != trail.daysInMonth && mark.day > trail.today {
                 let c = point(mark)
                 let r: CGFloat = 4
                 let circle = Path(ellipseIn: CGRect(x: c.x - r, y: c.y - r, width: r * 2, height: r * 2))
