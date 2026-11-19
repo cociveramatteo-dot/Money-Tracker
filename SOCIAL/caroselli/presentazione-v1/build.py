@@ -20,7 +20,7 @@ WORK.mkdir(parents=True, exist_ok=True)
 
 # (file, titolo, frase, ha_banner_demo)
 SLIDES = [
-    ("IMG_7914.PNG", "La Home", "La linea tratteggiata dice se arrivi a fine mese", True),
+    ("IMG_home-nuova.PNG", "La Home", "La linea tratteggiata dice se arrivi a fine mese", True),
     ("IMG_7921.PNG", "Aggiungi una spesa", "Importo, descrizione, categoria: fatto", False),
     ("IMG_7916.PNG", "Movimenti", "Tutto ciò che entra ed esce", True),
     ("IMG_7922.PNG", "Ricorrenze", "Salta un mese o termina quando vuoi", False, 500),
