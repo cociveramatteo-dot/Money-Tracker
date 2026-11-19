@@ -18,7 +18,7 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ▶️ Dal 24/11 cambia il nome in `Bucktrail · budget`. Dopo il primo post passa ad Account Business (Impostazioni e privacy → Account) e metti nel campo Sito web: `https://bucktrailapp.com/?utm_source=tiktok&utm_medium=bio`; poi la bio può tornare a «link in bio».
 ↩️ Scrivi «tiktok ok».
 
-### SOCIAL · Post 1 — pubblicazione carosello (ven 20/11, 18:30)
+### SOCIAL · Post 1 — pubblicazione carosello (gio 19/11, ore 13:00)
 📍 Qui in chat + TikTok e Instagram sull'iPhone.
 ▶️ 1) Scrivimi «testi ok» dopo aver letto `SOCIAL/caroselli/presentazione-v1.md` (caption TikTok e Instagram). 2) Porta sull'iPhone (AirDrop) le slide da `SOCIAL/clip-social/post-1/pronto/`: per TikTok `slide-01`…`slide-08` + `slide-09-tiktok`; per Instagram `slide-01`…`slide-08` + `slide-09-instagram`. 3) Pubblica da app con musica scelta da te. Il passo per passo te lo scrivo io al momento.
 ↩️ Scrivi «pubblicato» con il link del post.

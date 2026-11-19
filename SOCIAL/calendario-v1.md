@@ -15,8 +15,8 @@ Base: manuale `Bucktrail_Manuale_Strategico_v2.pdf` §15. Il dettaglio giorno pe
 | Giorno | Pubblicazione | Lavoro dietro le quinte |
 |---|---|---|
 | mer 18/11 | — | Matteo: account `@bucktrail` (SC-1) e clip base (SC-2). Io: calendario (SC-0). Redattore: testi (SC-3). Codex: landing (SC-4) |
-| gio 19/11 | ~~F8 a voce~~ **SOSPESO**: si rifà in formato faceless (carosello/mani+telefono) appena Matteo porta il materiale (SC-2) | Bio senza link: «landing in arrivo». Approvazione testi |
-| ven 20/11 | **Primo post = presentazione dell'app**: carosello tour di tutta l'app (titolo, Home con la curva, aggiungi spesa, movimenti, ricorrenti, budget, obiettivi, statistiche, «lista d'attesa: link in bio»), 18:30, musica TikTok. F1 «Questa linea tratteggiata…» in video mani+telefono slitta a sab 21/11 o lun 23/11 | Landing online e in bio (serve ok di Matteo per pubblicare e hosting). Parte il diario metriche (SC-6) |
+| gio 19/11 | **Post 1: carosello «Ogni conto al suo posto»** (9 slide, `clip-social/post-1`), TikTok + Instagram, ore **13:00** | Testi e grafica approvati da Matteo 2026-11-19. Bio con il link alla landing |
+| ven 20/11 | **Post 2: F1 «Questa linea tratteggiata…»** in video mani+telefono, 18:30 (se Matteo riesce a girare il video; altrimenti Storie col sondaggio) | Serve il materiale in `clip-social/post-2/materiale`. Parte il diario metriche (SC-6) |
 | sab 21/11 | Storie: sondaggio «Sai già quanto ti resta a fine mese?» | — |
 | dom 22/11 | nessun post | Diario; prime metriche |
 
