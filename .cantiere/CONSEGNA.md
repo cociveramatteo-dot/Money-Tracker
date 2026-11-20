@@ -1,10 +1,11 @@
-# CONSEGNA — Codex · 2026-11-20 22:21
+# CONSEGNA — Codex · 2026-11-20 22:41
 
 ## Fatto
-- S-42: dopo lo swipe che apre l’editor, SwiftUI lascia la riga visibile mentre l’eliminazione attende la conferma. Verificato nel simulatore che, annullando da Movimenti e da Serie programmate, Bolletta Enel resta visibile e riapribile. Nessun arresto nei percorsi verificati.
-- La Home demo tagliava la quarta riga di Ultimi movimenti. La lista ora usa l’altezza misurata e il margine di scorrimento libera l’ultimo importo dal pulsante +. Confronto visivo eseguito su iPhone 18 Pro.
-- Tre test UI superati in /tmp/mt-s42-after.xcresult e controllo Home finale superato in /tmp/mt-s42-home-final.xcresult. Screenshot finali in /tmp/mt-s42-home-final.png e /tmp/mt-s42-after-serie.png. Grafo aggiornato.
+- SC-4c: hero, navigazione, FAQ e lista d’attesa IT/EN aggiornate per presentare il lancio su App Store e Google Play. Anteprima dell’interfaccia indicata come iPhone. Aggiornate anche le conferme dopo l’iscrizione.
+- La sezione «Funzioni in arrivo» presenta il collegamento bancario dopo il lancio, per conto, con import automatico dalle banche supportate e conferma dei possibili doppioni.
+- Chrome locale a 375, 768 e 1440 px in entrambe le lingue. Controllati layout, ancore, FAQ e attivazione del pulsante di iscrizione con email e consenso. Nessuna iscrizione inviata.
+- Anteprime in /tmp/mt-landing-it-375-hero.png e /tmp/mt-landing-it-1440-upcoming.png.
 
 ## Aperto
-- S-42 pronto per la chiusura di Matteo.
-- Calendario social in pausa prima del Post-8.
+- Matteo approva testi e grafica SC-4c prima della pubblicazione su Cloudflare Pages.
+- Social da riprendere separatamente.

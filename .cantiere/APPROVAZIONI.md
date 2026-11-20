@@ -66,3 +66,5 @@ File: `SOCIAL/caroselli/presentazione-v1.md` (redattore, 2026-11-19). 8 slide, c
 | Stato | ✅ approvato da Matteo il 2026-11-19 («testi ok»): testi e caption del post 1. Resta da scegliere il suono in app. |
 
 - ⏳ 2026-11-20 · SC-7, post 2 F13 · testi e grafica della revisione a 8 slide sulle spese fisse e variabili. Anteprima ed esportazione in Drive, «Da postare/post-2». Caption in `SOCIAL/istruzioni-post/post-2.txt`.
+
+| SC-4c | Landing IT/EN con lancio iPhone e Android e collegamento bancario tra le funzioni dopo il lancio | SOCIAL/landing | Matteo | 📨 | 2026-11-20 | Anteprime locali presentate in chat; produzione in attesa dell’ok |

@@ -6,3 +6,4 @@ Fase: progetto SOCIAL, post 1 pubblicato il 19/11 su Instagram e TikTok, primo r
 Social: direttive in `SOCIAL/direttive-social.md`; Post-3 «Guida: HOME» approvato come tema, sequenza e impostazione delle slide 2–3; data e grafica finale da confermare. Post-4–7 approvati come tema e sequenza. Revisione in pausa prima del Post-8 su richiesta di Matteo. Archivio permanente locale in `SOCIAL/schermate-app/`.
 S-41: competenza mensile delle spese fisse singole in Home, implementata e verificata con la suite BalanceTrailTests e una prova mirata; da collaudare in UI.
 S-42: annullamento eliminazione serie e layout Ultimi movimenti verificati in modalità demo su iPhone 18 Pro.
+SC-4c: aggiornamento landing in locale con iPhone, Android e collegamento bancario futuro; in attesa di approvazione prima del deploy.

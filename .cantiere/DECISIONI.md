@@ -165,3 +165,8 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 ## 2026-11-20 · Una spesa fissa singola entra nella previsione Home nel suo mese (S-41)
 - Richiesta di Matteo: una spesa fissa già nota (es. tasse universitarie), pianificata con data e importo, partecipa alla previsione mensile solo nel mese della data, senza generare una serie.
 - Il filtro è applicato insieme alla curva, al saldo atteso e alle carte conti in Home. Una spesa effettuata partecipa al saldo reale secondo la regola esistente. La tab Conti continua a mostrare «A conti fatti», previsione complessiva.
+
+## 2026-11-20 · Lancio mobile e collegamento bancario sulla landing
+- iPhone e Android fanno parte del lancio previsto. Lo stesso profilo è previsto per ritrovare i dati sulle due piattaforme.
+- Il collegamento bancario arriva dopo il lancio. È facoltativo conto per conto, importa i movimenti dalle banche supportate e chiede conferma quando rileva un possibile doppione manuale. La versione web è fuori dalla comunicazione corrente.
+- SC-4c è circoscritto alla landing e alla conferma della lista d’attesa, in italiano e inglese.

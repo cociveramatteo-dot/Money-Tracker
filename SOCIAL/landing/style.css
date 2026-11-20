@@ -265,3 +265,6 @@ html:not(.js) .tablist { display: none; }
 @media (prefers-reduced-motion: reduce) { .btn, .chips li, .hero .btn--green { transition: none; animation: none; } .btn:hover, .chips li:hover { transform: none; } }
 
 .social .soc { display: inline-flex; align-items: center; gap: .7rem; }
+
+.upcoming { display: grid; justify-items: start; gap: .75rem; max-width: 46rem; padding: clamp(1.25rem, 3vw, 2rem); }
+.upcoming .pill { color: #17613B; }

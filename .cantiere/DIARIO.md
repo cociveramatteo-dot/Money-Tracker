@@ -167,3 +167,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-20 22:01 | impresa (Codex · GPT-6) | SC-0 | Salvato ok al Post-7 con entrambi i conti | Punti da sistemare con Matteo prima del Post-8 |
 | 2026-11-20 22:06 | impresa (Codex · GPT-6) | S-41 | Spese fisse pianificate singole nella previsione Home del loro mese; test Xcode e verifica del cambio anno superati | Collaudo visivo |
 | 2026-11-20 22:21 | impresa (Codex · GPT-6) | S-42 | Corretto swipe delle ricorrenze e lista Home; tre test UI e ripetizione del controllo finale della Home superati | Chiusura di Matteo |
+| 2026-11-20 22:41 | impresa (Codex · GPT-6) | SC-4c | Landing IT/EN aggiornata con lancio iPhone e Android e collegamento bancario dopo il lancio; Chrome 375/768/1440 | Ok di Matteo prima del deploy |
