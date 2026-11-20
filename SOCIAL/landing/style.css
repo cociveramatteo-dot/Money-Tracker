@@ -180,15 +180,17 @@ dd { color: var(--muted); font-size: .9375rem; line-height: 1.55; }
 
 /* Telefono sticky (schermi larghi, con JS) */
 .sticky-phone {
-  --phone-width: min(calc(17.5rem - 18px), calc((100vh - 9rem - 18px) * 780 / 1620));
+  --phone-shot-height: 1620;
+  --phone-width: min(calc(17.5rem - 18px), calc((100vh - 9rem - 18px) * 780 / var(--phone-shot-height)));
   display: none;
 }
-.sticky-phone .phone { position: relative; box-sizing: content-box; width: var(--phone-width); aspect-ratio: 780 / 1620; max-width: none; background: var(--bg); }
-.sticky-phone img { position: absolute; inset: 0; height: 100%; object-fit: contain; opacity: 0; transition: opacity .35s; }
+.sticky-phone:has(img.on:not(.tab-bar-shot)) { --phone-shot-height: 1688; }
+.sticky-phone .phone { position: relative; box-sizing: content-box; width: var(--phone-width); aspect-ratio: 780 / var(--phone-shot-height); max-width: none; background: var(--bg); }
+.sticky-phone img { position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .35s; }
 .sticky-phone img.on { opacity: 1; }
 @media (min-width: 62rem) {
   .js .steps-wrap { display: grid; grid-template-columns: 1fr minmax(0, 20rem); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
-  .js .sticky-phone { display: flex; justify-content: center; position: sticky; top: max(5.5rem, calc(50vh - (var(--phone-width) * 1620 / 780 + 18px) / 2)); }
+  .js .sticky-phone { display: flex; justify-content: center; position: sticky; top: max(5.5rem, calc(50vh - (var(--phone-width) * var(--phone-shot-height) / 780 + 18px) / 2)); }
   .js .step { grid-template-columns: 1fr; min-height: 75vh; align-content: center; }
   .js .step__media { display: none; }
 }
