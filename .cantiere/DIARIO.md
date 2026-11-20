@@ -164,3 +164,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-20 21:56 | impresa (Codex · GPT-6) | SC-0 | Registrato ok alla sequenza del Post-4 e alla variante Entrata | Grafica, date e Post-5 |
 | 2026-11-20 21:58 | impresa (Codex · GPT-6) | SC-0 / SC-8 | Salvato ok al Post-5 e regola permanente per catture autonome da simulatore | Grafica, date e Post-6 |
 | 2026-11-20 21:59 | impresa (Codex · GPT-6) | SC-0 | Salvato ok al Post-6 e alla slide Ricorrenti | Grafica, date e Post-7 |
+| 2026-11-20 22:01 | impresa (Codex · GPT-6) | SC-0 | Salvato ok al Post-7 con entrambi i conti | Punti da sistemare con Matteo prima del Post-8 |

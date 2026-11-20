@@ -23,7 +23,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post-4 | 24/11/2026 | 1 | Tutorial | **Come aggiungere un movimento** · Registrare 24,50 € al supermercato e ritrovare la spesa in Movimenti. Chiudere con la variante «Entrata» | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-5 | 25/11/2026 | 1 | Educazione | **Quanto vuoi spendere per mangiare fuori?** · Da 175 € di media a 150 € di budget mensile in Pianifica | Tema, esempio e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-6 | 26/11/2026 | 1 | Guida | **Guida: MOVIMENTI** · Leggere «In arrivo», lista giornaliera e subtotali. Mostrare dove si trovano ricerca e Ricorrenti | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-7 | 27/11/2026 | 1 | Tutorial | **Crea un conto** · Aggiungere un conto, scegliere il tipo e inserire il saldo iniziale | Da approvare |
+| Post-7 | 27/11/2026 | 1 | Tutorial | **Come aggiungere un conto** · Due esempi: Portafoglio da 85 € e Conto corrente da 1.250 € | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-8 | 28/11/2026 | 1 | Educazione | **Netto del mese e saldo del conto** · Partire da un saldo iniziale e leggere il risultato del mese in Statistiche con un esempio semplice | Da approvare |
 | Post-9 | 30/11/2026 | 1 | Guida | **Guida: CONTI** · Leggere il patrimonio dei conti inclusi e riconoscere gruppi, conti esclusi e archivio | Da approvare |
 | Post-10 | 01/12/2026 | 1 | Tutorial | **Lingue, valuta e tema** · Mostrare le sette lingue e il percorso iOS, la scelta del simbolo valuta e il tema di sistema | Da approvare |
@@ -87,6 +87,15 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 4. Due ritagli per ricerca «Farmacia» e filtri Mese/Categoria.
 5. Pulsante «Ricorrenti» e schermata con prossima data. Creazione e modifica nei loro tutorial.
 6. Chiusura con invito a salvare la guida.
+
+### Post-7 · Sequenza approvata
+
+1. Copertina «Come aggiungere un conto», con sottotitolo «Contanti e conto corrente».
+2. Tab Conti e pulsante + in risalto sul telefono intero.
+3. Due ritagli del modulo mostrano i due tipi selezionati.
+4. Nome e saldo affiancati: «Portafoglio» da 85 € e «Conto corrente» da 1.250 €.
+5. Lista Conti dopo il salvataggio, con entrambe le righe evidenziate.
+6. Invito a salvare il post, con due icone per portafoglio e banca.
 
 ## Temi da tenere in riserva
 

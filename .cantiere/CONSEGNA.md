@@ -1,8 +1,8 @@
-# CONSEGNA — Codex · 2026-11-20 21:59
+# CONSEGNA — Codex · 2026-11-20 22:01
 
 ## Fatto
-- SC-0: salvata l’approvazione del Post-6 «Guida: MOVIMENTI», 6 slide inclusa la panoramica Ricorrenti.
+- SC-0: salvata l’approvazione del Post-7 «Come aggiungere un conto», 6 slide con Portafoglio da 85 € e Conto corrente da 1.250 €.
 
 ## Aperto
-- Date e grafica finale dei Post-3–6. Prossima proposta: Post-7.
+- Matteo indica i punti da sistemare prima di passare al Post-8. Date e grafica finale dei Post-3–7 da confermare.
 - Primo rilevamento del post 2, collaudo SC-6 e chiusura S-36.
