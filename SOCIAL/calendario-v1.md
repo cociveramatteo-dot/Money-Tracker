@@ -22,7 +22,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post-3 | 23/11/2026 | 1 | Guida | **Guida: HOME** · Orientarsi tra saldo attuale, carte dei conti, riepiloghi e ultimi movimenti | Tema e sequenza di 7 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-4 | 24/11/2026 | 1 | Tutorial | **Come aggiungere un movimento** · Registrare 24,50 € al supermercato e ritrovare la spesa in Movimenti. Chiudere con la variante «Entrata» | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-5 | 25/11/2026 | 1 | Educazione | **Quanto vuoi spendere per mangiare fuori?** · Da 175 € di media a 150 € di budget mensile in Pianifica | Tema, esempio e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-6 | 26/11/2026 | 1 | Guida | **Guida: MOVIMENTI** · Leggere «In arrivo», lista giornaliera e subtotali. Mostrare dove si trovano ricerca e Ricorrenti | Da approvare |
+| Post-6 | 26/11/2026 | 1 | Guida | **Guida: MOVIMENTI** · Leggere «In arrivo», lista giornaliera e subtotali. Mostrare dove si trovano ricerca e Ricorrenti | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-7 | 27/11/2026 | 1 | Tutorial | **Crea un conto** · Aggiungere un conto, scegliere il tipo e inserire il saldo iniziale | Da approvare |
 | Post-8 | 28/11/2026 | 1 | Educazione | **Netto del mese e saldo del conto** · Partire da un saldo iniziale e leggere il risultato del mese in Statistiche con un esempio semplice | Da approvare |
 | Post-9 | 30/11/2026 | 1 | Guida | **Guida: CONTI** · Leggere il patrimonio dei conti inclusi e riconoscere gruppi, conti esclusi e archivio | Da approvare |
@@ -78,6 +78,15 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 4. Scheda del budget in Pianifica con categoria e limite in risalto.
 5. A metà mese, 90 € spesi e 60 € rimasti, evidenziati sulla barra.
 6. Invito a controllare il budget prima della prossima cena e a salvare il post.
+
+### Post-6 · Sequenza approvata
+
+1. Copertina «Guida: MOVIMENTI» con iPhone a metà.
+2. iPhone intero con «In arrivo · pianificati» e una bolletta futura in evidenza.
+3. Ritaglio su due gruppi giornalieri con un subtotale in evidenza.
+4. Due ritagli per ricerca «Farmacia» e filtri Mese/Categoria.
+5. Pulsante «Ricorrenti» e schermata con prossima data. Creazione e modifica nei loro tutorial.
+6. Chiusura con invito a salvare la guida.
 
 ## Temi da tenere in riserva
 

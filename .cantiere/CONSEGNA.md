@@ -1,9 +1,8 @@
-# CONSEGNA — Codex · 2026-11-20 21:58
+# CONSEGNA — Codex · 2026-11-20 21:59
 
 ## Fatto
-- SC-0: Post-5 approvato, 6 slide e budget da 150 € a fronte di 175 € di media.
-- SC-8: nelle direttive social, catture e dati fittizi si preparano autonomamente in simulatore quando servono, anche se esiste materiale di Matteo.
+- SC-0: salvata l’approvazione del Post-6 «Guida: MOVIMENTI», 6 slide inclusa la panoramica Ricorrenti.
 
 ## Aperto
-- Grafica finale e date dei Post-3, Post-4 e Post-5. Prossima proposta: Post-6.
+- Date e grafica finale dei Post-3–6. Prossima proposta: Post-7.
 - Primo rilevamento del post 2, collaudo SC-6 e chiusura S-36.
