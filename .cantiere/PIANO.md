@@ -181,11 +181,10 @@ il task e i file indicati.
 
 ## Progetto SOCIAL (avviato 2026-11-17)
 
-> **Regola permanente:** ogni lavoro social segue sempre il manuale in `SOCIAL/` (vedi DECISIONI 2026-11-17).
-> Fonte unica: `SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf` (54 pagine; claim vietati in §1.3, format F1–F13 in §6, calendario in §15). Il calendario del manuale parte il 23/11: Matteo ha deciso di **iniziare il 2026-11-17 e adattare le date** (lancio previsto 12/01/2027, da riverificare). Zero budget pubblicitario; solo spese e budget, mai investimenti.
-> Sorgente app: il redesign Sentiero e S-37 sono già su `main` (merge fatti): nessun merge da attendere.
+Leggere `SOCIAL/direttive-social.md` prima di ogni lavoro social.
 
-### SC-0 [~] Calendario adattato (capocantiere, 2026-11-17 21:xx): `SOCIAL/calendario-v1.md` (settimana 0 dal 18/11, poi date del manuale, gate 06/12). Da verificare: date App Review natalizie.
+### SC-0 [?] Calendario editoriale · 36 proposte in `SOCIAL/calendario-v1.md`, una riga per approvazione. Matteo decide il primo tema, le date effettive e tutti gli slot.
+### SC-8 [~] Direttive unificate, archivio schermate, indice guide, revisione visiva post 1 e 2 e riordino locale · pronto per verifica di Matteo.
 ### SC-1 [x] chiuso 2026-11-18 14:30 (Matteo: bio, link con UTM, foto su IG/TikTok/YouTube, banner YouTube v1; resta solo il nome TikTok dal 24/11). Account social creati 2026-11-17 (Gmail, IG Creator+2FA, TikTok personale+2FA, YouTube; @bucktrailapp). Restano: bio e foto su IG/TikTok, foto e descrizione YouTube, nome TikTok il 24/11 (Matteo): vedi PER-MATTEO. **Apple Developer Program NON pagato per scelta di Matteo (2026-11-17):** prima si cerca un segnale di interesse sui social; link in bio = landing con email (waitlist), non pre-order.
 ### SC-1b [x] chiuso 2026-11-17: Matteo ha confermato le soglie in DECISIONI.md Soglia di decisione per pagare Apple (Matteo): [DA COMPLETARE] quali numeri contano come «segnale» (es. iscritti alla waitlist, follower, tempo medio sopra la mediana) e entro quando. Il manuale non dà benchmark: la soglia è sua.
 ### SC-2 [?] Materiale per i contenuti faceless: registrazioni schermo, video delle mani col telefono, screenshot (Matteo): lista in PER-MATTEO.

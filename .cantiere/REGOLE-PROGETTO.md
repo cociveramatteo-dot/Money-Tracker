@@ -29,18 +29,7 @@ Ammessi nella root **solo** le cartelle e i file elencati sopra (più i file di 
 
 ## Progetto SOCIAL
 
-Ogni lavoro sul lancio social (testi, format, montaggio, calendario, metriche, legale) segue **sempre** `SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf`. Decisioni, soglie e calendario: `.cantiere/DECISIONI.md`, `SOCIAL/calendario-v1.md`, task SC-* in `.cantiere/PIANO.md`.
-
-### Messaggio di brand dei social (Matteo, 2026-11-19) — da usare in OGNI contenuto
-Bucktrail = **l'app unica per conti e movimenti personali**. I temi da far passare, in ogni post, titolo o caption:
-1. **Design pulito e professionale** (Sentiero), semplice da usare.
-2. **Tanta complessità, ben divisa e spiegata:** conti, movimenti, ricorrenze, budget, obiettivi, statistiche; ogni cosa al suo posto.
-3. **C'è tutto ciò che serve**, quello che si cerca nelle app simili, **in un'app sola**.
-4. **Senza abbonamento** (4,99 € una volta, «prezzo di lancio previsto» finché non è sullo Store).
-5. **Basta Excel, basta pagare altri servizi (anche IA):** tutto in un'app.
-**Consegna dei post a Matteo (2026-11-19):** niente AirDrop. Ogni post si esporta su Drive con `python3 SOCIAL/esporta-post.py N` in «Il mio Drive/Da postare/post-N/» (alla radice del Drive; sull'iPhone: File > Google Drive > Da postare) (cartelle `TikTok/` e `Instagram/` con le immagini numerate 01-09, copertina facoltativa, e `00 LEGGIMI - POST N.txt`). Lì dentro SOLO cose da pubblicare. Il file di testo è `.txt` semplice (non md), da copiare e incollare: giorno, ora, piattaforme, ordine dei file, musica, descrizioni, hashtag, link, passi di pubblicazione, cosa fare dopo. Si scrive in `SOCIAL/istruzioni-post/post-N.txt` (versionato) e lo script lo copia.
-**Schermate nei post (Matteo, 2026-11-20):** rimuovere il banner «MODALITÀ DEMO» dalle schermate pubblicate. Quando ci sono importi dimostrativi, indicare «Dati di esempio» nella grafica. Nei mockup con iPhone intero, allineare la barra delle tab al fondo dello schermo con il solo margine di sicurezza. Variare schermate e usare grafiche esplicative quando chiariscono meglio una slide.
-Cautele (manuale §1.3): niente «definitiva» o confronti con altre app per nome; niente promesse su privacy/dati verso le IA o sul cloud finché non sono verificate sul codice (l'app ha la sincronizzazione Supabase); niente dati inventati. Frase-titolo: Matteo sta scegliendo (opzioni in `SOCIAL/caroselli/presentazione-v1.md` e DECISIONI 2026-11-19).
+Prima di ogni lavoro social leggi [SOCIAL/direttive-social.md](../SOCIAL/direttive-social.md), il riferimento operativo unico. Da lì si raggiungono manuale strategico, calendario approvabile, guida e archivio delle schermate.
 
 ## Workflow checkpoint
 

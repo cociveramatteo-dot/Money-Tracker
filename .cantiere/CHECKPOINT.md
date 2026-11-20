@@ -7,8 +7,7 @@
 
 ## Siamo qui
 Ramo `redesign-sentiero` (merge su `main` solo con l'ok di Matteo). Fix della curva Home (S-36, commit 829c6a0): Matteo l'ha verificata su screenshot, collaudo 10/10 dei 6 giudici, build e test verdi; resta [~] finché non la collauda il collaudatore o Matteo.
-Progetto SOCIAL: formato nuovo deciso da Matteo, niente voce né volto (mani+iPhone o caroselli bianchi). Post 1 (carosello di 9 slide + copertina) pronto e approvato; pubblicazione gio 19/11 ore 13:00 a cura di Matteo.
-Da fare: post 2 (ven 20/11 ore 18:30, serve il video mani+telefono di F1), testi SC-3 da rivedere nel formato nuovo, chiarire cosa intendeva Matteo con «soldi dati alle IA».
+Progetto SOCIAL: post 1 e 2 pubblicati. Per il lavoro, le approvazioni e le prossime proposte aprire `SOCIAL/direttive-social.md` e `SOCIAL/calendario-v1.md`. I riferimenti social nel resto di questo checkpoint descrivono lo stato del 19/11.
 
 ## Fatto dall'ultimo checkpoint
 | Quando | Chi (strumento · modello) | Cosa |

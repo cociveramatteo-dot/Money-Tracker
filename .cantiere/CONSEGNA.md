@@ -1,14 +1,11 @@
-# CONSEGNA — Codex · 2026-11-20 19:25
+# CONSEGNA — Codex · 2026-11-20 21:47
 
 ## Fatto
-- Registrato il link del [post 2 su TikTok](https://www.tiktok.com/@bucktrailapp/photo/7710312019425217824). Il carosello è pubblico su entrambe le piattaforme.
-- Matteo ha pubblicato il [post 2 su Instagram](https://www.instagram.com/p/Df-MToYEZoR/). Link registrato nel calendario e nel diario metriche.
-- Slide 04 per Instagram ricomposta per il ritaglio quadrato e sostituita in Drive.
-- SC-7: revisione del post 2 F13, 8 slide 1080×1350 per piattaforma con Home, Ricorrenti e Budget, grafica della media settimanale e confronto tra rinnovi. iPhone ripuliti dal banner demo e con barra delle tab allineata al fondo. Chiusura con iPhone e MacBook a destra.
-- La chiusura usa una cattura desktop della landing locale. Su TikTok il dominio è scritto nella grafica, su Instagram la CTA indica il link in bio.
-- Esportazione verificata immagine per immagine in Drive, «Da postare/post-2». Caption e istruzioni in `SOCIAL/istruzioni-post/post-2.txt`.
+- SC-8: riunite le direttive social in `SOCIAL/direttive-social.md`, con rinvii dalle regole, dalla mappa e dai materiali tecnici. Manuale strategico preservato.
+- Visti tutti gli export locali dei post 1 e 2, incluse varianti per canale e copertina. Correzioni per il riuso annotate nello storico del calendario.
+- Archivio permanente delle schermate e indice delle guide predisposti. Rimossi sei .DS_Store social; 99_DA_SMISTARE contiene solo il segnaposto. Nessun file locale sopra 20 MB rilevato.
+- SC-0: 36 proposte in 33 giorni di pubblicazione, con date illustrative e approvazione per riga.
 
 ## Aperto
-- Primo rilevamento Instagram e TikTok del post 2 da fare.
-- SC-6: copertura da verificare e collaudo del diario.
-- S-36: chiusura del fix della curva Home.
+- Matteo: C01 «Guida: HOME», data di partenza e schermate (PER-MATTEO).
+- Primo rilevamento del post 2 su Instagram e TikTok, collaudo SC-6 e chiusura S-36.

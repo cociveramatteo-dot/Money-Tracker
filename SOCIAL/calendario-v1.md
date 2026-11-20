@@ -1,33 +1,70 @@
-# Calendario social v1 (adattato il 2026-11-17)
+# Calendario social Bucktrail
 
-Base: manuale `Bucktrail_Manuale_Strategico_v2.pdf` §15. Il dettaglio giorno per giorno (cosa pubblicare, hook, orari di test 13:00 / 18:30 / 21:00) resta quello del manuale: qui sono solo le differenze.
+**Bozza da approvare un post alla volta.** Le date sono un esempio, calcolato con partenza lunedì 23/11/2026. G01 è il primo giorno effettivo e si ricalcola con Matteo quando sceglie la partenza. Nessun orario è assegnato. La sequenza propone un post al giorno e tre giornate con due post su temi distinti. Nella simulazione restano libere domeniche, 24–25 dicembre e 1° gennaio. C01 e successivi sono codici di proposta.
 
-## Formato dei contenuti (decisione 2026-11-19)
-**Faceless:** niente voce né volto, solo mani + iPhone o caroselli bianchi puliti, titolo grande in sovrimpressione, musica di tendenza TikTok. Ogni voce «a voce» di questo calendario e del manuale (es. F8) diventa video mani+telefono o carosello con lo stesso hook scritto. Dettagli in `.cantiere/DECISIONI.md`.
+Per ciascuna riga registrare qui **approvato / da rivedere / rimandato**, con data e orario reali quando concordati. L’approvazione di un post vale solo per quella riga. Il [manuale](Bucktrail_Manuale_Strategico_v2.pdf) resta la base strategica, con le [direttive](direttive-social.md) come riferimento operativo.
 
-## Cosa cambia rispetto al manuale
-1. **Partenza anticipata:** si inizia mer 18/11 con una «settimana 0» (18–22/11). Dal lun 23/11 le date sono quelle del manuale (settimane 1–8 invariate). Lancio target: **mar 12/01/2027**.
-2. **Apple Developer Program non pagato** (decisione 2026-11-17, `DECISIONI.md`). Link in bio = landing con email, non pre-order. Misura con UTM (`utm_source=tt|ig|yt`).
-3. **Gate di decisione: domenica 06/12/2026** (vedi soglie). Tutte le voci Apple del manuale (build 1.0, scheda App Store, invio ad App Review, nomination «App Launch», campaign link `ct=`, email «pre-order aperto») sono **condizionate al gate** e slittano dopo di esso.
-4. Il video F8 «Apple ha approvato la mia app» (manuale giorno 16) esce solo se il pre-order viene approvato.
+## Già pubblicati
 
-## Settimana 0 · 18–22 novembre
-| Giorno | Pubblicazione | Lavoro dietro le quinte |
+| Giorno | Pubblicazione | Note |
 |---|---|---|
-| mer 18/11 | — | Matteo: account `@bucktrail` (SC-1) e clip base (SC-2). Io: calendario (SC-0). Redattore: testi (SC-3). Codex: landing (SC-4) |
 | gio 19/11 | **Post 1: carosello «Ogni conto al suo posto»** (10 slide, `clip-social/post-1`), TikTok + Instagram, ore **13:00** — ✅ PUBBLICATO da Matteo il 19/11 (link da registrare) | Testi e grafica approvati da Matteo 2026-11-19. Bio con il link alla landing |
 | ven 20/11 | **Post 2: F13 «Hai 1.000 € sul conto. Quanto puoi davvero spendere?»** · carosello di 8 slide, 18:30 previsto · [Instagram pubblicato](https://www.instagram.com/p/Df-MToYEZoR/), [TikTok pubblicato](https://www.tiktok.com/@bucktrailapp/photo/7710312019425217824) | Primo rilevamento del post 2 da fare |
-| sab 21/11 | Storie: sondaggio «Sai già quanto ti resta a fine mese?» | — |
-| dom 22/11 | nessun post | Diario; prime metriche |
 
-## Dal 23/11 al gate
-Come manuale §15.2, settimane 1 e 2 (23/11–6/12), **senza** le voci Apple. Al loro posto: scrivere e testare gli hook, preparare il press kit (si può fare senza pagare), registrare le clip della settimana.
+Il post 1 ha già presentato le aree dell’app. Le guide insegnano come orientarsi in ciascuna area. Il post 2 ha già trattato fisse/variabili, rinnovi e il calcolo 1.000 € meno 650 €. Lo stesso calcolo e il rinnovo da 15,99 € sono fuori dalle proposte.
+
+Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide, ultime varianti IG/TT; post 2: tutte le slide, varianti 04/08). Il banner demo è assente nelle immagini viste. Per il riuso del post 1: aggiungere «Dati di esempio» a copertina e slide 01, 04, 06, 07 e 08. Per il riuso del post 2: uniformare la barra di stato in tutte le immagini con telefono e verificare l’etichetta nell’iPhone della chiusura. I file già usciti restano lo storico.
+
+## Proposte in ordine
+
+| ID | Giorno e data indicativa | Slot | Rubrica | Titolo e contenuto | Stato |
+|---|---|---:|---|---|---|
+| C01 | G01 · 23/11/2026 | 1 | Guida | **Guida: HOME** · Orientarsi tra saldo attuale, carte dei conti, riepiloghi e ultimi movimenti | Da approvare |
+| C02 | G02 · 24/11/2026 | 1 | Tutorial | **Registra il primo movimento** · Inserire importo, descrizione, conto e categoria. Mostrare uscita e variante entrata | Da approvare |
+| C03 | G03 · 25/11/2026 | 1 | Educazione | **Il tuo limite per le spese fuori casa** · Partire da una spesa media e scegliere un tetto mensile da impostare in Pianifica | Da approvare |
+| C04 | G04 · 26/11/2026 | 1 | Guida | **Guida: MOVIMENTI** · Leggere «In arrivo», lista giornaliera e subtotali. Mostrare dove si trovano ricerca e Ricorrenti | Da approvare |
+| C05 | G05 · 27/11/2026 | 1 | Tutorial | **Crea un conto** · Aggiungere un conto, scegliere il tipo e inserire il saldo iniziale | Da approvare |
+| C06 | G06 · 28/11/2026 | 1 | Educazione | **Netto del mese e saldo del conto** · Partire da un saldo iniziale e leggere il risultato del mese in Statistiche con un esempio semplice | Da approvare |
+| C07 | G07 · 30/11/2026 | 1 | Guida | **Guida: CONTI** · Leggere il patrimonio dei conti inclusi e riconoscere gruppi, conti esclusi e archivio | Da approvare |
+| C08 | G08 · 01/12/2026 | 1 | Tutorial | **Lingue, valuta e tema** · Mostrare le sette lingue e il percorso iOS, la scelta del simbolo valuta e il tema di sistema | Da approvare |
+| C09 | G08 · 01/12/2026 | 2 | Educazione | **Una spesa annuale, dodici mesi per prepararla** · Usare un’assicurazione annuale e un obiettivo di accantonamento | Da approvare |
+| C10 | G09 · 02/12/2026 | 1 | Tutorial | **Imposta un budget** · Scegliere categoria, limite mensile e, se utile, conto. Mostrare il risultato | Da approvare |
+| C11 | G10 · 03/12/2026 | 1 | Guida | **Guida: PIANIFICA** · Orientarsi fra Budget e Obiettivi, schede riepilogative e pulsante di aggiunta | Da approvare |
+| C12 | G11 · 04/12/2026 | 1 | Tutorial | **Crea una ricorrenza** · Impostare frequenza e conto, salvare e ritrovare l’operazione programmata | Da approvare |
+| C13 | G12 · 05/12/2026 | 1 | Educazione | **Spostare soldi tra conti non cambia il patrimonio** · Mostrare il prima e dopo con due conti nella stessa valuta e un trasferimento | Da approvare |
+| C14 | G13 · 07/12/2026 | 1 | Guida | **Guida: STATISTICHE** · Orientarsi tra mese, entrate, uscite, netto, andamento e categorie | Da approvare |
+| C15 | G14 · 08/12/2026 | 1 | Tutorial | **Modifica una ricorrenza** · Mostrare «solo questa», «questa e successive», «tutte», con un caso adatto a ciascuna | Da approvare |
+| C16 | G15 · 09/12/2026 | 1 | Educazione | **Una spesa insolita può alterare la media** · Leggere insieme media, barre dell’andamento e categorie per capire un mese anomalo | Da approvare |
+| C17 | G16 · 10/12/2026 | 1 | Guida | **Guida: IMPOSTAZIONI** · Orientarsi tra preferenze, avvisi, privacy sullo schermo, dati e Comandi | Da approvare |
+| C18 | G16 · 10/12/2026 | 2 | Tutorial | **Pianifica, conferma o elimina un movimento** · Creare un movimento futuro, mostrare come confermarlo e quando usare modifica o elimina | Da approvare |
+| C19 | G17 · 11/12/2026 | 1 | Educazione | **Budget e obiettivo per due domande diverse** · Confrontare «quanto posso spendere in una categoria» e «quanto voglio accantonare» | Da approvare |
+| C20 | G18 · 12/12/2026 | 1 | Tutorial | **Crea un obiettivo e aggiornalo** · Impostare importo e data facoltativa e registrare l’avanzamento | Da approvare |
+| C21 | G19 · 14/12/2026 | 1 | Tutorial | **Ricorrenti: salta, termina o elimina** · Distinguere le conseguenze delle azioni sulla singola scadenza e sulla serie | Da approvare |
+| C22 | G20 · 15/12/2026 | 1 | Educazione | **Quanto pesa una categoria sulle uscite?** · Usare una quota di spesa per scegliere una categoria da controllare, partendo da Statistiche | Da approvare |
+| C23 | G21 · 16/12/2026 | 1 | Tutorial | **Trova un movimento** · Combinare ricerca, mese e categoria; mostrare importo e intervallo nei filtri avanzati | Da approvare |
+| C24 | G22 · 17/12/2026 | 1 | Tutorial | **Conti: escludi, archivia e ripristina** · Mostrare tre azioni e il loro effetto sull’elenco e sul totale | Da approvare |
+| C25 | G23 · 18/12/2026 | 1 | Educazione | **Riconciliare un saldo con i movimenti** · Confrontare estratto e registro e mostrare dove vedere una rettifica dopo aver verificato lo scarto | Da approvare |
+| C26 | G24 · 19/12/2026 | 1 | Tutorial | **Trasferisci o programma un trasferimento** · Mostrare Da/A, importo e stato. Come verificare il movimento collegato | Da approvare |
+| C27 | G25 · 21/12/2026 | 1 | Tutorial | **Budget e obiettivi: modifica o elimina** · Riunire la gestione delle due schede, dopo verifica dei gesti e delle conferme nella build | Da approvare |
+| C28 | G25 · 21/12/2026 | 2 | Educazione | **Stipendio e scadenze in giorni diversi** · Leggere la curva prima e dopo la data di un’entrata per riconoscere un punto basso nel mese | Da approvare |
+| C29 | G26 · 22/12/2026 | 1 | Tutorial | **Personalizza la Home** · Ordinare e selezionare conti, mostrare o nascondere le card e oscurare gli importi | Da approvare |
+| C30 | G27 · 23/12/2026 | 1 | Tutorial | **Leggi le soglie del budget** · Avviso all’80%, sforamento, storico e avvisi disponibili | Da approvare |
+| C31 | G28 · 26/12/2026 | 1 | Educazione | **Spese piccole, effetto cumulato** · Mostrare come ritrovare più spese dello stesso tipo e leggere il totale per categoria | Da approvare |
+| C32 | G29 · 28/12/2026 | 1 | Tutorial | **Esporta PDF, CSV o JSON** · Mostrare dove si trovano e quando usare report mensile, elenco movimenti o esportazione profilo | Da approvare |
+| C33 | G30 · 29/12/2026 | 1 | Tutorial | **Registra una spesa con Comandi** · Configurare una via rapida e mostrare il risultato in Movimenti. Raggruppare widget e tocco posteriore se i percorsi verificati sono brevi | Da approvare |
+| C34 | G31 · 30/12/2026 | 1 | Educazione | **La revisione di fine mese** · Confrontare una categoria con il suo budget, verificare il netto e scegliere un aggiustamento per il mese dopo | Da approvare |
+| C35 | G32 · 31/12/2026 | 1 | Tutorial | **Importi discreti, Face ID e promemoria** · Mostrare occhio, blocco app e dove attivare gli avvisi, chiarendo le differenze fra i comandi | Da approvare |
+| C36 | G33 · 02/01/2027 | 1 | Tutorial | **Categorie e «Ultima usata»** · Mostrare il suggerimento alla seconda registrazione e come sostituirlo manualmente | Da approvare |
+
+## Temi da tenere in riserva
+
+- Dettaglio su categorie personalizzate e cronologia modifiche, dopo verifica del percorso e del caso d’uso.
+- Occorrenze future delle ricorrenze e importi esclusi dai totali, se la guida base porta domande.
+- Accesso, uscita, sincronizzazione e gestione account dopo verifica in build, inclusi i comportamenti a due dispositivi. Demo solo se Matteo sceglie di dedicarle un contenuto. I comandi distruttivi vanno trattati solo con dati fittizi e approvazione specifica.
+- Movimenti irregolari, cuscinetto per imprevisti e revisione trimestrale, ciascuno legato a una funzione dell’app e con esempi diversi dai post già usciti.
 
 ## Gate · dom 06/12
 Si leggono le soglie (`DECISIONI.md`, «Soglie del segnale») e Matteo decide:
 - **Verde → paga lun 07/12.** Build 1.0, scheda App Store, invio ad App Review entro ~10/12, pre-order previsto a metà dicembre, lancio 12/01 ancora possibile ma stretto (App Review a Natale: da verificare). Si segue il manuale dalla settimana 3 con le date reali.
 - **Giallo → si prolunga di una settimana**, gate 13/12; il lancio slitta (nuova data da fissare).
 - **Rosso → si ferma il progetto** o si cambia angolo/format (nessun pagamento Apple).
-
-## Domeniche e feste
-Domenica mai post. 24, 25 dic e 1 gen nessun post. Settimana 5 (21–27/12) a ritmo ridotto, tutto programmato.

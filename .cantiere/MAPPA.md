@@ -32,7 +32,10 @@
 
 ## Dettaglio
 <!-- il magazziniere elenca qui sottocartelle e file chiave del banco di lavoro, una riga ciascuno -->
-- `SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf` — manuale strategico social (fonte obbligatoria, git)
+- `SOCIAL/direttive-social.md` — riferimento operativo obbligatorio per ogni sessione social (git)
+- `SOCIAL/Bucktrail_Manuale_Strategico_v2.pdf` — manuale strategico, fonte per contenuti e metriche (git)
+- `SOCIAL/schermate-app/` — archivio condiviso delle catture, con indice in git e immagini locali
+- `SOCIAL/guida/` — indice della serie «Guida: …» (git)
 - `SOCIAL/calendario-v1.md` — calendario dei post (git)
 - `SOCIAL/testi-v1.md`, `SOCIAL/diario-metriche.md` / `.csv` — testi e metriche (git)
 - `SOCIAL/esporta-post.py` — esporta un post su Drive: `python3 SOCIAL/esporta-post.py N` → «Il mio Drive/Da postare/post-N/» (radice del Drive, NON nel magazzino)

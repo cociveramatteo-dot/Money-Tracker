@@ -1,6 +1,6 @@
 # Master social Bucktrail
 
-> Formato contenuti 2026-11-19: faceless (mani+telefono, caroselli, musica TikTok aggiunta in app). Lo script serve per i video mani+telefono: sottotitoli = titolo a schermo, nessun parlato.
+> Per il formato editoriale leggere le [direttive social](../direttive-social.md). Qui si documenta l’uso dello script di montaggio.
 
 Serve FFmpeg con libass, libx264 e ffprobe. La conversione HDR richiede anche zscale. Su macOS, `brew install ffmpeg-full`. Lo script rileva la formula Homebrew oppure usa i binari nel PATH. Per percorsi diversi, imposta `FFMPEG_BIN` e `FFPROBE_BIN`.
 

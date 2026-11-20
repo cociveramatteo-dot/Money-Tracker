@@ -156,3 +156,8 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - **Cosa:** i cinque temi (design pulito e professionale; tanta complessità ben divisa; c'è tutto in un'app sola; senza abbonamento; basta Excel e basta pagare altri servizi/IA) vanno in tutti i contenuti. Testo completo in `.cantiere/REGOLE-PROGETTO.md`, sezione «Messaggio di brand dei social».
 - **Da verificare prima di dirlo:** la parte «soldi dati alle IA» (cosa si intende e se è vera: l'app sincronizza con Supabase). Finché non è chiaro non è una promessa pubblica.
 - **Frase del titolo (prima slide):** in scelta. Opzione consigliata «Basta Excel. Basta abbonamenti. Un'app sola.» sotto «Conti, movimenti, budget, obiettivi e statistiche.»
+
+## 2026-11-20 · Direttive e calendario social
+- Matteo richiede controllo visivo di tutti i post precedenti a ogni nuovo post, tre rubriche alternate, approvazione singola e una cartella permanente per le schermate.
+- Il riferimento operativo corrente è `SOCIAL/direttive-social.md`; sostituisce la gerarchia social del 17/11. Il PDF strategico resta la fonte per format, spunti, metriche e cautele. Il calendario conserva lo storico e tiene separate le 36 proposte.
+- La simulazione parte il 23/11 solo per rendere concreto l’ordine. Date, orari, proposte di doppio slot e contenuti aspettano Matteo. Le catture restano locali fuori da Git.

@@ -28,15 +28,18 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi: `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt`/`README.txt` di Inter e Space Grotesk) sono facoltative.
 ↩️ Scrivi «notebook ok».
 
-### SOCIAL · Post 1 — pubblicazione carosello (gio 19/11, ore 13:00)
-📍 iPhone: app File → Google Drive → Da postare → post-1.
-▶️ Apri `00 LEGGIMI - POST 1.txt` (tutte le istruzioni, la musica, le descrizioni da copiare). Nelle cartelle `TikTok/` e `Instagram/` tieni premute le immagini → Seleziona tutto → Condividi → «Salva immagini» (TikTok e Instagram leggono solo da Foto). Pubblica da app, nell'ordine 01-09, con la musica che scegli.
-↩️ Scrivi «pubblicato» con i link dei post.
+### SOCIAL · SC-0 — approva il calendario un post alla volta
+📍 Qui in chat, con `SOCIAL/calendario-v1.md`.
+▶️ Parti da «C01 approvato» oppure «C01 da rivedere: …». Comunica il giorno di partenza quando lo sai.
+↩️ Dopo ogni risposta si registra l’esito e si passa alla proposta successiva.
 
-### SOCIAL · SC-2 — materiale per i contenuti (formato faceless, 2026-11-19)
-📍 iPhone vero, app in modalità demo, Non disturbare, batteria piena. Il capocantiere ti dice di volta in volta cosa serve; il primo giro:
-▶️ **Per il primo post (carosello tour, ven 20/11) bastano gli screenshot:** Home con la curva, aggiungi spesa, Movimenti, Ricorrenti, Budget, Obiettivi, Statistiche, in chiaro (scuro opzionale). Il resto serve dopo. Elenco completo: 1) **Registrazione schermo** (sia chiaro che scuro): Home con la curva tratteggiata, aggiunta di una spesa, ricorrenti, budget, obiettivi, statistiche. 2) **Video delle mani**: tieni l'iPhone con l'app davanti a un muro/scrivania chiari e puliti, luce di finestra, telefono dritto, scorri e tocca lentamente la Home (10-15 s per clip, verticale 9:16, senza volto né voce). 3) **Screenshot** puliti della Home, aggiunta spesa e statistiche. Salva in `SOCIAL/clip-social/post-N/materiale/` (la cartella è esclusa da git).
-↩️ Scrivi «materiale pronto».
+### SOCIAL · SC-2 — archivio schermate dell’app
+📍 Sul Mac, Finder → Vai → Vai alla cartella e incolla:
+```text
+/Users/matteo/Desktop/APP/MoneyTracker/SOCIAL/schermate-app
+```
+▶️ Trascina qui gli screenshot. Nel README trovi l’elenco delle viste. Puoi partire da Home intera, saldo atteso, carte conti e ultimi movimenti per C01.
+↩️ Scrivi «schermate pronte» e indica quali aree hai coperto.
 
 ### S-33 — decidere osservazione dopo diagnosi non riproducibile
 Diagnosi autorizzata il 2026-11-16 ed eseguita: due run isolati e tutta la suite verdi sul main `4fb666a`, senza modificare codice/test. Causa del vecchio rosso non accertata; dettagli in CONSEGNA. Proposta: mantenerlo in osservazione.
