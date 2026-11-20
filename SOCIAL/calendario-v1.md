@@ -16,7 +16,7 @@ Base: manuale `Bucktrail_Manuale_Strategico_v2.pdf` §15. Il dettaglio giorno pe
 |---|---|---|
 | mer 18/11 | — | Matteo: account `@bucktrail` (SC-1) e clip base (SC-2). Io: calendario (SC-0). Redattore: testi (SC-3). Codex: landing (SC-4) |
 | gio 19/11 | **Post 1: carosello «Ogni conto al suo posto»** (10 slide, `clip-social/post-1`), TikTok + Instagram, ore **13:00** — ✅ PUBBLICATO da Matteo il 19/11 (link da registrare) | Testi e grafica approvati da Matteo 2026-11-19. Bio con il link alla landing |
-| ven 20/11 | **Post 2: F1 «Questa linea tratteggiata…»** in video mani+telefono, 18:30 (se Matteo riesce a girare il video; altrimenti Storie col sondaggio) | Serve il materiale in `clip-social/post-2/materiale`. Parte il diario metriche (SC-6) |
+| ven 20/11 | **Post 2: F13 «Hai 1.000 € sul conto. Quanto puoi davvero spendere?»** · carosello di 5 slide su TikTok e Instagram, 18:30 | Esportato in Drive, in attesa dell’ok di Matteo su testi e grafica |
 | sab 21/11 | Storie: sondaggio «Sai già quanto ti resta a fine mese?» | — |
 | dom 22/11 | nessun post | Diario; prime metriche |
 

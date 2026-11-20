@@ -64,3 +64,5 @@ Chiave `· Ultima usata` in `MoneyTracker/*.lproj/Localizable.strings`, approvat
 ## SC-7 · Carosello di presentazione (testi) · ✅ approvato da Matteo 2026-11-19
 File: `SOCIAL/caroselli/presentazione-v1.md` (redattore, 2026-11-19). 8 slide, caption TikTok/Instagram, mood musica. Aggiornato 2026-11-19: file riscritto (v2) con titolo «Ogni conto al suo posto. Ogni euro in chiaro.», 9 slide, caption nuove. Grafica approvata da Matteo; mancano «testi ok» e la scelta del suono.
 | Stato | ✅ approvato da Matteo il 2026-11-19 («testi ok»): testi e caption del post 1. Resta da scegliere il suono in app. |
+
+- ⏳ 2026-11-20 · SC-7, post 2 F13 · testi e grafica del carosello sulle spese fisse. Anteprima ed esportazione in Drive, «Da postare/post-2». Caption in `SOCIAL/istruzioni-post/post-2.txt`.

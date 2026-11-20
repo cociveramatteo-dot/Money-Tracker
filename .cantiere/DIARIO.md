@@ -150,3 +150,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 
 | 2026-11-20 15:15 | impresa (Codex · GPT-6) | SC-6 | Registrate metriche e link Instagram del post 1 | Dati TikTok e collaudo diario |
 | 2026-11-20 15:21 | impresa (Codex · GPT-6) | SC-6 | Registrate metriche e link TikTok del post 1 | Copertura da verificare e collaudo diario |
+| 2026-11-20 15:37 | impresa (Codex · GPT-6) | SC-7 | Generato, verificato ed esportato il carosello F13 sulle spese fisse | Approvazione testi e grafica, pubblicazione di Matteo |
