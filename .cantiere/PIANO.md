@@ -203,6 +203,10 @@ Primo rilevamento reale registrato il 2026-11-20: post 1 su Instagram e TikTok, 
 
 ### S-40 [ ] Commissione — font fissi (Codex): ~200 `.font(.system(size:))` → token `DS.Typo.*` (Dynamic Type), `SectionLabel` incluso.
 
+### S-41 [~] Home — spesa fissa singola nel mese di competenza (Matteo, 2026-11-20)
+Il saldo atteso, la curva e le carte dei conti in Home considerano la spesa fissa pianificata senza ricorrenza solo nel mese della sua data. La spesa resta visibile nel suo mese in Movimenti. Il totale «A conti fatti» nella tab Conti ha orizzonte complessivo. Da verificare il passaggio di mese nell’interfaccia durante il collaudo.
+
+
 ### S-15 [x] Diagnosticare due test UI che non trovano il movimento appena salvato
 - **Collaudo 2026-11-15 11:55 (collaudatore):** [x] collaudo ok — test UI corretti (filtro persistente ≥20€ azzerato da UI), 2/2 verdi nei log; nessun codice app cambiato. 78 unit riverificate in locale (78 passed, Swift Testing). UI non rilanciati: log di Codex coerenti (full 13/15 prima del fix, S-15 2/2 verdi in rilancio mirato; nessun full run unico 15/15). Riserva: blocco reale su Tutte non riprodotto in demo, NON dichiarato risolto; serve prova di Matteo su dati reali (PER-MATTEO).
 - **Collaudo 2026-11-14:** i due test falliscono IDENTICI (righe 55 e 68) anche sul commit 0a76000, prima di S-13: indipendenti da S-13, regressione precedente (probabile S-12 o prima).

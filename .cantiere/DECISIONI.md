@@ -161,3 +161,7 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - Matteo richiede controllo visivo di tutti i post precedenti a ogni nuovo post, tre rubriche alternate, approvazione singola e una cartella permanente per le schermate.
 - Il riferimento operativo corrente è `SOCIAL/direttive-social.md`; sostituisce la gerarchia social del 17/11. Il PDF strategico resta la fonte per format, spunti, metriche e cautele. Il calendario conserva lo storico e tiene separate le 36 proposte.
 - La simulazione parte il 23/11 solo per rendere concreto l’ordine. Date, orari, proposte di doppio slot e contenuti aspettano Matteo. Le catture restano locali fuori da Git.
+
+## 2026-11-20 · Una spesa fissa singola entra nella previsione Home nel suo mese (S-41)
+- Richiesta di Matteo: una spesa fissa già nota (es. tasse universitarie), pianificata con data e importo, partecipa alla previsione mensile solo nel mese della data, senza generare una serie.
+- Il filtro è applicato insieme alla curva, al saldo atteso e alle carte conti in Home. Una spesa effettuata partecipa al saldo reale secondo la regola esistente. La tab Conti continua a mostrare «A conti fatti», previsione complessiva.

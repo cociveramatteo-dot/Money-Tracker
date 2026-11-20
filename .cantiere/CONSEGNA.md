@@ -1,8 +1,10 @@
-# CONSEGNA — Codex · 2026-11-20 22:01
+# CONSEGNA — Codex · 2026-11-20 22:06
 
 ## Fatto
-- SC-0: salvata l’approvazione del Post-7 «Come aggiungere un conto», 6 slide con Portafoglio da 85 € e Conto corrente da 1.250 €.
+- S-41: la Home include le spese fisse singole non pagate solo nel loro mese di competenza. Curva, saldo atteso e carte conti usano lo stesso filtro. Il totale complessivo «A conti fatti» nella tab Conti resta distinto.
+- Build e suite BalanceTrailTests superate su simulatore. Prova mirata con rata universitaria di gennaio: fuori a dicembre, presente a gennaio, fuori a febbraio; spesa pagata e conto escluso controllati.
+- Grafo aggiornato. La copia automatica del grafo precedente è stata spostata in /tmp.
 
 ## Aperto
-- Matteo indica i punti da sistemare prima di passare al Post-8. Date e grafica finale dei Post-3–7 da confermare.
-- Primo rilevamento del post 2, collaudo SC-6 e chiusura S-36.
+- S-41: collaudo visivo della Home con il passaggio di mese.
+- Calendario social in pausa prima del Post-8. Restano primo rilevamento del post 2, collaudo SC-6 e chiusura S-36.

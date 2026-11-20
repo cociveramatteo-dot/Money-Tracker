@@ -7,6 +7,7 @@ struct DashboardView: View {
     // recentNormal applica .prefix(4) client-side; il dataset dashboard è comunque piccolo.
     @Query(sort: \Transaction.date, order: .reverse) private var transactions: [Transaction]
     @Environment(\.modelContext) private var context
+    @Environment(\.scenePhase) private var scenePhase
     @Binding var showAdd: Bool
     /// Cambia tab dalla Home («Gestisci» → Conti, «Vedi tutti» → Movimenti).
     var goToTab: (Int) -> Void = { _ in }
@@ -20,16 +21,14 @@ struct DashboardView: View {
     @State private var showRecentMovements   = true
     @State private var showAccountOrder      = false
     @State private var editingTransaction: Transaction? = nil
-    /// Serie della TrailView: ricalcolata solo al cambio dei dati (vedi `trailSignature`), mai nel body.
+    @State private var projectionDay = Calendar.current.startOfDay(for: Date())
     @State private var trail: BalanceTrail? = nil
     @ScaledMetric(relativeTo: .body) private var rowHeight: CGFloat = 66
 
-    /// Cambia quando cambiano saldi, numero di movimenti o giorno: è la chiave del ricalcolo della serie.
-    private struct TrailSignature: Equatable {
-        let count: Int
-        let current: Decimal
-        let future: Decimal
+    private struct TrailInput: Equatable {
+        let currentBalance: Decimal
         let day: Date
+        let entries: [BalanceTrail.Entry]
     }
 
     // MARK: - Conti
@@ -54,8 +53,6 @@ struct DashboardView: View {
     // MARK: - Totals
 
     private var totalCurrent: Decimal { includedAccounts.reduce(0) { $0 + $1.currentBalance } }
-    private var totalFuture:  Decimal { includedAccounts.reduce(0) { $0 + $1.futureBalance } }
-    private var totalDelta:   Decimal { totalFuture - totalCurrent }
 
     private var recentNormal: [Transaction] {
         Array(transactions.filter { !$0.isFixed && !$0.isTransfer && $0.recurringFrequency.isEmpty }.prefix(4))
@@ -82,28 +79,44 @@ struct DashboardView: View {
 
     // MARK: - Serie TrailView
 
-    private var trailSignature: TrailSignature {
-        TrailSignature(count: transactions.count, current: totalCurrent, future: totalFuture,
-                       day: Calendar.current.startOfDay(for: Date()))
+    private func monthlyProjection() -> (trailInput: TrailInput, plannedByAccount: [PersistentIdentifier: Decimal]) {
+        let calendar = Calendar.current
+        let ids = Set(includedAccounts.map(\.persistentModelID))
+        var entries: [BalanceTrail.Entry] = []
+        var plannedByAccount: [PersistentIdentifier: Decimal] = [:]
+
+        for transaction in transactions {
+            guard let accountID = transaction.account?.persistentModelID, ids.contains(accountID) else { continue }
+            let isOneOffFixedExpense = transaction.isFixed && transaction.transactionType == .uscita
+                && !transaction.isTransfer && transaction.templateId.isEmpty && transaction.recurringFrequency.isEmpty
+            if !transaction.isDone && isOneOffFixedExpense
+                && !calendar.isDate(transaction.date, equalTo: projectionDay, toGranularity: .month) {
+                continue
+            }
+
+            let amount = transaction.signedAmount
+            entries.append(.init(date: transaction.date, signedAmount: amount, isDone: transaction.isDone))
+            if !transaction.isDone {
+                plannedByAccount[accountID, default: 0] += amount
+            }
+        }
+
+        return (TrailInput(currentBalance: totalCurrent, day: projectionDay, entries: entries), plannedByAccount)
     }
 
-    private func rebuildTrail() {
-        let ids = Set(includedAccounts.map { $0.persistentModelID })
-        let entries = transactions.compactMap { t -> BalanceTrail.Entry? in
-            guard let account = t.account, ids.contains(account.persistentModelID) else { return nil }
-            return .init(date: t.date, signedAmount: t.signedAmount, isDone: t.isDone)
-        }
-        trail = BalanceTrail.make(currentBalance: totalCurrent, entries: entries, now: Date())
+    private func refreshProjectionDay() {
+        projectionDay = Calendar.current.startOfDay(for: Date())
     }
 
     // MARK: - Body
     var body: some View {
+        let projection = monthlyProjection()
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     header
                     saldoHeroSection
-                    contiSection
+                    contiSection(plannedByAccount: projection.plannedByAccount)
                     fisseDelMeseSection
                     ultimiMovimentiSection
                     Spacer(minLength: DS.Space.xl)
@@ -113,8 +126,15 @@ struct DashboardView: View {
             .scrollIndicators(.hidden)
             .refreshable { await SyncService.shared.manualRefresh(context: context) }
             .toolbar(.hidden, for: .navigationBar)
-            .onChange(of: trailSignature, initial: true) { rebuildTrail() }
-            .onChange(of: editingTransaction == nil) { rebuildTrail() }
+            .onChange(of: projection.trailInput, initial: true) { _, input in
+                trail = BalanceTrail.make(currentBalance: input.currentBalance, entries: input.entries, now: input.day)
+            }
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .active { refreshProjectionDay() }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                refreshProjectionDay()
+            }
             .sheet(isPresented: $showSettings)     { SettingsView() }
             .sheet(item: $editingTransaction)       { AddTransactionView(editing: $0) }
             .sheet(isPresented: $showAccountOrder)  {
@@ -168,23 +188,24 @@ struct DashboardView: View {
     private var saldoHeroSection: some View {
         if let trail {
             let cal = Calendar.current
-            let start = cal.dateInterval(of: .month, for: Date())?.start ?? Date()
+            let start = cal.dateInterval(of: .month, for: projectionDay)?.start ?? projectionDay
             let end = cal.date(byAdding: .day, value: trail.daysInMonth - 1, to: start) ?? start
             HomeHeroCard(
                 amount: Text(money(totalCurrent)),
                 trail: trail,
                 monthStart: start,
                 monthEnd: end,
-                expectedAmount: abs(totalDelta) > 0.001 ? Text(money(totalFuture)) : nil,
-                plannedSummary: abs(totalDelta) > 0.001 ? plannedSummary(count: trail.plannedCount) : nil
+                expectedAmount: abs(trail.plannedDelta) > 0.001 ? Text(money(trail.expectedBalance)) : nil,
+                plannedSummary: abs(trail.plannedDelta) > 0.001
+                    ? plannedSummary(count: trail.plannedCount, delta: trail.plannedDelta) : nil
             )
             .padding(.horizontal, 16)
         }
     }
 
-    private func plannedSummary(count: Int) -> Text {
-        let amount = money(totalDelta)
-        let sign = totalDelta > 0 && !hideBalance ? "+" : ""
+    private func plannedSummary(count: Int, delta: Decimal) -> Text {
+        let amount = money(delta)
+        let sign = delta > 0 && !hideBalance ? "+" : ""
         let label = count == 1
             ? Text("1 movimento pianificato")
             : Text("\(count) movimenti pianificati")
@@ -194,7 +215,7 @@ struct DashboardView: View {
     // MARK: - Conti (scroll orizzontale)
 
     @ViewBuilder
-    private var contiSection: some View {
+    private func contiSection(plannedByAccount: [PersistentIdentifier: Decimal]) -> some View {
         if !topAccounts.isEmpty {
             sectionHeader("Conti", link: "Gestisci") { goToTab(4) } trailing: {
                 Button { showAccountOrder = true } label: {
@@ -207,14 +228,16 @@ struct DashboardView: View {
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: DS.Space.s) {
-                    ForEach(topAccounts) { acc in accountCard(acc) }
+                    ForEach(topAccounts) { account in
+                        accountCard(account, plannedDelta: plannedByAccount[account.persistentModelID, default: 0])
+                    }
                 }
                 .padding(.horizontal, 16)
             }
         }
     }
 
-    private func accountCard(_ acc: Account) -> some View {
+    private func accountCard(_ acc: Account, plannedDelta: Decimal) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: DS.Space.s) {
                 RoundedRectangle(cornerRadius: 3).fill(accountTint(acc)).frame(width: 10, height: 10)
@@ -222,8 +245,8 @@ struct DashboardView: View {
             }
             Text(money(acc.currentBalance)).font(DS.Typo.rowAmount).foregroundStyle(DS.ink)
                 .lineLimit(1).minimumScaleFactor(0.7)
-            if abs(acc.plannedDelta) > 0.001 {
-                Text("→ \(money(acc.futureBalance))").font(DS.Typo.caption).foregroundStyle(DS.plannedText)
+            if abs(plannedDelta) > 0.001 {
+                Text("→ \(money(acc.currentBalance + plannedDelta))").font(DS.Typo.caption).foregroundStyle(DS.plannedText)
                     .lineLimit(1).minimumScaleFactor(0.7)
             } else {
                 Text("nessun movimento").font(DS.Typo.caption).foregroundStyle(DS.smoke).lineLimit(1)
