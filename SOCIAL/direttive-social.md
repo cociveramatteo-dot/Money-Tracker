@@ -6,7 +6,7 @@
 
 1. Aprire e guardare **tutte le slide e tutti i video dei post precedenti**, incluse copertine, chiusure e varianti per canale. Usare i file finali in `clip-social/post-N/pronto/` o recuperare gli export/storico. Registrare nella lavorazione del nuovo post quali numeri e varianti si sono visti, eventuali file mancanti e correzioni emerse. Una lettura dei testi o del codice di generazione da sola non vale come controllo visivo.
 2. Confrontare tema, esempio, hook, inquadrature e invito all’azione con lo storico. Correggere gli asset precedenti ancora in lavorazione o destinati al riuso e applicare tutte le correzioni permanenti alla nuova esportazione. Registrare i difetti dei post già usciti e mantenere una copia storica dell’export pubblicato. Eventuali interventi su post online li decide Matteo.
-3. Recuperare gli screenshot da [schermate-app](schermate-app/README.md). Verificare sulla build il percorso e il risultato promesso. Se manca un’inquadratura, indicare schermata, passaggio, stato e tema richiesti.
+3. Consultare [schermate-app](schermate-app/README.md) e verificare sulla build il percorso e il risultato promesso. **Per ogni post e ogni altro materiale social, se serve una schermata, un importo, uno stato o un’inquadratura diversi, aprire il simulatore, preparare i dati fittizi nell’app e catturare direttamente quello che serve.** Vale anche quando Matteo ha già fornito screenshot. Usare dati coerenti fra le slide, lasciare intatti gli originali e salvare le nuove catture nell’archivio condiviso o nel materiale del post. Coinvolgere Matteo solo se il materiale richiede davvero un dispositivo fisico o il simulatore non permette di produrlo.
 
 ## Tre rubriche
 

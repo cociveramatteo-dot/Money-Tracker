@@ -30,7 +30,7 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 
 ### SOCIAL · SC-0 — approva il calendario un post alla volta
 📍 Qui in chat, con `SOCIAL/calendario-v1.md`.
-▶️ Tema e sequenza dei Post-3 e Post-4 approvati. Comunica il giorno di partenza quando lo sai. La prossima proposta del calendario è Post-5.
+▶️ Tema e sequenza dei Post-3, Post-4 e Post-5 approvati. Comunica il giorno di partenza quando lo sai. La prossima proposta del calendario è Post-6.
 ↩️ Dopo ogni risposta si registra l’esito e si passa alla proposta successiva.
 
 ### SOCIAL · SC-2 — archivio schermate dell’app
@@ -38,7 +38,7 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ```text
 /Users/matteo/Desktop/APP/MoneyTracker/SOCIAL/schermate-app
 ```
-▶️ Trascina qui gli screenshot. Nel README trovi l’elenco delle viste. Puoi partire da Home intera, saldo atteso, carte conti e ultimi movimenti per Post-3.
+▶️ Trascina qui gli screenshot. Nel README trovi l’elenco delle viste. Se vuoi contribuire con altre catture, puoi aggiungerle qui. Per le schermate necessarie ai post l’impresa usa il simulatore.
 ↩️ Scrivi «schermate pronte» e indica quali aree hai coperto.
 
 ### S-33 — decidere osservazione dopo diagnosi non riproducibile

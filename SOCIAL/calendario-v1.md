@@ -21,7 +21,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 |---|---|---:|---|---|---|
 | Post-3 | 23/11/2026 | 1 | Guida | **Guida: HOME** · Orientarsi tra saldo attuale, carte dei conti, riepiloghi e ultimi movimenti | Tema e sequenza di 7 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-4 | 24/11/2026 | 1 | Tutorial | **Come aggiungere un movimento** · Registrare 24,50 € al supermercato e ritrovare la spesa in Movimenti. Chiudere con la variante «Entrata» | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-5 | 25/11/2026 | 1 | Educazione | **Il tuo limite per le spese fuori casa** · Partire da una spesa media e scegliere un tetto mensile da impostare in Pianifica | Da approvare |
+| Post-5 | 25/11/2026 | 1 | Educazione | **Quanto vuoi spendere per mangiare fuori?** · Da 175 € di media a 150 € di budget mensile in Pianifica | Tema, esempio e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-6 | 26/11/2026 | 1 | Guida | **Guida: MOVIMENTI** · Leggere «In arrivo», lista giornaliera e subtotali. Mostrare dove si trovano ricerca e Ricorrenti | Da approvare |
 | Post-7 | 27/11/2026 | 1 | Tutorial | **Crea un conto** · Aggiungere un conto, scegliere il tipo e inserire il saldo iniziale | Da approvare |
 | Post-8 | 28/11/2026 | 1 | Educazione | **Netto del mese e saldo del conto** · Partire da un saldo iniziale e leggere il risultato del mese in Statistiche con un esempio semplice | Da approvare |
@@ -69,6 +69,15 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 4. Categoria, conto, data e stato «Già effettuato» in evidenza.
 5. Due ritagli affiancati mostrano il salvataggio e la nuova riga in Movimenti.
 6. Variante «Entrata» con il selettore in risalto e invito a salvare il post.
+
+### Post-5 · Sequenza approvata
+
+1. Copertina «Quanto vuoi spendere per mangiare fuori?», con iPhone a metà sulla scheda del budget.
+2. Tre barre mostrano 160 €, 190 € e 175 €, con media mensile di 175 €.
+3. Grafica con spesa media e limite scelto di 150 €.
+4. Scheda del budget in Pianifica con categoria e limite in risalto.
+5. A metà mese, 90 € spesi e 60 € rimasti, evidenziati sulla barra.
+6. Invito a controllare il budget prima della prossima cena e a salvare il post.
 
 ## Temi da tenere in riserva
 

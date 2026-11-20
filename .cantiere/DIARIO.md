@@ -162,3 +162,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-20 21:52 | impresa (Codex · GPT-6) | SC-0 | Registrato ok di Matteo al tema e alle 7 slide del Post-3 | Grafica e data |
 | 2026-11-20 21:53 | impresa (Codex · GPT-6) | SC-0 | Registrato ok alla grafica proposta per le slide 2 e 3 del Post-3 | Grafica finale e data |
 | 2026-11-20 21:56 | impresa (Codex · GPT-6) | SC-0 | Registrato ok alla sequenza del Post-4 e alla variante Entrata | Grafica, date e Post-5 |
+| 2026-11-20 21:58 | impresa (Codex · GPT-6) | SC-0 / SC-8 | Salvato ok al Post-5 e regola permanente per catture autonome da simulatore | Grafica, date e Post-6 |
