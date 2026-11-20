@@ -16,7 +16,7 @@
 
 ## Grafica e controllo prima della consegna
 
-- Prendere come riferimento i post 1 e 2. Caroselli puliti, titoli grandi, fondo chiaro per la spiegazione, apertura e chiusura scure quando aiutano. Mani e iPhone nei video, niente volto né voce. Aggiungere la musica in piattaforma quando prevista.
+- Prendere come riferimento i post 1 e 2. Caroselli puliti, titoli grandi, fondo chiaro per la spiegazione, apertura e chiusura scure quando aiutano. Mani e iPhone nei video, niente volto né voce. La musica viene scelta da Matteo in piattaforma.
 - Usare l’iPhone a metà per ingrandire una sola zona e intero quando contano percorso o navigazione. Usare schemi o numeri in grafica quando spiegano meglio della schermata. La copertina è ricorrente per le guide e facoltativa per gli altri post.
 - Rimuovere ogni icona, banner o badge «MODALITÀ DEMO» visibile nelle catture pubblicate. Mantenere il logo Bucktrail. Usare solo dati di esempio, eliminare notifiche, nomi, email e altri dati personali. Scrivere «Dati di esempio» anche in copertina quando si vedono importi dimostrativi dell’app. Conservare intatti gli screenshot sorgente.
 - Controllare barra di stato coerente nel carosello (9:41, segnale, 5G e batteria 59% come riferimento), tab bar al fondo del telefono intero con il solo margine di sicurezza e ritagli intenzionali. Usare la stessa schermata solo se serve a dimostrare un passaggio diverso.
@@ -32,4 +32,4 @@
 
 - Alternare guide, tutorial ed educazione. Pianificare 1–2 post per giorno di pubblicazione. Quando ce ne sono due, usare rubriche e argomenti diversi. Un post extra entra solo su richiesta di Matteo.
 - Il 20/11 Matteo ha approvato il piano in blocco a condizione che copra tutta l’app. Preparare le scalette e i materiali senza chiedere un nuovo ok per ogni post. Usare la mappa di copertura del calendario, verificare funzioni e catture sulla build e registrare lo stato. Concordare con Matteo date, slot e pubblicazione.
-- Preparare `istruzioni-post/post-N.txt` con data, ora, canali, ordine, musica, caption, hashtag, link e passi di pubblicazione. Esportare con `python3 SOCIAL/esporta-post.py N` in «Il mio Drive/Da postare/post-N/». Verificare che contenga solo i file da pubblicare e il LEGGIMI. Matteo pubblica. Registrare link e metriche nel diario.
+- Preparare `istruzioni-post/post-N.txt` con data, orari locali per canale, giorni esclusi, ordine, titolo per TikTok, caption, 5–6 hashtag per piattaforma, link e passi di pubblicazione. Omettere la musica dalle istruzioni: ci pensa Matteo. Esportare con `python3 SOCIAL/esporta-post.py N` in «Il mio Drive/Da postare/post-N/». Verificare che contenga solo i file da pubblicare e il LEGGIMI. Matteo pubblica. Registrare link e metriche nel diario.

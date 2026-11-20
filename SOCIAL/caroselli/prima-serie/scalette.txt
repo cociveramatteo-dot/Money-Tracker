@@ -1,0 +1,101 @@
+@3|Guida: HOME|Dal saldo agli ultimi movimenti|La Home di Bucktrail in 7 slide|home|contipersonali saldo appbudget
+Quanto hai oggi?|Il saldo attuale somma i conti inclusi nel totale.|home:hero
+Come potrebbe finire il mese?|Il verde mostra il saldo registrato. Il tratteggio segue i movimenti pianificati.|home:curve
+Quanto c’è su ogni conto?|Scorri le carte. Con «Gestisci» apri la tab Conti.|home:accounts
+I fissi del mese|Spese ed entrate fisse hanno due riepiloghi separati.|home:fixed
+Cosa hai registrato di recente?|Apri «Vedi tutti» per passare dalla Home a Movimenti.|recent:recent
+@4|Come aggiungere un movimento|Registriamo una spesa e la ritroviamo in lista.|Una spesa, dal + al salvataggio|expense-example|gestionespese movimenti appbudget
+Da dove parti?|Apri il + e scegli «Spesa / Entrata».|home:full
+Importo e descrizione|Per esempio, scrivi 24,50 € e «Supermercato».|expense-example:form
+Controlla i dettagli|Scegli categoria, conto e data. Per una spesa già pagata lascia attivo «Già effettuato».|=CATEGORIA~Cibo;CONTO E DATA~Scegli dove e quando;STATO~Già effettuato
+Salva e controlla la lista|Apri Movimenti e ritrova la spesa appena registrata.|=MOVIMENTI~Supermercato · −24,50 €
+@5|Quanto vuoi spendere per mangiare fuori?|Dalle spese passate al budget del prossimo mese.|Budget ristoranti: da 175 € di media a 150 €|=TETTO MENSILE~150 €|budgetmensile spesefuoricasa pianificazionefinanziaria
+Parti dagli ultimi tre mesi|Guarda quanto hai speso per mangiare fuori in tre mesi diversi.|+160,190,175
+Scegli un limite realistico|La media è 175 €. Per il mese prossimo puoi scegliere un tetto di 150 €.|=MEDIA MENSILE~175 €;LIMITE SCELTO~150 €
+Dagli un posto in Pianifica|Imposta 150 € come budget mensile per la categoria che usi per mangiare fuori.|=PIANIFICA → BUDGET~Mangiare fuori · 150 €
+Fai un controllo a metà mese|Se hai speso 90 €, nel budget restano 60 €.|=GIÀ SPESO~90 €;ANCORA DISPONIBILE~60 €
+@6|Guida: MOVIMENTI|Da quello che hai registrato a quello che è in arrivo.|Movimenti: cerca, filtra e trova i pianificati|mov|movimenti contipersonali appbudget
+Cosa c’è in arrivo?|In cima alla lista trovi i movimenti pianificati.|mov:planned
+Giorno per giorno|Le voci sono raggruppate per data. Il subtotale riassume il gruppo.|mov:daily
+Cerchi una voce precisa?|Cerca per nome oppure restringi per mese e categoria.|mov:filters
+Dove stanno le ricorrenze?|Apri «Ricorrenti» per vedere le serie e la prossima scadenza.|rules:top
+@7|Come aggiungere un conto|Due esempi: Portafoglio e Conto corrente.|Contanti e conto corrente: come aggiungerli|account-editor|contocorrente contanti gestionesoldi
+Apri la tab Conti|Tocca il + per aprire il modulo «Nuovo conto».|accounts:bottom
+Scegli il tipo|Usa «Contanti» per il portafoglio e il tipo bancario per il conto corrente.|=PORTAFOGLIO~Contanti;CONTO CORRENTE~Conto bancario
+Dai un nome e scrivi il saldo|Inserisci i soldi che hai già su quel conto.|=PORTAFOGLIO~85 €;CONTO CORRENTE~1.250 €
+Salva e verifica in Conti|Li ritrovi nella lista, ciascuno con il suo saldo.|=CONTO CORRENTE~1.250 €;PORTAFOGLIO~85 €
+@8|950 € sul conto. Quanto hai messo da parte?|Saldo e netto mensile rispondono a due domande diverse.|950 € sul conto: sai qual è il tuo netto?|=SALDO ATTUALE~950 €|finanzapersonale saldo bilanciomensile
+Hai iniziato con 800 €|Il saldo di partenza include anche i soldi che avevi già prima di questo mese.|=SALDO A INIZIO MESE~800 €
+Guarda i movimenti del mese|In Statistiche il netto è entrate meno uscite.|=ENTRATE~1.200 €;USCITE~1.050 €;NETTO~+150 €
+Dove leggi i due numeri?|In Home trovi il saldo; in Statistiche trovi il netto del mese.|=HOME~800 € + 150 € = 950 €;STATISTICHE~Netto del mese: +150 €
+@9|Guida: CONTI|Dove sono i tuoi soldi?|Conti inclusi, esclusi e archiviati in Bucktrail|accounts|contipersonali contocorrente gestionesoldi
+Da dove viene il totale?|Il patrimonio somma i saldi dei conti inclusi.|accounts:hero
+I conti sono divisi per tipo|Contanti, carte e risparmi hanno il proprio saldo.|accounts:list
+Escluso dal totale|Un conto può restare nell’elenco senza sommare il suo saldo al patrimonio.|=CONTO ESCLUSO~Visibile nella lista;PATRIMONIO~Saldo fuori dal totale
+Dove sono gli archiviati?|Apri «Archiviati» in fondo alla tab Conti per ritrovare i conti messi da parte.|=CONTI~Scorri in fondo;ARCHIVIATI~Apri la sezione
+@10|Lingua, valuta e tema|Tre modi per personalizzare Bucktrail su iPhone.|Bucktrail in inglese, in sterline o in modalità scura|settings|lingue valuta tutorialiphone
+Parti dall’ingranaggio|Apri le impostazioni di Bucktrail dalla Home.|home:top
+Cambia lingua|Lingua → Apri Impostazioni iOS → Lingua. Per esempio, passa a English.|=7 LINGUE~Italiano, inglese, tedesco, spagnolo, francese, giapponese, cinese semplificato
+Cambia il simbolo valuta|In «Valuta», scegli il simbolo che preferisci. La cifra rimane uguale.|=PRIMA~85,00 €;DOPO~85,00 £
+Scegli il tema su iPhone|Impostazioni iOS → Schermo e luminosità. Bucktrail segue l’aspetto del telefono.|=ASPETTO IOS~Chiaro oppure scuro
+@11|480 € tra un anno. Come ti prepari?|Un’assicurazione annuale, dodici mesi per accantonarla.|La spesa è annuale. Il piano è mensile.|=ASSICURAZIONE AUTO~480 €|obiettivirisparmio assicurazione spesefisse
+Dividi per i mesi che hai|480 € in 12 mesi fanno 40 € al mese.|:12x40
+Crea un obiettivo|In Pianifica → Obiettivi, dai un nome alla spesa e aggiungi importo e scadenza.|=OBIETTIVO~Assicurazione auto;IMPORTO E SCADENZA~480 € · tra 12 mesi
+Controlla quanto hai messo da parte|Dopo 3 mesi, aggiorni tu l’importo accantonato.|=AVANZAMENTO~120 € su 480 € · 25%;DA ACCANTONARE~360 €
+@12|Due tocchi per registrare una spesa|Configura il tocco posteriore su iPhone.|Come registrare una spesa con due tocchi sul retro|shortcuts|comandirapidi toccoposteriore tutorialiphone
+Crea un comando rapido|Apri Comandi Rapidi e tocca il + per iniziare.|=COMANDI RAPIDI~Tocca + per creare un comando
+Aggiungi l’azione Bucktrail|Cerca Bucktrail, scegli «Aggiungi spesa» e salva con un nome riconoscibile.|=AZIONE~Bucktrail · Aggiungi spesa;NOME DEL COMANDO~Aggiungi spesa
+Trova il gesto|Apri Impostazioni e segui questo percorso.|=IMPOSTAZIONI~Accessibilità → Tocco → Tocco posteriore
+Assegna il comando|Apri «Tocco doppio» e scegli il comando appena creato.|=TOCCO DOPPIO~Seleziona «Aggiungi spesa»
+Prova con una spesa|Tocca due volte il retro. Inserisci «Caffè e cornetto» e 3,20 € nei campi che si aprono.|shortcuts:prompt
+Ritrovala in Movimenti|Cerca quello che hai appena registrato.|=MOVIMENTI~Caffè e cornetto · −3,20 €
+@13|Guida: PIANIFICA|Budget e obiettivi, ognuno al suo posto.|Pianifica: dove stanno budget e obiettivi|budget|pianificazionefinanziaria budgetmensile obiettivi
+Due schede, due compiti|Usa il selettore in alto per passare da Budget a Obiettivi.|budget:top
+Leggi i tuoi budget|Ogni scheda mostra spesa, limite e quanto rimane.|budget:list
+Segui l’avanzamento|Negli obiettivi vedi quanto hai accantonato e quanto manca.|goals:list
+Crea dalla scheda giusta|Apri Budget o Obiettivi, poi usa il + adatto alla scheda.|=BUDGET~+ per un nuovo limite;OBIETTIVI~+ per un nuovo traguardo
+@14|Crea una ricorrenza|Imposta il pagamento una volta e ritrova la serie.|Come programmare una bolletta ricorrente|rules|ricorrenze bollette gestionespese
+Parti da un nuovo movimento|Inserisci descrizione, importo, categoria e conto.|add:form
+Scegli ogni quanto si ripete|Apri «Ricorrenza», imposta la frequenza e salva.|=ESEMPIO~Internet casa · 29 €;FREQUENZA~Mensile
+Ritrova la serie|In Movimenti → Ricorrenti, cerca la voce sotto «Serie programmate».|rules:top
+Guarda il mese successivo|Le occorrenze future virtuali sono separate e non entrano nei totali.|=SERIE PROGRAMMATE~Create da te;SERIE RILEVATE~Schemi dai movimenti;VIRTUALI~Escluse dai totali
+@15|Sposti 200 €. Il patrimonio cambia?|Un giroconto visto da entrambi i conti.|Giroconto da 200 €: perché il patrimonio resta uguale|=PRIMA E DOPO~1.500 € complessivi|giroconto trasferimenti contipersonali
+Prima del trasferimento|Entrambi i conti sono inclusi nel totale e nella stessa valuta.|=CONTO CORRENTE~1.000 €;RISPARMI~500 €
+Sposta 200 € verso Risparmi|Il conto di partenza scende e quello di arrivo sale.|=CONTO CORRENTE~800 €;RISPARMI~700 €
+Leggi il totale|Prima e dopo, il patrimonio complessivo resta 1.500 €.|=PRIMA~1.500 €;DOPO~1.500 €
+Riconoscilo in Movimenti|Bucktrail registra le due parti come trasferimento collegato.|=MOVIMENTI → TRASFERIMENTI~−200 € dal Conto corrente;+200 €~sul conto Risparmi
+@16|Guida: STATISTICHE|Leggi il mese, l’andamento e le categorie.|Statistiche: i tre numeri da controllare|stats|statistiche spesemensili finanzapersonale
+Scegli il mese|Le frecce cambiano il periodo. Le tre schede riassumono uscite, entrate e netto.|stats:hero
+Leggi l’andamento|Usa 6M o 12M e confronta le barre di uscite ed entrate.|stats:chart
+Controlla le categorie|Importo e percentuale ti dicono dove si concentra la spesa del mese.|stats:categories
+Allarga lo sguardo|Scorri per leggere medie e confronto annuale, quando ci sono dati sufficienti.|=MEDIE~Riferimento sui mesi disponibili;CONFRONTO ANNUALE~Anno corrente e anno precedente
+@17|Modifica una ricorrenza|Scegli quante scadenze vuoi cambiare.|Cambiare una rata o tutta la serie? Ecco i tre ambiti|ruleedit|ricorrenze pagamentiperiodici tutorialbudget
+Apri la prossima occorrenza|In «Serie programmate», tocca la prossima data della ricorrenza.|rules:top
+Solo questa|Utile se una bolletta ha un importo diverso per un solo mese.|ruleedit:top
+Questa e le successive|Usalo quando il nuovo importo vale da una scadenza in avanti.|=AMBITO~Questa e le successive;CASO~Il canone aumenta dal prossimo rinnovo
+Tutte|Usalo per aggiornare la regola della serie. Le occorrenze già confermate restano nello storico.|=AMBITO~Tutte;PRIMA DI SALVARE~Ricontrolla importo e ambito
+@18|Un mese insolito alza la media?|Come leggere una spesa fuori dal solito.|Un mese fuori scala: cosa guardare in Statistiche|=ESEMPIO~Da 480 € a 620 € di media|educazionefinanziaria analisispese statistica
+Parti dai mesi abituali|In questo esempio le uscite sono 450 €, 500 € e 490 €.|+450,500,490
+Poi arriva una spesa straordinaria|Il quarto mese sale a 1.040 € e la media dei quattro mesi arriva a 620 €.|=MESE 4~1.040 €;MEDIA DEI 4 MESI~620 €
+Guarda le barre e le categorie|Nell’app individua il mese alto e controlla quale categoria pesa di più.|stats:chart
+Decidi cosa stai stimando|Per il mese prossimo distingui le spese abituali da quelle eccezionali già previste.|=ABITUALI~Usa i mesi tipici;ECCEZIONI~Metti in conto quelle già note
+@19|Guida: IMPOSTAZIONI|Dove trovare i comandi che cambiano l’esperienza.|Preferenze, avvisi e dati: dove trovarli|settings|impostazioniapp contipersonali tutorialiphone
+Apri l’ingranaggio|Dalla Home raggiungi le preferenze dell’app.|home:top
+Lingua, valuta e Home|Personalizza lingua e simbolo valuta e scegli quali riepiloghi mostrare in Home.|settings:top
+Avvisi e sicurezza|Qui trovi le notifiche, il promemoria del report e il blocco biometrico.|settings:bottom
+Dati, Comandi e versione|Scorri per trovare esportazioni, scorciatoie e informazioni sull’app.|settings-lower:list
+@20|Una spesa di dicembre, già da oggi|Pianifica una spesa singola nel suo mese.|Tasse del mese prossimo: come pianificarle|=SCADENZA DI ESEMPIO~15 dicembre|spesefisse movimentipianificati budgetmensile
+Crea la spesa prima di pagarla|Per esempio, 280 € di tasse universitarie. Scegli la data del prossimo mese.|=IMPORTO~280 €;DATA~15 dicembre
+Segnala che è fissa|Attiva «Spesa fissa» e lascia la ricorrenza su «Nessuna».|=SPESA FISSA~Attiva;RICORRENZA~Nessuna
+Ritrovala nel suo mese|In Movimenti seleziona il mese della scadenza. La previsione della Home la include quando arriva quel mese.|mov:filters
+Quando paghi, conferma|Scorri a destra per confermarla o riportarla tra i pianificati. Tocca per modificare; scorri a sinistra per eliminare.|=DESTRA~Conferma o ripianifica;TOCCO / SINISTRA~Modifica / elimina
+@21|Budget e obiettivo: quale ti serve?|Due domande diverse su come usi i tuoi soldi.|Budget o obiettivo? La differenza in due esempi|budget|budgetmensile obiettivirisparmio educazionefinanziaria
+Budget: quanto vuoi spendere?|Per gli acquisti online scegli, per esempio, un limite di 90 € ogni mese.|=BUDGET MENSILE~Acquisti online · 90 €
+Obiettivo: quanto vuoi mettere da parte?|Per una bici, scegli una cifra da raggiungere, ad esempio 360 €.|=OBIETTIVO~Bici · 360 €
+Dove controlli i progressi?|In Pianifica, Budget mostra quanto hai speso. Obiettivi mostra quanto hai accantonato.|budget:top
+Quale apri oggi?|Limite per una categoria oppure cifra da raggiungere per un progetto.|=BUDGET~Tieni d’occhio la spesa;OBIETTIVO~Segui l’accantonamento
+@22|Crea un obiettivo e aggiornalo|Dal primo traguardo ai progressi nella scheda.|Come impostare un obiettivo di risparmio|goal-editor|obiettivirisparmio risparmio pianificazionefinanziaria
+Apri Obiettivi|In Pianifica, seleziona Obiettivi e tocca il + della scheda.|goals:top
+Scegli il traguardo|Scrivi «Weekend a Torino» e 320 €. Puoi aggiungere una scadenza.|=NOME~Weekend a Torino;TRAGUARDO~320 €
+Aggiorna l’importo messo da parte|Dalla scheda registra l’accantonamento quando lo hai fatto.|=MESSO DA PARTE~80 €;OBIETTIVO~320 €
+Controlla l’avanzamento|Con 80 € su 320 € sei al 25%. Mancano 240 €.|=AVANZAMENTO~25%;DA ACCANTONARE~240 €

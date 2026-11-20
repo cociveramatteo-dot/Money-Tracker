@@ -179,3 +179,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-20 23:22 | impresa (Codex · GPT-6) | SC-0 | Salvato ok al Post-11 e verificato totale del calendario | Pausa prima del Post-12 |
 | 2026-11-20 23:23 | impresa (Codex · GPT-6) | SC-0 | Anticipato al Post-12 il tutorial doppio tocco; budget spostato a Post-35 | Scaletta Post-12 da approvare |
 | 2026-11-20 23:26 | impresa (Codex · GPT-6) | SC-0 | Registrato ok al Post-12 e al piano in blocco; copertura portata al Post-42 | Produzione e date |
+| 2026-11-20 23:44 | impresa (Codex · GPT-6) | SC-9 | 20 pacchetti Post-3–22 su Drive, 242 immagini verificate e 20 istruzioni | Riscontro prima della seconda metà; prova gesto fisico Post-12 |

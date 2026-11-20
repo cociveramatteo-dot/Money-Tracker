@@ -7,3 +7,4 @@ Social: direttive in `SOCIAL/direttive-social.md`; Post-3 «Guida: HOME» approv
 S-41: competenza mensile delle spese fisse singole in Home, implementata e verificata con la suite BalanceTrailTests e una prova mirata; da collaudare in UI.
 S-42: annullamento eliminazione serie e layout Ultimi movimenti verificati in modalità demo su iPhone 18 Pro.
 SC-4c: landing pubblicata e verificata su bucktrailapp.com in italiano e inglese. SC-3c: testi approvati, bio aggiornate da Matteo, messaggio fissato per i prossimi post. Matteo conferma anche post fissato e banner YouTube aggiornati; email di lancio rimandata.
+SC-9: prima metà dei caroselli Post-3–22 pronta e verificata su Drive. Seconda metà Post-23–42 in attesa del riscontro di Matteo.

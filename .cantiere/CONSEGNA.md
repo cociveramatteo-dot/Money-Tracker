@@ -1,9 +1,11 @@
-# CONSEGNA — Codex · 2026-11-20 23:26
+# CONSEGNA — Codex · 2026-11-20 23:44
 
 ## Fatto
-- SC-0: Matteo ha approvato Post-12 e il piano in blocco, con copertura dell’intera app. Calendario e direttive aggiornati.
-- Verificati documento prodotto e viste correnti. Aggiunti i Post-39–42 su widget/Siri, cronologia, profilo/sincronizzazione e demo. Estesi i post esistenti su categorie, spese fisse future, rettifiche e avvisi.
-- Mappa di copertura nel calendario, con i contenuti di Android e banca legati a disponibilità e verifica.
+- SC-9: Post-3–22 prodotti e verificati su Google Drive «Da postare», senza modificare Post-1 e Post-2.
+- 121 slide 4:5 per piattaforma. Prima slide come copertina del carosello e chiusura differenziata per Instagram e TikTok. Tutte le immagini esportate coincidono con quelle controllate. Esportate anche le 20 istruzioni con titoli TikTok, caption, 5 hashtag per ciascuna piattaforma, fonte e orario in Europe/Rome. Musica lasciata a Matteo.
+- Ricontrollati visualmente entrambi i post storici e tutti i nuovi caroselli. Catture dal simulatore iPhone 18 Pro, schemi esplicitamente illustrativi, nessun indicatore demo. Controllo supplementare OCR su 141 PNG unici per posizione e piattaforma.
+- Per la copertina è stata usata la prima slide 4:5. Anteprime locali in /tmp/mt-social-batch-3.jpg, -7.jpg, -11.jpg, -15.jpg e -19.jpg.
 
 ## Aperto
-- Produzione dei caroselli, a partire dal Post-3, e date effettive. Il Post-41 dipende dalla verifica della sincronizzazione tra le piattaforme.
+- Visione di Matteo della prima metà. I Post-23–42 restano da produrre.
+- Date effettive da fissare. Post-12: configurazione e risultato illustrati, gesto fisico del doppio tocco da provare su iPhone prima della pubblicazione.

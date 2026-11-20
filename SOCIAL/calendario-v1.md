@@ -17,26 +17,26 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 
 | Post | Data indicativa | Slot | Rubrica | Titolo e contenuto | Stato |
 |---|---|---:|---|---|---|
-| Post-3 | 23/11/2026 | 1 | Guida | **Guida: HOME** · Orientarsi tra saldo attuale, carte dei conti, riepiloghi e ultimi movimenti | Tema e sequenza di 7 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-4 | 24/11/2026 | 1 | Tutorial | **Come aggiungere un movimento** · Registrare 24,50 € al supermercato e ritrovare la spesa in Movimenti. Chiudere con la variante «Entrata» | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-5 | 25/11/2026 | 1 | Educazione | **Quanto vuoi spendere per mangiare fuori?** · Da 175 € di media a 150 € di budget mensile in Pianifica | Tema, esempio e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-6 | 26/11/2026 | 1 | Guida | **Guida: MOVIMENTI** · Leggere «In arrivo», lista giornaliera e subtotali. Mostrare dove si trovano ricerca e Ricorrenti | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-7 | 27/11/2026 | 1 | Tutorial | **Come aggiungere un conto** · Due esempi: Portafoglio da 85 € e Conto corrente da 1.250 € | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-8 | 28/11/2026 | 1 | Educazione | **Netto del mese e saldo del conto** · Distinguere 950 € di saldo attuale da +150 € di netto del mese | Esempio e sequenza di 5 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-9 | 30/11/2026 | 1 | Guida | **Guida: CONTI** · Leggere il patrimonio dei conti inclusi e riconoscere gruppi, conti esclusi e archivio | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-10 | 01/12/2026 | 1 | Tutorial | **Lingue, valuta e tema** · Mostrare le sette lingue e il percorso iOS, la scelta del simbolo valuta e il tema di sistema | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-11 | 01/12/2026 | 2 | Educazione | **Una spesa annuale, dodici mesi per prepararla** · Assicurazione auto da 480 € in 12 mesi, con obiettivo da 40 € al mese | Esempio e sequenza di 5 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-12 | 02/12/2026 | 1 | Tutorial | **Registra una spesa con il doppio tocco sul retro dell’iPhone** · Mostrare tutti i passaggi: creare o aggiungere «Aggiungi spesa» in Comandi, poi Impostazioni → Accessibilità → Tocco → Tocco posteriore → Doppio tocco, assegnare il comando, provarlo e trovare il movimento salvato. Verificare le etichette sul simulatore e il gesto su iPhone fisico | Sequenza di 8 slide approvata; da produrre |
-| Post-13 | 03/12/2026 | 1 | Guida | **Guida: PIANIFICA** · Orientarsi fra Budget e Obiettivi, schede riepilogative e pulsante di aggiunta | Piano approvato; da produrre |
-| Post-14 | 04/12/2026 | 1 | Tutorial | **Crea una ricorrenza** · Impostare frequenza e conto, salvare e ritrovare l’operazione. Distinguere serie programmate, rilevate e occorrenze virtuali dei mesi successivi | Piano approvato; da produrre |
-| Post-15 | 05/12/2026 | 1 | Educazione | **Spostare soldi tra conti non cambia il patrimonio** · Mostrare il prima e dopo con due conti nella stessa valuta e un trasferimento | Piano approvato; da produrre |
-| Post-16 | 07/12/2026 | 1 | Guida | **Guida: STATISTICHE** · Orientarsi tra mese, entrate, uscite, netto, andamento 6M/12M, categorie, medie e confronto annuale | Piano approvato; da produrre |
-| Post-17 | 08/12/2026 | 1 | Tutorial | **Modifica una ricorrenza** · Mostrare «solo questa», «questa e successive», «tutte», con un caso adatto a ciascuna | Piano approvato; da produrre |
-| Post-18 | 09/12/2026 | 1 | Educazione | **Una spesa insolita può alterare la media** · Leggere insieme media, barre dell’andamento e categorie per capire un mese anomalo | Piano approvato; da produrre |
-| Post-19 | 10/12/2026 | 1 | Guida | **Guida: IMPOSTAZIONI** · Orientarsi tra preferenze, avvisi, privacy sullo schermo, dati, Comandi, versione e conteggio dei movimenti | Piano approvato; da produrre |
-| Post-20 | 10/12/2026 | 2 | Tutorial | **Pianifica, conferma o elimina un movimento** · Creare una spesa fissa singola del mese successivo, mostrare il mese di competenza, poi confermare, ripianificare, modificare o eliminare | Piano approvato; da produrre |
-| Post-21 | 11/12/2026 | 1 | Educazione | **Budget e obiettivo per due domande diverse** · Confrontare «quanto posso spendere in una categoria» e «quanto voglio accantonare» | Piano approvato; da produrre |
-| Post-22 | 12/12/2026 | 1 | Tutorial | **Crea un obiettivo e aggiornalo** · Impostare importo e data facoltativa e registrare l’avanzamento | Piano approvato; da produrre |
+| Post-3 | 23/11/2026 | 1 | Guida | **Guida: HOME** · Orientarsi tra saldo attuale, carte dei conti, riepiloghi e ultimi movimenti | Su Drive, prima serie da rivedere; data indicativa |
+| Post-4 | 24/11/2026 | 1 | Tutorial | **Come aggiungere un movimento** · Registrare 24,50 € al supermercato e ritrovare la spesa in Movimenti. Chiudere con la variante «Entrata» | Su Drive, prima serie da rivedere; data indicativa |
+| Post-5 | 25/11/2026 | 1 | Educazione | **Quanto vuoi spendere per mangiare fuori?** · Da 175 € di media a 150 € di budget mensile in Pianifica | Su Drive, prima serie da rivedere; data indicativa |
+| Post-6 | 26/11/2026 | 1 | Guida | **Guida: MOVIMENTI** · Leggere «In arrivo», lista giornaliera e subtotali. Mostrare dove si trovano ricerca e Ricorrenti | Su Drive, prima serie da rivedere; data indicativa |
+| Post-7 | 27/11/2026 | 1 | Tutorial | **Come aggiungere un conto** · Due esempi: Portafoglio da 85 € e Conto corrente da 1.250 € | Su Drive, prima serie da rivedere; data indicativa |
+| Post-8 | 28/11/2026 | 1 | Educazione | **Netto del mese e saldo del conto** · Distinguere 950 € di saldo attuale da +150 € di netto del mese | Su Drive, prima serie da rivedere; data indicativa |
+| Post-9 | 30/11/2026 | 1 | Guida | **Guida: CONTI** · Leggere il patrimonio dei conti inclusi e riconoscere gruppi, conti esclusi e archivio | Su Drive, prima serie da rivedere; data indicativa |
+| Post-10 | 01/12/2026 | 1 | Tutorial | **Lingue, valuta e tema** · Mostrare le sette lingue e il percorso iOS, la scelta del simbolo valuta e il tema di sistema | Su Drive, prima serie da rivedere; data indicativa |
+| Post-11 | 01/12/2026 | 2 | Educazione | **Una spesa annuale, dodici mesi per prepararla** · Assicurazione auto da 480 € in 12 mesi, con obiettivo da 40 € al mese | Su Drive, prima serie da rivedere; data indicativa |
+| Post-12 | 02/12/2026 | 1 | Tutorial | **Registra una spesa con il doppio tocco sul retro dell’iPhone** · Mostrare tutti i passaggi: creare o aggiungere «Aggiungi spesa» in Comandi, poi Impostazioni → Accessibilità → Tocco → Tocco posteriore → Doppio tocco, assegnare il comando, provarlo e trovare il movimento salvato. Verificare le etichette sul simulatore e il gesto su iPhone fisico | Su Drive, prima serie da rivedere; data indicativa |
+| Post-13 | 03/12/2026 | 1 | Guida | **Guida: PIANIFICA** · Orientarsi fra Budget e Obiettivi, schede riepilogative e pulsante di aggiunta | Su Drive, prima serie da rivedere; data indicativa |
+| Post-14 | 04/12/2026 | 1 | Tutorial | **Crea una ricorrenza** · Impostare frequenza e conto, salvare e ritrovare l’operazione. Distinguere serie programmate, rilevate e occorrenze virtuali dei mesi successivi | Su Drive, prima serie da rivedere; data indicativa |
+| Post-15 | 05/12/2026 | 1 | Educazione | **Spostare soldi tra conti non cambia il patrimonio** · Mostrare il prima e dopo con due conti nella stessa valuta e un trasferimento | Su Drive, prima serie da rivedere; data indicativa |
+| Post-16 | 07/12/2026 | 1 | Guida | **Guida: STATISTICHE** · Orientarsi tra mese, entrate, uscite, netto, andamento 6M/12M, categorie, medie e confronto annuale | Su Drive, prima serie da rivedere; data indicativa |
+| Post-17 | 08/12/2026 | 1 | Tutorial | **Modifica una ricorrenza** · Mostrare «solo questa», «questa e successive», «tutte», con un caso adatto a ciascuna | Su Drive, prima serie da rivedere; data indicativa |
+| Post-18 | 09/12/2026 | 1 | Educazione | **Una spesa insolita può alterare la media** · Leggere insieme media, barre dell’andamento e categorie per capire un mese anomalo | Su Drive, prima serie da rivedere; data indicativa |
+| Post-19 | 10/12/2026 | 1 | Guida | **Guida: IMPOSTAZIONI** · Orientarsi tra preferenze, avvisi, privacy sullo schermo, dati, Comandi, versione e conteggio dei movimenti | Su Drive, prima serie da rivedere; data indicativa |
+| Post-20 | 10/12/2026 | 2 | Tutorial | **Pianifica, conferma o elimina un movimento** · Creare una spesa fissa singola del mese successivo, mostrare il mese di competenza, poi confermare, ripianificare, modificare o eliminare | Su Drive, prima serie da rivedere; data indicativa |
+| Post-21 | 11/12/2026 | 1 | Educazione | **Budget e obiettivo per due domande diverse** · Confrontare «quanto posso spendere in una categoria» e «quanto voglio accantonare» | Su Drive, prima serie da rivedere; data indicativa |
+| Post-22 | 12/12/2026 | 1 | Tutorial | **Crea un obiettivo e aggiornalo** · Impostare importo e data facoltativa e registrare l’avanzamento | Su Drive, prima serie da rivedere; data indicativa |
 | Post-23 | 14/12/2026 | 1 | Tutorial | **Ricorrenti: salta, termina o elimina** · Distinguere le conseguenze delle azioni sulla singola scadenza e sulla serie | Piano approvato; da produrre |
 | Post-24 | 15/12/2026 | 1 | Educazione | **Quanto pesa una categoria sulle uscite?** · Usare una quota di spesa per scegliere una categoria da controllare, partendo da Statistiche | Piano approvato; da produrre |
 | Post-25 | 16/12/2026 | 1 | Tutorial | **Trova un movimento** · Combinare ricerca, mese e categoria; mostrare importo e intervallo nei filtri avanzati | Piano approvato; da produrre |
@@ -159,6 +159,24 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Profilo, sincronizzazione e demo | 41, 42 |
 
 Android e collegamento bancario hanno contenuti dedicati quando le rispettive funzioni sono verificabili. Fino ad allora si usano la dicitura di lancio iPhone e Android e, per le banche, l’eventuale sondaggio sulla funzione prevista dopo il lancio.
+
+## Consegna prima serie
+
+I Post-3–22 sono in Google Drive → «Da postare», con cartelle Instagram e TikTok e LEGGIMI separati per post. La serie comprende 121 slide per piattaforma. Sono state riviste visivamente tutte le slide e le due chiusure per post, riprendendo i primi due caroselli come riferimento. Le catture della build provengono dal simulatore quando necessarie. I dati inventati e i passaggi illustrati in grafica sono dichiarati nelle slide. Per Post-12, il gesto fisico è spiegato con schema e schermata del comando; la prova su iPhone fisico resta da fare prima della pubblicazione.
+
+## Orari di partenza · Europe/Rome
+
+| Giorno | Instagram | TikTok |
+|---|---:|---:|
+| Lunedì | 19:00 | 13:00 |
+| Martedì | 19:00 | 06:00 |
+| Mercoledì | 12:00 | 22:00 |
+| Giovedì | 09:00 | 13:00 |
+| Venerdì | 22:00 | 18:00 |
+| Sabato | 21:00 | 17:00 |
+| Domenica | Esclusa dal calendario | Esclusa dal calendario |
+
+Il calendario esclude anche 24–25 dicembre e 1° gennaio. Su Instagram, venerdì e sabato sono più deboli nel campione Buffer. Sul sabato TikTok le fonti divergono, quindi lo teniamo come test. I due post dello stesso giorno hanno slot distinti nei rispettivi LEGGIMI. Gli Insights di @bucktrailapp hanno precedenza quando ci saranno abbastanza dati. [Buffer Instagram](https://buffer.com/resources/when-is-the-best-time-to-post-on-instagram/) · [Buffer TikTok](https://buffer.com/resources/best-time-to-post-on-tiktok/) · [Sprout Social TikTok](https://sproutsocial.com/insights/best-times-to-post-on-tiktok/)
 
 ## Gate · dom 06/12
 Si leggono le soglie (`DECISIONI.md`, «Soglie del segnale») e Matteo decide:
