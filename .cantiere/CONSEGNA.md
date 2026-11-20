@@ -1,8 +1,9 @@
-# CONSEGNA — Codex · 2026-11-20 23:23
+# CONSEGNA — Codex · 2026-11-20 23:26
 
 ## Fatto
-- SC-0: anticipato il tutorial del doppio tocco sul retro dell’iPhone al Post-12. Il tutorial per impostare un budget si sposta al Post-35.
-- Proposte otto slide dal comando Bucktrail alla prova su iPhone e alla verifica in Movimenti.
+- SC-0: Matteo ha approvato Post-12 e il piano in blocco, con copertura dell’intera app. Calendario e direttive aggiornati.
+- Verificati documento prodotto e viste correnti. Aggiunti i Post-39–42 su widget/Siri, cronologia, profilo/sincronizzazione e demo. Estesi i post esistenti su categorie, spese fisse future, rettifiche e avvisi.
+- Mappa di copertura nel calendario, con i contenuti di Android e banca legati a disponibilità e verifica.
 
 ## Aperto
-- Approvazione della scaletta Post-12. Durante la produzione verificare le etichette e provare il gesto su iPhone fisico.
+- Produzione dei caroselli, a partire dal Post-3, e date effettive. Il Post-41 dipende dalla verifica della sincronizzazione tra le piattaforme.

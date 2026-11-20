@@ -1,8 +1,6 @@
 # Calendario social Bucktrail
 
-**Bozza da approvare un post alla volta.** Le date sono un esempio, calcolato con partenza lunedì 23/11/2026. Le date si ricalcolano con Matteo quando sceglie la partenza. Nessun orario è assegnato. La sequenza propone un post al giorno e tre giornate con due post su temi distinti. Nella simulazione restano libere domeniche, 24–25 dicembre e 1° gennaio.
-
-Per ciascuna riga registrare qui **approvato / da rivedere / rimandato**, con data e orario reali quando concordati. L’approvazione di un post vale solo per quella riga. Il [manuale](Bucktrail_Manuale_Strategico_v2.pdf) resta la base strategica, con le [direttive](direttive-social.md) come riferimento operativo.
+**Piano editoriale approvato da Matteo il 20/11, con copertura dell’intera app.** Le date sono indicative, ipotizzando la partenza il 23/11/2026. Il giorno di partenza, gli orari e l’autorizzazione a pubblicare si concordano separatamente. La sequenza propone un post per giorno di pubblicazione, con tre giornate da due post. Il [manuale](Bucktrail_Manuale_Strategico_v2.pdf) resta la base strategica, affiancato dalle [direttive](direttive-social.md).
 
 ## Già pubblicati
 
@@ -28,33 +26,37 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post-9 | 30/11/2026 | 1 | Guida | **Guida: CONTI** · Leggere il patrimonio dei conti inclusi e riconoscere gruppi, conti esclusi e archivio | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-10 | 01/12/2026 | 1 | Tutorial | **Lingue, valuta e tema** · Mostrare le sette lingue e il percorso iOS, la scelta del simbolo valuta e il tema di sistema | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-11 | 01/12/2026 | 2 | Educazione | **Una spesa annuale, dodici mesi per prepararla** · Assicurazione auto da 480 € in 12 mesi, con obiettivo da 40 € al mese | Esempio e sequenza di 5 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-12 | 02/12/2026 | 1 | Tutorial | **Registra una spesa con il doppio tocco sul retro dell’iPhone** · Mostrare tutti i passaggi: creare o aggiungere «Aggiungi spesa» in Comandi, poi Impostazioni → Accessibilità → Tocco → Tocco posteriore → Doppio tocco, assegnare il comando, provarlo e trovare il movimento salvato. Verificare le etichette sul simulatore e il gesto su iPhone fisico | Da approvare |
-| Post-13 | 03/12/2026 | 1 | Guida | **Guida: PIANIFICA** · Orientarsi fra Budget e Obiettivi, schede riepilogative e pulsante di aggiunta | Da approvare |
-| Post-14 | 04/12/2026 | 1 | Tutorial | **Crea una ricorrenza** · Impostare frequenza e conto, salvare e ritrovare l’operazione programmata | Da approvare |
-| Post-15 | 05/12/2026 | 1 | Educazione | **Spostare soldi tra conti non cambia il patrimonio** · Mostrare il prima e dopo con due conti nella stessa valuta e un trasferimento | Da approvare |
-| Post-16 | 07/12/2026 | 1 | Guida | **Guida: STATISTICHE** · Orientarsi tra mese, entrate, uscite, netto, andamento e categorie | Da approvare |
-| Post-17 | 08/12/2026 | 1 | Tutorial | **Modifica una ricorrenza** · Mostrare «solo questa», «questa e successive», «tutte», con un caso adatto a ciascuna | Da approvare |
-| Post-18 | 09/12/2026 | 1 | Educazione | **Una spesa insolita può alterare la media** · Leggere insieme media, barre dell’andamento e categorie per capire un mese anomalo | Da approvare |
-| Post-19 | 10/12/2026 | 1 | Guida | **Guida: IMPOSTAZIONI** · Orientarsi tra preferenze, avvisi, privacy sullo schermo, dati e Comandi | Da approvare |
-| Post-20 | 10/12/2026 | 2 | Tutorial | **Pianifica, conferma o elimina un movimento** · Creare un movimento futuro, mostrare come confermarlo e quando usare modifica o elimina | Da approvare |
-| Post-21 | 11/12/2026 | 1 | Educazione | **Budget e obiettivo per due domande diverse** · Confrontare «quanto posso spendere in una categoria» e «quanto voglio accantonare» | Da approvare |
-| Post-22 | 12/12/2026 | 1 | Tutorial | **Crea un obiettivo e aggiornalo** · Impostare importo e data facoltativa e registrare l’avanzamento | Da approvare |
-| Post-23 | 14/12/2026 | 1 | Tutorial | **Ricorrenti: salta, termina o elimina** · Distinguere le conseguenze delle azioni sulla singola scadenza e sulla serie | Da approvare |
-| Post-24 | 15/12/2026 | 1 | Educazione | **Quanto pesa una categoria sulle uscite?** · Usare una quota di spesa per scegliere una categoria da controllare, partendo da Statistiche | Da approvare |
-| Post-25 | 16/12/2026 | 1 | Tutorial | **Trova un movimento** · Combinare ricerca, mese e categoria; mostrare importo e intervallo nei filtri avanzati | Da approvare |
-| Post-26 | 17/12/2026 | 1 | Tutorial | **Conti: escludi, archivia e ripristina** · Mostrare tre azioni e il loro effetto sull’elenco e sul totale | Da approvare |
-| Post-27 | 18/12/2026 | 1 | Educazione | **Riconciliare un saldo con i movimenti** · Confrontare estratto e registro e mostrare dove vedere una rettifica dopo aver verificato lo scarto | Da approvare |
-| Post-28 | 19/12/2026 | 1 | Tutorial | **Trasferisci o programma un trasferimento** · Mostrare Da/A, importo e stato. Come verificare il movimento collegato | Da approvare |
-| Post-29 | 21/12/2026 | 1 | Tutorial | **Budget e obiettivi: modifica o elimina** · Riunire la gestione delle due schede, dopo verifica dei gesti e delle conferme nella build | Da approvare |
-| Post-30 | 21/12/2026 | 2 | Educazione | **Stipendio e scadenze in giorni diversi** · Leggere la curva prima e dopo la data di un’entrata per riconoscere un punto basso nel mese | Da approvare |
-| Post-31 | 22/12/2026 | 1 | Tutorial | **Personalizza la Home** · Ordinare e selezionare conti, mostrare o nascondere le card e oscurare gli importi | Da approvare |
-| Post-32 | 23/12/2026 | 1 | Tutorial | **Leggi le soglie del budget** · Avviso all’80%, sforamento, storico e avvisi disponibili | Da approvare |
-| Post-33 | 26/12/2026 | 1 | Educazione | **Spese piccole, effetto cumulato** · Mostrare come ritrovare più spese dello stesso tipo e leggere il totale per categoria | Da approvare |
-| Post-34 | 28/12/2026 | 1 | Tutorial | **Esporta PDF, CSV o JSON** · Mostrare dove si trovano e quando usare report mensile, elenco movimenti o esportazione profilo | Da approvare |
-| Post-35 | 29/12/2026 | 1 | Tutorial | **Imposta un budget** · Scegliere categoria, limite mensile e, se utile, conto. Mostrare il risultato | Da approvare |
-| Post-36 | 30/12/2026 | 1 | Educazione | **La revisione di fine mese** · Confrontare una categoria con il suo budget, verificare il netto e scegliere un aggiustamento per il mese dopo | Da approvare |
-| Post-37 | 31/12/2026 | 1 | Tutorial | **Importi discreti, Face ID e promemoria** · Mostrare occhio, blocco app e dove attivare gli avvisi, chiarendo le differenze fra i comandi | Da approvare |
-| Post-38 | 02/01/2027 | 1 | Tutorial | **Categorie e «Ultima usata»** · Mostrare il suggerimento alla seconda registrazione e come sostituirlo manualmente | Da approvare |
+| Post-12 | 02/12/2026 | 1 | Tutorial | **Registra una spesa con il doppio tocco sul retro dell’iPhone** · Mostrare tutti i passaggi: creare o aggiungere «Aggiungi spesa» in Comandi, poi Impostazioni → Accessibilità → Tocco → Tocco posteriore → Doppio tocco, assegnare il comando, provarlo e trovare il movimento salvato. Verificare le etichette sul simulatore e il gesto su iPhone fisico | Sequenza di 8 slide approvata; da produrre |
+| Post-13 | 03/12/2026 | 1 | Guida | **Guida: PIANIFICA** · Orientarsi fra Budget e Obiettivi, schede riepilogative e pulsante di aggiunta | Piano approvato; da produrre |
+| Post-14 | 04/12/2026 | 1 | Tutorial | **Crea una ricorrenza** · Impostare frequenza e conto, salvare e ritrovare l’operazione. Distinguere serie programmate, rilevate e occorrenze virtuali dei mesi successivi | Piano approvato; da produrre |
+| Post-15 | 05/12/2026 | 1 | Educazione | **Spostare soldi tra conti non cambia il patrimonio** · Mostrare il prima e dopo con due conti nella stessa valuta e un trasferimento | Piano approvato; da produrre |
+| Post-16 | 07/12/2026 | 1 | Guida | **Guida: STATISTICHE** · Orientarsi tra mese, entrate, uscite, netto, andamento 6M/12M, categorie, medie e confronto annuale | Piano approvato; da produrre |
+| Post-17 | 08/12/2026 | 1 | Tutorial | **Modifica una ricorrenza** · Mostrare «solo questa», «questa e successive», «tutte», con un caso adatto a ciascuna | Piano approvato; da produrre |
+| Post-18 | 09/12/2026 | 1 | Educazione | **Una spesa insolita può alterare la media** · Leggere insieme media, barre dell’andamento e categorie per capire un mese anomalo | Piano approvato; da produrre |
+| Post-19 | 10/12/2026 | 1 | Guida | **Guida: IMPOSTAZIONI** · Orientarsi tra preferenze, avvisi, privacy sullo schermo, dati, Comandi, versione e conteggio dei movimenti | Piano approvato; da produrre |
+| Post-20 | 10/12/2026 | 2 | Tutorial | **Pianifica, conferma o elimina un movimento** · Creare una spesa fissa singola del mese successivo, mostrare il mese di competenza, poi confermare, ripianificare, modificare o eliminare | Piano approvato; da produrre |
+| Post-21 | 11/12/2026 | 1 | Educazione | **Budget e obiettivo per due domande diverse** · Confrontare «quanto posso spendere in una categoria» e «quanto voglio accantonare» | Piano approvato; da produrre |
+| Post-22 | 12/12/2026 | 1 | Tutorial | **Crea un obiettivo e aggiornalo** · Impostare importo e data facoltativa e registrare l’avanzamento | Piano approvato; da produrre |
+| Post-23 | 14/12/2026 | 1 | Tutorial | **Ricorrenti: salta, termina o elimina** · Distinguere le conseguenze delle azioni sulla singola scadenza e sulla serie | Piano approvato; da produrre |
+| Post-24 | 15/12/2026 | 1 | Educazione | **Quanto pesa una categoria sulle uscite?** · Usare una quota di spesa per scegliere una categoria da controllare, partendo da Statistiche | Piano approvato; da produrre |
+| Post-25 | 16/12/2026 | 1 | Tutorial | **Trova un movimento** · Combinare ricerca, mese e categoria; mostrare importo e intervallo nei filtri avanzati | Piano approvato; da produrre |
+| Post-26 | 17/12/2026 | 1 | Tutorial | **Conti: escludi, archivia e ripristina** · Mostrare le tre azioni e il loro effetto su elenco e totale. Distinguere l’eliminazione con un conto fittizio | Piano approvato; da produrre |
+| Post-27 | 18/12/2026 | 1 | Educazione | **Riconciliare un saldo con i movimenti** · Confrontare estratto e registro, mostrare come modificare il saldo e ritrovare la rettifica dopo aver verificato lo scarto | Piano approvato; da produrre |
+| Post-28 | 19/12/2026 | 1 | Tutorial | **Trasferisci o programma un trasferimento** · Mostrare Da/A, importo e stato. Come verificare e gestire le due voci collegate | Piano approvato; da produrre |
+| Post-29 | 21/12/2026 | 1 | Tutorial | **Budget e obiettivi: modifica o elimina** · Riunire la gestione delle due schede, dopo verifica dei gesti e delle conferme nella build | Piano approvato; da produrre |
+| Post-30 | 21/12/2026 | 2 | Educazione | **Stipendio e scadenze in giorni diversi** · Leggere la curva prima e dopo la data di un’entrata per riconoscere un punto basso nel mese | Piano approvato; da produrre |
+| Post-31 | 22/12/2026 | 1 | Tutorial | **Personalizza la Home** · Ordinare e selezionare conti, mostrare o nascondere le card e oscurare gli importi | Piano approvato; da produrre |
+| Post-32 | 23/12/2026 | 1 | Tutorial | **Leggi le soglie del budget** · Avviso all’80%, sforamento, storico e avvisi disponibili | Piano approvato; da produrre |
+| Post-33 | 26/12/2026 | 1 | Educazione | **Spese piccole, effetto cumulato** · Mostrare come ritrovare più spese dello stesso tipo e leggere il totale per categoria | Piano approvato; da produrre |
+| Post-34 | 28/12/2026 | 1 | Tutorial | **Esporta PDF, CSV o JSON** · Mostrare dove si trovano e quando usare report mensile, elenco movimenti o esportazione profilo | Piano approvato; da produrre |
+| Post-35 | 29/12/2026 | 1 | Tutorial | **Imposta un budget** · Scegliere categoria, limite mensile e, se utile, conto. Mostrare il risultato | Piano approvato; da produrre |
+| Post-36 | 30/12/2026 | 1 | Educazione | **La revisione di fine mese** · Confrontare una categoria con il suo budget, verificare il netto e scegliere un aggiustamento per il mese dopo | Piano approvato; da produrre |
+| Post-37 | 31/12/2026 | 1 | Tutorial | **Importi discreti, Face ID e promemoria** · Mostrare occhio, blocco biometrico, avvisi automatici, avviso saldo basso per conto e promemoria del report mensile | Piano approvato; da produrre |
+| Post-38 | 02/01/2027 | 1 | Tutorial | **Categorie e «Ultima usata»** · Mostrare il suggerimento alla seconda registrazione, come sostituirlo e come gestire le categorie personalizzate | Piano approvato; da produrre |
+| Post-39 | 04/01/2027 | 1 | Tutorial | **Aggiungi una spesa da widget o con Siri** · Mostrare il widget compatibile e il comando vocale verificato su iPhone. Il doppio tocco è già nel Post-12 | Piano approvato; da produrre dopo prova su iPhone |
+| Post-40 | 05/01/2027 | 1 | Tutorial | **Ritrova le modifiche fatte nell’app** · Mostrare la cronologia in Impostazioni e un’azione di prova verificata nella build | Piano approvato; da produrre |
+| Post-41 | Da definire | 1 | Tutorial | **Accedi e ritrova i tuoi dati** · Accesso, uscita e sincronizzazione. Indicare il percorso per gestire o eliminare il profilo con dati fittizi. Mostrare iPhone e Android solo dopo verifica su entrambi | Piano approvato; legato alla disponibilità e verifica delle piattaforme |
+| Post-42 | 07/01/2027 | 1 | Tutorial | **Esplora Bucktrail con dati di esempio** · Spiegare la modalità demo e come tornare ai propri dati usando testo e inquadrature senza il badge demo | Piano approvato; da produrre |
 
 ### Post-3 · Dettaglio grafico approvato
 
@@ -131,7 +133,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 4. Dopo tre mesi: 120 € su 480 €, 25% di avanzamento e 360 € da accantonare. L’importo si aggiorna a mano.
 5. Domanda sulla propria prossima spesa annuale e lista d’attesa per iPhone e Android.
 
-### Post-12 · Sequenza proposta
+### Post-12 · Sequenza approvata
 
 1. Copertina «Due tocchi per registrare una spesa», con retro dell’iPhone e schermata del comando.
 2. In Comandi Rapidi, toccare + per creare un comando.
@@ -142,12 +144,21 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 7. Aprire Movimenti e far vedere la riga salvata.
 8. Invito a salvare il tutorial, indicazione «Tutorial iPhone» e lista d’attesa iPhone e Android.
 
-## Temi da tenere in riserva
+## Mappa di copertura
 
-- Dettaglio su categorie personalizzate e cronologia modifiche, dopo verifica del percorso e del caso d’uso.
-- Occorrenze future delle ricorrenze e importi esclusi dai totali, se la guida base porta domande.
-- Accesso, uscita, sincronizzazione e gestione account dopo verifica in build, inclusi i comportamenti a due dispositivi. Demo solo se Matteo sceglie di dedicarle un contenuto. I comandi distruttivi vanno trattati solo con dati fittizi e approvazione specifica.
-- Movimenti irregolari, cuscinetto per imprevisti e revisione trimestrale, ciascuno legato a una funzione dell’app e con esempi diversi dai post già usciti.
+| Area | Post |
+|---|---|
+| Home, saldi, curva e personalizzazione | 3, 8, 20, 30, 31 |
+| Movimenti, filtri, categorie e trasferimenti | 4, 6, 15, 20, 25, 28, 38 |
+| Conti, rettifiche, esclusi e archivio | 7, 9, 26, 27, 37 |
+| Pianifica, budget e obiettivi | 5, 11, 13, 21, 22, 29, 32, 35 |
+| Ricorrenze, previsioni e gestione della serie | 6, 14, 17, 20, 23 |
+| Statistiche, report e dati | 8, 16, 18, 24, 33, 34, 36 |
+| Impostazioni, lingua, valuta, tema, avvisi e sicurezza | 10, 19, 31, 34, 37, 40 |
+| Comandi Rapidi, doppio tocco, widget e Siri | 12, 39 |
+| Profilo, sincronizzazione e demo | 41, 42 |
+
+Android e collegamento bancario hanno contenuti dedicati quando le rispettive funzioni sono verificabili. Fino ad allora si usano la dicitura di lancio iPhone e Android e, per le banche, l’eventuale sondaggio sulla funzione prevista dopo il lancio.
 
 ## Gate · dom 06/12
 Si leggono le soglie (`DECISIONI.md`, «Soglie del segnale») e Matteo decide:

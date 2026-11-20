@@ -31,5 +31,5 @@
 ## Calendario, approvazione e consegna
 
 - Alternare guide, tutorial ed educazione. Pianificare 1–2 post per giorno di pubblicazione. Quando ce ne sono due, usare rubriche e argomenti diversi. Un post extra entra solo su richiesta di Matteo.
-- Ogni riga del calendario ha un tema, un taglio e un proprio stato. Matteo approva **ciascun post**. Registrare l’ok, il giorno e lo slot confermati. Una modifica sostanziale di tema, taglio o data torna a Matteo. Dopo l’ok al calendario, sottoporre anche testi e grafica finali secondo le approvazioni del cantiere. Nessuna pubblicazione o programmazione prima dell’ok.
+- Il 20/11 Matteo ha approvato il piano in blocco a condizione che copra tutta l’app. Preparare le scalette e i materiali senza chiedere un nuovo ok per ogni post. Usare la mappa di copertura del calendario, verificare funzioni e catture sulla build e registrare lo stato. Concordare con Matteo date, slot e pubblicazione.
 - Preparare `istruzioni-post/post-N.txt` con data, ora, canali, ordine, musica, caption, hashtag, link e passi di pubblicazione. Esportare con `python3 SOCIAL/esporta-post.py N` in «Il mio Drive/Da postare/post-N/». Verificare che contenga solo i file da pubblicare e il LEGGIMI. Matteo pubblica. Registrare link e metriche nel diario.

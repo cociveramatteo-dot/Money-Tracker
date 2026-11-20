@@ -28,10 +28,9 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi: `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt`/`README.txt` di Inter e Space Grotesk) sono facoltative.
 ↩️ Scrivi «notebook ok».
 
-### SOCIAL · SC-0 — approva il calendario un post alla volta
+### SOCIAL · SC-0 — concorda la partenza dei post
 📍 Qui in chat, con `SOCIAL/calendario-v1.md`.
-▶️ Tema e sequenza dei Post-3–11 approvati. Comunica il giorno di partenza quando lo sai. Post-12 sul doppio tocco: approva la sequenza o indica cosa cambiare.
-↩️ Dopo ogni risposta si registra l’esito e si passa alla proposta successiva.
+▶️ Il piano è approvato da Matteo per tutta l’app. Quando sai il giorno di partenza, comunicalo qui per fissare le date.
 
 ### SOCIAL · SC-2 — archivio schermate dell’app
 📍 Sul Mac, Finder → Vai → Vai alla cartella e incolla:
