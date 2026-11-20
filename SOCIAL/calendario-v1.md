@@ -56,6 +56,11 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post-37 | 31/12/2026 | 1 | Tutorial | **Importi discreti, Face ID e promemoria** · Mostrare occhio, blocco app e dove attivare gli avvisi, chiarendo le differenze fra i comandi | Da approvare |
 | Post-38 | 02/01/2027 | 1 | Tutorial | **Categorie e «Ultima usata»** · Mostrare il suggerimento alla seconda registrazione e come sostituirlo manualmente | Da approvare |
 
+### Post-3 · Dettaglio grafico approvato
+
+- **Slide 2:** iPhone a metà con intestazione Bucktrail visibile. Scheda «Saldo attuale» a pieno contrasto, sezioni intorno leggermente attenuate e cornice verde sottile. «Dati di esempio» fuori dal telefono.
+- **Slide 3:** ritaglio ravvicinato della curva della Home per distinguere il tratto pieno da quello tratteggiato.
+
 ## Temi da tenere in riserva
 
 - Dettaglio su categorie personalizzate e cronologia modifiche, dopo verifica del percorso e del caso d’uso.
