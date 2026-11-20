@@ -32,6 +32,6 @@ Con altre IA esegui tu le fasi, nello stesso ordine. Ordine: si ripara → si pu
    Chiudi con: "Puoi chiudere. Domani apri una sessione nuova e scrivi: riprendiamo."
 
 ## Veloce ("checkpoint veloce")
-Niente subagenti, pochissimi crediti: fase 0 → `collaudo.sh` + `magazzino.py` + `spazio.sh` (solo esiti) →
+Niente subagenti, pochissimi crediti: fase 0 → controlli dello stack già disponibili + `magazzino.py` + `spazio.sh` (solo esiti) →
 `graphify update .` → `pagella.py --misurata` → `biblioteca.py` → aggiorna SOLO "Siamo qui", "Stato di salute", "Domani si riparte così"
 → riga `== CHECKPOINT (veloce)` → fase 7. Ogni 3 veloci, e sempre prima di una consegna, si fa il completo.

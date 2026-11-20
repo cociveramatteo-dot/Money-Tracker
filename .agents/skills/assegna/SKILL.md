@@ -9,7 +9,9 @@ description: Decide a quale membro della squadra dare un lavoro (Antigravity, Co
    Se il task richiede informazioni o decisioni di Matteo (impianto, testi da approvare, scelte del cliente) NON
    si assegna: segnalo `[?]` e rispondi "tocca a te: <domande precise>".
    Se serve un attrezzo spento o non installato (skill dello scaffale, Chrome, un connettore) dillo qui (AGENTS.md §6.12 🧰).
-2. Scegli con la tabella di `.cantiere/SQUADRA.md`: **il più economico che lo fa bene**. Per ESEGUIRE (codice,
+2. Raggruppa solo lavori correlati, brevi e descritti senza ambiguità: può essere un unico prompt per 2–3 task
+   all'impresa che ha già il contesto. Se un'attività richiede una scelta architetturale, è separata.
+   Scegli con la tabella di `.cantiere/SQUADRA.md`: **il più economico che lo fa bene**. Per ESEGUIRE (codice,
    CSS, testi, correzioni) la proposta principale è SEMPRE un'impresa: Antigravity → Codex → Copilot
    (Copilot per task piccoli e medi ben descritti: costa crediti mensili, non task grossi). L'operaio (Claude)
    solo come riserva dichiarata ("se le imprese sono senza quota"), mai come prima scelta, anche per task brevi.

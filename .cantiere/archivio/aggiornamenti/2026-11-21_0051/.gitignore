@@ -1,0 +1,63 @@
+# Xcode
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+DerivedData/
+.build/
+build/
+
+# macOS
+.DS_Store
+
+# Segreti / config locali (se in futuro contengono chiavi sensibili)
+Secrets.plist
+Config.swift
+*.env
+.env.local
+
+# Swift Package Manager
+.swiftpm/
+Packages/
+
+# CocoaPods (se mai introdotto)
+Pods/
+
+# File temporanei
+*.orig
+*.swp
+
+# --- cantiere ---
+# collegamenti al magazzino (i file stanno su Google Drive, non in git)
+/00_CLIENTE
+/02_RISORSE
+/04_CONSEGNE
+
+# file di lavoro locali del cantiere
+.cantiere/tmp/
+.cantiere/guardiano/
+
+# graphify: grafo e report si tengono, la cache no
+graphify-out/cache/
+
+# spazzatura
+/.Rhistory
+.claude/settings.local.json
+Thumbs.db
+desktop.ini
+*~
+# sistema
+# dipendenze e build
+node_modules/
+.venv/
+venv/
+__pycache__/
+.netlify/
+.cache/
+# segreti
+.env
+.env.*
+!.env.example
+
+# materiale grezzo social (pesante, resta fuori da git)
+SOCIAL/clip-social/

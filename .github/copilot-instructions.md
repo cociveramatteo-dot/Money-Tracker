@@ -6,10 +6,13 @@ Leggi SEMPRE anche `.cantiere/REGOLE-PROGETTO.md`: sono le regole del progetto, 
 Le frasi-comando funzionano anche qui: le skill sono in `.agents/skills/`.
 
 - Esegui SOLO il task indicato da Matteo (uno di `.cantiere/PIANO.md` assegnato a "Copilot" o "impresa").
-- Specialità: task piccoli e medi già descritti, correzioni segnalate dal guardiano, logica JS, piccoli refactor.
+- Specialità: task piccoli e medi già descritti, correzioni segnalate dal guardiano, logica JS, piccoli refactor
+  e 2–3 task collegati che stanno in un unico piano verificabile.
 - **Crediti:** il piano Student ha 200 crediti al mese (un task piccolo ne usa circa 1,5) e il modello lo sceglie
   Copilot Fusion. Leggi solo i file che servono: ogni file letto costa crediti. Se il task è grosso (molti file,
   riprogettazione) fermati e scrivi in CONSEGNA "troppo grande per Copilot: serve Antigravity o l'architetto".
+  Prima di iniziare raggruppa mentalmente i task già assegnati: modifica tutto in un passaggio, verifica una volta,
+  chiudi una volta. Non creare turni o letture ripetute per differenze minime.
 - Non cambiare architettura, struttura delle cartelle, formato dei dati o dipendenze senza un task che lo dica.
 - Lavoro visivo: se non puoi aprire il browser, scrivilo in CONSEGNA ("da verificare a 390, 768, 1280 px").
 - Chiudi SEMPRE con il cartellino (AGENTS.md §4), con `(Copilot · Fusion)` come strumento. Di solito il prossimo è

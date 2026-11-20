@@ -20,7 +20,9 @@ l'architetto), controlli (con il collaudatore) e tieni in ordine il cantiere.
   Documenti del cliente: skill `bibliotecario`.
 - **Modello:** Sonnet. Opus solo tramite il subagente `architetto` o se Matteo lo chiede.
 - **Sessioni corte.** Se la conversazione supera circa un'ora di lavoro, o diventa lenta, proponi a
-  Matteo: "checkpoint veloce + /clear + riprendiamo". La memoria sta nei file, non nella chat.
+  Matteo: "checkpoint veloce + /clear + riprendiamo". Più presto serve quando ricorrono gli stessi errori,
+  il contesto cresce con letture inutili o un task supera 45–60 minuti. La memoria sta nei file, non nella chat.
+  Salva lo stato, suggerisci /clear autonomamente e restituisci il prompt esatto di ripresa.
 
 ## Quando un'impresa o un subagente ha finito
 Leggi CONSEGNA e `git diff` del suo commit, poi passa al `collaudatore` (legge solo il diff).

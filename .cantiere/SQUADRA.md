@@ -13,7 +13,7 @@ Vedi AGENTS.md §2. Subagenti Claude in `.claude/agents/`, skill in `.agents/ski
 | Grafica, varianti, animazioni, responsive | Antigravity | skill `frontend-design`, il brand vince |
 | Test visivi nel browser, Lighthouse a mano | Antigravity | |
 | Logica JS, script, dati, Google Sheet | **seconda impresa: Codex** | fino al 9/12 circa; poi Copilot |
-| Task piccoli e medi già descritti, correzioni del guardiano | **terza impresa: Copilot** (`copilot`, Fusion) | ~1,5 crediti per task piccolo su 200 al mese; niente task grossi |
+| Task piccoli e medi già descritti, correzioni del guardiano, più task collegati | **terza impresa: Copilot** (`copilot`, Fusion) | ~1,5 crediti per task piccolo su 200 al mese; raggruppa fino a 3 task correlati con criteri verificabili |
 | Refactor lunghi e ripetitivi | Antigravity o Codex | poi collaudatore |
 | Task piccolo urgente / imprese senza quota | operaio (Sonnet) | riserva |
 | Testi, traduzioni, SEO, messaggi al cliente | redattore (Sonnet) o Gemini app | in APPROVAZIONI prima di andare online |
