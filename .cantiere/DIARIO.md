@@ -176,3 +176,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-20 23:18 | impresa (Codex · GPT-6) | SC-0 | Salvato ok al Post-8 sul saldo del conto e il netto del mese | Grafica, date e Post-9 |
 | 2026-11-20 23:20 | impresa (Codex · GPT-6) | SC-0 | Salvato ok alle 6 slide della Guida Conti (Post-9) | Grafica, date e Post-10 |
 | 2026-11-20 23:21 | impresa (Codex · GPT-6) | SC-0 | Salvato ok al Post-10 su lingua, valuta e tema | Grafica, date e Post-11 |
+| 2026-11-20 23:22 | impresa (Codex · GPT-6) | SC-0 | Salvato ok al Post-11 e verificato totale del calendario | Pausa prima del Post-12 |

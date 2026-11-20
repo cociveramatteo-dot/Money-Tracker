@@ -27,7 +27,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post-8 | 28/11/2026 | 1 | Educazione | **Netto del mese e saldo del conto** · Distinguere 950 € di saldo attuale da +150 € di netto del mese | Esempio e sequenza di 5 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-9 | 30/11/2026 | 1 | Guida | **Guida: CONTI** · Leggere il patrimonio dei conti inclusi e riconoscere gruppi, conti esclusi e archivio | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-10 | 01/12/2026 | 1 | Tutorial | **Lingue, valuta e tema** · Mostrare le sette lingue e il percorso iOS, la scelta del simbolo valuta e il tema di sistema | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-11 | 01/12/2026 | 2 | Educazione | **Una spesa annuale, dodici mesi per prepararla** · Usare un’assicurazione annuale e un obiettivo di accantonamento | Da approvare |
+| Post-11 | 01/12/2026 | 2 | Educazione | **Una spesa annuale, dodici mesi per prepararla** · Assicurazione auto da 480 € in 12 mesi, con obiettivo da 40 € al mese | Esempio e sequenza di 5 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-12 | 02/12/2026 | 1 | Tutorial | **Imposta un budget** · Scegliere categoria, limite mensile e, se utile, conto. Mostrare il risultato | Da approvare |
 | Post-13 | 03/12/2026 | 1 | Guida | **Guida: PIANIFICA** · Orientarsi fra Budget e Obiettivi, schede riepilogative e pulsante di aggiunta | Da approvare |
 | Post-14 | 04/12/2026 | 1 | Tutorial | **Crea una ricorrenza** · Impostare frequenza e conto, salvare e ritrovare l’operazione programmata | Da approvare |
@@ -122,6 +122,14 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 4. Cambio del simbolo da € a £, mostrando che la cifra rimane uguale.
 5. Percorso iOS «Schermo e luminosità» e confronto della Home chiara e scura.
 6. Invito a salvare i passaggi e lista d’attesa per iPhone e Android.
+
+### Post-11 · Sequenza approvata
+
+1. Copertina sull’assicurazione auto da 480 € tra un anno.
+2. Dodici caselle da 40 € mostrano l’accantonamento mensile.
+3. Creazione dell’obiettivo «Assicurazione auto», con importo e scadenza.
+4. Dopo tre mesi: 120 € su 480 €, 25% di avanzamento e 360 € da accantonare. L’importo si aggiorna a mano.
+5. Domanda sulla propria prossima spesa annuale e lista d’attesa per iPhone e Android.
 
 ## Temi da tenere in riserva
 
