@@ -33,13 +33,13 @@ def slide(dark=False):
     return canvas
 
 
-def text(canvas, y, content, size, color=INK, bold=True, x=76):
+def text(canvas, y, content, size, color=INK, bold=True, x=76, right=1004):
     face = "SpaceGrotesk-Bold.ttf" if bold else "Inter_18pt-Regular.ttf"
     font = ImageFont.truetype(FONTS / face, size)
     draw = ImageDraw.Draw(canvas)
     lines = content.splitlines()
     for index, line in enumerate(lines):
-        assert x + draw.textlength(line, font=font) <= 1004, line
+        assert x + draw.textlength(line, font=font) <= right, line
         draw.text((x, y + index * round(size * 1.16)), line, font=font, fill=color, anchor="lt")
 
 
@@ -56,9 +56,9 @@ def inset(canvas, visual, x, y, radius):
     canvas.paste(visual, (x, y), mask)
 
 
-def phone(canvas, name, x, y, width, source_bottom=2532):
+def phone(canvas, name, x, y, width):
     with Image.open(POST / "materiale" / name) as source:
-        screen = source.convert("RGB").crop((0, 138, source.width, source_bottom))
+        screen = source.convert("RGB")
     edge = max(7, width // 52)
     screen_width = width - 2 * edge
     screen = screen.resize((screen_width, round(screen.height * screen_width / screen.width)), Image.Resampling.LANCZOS)
@@ -82,14 +82,6 @@ def laptop(canvas, name, x, y, width):
     draw.rounded_rectangle((x + width // 2 - 57, bottom - 4, x + width // 2 + 57, bottom + 5), 4, fill="#525B5A")
 
 
-def card(canvas, name, crop, y):
-    with Image.open(POST / "materiale" / name) as source:
-        detail = source.convert("RGB").crop(crop)
-    detail = detail.resize((850, round(detail.height * 850 / detail.width)), Image.Resampling.LANCZOS)
-    shadow(canvas, (115, y, 965, y + detail.height), 35, opacity=40)
-    inset(canvas, detail, 115, y, 35)
-
-
 def editorial(label):
     canvas = slide()
     text(canvas, 83, label, 32, GREEN, x=148)
@@ -100,28 +92,36 @@ def save(canvas, number, variant=""):
     canvas.save(OUT / f"slide-{number:02d}{variant}.png", optimize=True)
 
 
+def left(canvas, y, content, size, color=INK, bold=True):
+    text(canvas, y, content, size, color, bold, right=536)
+
+
+def right_phone(canvas, name):
+    phone(canvas, name, 563, 208, 436)
+
+
 first = slide(dark=True)
 text(first, 83, "BUCKTRAIL", 34, PAPER, x=148)
 text(first, 84, "Scorri →", 31, "#D7DFD9", bold=False, x=853)
-text(first, 195, "Hai 1.000 €", 112, AMBER)
-text(first, 330, "sul conto.", 105, PAPER)
-text(first, 481, "Quanto puoi\ndavvero spendere?", 87, PAPER)
-text(first, 731, "Prima guarda cosa deve ancora uscire.", 44, "#D7DFD9", bold=False)
-phone(first, "IMG_8003.PNG", 290, 846, 500)
+left(first, 327, "Hai 1.000 €", 83, AMBER)
+left(first, 429, "sul conto.", 78, PAPER)
+left(first, 574, "Quanto puoi\ndavvero\nspendere?", 73, PAPER)
+left(first, 884, "Prima guarda cosa\ndeve ancora uscire.", 43, "#D7DFD9", bold=False)
+right_phone(first, "IMG_8003.PNG")
 save(first, 1)
 
 fixed = editorial("SPESE FISSE")
-text(fixed, 180, "Cosa paghi\nogni mese?", 99)
-text(fixed, 443, "Affitto, rate, canoni: spesso sai già\nquanto pagherai e quando.", 44, bold=False)
-text(fixed, 580, "Mettili in conto prima che escano.", 42, GREEN)
-phone(fixed, "IMG_8003.PNG", 242, 687, 596)
+left(fixed, 332, "Cosa paghi\nogni mese?", 77)
+left(fixed, 576, "Affitto, rate, canoni.\nSpesso sai già quanto\npagherai e quando.", 43, bold=False)
+left(fixed, 805, "Mettili in conto\nprima che escano.", 43, GREEN)
+right_phone(fixed, "IMG_8003.PNG")
 save(fixed, 2)
 
 variable = editorial("SPESE VARIABILI")
-text(variable, 181, "Cosa cambia\nda un mese all’altro?", 83)
-text(variable, 422, "Supermercato e carburante si ripetono.\nA cambiare è quanto spendi.", 45, bold=False)
-text(variable, 561, "Per prevederle, parti da una media.", 42, GREEN)
-phone(variable, "IMG_8006.PNG", 230, 677, 620)
+left(variable, 300, "Cosa cambia\nda un mese\nall’altro?", 73)
+left(variable, 607, "Supermercato e\ncarburante si ripetono.\nA cambiare è quanto\nspendi.", 42, bold=False)
+left(variable, 879, "Per stimarle, parti\nda una media.", 42, GREEN)
+right_phone(variable, "IMG_8006.PNG")
 save(variable, 3)
 
 example = editorial("ESEMPIO · PRIMA DEL PROSSIMO STIPENDIO")
@@ -142,36 +142,37 @@ text(example, 1180, "Quanto vuoi tenere per gli imprevisti?", 43, GREEN)
 save(example, 4)
 
 choice = editorial("RIGUARDA LE USCITE")
-text(choice, 181, "Quali pagheresti\nanche oggi?", 91)
-text(choice, 424, "Tieni ciò che ti serve o che usi davvero.\nPoi cerca cosa si rinnova per abitudine.", 45, bold=False)
-card(choice, "IMG_8009.PNG", (54, 1595, 1116, 1958), 590)
-text(choice, 966, "Quell’abbonamento lo rifaresti oggi?", 43, GREEN)
-text(choice, 1055, "Se la risposta è no, controlla\nil prossimo rinnovo.", 49, bold=False)
+left(choice, 287, "Quali\npagheresti\nanche oggi?", 72)
+left(choice, 611, "Tieni ciò che ti serve\no che usi davvero.\nPoi cerca cosa si\nrinnova per abitudine.", 42, bold=False)
+left(choice, 878, "Quell’abbonamento\nlo rifaresti oggi?", 41, GREEN)
+right_phone(choice, "IMG_8004.PNG")
 save(choice, 5)
 
 annual = editorial("ESEMPIO · UN RINNOVO")
-text(annual, 175, "Quanto ti costa\nlasciarlo attivo?", 90)
-card(annual, "IMG_8011.PNG", (54, 1199, 1116, 1564), 430)
-text(annual, 778, "15,99 € al mese × 12", 47, GREEN)
-text(annual, 860, "191,88 € l’anno", 104)
-text(annual, 1040, "Se disdici in tempo per evitare 12 rinnovi,\nquei soldi puoi usarli per altro.", 44, bold=False)
+left(annual, 248, "Lo usi\nancora?", 82)
+left(annual, 485, "15,99 € al mese × 12", 42, GREEN)
+left(annual, 594, "191,88 €", 95)
+left(annual, 712, "l’anno", 59)
+left(annual, 843, "Se eviti 12 rinnovi,\npuoi usare quei soldi\nper altro.", 42, bold=False)
+right_phone(annual, "IMG_8011.PNG")
 save(annual, 6)
 
 app = editorial("RICORRENTI IN BUCKTRAIL")
-text(app, 183, "Controlla importi\ne prossime date.", 86)
-text(app, 426, "Vedi quanto paghi e quando si rinnova.\nPoi decidi cosa tenere e cosa disdire.", 44, bold=False)
-phone(app, "IMG_8001.PNG", 225, 589, 630)
+left(app, 307, "Importi e\nprossime\ndate.", 78)
+left(app, 618, "Vedi quanto paghi\ne quando si rinnova.", 43, bold=False)
+left(app, 806, "Poi decidi cosa tenere\ne cosa disdire.", 41, GREEN)
+right_phone(app, "IMG_8001.PNG")
 save(app, 7)
 
 for platform in ("tiktok", "instagram"):
     close = slide(dark=True)
     text(close, 83, "BUCKTRAIL", 34, PAPER, x=148)
-    text(close, 183, "L’app è in arrivo.", 100, PAPER)
-    text(close, 337, "Tutti i tuoi conti in un’unica app.", 47, "#D7DFD9", bold=False)
-    text(close, 410, "Senza abbonamento.", 54, AMBER)
-    laptop(close, "landing.png", 291, 595, 632)
-    phone(close, "IMG_8001.PNG", 122, 541, 235, source_bottom=2440)
-    text(close, 1092, "Iscriviti alla lista d’attesa.", 60, PAPER)
+    left(close, 280, "L’app è\nin arrivo.", 88, PAPER)
+    left(close, 536, "Tutti i tuoi conti\nin un’unica app.", 43, "#D7DFD9", bold=False)
+    left(close, 672, "Senza abbonamento.", 39, AMBER)
+    laptop(close, "landing.png", 540, 371, 462)
+    phone(close, "IMG_8001.PNG", 763, 686, 222)
+    left(close, 875, "Iscriviti alla\nlista d’attesa.", 61, PAPER)
     cta = "Cerca bucktrailapp.com" if platform == "tiktok" else "Apri il link in bio"
-    text(close, 1183, cta, 52, AMBER)
+    left(close, 1065, cta, 36, AMBER)
     save(close, 8, f"-{platform}")
