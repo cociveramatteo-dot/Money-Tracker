@@ -141,22 +141,46 @@ text(variable, 911, "Media a settimana", 29, GREEN, bold=False, x=587)
 text(variable, 964, "64,50 €", 61, GREEN, x=587)
 save(variable, 3)
 
-example = editorial("ESEMPIO · PRIMA DEL PROSSIMO STIPENDIO")
-text(example, 183, "Fai il conto prima.", 91)
-draw = ImageDraw.Draw(example)
-for y, label, amount in (
-    (415, "Saldo di oggi", "1.000 €"),
-    (560, "Uscite già previste", "−650 €"),
-):
-    draw.line((76, y - 35, 1004, y - 35), fill="#CBD8D0", width=2)
-    text(example, y, label, 48, bold=False)
-    text(example, y, amount, 60, x=765)
-draw.rounded_rectangle((76, 720, 1004, 1110), 46, fill="#184231")
-text(example, 773, "Ti restano", 47, "#DFEBE1", bold=False, x=128)
-text(example, 858, "350 €", 135, PAPER, x=128)
-text(example, 1025, "Da lì devi ancora coprire le altre spese.", 38, PAPER, bold=False, x=128)
-text(example, 1180, "Quanto vuoi tenere per gli imprevisti?", 43, GREEN)
-save(example, 4)
+def calculation(variant="", compact=False):
+    if compact:
+        canvas = Image.new("RGB", (1080, 1350), PAPER)
+        # Margine per l'anteprima quadrata di Instagram.
+        draw = ImageDraw.Draw(canvas)
+        text(canvas, 191, "ESEMPIO · PRIMA DEL PROSSIMO STIPENDIO", 28, GREEN, x=112)
+        text(canvas, 253, "Fai il conto prima.", 76, x=112)
+        for y, label, amount in (
+            (410, "Saldo di oggi", "1.000 €"),
+            (523, "Uscite già previste", "−650 €"),
+        ):
+            draw.line((112, y - 24, 968, y - 24), fill="#CBD8D0", width=2)
+            text(canvas, y, label, 40, bold=False, x=112)
+            text(canvas, y, amount, 48, x=752)
+        draw.rounded_rectangle((112, 642, 968, 992), 42, fill="#184231")
+        text(canvas, 686, "Ti restano", 41, "#DFEBE1", bold=False, x=158)
+        text(canvas, 758, "350 €", 108, PAPER, x=158)
+        text(canvas, 908, "Da lì devi ancora coprire le altre spese.", 34, PAPER, bold=False, x=158)
+        text(canvas, 1067, "Quanto vuoi tenere per gli imprevisti?", 39, GREEN, x=112)
+    else:
+        canvas = editorial("ESEMPIO · PRIMA DEL PROSSIMO STIPENDIO")
+        text(canvas, 183, "Fai il conto prima.", 91)
+        draw = ImageDraw.Draw(canvas)
+        for y, label, amount in (
+            (415, "Saldo di oggi", "1.000 €"),
+            (560, "Uscite già previste", "−650 €"),
+        ):
+            draw.line((76, y - 35, 1004, y - 35), fill="#CBD8D0", width=2)
+            text(canvas, y, label, 48, bold=False)
+            text(canvas, y, amount, 60, x=765)
+        draw.rounded_rectangle((76, 720, 1004, 1110), 46, fill="#184231")
+        text(canvas, 773, "Ti restano", 47, "#DFEBE1", bold=False, x=128)
+        text(canvas, 858, "350 €", 135, PAPER, x=128)
+        text(canvas, 1025, "Da lì devi ancora coprire le altre spese.", 38, PAPER, bold=False, x=128)
+        text(canvas, 1180, "Quanto vuoi tenere per gli imprevisti?", 43, GREEN)
+    save(canvas, 4, variant)
+
+
+calculation()
+calculation("-instagram", compact=True)
 
 choice = editorial("RIGUARDA LE USCITE")
 left(choice, 287, "Quali\npagheresti\nanche oggi?", 72)

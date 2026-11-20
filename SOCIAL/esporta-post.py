@@ -38,7 +38,8 @@ for piattaforma, variante in varianti.items():
     d.mkdir(parents=True)
     files = comuni + ([variante] if usa_varianti else [])
     for i, f in enumerate(files, start=1):
-        shutil.copy2(f, d / f"{i:02d}.png")
+        specifica = pronto / f"slide-{i:02d}-{piattaforma.lower()}.png"
+        shutil.copy2(specifica if specifica.is_file() else f, d / f"{i:02d}.png")
 cop = pronto / "copertina.png"
 if cop.exists():
     (dest / "Copertina facoltativa").mkdir()
