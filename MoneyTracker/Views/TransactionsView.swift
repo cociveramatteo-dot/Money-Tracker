@@ -499,7 +499,8 @@ struct TransactionsView: View {
                 }
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                Button(role: .destructive) {
+                // A destructive swipe removes the row optimistically, even if the user cancels the editor.
+                Button(role: t.templateId.isEmpty ? .destructive : nil) {
                     haptic(.medium)
                     if t.isTransfer && !t.transferGroupId.isEmpty {
                         transferToDelete = t

@@ -1,10 +1,10 @@
-# CONSEGNA — Codex · 2026-11-20 22:06
+# CONSEGNA — Codex · 2026-11-20 22:21
 
 ## Fatto
-- S-41: la Home include le spese fisse singole non pagate solo nel loro mese di competenza. Curva, saldo atteso e carte conti usano lo stesso filtro. Il totale complessivo «A conti fatti» nella tab Conti resta distinto.
-- Build e suite BalanceTrailTests superate su simulatore. Prova mirata con rata universitaria di gennaio: fuori a dicembre, presente a gennaio, fuori a febbraio; spesa pagata e conto escluso controllati.
-- Grafo aggiornato. La copia automatica del grafo precedente è stata spostata in /tmp.
+- S-42: dopo lo swipe che apre l’editor, SwiftUI lascia la riga visibile mentre l’eliminazione attende la conferma. Verificato nel simulatore che, annullando da Movimenti e da Serie programmate, Bolletta Enel resta visibile e riapribile. Nessun arresto nei percorsi verificati.
+- La Home demo tagliava la quarta riga di Ultimi movimenti. La lista ora usa l’altezza misurata e il margine di scorrimento libera l’ultimo importo dal pulsante +. Confronto visivo eseguito su iPhone 18 Pro.
+- Tre test UI superati in /tmp/mt-s42-after.xcresult e controllo Home finale superato in /tmp/mt-s42-home-final.xcresult. Screenshot finali in /tmp/mt-s42-home-final.png e /tmp/mt-s42-after-serie.png. Grafo aggiornato.
 
 ## Aperto
-- S-41: collaudo visivo della Home con il passaggio di mese.
-- Calendario social in pausa prima del Post-8. Restano primo rilevamento del post 2, collaudo SC-6 e chiusura S-36.
+- S-42 pronto per la chiusura di Matteo.
+- Calendario social in pausa prima del Post-8.

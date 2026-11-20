@@ -23,7 +23,8 @@ struct DashboardView: View {
     @State private var editingTransaction: Transaction? = nil
     @State private var projectionDay = Calendar.current.startOfDay(for: Date())
     @State private var trail: BalanceTrail? = nil
-    @ScaledMetric(relativeTo: .body) private var rowHeight: CGFloat = 66
+    @State private var recentListHeight: CGFloat?
+    @ScaledMetric(relativeTo: .body) private var estimatedRowHeight: CGFloat = 66
 
     private struct TrailInput: Equatable {
         let currentBalance: Decimal
@@ -119,7 +120,9 @@ struct DashboardView: View {
                     contiSection(plannedByAccount: projection.plannedByAccount)
                     fisseDelMeseSection
                     ultimiMovimentiSection
-                    Spacer(minLength: DS.Space.xl)
+                    // Lascia scorrere anche l’ultimo importo sopra il pulsante + flottante.
+                    Color.clear.frame(height: 72)
+                        .accessibilityHidden(true)
                 }
             }
             .background(DS.paper)
@@ -348,8 +351,8 @@ struct DashboardView: View {
                     )
                     .transition(.opacity)
                 } else {
-                    // List abilita le swipeActions native (solo dentro List). scrollDisabled evita
-                    // il conflitto con lo ScrollView esterno; l'altezza riga scala con Dynamic Type.
+                    // Keep native row swipe actions. Size the non-scrolling list to its content,
+                    // which varies with wrapped metadata and Dynamic Type.
                     List {
                         ForEach(recentNormal) { t in
                             movementRow(t)
@@ -388,7 +391,12 @@ struct DashboardView: View {
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
                     .scrollDisabled(true)
-                    .frame(height: CGFloat(recentNormal.count) * rowHeight)
+                    .onScrollGeometryChange(for: CGFloat.self) { geometry in
+                        ceil(geometry.contentSize.height)
+                    } action: { _, height in
+                        if height > 0 { recentListHeight = height }
+                    }
+                    .frame(height: recentListHeight ?? CGFloat(recentNormal.count) * estimatedRowHeight)
                     .background(DS.surface, in: RoundedRectangle(cornerRadius: 20))
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     .padding(.horizontal, 16)

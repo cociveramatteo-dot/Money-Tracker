@@ -225,8 +225,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/DashboardView.swift": {
-    "mtime": 1795208667.9169962,
-    "ast_hash": "d305eb6e4c1337f0586d1d8bd48194fe",
+    "mtime": 1795209530.178784,
+    "ast_hash": "3daeb3a759a56e20b35b59e194a9b819",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/GoalsView.swift": {
@@ -255,8 +255,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/TransactionsView.swift": {
-    "mtime": 1794912866.0622478,
-    "ast_hash": "c3bf7a0195fae4493127a0b3778881c4",
+    "mtime": 1795209152.8167813,
+    "ast_hash": "b3c94e319cc6dd201e2fe46663ab7484",
     "semantic_hash": ""
   },
   "docs/MoneyTracker.md": {
@@ -530,18 +530,18 @@
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795208485.1862314,
-    "ast_hash": "d3cd9517f255f06ee5cc05e90ad9c60b",
+    "mtime": 1795208783.2570965,
+    "ast_hash": "a7ac8b9f071735b85bc747131559a449",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
-    "mtime": 1795207610.9288452,
-    "ast_hash": "420211cb976ffc7d7c572ea153fada84",
+    "mtime": 1795208763.663249,
+    "ast_hash": "9ad340fd218dcb5dd2f9db03d333afff",
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795208485.186492,
-    "ast_hash": "f9d20fb3d2ce7d6ffd9bef8fc83cfba3",
+    "mtime": 1795208783.2535486,
+    "ast_hash": "d053d13ec1be08d1db83cea6cf858790",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -560,8 +560,8 @@
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795208485.1858995,
-    "ast_hash": "dde3fbda7aa684117dddd8818e5a1360",
+    "mtime": 1795209356.9867792,
+    "ast_hash": "61a7e6b72ff3338aee89d22ef01c25a1",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795208667.8883843,
-    "ast_hash": "e9612eaf1c4eaae7378d440b0f064916",
+    "mtime": 1795208981.2735524,
+    "ast_hash": "24ea1ccde7c95bb2b05736b936348cd5",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -947,6 +947,11 @@
   "SOCIAL/schermate-app/README.md": {
     "mtime": 1795207563.5473924,
     "ast_hash": "4b468fc3a408524468c2c004d8b9363f",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/RecurrenceCancelAndHomeUITests.swift": {
+    "mtime": 1795209129.6905723,
+    "ast_hash": "7f4a02378e552567dc8f71d480588976",
     "semantic_hash": ""
   }
 }
