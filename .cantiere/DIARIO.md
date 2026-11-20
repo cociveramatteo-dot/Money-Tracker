@@ -173,3 +173,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-20 23:01 | impresa (Codex · GPT-6) | SC-4c / SC-3c | Landing pubblicata e verificata IT/EN; bozze bio e chiusure con iPhone e Android | Approvazione testi social |
 | 2026-11-20 23:12 | impresa (Codex · GPT-6) | SC-3c | Registrato ok alle bio e regola per caption e chiusure dei prossimi post | Banner, fissati e email di lancio da valutare |
 | 2026-11-20 23:17 | impresa (Codex · GPT-6) | SC-3c | Matteo conferma aggiornati il post fissato e il banner YouTube | Email di lancio rimandata a quando ci saranno i link degli store |
+| 2026-11-20 23:18 | impresa (Codex · GPT-6) | SC-0 | Salvato ok al Post-8 sul saldo del conto e il netto del mese | Grafica, date e Post-9 |

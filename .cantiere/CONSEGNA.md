@@ -1,9 +1,8 @@
-# CONSEGNA — Codex · 2026-11-20 23:17
+# CONSEGNA — Codex · 2026-11-20 23:18
 
 ## Fatto
-- Matteo conferma che il post di presentazione fissato e il banner YouTube sono già aggiornati per il lancio su iPhone e Android.
-- Le caption e le chiusure dei prossimi post seguono la dicitura già approvata nelle direttive social.
+- SC-0: salvato l’ok al Post-8. Cinque slide con 800 € di partenza, +150 € di netto mensile e 950 € di saldo attuale.
 
 ## Aperto
-- Email di lancio da riprendere quando saranno disponibili i link App Store e Google Play.
-- Calendario social in pausa prima del Post-8.
+- Grafica finale e date Post-3–8. Prossima proposta editoriale: Post-9 «Guida: CONTI».
+- Email di lancio quando saranno disponibili i link dei due store.

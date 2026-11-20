@@ -24,7 +24,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post-5 | 25/11/2026 | 1 | Educazione | **Quanto vuoi spendere per mangiare fuori?** · Da 175 € di media a 150 € di budget mensile in Pianifica | Tema, esempio e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-6 | 26/11/2026 | 1 | Guida | **Guida: MOVIMENTI** · Leggere «In arrivo», lista giornaliera e subtotali. Mostrare dove si trovano ricerca e Ricorrenti | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-7 | 27/11/2026 | 1 | Tutorial | **Come aggiungere un conto** · Due esempi: Portafoglio da 85 € e Conto corrente da 1.250 € | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-8 | 28/11/2026 | 1 | Educazione | **Netto del mese e saldo del conto** · Partire da un saldo iniziale e leggere il risultato del mese in Statistiche con un esempio semplice | Da approvare |
+| Post-8 | 28/11/2026 | 1 | Educazione | **Netto del mese e saldo del conto** · Distinguere 950 € di saldo attuale da +150 € di netto del mese | Esempio e sequenza di 5 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-9 | 30/11/2026 | 1 | Guida | **Guida: CONTI** · Leggere il patrimonio dei conti inclusi e riconoscere gruppi, conti esclusi e archivio | Da approvare |
 | Post-10 | 01/12/2026 | 1 | Tutorial | **Lingue, valuta e tema** · Mostrare le sette lingue e il percorso iOS, la scelta del simbolo valuta e il tema di sistema | Da approvare |
 | Post-11 | 01/12/2026 | 2 | Educazione | **Una spesa annuale, dodici mesi per prepararla** · Usare un’assicurazione annuale e un obiettivo di accantonamento | Da approvare |
@@ -96,6 +96,14 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 4. Nome e saldo affiancati: «Portafoglio» da 85 € e «Conto corrente» da 1.250 €.
 5. Lista Conti dopo il salvataggio, con entrambe le righe evidenziate.
 6. Invito a salvare il post, con due icone per portafoglio e banca.
+
+### Post-8 · Sequenza approvata
+
+1. Copertina con il saldo attuale da 950 € e domanda sul risultato del mese.
+2. Grafica con 800 € di saldo a inizio mese.
+3. Statistiche: 1.200 € di entrate e 1.050 € di uscite, netto +150 €.
+4. Home e Statistiche affiancate: 800 € di partenza + 150 € di netto = 950 € di saldo attuale.
+5. Chiudere ricordando dove leggere le due cifre e la lista d’attesa per iPhone e Android.
 
 ## Temi da tenere in riserva
 
