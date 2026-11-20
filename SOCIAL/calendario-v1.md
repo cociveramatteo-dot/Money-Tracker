@@ -19,7 +19,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 
 | Post | Data indicativa | Slot | Rubrica | Titolo e contenuto | Stato |
 |---|---|---:|---|---|---|
-| Post-3 | 23/11/2026 | 1 | Guida | **Guida: HOME** · Orientarsi tra saldo attuale, carte dei conti, riepiloghi e ultimi movimenti | Da approvare |
+| Post-3 | 23/11/2026 | 1 | Guida | **Guida: HOME** · Orientarsi tra saldo attuale, carte dei conti, riepiloghi e ultimi movimenti | Tema e sequenza di 7 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-4 | 24/11/2026 | 1 | Tutorial | **Registra il primo movimento** · Inserire importo, descrizione, conto e categoria. Mostrare uscita e variante entrata | Da approvare |
 | Post-5 | 25/11/2026 | 1 | Educazione | **Il tuo limite per le spese fuori casa** · Partire da una spesa media e scegliere un tetto mensile da impostare in Pianifica | Da approvare |
 | Post-6 | 26/11/2026 | 1 | Guida | **Guida: MOVIMENTI** · Leggere «In arrivo», lista giornaliera e subtotali. Mostrare dove si trovano ricerca e Ricorrenti | Da approvare |
