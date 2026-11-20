@@ -25,7 +25,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post-6 | 26/11/2026 | 1 | Guida | **Guida: MOVIMENTI** · Leggere «In arrivo», lista giornaliera e subtotali. Mostrare dove si trovano ricerca e Ricorrenti | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-7 | 27/11/2026 | 1 | Tutorial | **Come aggiungere un conto** · Due esempi: Portafoglio da 85 € e Conto corrente da 1.250 € | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-8 | 28/11/2026 | 1 | Educazione | **Netto del mese e saldo del conto** · Distinguere 950 € di saldo attuale da +150 € di netto del mese | Esempio e sequenza di 5 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-9 | 30/11/2026 | 1 | Guida | **Guida: CONTI** · Leggere il patrimonio dei conti inclusi e riconoscere gruppi, conti esclusi e archivio | Da approvare |
+| Post-9 | 30/11/2026 | 1 | Guida | **Guida: CONTI** · Leggere il patrimonio dei conti inclusi e riconoscere gruppi, conti esclusi e archivio | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-10 | 01/12/2026 | 1 | Tutorial | **Lingue, valuta e tema** · Mostrare le sette lingue e il percorso iOS, la scelta del simbolo valuta e il tema di sistema | Da approvare |
 | Post-11 | 01/12/2026 | 2 | Educazione | **Una spesa annuale, dodici mesi per prepararla** · Usare un’assicurazione annuale e un obiettivo di accantonamento | Da approvare |
 | Post-12 | 02/12/2026 | 1 | Tutorial | **Imposta un budget** · Scegliere categoria, limite mensile e, se utile, conto. Mostrare il risultato | Da approvare |
@@ -104,6 +104,15 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 3. Statistiche: 1.200 € di entrate e 1.050 € di uscite, netto +150 €.
 4. Home e Statistiche affiancate: 800 € di partenza + 150 € di netto = 950 € di saldo attuale.
 5. Chiudere ricordando dove leggere le due cifre e la lista d’attesa per iPhone e Android.
+
+### Post-9 · Sequenza approvata
+
+1. Copertina «Guida: CONTI», con patrimonio totale in vista.
+2. Scheda del patrimonio, somma dei conti inclusi.
+3. Saldi e gruppi di conti con iPhone intero.
+4. Ritaglio di un conto «Escluso dal totale».
+5. Due ritagli mostrano la voce «Archiviati» e la sezione aperta. I gesti di gestione sono nel tutorial dedicato.
+6. Invito a salvare la guida e lista d’attesa per iPhone e Android.
 
 ## Temi da tenere in riserva
 
