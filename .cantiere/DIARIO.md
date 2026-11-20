@@ -156,3 +156,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-20 16:02 | impresa (Codex · GPT-6) | SC-7 | Variate le slide, ripuliti banner e margini delle schermate, esportato su Drive | Approvazione e pubblicazione di Matteo |
 | 2026-11-20 17:19 | impresa (Codex · GPT-6) | SC-7 | Ricomposta e verificata la slide 04 di Instagram nel ritaglio quadrato | Pubblicazione di Matteo |
 | 2026-11-20 18:42 | impresa (Codex · GPT-6) | SC-7 | Registrato il link del post 2 su Instagram | Link TikTok e primo rilevamento |
+| 2026-11-20 19:25 | impresa (Codex · GPT-6) | SC-7 | Registrato il link del post 2 su TikTok | Primo rilevamento su entrambe le piattaforme |

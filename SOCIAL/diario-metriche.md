@@ -51,3 +51,7 @@ In questo diario, considera `copertura` uguale a `view` e `interazioni totali` c
 ## Post 2 · Instagram
 
 [Hai 1.000 € sul conto. Quanto puoi davvero spendere?](https://www.instagram.com/p/Df-MToYEZoR/) · pubblicato il 2026-11-20, ora effettiva e primo rilevamento da registrare.
+
+## Post 2 · TikTok
+
+[Hai 1.000 € sul conto. Quanto puoi davvero spendere?](https://www.tiktok.com/@bucktrailapp/photo/7710312019425217824) · pubblicato il 2026-11-20, ora effettiva e primo rilevamento da registrare.
