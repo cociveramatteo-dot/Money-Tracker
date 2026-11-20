@@ -28,3 +28,12 @@ Calcola l'engagement rate con:
 `engagement rate = interazioni totali / copertura × 100`
 
 In questo diario, considera `copertura` uguale a `view` e `interazioni totali` come somma delle metriche interattive disponibili tra invii, salvataggi, commenti, visite profilo, click link e iscritti landing.
+
+## Post 1 · Instagram
+
+[Ogni conto al suo posto. Ogni euro in chiaro.](https://www.instagram.com/p/Df7CraSked_/) · rilevamento 2026-11-20 alle 15:13.
+
+- 35 visualizzazioni, 48,6% da non follower. Provenienza: 22 dalla home e 13 dal profilo.
+- 8 mi piace, 8 account che hanno interagito, 0 commenti, 0 salvataggi e 0 condivisioni.
+- 4 visite al profilo, 1 tocco sul link esterno e 0 follow.
+- Gli Insights mostrano anche 19 con la stessa etichetta «Visualizzazioni», 17 sotto «Interazioni» e 0 sotto «Interazioni con i post». Copertura ed engagement rate da verificare.

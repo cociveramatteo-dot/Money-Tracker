@@ -195,6 +195,8 @@ Aggiornato 2026-11-19 01:38 (segretario): post 1 pubblicazione gio 19/11 ore 13:
 ### SC-4 [~] Landing **online** su bucktrailapp.com (2026-11-18): IT/EN, lista d'attesa con double opt-in (Brevo), privacy approvata, logo email. Restano: approvazione grafica (APPROVAZIONI), collaudo nel browser reale, immagini Higgsfield (opzionali).
 ### SC-5 [~] Script FFmpeg e modello ASS pronti per il collaudo. Test di fumo ASS/SRT e conversione HDR sintetica superati.
 ### SC-6 [~] Diario delle metriche (Copilot: task piccolo e già descritto): foglio come manuale §9.7. Creati `SOCIAL/diario-metriche.csv` e `SOCIAL/diario-metriche.md`; una riga ESEMPIO vuota, nessun dato reale; da collaudare.
+Primo rilevamento reale registrato il 2026-11-20: post 1 Instagram. In attesa dei dati TikTok.
+
 
 ### S-38 [ ] Commissione — pacchetto A (Codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per «Salta mese/Termina…», «•••• €» fisso, detector ricalcolato a ogni render, set di ID regole in `movementList`, force-unwrap (RecurrenceControls:69, RecurringSeriesDetector:58-66), `RecurringMaterializer` duplica `snapshot`, tipo/selected ridondanti in `typeChips`.
 
