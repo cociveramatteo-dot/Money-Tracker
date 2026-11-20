@@ -1,8 +1,9 @@
-# CONSEGNA — Codex · 2026-11-20 23:12
+# CONSEGNA — Codex · 2026-11-20 23:17
 
 ## Fatto
-- SC-3c: Matteo ha approvato i testi e comunicato l’aggiornamento delle bio. Verificata la dicitura iPhone e Android in YouTube Studio. Nessuna modifica ai profili eseguita in questo turno.
-- Dicitura iPhone e Android fissata nelle direttive per le caption e le chiusure dei prossimi post.
+- Matteo conferma che il post di presentazione fissato e il banner YouTube sono già aggiornati per il lancio su iPhone e Android.
+- Le caption e le chiusure dei prossimi post seguono la dicitura già approvata nelle direttive social.
 
 ## Aperto
-- Possibili aggiornamenti successivi: banner YouTube, contenuti fissati, email di lancio, schede dei due store. Per il collegamento bancario, sondaggio social e rimando alla landing.
+- Email di lancio da riprendere quando saranno disponibili i link App Store e Google Play.
+- Calendario social in pausa prima del Post-8.

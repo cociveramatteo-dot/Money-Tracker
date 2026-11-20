@@ -194,7 +194,7 @@ Aggiornato 2026-11-19 01:38 (segretario): post 1 pubblicazione gio 19/11 ore 13:
 ### SC-4 [~] Landing **online** su bucktrailapp.com (2026-11-18): IT/EN, lista d'attesa con double opt-in (Brevo), privacy approvata, logo email. Restano: approvazione grafica (APPROVAZIONI), collaudo nel browser reale, immagini Higgsfield (opzionali).
 ### SC-4c [~] Landing IT/EN · lancio iPhone e Android, collegamento bancario facoltativo in arrivo. Anteprima locale verificata in Chrome. Matteo ha approvato i contenuti e chiesto correzioni a tab bar nei mockup e messaggio del modulo locale, entrambe implementate. Rimossi anche i bordi chiari nei mockup Aggiungi, Ricorrenza e Comandi. Pubblicato 2026-11-20 su Cloudflare Pages con approvazione di Matteo; verificati dominio IT/EN e validazione del Worker.
 
-### SC-3c [x] Bio e chiusura dei prossimi post approvate da Matteo il 2026-11-20. Matteo ha comunicato l’aggiornamento dei profili; dicitura iPhone e Android verificata in YouTube Studio. Restano, se richiesti, banner YouTube, contenuti fissati e email di lancio.
+### SC-3c [x] Bio e chiusura dei prossimi post approvate da Matteo il 2026-11-20. Matteo ha comunicato l’aggiornamento dei profili; dicitura iPhone e Android verificata in YouTube Studio. Post fissato di presentazione e banner YouTube aggiornati da Matteo. Email di lancio rimandata a quando saranno disponibili i link App Store e Google Play.
 
 ### SC-5 [~] Script FFmpeg e modello ASS pronti per il collaudo. Test di fumo ASS/SRT e conversione HDR sintetica superati.
 ### SC-6 [~] Diario delle metriche (Copilot: task piccolo e già descritto): foglio come manuale §9.7. Creati `SOCIAL/diario-metriche.csv` e `SOCIAL/diario-metriche.md`; una riga ESEMPIO vuota, nessun dato reale; da collaudare.
