@@ -58,7 +58,12 @@ def inset(canvas, visual, x, y, radius):
 
 def phone(canvas, name, x, y, width):
     with Image.open(POST / "materiale" / name) as source:
-        screen = source.convert("RGB")
+        # Le schermate iPhone lasciano una fascia vuota sotto la barra delle tab.
+        screen = source.convert("RGB").crop((0, 0, source.width, 2401))
+    if name.startswith("IMG_"):
+        draw = ImageDraw.Draw(screen)
+        for y in range(133, 255):
+            draw.line((290, y, 880, y), fill=screen.getpixel((24, y)))
     edge = max(7, width // 52)
     screen_width = width - 2 * edge
     screen = screen.resize((screen_width, round(screen.height * screen_width / screen.width)), Image.Resampling.LANCZOS)
@@ -96,8 +101,9 @@ def left(canvas, y, content, size, color=INK, bold=True):
     text(canvas, y, content, size, color, bold, right=536)
 
 
-def right_phone(canvas, name):
+def right_phone(canvas, name, dark=False):
     phone(canvas, name, 563, 208, 436)
+    text(canvas, 1170, "Dati di esempio", 25, "#D7DFD9" if dark else GREEN, bold=False, x=683)
 
 
 first = slide(dark=True)
@@ -107,7 +113,7 @@ left(first, 327, "Hai 1.000 €", 83, AMBER)
 left(first, 429, "sul conto.", 78, PAPER)
 left(first, 574, "Quanto puoi\ndavvero\nspendere?", 73, PAPER)
 left(first, 884, "Prima guarda cosa\ndeve ancora uscire.", 43, "#D7DFD9", bold=False)
-right_phone(first, "IMG_8003.PNG")
+right_phone(first, "home-pulita.png", dark=True)
 save(first, 1)
 
 fixed = editorial("SPESE FISSE")
@@ -121,7 +127,18 @@ variable = editorial("SPESE VARIABILI")
 left(variable, 300, "Cosa cambia\nda un mese\nall’altro?", 73)
 left(variable, 607, "Supermercato e\ncarburante si ripetono.\nA cambiare è quanto\nspendi.", 42, bold=False)
 left(variable, 879, "Per stimarle, parti\nda una media.", 42, GREEN)
-right_phone(variable, "IMG_8006.PNG")
+panel = ImageDraw.Draw(variable)
+panel.rounded_rectangle((555, 253, 1004, 1090), 45, fill="#E5EDE5")
+text(variable, 300, "ESEMPIO", 26, GREEN, x=587)
+text(variable, 351, "Supermercato", 44, x=587)
+for index, (amount, width) in enumerate((("58 €", 273), ("65 €", 306), ("70,50 €", 332)), 1):
+    y = 468 + (index - 1) * 130
+    text(variable, y, f"Settimana {index}", 27, bold=False, x=587)
+    text(variable, y, amount, 28, x=865)
+    panel.rounded_rectangle((587, y + 49, 587 + width, y + 65), 8, fill="#3D815F")
+panel.line((587, 875, 967, 875), fill="#BCCFC0", width=2)
+text(variable, 911, "Media a settimana", 29, GREEN, bold=False, x=587)
+text(variable, 964, "64,50 €", 61, GREEN, x=587)
 save(variable, 3)
 
 example = editorial("ESEMPIO · PRIMA DEL PROSSIMO STIPENDIO")
@@ -145,7 +162,14 @@ choice = editorial("RIGUARDA LE USCITE")
 left(choice, 287, "Quali\npagheresti\nanche oggi?", 72)
 left(choice, 611, "Tieni ciò che ti serve\no che usi davvero.\nPoi cerca cosa si\nrinnova per abitudine.", 42, bold=False)
 left(choice, 878, "Quell’abbonamento\nlo rifaresti oggi?", 41, GREEN)
-right_phone(choice, "IMG_8004.PNG")
+boxes = ImageDraw.Draw(choice)
+boxes.rounded_rectangle((555, 273, 1004, 578), 42, fill="#DCEADF")
+text(choice, 322, "DA TENERE", 27, GREEN, x=592)
+text(choice, 389, "Lo uso e mi\nserve ancora.", 48, x=592)
+boxes.rounded_rectangle((555, 624, 1004, 929), 42, fill="#F3E7D8")
+text(choice, 675, "DA RIVEDERE", 27, "#754313", x=592)
+text(choice, 742, "Si rinnova,\nma non lo uso.", 47, x=592)
+text(choice, 982, "Controlla la prossima data.", 28, bold=False, x=574)
 save(choice, 5)
 
 annual = editorial("ESEMPIO · UN RINNOVO")
@@ -171,7 +195,7 @@ for platform in ("tiktok", "instagram"):
     left(close, 536, "Tutti i tuoi conti\nin un’unica app.", 43, "#D7DFD9", bold=False)
     left(close, 672, "Senza abbonamento.", 39, AMBER)
     laptop(close, "landing.png", 540, 371, 462)
-    phone(close, "IMG_8001.PNG", 763, 686, 222)
+    phone(close, "budget-pulito.png", 763, 686, 222)
     left(close, 875, "Iscriviti alla\nlista d’attesa.", 61, PAPER)
     cta = "Cerca bucktrailapp.com" if platform == "tiktok" else "Apri il link in bio"
     left(close, 1065, cta, 36, AMBER)
