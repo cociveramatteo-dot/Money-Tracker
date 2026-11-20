@@ -24,7 +24,7 @@ Regola TikTok (account personale, niente campo link finché non si passa a Busin
 > Budget senza abbonamento: l'app per iPhone che ti mostra il saldo di fine mese. Senza pubblicità. Lista d'attesa nel link.
 
 
-### Aggiornamento lancio mobile · proposte da approvare
+### Aggiornamento lancio mobile · testi approvati il 20/11
 
 **Instagram**
 > Scopri quanto ti resta a fine mese.

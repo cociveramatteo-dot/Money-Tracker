@@ -5,10 +5,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### SOCIAL · SC-3c — bio e chiusura dei post
-📍 Qui in chat, con le bozze in `SOCIAL/testi-v1.md` §1.
-▶️ Scrivi «bio ok» per approvare Instagram, TikTok e YouTube o indica quale testo vuoi cambiare.
-
 ### SOCIAL · SC-6 — avvia Copilot per il diario metriche
 📍 Terminale, nuova scheda, nella cartella del cantiere: `copilot`.
 ▶️ Incolla:

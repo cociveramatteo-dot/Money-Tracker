@@ -68,4 +68,4 @@ File: `SOCIAL/caroselli/presentazione-v1.md` (redattore, 2026-11-19). 8 slide, c
 - ⏳ 2026-11-20 · SC-7, post 2 F13 · testi e grafica della revisione a 8 slide sulle spese fisse e variabili. Anteprima ed esportazione in Drive, «Da postare/post-2». Caption in `SOCIAL/istruzioni-post/post-2.txt`.
 
 | SC-4c | Landing IT/EN con lancio iPhone e Android e collegamento bancario tra le funzioni dopo il lancio | SOCIAL/landing | Matteo | ✅ | 2026-11-20 | Pubblicazione autorizzata da Matteo e verificata in produzione |
-| SC-3c | Bio Instagram e TikTok, descrizione YouTube e chiusura post con iPhone e Android | SOCIAL/testi-v1.md, §1 | Matteo | 📨 | 2026-11-20 | Bozze presentate in chat |
+| SC-3c | Bio Instagram e TikTok, descrizione YouTube e chiusura post con iPhone e Android | SOCIAL/testi-v1.md, §1 | Matteo | ✅ | 2026-11-20 | Testi approvati e bio dichiarate aggiornate da Matteo. YouTube Studio verificato |

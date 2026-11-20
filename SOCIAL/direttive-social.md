@@ -25,7 +25,7 @@
 
 ## Comunicazione sul lancio
 
-- Nei materiali di lancio usare «In arrivo su iPhone e Android». Identificare le catture come anteprima iPhone quando la piattaforma è rilevante. Verificare il link della lista d’attesa su ciascun profilo.
+- Nelle caption e nelle chiusure dei prossimi post di lancio usare «In arrivo su iPhone e Android. Iscriviti alla lista d’attesa.». Identificare le catture come anteprima iPhone quando la piattaforma è rilevante. Verificare il link della lista d’attesa su ciascun profilo.
 - Il collegamento bancario è una funzione prevista dopo il lancio, facoltativa per conto e limitata alle banche supportate. Sui social si può proporre un sondaggio sulle banche da valutare. La versione web resta fuori dalla comunicazione corrente.
 
 ## Calendario, approvazione e consegna
