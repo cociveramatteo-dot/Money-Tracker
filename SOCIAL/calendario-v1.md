@@ -20,7 +20,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post | Data indicativa | Slot | Rubrica | Titolo e contenuto | Stato |
 |---|---|---:|---|---|---|
 | Post-3 | 23/11/2026 | 1 | Guida | **Guida: HOME** · Orientarsi tra saldo attuale, carte dei conti, riepiloghi e ultimi movimenti | Tema e sequenza di 7 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-4 | 24/11/2026 | 1 | Tutorial | **Registra il primo movimento** · Inserire importo, descrizione, conto e categoria. Mostrare uscita e variante entrata | Da approvare |
+| Post-4 | 24/11/2026 | 1 | Tutorial | **Come aggiungere un movimento** · Registrare 24,50 € al supermercato e ritrovare la spesa in Movimenti. Chiudere con la variante «Entrata» | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-5 | 25/11/2026 | 1 | Educazione | **Il tuo limite per le spese fuori casa** · Partire da una spesa media e scegliere un tetto mensile da impostare in Pianifica | Da approvare |
 | Post-6 | 26/11/2026 | 1 | Guida | **Guida: MOVIMENTI** · Leggere «In arrivo», lista giornaliera e subtotali. Mostrare dove si trovano ricerca e Ricorrenti | Da approvare |
 | Post-7 | 27/11/2026 | 1 | Tutorial | **Crea un conto** · Aggiungere un conto, scegliere il tipo e inserire il saldo iniziale | Da approvare |
@@ -60,6 +60,15 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 
 - **Slide 2:** iPhone a metà con intestazione Bucktrail visibile. Scheda «Saldo attuale» a pieno contrasto, sezioni intorno leggermente attenuate e cornice verde sottile. «Dati di esempio» fuori dal telefono.
 - **Slide 3:** ritaglio ravvicinato della curva della Home per distinguere il tratto pieno da quello tratteggiato.
+
+### Post-4 · Sequenza approvata
+
+1. Copertina «Come aggiungere un movimento», con iPhone a metà e importo in evidenza.
+2. Home con iPhone intero e il pulsante + in risalto.
+3. Primo piano del modulo con «Uscita», 24,50 € e «Supermercato».
+4. Categoria, conto, data e stato «Già effettuato» in evidenza.
+5. Due ritagli affiancati mostrano il salvataggio e la nuova riga in Movimenti.
+6. Variante «Entrata» con il selettore in risalto e invito a salvare il post.
 
 ## Temi da tenere in riserva
 

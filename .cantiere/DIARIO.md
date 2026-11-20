@@ -161,3 +161,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-20 21:50 | impresa (Codex · GPT-6) | SC-0 | Numerato il calendario da Post-3 a Post-38 e aggiornati i riferimenti correnti | Approvazione Post-3 |
 | 2026-11-20 21:52 | impresa (Codex · GPT-6) | SC-0 | Registrato ok di Matteo al tema e alle 7 slide del Post-3 | Grafica e data |
 | 2026-11-20 21:53 | impresa (Codex · GPT-6) | SC-0 | Registrato ok alla grafica proposta per le slide 2 e 3 del Post-3 | Grafica finale e data |
+| 2026-11-20 21:56 | impresa (Codex · GPT-6) | SC-0 | Registrato ok alla sequenza del Post-4 e alla variante Entrata | Grafica, date e Post-5 |
