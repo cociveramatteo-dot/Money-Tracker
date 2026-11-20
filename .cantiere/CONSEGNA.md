@@ -1,8 +1,8 @@
-# CONSEGNA — Codex · 2026-11-20 23:20
+# CONSEGNA — Codex · 2026-11-20 23:21
 
 ## Fatto
-- SC-0: salvato l’ok al Post-9 «Guida: CONTI». Sei slide, con esclusi e archiviati su slide separate.
+- SC-0: salvato l’ok al Post-10, sei slide su lingua, valuta e tema, con cambio lingua come passaggio principale.
 
 ## Aperto
-- Grafica finale e date Post-3–9. Prossima proposta: Post-10, lingue, valuta e tema.
+- Grafica finale e date Post-3–10. Prossima proposta: Post-11, accantonamento per una spesa annuale.
 - Email di lancio quando saranno disponibili i link dei due store.

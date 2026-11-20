@@ -30,7 +30,7 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 
 ### SOCIAL · SC-0 — approva il calendario un post alla volta
 📍 Qui in chat, con `SOCIAL/calendario-v1.md`.
-▶️ Tema e sequenza dei Post-3–9 approvati. Comunica il giorno di partenza quando lo sai. La prossima proposta è Post-10.
+▶️ Tema e sequenza dei Post-3–10 approvati. Comunica il giorno di partenza quando lo sai. La prossima proposta è Post-11.
 ↩️ Dopo ogni risposta si registra l’esito e si passa alla proposta successiva.
 
 ### SOCIAL · SC-2 — archivio schermate dell’app
