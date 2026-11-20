@@ -23,6 +23,22 @@ Regola TikTok (account personale, niente campo link finché non si passa a Busin
 **YouTube (descrizione canale, 142/150)**
 > Budget senza abbonamento: l'app per iPhone che ti mostra il saldo di fine mese. Senza pubblicità. Lista d'attesa nel link.
 
+
+### Aggiornamento lancio mobile · proposte da approvare
+
+**Instagram**
+> Scopri quanto ti resta a fine mese.
+> Conti e budget senza abbonamento.
+> In arrivo su iPhone e Android ↓
+
+**TikTok**
+> Budget senza abbonamento. iPhone e Android in arrivo. bucktrailapp.com
+
+**YouTube**
+> Bucktrail riunisce conti, spese e budget e ti mostra quanto ti resta a fine mese. In arrivo su iPhone e Android, senza abbonamento. Lista d’attesa su bucktrailapp.com.
+
+**Chiusura dei prossimi post:** «In arrivo su iPhone e Android. Iscriviti alla lista d’attesa.» Per il canale senza link cliccabile, aggiungere «su bucktrailapp.com».
+
 ---
 
 ## 2. Caption per format (primo blocco)

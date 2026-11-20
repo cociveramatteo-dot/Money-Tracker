@@ -170,3 +170,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-20 22:41 | impresa (Codex · GPT-6) | SC-4c | Landing IT/EN aggiornata con lancio iPhone e Android e collegamento bancario dopo il lancio; Chrome 375/768/1440 | Ok di Matteo prima del deploy |
 | 2026-11-20 22:51 | impresa (Codex · GPT-6) | SC-4c | Allineata la tab bar dei mockup e aggiunto avviso di iscrizione su localhost | Pubblicazione sospesa |
 | 2026-11-20 22:55 | impresa (Codex · GPT-6) | SC-4c / SC-0 | Rimossi i bordi chiari nei tre mockup desktop; annotato tutorial doppio tocco sul retro nel Post-35 | Deploy sospeso; tutorial rimandato |
+| 2026-11-20 23:01 | impresa (Codex · GPT-6) | SC-4c / SC-3c | Landing pubblicata e verificata IT/EN; bozze bio e chiusure con iPhone e Android | Approvazione testi social |

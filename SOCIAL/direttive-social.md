@@ -23,6 +23,11 @@
 - Aprire ogni export sul formato di destinazione. Controllare ordine, testi e importi leggibili, margini, ritaglio della griglia Instagram, CTA e link di ciascun canale. Le schermate devono rispecchiare la build reale. «Cambio valuta» va spiegato secondo il comportamento verificato, senza implicare conversioni automatiche.
 - Posizionamento Bucktrail: conti e movimenti personali in un’unica app, design Sentiero, sezioni chiare e pagamento una tantum. Se si cita €4,99 prima della disponibilità, usare «prezzo di lancio previsto». Evitare «definitiva», concorrenti per nome e affermazioni non verificate su cloud, privacy o IA. Adeguare la CTA alla disponibilità effettiva dell’app e al link attivo sul canale.
 
+## Comunicazione sul lancio
+
+- Nei materiali di lancio usare «In arrivo su iPhone e Android». Identificare le catture come anteprima iPhone quando la piattaforma è rilevante. Verificare il link della lista d’attesa su ciascun profilo.
+- Il collegamento bancario è una funzione prevista dopo il lancio, facoltativa per conto e limitata alle banche supportate. Sui social si può proporre un sondaggio sulle banche da valutare. La versione web resta fuori dalla comunicazione corrente.
+
 ## Calendario, approvazione e consegna
 
 - Alternare guide, tutorial ed educazione. Pianificare 1–2 post per giorno di pubblicazione. Quando ce ne sono due, usare rubriche e argomenti diversi. Un post extra entra solo su richiesta di Matteo.
