@@ -1,8 +1,8 @@
-# CONSEGNA — Codex · 2026-11-20 23:22
+# CONSEGNA — Codex · 2026-11-20 23:23
 
 ## Fatto
-- SC-0: salvato l’ok alle 5 slide del Post-11, assicurazione da 480 € con 40 € al mese.
-- Calendario attuale: 36 proposte dal Post-3 al Post-38, più i due già pubblicati. Nove scalette approvate e 27 proposte da approvare.
+- SC-0: anticipato il tutorial del doppio tocco sul retro dell’iPhone al Post-12. Il tutorial per impostare un budget si sposta al Post-35.
+- Proposte otto slide dal comando Bucktrail alla prova su iPhone e alla verifica in Movimenti.
 
 ## Aperto
-- Pausa prima del Post-12. Grafiche finali e date Post-3–11 da confermare.
+- Approvazione della scaletta Post-12. Durante la produzione verificare le etichette e provare il gesto su iPhone fisico.

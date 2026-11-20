@@ -28,7 +28,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post-9 | 30/11/2026 | 1 | Guida | **Guida: CONTI** · Leggere il patrimonio dei conti inclusi e riconoscere gruppi, conti esclusi e archivio | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-10 | 01/12/2026 | 1 | Tutorial | **Lingue, valuta e tema** · Mostrare le sette lingue e il percorso iOS, la scelta del simbolo valuta e il tema di sistema | Tema e sequenza di 6 slide approvati da Matteo il 20/11; data e grafica da confermare |
 | Post-11 | 01/12/2026 | 2 | Educazione | **Una spesa annuale, dodici mesi per prepararla** · Assicurazione auto da 480 € in 12 mesi, con obiettivo da 40 € al mese | Esempio e sequenza di 5 slide approvati da Matteo il 20/11; data e grafica da confermare |
-| Post-12 | 02/12/2026 | 1 | Tutorial | **Imposta un budget** · Scegliere categoria, limite mensile e, se utile, conto. Mostrare il risultato | Da approvare |
+| Post-12 | 02/12/2026 | 1 | Tutorial | **Registra una spesa con il doppio tocco sul retro dell’iPhone** · Mostrare tutti i passaggi: creare o aggiungere «Aggiungi spesa» in Comandi, poi Impostazioni → Accessibilità → Tocco → Tocco posteriore → Doppio tocco, assegnare il comando, provarlo e trovare il movimento salvato. Verificare le etichette sul simulatore e il gesto su iPhone fisico | Da approvare |
 | Post-13 | 03/12/2026 | 1 | Guida | **Guida: PIANIFICA** · Orientarsi fra Budget e Obiettivi, schede riepilogative e pulsante di aggiunta | Da approvare |
 | Post-14 | 04/12/2026 | 1 | Tutorial | **Crea una ricorrenza** · Impostare frequenza e conto, salvare e ritrovare l’operazione programmata | Da approvare |
 | Post-15 | 05/12/2026 | 1 | Educazione | **Spostare soldi tra conti non cambia il patrimonio** · Mostrare il prima e dopo con due conti nella stessa valuta e un trasferimento | Da approvare |
@@ -51,7 +51,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post-32 | 23/12/2026 | 1 | Tutorial | **Leggi le soglie del budget** · Avviso all’80%, sforamento, storico e avvisi disponibili | Da approvare |
 | Post-33 | 26/12/2026 | 1 | Educazione | **Spese piccole, effetto cumulato** · Mostrare come ritrovare più spese dello stesso tipo e leggere il totale per categoria | Da approvare |
 | Post-34 | 28/12/2026 | 1 | Tutorial | **Esporta PDF, CSV o JSON** · Mostrare dove si trovano e quando usare report mensile, elenco movimenti o esportazione profilo | Da approvare |
-| Post-35 | 29/12/2026 | 1 | Tutorial | **Registra una spesa con il doppio tocco sul retro dell’iPhone** · Mostrare tutti i passaggi: creare o aggiungere «Aggiungi spesa» in Comandi, poi Impostazioni → Accessibilità → Tocco → Tocco posteriore → Doppio tocco, assegnare il comando, provarlo e trovare il movimento salvato. Verificare le etichette sul simulatore e il gesto su iPhone fisico | Da approvare |
+| Post-35 | 29/12/2026 | 1 | Tutorial | **Imposta un budget** · Scegliere categoria, limite mensile e, se utile, conto. Mostrare il risultato | Da approvare |
 | Post-36 | 30/12/2026 | 1 | Educazione | **La revisione di fine mese** · Confrontare una categoria con il suo budget, verificare il netto e scegliere un aggiustamento per il mese dopo | Da approvare |
 | Post-37 | 31/12/2026 | 1 | Tutorial | **Importi discreti, Face ID e promemoria** · Mostrare occhio, blocco app e dove attivare gli avvisi, chiarendo le differenze fra i comandi | Da approvare |
 | Post-38 | 02/01/2027 | 1 | Tutorial | **Categorie e «Ultima usata»** · Mostrare il suggerimento alla seconda registrazione e come sostituirlo manualmente | Da approvare |
@@ -130,6 +130,17 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 3. Creazione dell’obiettivo «Assicurazione auto», con importo e scadenza.
 4. Dopo tre mesi: 120 € su 480 €, 25% di avanzamento e 360 € da accantonare. L’importo si aggiorna a mano.
 5. Domanda sulla propria prossima spesa annuale e lista d’attesa per iPhone e Android.
+
+### Post-12 · Sequenza proposta
+
+1. Copertina «Due tocchi per registrare una spesa», con retro dell’iPhone e schermata del comando.
+2. In Comandi Rapidi, toccare + per creare un comando.
+3. Cercare Bucktrail, aggiungere l’azione «Aggiungi spesa» e salvare con un nome riconoscibile.
+4. In Impostazioni, seguire Accessibilità → Tocco → Tocco posteriore.
+5. Aprire «Tocco doppio» e selezionare il comando appena creato.
+6. Filmare su iPhone fisico i due tocchi. Mostrare l’inserimento del nome e dell’importo fittizio, «Caffè e cornetto», 3,20 €.
+7. Aprire Movimenti e far vedere la riga salvata.
+8. Invito a salvare il tutorial, indicazione «Tutorial iPhone» e lista d’attesa iPhone e Android.
 
 ## Temi da tenere in riserva
 
