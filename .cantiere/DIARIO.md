@@ -149,3 +149,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-19 13:13 | capocantiere (Claude Code · Sonnet) | post 1 pubblicato | Matteo ha pubblicato il post 1 su TikTok e Instagram alle 13:00 | link dei due post e metriche a 24h (20/11 ~13:00) da registrare in diario-metriche.csv |
 
 | 2026-11-20 15:15 | impresa (Codex · GPT-6) | SC-6 | Registrate metriche e link Instagram del post 1 | Dati TikTok e collaudo diario |
+| 2026-11-20 15:21 | impresa (Codex · GPT-6) | SC-6 | Registrate metriche e link TikTok del post 1 | Copertura da verificare e collaudo diario |

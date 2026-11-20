@@ -37,3 +37,13 @@ In questo diario, considera `copertura` uguale a `view` e `interazioni totali` c
 - 8 mi piace, 8 account che hanno interagito, 0 commenti, 0 salvataggi e 0 condivisioni.
 - 4 visite al profilo, 1 tocco sul link esterno e 0 follow.
 - Gli Insights mostrano anche 19 con la stessa etichetta «Visualizzazioni», 17 sotto «Interazioni» e 0 sotto «Interazioni con i post». Copertura ed engagement rate da verificare.
+
+## Post 1 · TikTok
+
+[Ogni conto al suo posto. Ogni euro in chiaro.](https://www.tiktok.com/@bucktrailapp/photo/7709850786976599329) · rilevamento 2026-11-20 alle 15:18–15:19.
+
+- 588 visualizzazioni, 7 mi piace, 1 condivisione, 2 salvataggi, 0 commenti e 0 nuovi follower.
+- TikTok Studio indica 31 min 59 s di riproduzione totale, 2,99 s di visualizzazione media e 2% alla voce «Guarda il video completo» per il carosello.
+- Fonti di traffico: Per te 95,3%, profilo personale 4,0%, altro 0,5%, messaggi diretti 0,2%, seguiti, suono e cerca ciascuno sotto lo 0,1%.
+- Pubblico: Italia 95,4%. Età: 18–24 (49%), 25–34 (40%), 35–44 (3%), 45–54 (4%), 55+ (4%). Sesso: 64% uomini, 36% donne.
+- Spettatori totali, tipi di spettatori, mantenimento e termini di ricerca ancora in elaborazione. Visite al profilo, click e iscrizioni alla landing assenti dagli screenshot.
