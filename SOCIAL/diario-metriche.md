@@ -47,3 +47,7 @@ In questo diario, considera `copertura` uguale a `view` e `interazioni totali` c
 - Fonti di traffico: Per te 95,3%, profilo personale 4,0%, altro 0,5%, messaggi diretti 0,2%, seguiti, suono e cerca ciascuno sotto lo 0,1%.
 - Pubblico: Italia 95,4%. Età: 18–24 (49%), 25–34 (40%), 35–44 (3%), 45–54 (4%), 55+ (4%). Sesso: 64% uomini, 36% donne.
 - Spettatori totali, tipi di spettatori, mantenimento e termini di ricerca ancora in elaborazione. Visite al profilo, click e iscrizioni alla landing assenti dagli screenshot.
+
+## Post 2 · Instagram
+
+[Hai 1.000 € sul conto. Quanto puoi davvero spendere?](https://www.instagram.com/p/Df-MToYEZoR/) · pubblicato il 2026-11-20, ora effettiva e primo rilevamento da registrare.
