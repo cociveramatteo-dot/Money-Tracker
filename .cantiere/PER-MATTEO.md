@@ -30,7 +30,7 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 
 ### SOCIAL · SC-0 — concorda la partenza dei post
 📍 Qui in chat, con `SOCIAL/calendario-v1.md`.
-▶️ Apri su Drive «Da postare» e controlla i Post-3–22. Indica eventuali correzioni o il via libera alla seconda metà. Quando sai il giorno di partenza, comunicalo qui per fissare le date.
+▶️ Apri su Drive «Da postare». I Post-3–42 sono pronti e hanno un LEGGIMI per ciascun pacchetto. Scrivi qui la data di partenza per fissare il calendario. I Post-39 e 41 sono segnalati in revisione.
 
 ### SOCIAL · SC-2 — archivio schermate dell’app
 📍 Sul Mac, Finder → Vai → Vai alla cartella e incolla:

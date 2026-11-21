@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1794960443.7169285,
-    "ast_hash": "006b55a86eb037ec14ebf5fde8a09b92",
+    "mtime": 1795218738.9997442,
+    "ast_hash": "0967c3ae44ae07b5c1e5cbeaee536f2d",
     "semantic_hash": ""
   },
   "MoneyTracker/Assets.xcassets/AppIcon.appiconset/AppIcon_light_1024.png": {
@@ -340,8 +340,8 @@
     "semantic_hash": ""
   },
   ".cantiere/cantiere.json": {
-    "mtime": 1794960432.3765934,
-    "ast_hash": "d5a8b482bbe1c821265c09a2ce400cef",
+    "mtime": 1795218702.2030919,
+    "ast_hash": "b442c2d7adcbaf42250dac95f4bb2ffa",
     "semantic_hash": ""
   },
   ".cantiere/guardiano.json": {
@@ -350,7 +350,7 @@
     "semantic_hash": ""
   },
   ".cantiere/magazzino.json": {
-    "mtime": 1794960432.0009522,
+    "mtime": 1795218702.0327039,
     "ast_hash": "d458411a1d15c0b9756a61e267f4a6de",
     "semantic_hash": ""
   },
@@ -360,82 +360,82 @@
     "semantic_hash": ""
   },
   ".cantiere/strumenti/backup.sh": {
-    "mtime": 1794960431.9822178,
+    "mtime": 1795218702.0228212,
     "ast_hash": "36b517c79815b7bae01ec0ae2a14fb45",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/biblioteca.py": {
-    "mtime": 1794960431.973687,
+    "mtime": 1795218702.0192618,
     "ast_hash": "161f789b2a19875da3da91848b1b0eb6",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/bilingue.py": {
-    "mtime": 1794960431.9917152,
+    "mtime": 1795218702.0260754,
     "ast_hash": "ee51a77d7ca3bc480417a763bb1828ab",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/catalogo.py": {
-    "mtime": 1794960431.9729388,
+    "mtime": 1795218702.018669,
     "ast_hash": "dc1eeb18f304df8f07111b0526981664",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/collaudo.sh": {
-    "mtime": 1794960431.9726076,
+    "mtime": 1795218702.0182254,
     "ast_hash": "2a3d5b64cc0b49d3bff73980952706f6",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/controlli.py": {
-    "mtime": 1794960431.983093,
+    "mtime": 1795218702.0230026,
     "ast_hash": "e131592309a6fc8199b3769b8e7753e3",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/guardiano/esegui.sh": {
-    "mtime": 1794960431.9858367,
+    "mtime": 1795218702.0233247,
     "ast_hash": "750abf899de2c2c1971a1dd2197bf583",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/guardiano/giro.mjs": {
-    "mtime": 1794960431.9881532,
+    "mtime": 1795218702.0253396,
     "ast_hash": "a209755e197a69a2042e0f9a1fcb6a6d",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/guardiano/installa-nel-repo.sh": {
-    "mtime": 1794960431.9872856,
+    "mtime": 1795218702.024709,
     "ast_hash": "2ffdaf11f25e545752bcbf9faf8c08ea",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/guardiano/package.json": {
-    "mtime": 1794960431.9864364,
+    "mtime": 1795218702.023619,
     "ast_hash": "713f7640ac591c47b280b72271668b99",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/guardiano/riassunto.mjs": {
-    "mtime": 1794960431.988495,
+    "mtime": 1795218702.0258694,
     "ast_hash": "0037e506ec63afe52e76dcb50e949ce3",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/guardiano/scarica.sh": {
-    "mtime": 1794960431.9875658,
+    "mtime": 1795218702.024896,
     "ast_hash": "5bcc870dcd78dc7cc6a7968ac672e749",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/magazzino.py": {
-    "mtime": 1794960431.9921153,
+    "mtime": 1795218702.026578,
     "ast_hash": "4b173729ac7bc4bb092b2964115ff50a",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/pagella.py": {
-    "mtime": 1794960431.9741197,
+    "mtime": 1795218702.0196354,
     "ast_hash": "4ea841d8729148c1117524ddf3355b09",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/spazio.sh": {
-    "mtime": 1794960431.9723525,
+    "mtime": 1795218702.0178034,
     "ast_hash": "3e12004526809811365a2163b60fd1ca",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/trasloco.sh": {
-    "mtime": 1794960431.9731774,
+    "mtime": 1795218702.018937,
     "ast_hash": "3e1cfcaddc6fd85d930ca1928773b743",
     "semantic_hash": ""
   },
@@ -515,8 +515,8 @@
     "semantic_hash": ""
   },
   ".cantiere/APPROVAZIONI.md": {
-    "mtime": 1795185968.0019493,
-    "ast_hash": "644f35ea9b312e3619b1f979f502d5bb",
+    "mtime": 1795212728.1121256,
+    "ast_hash": "df34f885050b6ad58a0300cb196df394",
     "semantic_hash": ""
   },
   ".cantiere/AVVIO.md": {
@@ -530,18 +530,18 @@
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795208783.2570965,
-    "ast_hash": "a7ac8b9f071735b85bc747131559a449",
+    "mtime": 1795250434.026111,
+    "ast_hash": "70c0c3b0db52c073a446801d635eb730",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
-    "mtime": 1795208763.663249,
-    "ast_hash": "9ad340fd218dcb5dd2f9db03d333afff",
+    "mtime": 1795210905.1469514,
+    "ast_hash": "e85ca0435ae839f54f21a040baa6e0d2",
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795208783.2535486,
-    "ast_hash": "d053d13ec1be08d1db83cea6cf858790",
+    "mtime": 1795250434.026035,
+    "ast_hash": "2755d496e3c97ace04617c79036fa89a",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -555,28 +555,28 @@
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795208485.1860604,
-    "ast_hash": "719d20d87f65f50ea7fe3092e4e20498",
+    "mtime": 1795214695.806377,
+    "ast_hash": "701caf93fc1b610ea08856720af92c14",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795209356.9867792,
-    "ast_hash": "61a7e6b72ff3338aee89d22ef01c25a1",
+    "mtime": 1795250434.0256155,
+    "ast_hash": "032ade5d7fb101756cd30036358943ca",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
-    "mtime": 1794960431.8874369,
+    "mtime": 1795218701.991531,
     "ast_hash": "1f1a69fb9297ad154c6efd240af2a1f2",
     "semantic_hash": ""
   },
   ".cantiere/SQUADRA.md": {
-    "mtime": 1794960432.0498185,
-    "ast_hash": "8984f51d94afabde86ec6db05fdfa1dd",
+    "mtime": 1795218702.0572672,
+    "ast_hash": "0992631a9ef9874f185745b498f170dc",
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795208981.2735524,
-    "ast_hash": "24ea1ccde7c95bb2b05736b936348cd5",
+    "mtime": 1795250818.8334546,
+    "ast_hash": "df1bc05e198247a40bf918e42282186c",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -590,23 +590,23 @@
     "semantic_hash": ""
   },
   ".cantiere/prompt/CONSULENTE.md": {
-    "mtime": 1794960431.969191,
+    "mtime": 1795218702.015586,
     "ast_hash": "ba54b9f1d48199f80f5533ca95c57f22",
     "semantic_hash": ""
   },
   ".cantiere/prompt/IMPRESA.md": {
-    "mtime": 1794960431.9686623,
-    "ast_hash": "1a581d123b2d2e903651dd366fe2d325",
+    "mtime": 1795218702.0153408,
+    "ast_hash": "bc31814f7ec858ae9b3706750ee4cfce",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/guardiano/guardiano.yml": {
-    "mtime": 1794960431.9878194,
+    "mtime": 1795218702.0250356,
     "ast_hash": "62b297ccab77decd3b2ff69ace344f7e",
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "mtime": 1794960443.722738,
-    "ast_hash": "15f9b102914d4d7e4e13194010f07167",
+    "mtime": 1795218738.9993696,
+    "ast_hash": "46cb48736e377c53c476443487dc5f92",
     "semantic_hash": ""
   },
   "GEMINI.md": {
@@ -810,8 +810,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/waitlist.js": {
-    "mtime": 1795000121.7208974,
-    "ast_hash": "3c09ecdc548121c50eeb45b1821532de",
+    "mtime": 1795211403.0905895,
+    "ast_hash": "16ca89d582ce7321ba16667c1f3b5d11",
     "semantic_hash": ""
   },
   "SOCIAL/montaggio/master.sh": {
@@ -825,18 +825,18 @@
     "semantic_hash": ""
   },
   ".github/copilot-instructions.md": {
-    "mtime": 1794960431.998425,
-    "ast_hash": "ff5dd4dbab58f8f0e3bed1270235dbad",
+    "mtime": 1795218702.0308626,
+    "ast_hash": "2bbd4e10fd75ee6a73445e6edae2cdb9",
     "semantic_hash": ""
   },
   ".github/workflows/guardiano.yml": {
-    "mtime": 1794960431.9958518,
+    "mtime": 1795218702.0289,
     "ast_hash": "62b297ccab77decd3b2ff69ace344f7e",
     "semantic_hash": ""
   },
   "SOCIAL/calendario-v1.md": {
-    "mtime": 1795208485.1854665,
-    "ast_hash": "805c897a831bb436afb33211d7485552",
+    "mtime": 1795250065.3104277,
+    "ast_hash": "26eecd75a607f96011dba702e70dad56",
     "semantic_hash": ""
   },
   "SOCIAL/diario-metriche.md": {
@@ -845,8 +845,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/en.html": {
-    "mtime": 1795005172.202031,
-    "ast_hash": "8c84f2c21402c8e1e5640899ea22cf1b",
+    "mtime": 1795211403.089436,
+    "ast_hash": "afd148cbf5f15c546ade5fa038acf67b",
     "semantic_hash": ""
   },
   "SOCIAL/landing/fonts/OFL-Inter.txt": {
@@ -860,8 +860,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/index.html": {
-    "mtime": 1795005172.201009,
-    "ast_hash": "324192df085a45c6af1f8aecf4f2cad7",
+    "mtime": 1795211403.0891402,
+    "ast_hash": "098c69f732d93530296855271add04ee",
     "semantic_hash": ""
   },
   "SOCIAL/landing/privacy.html": {
@@ -875,8 +875,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/testi-v1.md": {
-    "mtime": 1795207610.9221935,
-    "ast_hash": "6147051029adaf0f44f7cf817461d0d3",
+    "mtime": 1795212728.113711,
+    "ast_hash": "9e11c24775f7bd26ef92601b2b8f7ee6",
     "semantic_hash": ""
   },
   "SOCIAL/landing/script.js": {
@@ -895,13 +895,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/confermato.html": {
-    "mtime": 1795005172.2028902,
-    "ast_hash": "89b8013db5092ba669fbb12cb3604a2d",
+    "mtime": 1795210802.1832118,
+    "ast_hash": "bb4424504a5c248bea5147ce4ec2dc25",
     "semantic_hash": ""
   },
   "SOCIAL/landing/confirmed.html": {
-    "mtime": 1795005172.2031882,
-    "ast_hash": "593a0f33c99849ad2fd79809b3adf076",
+    "mtime": 1795210802.1833997,
+    "ast_hash": "3814a040f65349a4343381f7fb9c30eb",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/presentazione-v1/build.py": {
@@ -930,8 +930,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/direttive-social.md": {
-    "mtime": 1795208311.919146,
-    "ast_hash": "ed4fee24b7da0c287b9a74028fcab6d0",
+    "mtime": 1795248880.6275904,
+    "ast_hash": "9487515a2962b040eaa5d5ddbeba5e3d",
     "semantic_hash": ""
   },
   "SOCIAL/guida/README.md": {
@@ -945,13 +945,233 @@
     "semantic_hash": ""
   },
   "SOCIAL/schermate-app/README.md": {
-    "mtime": 1795207563.5473924,
-    "ast_hash": "4b468fc3a408524468c2c004d8b9363f",
+    "mtime": 1795249811.3052697,
+    "ast_hash": "31708ba405aa505b7a7c4322dae10871",
     "semantic_hash": ""
   },
   "MoneyTrackerUITests/RecurrenceCancelAndHomeUITests.swift": {
     "mtime": 1795209129.6905723,
     "ast_hash": "7f4a02378e552567dc8f71d480588976",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/prima-serie/build.py": {
+    "mtime": 1795249991.3994884,
+    "ast_hash": "86a204c4952161160c815db8625379ca",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/prima-serie/editoriale.txt": {
+    "mtime": 1795249919.8596747,
+    "ast_hash": "ada2adb2b6a9f0eb6d2ceaf8be91e72d",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/prima-serie/scalette.txt": {
+    "mtime": 1795249968.3860006,
+    "ast_hash": "88f3e0998c9cfa7cdfe08c4d6c2364c5",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/prima-serie/telefoni.txt": {
+    "mtime": 1795249477.093362,
+    "ast_hash": "f460b28b60cbf47ec4e1f3ac983a76c1",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-10.txt": {
+    "mtime": 1795248926.5024269,
+    "ast_hash": "34cc0a19b749c4844ece23be1834803b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-11.txt": {
+    "mtime": 1795248927.345019,
+    "ast_hash": "d94dcd9619fe2567ec6c793836e5ba32",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-12.txt": {
+    "mtime": 1795248928.4219627,
+    "ast_hash": "b291639323f20e067916a2958d00b457",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-13.txt": {
+    "mtime": 1795248929.314252,
+    "ast_hash": "cb61de7c09d8e10a4aac47a1b6fa3c6d",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-14.txt": {
+    "mtime": 1795248930.1134949,
+    "ast_hash": "8fe474b902fc84195a35bd7af2bcb550",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-15.txt": {
+    "mtime": 1795248930.9858344,
+    "ast_hash": "2f8d94100a407152f1709cfc85952298",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-16.txt": {
+    "mtime": 1795248931.7950401,
+    "ast_hash": "753fc0cd4edd4fed48f352fa2a015042",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-17.txt": {
+    "mtime": 1795248932.6688116,
+    "ast_hash": "1d1867a3c22d22ee2962c481fe9dedbf",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-18.txt": {
+    "mtime": 1795248933.5006113,
+    "ast_hash": "eb66280660fdcaebe927cbc6b880cfe7",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-19.txt": {
+    "mtime": 1795248934.348537,
+    "ast_hash": "21c26ca307b338a984600a6b97d2a44e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-20.txt": {
+    "mtime": 1795248935.1269636,
+    "ast_hash": "cb8cd666d111dd1fbd44ca0c4f88fd67",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-21.txt": {
+    "mtime": 1795248935.9921246,
+    "ast_hash": "4c3a2b93ee228dbfc0ad36c17184c987",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-22.txt": {
+    "mtime": 1795248936.9209378,
+    "ast_hash": "3061d8d3078c05fe2ab1c5b3a503fad9",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-23.txt": {
+    "mtime": 1795249969.6344028,
+    "ast_hash": "7b009ade8984835f19f8a677ff86da6f",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-24.txt": {
+    "mtime": 1795249970.646921,
+    "ast_hash": "8124616f18087fb3668a9ccdd35cd9a4",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-25.txt": {
+    "mtime": 1795249971.6621506,
+    "ast_hash": "8ea658a4b5a96c9e4ba489f0a04e0f8a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-26.txt": {
+    "mtime": 1795249972.6398668,
+    "ast_hash": "dd284fcfce41a38180827c1d5cee7f1e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-27.txt": {
+    "mtime": 1795249973.5395699,
+    "ast_hash": "096da660f4219d1ecfe78b5dd7b2df85",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-28.txt": {
+    "mtime": 1795249974.5792956,
+    "ast_hash": "22f4084e9bc4c765f63b5eac06e7ebea",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-29.txt": {
+    "mtime": 1795249975.619746,
+    "ast_hash": "65cc3e78025ebfee21fd9e3b8d287766",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-3.txt": {
+    "mtime": 1795248920.1703815,
+    "ast_hash": "fa1d71ec9e9e14f8152a580ab1d9b4be",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-30.txt": {
+    "mtime": 1795249976.463196,
+    "ast_hash": "ef9279667ce254fbf5a83ee5fe318be4",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-31.txt": {
+    "mtime": 1795249977.5880342,
+    "ast_hash": "268fdd1ec2f689b44e0f6659c17efacf",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-32.txt": {
+    "mtime": 1795249978.5048676,
+    "ast_hash": "7d8a4ad8d91cb92449e6efb45fb10e59",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-33.txt": {
+    "mtime": 1795249979.4053278,
+    "ast_hash": "dc43708d046b0aaa8ce2468e15af9e40",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-34.txt": {
+    "mtime": 1795249980.3104837,
+    "ast_hash": "27020a6e78a84f588293a225afec329f",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-35.txt": {
+    "mtime": 1795249981.2249815,
+    "ast_hash": "c413757e3d7043edfd34c53a4852064b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-36.txt": {
+    "mtime": 1795249982.0329435,
+    "ast_hash": "bfda12d2b05b93a179720ceb378de939",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-37.txt": {
+    "mtime": 1795249982.887621,
+    "ast_hash": "b6368ab1aae52473170063c171c7af35",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-38.txt": {
+    "mtime": 1795249983.8679166,
+    "ast_hash": "6d5f6df69e3473bf27880ed8e28c5b26",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-39.txt": {
+    "mtime": 1795249984.658514,
+    "ast_hash": "1c374f3d527b4d777876973709bbc87b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-4.txt": {
+    "mtime": 1795248921.2270405,
+    "ast_hash": "1648c0e9022d6f63777a944fb9d13cf2",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-40.txt": {
+    "mtime": 1795249985.565336,
+    "ast_hash": "c76593de6abe650971cd12561958b7e9",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-41.txt": {
+    "mtime": 1795250004.6476188,
+    "ast_hash": "28b7c377b133afac60f5909f8d792f4e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-42.txt": {
+    "mtime": 1795249987.346203,
+    "ast_hash": "c41020103488b1a032bd11e7f609b843",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-5.txt": {
+    "mtime": 1795248922.1549335,
+    "ast_hash": "37c0480d2b649fa2f717793ee1a28f2a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-6.txt": {
+    "mtime": 1795248922.9680138,
+    "ast_hash": "729b45473966447d3978e6d0f0ef2e76",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-7.txt": {
+    "mtime": 1795248924.0272129,
+    "ast_hash": "a1f1dcc3a57b9eb13d9f4f21159f815a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-8.txt": {
+    "mtime": 1795248924.7873285,
+    "ast_hash": "af635f2424677b7d96dfdca6cb85deb3",
+    "semantic_hash": ""
+  },
+  "SOCIAL/istruzioni-post/post-9.txt": {
+    "mtime": 1795248925.6459358,
+    "ast_hash": "7375c1f1e468333ee2f1425d252c0f07",
     "semantic_hash": ""
   }
 }

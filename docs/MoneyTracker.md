@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.19*
+*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.22*
 
 > **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
 
@@ -558,6 +558,13 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ## 10. Changelog
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
+
+### v3.22 (21 novembre 2026) — Competenza mensile, stabilità iOS e piano multipiattaforma
+
+- **S-41.** Una spesa fissa singola con data futura entra nel mese di competenza. Il saldo attuale e le previsioni dei mesi precedenti tengono conto delle rispettive date.
+- **S-42.** Verificati sul simulatore l’annullamento dell’eliminazione di una serie programmata e la visualizzazione di «Ultimi movimenti» in Home.
+- **Lancio e social.** La landing italiana e inglese annuncia iPhone e Android e presenta il collegamento bancario facoltativo come funzione successiva al lancio. Il calendario e i pacchetti dei Post-3–42 sono pronti per la revisione e la programmazione.
+- **Android e banca.** Il primo traguardo Android è una build Kotlin/Compose con la stessa esperienza iOS e una prova di sincronizzazione offline su Supabase di test. Per il collegamento bancario si valuteranno copertura, ritardo e costi del fornitore prima della prova pilota. Lo stato e le verifiche aperte sono in `.cantiere/CHECKPOINT.md`.
 
 ### v3.21 (novembre 2026) — Home: curva del saldo allineata (S-36) e progetto SOCIAL in formato «faceless»
 

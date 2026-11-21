@@ -48,3 +48,8 @@
 - Carosello di prova superato (17/11): spostato nel magazzino in `02_RISORSE/lavorate/social-prove/prova-01/` (doppione anche in `social-caroselli/` e `fuori-git/`)
 - `SOCIAL/landing/`, `SOCIAL/montaggio/` — sito landing e script di montaggio (git)
 - `.cantiere/tmp/` — appunti e screenshot di collaudo (da decidere, vedi rapporto magazziniere)
+
+## Social · backup novembre 2026
+
+- Export dei Post-3–42: Google Drive → «Da postare». Istruzioni e grafiche sorgenti testuali in Git sotto `SOCIAL/`.
+- Archivio ricostruibile dei materiali e delle schermate: magazzino → `02_RISORSE/lavorate/fuori-git/SOCIAL/`.

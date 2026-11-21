@@ -1,12 +1,16 @@
-# CONSEGNA — Codex · 2026-11-21 09:40
+# CONSEGNA — Codex · 2026-11-21 09:53
 
 ## Fatto
 
-- Verificati SwiftUI, SwiftData, Auth e Sync Supabase nella build iOS. Proposto Android nativo con Kotlin/Compose, persistenza locale e test di parità su uno stesso profilo Supabase.
-- Verificate le fonti ufficiali per Android Studio, Play Console, TrueLayer e Yapily. Proposto collegamento bancario in sola lettura, facoltativo per conto, con recupero dopo interruzione e riconciliazione assistita.
-- Registrate entrambe le proposte nel piano. Nessuna installazione, adesione commerciale o modifica al codice. AGENTS.md e il modello di archivio hanno modifiche preesistenti fuori dal commit.
+- Checkpoint `checkpoint-2026-11-21-0953`. Manuale 3.22 e grafo aggiornati, iOS 94 unit e 3 UI verdi, landing IT/EN verificata.
+- Verificati i Post-3–42 in Drive «Da postare» e 418 file di lavoro specchiati nel magazzino. Aggiornato il catalogo.
+- Sospesa l’implementazione Android prima della creazione del progetto. JDK e strumenti SDK scaricati da fonti ufficiali in `/tmp/bucktrail-android`.
+- AGENTS.md e il modello d’archivio contengono modifiche preesistenti escluse dal commit.
 
 ## Aperto
 
-- Prima prova Android con un profilo di test. Per le banche, sandbox del fornitore e verifica pilota della copertura e dei ritardi reali.
-- Per i social restano le prove prima della pubblicazione dei Post-39 e 41 e le date da fissare. Resta da verificare il gesto fisico del Post-12.
+- Riprendere dalla toolchain e dal progetto Kotlin/Compose per VS Code. È la priorità.
+- Per il collegamento bancario, valutare TrueLayer e Yapily. Il guardiano manca sul ramo predefinito.
+- Date social e prove per Post-12, 39 e 41. Scheda App Store e fonti NotebookLM da verificare con Matteo.
+
+Le istruzioni operative sono in `CHECKPOINT.md` e `PER-MATTEO.md`.

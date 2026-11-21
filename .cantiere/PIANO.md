@@ -429,5 +429,5 @@ Modello di task:
 
 ## Proposte prodotto · Android e collegamento bancario
 
-- [ ] **Android con parità iOS.** Proposta da confermare: mantenere iOS SwiftUI e realizzare Android in Kotlin/Compose. Prima prova su Supabase di test: stesso profilo, creazione offline e aggiornamento dall’altro dispositivo senza duplicati. Fissare la build iOS di riferimento e una checklist comune di schermate, calcoli, sincronizzazione, lingue e integrazioni di sistema.
+- [ ] **Android con parità iOS.** Avvio autorizzato da Matteo e differito al completamento del checkpoint. JDK 17 e strumenti SDK scaricati in /tmp. Configurare la toolchain per VS Code e creare Android in Kotlin/Compose mantenendo iOS SwiftUI. Prima prova su Supabase di test: stesso profilo, creazione offline e aggiornamento dall’altro dispositivo senza duplicati. Fissare la build iOS di riferimento e una checklist comune di schermate, calcoli, sincronizzazione, lingue e integrazioni di sistema.
 - [ ] **Collegamento bancario facoltativo.** Proposta da confermare: prova di lettura con un fornitore AIS. Confrontare TrueLayer e Yapily per copertura reale, tipi di conto, disponibilità dei movimenti in attesa, frequenza, recupero dello storico, rinnovo del consenso, ruolo contrattuale e costo. Provare importazioni ripetute, recupero dopo interruzioni e associazione con movimenti manuali.
