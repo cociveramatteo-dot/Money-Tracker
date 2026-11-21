@@ -96,6 +96,6 @@ Dove controlli i progressi?|In Pianifica, Budget mostra quanto hai speso. Obiett
 Quale apri oggi?|Limite per una categoria oppure cifra da raggiungere per un progetto.|=BUDGET~Tieni d’occhio la spesa;OBIETTIVO~Segui l’accantonamento
 @22|Crea un obiettivo e aggiornalo|Dal primo traguardo ai progressi nella scheda.|Come impostare un obiettivo di risparmio|goal-editor|obiettivirisparmio risparmio pianificazionefinanziaria
 Apri Obiettivi|In Pianifica, seleziona Obiettivi e tocca il + della scheda.|goals:top
-Scegli il traguardo|Scrivi «Weekend a Torino» e 320 €. Puoi aggiungere una scadenza.|=NOME~Weekend a Torino;TRAGUARDO~320 €
-Aggiorna l’importo messo da parte|Dalla scheda registra l’accantonamento quando lo hai fatto.|=MESSO DA PARTE~80 €;OBIETTIVO~320 €
-Controlla l’avanzamento|Con 80 € su 320 € sei al 25%. Mancano 240 €.|=AVANZAMENTO~25%;DA ACCANTONARE~240 €
+Scegli il traguardo|Scrivi «Weekend a Torino» e 320 €. Puoi aggiungere una scadenza.|goal-weekend:form
+Aggiorna l’importo messo da parte|Tocca il + della scheda e inserisci 80 € in «Aggiungi risparmio».|goal-update:form
+Controlla l’avanzamento|Con 80 € su 320 € sei al 25%. Mancano 240 €.|goal-result:list

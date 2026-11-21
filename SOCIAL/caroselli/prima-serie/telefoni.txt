@@ -1,0 +1,53 @@
+# Riferimenti alle catture vere accanto alle spiegazioni.
+# post:slide | cattura:ritaglio | etichetta del dettaglio
+4:4|add-options:form|Categoria, conto e data
+4:5|mov:daily|Lista Movimenti
+4:6|expense-example:choice|Selettore Uscita / Entrata
+5:1|budget:top|Pianifica → Budget
+5:3|budget:list|Budget in Pianifica
+5:4|budget:list|Schede dei budget
+5:5|budget:list|Spesa e limite
+5:6|budget:top|Controlla il budget in Pianifica
+7:3|account-type:form|Tipi di conto
+7:4|account-wallet:form|Nome e saldo attuale
+7:5|wallet-result:list|Portafoglio in Conti
+8:1|home:hero|Saldo attuale in Home
+8:3|stats:hero|Riepilogo mensile
+8:4|home:hero+stats:hero|Saldo in Home · Netto in Statistiche
+8:5|stats:hero|Le tre cifre del mese
+9:4|accounts-excluded:list|Conto escluso dal totale
+9:5|accounts-archived:bottom|La sezione Archiviati aperta
+10:3|settings:top|Lingua nelle impostazioni
+10:4|settings:currency|Selettore Valuta
+10:5|home:full|Bucktrail segue il tema di iPhone
+11:1|goals:list|Avanzamento in Obiettivi
+11:3|goal-editor:top|Modulo Nuovo obiettivo
+11:4|goals:list|Scheda e avanzamento
+11:5|goals:top|Ritrova il traguardo in Obiettivi
+12:2|settings-shortcuts:shortcut|Accesso a Comandi Rapidi
+12:3|settings-shortcuts:shortcut|Sezione Siri e Shortcut
+12:4|settings-shortcuts:shortcut|Bucktrail indica il percorso
+12:7|mov:daily|Dove ritrovare una spesa
+12:8|shortcuts:prompt|Il comando chiede la descrizione
+13:5|budget:bottom+goals:bottom|Il pulsante + delle due schede
+14:3|add-options:options|Campo Ricorrenza
+14:5|rules:top|Sezione Serie programmate
+15:1|accounts:hero|Patrimonio nella tab Conti
+15:2|accounts:list|Saldi dei conti inclusi
+15:3|transfer-form:form|Conto di partenza e arrivo
+15:4|accounts:hero|Patrimonio totale
+15:5|transfer-list:daily|Filtro Trasferimenti in Movimenti
+16:5|stats:chart|Andamento e uscite medie
+17:4|recurrence-following:top|Selezione dell’ambito
+17:5|recurrence-all:top|Ambito prima di salvare
+18:1|stats:chart|Barre dell’andamento
+18:3|stats:chart|Confronto dei mesi
+18:5|stats:categories|Riepilogo per categoria
+18:6|stats:categories|Verifica quale categoria è salita
+20:1|add-options:options|Data del movimento
+20:2|add:form|Importo e descrizione
+20:3|add-options:options|Spesa fissa e Ricorrenza
+20:5|mov:planned|Pianificati in cima alla lista
+21:2|budget:list|Esempio di schede budget
+21:3|goals:list|Esempio di schede obiettivo
+21:5|budget:top+goals:top|I due pannelli di Pianifica

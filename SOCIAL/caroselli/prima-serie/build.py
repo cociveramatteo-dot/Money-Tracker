@@ -27,6 +27,8 @@ CROPS = {
     "recent": (.39, .77), "list": (.29, .77), "planned": (.20, .61),
     "daily": (.44, .80), "filters": (.13, .37), "form": (.14, .62),
     "chart": (.38, .64), "categories": (.65, .90), "prompt": (.08, .37),
+    "choice": (.174, .278), "currency": (.52, .66), "shortcut": (.66, .91),
+    "options": (.665, .956),
 }
 FOCUSED_CROPS = {
     ("home", "top"): (.125, .20), ("home", "hero"): (.12, .515),
@@ -45,6 +47,17 @@ FOCUSED_CROPS = {
     ("expense-example", "form"): (.174, .56), ("expense-example", "top"): (.172, .51),
     ("account-editor", "top"): (.65, .992), ("goal-editor", "top"): (.59, .99),
     ("settings", "bottom"): (.699, .941), ("settings-lower", "list"): (.471, .833),
+    ("settings-shortcuts", "shortcut"): (.361, .605),
+    ("account-type", "form"): (.174, .553), ("account-wallet", "form"): (.228, .488),
+    ("goal-weekend", "form"): (.384, .663), ("transfer-form", "form"): (.394, .682),
+    ("goals-weekend", "list"): (.502, .684), ("accounts-wallet", "list"): (.35, .81),
+    ("goal-update", "form"): (.400, .665), ("goal-result", "list"): (.54, .691),
+    ("accounts-excluded", "list"): (.558, .663),
+    ("accounts-archived", "bottom"): (.508, .746),
+    ("recurrence-following", "top"): (.162, .423), ("recurrence-all", "top"): (.162, .423),
+    ("wallet-result", "list"): (.589, .725), ("transfer-list", "daily"): (.245, .553),
+    ("add-options", "form"): (.42, .96), ("budget", "bottom"): (.755, .979),
+    ("goals", "bottom"): (.755, .979),
 }
 
 FALLBACKS = {
@@ -59,8 +72,9 @@ FALLBACKS = {
     "goals": CLIPS / "post-1/materiale/IMG_7919.PNG",
     "stats": CLIPS / "post-1/materiale/IMG_7920.PNG",
     "shortcuts": ROOT / "landing/assets/comandi.webp",
+    "add-options": ROOT / "landing/assets/aggiungi.webp",
 }
-FIXED_TAB = {"home", "recent", "mov", "accounts", "rules", "goals", "stats", "budget"}
+FIXED_TAB = {"home", "recent", "mov", "accounts", "rules", "goals", "stats", "budget", "accounts-wallet", "goals-weekend", "goal-result", "accounts-excluded", "accounts-archived", "wallet-result", "transfer-list"}
 
 
 @lru_cache
@@ -141,6 +155,51 @@ def screen(key):
     return shot
 
 
+def load_phones():
+    phones = {}
+    for line in (HERE / "telefoni.txt").read_text().splitlines():
+        if line and not line.startswith("#"):
+            slide, assets, label = line.split("|")
+            phones[tuple(map(int, slide.split(":")))] = (assets, label)
+    return phones
+
+
+def resolve_phone(asset):
+    key, crop = asset.split(":")
+    if (SCREENS / f"{key}.png").is_file() or key in FALLBACKS:
+        return key, None if crop == "full" else crop
+    fallbacks = {
+        "account-type": ("account-editor", "top"),
+        "account-wallet": ("account-editor", "top"),
+        "accounts-wallet": ("accounts", "list"),
+        "settings-shortcuts": ("shortcuts", "prompt"),
+        "transfer-form": ("mov", "filters"),
+        "goal-weekend": ("goal-editor", "top"),
+        "goals-weekend": ("goals", "list"),
+        "goal-update": ("goals", "list"),
+        "goal-result": ("goals-weekend", "list"),
+        "accounts-excluded": ("accounts", "list"),
+        "accounts-archived": ("accounts", "bottom"),
+        "recurrence-following": ("ruleedit", "top"),
+        "recurrence-all": ("ruleedit", "top"),
+        "wallet-result": ("account-wallet", "form"),
+        "transfer-list": ("mov", "filters"),
+    }
+    return fallbacks[key]
+
+
+def show_reference(im, reference, x, width, start, max_height, *, dark=False):
+    visual, label = reference
+    ink = MINT if dark else GREEN
+    parts = visual.split("+")
+    y = start
+    for asset in parts:
+        key, crop = resolve_phone(asset)
+        box = phone(im, key, x, y, width, min(max_height, 435) if len(parts) > 1 else max_height, crop)
+        y = box[3] + 32
+    text(im, label, x + 8, min(y, 1190), 23, width - 15, color=ink, max_lines=2)
+
+
 def box_shadow(im, box, radius):
     mask = Image.new("L", im.size)
     x, y, xx, yy = box
@@ -163,8 +222,16 @@ def phone(im, key, x, y, width, max_height, crop=None):
     box = (x, y, x + w, y + h)
     assert box[2] <= 1010 and box[3] <= 1230, (key, box)
     box_shadow(im, box, r)
-    ImageDraw.Draw(im).rounded_rectangle(box, r, fill="#111A15")
+    draw = ImageDraw.Draw(im)
+    if crop and h > 150:
+        # Piccoli pulsanti laterali sulla cornice del mockup, fuori dal contenuto.
+        draw.rounded_rectangle((x - 3, y + 32, x + 3, y + 65), 3, fill="#33443A")
+        draw.rounded_rectangle((x + w - 3, y + 46, x + w + 3, y + 88), 3, fill="#33443A")
+    draw.rounded_rectangle(box, r, fill="#111A15")
     rounded(im, shot, x + 9, y + 9, r - 9)
+    if key == "goal-update" and crop == "form":
+        top = y + 9 + round(shot.height * .63)
+        draw.rounded_rectangle((x + 26, top, x + round(w * .51), y + h - 16), 14, outline=GREEN, width=4)
     return box
 
 
@@ -179,10 +246,13 @@ def panels(im, spec, x, y, width, max_height):
         yy = y + (card_h + gap) * i
         fill = "#E4F0E7" if i % 2 == 0 else "#F1E7D9"
         d.rounded_rectangle((x, yy, x + width, yy + card_h), 27, fill=fill)
-        text(im, label, x + 35, yy + 28, 27, width - 70, color=GREEN, max_lines=1)
+        compact = width < 460
+        inset = 23 if compact else 35
+        text(im, label, x + inset, yy + 24, 24 if compact else 27, width - 2 * inset, color=GREEN, max_lines=1)
         numeric = bool(re.fullmatch(r"[+−-]?[0-9.,]+\s?[%€£]", value))
-        size = (78 if len(entries) < 3 else 54) if numeric else (48 if len(value) < 24 else 38)
-        end = text(im, value, x + 35, yy + 70, size, width - 70, max_lines=3)
+        size = (48 if numeric else 31) if compact else ((78 if len(entries) < 3 else 54) if numeric else (48 if len(value) < 24 else 38))
+        max_lines = 2 if card_h < 160 else 3
+        end = text(im, value, x + inset, yy + (57 if compact else 70), size, width - 2 * inset, max_lines=max_lines)
         assert end <= yy + card_h - 5, value
 
 
@@ -214,10 +284,20 @@ def infographic(im, visual, y):
             text(im, "40 €", x + 20, top + 50, 43, 171, max_lines=1)
 
 
-def body_slide(label, number, count, title, body, visual):
+def body_slide(label, number, count, title, body, visual, reference):
     im = background(False).copy()
     brand(im, label, number, count)
-    if visual.startswith(("=", "+", ":")):
+    if reference and visual.startswith(("=", "+", ":")):
+        end = text(im, title, 79, 184, 67, 924, max_lines=2)
+        end = text(im, body, 80, end + 45, 38, 910, color=MUTED, bold=False, max_lines=3)
+        start = max(end + 50, 532)
+        if visual.startswith("="):
+            panels(im, visual, 79, start, 393, 1160 - start)
+        else:
+            raise ValueError("Grafici composti da impaginare separatamente.")
+        show_reference(im, reference, 505, 500, start, 1160 - start)
+        text(im, "Esempio a sinistra · schermata Bucktrail a destra", 79, 1250, 25, 905, color=MUTED, bold=False, max_lines=1)
+    elif visual.startswith(("=", "+", ":")):
         end = text(im, title, 79, 200, 75, 915, max_lines=2)
         end = text(im, body, 79, end + 40, 39, 905, color=MUTED, bold=False, max_lines=4)
         y = max(end + 82, 563)
@@ -242,11 +322,17 @@ def body_slide(label, number, count, title, body, visual):
     return im
 
 
-def opener(post, label, count):
+def opener(post, label, count, reference):
     im = background(True).copy()
     brand(im, label, 1, count, True)
     title, body, visual = post["title"], post["lead"], post["visual"]
-    if visual.startswith("="):
+    if visual.startswith("=") and reference:
+        end = text(im, title, 79, 230, 74, 910, color="#FAFAF4", max_lines=3)
+        end = text(im, body, 79, end + 35, 39, 885, color="#D9E9DF", bold=False, max_lines=3)
+        y = max(end + 65, 655)
+        panels(im, visual, 79, y, 393, 1130 - y)
+        show_reference(im, reference, 504, 500, y, 1150 - y, dark=True)
+    elif visual.startswith("="):
         end = text(im, title, 80, 245, 103, 915, color="#FAFAF4", max_lines=3)
         end = text(im, body, 80, end + 39, 43, 875, color="#E1EEE5", bold=False, max_lines=3)
         panels(im, visual, 80, max(end + 100, 790), 880, 305)
@@ -257,12 +343,13 @@ def opener(post, label, count):
         if visual == "shortcuts":
             crop = "prompt"
         phone(im, visual, 590, 245 if not crop else 420, 415, 920 if not crop else 525, crop)
-    text(im, "Dati di esempio", 81, 1250, 25, 430, color=MINT, bold=False, max_lines=1)
+    legend = "Esempio a sinistra · app a destra" if visual.startswith("=") and reference else "Dati di esempio"
+    text(im, legend, 81, 1250, 25, 600, color=MINT, bold=False, max_lines=1)
     text(im, "Scorri →", 865, 1250, 26, 135, color=MINT, max_lines=1)
     return im
 
 
-def closer(post, label, count, channel):
+def closer(post, label, count, channel, reference):
     im = background(True).copy()
     brand(im, label, count, count, True)
     headlines = {
@@ -275,11 +362,15 @@ def closer(post, label, count, channel):
         21: "Quale ti serve oggi?",
     }
     headline = headlines.get(post["id"], "Salva questa guida." if post["title"].startswith("Guida:") else "Salva il post per dopo.")
-    text(im, headline, 78, 338, 89, 920, color="#FAFAF4", max_lines=2)
-    text(im, "In arrivo su iPhone e Android.", 78, 637, 52, 920, color=MINT, max_lines=2)
-    text(im, "Iscriviti alla lista d’attesa.", 78, 747, 47, 920, color="#F6F8F2", max_lines=2)
+    text(im, headline, 78, 255 if reference else 338, 82 if reference else 89, 920, color="#FAFAF4", max_lines=2)
+    column = 428 if reference else 920
+    text(im, "In arrivo su iPhone e Android.", 78, 637, 50, column, color=MINT, max_lines=2)
+    text(im, "Iscriviti alla lista d’attesa.", 78, 771 if reference else 747, 43, column, color="#F6F8F2", max_lines=2)
     cta = "Link in bio" if channel == "Instagram" else "bucktrailapp.com"
-    text(im, cta, 78, 844, 41, 920, color=AMBER, max_lines=1)
+    text(im, cta, 78, 908 if reference else 844, 39, column, color=AMBER, max_lines=1)
+    if reference:
+        show_reference(im, reference, 520, 485, 580, 510, dark=True)
+        text(im, "Dati di esempio", 79, 1220, 24, 400, color=MINT, bold=False, max_lines=1)
     if post["id"] == 12:
         text(im, "Tutorial iPhone", 80, 1125, 30, 900, color=MINT, max_lines=1)
     elif post["id"] == 4:
@@ -365,18 +456,33 @@ Controlla ordine, ritaglio, descrizione e link del profilo. Registra piattaforma
 
 
 def main():
+    phones = load_phones()
+    supported = 0
+    total = 0
     for post in load_posts():
         out = CLIPS / f"post-{post['id']}/pronto"
         out.mkdir(parents=True, exist_ok=True)
         count = len(post["slides"]) + 2
         label = "BUCKTRAIL  /  GUIDA" if post["title"].startswith("Guida:") else "BUCKTRAIL"
-        opener(post, label, count).save(out / "slide-01.png", optimize=True)
+        key = post["id"]
+        reference = lambda number: phones.get((key, number))
+        opener(post, label, count, reference(1)).save(out / "slide-01.png", optimize=True)
+        shown = int(bool(reference(1)) or not post["visual"].startswith("="))
         for i, (title, body, visual) in enumerate(post["slides"], 2):
-            body_slide(label, i, count, title, body, visual).save(out / f"slide-{i:02}.png", optimize=True)
+            if not reference(i) and visual.startswith(("=", "+", ":")):
+                next_visual = post["slides"][i - 1][2] if i < count - 1 else "="
+                assert reference(i + 1) or not next_visual.startswith(("=", "+", ":")), (key, i)
+            body_slide(label, i, count, title, body, visual, reference(i)).save(out / f"slide-{i:02}.png", optimize=True)
+            shown += int(bool(reference(i)) or not visual.startswith(("=", "+", ":")))
         for channel in ("Instagram", "TikTok"):
-            closer(post, label, count, channel).save(out / f"slide-{count:02}-{channel.lower()}.png", optimize=True)
+            closer(post, label, count, channel, reference(count)).save(out / f"slide-{count:02}-{channel.lower()}.png", optimize=True)
+        shown += int(bool(reference(count)))
         write_instructions(post, count)
-        print(f"Post-{post['id']}: {count} slide × 2", flush=True)
+        supported += shown
+        total += count
+        print(f"Post-{key}: {shown}/{count} con schermata Bucktrail", flush=True)
+    assert supported / total > .80
+    print(f"Schermate Bucktrail: {supported}/{total} ({supported / total:.1%})")
 
 
 if __name__ == "__main__":

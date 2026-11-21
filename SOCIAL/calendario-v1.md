@@ -162,7 +162,7 @@ Android e collegamento bancario hanno contenuti dedicati quando le rispettive fu
 
 ## Consegna prima serie
 
-I Post-3–22 sono in Google Drive → «Da postare», con cartelle Instagram e TikTok e LEGGIMI separati per post. La serie comprende 121 slide per piattaforma. Sono state riviste visivamente tutte le slide e le due chiusure per post, riprendendo i primi due caroselli come riferimento. Le catture della build provengono dal simulatore quando necessarie. I dati inventati e i passaggi illustrati in grafica sono dichiarati nelle slide. Per Post-12, il gesto fisico è spiegato con schema e schermata del comando; la prova su iPhone fisico resta da fare prima della pubblicazione.
+I Post-3–22 sono in Google Drive → «Da postare», con cartelle Instagram e TikTok e LEGGIMI separati per post. La serie comprende 121 slide per piattaforma, di cui 102 con inquadrature di Bucktrail (84,3%). La revisione del 21/11 mostra i campi, i tocchi e i risultati nelle schermate. Gli schemi autonomi sono seguiti da una schermata dell’app. Sono state riviste visivamente tutte le slide e le due chiusure per post, riprendendo i primi due caroselli come riferimento. Le catture della build provengono dal simulatore quando necessarie. I dati inventati e i passaggi illustrati in grafica sono dichiarati nelle slide. Per Post-12, il gesto fisico è spiegato con schema e schermata del comando; la prova su iPhone fisico resta da fare prima della pubblicazione.
 
 ## Orari di partenza · Europe/Rome
 

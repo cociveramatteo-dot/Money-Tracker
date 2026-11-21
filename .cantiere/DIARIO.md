@@ -181,3 +181,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-20 23:26 | impresa (Codex · GPT-6) | SC-0 | Registrato ok al Post-12 e al piano in blocco; copertura portata al Post-42 | Produzione e date |
 | 2026-11-20 23:44 | impresa (Codex · GPT-6) | SC-9 | 20 pacchetti Post-3–22 su Drive, 242 immagini verificate e 20 istruzioni | Riscontro prima della seconda metà; prova gesto fisico Post-12 |
 | 2026-11-21 00:51 | modello | aggiornamento | Modello 2.5.0 → 2.5.1 | unire: AGENTS.md |
+| 2026-11-21 08:34 | impresa (Codex · GPT-6) | SC-9 | Sostituiti i 20 caroselli su Drive; 102/121 slide con schermate reali, verificati 262 file | Riscontro prima del secondo lotto |
