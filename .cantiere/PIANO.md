@@ -184,7 +184,7 @@ il task e i file indicati.
 Leggere `SOCIAL/direttive-social.md` prima di ogni lavoro social.
 
 ### SC-0 [x] Calendario approvato in blocco da Matteo il 2026-11-20, a condizione di coprire tutta l’app. Post-3–42, con mappa di copertura. Post-12 approvato in otto slide. Restano produzione e date effettive.
-### SC-9 [~] Post-3–22 verificati su Drive. Mockup iPhone del Post-2 su tutti i telefoni, schermate senza contorni aggiunti e palette a gruppi di tre a partire dal Post-1, 101/121 slide con catture reali e 262 file verificati. Attendere riscontro di Matteo prima di produrre Post-23–42.
+### SC-9 [~] Post-3–42 prodotti per Instagram e TikTok e verificati in Drive «Da postare». Seconda metà: 120 slide per canale, 103 con catture reali, 260 file. Post-39 e 41 in revisione prima della pubblicazione. Riscontro di Matteo e conferma date.
 
 ### SC-8 [~] Direttive unificate, archivio schermate, indice guide, revisione visiva post 1 e 2 e riordino locale · pronto per verifica di Matteo.
 ### SC-1 [x] chiuso 2026-11-18 14:30 (Matteo: bio, link con UTM, foto su IG/TikTok/YouTube, banner YouTube v1; resta solo il nome TikTok dal 24/11). Account social creati 2026-11-17 (Gmail, IG Creator+2FA, TikTok personale+2FA, YouTube; @bucktrailapp). Restano: bio e foto su IG/TikTok, foto e descrizione YouTube, nome TikTok il 24/11 (Matteo): vedi PER-MATTEO. **Apple Developer Program NON pagato per scelta di Matteo (2026-11-17):** prima si cerca un segnale di interesse sui social; link in bio = landing con email (waitlist), non pre-order.

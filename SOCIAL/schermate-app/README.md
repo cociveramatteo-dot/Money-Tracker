@@ -18,4 +18,4 @@ Cartella permanente sul Mac per le catture condivise tra tutti i post. Puoi tras
 
 Per gli scatti ordinati usare, per esempio, `movimenti-filtro-categoria-it-chiaro.png`. Preferire una cattura per passaggio, schermo intero, senza notifiche e con dati fittizi coerenti. Per richieste o revisioni seguire le [direttive](../direttive-social.md).
 
-Le catture locali della prima serie sono in `prima-serie/`: Home, ultime voci, Movimenti, Conti, Pianifica, Statistiche, Ricorrenti, Impostazioni e moduli di inserimento. Il generatore è in `SOCIAL/caroselli/prima-serie/`.
+Le catture locali dei Post-3–42 sono in `prima-serie/`. Quelle acquisite per i Post-23–42 hanno il prefisso `second-` e includono filtri, giroconto pianificato, rettifica, budget, opzioni di privacy, esportazione, categorie e accesso. Il generatore è in `SOCIAL/caroselli/prima-serie/`.

@@ -2,6 +2,7 @@
 """Compone i caroselli e le istruzioni della prima serie Bucktrail."""
 from datetime import datetime
 from pathlib import Path
+from argparse import ArgumentParser
 import re
 from functools import lru_cache
 
@@ -22,6 +23,12 @@ PALETTES = (
     ("#FFF8E9", "#392B15", "#81540D", "#F9E9C2", "#2A2016", "#906014", "#734023"),
     ("#FFF1F5", "#42222F", "#984266", "#F9DEE9", "#311B2E", "#A9396E", "#602B54"),
     ("#EDF7FA", "#173042", "#22687F", "#D8EDF4", "#142535", "#257E9E", "#233B74"),
+    ("#FFF3E8", "#42271C", "#9A481C", "#F9E0C9", "#392118", "#C26721", "#863423"),
+    ("#F2F9EB", "#23391D", "#3E6C2E", "#E0EECF", "#1B2A1C", "#4F862B", "#1C574F"),
+    ("#F1F1FF", "#252445", "#5250A0", "#E4E3FA", "#1D1E3A", "#6554C4", "#3B356E"),
+    ("#FFF2EF", "#422629", "#A24049", "#F8DCD7", "#341E26", "#AC4149", "#723147"),
+    ("#EEF8F7", "#183438", "#216D71", "#D5EDE9", "#122D33", "#008080", "#324C6F"),
+    ("#FFF7E8", "#393220", "#796122", "#F5E7B9", "#34291A", "#9B711B", "#79522C"),
 )
 INK, ACCENT, SOFT = PALETTES[0][1:4]
 MUTED = "#45504C"
@@ -48,7 +55,11 @@ FALLBACKS = {
     "add-options": ROOT / "landing/assets/aggiungi.webp",
 }
 FIXED_TAB = {"home", "recent", "mov", "accounts", "rules", "goals", "stats", "budget", "accounts-wallet", "goals-weekend", "goal-result", "accounts-excluded", "accounts-archived", "wallet-result", "transfer-list"}
-DEMO_BANNER = FIXED_TAB | {"account-editor", "goal-editor", "settings"}
+FIXED_TAB |= {"second-hidden", "second-audit-example", "second-reconciled", "second-budget-result",
+              "second-budget-delete", "second-restore", "second-filter-result"}
+FIXED_TAB.add("second-pdf")
+DEMO_BANNER = FIXED_TAB | {"account-editor", "goal-editor", "settings", "second-budget-form",
+                          "second-filters", "second-notifications"}
 
 
 @lru_cache
@@ -267,9 +278,18 @@ def refs(reference, visual):
     return [] if visual.startswith(("=", "+", ":")) else [resolve_phone(visual)]
 
 
-def diagram(im, visual, end):
+def diagram(im, visual, end, post_number):
     y = max(end+72, 530)
-    if visual.startswith("="):
+    if post_number == 30:
+        draw = ImageDraw.Draw(im)
+        points = [(160, y+195), (505, y+410), (865, y+91)]
+        labels = [(96, y+88), (453, y+440), (757, y-10)]
+        draw.line(points, fill=ACCENT, width=9)
+        for (x, yy), (tx, ty), day, value in zip(points, labels, ("OGGI", "AFFITTO", "STIPENDIO"), ("500 €", "50 €", "1.250 €")):
+            draw.ellipse((x-13, yy-13, x+13, yy+13), fill=ACCENT, outline="#FFFFFF", width=4)
+            text(im, day, tx, ty, 27, 220, color=ACCENT, max_lines=1)
+            text(im, value, tx, ty+35, 46, 205, max_lines=1)
+    elif visual.startswith("="):
         panels(im, visual, 79, y, 922, 1200-y)
     else:
         infographic(im, visual, y)
@@ -287,7 +307,7 @@ def body_slide(post, label, number, count, title, body, visual, reference, palet
     if not screens:
         end = text(im, title, 79, 184, 75, 920, max_lines=3)
         end = text(im, body, 80, end+34, 42, 900, color=MUTED, bold=False, max_lines=4)
-        diagram(im, visual, end)
+        diagram(im, visual, end, post["id"])
         return im
     # Le schermate che contengono la modalità demo nelle impostazioni
     # entrano dal bordo basso, così rimangono visibili solo le sezioni utili.
@@ -336,7 +356,20 @@ def opener(post, label, count, reference, palette):
     im = frame(label, 1, count, palette, True)
     hero, hook, _, _ = post["editorial"]
     key, _ = refs(reference, post["visual"]+(":full" if not post["visual"].startswith("=") else ""))[0]
-    if post["id"] % 3 == 0:
+    if post["id"] in {24, 30, 33, 36}:
+        headline, number_line = {
+            24: ("Quasi metà delle uscite?", "49%"),
+            30: ("Lo stipendio arriva dopo l’affitto.", "50 € in mezzo"),
+            33: ("Quanto costa il caffè ogni mese?", "1,50 € → 99 €"),
+            36: ("Quanto è costato questo mese?", "3 controlli"),
+        }[post["id"]]
+        end = text(im, headline, 79, 186, 65, 928, color="#FAFAF4", max_lines=2)
+        end = text(im, number_line, 79, end+28, 114, 915, color=AMBER, max_lines=1)
+        end = text(im, hook, 80, end+36, 40, 880, color=MINT, bold=False, max_lines=3)
+        y = max(712, end+84)
+        text(im, "Scorri →", 80, y-54, 29, 500, color=AMBER, max_lines=1)
+        phone(im, key, 565, y, 502, 1250, peek=True)
+    elif post["id"] % 3 == 0:
         if post["id"] == 3:
             head, tail = hero.split(", ", 1)
             end = text(im, head + ",", 78, 185, 92, 930, color="#FAFAF4", max_lines=1)
@@ -412,19 +445,25 @@ DAY = ("lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato", "d
 
 def write_instructions(post, count):
     calendar = (ROOT / "calendario-v1.md").read_text()
-    pattern = rf"^\| Post-{post['id']} \| (\d{{2}}/\d{{2}}/\d{{4}}) \| (\d)"
+    pattern = rf"^\| Post-{post['id']} \| (\d{{2}}/\d{{2}}/\d{{4}}|Da definire) \| (\d)"
     match = re.search(pattern, calendar, re.M)
     assert match, post["id"]
-    day = datetime.strptime(match[1], "%d/%m/%Y").weekday()
-    later = match[2] == "2"
-    double = f" | {match[1]} | 2 |" in calendar
-    ig = IG[day]
-    if double:
-        if day == 1:
-            ig = "19:00" if later else "15:00"
-        elif day == 3:
-            ig = "18:00" if later else "09:00"
-    tt = ({1: "22:00", 3: "22:00"}.get(day, TT[day]) if later else TT[day])
+    if match[1] == "Da definire":
+        schedule = "Data da fissare dopo la verifica su iPhone e Android. Orari proposti per un mercoledì."
+        ig, tt = IG[2], TT[2]
+    else:
+        day = datetime.strptime(match[1], "%d/%m/%Y").weekday()
+        later = match[2] == "2"
+        double = f" | {match[1]} | 2 |" in calendar
+        schedule = f"Data indicativa: {DAY[day]} {match[1]} · slot {match[2]}. Pubblica dopo aver fissato le date."
+        ig = IG[day]
+        tt = TT[day]
+        if double:
+            ig_slots = (("18:00", "20:00"), ("15:00", "19:00"), ("12:00", "18:00"),
+                        ("09:00", "18:00"), ("18:00", "22:00"), ("20:00", "22:00"), ("20:00", "22:00"))
+            tt_slots = (("11:00", "13:00"), ("06:00", "22:00"), ("06:00", "22:00"),
+                        ("13:00", "22:00"), ("18:00", "22:00"), ("15:00", "17:00"), ("09:00", "13:00"))
+            ig, tt = ig_slots[day][later], tt_slots[day][later]
     tags = " ".join(f"#{tag}" for tag in dict.fromkeys(["bucktrail", "appfinanze", *post["tags"]]))
     if tags.count("#") < 5:
         tags += " #gestionedenaro"
@@ -432,10 +471,15 @@ def write_instructions(post, count):
     _, hook, payoff, caption = post["editorial"]
     takeaways = f"{hook} {caption} {payoff}"
     price = " Prezzo di lancio previsto: 4,99 € una volta sola." if post["id"] in {7, 13, 21} else ""
+    publication_note = {
+        39: "\nIN REVISIONE\nPrima di pubblicare prova su un iPhone il comando dal widget Comandi Rapidi e tramite Siri.\nIstruzioni Apple: https://support.apple.com/it-it/guide/shortcuts/apd029b36d05/ios e https://support.apple.com/it-it/HT209055\n",
+        41: "\nIN REVISIONE\nPrima di pubblicare verifica la sincronizzazione fra iPhone e Android con lo stesso profilo. Sostituisci la schermata di accesso con quella della build pubblica Bucktrail.\n",
+    }.get(post["id"], "")
     content = f"""POST {post['id']:02} — {post['title']}
+{publication_note}
 
 DATA E ORARI (Europe/Rome)
-Data indicativa: {DAY[day]} {match[1]} · slot {match[2]}. Pubblica solo dopo l’ok alla prima serie e dopo aver fissato le date.
+{schedule}
 Instagram: {ig}
 TikTok: {tt}
 Esclusi dal piano: domeniche, 24 e 25 dicembre, 1 gennaio. Venerdì e sabato sono più deboli per Instagram nei benchmark; mantienili solo quando serve il ritmo previsto. Su TikTok il sabato è un test, perché gli studi divergono.
@@ -470,10 +514,18 @@ Controlla ordine, ritaglio, descrizione e link del profilo. Registra piattaforma
 
 def main():
     global INK, ACCENT, SOFT
+    parser = ArgumentParser()
+    parser.add_argument("--dal", type=int, default=3)
+    parser.add_argument("--al", type=int, default=42)
+    args = parser.parse_args()
+    if not 3 <= args.dal <= args.al <= 42:
+        parser.error("Indica un intervallo fra il Post-3 e il Post-42.")
     phones = load_phones()
     supported = 0
     total = 0
     for post in load_posts():
+        if not args.dal <= post["id"] <= args.al:
+            continue
         out = CLIPS / f"post-{post['id']}/pronto"
         out.mkdir(parents=True, exist_ok=True)
         count = len(post["slides"]) + 2
@@ -497,7 +549,8 @@ def main():
         supported += shown
         total += count
         print(f"Post-{key}: {shown}/{count} con schermata Bucktrail", flush=True)
-    assert supported / total > .80
+    if args.al - args.dal + 1 >= 20:
+        assert supported / total > .80
     print(f"Schermate Bucktrail: {supported}/{total} ({supported / total:.1%})")
 
 

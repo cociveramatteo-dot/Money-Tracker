@@ -37,26 +37,26 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post-20 | 10/12/2026 | 2 | Tutorial | **Pianifica, conferma o elimina un movimento** · Creare una spesa fissa singola del mese successivo, mostrare il mese di competenza, poi confermare, ripianificare, modificare o eliminare | Su Drive, prima serie da rivedere; data indicativa |
 | Post-21 | 11/12/2026 | 1 | Educazione | **Budget e obiettivo per due domande diverse** · Confrontare «quanto posso spendere in una categoria» e «quanto voglio accantonare» | Su Drive, prima serie da rivedere; data indicativa |
 | Post-22 | 12/12/2026 | 1 | Tutorial | **Crea un obiettivo e aggiornalo** · Impostare importo e data facoltativa e registrare l’avanzamento | Su Drive, prima serie da rivedere; data indicativa |
-| Post-23 | 14/12/2026 | 1 | Tutorial | **Ricorrenti: salta, termina o elimina** · Distinguere le conseguenze delle azioni sulla singola scadenza e sulla serie | Piano approvato; da produrre |
-| Post-24 | 15/12/2026 | 1 | Educazione | **Quanto pesa una categoria sulle uscite?** · Usare una quota di spesa per scegliere una categoria da controllare, partendo da Statistiche | Piano approvato; da produrre |
-| Post-25 | 16/12/2026 | 1 | Tutorial | **Trova un movimento** · Combinare ricerca, mese e categoria; mostrare importo e intervallo nei filtri avanzati | Piano approvato; da produrre |
-| Post-26 | 17/12/2026 | 1 | Tutorial | **Conti: escludi, archivia e ripristina** · Mostrare le tre azioni e il loro effetto su elenco e totale. Distinguere l’eliminazione con un conto fittizio | Piano approvato; da produrre |
-| Post-27 | 18/12/2026 | 1 | Educazione | **Riconciliare un saldo con i movimenti** · Confrontare estratto e registro, mostrare come modificare il saldo e ritrovare la rettifica dopo aver verificato lo scarto | Piano approvato; da produrre |
-| Post-28 | 19/12/2026 | 1 | Tutorial | **Trasferisci o programma un trasferimento** · Mostrare Da/A, importo e stato. Come verificare e gestire le due voci collegate | Piano approvato; da produrre |
-| Post-29 | 21/12/2026 | 1 | Tutorial | **Budget e obiettivi: modifica o elimina** · Riunire la gestione delle due schede, dopo verifica dei gesti e delle conferme nella build | Piano approvato; da produrre |
-| Post-30 | 21/12/2026 | 2 | Educazione | **Stipendio e scadenze in giorni diversi** · Leggere la curva prima e dopo la data di un’entrata per riconoscere un punto basso nel mese | Piano approvato; da produrre |
-| Post-31 | 22/12/2026 | 1 | Tutorial | **Personalizza la Home** · Ordinare e selezionare conti, mostrare o nascondere le card e oscurare gli importi | Piano approvato; da produrre |
-| Post-32 | 23/12/2026 | 1 | Tutorial | **Leggi le soglie del budget** · Avviso all’80%, sforamento, storico e avvisi disponibili | Piano approvato; da produrre |
-| Post-33 | 26/12/2026 | 1 | Educazione | **Spese piccole, effetto cumulato** · Mostrare come ritrovare più spese dello stesso tipo e leggere il totale per categoria | Piano approvato; da produrre |
-| Post-34 | 28/12/2026 | 1 | Tutorial | **Esporta PDF, CSV o JSON** · Mostrare dove si trovano e quando usare report mensile, elenco movimenti o esportazione profilo | Piano approvato; da produrre |
-| Post-35 | 29/12/2026 | 1 | Tutorial | **Imposta un budget** · Scegliere categoria, limite mensile e, se utile, conto. Mostrare il risultato | Piano approvato; da produrre |
-| Post-36 | 30/12/2026 | 1 | Educazione | **La revisione di fine mese** · Confrontare una categoria con il suo budget, verificare il netto e scegliere un aggiustamento per il mese dopo | Piano approvato; da produrre |
-| Post-37 | 31/12/2026 | 1 | Tutorial | **Importi discreti, Face ID e promemoria** · Mostrare occhio, blocco biometrico, avvisi automatici, avviso saldo basso per conto e promemoria del report mensile | Piano approvato; da produrre |
-| Post-38 | 02/01/2027 | 1 | Tutorial | **Categorie e «Ultima usata»** · Mostrare il suggerimento alla seconda registrazione, come sostituirlo e come gestire le categorie personalizzate | Piano approvato; da produrre |
-| Post-39 | 04/01/2027 | 1 | Tutorial | **Aggiungi una spesa da widget o con Siri** · Mostrare il widget compatibile e il comando vocale verificato su iPhone. Il doppio tocco è già nel Post-12 | Piano approvato; da produrre dopo prova su iPhone |
-| Post-40 | 05/01/2027 | 1 | Tutorial | **Ritrova le modifiche fatte nell’app** · Mostrare la cronologia in Impostazioni e un’azione di prova verificata nella build | Piano approvato; da produrre |
-| Post-41 | Da definire | 1 | Tutorial | **Accedi e ritrova i tuoi dati** · Accesso, uscita e sincronizzazione. Indicare il percorso per gestire o eliminare il profilo con dati fittizi. Mostrare iPhone e Android solo dopo verifica su entrambi | Piano approvato; legato alla disponibilità e verifica delle piattaforme |
-| Post-42 | 07/01/2027 | 1 | Tutorial | **Esplora Bucktrail con dati di esempio** · Spiegare la modalità demo e come tornare ai propri dati usando testo e inquadrature senza il badge demo | Piano approvato; da produrre |
+| Post-23 | 14/12/2026 | 1 | Tutorial | **Ricorrenti: salta, termina o elimina** · Distinguere le conseguenze delle azioni sulla singola scadenza e sulla serie | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-24 | 15/12/2026 | 1 | Educazione | **Quanto pesa una categoria sulle uscite?** · Usare una quota di spesa per scegliere una categoria da controllare, partendo da Statistiche | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-25 | 16/12/2026 | 1 | Tutorial | **Trova un movimento** · Combinare ricerca, mese e categoria; mostrare importo e intervallo nei filtri avanzati | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-26 | 17/12/2026 | 1 | Tutorial | **Conti: escludi, archivia e ripristina** · Mostrare le tre azioni e il loro effetto su elenco e totale. Distinguere l’eliminazione con un conto fittizio | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-27 | 18/12/2026 | 1 | Educazione | **Riconciliare un saldo con i movimenti** · Confrontare estratto e registro, mostrare come modificare il saldo e ritrovare la rettifica dopo aver verificato lo scarto | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-28 | 19/12/2026 | 1 | Tutorial | **Trasferisci o programma un trasferimento** · Mostrare Da/A, importo e stato. Come verificare e gestire le due voci collegate | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-29 | 21/12/2026 | 1 | Tutorial | **Sostituisci un budget e modifica un obiettivo** · Mostrare il nuovo limite, la modifica di un obiettivo e il menu di eliminazione con pressione prolungata | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-30 | 21/12/2026 | 2 | Educazione | **Stipendio e scadenze in giorni diversi** · Leggere la curva prima e dopo la data di un’entrata per riconoscere un punto basso nel mese | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-31 | 22/12/2026 | 1 | Tutorial | **Personalizza la Home** · Ordinare e selezionare conti, mostrare o nascondere le card e oscurare gli importi | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-32 | 23/12/2026 | 1 | Tutorial | **Leggi le soglie del budget** · Avviso all’80%, sforamento, storico e avvisi disponibili | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-33 | 26/12/2026 | 1 | Educazione | **Spese piccole, effetto cumulato** · Mostrare come ritrovare più spese dello stesso tipo e leggere il totale per categoria | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-34 | 28/12/2026 | 1 | Tutorial | **Esporta PDF, CSV o JSON** · Mostrare dove si trovano e quando usare report mensile, elenco movimenti o esportazione profilo | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-35 | 29/12/2026 | 1 | Tutorial | **Imposta un budget** · Scegliere categoria, limite mensile e, se utile, conto. Mostrare il risultato | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-36 | 30/12/2026 | 1 | Educazione | **La revisione di fine mese** · Confrontare una categoria con il suo budget, verificare il netto e scegliere un aggiustamento per il mese dopo | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-37 | 31/12/2026 | 1 | Tutorial | **Importi discreti, Face ID e promemoria** · Mostrare occhio, blocco biometrico, avvisi automatici, avviso saldo basso per conto e promemoria del report mensile | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-38 | 02/01/2027 | 1 | Tutorial | **Categorie e «Ultima usata»** · Mostrare il suggerimento alla seconda registrazione, come sostituirlo e come gestire le categorie personalizzate | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-39 | 04/01/2027 | 1 | Tutorial | **Aggiungi una spesa dal widget Comandi Rapidi o con Siri** · Usare l’azione Bucktrail, il widget Apple e il nome del comando. Il doppio tocco è già nel Post-12 | Su Drive, in revisione per prova widget e Siri su iPhone |
+| Post-40 | 05/01/2027 | 1 | Tutorial | **Ritrova le modifiche fatte nell’app** · Mostrare il percorso in Impostazioni e distinguere la vista demo dalle modifiche registrate con un profilo attivo | Su Drive, seconda serie pronta da rivedere; data indicativa |
+| Post-41 | Da definire | 1 | Tutorial | **Accedi e ritrova i tuoi dati** · Accesso, uscita e sincronizzazione. Indicare il percorso per gestire o eliminare il profilo con dati fittizi. Mostrare iPhone e Android solo dopo verifica su entrambi | Su Drive, in revisione per verifica iPhone/Android e accesso con marchio Bucktrail |
+| Post-42 | 07/01/2027 | 1 | Tutorial | **Esplora Bucktrail con dati di esempio** · Spiegare la modalità demo e come tornare ai propri dati usando testo e inquadrature senza il badge demo | Su Drive, seconda serie pronta da rivedere; data indicativa |
 
 ### Post-3 · Dettaglio grafico aggiornato
 
@@ -169,6 +169,14 @@ Palette della griglia, a partire dai due post già pubblicati: verde e ambra su 
 Ogni telefono dei Post-3–22 riprende il mockup iPhone del Post-2, con la stessa cornice, Dynamic Island e barra di stato. Vale anche per le slide con due schermate affiancate.
 
 Post-12 illustra il percorso iOS con schemi e mostra un’anteprima reale di «Aggiungi spesa». La prova su iPhone fisico resta da fare prima della pubblicazione. [Apple – Usare Tocco posteriore su iPhone](https://support.apple.com/it-it/111772)
+
+## Consegna seconda serie
+
+I Post-23–42 sono in Google Drive → «Da postare». Ogni post ha 6 slide per piattaforma, con chiusure dedicate, e un LEGGIMI per orari, testi, hashtag e ordine. Sono 103 slide con catture reali su 120 per piattaforma (85,8%). L’app appare con lo stesso mockup iPhone, senza evidenziazioni sovrapposte. Rivisti i Post-1–22 prima della lavorazione.
+
+Palette della griglia: azzurro minerale 22–24, rame 25–27, verde foglia 28–30, indaco 31–33, corallo scuro 34–36, turchese 37–39 e oro 40–42.
+
+Post-29 mostra come sostituire un budget e modificare un obiettivo, secondo i comandi disponibili in Pianifica. Il Post-40 mostra il percorso reale e illustra graficamente le etichette della cronologia. Il Post-39 aspetta la verifica del widget Comandi Rapidi e di Siri su iPhone. Il Post-41 aspetta la prova di sincronizzazione iPhone–Android e la schermata di accesso della build pubblica. [Apple · widget Comandi Rapidi](https://support.apple.com/it-it/guide/shortcuts/apd029b36d05/ios) · [Apple · comandi con Siri](https://support.apple.com/it-it/HT209055)
 
 ## Orari di partenza · Europe/Rome
 

@@ -99,3 +99,103 @@ Apri Obiettivi|In Pianifica, seleziona Obiettivi e tocca il + della scheda.|goal
 Scegli il traguardo|Scrivi «Weekend a Torino» e 320 €. Puoi aggiungere una scadenza.|goal-weekend:form
 Aggiorna l’importo messo da parte|Tocca il + della scheda e inserisci 80 € in «Aggiungi risparmio».|goal-update:form
 Controlla l’avanzamento|Con 80 € su 320 € sei al 25%. Mancano 240 €.|goal-result:list
+@23|Ricorrenze: salta, termina o elimina|Scegli cosa succede alla serie.|Una bolletta da saltare?|rules|bollette ricorrenze budgetpersonale
+Una bolletta oggi, altre in arrivo|Da Movimenti apri Ricorrenti, trova la serie programmata e apri la voce.|rules:top
+Mettici in pausa un mese|In modifica scegli «Salta mese» se la pausa vale solo per quel mese.|second-recurrence-actions:full
+La serie è finita?|«Termina da qui» include la scadenza selezionata. «Termina dopo questa» la mantiene.|second-recurrence-actions:full
+Prima di eliminare, leggi l’avviso|Controlla «Ambito» prima di scegliere «Elimina». La conferma riguarda le occorrenze selezionate.|second-recurrence-delete:full
+@24|Quanto pesa una categoria sulle uscite?|Leggi la quota sulle uscite.|Dove va quasi metà del mese?|stats|statistiche spesecontrollate bilancio
+809 € per Casa|In Statistiche scendi a «Per categoria». La barra e la percentuale indicano il peso sulle uscite.|second-pdf:categories
+49% di cosa?|Nell’esempio illustrato, 809 € su 1.661,98 € di uscite fanno circa il 49%.|second-pdf:categories
+Cambia mese prima di decidere|Usa il selettore per vedere se la categoria pesa anche negli altri mesi.|stats:hero
+Una categoria alla volta|Se vuoi seguirla più da vicino, trovi Budget in Pianifica.|budget:top
+@25|Trova un movimento con pochi indizi|Usa nome, categoria e filtri.|Trova quel pagamento|mov|movimenti ricercaspese finanze
+Hai una parola?|Apri Movimenti e scrivila nella barra di ricerca.|mov:filters
+Ricordi più o meno l’importo?|Apri i filtri avanzati e aggiungi un minimo e un massimo. Per esempio, 40 e 45 €.|second-filters-detail:full
+Forse era il weekend scorso|Nel filtro avanzato, l’intervallo personalizzato sostituisce il mese selezionato.|second-filters-detail:full
+Riparti dalla lista|Con 40–45 € rimane «Palestra» da 45 €. Rimuovi i filtri per tornare all’elenco completo.|second-filter-result:full
+@26|Conti: escludi, archivia e ripristina|Tre modi per gestire un conto.|Dove vanno le carte che chiudi?|accounts-archived|conti risparmi gestioneconti
+Vuoi tenerlo separato dal totale?|Tieni premuto sul conto e scegli «Escludi dal totale». Il conto resta in elenco.|accounts-excluded:full
+Hai smesso di usarlo?|Dal menu del conto scegli «Archivia». Lo ritrovi in fondo, in Archiviati.|accounts-archived:full
+Hai cambiato idea?|Apri Archiviati, tieni premuto sul conto e scegli «Ripristina».|second-restore:full
+Stai pensando di eliminarlo?|Controlla il riepilogo della conferma. L’eliminazione può coinvolgere anche i movimenti del conto.|accounts-archived:full
+@27|Riconciliare un saldo con i movimenti|Parti dall’estratto e cerca lo scarto.|Trovare uno scarto nel saldo|accounts|saldoconto estrattoconto finanzaquotidiana
+Sul registro ci sono 21 € in più.|Confronta lo stesso conto alla stessa data. Controlla prima operazioni mancanti o duplicate.|=REGISTRO~13.120 €;ESTRATTO~13.099 €;DIFFERENZA~−21 €
+Conferma il saldo corretto|In Conti apri il conto da aggiornare. Il campo saldo attuale è nel modulo di modifica.|second-reconcile-filled:full
+La differenza ha un nome|Dopo il salvataggio, in Movimenti cerca «Rettifica saldo».|second-reconciled:full
+Controlla la differenza|Nel nostro esempio la rettifica è un’uscita di 21 €. Il saldo torna a 13.099 €.|second-reconciled:full
+@28|Trasferisci o programma un trasferimento|Due conti collegati da un giroconto.|Fai partire il giroconto venerdì|second-transfer|giroconto trasferimenti risparmi
+Scegli Da e A|Da Movimenti tocca + e scegli Trasferimento. Poi imposta il conto da cui partono i soldi e quello che li riceve.|second-transfer:full
+Imposta la data del trasferimento|Disattiva «Già effettuato» e scegli la data prevista per tenere il giroconto pianificato.|second-transfer-planned:full
+Ritrova le due voci|Usa il filtro Trasf. in Movimenti per vedere le registrazioni collegate.|transfer-list:full
+Quando serve annullarlo|Controlla le due voci prima di confermare un’eliminazione. Il trasferimento ha una conferma dedicata.|transfer-list:full
+@29|Sostituisci un budget e modifica un obiettivo|Aggiorna la scelta che è cambiata.|Cambia il piano a metà mese|budget|budget obiettivi pianificaspese
+Il limite è cambiato?|In Pianifica puoi creare il nuovo budget con il limite rivisto. Controlla poi quale scheda vuoi conservare.|second-budget-form:full
+Hai rivisto il traguardo?|Passa a Obiettivi e apri la scheda per cambiare titolo, importo o data.|goal-update:full
+Quando una scheda non serve più|Tieni premuta la scheda interessata per trovare «Elimina». La rimozione agisce sulla scheda selezionata.|second-budget-delete:full
+Ricontrolla il riepilogo|Torna alla lista e verifica che resti il budget o l’obiettivo che volevi mantenere.|goals:list
+@30|Stipendio e scadenze in giorni diversi|Leggi cosa succede prima dell’entrata.|Un mese positivo può avere una settimana stretta|home|stipendio cashflow speseprogrammate
+La settimana dei 50 €|Hai 500 € oggi, poi escono 450 € di affitto. I 1.200 € dello stipendio arrivano dopo.|=OGGI~500 €;DOPO L’AFFITTO~50 €;DOPO LO STIPENDIO~1.250 €
+Apri la curva in Home|Usa il tratto tratteggiato e le date dei movimenti previsti per leggere quel passaggio.|home:curve
+Controlla cosa muove la curva|Apri Movimenti e controlla importo e data delle entrate e delle uscite pianificate.|mov:planned
+Guarda il punto basso|Nell’esempio la decisione è come arrivare allo stipendio con quei 50 €. Il saldo finale da solo salta quel passaggio.|home:hero
+@31|Personalizza la Home|Metti le informazioni giuste al primo posto.|Fai spazio nella Home|home|homescreen personalizzazione spese
+Scegli l’ordine dei conti|Nella Home, tocca il pulsante con i cursori accanto a Conti per scegliere e riordinare le schede.|second-home-order:full
+Togli una scheda dalla vista|In Impostazioni cerca la sezione Home per scegliere se mostrare i totali delle entrate e delle spese fisse.|settings-lower:full
+Un tocco prima di mostrare lo schermo|Tocca l’occhio in alto per oscurare gli importi.|second-hidden:full
+Riapri la tua Home|Controlla che i conti più usati siano in vista. Tocca di nuovo l’occhio quando vuoi rileggere le cifre.|home:hero
+@32|Leggi le soglie del budget|Controlla il margine prima di sforare.|Cosa vuol dire 80% del budget?|budget|budgetmensile avvisi spesesottocontrollo
+260 su 320 €|Hai ancora 60 € per quella categoria. La scheda segnala che hai superato la soglia dell’80%.|second-budget-result:full
+Lo sforamento è un’altra cosa|Quando le spese superano il limite, hai bisogno di vedere di quanto sei oltre.|budget:list
+Controlla anche il mese|Guarda quanti giorni mancano e confronta il budget con i mesi precedenti.|budget:top
+Vuoi un avviso?|In Impostazioni cerca «Avvisi automatici» e controlla anche le autorizzazioni di iOS.|second-notifications:full
+@33|Le spese piccole fanno un totale|Conta quante volte fai la stessa spesa.|Da 1,50 € a 99 €|mov|caffe abitudinidispesa educazionefinanziaria
+Come arriva a 99 €?|1,50 € × 3 caffè × 22 giorni lavorativi. Prova il calcolo con il prezzo e la frequenza reali.|=UN CAFFÈ~1,50 €;TRE AL GIORNO~4,50 €;VENTIDUE GIORNI~99 €
+Cerca l’abitudine|In Movimenti seleziona il mese e cerca una parola che usi per quella spesa, per esempio «caffè».|mov:filters
+Poi guarda il quadro più grande|In Statistiche leggi il totale della categoria. Include anche le altre spese della stessa categoria.|stats:categories
+Una scelta per il prossimo mese|Se vuoi monitorare la categoria, Pianifica ti mostra un budget separato e quello che ti resta.|budget:list
+@34|Esporta PDF, CSV o JSON|Scegli un file in base a come lo userai.|I soldi in app, i dati dove ti servono|stats|pdf csv esportazione
+PDF da leggere|In Statistiche seleziona il mese e tocca PDF per ottenere il report del periodo.|second-pdf:full
+CSV da aprire in un foglio|In Impostazioni cerca «Genera CSV» per esportare l’elenco dei movimenti in Excel o Numbers.|second-export:full
+JSON per i dati del profilo|Nella stessa sezione trovi l’esportazione di conti, movimenti, budget e obiettivi in un unico file.|second-export:full
+Scegli dove salvarlo|Una volta pronto, usa la condivisione di iOS per salvare il file nella destinazione che preferisci.|second-export:full
+@35|Imposta un budget mensile|Crea una soglia per la spesa.|Quanto ti dai per la spesa?|second-budget-form|budget spesaalimentare risparmiare
+Apri il budget nuovo|Vai in Pianifica, seleziona Budget e tocca +.|budget:top
+Scegli cosa tenere d’occhio|Seleziona Cibo. Puoi limitare il budget a un conto oppure includerli tutti.|second-budget-form:full
+Metti un numero realistico|Nell’esempio scegliamo 320 € come limite mensile. Poi salva.|second-budget-limit:full
+Guarda quanto resta|La scheda mostra importo usato e limite insieme. Torna qui dopo i prossimi acquisti.|second-budget-result:full
+@36|La revisione di fine mese|Tre controlli per partire meglio.|Il check di fine mese in tre mosse|stats|finemese bilancio budget
+1. Leggi il netto|In Statistiche scegli il mese appena concluso e confronta entrate e uscite.|stats:hero
+2. Guarda il budget che hai seguito|In Pianifica controlla quanto hai speso nella categoria e confrontalo con il limite.|budget:list
+3. Cerca la voce che ha pesato|Usa la ripartizione per categoria oppure cerca il movimento insolito.|stats:categories
+Cambia una sola cosa|Prima del nuovo mese scegli una categoria da tenere d’occhio o un limite da rivedere.|budget:top
+@37|Importi discreti, Face ID e promemoria|Scegli quale protezione ti serve.|Quando presti l’iPhone|second-hidden|privacy faceid avvisi
+Occhio in Home|Toccalo quando vuoi mostrare la schermata senza esporre i tuoi importi.|second-hidden:full
+Blocco all’apertura|Nelle Impostazioni, trova «Blocco con Face ID» per richiedere lo sblocco su un iPhone compatibile.|second-notifications:full
+Un avviso se scendi troppo|Apri un conto e configura la sua soglia di saldo basso.|second-reconcile:full
+Un promemoria a inizio mese|In Impostazioni puoi attivare «Report mensile PDF» e gestire gli avvisi automatici.|second-notifications:full
+@38|Categorie e Ultima usata|Riusa la categoria della stessa spesa.|Il prossimo caffè si ricorda del primo|second-categories-last|categorie movimentirapidi finanze
+Dai un nome alla prima spesa|Apri un’uscita, scrivi il nome e seleziona la categoria che vuoi salvare.|second-categories:full
+Stesso nome, categoria già lì|Registra di nuovo lo stesso nome. Il selettore può mostrare «Ultima usata».|second-categories-last:full
+Se non ti torna, cambiala|Apri il selettore e scegli la categoria adatta a questa spesa.|second-categories:full
+Una categoria tutta tua|Dal selettore apri «Gestisci» per vedere le categorie personalizzate.|second-category-management:full
+@39|Registra una spesa da widget o con Siri|La stessa azione, due accessi.|Hai pagato? Dillo a Siri|shortcuts|comandirapidi siri widgetiphone
+Prepara una sola azione|In Comandi Rapidi crea un comando con l’azione «Aggiungi spesa» di Bucktrail. Dagli un nome facile da dire.|shortcuts:full
+Una strada è il widget|Aggiungi il widget Apple «Comandi Rapidi» alla schermata Home. Modifica il widget piccolo e scegli il comando appena creato.|=SCHERMATA HOME~Aggiungi il widget Comandi Rapidi;WIDGET PICCOLO~Scegli Aggiungi spesa
+L’altra è la voce|Se l’hai chiamato «Aggiungi spesa», di’ «Ehi Siri, Aggiungi spesa». Completa le informazioni richieste.|shortcuts:full
+Ritrova la spesa|Apri Movimenti e cerca la descrizione appena registrata. L’elenco è lo stesso da widget o da Siri.|mov:daily
+@40|Ritrova le modifiche nell’app|Segui le tracce di un’azione.|Che cosa hai modificato ieri?|second-audit-settings|cronologia movimenti gestionedenaro
+Abbiamo aggiunto un pranzo|Parti da un movimento che riconosci. La cattura di esempio mostra un pranzo di prova.|second-audit-example:full
+Apri la cronologia|Da Home apri l’ingranaggio e cerca «Cronologia modifiche».|second-audit-settings:full
+Come leggere una voce|Con il profilo attivo, una modifica registrata riporta azione e data. Qui sotto vedi due esempi di etichette.|=NUOVA VOCE~Creato;CAMBIO SU UNA VOCE~Modificato
+Torna alla voce in Movimenti|Se vuoi vedere importo e categoria, cerca il nome nella lista dei movimenti.|second-audit-example:full
+@41|Accedi e ritrova i tuoi dati|Verifica che il profilo sia quello giusto.|I tuoi conti dopo il cambio di telefono|second-login|sincronizzazione appiphone profilo
+Usa lo stesso profilo|Accedi con il profilo che usavi sull’altro dispositivo.|second-login:full
+Verifica un conto che conosci|Attendi la sincronizzazione e controlla che compaia un conto familiare.|accounts:hero
+Cerca un movimento che ricordi|In Movimenti verifica una voce recente e il conto associato.|mov:daily
+Gestisci il profilo dalle Impostazioni|Una volta dentro, vai in Impostazioni → Account per uscire o gestire il profilo.|settings:top
+@42|Esplora Bucktrail con dati di esempio|Fatti un giro prima di iniziare.|Prova Bucktrail con soldi di esempio|home|anteprima appfinanze budget
+Comincia dalla Home|La demo mostra conti e movimenti di esempio. Inizia dal saldo e dai pagamenti previsti.|home:hero
+Fai una domanda ai dati|In Statistiche guarda quale categoria pesa di più, poi cambia mese.|stats:categories
+Guarda come si muove un obiettivo|Apri Pianifica e scorri gli obiettivi di esempio per vedere come appaiono i progressi.|goals:list
+Torna ai tuoi dati|Nelle impostazioni puoi disattivare la demo e tornare ai tuoi conti.|settings:top

@@ -50,3 +50,13 @@
 21:5|budget:top+goals:top|I due pannelli di Pianifica
 12:3|shortcuts:prompt|Anteprima del comando
 12:5|shortcuts:prompt|Anteprima del comando
+23:6|rules:top|Serie programmate
+24:6|stats:categories|Quota delle categorie
+28:6|transfer-list:full|Giroconti
+31:6|second-hidden:full|Home con cifre oscurate
+33:6|stats:categories|Totali mensili
+35:6|second-budget-result:full|Il limite appena salvato
+36:4|stats:categories+budget:list|Risultati del mese e budget
+38:6|second-categories-last:full|Il suggerimento sulla spesa
+42:4|goals:list+budget:list|Le due schede di Pianifica
+42:6|home:hero|Anteprima Home
