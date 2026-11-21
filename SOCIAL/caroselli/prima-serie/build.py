@@ -5,20 +5,29 @@ from pathlib import Path
 import re
 from functools import lru_cache
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
+from PIL import Image, ImageColor, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 ROOT = Path(__file__).resolve().parents[2]
 FONTS = ROOT / "landing/fonts"
 CLIPS = ROOT / "clip-social"
 SCREENS = ROOT / "schermate-app/prima-serie"
 HERE = Path(__file__).parent
-PAPER = "#F6F6F2"
-INK = "#182922"
-GREEN = "#21604A"
-MUTED = "#455B50"
-MINT = "#B8EAD1"
-AMBER = "#FFC786"
+# Carta, testo, accento, accento tenue, fondo scuro, luce.
+PALETTES = (
+    ("#F4F3EB", "#14281F", "#27644D", "#DCEAE0", "#0C211B", "#205A45"),
+    ("#EFF2F7", "#192B43", "#315C83", "#DCE6F1", "#111F34", "#2D536F"),
+    ("#F8F0EC", "#412724", "#924634", "#F2DDD1", "#2B1917", "#784536"),
+    ("#F4F0F6", "#33253C", "#6B486E", "#E9DBEC", "#271D32", "#573B62"),
+    ("#F0F4F1", "#142D30", "#2A6470", "#DCEBE8", "#112529", "#28606D"),
+    ("#F7F3E8", "#352A19", "#795A24", "#EDE3C9", "#251E15", "#705522"),
+    ("#F3F0ED", "#2E2728", "#835467", "#EBDFE2", "#241B22", "#654155"),
+)
+PAPER, INK, GREEN, SOFT, DARK, GLOW = PALETTES[0]
+MUTED = "#45504C"
+MINT = "#E9F0E9"
+AMBER = "#FFDAAA"
 SIZE = (1080, 1350)
+
 
 # Limiti di ritaglio riferiti alle catture normalizzate (UI, non al mockup).
 CROPS = {
@@ -98,7 +107,7 @@ def lines_for(draw, content, face, maximum):
     return lines
 
 
-def text(im, content, x, y, size, width, *, color=INK, bold=True, max_lines=3):
+def text(im, content, x, y, size, width, *, color=None, bold=True, max_lines=3):
     draw = ImageDraw.Draw(im)
     for actual in range(size, max(19, size - 29), -1):
         face = font(actual, bold)
@@ -110,7 +119,7 @@ def text(im, content, x, y, size, width, *, color=INK, bold=True, max_lines=3):
     leading = round(actual * 1.19)
     assert y + len(lines) * leading < im.height - 35, content
     for i, line in enumerate(lines):
-        draw.text((x, y + i * leading), line, font=face, fill=color, anchor="lt")
+        draw.text((x, y + i * leading), line, font=face, fill=color or INK, anchor="lt")
     return y + len(lines) * leading
 
 
@@ -121,17 +130,17 @@ def rounded(im, image, x, y, radius):
 
 
 @lru_cache
-def background(dark):
+def background(dark, palette):
+    paper, _, _, _, base, glow = palette
     if not dark:
-        return Image.new("RGB", SIZE, PAPER)
-    im = Image.new("RGB", (108, 135))
-    pixels = im.load()
-    for y in range(im.height):
-        for x in range(im.width):
-            glow = max(0, 1 - (((x - 105) / 99) ** 2 + (y / 98) ** 2) ** .5)
-            ember = max(0, 1 - ((x / 88) ** 2 + ((y - 134) / 70) ** 2) ** .5)
-            pixels[x, y] = (13 + int(35 * ember), 19 + int(38 * glow + 16 * ember), 16 + int(23 * glow))
-    return im.resize(SIZE, Image.Resampling.BICUBIC)
+        return Image.new("RGB", SIZE, paper)
+    canvas = Image.new("RGB", (108, 135))
+    start, end = ImageColor.getrgb(base), ImageColor.getrgb(glow)
+    for y in range(135):
+        for x in range(108):
+            fraction = max(0, 1 - (((x-98)/118)**2 + (y/138)**2)**.5)
+            canvas.putpixel((x, y), tuple(round(a+(b-a)*fraction) for a,b in zip(start,end)))
+    return canvas.resize(SIZE, Image.Resampling.BICUBIC)
 
 
 @lru_cache
@@ -140,17 +149,13 @@ def screen(key):
     source = fresh if fresh.is_file() else FALLBACKS[key]
     with Image.open(source) as image:
         shot = image.convert("RGB").resize((780, 1688), Image.Resampling.LANCZOS)
+    if key not in {"shortcuts", "add-options", "add", "expense-example", "transfer-form",
+                   "goal-weekend", "goal-update", "account-type", "account-wallet",
+                   "ruleedit", "recurrence-following", "recurrence-all"} and not source.stem.endswith("pulita"):
+        draw = ImageDraw.Draw(shot)
+        for y in range(105, 207):
+            draw.line((220, y, 560, y), fill=shot.getpixel((18, y)))
     if key in FIXED_TAB:
-        # Il badge è sovrapposto al centro della fascia superiore in demo.
-        # Campioniamo la stessa fascia fuori dal badge senza alterare il contenuto.
-        if not source.stem.endswith("pulita"):
-            draw = ImageDraw.Draw(shot)
-            for y in range(105, 207):
-                draw.line((220, y, 560, y), fill=shot.getpixel((18, y)))
-        if not source.stem.endswith("pulita"):
-            with Image.open(FALLBACKS["home"]) as status_source:
-                status_bar = status_source.convert("RGB").resize((780, 1688), Image.Resampling.LANCZOS)
-                shot.paste(status_bar.crop((0, 0, 780, 91)), (0, 0))
         shot = shot.crop((0, 0, 780, 1620))
     return shot
 
@@ -188,51 +193,26 @@ def resolve_phone(asset):
     return fallbacks[key]
 
 
-def show_reference(im, reference, x, width, start, max_height, *, dark=False):
-    visual, label = reference
-    ink = MINT if dark else GREEN
-    parts = visual.split("+")
-    y = start
-    for asset in parts:
-        key, crop = resolve_phone(asset)
-        box = phone(im, key, x, y, width, min(max_height, 435) if len(parts) > 1 else max_height, crop)
-        y = box[3] + 32
-    text(im, label, x + 8, min(y, 1190), 23, width - 15, color=ink, max_lines=2)
-
-
-def box_shadow(im, box, radius):
-    mask = Image.new("L", im.size)
-    x, y, xx, yy = box
-    ImageDraw.Draw(mask).rounded_rectangle((x, y + 15, xx, yy + 15), radius, fill=56)
-    im.paste("#08150D", (0, 0, *im.size), mask.filter(ImageFilter.GaussianBlur(21)))
-
-
-def phone(im, key, x, y, width, max_height, crop=None):
-    shot = screen(key)
-    if crop:
-        first, last = FOCUSED_CROPS.get((key, crop), CROPS[crop])
-        shot = shot.crop((12, round(first * shot.height), shot.width - 12, round(last * shot.height)))
-    shot.thumbnail((width - 18, max_height - 18), Image.Resampling.LANCZOS)
-    if shot.width < width - 18 and shot.height < max_height - 18:
-        factor = min((width - 18) / shot.width, (max_height - 18) / shot.height)
-        shot = shot.resize((round(shot.width * factor), round(shot.height * factor)), Image.Resampling.LANCZOS)
-    w, h = shot.width + 18, shot.height + 18
-    x += (width - w) // 2
-    r = 31 if crop else 45
-    box = (x, y, x + w, y + h)
-    assert box[2] <= 1010 and box[3] <= 1230, (key, box)
-    box_shadow(im, box, r)
-    draw = ImageDraw.Draw(im)
-    if crop and h > 150:
-        # Piccoli pulsanti laterali sulla cornice del mockup, fuori dal contenuto.
-        draw.rounded_rectangle((x - 3, y + 32, x + 3, y + 65), 3, fill="#33443A")
-        draw.rounded_rectangle((x + w - 3, y + 46, x + w + 3, y + 88), 3, fill="#33443A")
-    draw.rounded_rectangle(box, r, fill="#111A15")
-    rounded(im, shot, x + 9, y + 9, r - 9)
-    if key == "goal-update" and crop == "form":
-        top = y + 9 + round(shot.height * .63)
-        draw.rounded_rectangle((x + 26, top, x + round(w * .51), y + h - 16), 14, outline=GREEN, width=4)
-    return box
+def phone(im, key, center, top, width, max_height, focus=None, *, peek=False):
+    shot = screen(key).copy()
+    if focus and focus != "full":
+        first, last = FOCUSED_CROPS.get((key, focus), CROPS.get(focus, (.15, .4)))
+        if not peek or last < .46:
+            draw = ImageDraw.Draw(shot)
+            draw.rounded_rectangle((27, round(first*shot.height), shot.width-27, round(last*shot.height)),
+                                   24, outline=GREEN, width=6)
+    edge = max(9, width // 38)
+    inner = min(width - edge*2, round((max_height-edge*2)*shot.width/shot.height))
+    shot = shot.resize((inner, round(shot.height*inner/shot.width)), Image.Resampling.LANCZOS)
+    w, h = shot.width+edge*2, shot.height+edge*2
+    x = center-w//2
+    assert 30 < x and x+w < 1050, (key, x, w)
+    assert (top+h > 1350 if peek else top+h < 1245), (key, top, h, peek)
+    layer = Image.new("L", im.size)
+    ImageDraw.Draw(layer).rounded_rectangle((x,top+14,x+w,top+h+14), w//8, fill=52)
+    im.paste("#0D1414", (0,0,*im.size), layer.filter(ImageFilter.GaussianBlur(24)))
+    ImageDraw.Draw(im).rounded_rectangle((x,top,x+w,top+h), w//8, fill="#111916", outline="#536360", width=2)
+    rounded(im, shot, x+edge, top+edge, w//8-edge)
 
 
 def panels(im, spec, x, y, width, max_height):
@@ -244,7 +224,7 @@ def panels(im, spec, x, y, width, max_height):
     d = ImageDraw.Draw(im)
     for i, (label, value) in enumerate(entries):
         yy = y + (card_h + gap) * i
-        fill = "#E4F0E7" if i % 2 == 0 else "#F1E7D9"
+        fill = SOFT if i % 2 == 0 else "#FFFFFF"
         d.rounded_rectangle((x, yy, x + width, yy + card_h), 27, fill=fill)
         compact = width < 460
         inset = 23 if compact else 35
@@ -273,117 +253,154 @@ def infographic(im, visual, y):
             top = y + 128 * i
             text(im, f"Mese {i + 1}", 98, top, 33, 280, max_lines=1)
             text(im, f"{value} €", 809, top, 39, 175, color=GREEN, max_lines=1)
-            draw.rounded_rectangle((98, top + 56, 983, top + 77), 11, fill="#DFE7E0")
+            draw.rounded_rectangle((98, top + 56, 983, top + 77), 11, fill=SOFT)
             draw.rounded_rectangle((98, top + 56, 98 + round(885 * value / max(values)), top + 77), 11, fill=GREEN)
     else:
         for i in range(12):
             x = 80 + (i % 4) * 233
             top = y + (i // 4) * 136
-            draw.rounded_rectangle((x, top, x + 212, top + 116), 23, fill="#E4F0E7")
+            draw.rounded_rectangle((x, top, x + 212, top + 116), 23, fill=SOFT)
             text(im, f"MESE {i + 1:02}", x + 20, top + 17, 24, 171, color=GREEN, max_lines=1)
             text(im, "40 €", x + 20, top + 50, 43, 171, max_lines=1)
 
 
-def body_slide(label, number, count, title, body, visual, reference):
-    im = background(False).copy()
-    brand(im, label, number, count)
-    if reference and visual.startswith(("=", "+", ":")):
-        end = text(im, title, 79, 184, 67, 924, max_lines=2)
-        end = text(im, body, 80, end + 45, 38, 910, color=MUTED, bold=False, max_lines=3)
-        start = max(end + 50, 532)
-        if visual.startswith("="):
-            panels(im, visual, 79, start, 393, 1160 - start)
-        else:
-            raise ValueError("Grafici composti da impaginare separatamente.")
-        show_reference(im, reference, 505, 500, start, 1160 - start)
-        text(im, "Esempio a sinistra · schermata Bucktrail a destra", 79, 1250, 25, 905, color=MUTED, bold=False, max_lines=1)
-    elif visual.startswith(("=", "+", ":")):
-        end = text(im, title, 79, 200, 75, 915, max_lines=2)
-        end = text(im, body, 79, end + 40, 39, 905, color=MUTED, bold=False, max_lines=4)
-        y = max(end + 82, 563)
-        if visual.startswith("="):
-            panels(im, visual, 79, y, 922, 1190 - y)
-        else:
-            infographic(im, visual, y)
-        legend = "Dati di esempio · schema illustrativo" if not visual.startswith("=") or re.search(r"[€£]|[0-9]%", visual) else "Schema illustrativo"
-        text(im, legend, 79, 1250, 25, 800, color=MUTED, bold=False, max_lines=1)
-    else:
-        key, crop = visual.split(":")
-        if crop == "full":
-            bottom = text(im, title, 79, 263, 70, 490, max_lines=3)
-            text(im, body, 79, bottom + 46, 40, 485, color=MUTED, bold=False, max_lines=6)
-            phone(im, key, 590, 235, 400, 915)
-        else:
-            end = text(im, title, 79, 190, 75, 925, max_lines=2)
-            end = text(im, body, 79, end + 38, 39, 910, color=MUTED, bold=False, max_lines=4)
-            y = max(555, end + 55)
-            phone(im, key, 100, y, 880, 1200 - y, crop)
-        text(im, "Dati di esempio", 79, 1250, 25, 800, color=MUTED, bold=False, max_lines=1)
+def frame(label, number, count, palette, dark=False):
+    im = background(dark, palette).copy()
+    brand(im, label, number, count, dark)
     return im
 
 
-def opener(post, label, count, reference):
-    im = background(True).copy()
-    brand(im, label, 1, count, True)
-    title, body, visual = post["title"], post["lead"], post["visual"]
-    if visual.startswith("=") and reference:
-        end = text(im, title, 79, 230, 74, 910, color="#FAFAF4", max_lines=3)
-        end = text(im, body, 79, end + 35, 39, 885, color="#D9E9DF", bold=False, max_lines=3)
-        y = max(end + 65, 655)
-        panels(im, visual, 79, y, 393, 1130 - y)
-        show_reference(im, reference, 504, 500, y, 1150 - y, dark=True)
-    elif visual.startswith("="):
-        end = text(im, title, 80, 245, 103, 915, color="#FAFAF4", max_lines=3)
-        end = text(im, body, 80, end + 39, 43, 875, color="#E1EEE5", bold=False, max_lines=3)
-        panels(im, visual, 80, max(end + 100, 790), 880, 305)
-    else:
-        end = text(im, title, 79, 268, 83, 505, color="#FAFAF4", max_lines=4)
-        text(im, body, 79, end + 44, 39, 490, color="#D9E9DF", bold=False, max_lines=5)
-        crop = "top" if visual in {"settings", "ruleedit", "shortcuts", "add", "account-editor", "goal-editor", "expense-example"} else None
-        if visual == "shortcuts":
-            crop = "prompt"
-        phone(im, visual, 590, 245 if not crop else 420, 415, 920 if not crop else 525, crop)
-    legend = "Esempio a sinistra · app a destra" if visual.startswith("=") and reference else "Dati di esempio"
-    text(im, legend, 81, 1250, 25, 600, color=MINT, bold=False, max_lines=1)
-    text(im, "Scorri →", 865, 1250, 26, 135, color=MINT, max_lines=1)
-    return im
-
-
-def closer(post, label, count, channel, reference):
-    im = background(True).copy()
-    brand(im, label, count, count, True)
-    headlines = {
-        4: "Dalla spesa all’entrata.",
-        5: "Controlla prima della prossima cena.",
-        8: "Saldo in Home. Netto in Statistiche.",
-        11: "Quale spesa annuale prepari oggi?",
-        12: "Salva i passaggi per il tuo iPhone.",
-        18: "Guarda cosa ha mosso la media.",
-        21: "Quale ti serve oggi?",
-    }
-    headline = headlines.get(post["id"], "Salva questa guida." if post["title"].startswith("Guida:") else "Salva il post per dopo.")
-    text(im, headline, 78, 255 if reference else 338, 82 if reference else 89, 920, color="#FAFAF4", max_lines=2)
-    column = 428 if reference else 920
-    text(im, "In arrivo su iPhone e Android.", 78, 637, 50, column, color=MINT, max_lines=2)
-    text(im, "Iscriviti alla lista d’attesa.", 78, 771 if reference else 747, 43, column, color="#F6F8F2", max_lines=2)
-    cta = "Link in bio" if channel == "Instagram" else "bucktrailapp.com"
-    text(im, cta, 78, 908 if reference else 844, 39, column, color=AMBER, max_lines=1)
+def refs(reference, visual):
     if reference:
-        show_reference(im, reference, 520, 485, 580, 510, dark=True)
-        text(im, "Dati di esempio", 79, 1220, 24, 400, color=MINT, bold=False, max_lines=1)
-    if post["id"] == 12:
-        text(im, "Tutorial iPhone", 80, 1125, 30, 900, color=MINT, max_lines=1)
-    elif post["id"] == 4:
-        text(im, "Per i soldi ricevuti, scegli «Entrata».", 80, 1080, 35, 915, color=MINT, max_lines=2)
+        return [resolve_phone(asset) for asset in reference[0].split("+")]
+    return [] if visual.startswith(("=", "+", ":")) else [resolve_phone(visual)]
+
+
+def diagram(im, visual, end):
+    y = max(end+72, 530)
+    if visual.startswith("="):
+        panels(im, visual, 79, y, 922, 1200-y)
+    else:
+        infographic(im, visual, y)
+    text(im, "Esempio illustrativo", 80, 1245, 25, 900, color=GREEN, bold=False, max_lines=1)
+
+
+def body_slide(post, label, number, count, title, body, visual, reference, palette):
+    key_in_series = (post["id"], number)
+    look = sum(key_in_series) % 4
+    im = frame(label, number, count, palette)
+    screens = refs(reference, visual)
+    is_diagram = visual.startswith(("=", "+", ":"))
+    centered = key_in_series in {(3, 3), (6, 5), (8, 3), (11, 4), (13, 4),
+                                 (16, 4), (18, 4), (21, 4), (22, 5)} and not is_diagram
+    if centered or len(screens) > 1:
+        ImageDraw.Draw(im).rounded_rectangle((80, 496, 1000, 1229), 44, fill=SOFT)
+    if not screens:
+        end = text(im, title, 79, 184, 75, 920, max_lines=3)
+        end = text(im, body, 80, end+34, 42, 900, color=MUTED, bold=False, max_lines=4)
+        diagram(im, visual, end)
+        return im
+    # Le schermate che contengono la modalità demo nelle impostazioni
+    # entrano dal bordo basso, così rimangono visibili solo le sezioni utili.
+    mode_key = screens[0][0]
+    peek_settings = mode_key == "settings-lower"
+    if len(screens) > 1:
+        end = text(im, title, 79, 184, 68, 920, max_lines=2)
+        end = text(im, body, 80, end+32, 40, 900, color=MUTED, bold=False, max_lines=4)
+        start = max(462, end+35)
+        for index, (key, focus) in enumerate(screens):
+            phone(im, key, 336+index*407, start, 300, 1215-start, focus)
+    elif centered:
+        end = text(im, title, 79, 184, 75, 920, max_lines=2)
+        end = text(im, body, 80, end+34, 42, 900, color=MUTED, bold=False, max_lines=4)
+        start = max(461, end+32)
+        key, focus = screens[0]
+        phone(im, key, 540, start, 450, 1215-start, focus)
+    elif peek_settings or (look == 2 and not is_diagram and mode_key in {"home", "stats", "accounts", "mov", "rules", "budget", "goals"} and screens[0][1] in {"top", "hero", "filters"}):
+        end = text(im, title, 79, 184, 76, 920, max_lines=2)
+        end = text(im, body, 80, end+34, 40, 900, color=MUTED, bold=False, max_lines=4)
+        start = max(end+55, 559 if peek_settings else 600)
+        key, focus = screens[0]
+        phone(im, key, 540, start, 555, 1350, focus, peek=True)
+        text(im, "Dati di esempio", 80, start-43, 23, 320, color=GREEN, max_lines=1)
+        return im
+    else:
+        right = look != 0
+        tx = 79 if right else 535
+        center = 788 if right else 277
+        end = text(im, title, tx, 252, 69, 456, max_lines=4)
+        end = text(im, body, tx, end+37, 39, 449, color=MUTED, bold=False, max_lines=7)
+        start = 260 if look in (0,1) else 316
+        key, focus = screens[0]
+        phone(im, key, center, start, 400, 1200-start, focus)
+        if is_diagram and visual.startswith("="):
+            pos = max(end+44, 670)
+            panels(im, visual, tx, pos, 430, 1205-pos)
+        if key_in_series in {(12, 3), (12, 5)}:
+            text(im, "Anteprima del comando in azione", tx, 1109, 24, 430, color=GREEN, bold=False, max_lines=2)
+    legend = "Esempio illustrativo · schermate con dati dimostrativi" if is_diagram else "Dati di esempio"
+    text(im, legend, 80, 1250, 25, 920, color=GREEN, bold=False, max_lines=1)
+    return im
+
+
+def opener(post, label, count, reference, palette):
+    im = frame(label, 1, count, palette, True)
+    hero, hook, _, _ = post["editorial"]
+    key, focus = refs(reference, post["visual"]+(":full" if not post["visual"].startswith("=") else ""))[0]
+    if post["id"] % 3 == 0:
+        end = text(im, hero, 78, 185, 92, 930, color="#FAFAF4", max_lines=3)
+        end = text(im, hook, 80, end+33, 40, 900, color=MINT, bold=False, max_lines=4)
+        y = max(665,end+68)
+        text(im, "Scorri →", 80, y-53, 29, 500, color=AMBER, max_lines=1)
+        phone(im, key, 551, y, 547, 1300, focus, peek=True)
+    else:
+        right = post["id"] % 3 == 1
+        x = 79 if right else 547
+        end = text(im, hero, x, 240, 80, 450, color="#FAFAF4", max_lines=5)
+        end = text(im, hook, x, end+34, 38, 440, color=MINT, bold=False, max_lines=6)
+        text(im, "Scorri →", x, end+51, 29, 410, color=AMBER, max_lines=1)
+        phone(im, key, 798 if right else 273, 260, 400, 912, focus)
+    text(im, "Dati di esempio", 79, 1250, 24, 410, color=MINT, bold=False, max_lines=1)
+    return im
+
+
+def closer(post, label, count, channel, reference, palette):
+    im = frame(label, count, count, palette, True)
+    cta = "Link in bio" if channel == "Instagram" else "bucktrailapp.com"
+    end = text(im, post["editorial"][2], 78, 235, 84, 930, color="#FAFAF4", max_lines=3)
+    x = 79
+    if reference:
+        key, focus = refs(reference, "=")[0]
+        base = max(565, end+60)
+        phone(im, key, 789, base, 339, 1195-base, focus)
+        width = 495
+        y = max(620,end+80)
+    else:
+        width = 913
+        y = max(615,end+110)
+    y = text(im, "In arrivo su iPhone e Android.", x, y, 45, width, color=MINT, max_lines=2)
+    y = text(im, "Iscriviti alla lista d’attesa.", x, y+25, 42, width, color="#F6F8F2", max_lines=2)
+    text(im, cta, x, y+29, 38, width, color=AMBER, max_lines=1)
+    if post["id"] == 4:
+        text(im, "Per i soldi ricevuti, scegli «Entrata».", 79, 1128, 30, 480, color=MINT, max_lines=2)
+    if post["id"] in {7, 13, 21}:
+        text(im, "4,99 € una volta sola\nPrezzo di lancio previsto", 79, 1046, 31, 490, color=MINT, max_lines=2)
+    if reference:
+        text(im, "Dati di esempio", 79, 1250, 24, 410, color=MINT, bold=False, max_lines=1)
     return im
 
 
 def load_posts():
+    editorials = {}
+    for line in (HERE / "editoriale.txt").read_text().splitlines():
+        if line and not line.startswith("#"):
+            number, *copy = line.split("|")
+            editorials[int(number)] = copy
     posts = []
     for line in (HERE / "scalette.txt").read_text().splitlines():
         if line.startswith("@"):
             number, title, lead, tiktok, visual, tags = line.lstrip("@").split("|")
-            posts.append(dict(id=int(number), title=title, lead=lead, tiktok=tiktok, visual=visual, tags=tags.split(), slides=[]))
+            posts.append(dict(id=int(number), title=title, lead=lead, tiktok=tiktok, visual=visual, tags=tags.split(), slides=[], editorial=editorials[int(number)]))
         elif line:
             posts[-1]["slides"].append(line.split("|"))
     return posts
@@ -418,7 +435,9 @@ def write_instructions(post, count):
     if tags.count("#") < 5:
         tags += " #gestionedenaro"
     assert tags.count("#") in (5, 6)
-    takeaways = " ".join(slide[1] for slide in post["slides"][:2])
+    _, hook, payoff, caption = post["editorial"]
+    takeaways = f"{hook} {caption} {payoff}"
+    price = " Prezzo di lancio previsto: 4,99 € una volta sola." if post["id"] in {7, 13, 21} else ""
     content = f"""POST {post['id']:02} — {post['title']}
 
 DATA E ORARI (Europe/Rome)
@@ -434,18 +453,18 @@ Confronto TikTok: {SOURCES[2]}
 TIKTOK — FOTO / CAROSELLO
 Apri Da postare → post-{post['id']} → TikTok. Salva e seleziona le foto da 01.png a {count:02}.png, in quest’ordine. Verifica le miniature, mantieni le proporzioni e usa la slide 01 come copertina.
 Titolo da copiare:
-{post['tiktok']}
+{post['editorial'][0]}
 
 Descrizione e hashtag da copiare:
-{post['lead']} {takeaways}
+{takeaways}{price}
 In arrivo su iPhone e Android. Iscriviti alla lista d’attesa su bucktrailapp.com.
 {tags}
 
 INSTAGRAM — POST / CAROSELLO
 Apri Da postare → post-{post['id']} → Instagram. Salva e seleziona da 01.png a {count:02}.png. Mantieni il 4:5 e verifica che il titolo della prima slide sia leggibile nel ritaglio profilo. Usa la slide 01 come copertina.
 Descrizione e hashtag da copiare:
-{post['title']}
-{takeaways}
+{post['editorial'][0]}
+{takeaways}{price}
 In arrivo su iPhone e Android. Iscriviti alla lista d’attesa dal link in bio.
 {tags}
 
@@ -456,6 +475,7 @@ Controlla ordine, ritaglio, descrizione e link del profilo. Registra piattaforma
 
 
 def main():
+    global PAPER, INK, GREEN, SOFT, DARK, GLOW
     phones = load_phones()
     supported = 0
     total = 0
@@ -463,19 +483,21 @@ def main():
         out = CLIPS / f"post-{post['id']}/pronto"
         out.mkdir(parents=True, exist_ok=True)
         count = len(post["slides"]) + 2
-        label = "BUCKTRAIL  /  GUIDA" if post["title"].startswith("Guida:") else "BUCKTRAIL"
+        label = f"BUCKTRAIL  /  {post['title'].upper()}" if post["title"].startswith("Guida:") else "BUCKTRAIL"
         key = post["id"]
+        palette = PALETTES[(key-3)//3]
+        PAPER, INK, GREEN, SOFT, DARK, GLOW = palette
         reference = lambda number: phones.get((key, number))
-        opener(post, label, count, reference(1)).save(out / "slide-01.png", optimize=True)
+        opener(post, label, count, reference(1), palette).save(out / "slide-01.png", optimize=True)
         shown = int(bool(reference(1)) or not post["visual"].startswith("="))
         for i, (title, body, visual) in enumerate(post["slides"], 2):
             if not reference(i) and visual.startswith(("=", "+", ":")):
                 next_visual = post["slides"][i - 1][2] if i < count - 1 else "="
                 assert reference(i + 1) or not next_visual.startswith(("=", "+", ":")), (key, i)
-            body_slide(label, i, count, title, body, visual, reference(i)).save(out / f"slide-{i:02}.png", optimize=True)
+            body_slide(post, label, i, count, title, body, visual, reference(i), palette).save(out / f"slide-{i:02}.png", optimize=True)
             shown += int(bool(reference(i)) or not visual.startswith(("=", "+", ":")))
         for channel in ("Instagram", "TikTok"):
-            closer(post, label, count, channel, reference(count)).save(out / f"slide-{count:02}-{channel.lower()}.png", optimize=True)
+            closer(post, label, count, channel, reference(count), palette).save(out / f"slide-{count:02}-{channel.lower()}.png", optimize=True)
         shown += int(bool(reference(count)))
         write_instructions(post, count)
         supported += shown

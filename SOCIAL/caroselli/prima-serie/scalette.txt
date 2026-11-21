@@ -46,9 +46,9 @@ Controlla quanto hai messo da parte|Dopo 3 mesi, aggiorni tu l’importo accanto
 Crea un comando rapido|Apri Comandi Rapidi e tocca il + per iniziare.|=COMANDI RAPIDI~Tocca + per creare un comando
 Aggiungi l’azione Bucktrail|Cerca Bucktrail, scegli «Aggiungi spesa» e salva con un nome riconoscibile.|=AZIONE~Bucktrail · Aggiungi spesa;NOME DEL COMANDO~Aggiungi spesa
 Trova il gesto|Apri Impostazioni e segui questo percorso.|=IMPOSTAZIONI~Accessibilità → Tocco → Tocco posteriore
-Assegna il comando|Apri «Tocco doppio» e scegli il comando appena creato.|=TOCCO DOPPIO~Seleziona «Aggiungi spesa»
+Assegna il comando|Apri «Tocco doppio». Scorri fino ai comandi rapidi e scegli quello che hai appena creato.|=TOCCO DOPPIO~Seleziona «Aggiungi spesa»
 Prova con una spesa|Tocca due volte il retro. Inserisci «Caffè e cornetto» e 3,20 € nei campi che si aprono.|shortcuts:prompt
-Ritrovala in Movimenti|Cerca quello che hai appena registrato.|=MOVIMENTI~Caffè e cornetto · −3,20 €
+Ritrovala in Movimenti|Apri Movimenti e cerca la nuova voce per nome. Una spesa già salvata compare nella lista.|=CERCA PER NOME~Caffè e cornetto
 @13|Guida: PIANIFICA|Budget e obiettivi, ognuno al suo posto.|Pianifica: dove stanno budget e obiettivi|budget|pianificazionefinanziaria budgetmensile obiettivi
 Due schede, due compiti|Usa il selettore in alto per passare da Budget a Obiettivi.|budget:top
 Leggi i tuoi budget|Ogni scheda mostra spesa, limite e quanto rimane.|budget:list

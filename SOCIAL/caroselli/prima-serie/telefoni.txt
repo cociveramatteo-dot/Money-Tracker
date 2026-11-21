@@ -24,9 +24,6 @@
 11:3|goal-editor:top|Modulo Nuovo obiettivo
 11:4|goals:list|Scheda e avanzamento
 11:5|goals:top|Ritrova il traguardo in Obiettivi
-12:2|settings-shortcuts:shortcut|Accesso a Comandi Rapidi
-12:3|settings-shortcuts:shortcut|Sezione Siri e Shortcut
-12:4|settings-shortcuts:shortcut|Bucktrail indica il percorso
 12:7|mov:daily|Dove ritrovare una spesa
 12:8|shortcuts:prompt|Il comando chiede la descrizione
 13:5|budget:bottom+goals:bottom|Il pulsante + delle due schede
@@ -51,3 +48,5 @@
 21:2|budget:list|Esempio di schede budget
 21:3|goals:list|Esempio di schede obiettivo
 21:5|budget:top+goals:top|I due pannelli di Pianifica
+12:3|shortcuts:prompt|Anteprima del comando
+12:5|shortcuts:prompt|Anteprima del comando

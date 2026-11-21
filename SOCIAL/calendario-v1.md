@@ -162,7 +162,11 @@ Android e collegamento bancario hanno contenuti dedicati quando le rispettive fu
 
 ## Consegna prima serie
 
-I Post-3–22 sono in Google Drive → «Da postare», con cartelle Instagram e TikTok e LEGGIMI separati per post. La serie comprende 121 slide per piattaforma, di cui 102 con inquadrature di Bucktrail (84,3%). La revisione del 21/11 mostra i campi, i tocchi e i risultati nelle schermate. Gli schemi autonomi sono seguiti da una schermata dell’app. Sono state riviste visivamente tutte le slide e le due chiusure per post, riprendendo i primi due caroselli come riferimento. Le catture della build provengono dal simulatore quando necessarie. I dati inventati e i passaggi illustrati in grafica sono dichiarati nelle slide. Per Post-12, il gesto fisico è spiegato con schema e schermata del comando; la prova su iPhone fisico resta da fare prima della pubblicazione.
+I Post-3–22 sono in Google Drive → «Da postare», con cartelle Instagram e TikTok e LEGGIMI separati per post. La serie ha 121 slide per piattaforma, di cui 101 con schermate reali di Bucktrail (83,5%). La revisione del 21/11 riprende il telefono intero e il telefono dal bordo inferiore del Post-1, alternati alle grafiche esplicative del Post-2 quando servono. Le aperture partono da situazioni quotidiane e le chiusure portano alla lista d’attesa. I Post-7, 13 e 21 includono il pagamento una tantum con prezzo di lancio previsto.
+
+Palette della serie: verde salvia per 3–5, blu per 6–8, terracotta per 9–11, prugna per 12–14, petrolio per 15–17, ocra per 18–20 e rosa polvere per 21–23. Post-23 completa il gruppo nel secondo lotto.
+
+Post-12 illustra il percorso iOS con schemi e mostra un’anteprima reale di «Aggiungi spesa». La prova su iPhone fisico resta da fare prima della pubblicazione. [Apple – Usare Tocco posteriore su iPhone](https://support.apple.com/it-it/111772)
 
 ## Orari di partenza · Europe/Rome
 
