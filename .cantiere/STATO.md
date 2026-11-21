@@ -8,5 +8,6 @@ S-41: competenza mensile delle spese fisse singole in Home, implementata e verif
 S-42: annullamento eliminazione serie e layout Ultimi movimenti verificati in modalità demo su iPhone 18 Pro.
 SC-4c: landing pubblicata e verificata su bucktrailapp.com in italiano e inglese. SC-3c: testi approvati, bio aggiornate da Matteo, messaggio fissato per i prossimi post. Matteo conferma anche post fissato e banner YouTube aggiornati; email di lancio rimandata.
 SC-9: Post-3–42 in Drive. Post-23–42 esportati e verificati, 103 slide con Bucktrail su 120. I LEGGIMI di Post-39 e 41 segnalano le verifiche prima della pubblicazione.
-Android: avvio autorizzato. Checkpoint richiesto prima della creazione del progetto; JDK e strumenti SDK scaricati in /tmp.
+Android: primo progetto Kotlin/Compose in 03_CODICE/bucktrail-android. APK compilata e provata offline sull’emulatore Bucktrail_API_36. Prossimo: login e sync Supabase di test, poi parità con iOS.
 Banca: confronto fornitori e prova di importazione da avviare.
+Social: calendario e pubblicazione gestiti direttamente da Matteo.

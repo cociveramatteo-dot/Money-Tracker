@@ -28,10 +28,6 @@ Task SC-6 (progetto SOCIAL). Crea SOCIAL/diario-metriche.csv con intestazioni (u
 ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi: `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt`/`README.txt` di Inter e Space Grotesk) sono facoltative.
 ↩️ Scrivi «notebook ok».
 
-### SOCIAL · SC-0 — concorda la partenza dei post
-📍 Qui in chat, con `SOCIAL/calendario-v1.md`.
-▶️ Apri su Drive «Da postare». I Post-3–42 sono pronti e hanno un LEGGIMI per ciascun pacchetto. Scrivi qui la data di partenza per fissare il calendario. I Post-39 e 41 sono segnalati in revisione.
-
 ### SOCIAL · SC-2 — archivio schermate dell’app
 📍 Sul Mac, Finder → Vai → Vai alla cartella e incolla:
 ```text

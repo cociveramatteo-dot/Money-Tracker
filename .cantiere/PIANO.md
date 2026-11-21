@@ -184,7 +184,7 @@ il task e i file indicati.
 Leggere `SOCIAL/direttive-social.md` prima di ogni lavoro social.
 
 ### SC-0 [x] Calendario approvato in blocco da Matteo il 2026-11-20, a condizione di coprire tutta l’app. Post-3–42, con mappa di copertura. Post-12 approvato in otto slide. Restano produzione e date effettive.
-### SC-9 [~] Post-3–42 prodotti per Instagram e TikTok e verificati in Drive «Da postare». Seconda metà: 120 slide per canale, 103 con catture reali, 260 file. Post-39 e 41 in revisione prima della pubblicazione. Riscontro di Matteo e conferma date.
+### SC-9 [~] Post-3–42 prodotti per Instagram e TikTok e verificati in Drive «Da postare». Seconda metà: 120 slide per canale, 103 con catture reali, 260 file. Post-39 e 41 in revisione prima della pubblicazione. Calendario e pubblicazione gestiti direttamente da Matteo.
 
 ### SC-8 [~] Direttive unificate, archivio schermate, indice guide, revisione visiva post 1 e 2 e riordino locale · pronto per verifica di Matteo.
 ### SC-1 [x] chiuso 2026-11-18 14:30 (Matteo: bio, link con UTM, foto su IG/TikTok/YouTube, banner YouTube v1; resta solo il nome TikTok dal 24/11). Account social creati 2026-11-17 (Gmail, IG Creator+2FA, TikTok personale+2FA, YouTube; @bucktrailapp). Restano: bio e foto su IG/TikTok, foto e descrizione YouTube, nome TikTok il 24/11 (Matteo): vedi PER-MATTEO. **Apple Developer Program NON pagato per scelta di Matteo (2026-11-17):** prima si cerca un segnale di interesse sui social; link in bio = landing con email (waitlist), non pre-order.
@@ -429,5 +429,6 @@ Modello di task:
 
 ## Proposte prodotto · Android e collegamento bancario
 
-- [ ] **Android con parità iOS.** Avvio autorizzato da Matteo e differito al completamento del checkpoint. JDK 17 e strumenti SDK scaricati in /tmp. Configurare la toolchain per VS Code e creare Android in Kotlin/Compose mantenendo iOS SwiftUI. Prima prova su Supabase di test: stesso profilo, creazione offline e aggiornamento dall’altro dispositivo senza duplicati. Fissare la build iOS di riferimento e una checklist comune di schermate, calcoli, sincronizzazione, lingue e integrazioni di sistema.
+- [~] **Prima base Android.** Progetto Kotlin/Compose in `03_CODICE/bucktrail-android`, con Home, Conti e Movimenti, persistenza Room e modalità chiara/scura. JDK 17, SDK 36 ed emulatore configurati per VS Code. APK debug, lint, 2 test importi e prova di riapertura offline riusciti.
+- [ ] **Android con parità iOS.** Prossimo blocco: stesso profilo Supabase in ambiente di test, inserimento offline e verifica iPhone–Android senza duplicati. Fissare la build iOS di riferimento e una checklist comune per schermi, calcoli, lingue e integrazioni di sistema.
 - [ ] **Collegamento bancario facoltativo.** Proposta da confermare: prova di lettura con un fornitore AIS. Confrontare TrueLayer e Yapily per copertura reale, tipi di conto, disponibilità dei movimenti in attesa, frequenza, recupero dello storico, rinnovo del consenso, ruolo contrattuale e costo. Provare importazioni ripetute, recupero dopo interruzioni e associazione con movimenti manuali.
