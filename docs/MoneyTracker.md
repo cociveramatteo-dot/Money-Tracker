@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.22*
+*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.23*
 
 > **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
 
@@ -558,6 +558,12 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ## 10. Changelog
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
+
+### v3.23 (21 novembre 2026) — Prima build Android e pianificazione locale
+
+- Android usa Kotlin, Jetpack Compose e Room. Le prime schermate sono Home, Conti e Movimenti. La build debug si esegue con Gradle da VS Code e si collauda sull’emulatore `Bucktrail_API_36`.
+- I movimenti Android supportano data, pianificazione, modifica e registrazione come effettuati. Il saldo attuale include gli effettuati. La previsione di fine mese include i pianificati del solo mese corrente. La migrazione Room conserva conti e movimenti della prima build.
+- Android lavora sui dati locali. Il login e la sincronizzazione Supabase sono rinviati su indicazione di Matteo. Il calendario e la pubblicazione social li gestisce Matteo.
 
 ### v3.22 (21 novembre 2026) — Competenza mensile, stabilità iOS e piano multipiattaforma
 

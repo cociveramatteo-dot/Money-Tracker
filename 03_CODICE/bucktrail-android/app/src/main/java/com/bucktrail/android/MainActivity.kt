@@ -1,12 +1,14 @@
 package com.bucktrail.android
 
 import android.app.Application
+import android.app.DatePickerDialog
 import android.database.sqlite.SQLiteException
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -28,6 +30,9 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -36,12 +41,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.room.Room
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class BucktrailApplication : Application() {
     val ledger by lazy {
-        Room.databaseBuilder(applicationContext, BucktrailDatabase::class.java, "bucktrail.db").build().ledger()
+        Room.databaseBuilder(applicationContext, BucktrailDatabase::class.java, "bucktrail.db")
+            .addMigrations(migration1To2).build().ledger()
     }
 }
 
@@ -79,15 +93,38 @@ private val sentieroType = Typography(
 )
 
 private enum class Page(val label: String) { Home("Home"), Movements("Movimenti"), Accounts("Conti") }
+private enum class Editor { Account, NewMovement, EditMovement }
+private val entryDateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+
+private fun localDay(): Pair<LocalDate, ZoneId> {
+    val zone = ZoneId.systemDefault()
+    return LocalDate.now(zone) to zone
+}
 
 @Composable
 private fun Bucktrail(ledger: Ledger) {
-    val accounts by remember(ledger) { ledger.balances() }.collectAsStateWithLifecycle(emptyList())
-    val movements by remember(ledger) { ledger.movements() }.collectAsStateWithLifecycle(emptyList())
+    val entries by remember(ledger) { ledger.observe() }.collectAsStateWithLifecycle(emptyList())
+    val owner = LocalLifecycleOwner.current
+    val clock by produceState(localDay(), owner) {
+        owner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            while (true) {
+                value = localDay()
+                delay(30_000)
+            }
+        }
+    }
+    val (today, zone) = clock
+    val snapshot = remember(entries, today, zone) { summarize(entries, today, zone) }
+    val accounts = snapshot.accounts
     var page by rememberSaveable { mutableStateOf(Page.Home) }
-    var editing by rememberSaveable { mutableStateOf<String?>(null) }
+    var editing by rememberSaveable { mutableStateOf<Editor?>(null) }
+    var editingId by rememberSaveable { mutableStateOf<String?>(null) }
     var hidden by rememberSaveable { mutableStateOf(false) }
     val colors = MaterialTheme.colorScheme
+    val openMovement: (MovementLine) -> Unit = {
+        editingId = it.entry.id
+        editing = Editor.EditMovement
+    }
 
     Scaffold(
         containerColor = colors.background,
@@ -113,7 +150,7 @@ private fun Bucktrail(ledger: Ledger) {
         floatingActionButton = {
             val account = page == Page.Accounts || accounts.isEmpty()
             FloatingActionButton(
-                onClick = { editing = if (account) "account" else "movement" },
+                onClick = { editing = if (account) Editor.Account else Editor.NewMovement },
                 containerColor = colors.primary, contentColor = colors.onPrimary
             ) { Icon(Icons.Outlined.Add, if (account) "Aggiungi conto" else "Aggiungi movimento") }
         }
@@ -136,6 +173,13 @@ private fun Bucktrail(ledger: Ledger) {
                                 if (hidden) "•••• €" else euros(accounts.sumOf { it.cents }),
                                 style = MaterialTheme.typography.displaySmall
                             )
+                            if (snapshot.planned.any { it.date.year == today.year && it.date.month == today.month }) {
+                                Text(
+                                    "Saldo atteso a fine mese · " +
+                                        if (hidden) "•••• €" else euros(snapshot.expectedBalance),
+                                    color = Color(0xFFF2A65A)
+                                )
+                            }
                             TextButton(onClick = { hidden = !hidden }) {
                                 Text(if (hidden) "Mostra importi" else "Oscura importi", color = Color(0xFF5FD19B))
                             }
@@ -149,26 +193,52 @@ private fun Bucktrail(ledger: Ledger) {
                 items(accounts, key = { it.id }) { RowItem(it.name, null, it.cents, hidden) }
             }
             if (page == Page.Home) item { Text("Ultimi movimenti", style = MaterialTheme.typography.titleMedium) }
-            if (page != Page.Accounts) {
-                if (movements.isEmpty()) item { Text("I movimenti registrati compariranno qui.") }
-                items(if (page == Page.Home) movements.take(5) else movements, key = { it.id }) {
-                    RowItem(it.title, it.accountName, it.cents, hidden)
+            if (page == Page.Movements && snapshot.planned.isNotEmpty()) {
+                item { Text("In arrivo", style = MaterialTheme.typography.titleMedium) }
+                items(snapshot.planned, key = { it.entry.id }) { MovementRow(it, hidden, openMovement) }
+                if (snapshot.booked.isNotEmpty()) item {
+                    Text("Effettuati", style = MaterialTheme.typography.titleMedium)
                 }
+            }
+            if (page != Page.Accounts) {
+                if (snapshot.booked.isEmpty() && (page == Page.Home || snapshot.planned.isEmpty()))
+                    item { Text("I movimenti effettuati compariranno qui.") }
+                val visible = if (page == Page.Home) snapshot.booked.take(5) else snapshot.booked
+                items(visible, key = { it.entry.id }) { MovementRow(it, hidden, openMovement) }
             }
         }
     }
     editing?.let { kind ->
-        EntryDialog(kind == "account", accounts, close = { editing = null }) { name, cents, accountId ->
-            if (kind == "account") ledger.insert(Account(name = name, openingCents = cents))
-            else ledger.insert(Movement(accountId = checkNotNull(accountId), title = name, cents = cents))
+        val original = if (kind == Editor.EditMovement)
+            (snapshot.booked + snapshot.planned).firstOrNull { it.entry.id == editingId }
+        else null
+        if (kind != Editor.EditMovement || original != null) {
+            EntryDialog(kind == Editor.Account, accounts, original, today, close = { editing = null }) { name, cents, accountId, date, planned ->
+                if (kind == Editor.Account) ledger.insert(Account(name = name, openingCents = cents))
+                else {
+                    val movement = (original?.entry ?: Movement(accountId = checkNotNull(accountId), title = name, cents = cents))
+                        .copy(accountId = checkNotNull(accountId), title = name, cents = cents, entryDay = date.toEpochDay(), planned = planned)
+                    if (original == null) ledger.insert(movement) else ledger.update(movement)
+                }
+            }
         }
     }
 }
 
 @Composable
-private fun RowItem(title: String, detail: String?, cents: Long, hidden: Boolean) {
+private fun MovementRow(row: MovementLine, hidden: Boolean, open: (MovementLine) -> Unit) {
+    RowItem(
+        row.entry.title, "${row.accountName} · ${row.date.format(entryDateFormat)}", row.entry.cents, hidden,
+        planned = row.planned, onClick = { open(row) }
+    )
+}
+
+@Composable
+private fun RowItem(title: String, detail: String?, cents: Long, hidden: Boolean,
+                    planned: Boolean = false, onClick: (() -> Unit)? = null) {
     val colors = MaterialTheme.colorScheme
-    Card(colors = CardDefaults.cardColors(containerColor = colors.surface)) {
+    val rowModifier = if (onClick == null) Modifier else Modifier.clickable(onClick = onClick)
+    Card(modifier = rowModifier, colors = CardDefaults.cardColors(containerColor = colors.surface)) {
         Row(Modifier.fillMaxWidth().padding(14.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Column(Modifier.weight(1f)) {
                 Text(title)
@@ -178,6 +248,7 @@ private fun RowItem(title: String, detail: String?, cents: Long, hidden: Boolean
                 if (hidden) "•••• €" else euros(cents),
                 color = when {
                     hidden || detail == null -> colors.onSurface
+                    planned -> if (isSystemInDarkTheme()) Color(0xFFF2A65A) else Color(0xFF8A4A0C)
                     cents < 0 -> colors.error
                     else -> colors.primary
                 }
@@ -187,15 +258,21 @@ private fun RowItem(title: String, detail: String?, cents: Long, hidden: Boolean
 }
 
 @Composable
-private fun EntryDialog(account: Boolean, accounts: List<AccountBalance>, close: () -> Unit,
-                        save: suspend (String, Long, String?) -> Unit) {
-    var name by rememberSaveable { mutableStateOf("") }
-    var raw by rememberSaveable { mutableStateOf("") }
-    var income by rememberSaveable { mutableStateOf(false) }
-    var chosenId by rememberSaveable { mutableStateOf<String?>(null) }
+private fun EntryDialog(account: Boolean, accounts: List<AccountBalance>, original: MovementLine?,
+                        today: LocalDate, close: () -> Unit,
+                        save: suspend (String, Long, String?, LocalDate, Boolean) -> Unit) {
+    var name by rememberSaveable { mutableStateOf(original?.entry?.title.orEmpty()) }
+    var raw by rememberSaveable {
+        mutableStateOf(original?.entry?.let { BigDecimal.valueOf(it.cents, 2).abs().toPlainString().replace('.', ',') }.orEmpty())
+    }
+    var income by rememberSaveable { mutableStateOf((original?.entry?.cents ?: 0) > 0) }
+    var chosenId by rememberSaveable { mutableStateOf(original?.entry?.accountId) }
+    var date by rememberSaveable { mutableStateOf(original?.date ?: today) }
+    var planned by rememberSaveable { mutableStateOf(original?.entry?.planned ?: false) }
     var saving by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
     val chosen = accounts.firstOrNull { it.id == chosenId } ?: accounts.firstOrNull()
     val value = if (account && raw.isBlank()) 0L else parseCents(raw)
     val valid = value != null && (account || (value > 0 && chosen != null))
@@ -204,7 +281,7 @@ private fun EntryDialog(account: Boolean, accounts: List<AccountBalance>, close:
         onDismissRequest = { if (!saving) close() },
         modifier = Modifier.systemBarsPadding().imePadding(),
         properties = DialogProperties(decorFitsSystemWindows = false),
-        title = { Text(if (account) "Nuovo conto" else "Nuovo movimento") },
+        title = { Text(if (account) "Nuovo conto" else if (original == null) "Nuovo movimento" else "Modifica movimento") },
         text = {
             LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (!account) item {
@@ -226,6 +303,20 @@ private fun EntryDialog(account: Boolean, accounts: List<AccountBalance>, close:
                         } else null,
                         label = { Text(if (account) "Saldo iniziale (€)" else "Importo (€)") })
                 }
+                if (!account) item {
+                    TextButton(onClick = {
+                        DatePickerDialog(context, { _, year, month, day ->
+                            date = LocalDate.of(year, month + 1, day)
+                        }, date.year, date.monthValue - 1, date.dayOfMonth).show()
+                    }) { Text("Data · ${date.format(entryDateFormat)}") }
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text("Pianificato")
+                        Switch(checked = planned || date > today, enabled = date <= today && !saving,
+                            modifier = Modifier.semantics { contentDescription = "Pianificato" },
+                            onCheckedChange = { planned = it })
+                    }
+                    if (date > today) Text("Le date future restano tra i movimenti pianificati.")
+                }
                 if (!account) items(accounts, key = { it.id }) {
                     FilterChip(selected = chosen?.id == it.id, onClick = { chosenId = it.id }, label = { Text(it.name) })
                 }
@@ -240,7 +331,7 @@ private fun EntryDialog(account: Boolean, accounts: List<AccountBalance>, close:
                 saving = true
                 scope.launch {
                     try {
-                        save(name.trim(), if (account || income) cents else -cents, chosen?.id)
+                        save(name.trim(), if (account || income) cents else -cents, chosen?.id, date, planned || date > today)
                         close()
                     } catch (_: SQLiteException) {
                         failed = true

@@ -21,4 +21,6 @@ Quando compare la schermata iniziale di Android, esegui `./gradlew installDebug`
 
 Prima prova con dati fittizi in modalità aereo: crea un conto da 100 €, aggiungi un’uscita da 24,50 € e un’entrata da 5 €. La Home deve mostrare 80,50 €. Chiudi e riapri Bucktrail per verificare che conto e movimenti siano ancora presenti.
 
-Questa prima versione include Home, Movimenti, Conti e salvataggio locale. L’identificatore `com.bucktrail.android` è provvisorio. La parità con iOS e la sincronizzazione Supabase sono i passi successivi. Per lo stato del progetto vedi `../../.cantiere/PIANO.md`.
+Per una spesa futura, scegli la data nel modulo del movimento. Le date future restano pianificate. Ritrovi la voce sotto **Movimenti → In arrivo** e puoi toccarla per modificarla. Alla data della spesa puoi disattivare **Pianificato** per registrarla come effettuata. Il saldo attuale include gli effettuati. Il saldo atteso di fine mese tiene anche conto dei pianificati di quel mese.
+
+Questa versione include Home, Movimenti, Conti e salvataggio locale. L’identificatore `com.bucktrail.android` è provvisorio. La parità con iOS prosegue dai flussi locali. Per lo stato del progetto vedi `../../.cantiere/PIANO.md`.

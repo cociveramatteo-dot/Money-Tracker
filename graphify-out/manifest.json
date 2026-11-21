@@ -530,8 +530,8 @@
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795251189.9455726,
-    "ast_hash": "c7b7166c26d04f9c23c86bdd848d75a7",
+    "mtime": 1795252689.836802,
+    "ast_hash": "799c8de6cf2939564a578cfd72300578",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
@@ -540,8 +540,8 @@
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795251189.9453382,
-    "ast_hash": "0c82838769b8aacf12c12482ed457614",
+    "mtime": 1795252689.8367338,
+    "ast_hash": "4303b5cf9fa8126cfbeacc3f39df3e06",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -560,8 +560,8 @@
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795251189.9441526,
-    "ast_hash": "e05578c317c663baf874fd6e6dca8597",
+    "mtime": 1795252689.836425,
+    "ast_hash": "1560b5cd1c02080068b436839749d6bc",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795252210.3619373,
-    "ast_hash": "fa7c83fdd0762bf8960f8050523ed1a0",
+    "mtime": 1795252830.7591116,
+    "ast_hash": "9a45f07b0c225a598849f03ac0e1d1bb",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -1185,13 +1185,13 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/Ledger.kt": {
-    "mtime": 1795251925.701272,
-    "ast_hash": "c9093d26b062455971234657de8325b4",
+    "mtime": 1795252865.5068073,
+    "ast_hash": "8bd7654e03dc1aa1e9bab7808d1c5b6a",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/MainActivity.kt": {
-    "mtime": 1795252558.6292934,
-    "ast_hash": "2bc423efd24f4ef72df45bbe37a00402",
+    "mtime": 1795253155.135055,
+    "ast_hash": "2a61195207fd092072ae45a021666a80",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/AmountsTest.kt": {
@@ -1210,18 +1210,28 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/README.md": {
-    "mtime": 1795252490.5643904,
-    "ast_hash": "1744a79bdf3769b6a7597b49c3181104",
+    "mtime": 1795253054.1689124,
+    "ast_hash": "f27f6525defa910f5616cd630a4b47f2",
     "semantic_hash": ""
   },
-  "03_CODICE/bucktrail-android/app/licenses/OFL-Inter.txt": {
-    "mtime": 1795252147.1009555,
-    "ast_hash": "09ed978d55339d326caa5e1495a6feb2",
+  "03_CODICE/bucktrail-android/app/schemas/com.bucktrail.android.BucktrailDatabase/2.json": {
+    "mtime": 1795252963.6368673,
+    "ast_hash": "0aa8cabc3140ee7fdee96e95db4cb2af",
     "semantic_hash": ""
   },
-  "03_CODICE/bucktrail-android/app/licenses/OFL-SpaceGrotesk.txt": {
-    "mtime": 1795252147.1012866,
-    "ast_hash": "46244c88f5c8dc59711305e032cacb56",
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/LedgerDatesTest.kt": {
+    "mtime": 1795252937.105219,
+    "ast_hash": "29b13137e4cda4ff7a820e2779b9bf75",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/assets/licenses/OFL-Inter.txt": {
+    "mtime": 1795252723.8346918,
+    "ast_hash": "43030b10594e5d6aaba330d9a35382fc",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/assets/licenses/OFL-SpaceGrotesk.txt": {
+    "mtime": 1795252723.8341572,
+    "ast_hash": "0891f7454b828fedaf3652f2d08986fc",
     "semantic_hash": ""
   }
 }

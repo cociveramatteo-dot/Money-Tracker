@@ -430,5 +430,7 @@ Modello di task:
 ## Proposte prodotto · Android e collegamento bancario
 
 - [~] **Prima base Android.** Progetto Kotlin/Compose in `03_CODICE/bucktrail-android`, con Home, Conti e Movimenti, persistenza Room e modalità chiara/scura. JDK 17, SDK 36 ed emulatore configurati per VS Code. APK debug, lint, 2 test importi e prova di riapertura offline riusciti.
-- [ ] **Android con parità iOS.** Prossimo blocco: stesso profilo Supabase in ambiente di test, inserimento offline e verifica iPhone–Android senza duplicati. Fissare la build iOS di riferimento e una checklist comune per schermi, calcoli, lingue e integrazioni di sistema.
+- [~] **Date, modifica e pianificazione Android.** Separati pianificati ed effettuati, con previsione limitata al mese di competenza. Migrazione Room verificata su emulatore.
+- [ ] **Parità locale Android con iOS.** Continuare da categorie e filtri di Movimenti. Poi trasferimenti, ricorrenze, Pianifica e Statistiche.
+- [ ] **Login e sincronizzazione Supabase su Android.** Rinviati su indicazione di Matteo. Alla ripresa usare un ambiente di test e verificare dati, profilo e duplicati su iOS e Android.
 - [ ] **Collegamento bancario facoltativo.** Proposta da confermare: prova di lettura con un fornitore AIS. Confrontare TrueLayer e Yapily per copertura reale, tipi di conto, disponibilità dei movimenti in attesa, frequenza, recupero dello storico, rinnovo del consenso, ruolo contrattuale e costo. Provare importazioni ripetute, recupero dopo interruzioni e associazione con movimenti manuali.
