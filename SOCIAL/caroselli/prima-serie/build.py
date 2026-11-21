@@ -12,62 +12,23 @@ FONTS = ROOT / "landing/fonts"
 CLIPS = ROOT / "clip-social"
 SCREENS = ROOT / "schermate-app/prima-serie"
 HERE = Path(__file__).parent
-# Carta, testo, accento, accento tenue, fondo scuro, luce.
+# Carta, testo, accento, tinta chiara, fondo scuro e due colori della sfumatura.
 PALETTES = (
-    ("#F4F3EB", "#14281F", "#27644D", "#DCEAE0", "#0C211B", "#205A45"),
-    ("#EFF2F7", "#192B43", "#315C83", "#DCE6F1", "#111F34", "#2D536F"),
-    ("#F8F0EC", "#412724", "#924634", "#F2DDD1", "#2B1917", "#784536"),
-    ("#F4F0F6", "#33253C", "#6B486E", "#E9DBEC", "#271D32", "#573B62"),
-    ("#F0F4F1", "#142D30", "#2A6470", "#DCEBE8", "#112529", "#28606D"),
-    ("#F7F3E8", "#352A19", "#795A24", "#EDE3C9", "#251E15", "#705522"),
-    ("#F3F0ED", "#2E2728", "#835467", "#EBDFE2", "#241B22", "#654155"),
+    ("#F6F6F2", "#12241C", "#21604A", "#E5EEE7", "#0E1311", "#0E3829", "#3C2611"),
+    ("#F0F4FF", "#17274A", "#264BA4", "#DCE7FD", "#111933", "#285BC6", "#212A74"),
+    ("#FFF4ED", "#421E18", "#A23927", "#FADFCC", "#301919", "#A33D29", "#733025"),
+    ("#F8F2FF", "#362244", "#74459E", "#EEDFFA", "#25152F", "#7440A4", "#662950"),
+    ("#EEF9F5", "#122F2B", "#197163", "#D4EEE5", "#102A2B", "#007F79", "#244C73"),
+    ("#FFF8E9", "#392B15", "#81540D", "#F9E9C2", "#2A2016", "#906014", "#734023"),
+    ("#FFF1F5", "#42222F", "#984266", "#F9DEE9", "#311B2E", "#A9396E", "#602B54"),
+    ("#EDF7FA", "#173042", "#22687F", "#D8EDF4", "#142535", "#257E9E", "#233B74"),
 )
-PAPER, INK, GREEN, SOFT, DARK, GLOW = PALETTES[0]
+INK, ACCENT, SOFT = PALETTES[0][1:4]
 MUTED = "#45504C"
 MINT = "#E9F0E9"
-AMBER = "#FFDAAA"
+AMBER = "#FFC786"
 SIZE = (1080, 1350)
 
-
-# Limiti di ritaglio riferiti alle catture normalizzate (UI, non al mockup).
-CROPS = {
-    "top": (.13, .45), "hero": (.12, .50), "curve": (.20, .47),
-    "accounts": (.44, .66), "fixed": (.60, .85), "bottom": (.65, .95),
-    "recent": (.39, .77), "list": (.29, .77), "planned": (.20, .61),
-    "daily": (.44, .80), "filters": (.13, .37), "form": (.14, .62),
-    "chart": (.38, .64), "categories": (.65, .90), "prompt": (.08, .37),
-    "choice": (.174, .278), "currency": (.52, .66), "shortcut": (.66, .91),
-    "options": (.665, .956),
-}
-FOCUSED_CROPS = {
-    ("home", "top"): (.125, .20), ("home", "hero"): (.12, .515),
-    ("home", "curve"): (.196, .516), ("home", "accounts"): (.54, .69),
-    ("home", "fixed"): (.705, .84), ("home", "bottom"): (.70, .98),
-    ("recent", "recent"): (.418, .80),
-    ("mov", "planned"): (.357, .663), ("mov", "daily"): (.68, .80),
-    ("mov", "filters"): (.12, .351),
-    ("accounts", "hero"): (.115, .36), ("accounts", "list"): (.375, .79),
-    ("accounts", "bottom"): (.665, .98),
-    ("rules", "top"): (.122, .564), ("ruleedit", "top"): (.145, .385),
-    ("settings", "top"): (.245, .647),
-    ("budget", "top"): (.109, .282), ("budget", "list"): (.295, .775),
-    ("goals", "top"): (.11, .245), ("goals", "list"): (.247, .81),
-    ("stats", "hero"): (.113, .293),
-    ("expense-example", "form"): (.174, .56), ("expense-example", "top"): (.172, .51),
-    ("account-editor", "top"): (.65, .992), ("goal-editor", "top"): (.59, .99),
-    ("settings", "bottom"): (.699, .941), ("settings-lower", "list"): (.471, .833),
-    ("settings-shortcuts", "shortcut"): (.361, .605),
-    ("account-type", "form"): (.174, .553), ("account-wallet", "form"): (.228, .488),
-    ("goal-weekend", "form"): (.384, .663), ("transfer-form", "form"): (.394, .682),
-    ("goals-weekend", "list"): (.502, .684), ("accounts-wallet", "list"): (.35, .81),
-    ("goal-update", "form"): (.400, .665), ("goal-result", "list"): (.54, .691),
-    ("accounts-excluded", "list"): (.558, .663),
-    ("accounts-archived", "bottom"): (.508, .746),
-    ("recurrence-following", "top"): (.162, .423), ("recurrence-all", "top"): (.162, .423),
-    ("wallet-result", "list"): (.589, .725), ("transfer-list", "daily"): (.245, .553),
-    ("add-options", "form"): (.42, .96), ("budget", "bottom"): (.755, .979),
-    ("goals", "bottom"): (.755, .979),
-}
 
 FALLBACKS = {
     "home": CLIPS / "post-2/materiale/home-pulita.png",
@@ -131,15 +92,29 @@ def rounded(im, image, x, y, radius):
 
 @lru_cache
 def background(dark, palette):
-    paper, _, _, _, base, glow = palette
-    if not dark:
-        return Image.new("RGB", SIZE, paper)
+    paper, _, _, soft, base, upper, lower = palette
     canvas = Image.new("RGB", (108, 135))
-    start, end = ImageColor.getrgb(base), ImageColor.getrgb(glow)
-    for y in range(135):
-        for x in range(108):
-            fraction = max(0, 1 - (((x-98)/118)**2 + (y/138)**2)**.5)
-            canvas.putpixel((x, y), tuple(round(a+(b-a)*fraction) for a,b in zip(start,end)))
+    original = palette == PALETTES[0]
+    if original and not dark:
+        return Image.new("RGB", SIZE, paper)
+    start = ImageColor.getrgb(base if dark else paper)
+    first = ImageColor.getrgb(upper if dark else "#FFFFFF")
+    second = ImageColor.getrgb(lower if dark else soft)
+    for y in range(canvas.height):
+        for x in range(canvas.width):
+            if original:
+                top = max(0, 1 - (((x - 100) / 100) ** 2 + (y / 95) ** 2) ** .5)
+                bottom = max(0, 1 - ((x / 80) ** 2 + ((y - 135) / 75) ** 2) ** .5)
+            else:
+                top = max(0, 1 - (((x - 108) / 121) ** 2 + ((y - 3) / 112) ** 2)) ** 1.65
+                bottom = max(0, 1 - (((x - 2) / 118) ** 2 + ((y - 137) / 113) ** 2)) ** 2.1
+                if not dark:
+                    bottom *= .75
+            canvas.putpixel((x, y), tuple(
+                round(channel + (upper_channel - channel) * top +
+                      (lower_channel - channel) * bottom * (1 - top))
+                for channel, upper_channel, lower_channel in zip(start, first, second)
+            ))
     return canvas.resize(SIZE, Image.Resampling.BICUBIC)
 
 
@@ -170,9 +145,9 @@ def load_phones():
 
 
 def resolve_phone(asset):
-    key, crop = asset.split(":")
+    key, section = asset.split(":")
     if (SCREENS / f"{key}.png").is_file() or key in FALLBACKS:
-        return key, None if crop == "full" else crop
+        return key, section
     fallbacks = {
         "account-type": ("account-editor", "top"),
         "account-wallet": ("account-editor", "top"),
@@ -193,14 +168,8 @@ def resolve_phone(asset):
     return fallbacks[key]
 
 
-def phone(im, key, center, top, width, max_height, focus=None, *, peek=False):
-    shot = screen(key).copy()
-    if focus and focus != "full":
-        first, last = FOCUSED_CROPS.get((key, focus), CROPS.get(focus, (.15, .4)))
-        if not peek or last < .46:
-            draw = ImageDraw.Draw(shot)
-            draw.rounded_rectangle((27, round(first*shot.height), shot.width-27, round(last*shot.height)),
-                                   24, outline=GREEN, width=6)
+def phone(im, key, center, top, width, max_height, *, peek=False):
+    shot = screen(key)
     edge = max(9, width // 38)
     inner = min(width - edge*2, round((max_height-edge*2)*shot.width/shot.height))
     shot = shot.resize((inner, round(shot.height*inner/shot.width)), Image.Resampling.LANCZOS)
@@ -228,7 +197,7 @@ def panels(im, spec, x, y, width, max_height):
         d.rounded_rectangle((x, yy, x + width, yy + card_h), 27, fill=fill)
         compact = width < 460
         inset = 23 if compact else 35
-        text(im, label, x + inset, yy + 24, 24 if compact else 27, width - 2 * inset, color=GREEN, max_lines=1)
+        text(im, label, x + inset, yy + 24, 24 if compact else 27, width - 2 * inset, color=ACCENT, max_lines=1)
         numeric = bool(re.fullmatch(r"[+−-]?[0-9.,]+\s?[%€£]", value))
         size = (48 if numeric else 31) if compact else ((78 if len(entries) < 3 else 54) if numeric else (48 if len(value) < 24 else 38))
         max_lines = 2 if card_h < 160 else 3
@@ -237,7 +206,7 @@ def panels(im, spec, x, y, width, max_height):
 
 
 def brand(im, label, index, count, dark=False):
-    fill = "#E3EFE7" if dark else GREEN
+    fill = "#E3EFE7" if dark else ACCENT
     text(im, label, 144, 91, 27, 580, color=fill, max_lines=1)
     text(im, f"{index:02} / {count:02}", 873, 93, 24, 125, color=fill, max_lines=1)
     with Image.open(ROOT / "landing/assets/icon-192.png") as image:
@@ -252,15 +221,15 @@ def infographic(im, visual, y):
         for i, value in enumerate(values):
             top = y + 128 * i
             text(im, f"Mese {i + 1}", 98, top, 33, 280, max_lines=1)
-            text(im, f"{value} €", 809, top, 39, 175, color=GREEN, max_lines=1)
+            text(im, f"{value} €", 809, top, 39, 175, color=ACCENT, max_lines=1)
             draw.rounded_rectangle((98, top + 56, 983, top + 77), 11, fill=SOFT)
-            draw.rounded_rectangle((98, top + 56, 98 + round(885 * value / max(values)), top + 77), 11, fill=GREEN)
+            draw.rounded_rectangle((98, top + 56, 98 + round(885 * value / max(values)), top + 77), 11, fill=ACCENT)
     else:
         for i in range(12):
             x = 80 + (i % 4) * 233
             top = y + (i // 4) * 136
             draw.rounded_rectangle((x, top, x + 212, top + 116), 23, fill=SOFT)
-            text(im, f"MESE {i + 1:02}", x + 20, top + 17, 24, 171, color=GREEN, max_lines=1)
+            text(im, f"MESE {i + 1:02}", x + 20, top + 17, 24, 171, color=ACCENT, max_lines=1)
             text(im, "40 €", x + 20, top + 50, 43, 171, max_lines=1)
 
 
@@ -282,7 +251,7 @@ def diagram(im, visual, end):
         panels(im, visual, 79, y, 922, 1200-y)
     else:
         infographic(im, visual, y)
-    text(im, "Esempio illustrativo", 80, 1245, 25, 900, color=GREEN, bold=False, max_lines=1)
+    text(im, "Esempio illustrativo", 80, 1245, 25, 900, color=ACCENT, bold=False, max_lines=1)
 
 
 def body_slide(post, label, number, count, title, body, visual, reference, palette):
@@ -293,8 +262,6 @@ def body_slide(post, label, number, count, title, body, visual, reference, palet
     is_diagram = visual.startswith(("=", "+", ":"))
     centered = key_in_series in {(3, 3), (6, 5), (8, 3), (11, 4), (13, 4),
                                  (16, 4), (18, 4), (21, 4), (22, 5)} and not is_diagram
-    if centered or len(screens) > 1:
-        ImageDraw.Draw(im).rounded_rectangle((80, 496, 1000, 1229), 44, fill=SOFT)
     if not screens:
         end = text(im, title, 79, 184, 75, 920, max_lines=3)
         end = text(im, body, 80, end+34, 42, 900, color=MUTED, bold=False, max_lines=4)
@@ -308,21 +275,21 @@ def body_slide(post, label, number, count, title, body, visual, reference, palet
         end = text(im, title, 79, 184, 68, 920, max_lines=2)
         end = text(im, body, 80, end+32, 40, 900, color=MUTED, bold=False, max_lines=4)
         start = max(462, end+35)
-        for index, (key, focus) in enumerate(screens):
-            phone(im, key, 336+index*407, start, 300, 1215-start, focus)
+        for index, (key, _) in enumerate(screens):
+            phone(im, key, 336+index*407, start, 300, 1215-start)
     elif centered:
         end = text(im, title, 79, 184, 75, 920, max_lines=2)
         end = text(im, body, 80, end+34, 42, 900, color=MUTED, bold=False, max_lines=4)
         start = max(461, end+32)
-        key, focus = screens[0]
-        phone(im, key, 540, start, 450, 1215-start, focus)
+        key, _ = screens[0]
+        phone(im, key, 540, start, 450, 1215-start)
     elif peek_settings or (look == 2 and not is_diagram and mode_key in {"home", "stats", "accounts", "mov", "rules", "budget", "goals"} and screens[0][1] in {"top", "hero", "filters"}):
         end = text(im, title, 79, 184, 76, 920, max_lines=2)
         end = text(im, body, 80, end+34, 40, 900, color=MUTED, bold=False, max_lines=4)
         start = max(end+55, 559 if peek_settings else 600)
-        key, focus = screens[0]
-        phone(im, key, 540, start, 555, 1350, focus, peek=True)
-        text(im, "Dati di esempio", 80, start-43, 23, 320, color=GREEN, max_lines=1)
+        key, _ = screens[0]
+        phone(im, key, 540, start, 555, 1350, peek=True)
+        text(im, "Dati di esempio", 80, start-43, 23, 320, color=ACCENT, max_lines=1)
         return im
     else:
         right = look != 0
@@ -331,35 +298,40 @@ def body_slide(post, label, number, count, title, body, visual, reference, palet
         end = text(im, title, tx, 252, 69, 456, max_lines=4)
         end = text(im, body, tx, end+37, 39, 449, color=MUTED, bold=False, max_lines=7)
         start = 260 if look in (0,1) else 316
-        key, focus = screens[0]
-        phone(im, key, center, start, 400, 1200-start, focus)
+        key, _ = screens[0]
+        phone(im, key, center, start, 400, 1200-start)
         if is_diagram and visual.startswith("="):
             pos = max(end+44, 670)
             panels(im, visual, tx, pos, 430, 1205-pos)
         if key_in_series in {(12, 3), (12, 5)}:
-            text(im, "Anteprima del comando in azione", tx, 1109, 24, 430, color=GREEN, bold=False, max_lines=2)
+            text(im, "Anteprima del comando in azione", tx, 1109, 24, 430, color=ACCENT, bold=False, max_lines=2)
     legend = "Esempio illustrativo · schermate con dati dimostrativi" if is_diagram else "Dati di esempio"
-    text(im, legend, 80, 1250, 25, 920, color=GREEN, bold=False, max_lines=1)
+    text(im, legend, 80, 1250, 25, 920, color=ACCENT, bold=False, max_lines=1)
     return im
 
 
 def opener(post, label, count, reference, palette):
     im = frame(label, 1, count, palette, True)
     hero, hook, _, _ = post["editorial"]
-    key, focus = refs(reference, post["visual"]+(":full" if not post["visual"].startswith("=") else ""))[0]
+    key, _ = refs(reference, post["visual"]+(":full" if not post["visual"].startswith("=") else ""))[0]
     if post["id"] % 3 == 0:
-        end = text(im, hero, 78, 185, 92, 930, color="#FAFAF4", max_lines=3)
+        if post["id"] == 3:
+            head, tail = hero.split(", ", 1)
+            end = text(im, head + ",", 78, 185, 92, 930, color="#FAFAF4", max_lines=1)
+            end = text(im, tail, 78, end, 92, 930, color=AMBER, max_lines=1)
+        else:
+            end = text(im, hero, 78, 185, 92, 930, color="#FAFAF4", max_lines=3)
         end = text(im, hook, 80, end+33, 40, 900, color=MINT, bold=False, max_lines=4)
         y = max(665,end+68)
         text(im, "Scorri →", 80, y-53, 29, 500, color=AMBER, max_lines=1)
-        phone(im, key, 551, y, 547, 1300, focus, peek=True)
+        phone(im, key, 551, y, 547, 1300, peek=True)
     else:
         right = post["id"] % 3 == 1
         x = 79 if right else 547
         end = text(im, hero, x, 240, 80, 450, color="#FAFAF4", max_lines=5)
         end = text(im, hook, x, end+34, 38, 440, color=MINT, bold=False, max_lines=6)
         text(im, "Scorri →", x, end+51, 29, 410, color=AMBER, max_lines=1)
-        phone(im, key, 798 if right else 273, 260, 400, 912, focus)
+        phone(im, key, 798 if right else 273, 260, 400, 912)
     text(im, "Dati di esempio", 79, 1250, 24, 410, color=MINT, bold=False, max_lines=1)
     return im
 
@@ -370,9 +342,9 @@ def closer(post, label, count, channel, reference, palette):
     end = text(im, post["editorial"][2], 78, 235, 84, 930, color="#FAFAF4", max_lines=3)
     x = 79
     if reference:
-        key, focus = refs(reference, "=")[0]
+        key, _ = refs(reference, "=")[0]
         base = max(565, end+60)
-        phone(im, key, 789, base, 339, 1195-base, focus)
+        phone(im, key, 789, base, 339, 1195-base)
         width = 495
         y = max(620,end+80)
     else:
@@ -475,7 +447,7 @@ Controlla ordine, ritaglio, descrizione e link del profilo. Registra piattaforma
 
 
 def main():
-    global PAPER, INK, GREEN, SOFT, DARK, GLOW
+    global INK, ACCENT, SOFT
     phones = load_phones()
     supported = 0
     total = 0
@@ -485,8 +457,8 @@ def main():
         count = len(post["slides"]) + 2
         label = f"BUCKTRAIL  /  {post['title'].upper()}" if post["title"].startswith("Guida:") else "BUCKTRAIL"
         key = post["id"]
-        palette = PALETTES[(key-3)//3]
-        PAPER, INK, GREEN, SOFT, DARK, GLOW = palette
+        palette = PALETTES[(key-1)//3]
+        INK, ACCENT, SOFT = palette[1:4]
         reference = lambda number: phones.get((key, number))
         opener(post, label, count, reference(1), palette).save(out / "slide-01.png", optimize=True)
         shown = int(bool(reference(1)) or not post["visual"].startswith("="))

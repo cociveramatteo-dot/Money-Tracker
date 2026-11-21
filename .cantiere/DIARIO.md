@@ -183,3 +183,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-21 00:51 | modello | aggiornamento | Modello 2.5.0 → 2.5.1 | unire: AGENTS.md |
 | 2026-11-21 08:34 | impresa (Codex · GPT-6) | SC-9 | Sostituiti i 20 caroselli su Drive; 102/121 slide con schermate reali, verificati 262 file | Riscontro prima del secondo lotto |
 | 2026-11-21 08:51 | impresa (Codex · GPT-6) | SC-9 | Ridisegnati i Post-3–22 con telefoni verticali, palette a gruppi di tre e testi nuovi. Verificati 262 file su Drive | Riscontro sul primo lotto e prova fisica del Post-12 |
+| 2026-11-21 09:11 | impresa (Codex · GPT-6) | SC-9 | Rimossi tutti i contorni sulle UI. Palette 1–3 verde e ambra, poi variazioni ogni tre. 262 file verificati su Drive e macroargomenti riepilogati | Riscontro prima del secondo lotto; prova fisica Post-12 |

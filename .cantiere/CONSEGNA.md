@@ -1,13 +1,13 @@
-# CONSEGNA — Codex · 2026-11-21 08:51
+# CONSEGNA — Codex · 2026-11-21 09:11
 
 ## Fatto
 
-- SC-9. Ridisegnati i Post-3–22 e aggiornati i pacchetti Instagram e TikTok in Google Drive → «Da postare». 101 slide su 121 per piattaforma (83,5%) mostrano schermate reali di Bucktrail.
-- iPhone intero in verticale o dal bordo inferiore. Palette a gruppi di tre, composizioni alternate, schemi seguiti da una slide con l’app. Aperture, caption e benefici rivisti, chiusure verso la lista d’attesa e pagamento una tantum nei Post-7, 13 e 21.
-- Rivisti visivamente tutti i caroselli e le chiusure per canale. OCR su 141 PNG privo di etichette demo, 262 file verificati su Drive. Aggiornate le direttive permanenti e il calendario.
-- Le modifiche concorrenti in AGENTS.md e .cantiere/archivio/modello-base/AGENTS.md restano fuori dal commit.
+- Rimossi i riquadri e i contorni aggiunti nelle schermate dei Post-3–22. I telefoni mantengono l’inquadratura verticale o con ingresso dal basso.
+- Post-3 riporta la base verde e ambra su fondo scuro e l’avorio dei Post-1 e 2. Dai Post-4–6, nuove sfumature a gruppi di tre. I Post-23 e 24 completeranno il gruppo del Post-22.
+- Rivisti i finali locali dei Post-1 e 2, l’anteprima della griglia e i venti caroselli aggiornati. 101 slide su 121 mostrano Bucktrail. OCR su 141 PNG privo di etichette demo e 262 file verificati su Drive.
+- Direttive e calendario aggiornati. Riepilogati i macroargomenti. Le modifiche preesistenti in AGENTS.md e .cantiere/archivio/modello-base/AGENTS.md sono fuori dal commit.
 
 ## Aperto
 
-- Riscontro di Matteo sui Post-3–22 e date da fissare prima dei Post-23–42.
-- Post-12. Percorso iOS verificato con la guida Apple, prova del gesto su iPhone fisico da fare prima della pubblicazione.
+- Riscontro di Matteo sulla prima metà prima di produrre i Post-23–42.
+- Prova del gesto su iPhone fisico per il Post-12 prima della pubblicazione.

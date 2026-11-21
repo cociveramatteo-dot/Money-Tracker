@@ -58,10 +58,10 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 | Post-41 | Da definire | 1 | Tutorial | **Accedi e ritrova i tuoi dati** · Accesso, uscita e sincronizzazione. Indicare il percorso per gestire o eliminare il profilo con dati fittizi. Mostrare iPhone e Android solo dopo verifica su entrambi | Piano approvato; legato alla disponibilità e verifica delle piattaforme |
 | Post-42 | 07/01/2027 | 1 | Tutorial | **Esplora Bucktrail con dati di esempio** · Spiegare la modalità demo e come tornare ai propri dati usando testo e inquadrature senza il badge demo | Piano approvato; da produrre |
 
-### Post-3 · Dettaglio grafico approvato
+### Post-3 · Dettaglio grafico aggiornato
 
-- **Slide 2:** iPhone a metà con intestazione Bucktrail visibile. Scheda «Saldo attuale» a pieno contrasto, sezioni intorno leggermente attenuate e cornice verde sottile. «Dati di esempio» fuori dal telefono.
-- **Slide 3:** ritaglio ravvicinato della curva della Home per distinguere il tratto pieno da quello tratteggiato.
+- **Slide 2:** iPhone verticale con la Home e «Saldo attuale» visibile. La schermata resta pulita, con «Dati di esempio» fuori dal telefono.
+- **Slide 3:** iPhone intero con la curva della Home. Il testo fuori dal telefono spiega il tratto pieno e quello tratteggiato.
 
 ### Post-4 · Sequenza approvata
 
@@ -78,7 +78,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 2. Tre barre mostrano 160 €, 190 € e 175 €, con media mensile di 175 €.
 3. Grafica con spesa media e limite scelto di 150 €.
 4. Scheda del budget in Pianifica con categoria e limite in risalto.
-5. A metà mese, 90 € spesi e 60 € rimasti, evidenziati sulla barra.
+5. A metà mese, la barra e il testo mostrano 90 € spesi e 60 € rimasti.
 6. Invito a controllare il budget prima della prossima cena e a salvare il post.
 
 ### Post-6 · Sequenza approvata
@@ -96,7 +96,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 2. Tab Conti e pulsante + in risalto sul telefono intero.
 3. Due ritagli del modulo mostrano i due tipi selezionati.
 4. Nome e saldo affiancati: «Portafoglio» da 85 € e «Conto corrente» da 1.250 €.
-5. Lista Conti dopo il salvataggio, con entrambe le righe evidenziate.
+5. Lista Conti dopo il salvataggio, con entrambe le righe visibili.
 6. Invito a salvare il post, con due icone per portafoglio e banca.
 
 ### Post-8 · Sequenza approvata
@@ -119,7 +119,7 @@ Verifica visiva 20/11/2026 sui finali locali (post 1: copertina e tutte le slide
 ### Post-10 · Sequenza approvata
 
 1. Copertina «Lingua, valuta e tema. Come cambiarli.».
-2. Home intera con l’ingranaggio evidenziato.
+2. Home intera con l’ingranaggio visibile in alto.
 3. Cambio da italiano a inglese via «Lingua» e «Apri Impostazioni iOS». Indicare tutte e sette le lingue.
 4. Cambio del simbolo da € a £, mostrando che la cifra rimane uguale.
 5. Percorso iOS «Schermo e luminosità» e confronto della Home chiara e scura.
@@ -164,7 +164,7 @@ Android e collegamento bancario hanno contenuti dedicati quando le rispettive fu
 
 I Post-3–22 sono in Google Drive → «Da postare», con cartelle Instagram e TikTok e LEGGIMI separati per post. La serie ha 121 slide per piattaforma, di cui 101 con schermate reali di Bucktrail (83,5%). La revisione del 21/11 riprende il telefono intero e il telefono dal bordo inferiore del Post-1, alternati alle grafiche esplicative del Post-2 quando servono. Le aperture partono da situazioni quotidiane e le chiusure portano alla lista d’attesa. I Post-7, 13 e 21 includono il pagamento una tantum con prezzo di lancio previsto.
 
-Palette della serie: verde salvia per 3–5, blu per 6–8, terracotta per 9–11, prugna per 12–14, petrolio per 15–17, ocra per 18–20 e rosa polvere per 21–23. Post-23 completa il gruppo nel secondo lotto.
+Palette della griglia, a partire dai due post già pubblicati: verde e ambra su base scura e avorio per 1–3, blu cobalto per 4–6, terracotta per 7–9, prugna per 10–12, petrolio per 13–15, ocra per 16–18, lampone per 19–21 e azzurro minerale per 22–24. La revisione rimuove i contorni di evidenziazione da tutte le schermate dei Post-3–22. I Post-23 e 24 completeranno il gruppo azzurro.
 
 Post-12 illustra il percorso iOS con schemi e mostra un’anteprima reale di «Aggiungi spesa». La prova su iPhone fisico resta da fare prima della pubblicazione. [Apple – Usare Tocco posteriore su iPhone](https://support.apple.com/it-it/111772)
 
