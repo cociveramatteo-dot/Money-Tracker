@@ -166,6 +166,8 @@ I Post-3–22 sono in Google Drive → «Da postare», con cartelle Instagram e 
 
 Palette della griglia, a partire dai due post già pubblicati: verde e ambra su base scura e avorio per 1–3, blu cobalto per 4–6, terracotta per 7–9, prugna per 10–12, petrolio per 13–15, ocra per 16–18, lampone per 19–21 e azzurro minerale per 22–24. La revisione rimuove i contorni di evidenziazione da tutte le schermate dei Post-3–22. I Post-23 e 24 completeranno il gruppo azzurro.
 
+Ogni telefono dei Post-3–22 riprende il mockup iPhone del Post-2, con la stessa cornice, Dynamic Island e barra di stato. Vale anche per le slide con due schermate affiancate.
+
 Post-12 illustra il percorso iOS con schemi e mostra un’anteprima reale di «Aggiungi spesa». La prova su iPhone fisico resta da fare prima della pubblicazione. [Apple – Usare Tocco posteriore su iPhone](https://support.apple.com/it-it/111772)
 
 ## Orari di partenza · Europe/Rome

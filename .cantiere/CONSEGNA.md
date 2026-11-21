@@ -1,11 +1,10 @@
-# CONSEGNA — Codex · 2026-11-21 09:11
+# CONSEGNA — Codex · 2026-11-21 09:16
 
 ## Fatto
 
-- Rimossi i riquadri e i contorni aggiunti nelle schermate dei Post-3–22. I telefoni mantengono l’inquadratura verticale o con ingresso dal basso.
-- Post-3 riporta la base verde e ambra su fondo scuro e l’avorio dei Post-1 e 2. Dai Post-4–6, nuove sfumature a gruppi di tre. I Post-23 e 24 completeranno il gruppo del Post-22.
-- Rivisti i finali locali dei Post-1 e 2, l’anteprima della griglia e i venti caroselli aggiornati. 101 slide su 121 mostrano Bucktrail. OCR su 141 PNG privo di etichette demo e 262 file verificati su Drive.
-- Direttive e calendario aggiornati. Riepilogati i macroargomenti. Le modifiche preesistenti in AGENTS.md e .cantiere/archivio/modello-base/AGENTS.md sono fuori dal commit.
+- Post-3–22 aggiornati con lo stesso mockup iPhone del Post-2. Cornice nera sottile, Dynamic Island e barra di stato uniforme, anche nelle coppie di telefoni e nelle inquadrature dal basso.
+- Verificati visivamente gli export e controllati 141 PNG con OCR per il badge demo. Aggiornati e verificati 262 file nella cartella «Da postare» su Google Drive. Aggiornate direttive e calendario.
+- Le modifiche preesistenti in AGENTS.md e .cantiere/archivio/modello-base/AGENTS.md restano fuori dal commit.
 
 ## Aperto
 

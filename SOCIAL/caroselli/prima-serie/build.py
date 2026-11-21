@@ -28,6 +28,9 @@ MUTED = "#45504C"
 MINT = "#E9F0E9"
 AMBER = "#FFC786"
 SIZE = (1080, 1350)
+SCREEN_WIDTH = 780
+SCREEN_HEIGHT = 1620
+STATUS_Y = (20, 89)
 
 
 FALLBACKS = {
@@ -45,6 +48,7 @@ FALLBACKS = {
     "add-options": ROOT / "landing/assets/aggiungi.webp",
 }
 FIXED_TAB = {"home", "recent", "mov", "accounts", "rules", "goals", "stats", "budget", "accounts-wallet", "goals-weekend", "goal-result", "accounts-excluded", "accounts-archived", "wallet-result", "transfer-list"}
+DEMO_BANNER = FIXED_TAB | {"account-editor", "goal-editor", "settings"}
 
 
 @lru_cache
@@ -119,19 +123,34 @@ def background(dark, palette):
 
 
 @lru_cache
+def iphone_status_mask():
+    # Glifi ritagliati dalla schermata iPhone già approvata per il Post-2.
+    with Image.open(FALLBACKS["home"]) as source:
+        normalized = source.convert("L").resize((SCREEN_WIDTH, 1688), Image.Resampling.LANCZOS)
+    top, bottom = STATUS_Y
+    strip = normalized.crop((0, top, SCREEN_WIDTH, bottom))
+    return strip.point(lambda light: min(255, max(0, round((239 - light) * 255 / 231))))
+
+
+@lru_cache
 def screen(key):
     fresh = SCREENS / f"{key}.png"
     source = fresh if fresh.is_file() else FALLBACKS[key]
     with Image.open(source) as image:
-        shot = image.convert("RGB").resize((780, 1688), Image.Resampling.LANCZOS)
-    if key not in {"shortcuts", "add-options", "add", "expense-example", "transfer-form",
-                   "goal-weekend", "goal-update", "account-type", "account-wallet",
-                   "ruleedit", "recurrence-following", "recurrence-all"} and not source.stem.endswith("pulita"):
+        shot = image.convert("RGB").resize((SCREEN_WIDTH, 1688), Image.Resampling.LANCZOS)
+    if key in DEMO_BANNER and not source.stem.endswith("pulita"):
         draw = ImageDraw.Draw(shot)
-        for y in range(105, 207):
+        for y in range(112, 180):
             draw.line((220, y, 560, y), fill=shot.getpixel((18, y)))
     if key in FIXED_TAB:
-        shot = shot.crop((0, 0, 780, 1620))
+        shot = shot.crop((0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+    else:
+        shot = shot.resize((SCREEN_WIDTH, SCREEN_HEIGHT), Image.Resampling.LANCZOS)
+    top, bottom = STATUS_Y
+    draw = ImageDraw.Draw(shot)
+    for y in range(top, bottom):
+        draw.line((0, y, SCREEN_WIDTH - 1, y), fill=shot.getpixel((20, y)))
+    shot.paste("#080808", (0, top, SCREEN_WIDTH, bottom), iphone_status_mask())
     return shot
 
 
@@ -170,7 +189,7 @@ def resolve_phone(asset):
 
 def phone(im, key, center, top, width, max_height, *, peek=False):
     shot = screen(key)
-    edge = max(9, width // 38)
+    edge = max(5, min(width, round(max_height * .49)) // 52)
     inner = min(width - edge*2, round((max_height-edge*2)*shot.width/shot.height))
     shot = shot.resize((inner, round(shot.height*inner/shot.width)), Image.Resampling.LANCZOS)
     w, h = shot.width+edge*2, shot.height+edge*2
@@ -178,10 +197,13 @@ def phone(im, key, center, top, width, max_height, *, peek=False):
     assert 30 < x and x+w < 1050, (key, x, w)
     assert (top+h > 1350 if peek else top+h < 1245), (key, top, h, peek)
     layer = Image.new("L", im.size)
-    ImageDraw.Draw(layer).rounded_rectangle((x,top+14,x+w,top+h+14), w//8, fill=52)
-    im.paste("#0D1414", (0,0,*im.size), layer.filter(ImageFilter.GaussianBlur(24)))
-    ImageDraw.Draw(im).rounded_rectangle((x,top,x+w,top+h), w//8, fill="#111916", outline="#536360", width=2)
-    rounded(im, shot, x+edge, top+edge, w//8-edge)
+    radius = w // 8
+    ImageDraw.Draw(layer).rounded_rectangle((x, top+14, x+w, top+h+14), radius, fill=52)
+    im.paste("#070E0A", (0, 0, *im.size), layer.filter(ImageFilter.GaussianBlur(24)))
+    ImageDraw.Draw(im).rounded_rectangle(
+        (x, top, x+w, top+h), radius, fill="#090F0D", outline="#36433E", width=max(1, round(w / 260))
+    )
+    rounded(im, shot, x+edge, top+edge, radius-edge)
 
 
 def panels(im, spec, x, y, width, max_height):
