@@ -41,7 +41,7 @@ Totale 81 slide (v1: 38 post, circa 230 slide). Tutte con la stessa struttura: s
 
 ## Note di verifica
 
-- Schermate: catture nuove dal simulatore iPhone 17 (dati di esempio, chiaro e scuro, barra di stato uniformata a 9:41/5G/59%, badge demo rimosso) in `schermate-app/v2/`; dove serviva uno stato più complesso si riusano le catture reali della prima serie (`schermate-app/prima-serie/`, stessa pulizia). Resta qualche stringa «MoneyTracker» nel testo piccolo delle Impostazioni (Post-13, 14, 15): è il nome nell’app attuale.
+- Schermate: catture nuove dal simulatore iPhone 17 (dati di esempio, chiaro e scuro, barra di stato uniformata a 9:41/5G/59%, badge demo rimosso) in `schermate-app/v2/`; dove serviva uno stato più complesso si riusano le catture reali della prima serie (`schermate-app/prima-serie/`, stessa pulizia). Le righe con il vecchio nome «MoneyTracker» nelle Impostazioni sono coperte nelle catture. Revisione 23/11: tutte le 81 slide riviste a piena risoluzione e corrette.
 - Esempi numerici (media 175 €, 40 € × 12, 800 + 150, 500/300, picco 1.900 €, 48 €) sono dichiarati «Esempio illustrativo» nella slide; le schermate dichiarano «Dati di esempio». Nessun dato di utenti o prezzi inventati; il prezzo compare solo come «prezzo di lancio previsto 4,99 € una tantum» (Post-5 nella descrizione).
 - Post-15: il flusso iOS (Comandi → Tocco posteriore) è mostrato con schemi, non con catture di iOS; da provare su iPhone fisico prima di pubblicare. Tocco posteriore: iPhone 8 e successivi.
 - File: PNG finali in `clip-social/v2/Post-NN-slug/` (fuori da git) e in Drive «Da postare/Post-NN-slug/». Archivio v1: `archivio-v1/` e Drive «Da postare/_archivio-v1/».

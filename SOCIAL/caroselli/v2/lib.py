@@ -65,16 +65,36 @@ def screen(name):
     src = (SHOTS if kind == "v2" else LEGACY) / f"{key}.png"
     im = Image.open(src).convert("RGB")
     w, h = im.size
+    for box in REDACT.get(name, []):
+        _blank(im, box)
     if kind == "old":
         im = _clean_legacy(im)
     else:
-        _strip_banner(im)
+        _strip_banner(im, tight=key in TIGHT)
         im = _unify_status(im)
     im.save(out)
     return out
 
 
-def _strip_banner(im):
+TIGHT = {'g-after-0-light', 'stats-2-light', 'stats-2-dark', 'g-list-0-light'}
+TOP = [(0, 346, 1000, 425), (1000, 362, 1206, 425)]
+REDACT = {  # righe con il vecchio nome «MoneyTracker» (testo dell'app): coperte col colore di fondo
+    "v2/b2-settings-2-light": [(0, 2300, 1206, 2400)], "v2/b2-settings-2-dark": [(0, 2300, 1206, 2400)],
+    "v2/b2-settings-3-light": TOP, "v2/b2-settings-3-dark": TOP,
+    "v2/b2-settings-4-light": TOP, "v2/b2-settings-4-dark": TOP,
+    "old/settings-shortcuts": TOP,
+}
+
+
+def _blank(im, box):
+    x0, y0, x1, y1 = box
+    px = im.load()
+    d = ImageDraw.Draw(im)
+    for y in range(y0, y1):
+        d.line((x0, y, x1 - 1, y), fill=px[12, y])
+
+
+def _strip_banner(im, tight=False):
     """Cancella il capsula «MODALITÀ DEMO» (arancio, in alto al centro) copiando il colore di fondo a sinistra."""
     w, h = im.size
     px = im.load()
@@ -86,7 +106,9 @@ def _strip_banner(im):
                 xs.append(x); ys.append(y)
     if len(xs) < 30:
         return
-    x0, x1, y0, y1 = min(xs) - 34, max(xs) + 34, min(ys) - 30, max(ys) + 46
+    x0, x1, y0, y1 = min(xs) - 34, max(xs) + 34, min(ys) - 30, max(ys) + 34
+    if tight:
+        y0, y1 = min(ys) - 8, max(ys) + 12
     d = ImageDraw.Draw(im)
     for y in range(y0, y1 + 1):
         d.line((x0, y, x1, y), fill=px[24, y])

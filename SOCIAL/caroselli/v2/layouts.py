@@ -25,7 +25,7 @@ def hook(dark, kicker, title, sub, shot, size=120, ph_w=640, ph_x=370, ph_y=830,
                   + phone(shot, ph_w, ph_x, ph_y, cut=True)
                   + '<div class="abs" style="left:84px;top:1100px"><div class="pill" style="font-size:30px;padding:14px 26px">Scorri ' + icon('arrow', 30, 2.8) + '</div></div>')
 
-def side(dark, title, body, shot, right=True, size=80, ph_w=440, ph_y=190, badge=None, text_w=None, body_size=38, extra="", top=210, nxt=None):
+def side(dark, title, body, shot, right=True, size=80, ph_w=440, ph_y=190, badge=None, text_w=None, body_size=38, extra="", top=210, nxt=None, scorri=False):
     px = 1080 - 84 - ph_w + 14 if right else 70
     tx = 84 if right else 70 + ph_w + 50
     if text_w is None:
@@ -34,6 +34,8 @@ def side(dark, title, body, shot, right=True, size=80, ph_w=440, ph_y=190, badge
         size = min(size, 70)
     b = f'<div class="badge" style="margin-bottom:34px">{badge}</div>' if badge else ""
     n = col(tease(nxt), 1070, tx, text_w) if nxt else ''
+    if scorri:
+        n += '<div class="abs" style="left:84px;top:1100px"><div class="pill" style="font-size:30px;padding:14px 26px">Scorri ' + icon('arrow', 30, 2.8) + '</div></div>'
     return dark, (col(b + H(title, size, 28) + P(body, body_size) + extra, top, tx, text_w) + n
                   + phone(shot, ph_w, px, ph_y))
 

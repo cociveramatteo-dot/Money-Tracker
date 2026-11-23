@@ -31,7 +31,7 @@ META = {
    tags="#riconciliazione #conto #banca"),
  10: dict(date="mar 01/12/2026", ig="19:00", tt="06:00",
    title="Saldo o netto del mese? La differenza che ti dice com’è andato davvero",
-   hook="Saldo 950 €. Netto +150 €.",
+   hook="Saldo 21.973 €. Netto +1.190 €.",
    caption="Il saldo è il punto di arrivo, il netto dice cosa ha aggiunto o tolto il mese. In Statistiche leggi entrate, uscite, andamento 6M/12M e il peso di ogni categoria. Attenzione ai mesi anomali: una spesa insolita sposta la media. Esempi illustrativi.",
    tags="#statistiche #entrateuscite #analisispese"),
  11: dict(date="mer 02/12/2026", ig="12:00", tt="22:00",

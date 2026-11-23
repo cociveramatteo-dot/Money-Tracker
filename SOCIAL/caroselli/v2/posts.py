@@ -9,10 +9,10 @@ POSTS.append(dict(n=5, slug="budget-mangiare-fuori", pal=1, tag="IMPARA",
  slides=[
   (*hook(True, "Budget", "Quanto spendi <em>per mangiare fuori?</em>", "Scoprilo prima. Poi scegli un tetto che riesci a rispettare davvero.", "v2/budget-light", size=116, ph_w=680, ph_x=340, ph_y=760),),
   concept(False, "Parti dalla tua media, <em>non da un numero a caso.</em>", bars([("Set", 160), ("Ott", 190), ("Nov", 175)], top=520, h=330)
-          + col('<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><div class="lbl">Media mensile</div></div><div class="num" style="font-size:80px;color:var(--hi)">175 €</div></div>', 1040)
-          + col(tease("Ora scegli il tetto"), 1175), size=84) + (ES,),
+          + col('<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><div class="lbl">Media mensile</div></div><div class="num" style="font-size:80px;color:var(--hi)">175 €</div></div>', 990)
+          + col(tease("Ora scegli il tetto"), 1160), size=84) + (ES,),
   (*side(True, "Apri <em>Pianifica</em>, tocca +", "Nuovo budget: scegli la categoria da tenere sotto controllo.", "v2/budget-form-light", badge="1", nxt="Poi scegli il limite"), DE),
-  (*side(False, "Categoria e limite mensile", "Cibo, 150 €: un po’ meno della media, ma un tetto che puoi davvero seguire.", "v2/b2-budget-150-dark", right=False, badge="2"), DE),
+  (*duo(True, "Categoria e limite", "Esempio: Cibo con 150 €, un po’ meno della media.", "v2/d-budget-cibo-light", "v2/d-budget-150-light", labels=["Categoria Cibo","Limite 150 €"]), DE),
   (*peek(True, "La barra lavora <em>per te</em>", "Verde finché sei tranquillo, avviso all’80%, rosso se sfori.", "v2/budget-light", size=88),),
   concept(False, "Leggi la barra <em>prima di ordinare</em>", cards([
       ("Sotto l’80%", "Sei tranquillo: puoi uscire senza pensieri.", "Verde"),
@@ -36,10 +36,11 @@ POSTS.append(dict(n=6, slug="obiettivi-spesa-annuale", pal=1, tag="IMPARA",
   (*side(False, "Guarda <em>la barra</em> riempirsi", "Ogni obiettivo mostra quanto hai già messo da parte.", "v2/c3-goal-list-dark", right=False, badge="2"), DE),
   concept(True, "Dopo 3 mesi: <em>120 €</em> su 480 €", progress(25, "120 € accantonati", "360 € mancano", top=560, big="25%")
           + col(P("L’importo si aggiorna a mano: aggiungi quanto accantoni, quando vuoi.", 38), 1040), size=88) + (ES,),
-  (*side(False, "Aggiorna quando <em>accantoni</em>", "Tocca + sull’obiettivo e aggiungi l’importo: la barra si aggiorna.", "v2/c3-goal-list-light", badge="3"), DE),
+  (*side(False, "Aggiorna quando <em>accantoni</em>", "Tocca + sull’obiettivo e aggiungi quanto accantoni: la barra si aggiorna.", "v2/g-after-0-light", badge="3"), DE),
   concept(True, "Budget o obiettivo? <em>Due domande diverse.</em>", cards([
       ("Budget", "Quanto posso spendere in questa categoria?", "Limite"),
-      ("Obiettivo", "Quanto voglio mettere da parte per qualcosa?", "Traguardo")], top=470, gap=30, h=300), size=80),
+      ("Obiettivo", "Quanto voglio mettere da parte per qualcosa?", "Traguardo")], top=470, gap=30, h=300)
+      + col(tease("Salva il post: ti servirà a fine mese"), 1130), size=80),
   final(True, "v2/home-light"),
  ]))
 
@@ -49,8 +50,8 @@ POSTS.append(dict(n=7, slug="trova-un-movimento", pal=2, tag="TUTORIAL",
   (*hook(True, "Movimenti", "Quella spesa da <em>40 €:</em> dov’è finita?", "Cerca, filtra, ritrova. In tre tocchi.", "v2/mov-light", size=118, ph_w=680, ph_x=340, ph_y=800),),
   (*side(False, "Giorno per giorno, <em>in ordine</em>", "In alto «In arrivo», poi ogni giorno con il suo subtotale.", "v2/mov-dark"), DE),
   (*side(True, "Cerca per nome", "Scrivi «Farmacia»: restano solo le spese giuste.", "v2/b2-search-light", badge="1", nxt="Poi mese e categoria"), DE),
-  (*side(False, "Mese e categoria", "Due tocchi sui filtri e la lista si restringe.", "v2/mov-light", right=False, badge="2"), DE),
-  (*duo(True, "Importo da… a…", "Per i casi difficili: imposta un intervallo, per esempio 40–45 €.", "old/second-filters-detail", "old/second-filter-result", labels=["Imposta","Risultato"]), DE),
+  (*duo(False, "Mese e categoria", "Tocca «Categoria», scegli: la lista si restringe.", "v2/e-cat-menu-light", "v2/e-cat-result-light", labels=["Scegli","Risultato"]), DE),
+  (*duo(True, "Importo da… a…", "Intervallo di importo: da 40 a 45 €.", "old/second-filters-detail", "old/second-filter-result", labels=["Imposta","Risultato"]), DE),
   concept(False, "Le piccole spese <em>pesano</em>", bars([("Sett. 1", 12), ("Sett. 2", 14), ("Sett. 3", 11), ("Sett. 4", 11)], top=520, h=300)
           + col('<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div class="lbl">Totale del mese</div><div class="num" style="font-size:76px;color:var(--hi)">48 €</div></div>', 1010)
           + col(P("Filtra per categoria e leggi il totale.", 36), 1160), size=84) + (ES,),
@@ -62,7 +63,7 @@ POSTS.append(dict(n=7, slug="trova-un-movimento", pal=2, tag="TUTORIAL",
 POSTS.append(dict(n=8, slug="conti-escludi-archivia", pal=2, tag="TUTORIAL",
  slides=[
   (*hook(True, "Conti", "Contanti, carta, banca: <em>tutto nello stesso posto.</em>", "Aggiungi un conto in due passi e tieni in ordine il patrimonio.", "v2/b2-account-list-light", size=102, ph_w=680, ph_x=340, ph_y=800),),
-  (*side(False, "Il patrimonio, <em>a colpo d’occhio</em>", "La somma dei conti inclusi, con i gruppi sotto.", "v2/accounts-dark", nxt="Ora aggiungi un conto"), DE),
+  (*side(False, "Patrimonio <em>a colpo d’occhio</em>", "La somma dei conti inclusi, con i gruppi sotto.", "v2/accounts-dark", nxt="Ora aggiungi un conto"), DE),
   (*duo(True, "Nuovo conto in 2 passi", "Scegli il tipo, poi nome e saldo.", "v2/account-form-light", "v2/b2-account-85-light", labels=["Tipo","Nome e saldo"]), DE),
   (*side(False, "Eccolo <em>nell’elenco</em>", "Portafoglio da 85 €, già dentro il patrimonio.", "v2/b2-account-list-dark", right=True), DE),
   concept(True, "Tre azioni, <em>tre effetti</em>", cards([
@@ -76,7 +77,7 @@ POSTS.append(dict(n=8, slug="conti-escludi-archivia", pal=2, tag="TUTORIAL",
 # ============================================================ POST 9 · RICONCILIAZIONE E TRASFERIMENTI
 POSTS.append(dict(n=9, slug="riconcilia-e-trasferimenti", pal=2, tag="IMPARA",
  slides=[
-  (*hook(True, "Il saldo non torna?", "App: <em>13.120 €.</em> Banca: <em>13.099 €.</em>", "Una differenza di 21 €. Come la trovi, come la sistemi.", "v2/accounts-light", size=112, ph_w=680, ph_x=340, ph_y=800),),
+  (lambda r: (r[0], r[1] + col(lbl("Il saldo non torna?"), 150, 84, 450), "Dati di esempio"))(side(True, "App: <em>13.120 €.</em> Banca: <em>13.099 €.</em>", "Una differenza di 21 €. Come la trovi, come la sistemi.", "v2/accounts-light", size=72, scorri=True)),
   concept(False, "Prima confronta, <em>poi correggi</em>", steps([
       "Apri l’estratto conto|Leggi il saldo reale.",
       "Confrontalo con Bucktrail|Cerca il movimento mancante.",
@@ -92,7 +93,7 @@ POSTS.append(dict(n=9, slug="riconcilia-e-trasferimenti", pal=2, tag="IMPARA",
 # ============================================================ POST 10 · STATISTICHE
 POSTS.append(dict(n=10, slug="saldo-o-netto-del-mese", pal=3, tag="IMPARA",
  slides=[
-  (*hook(True, "Statistiche", "Saldo <em>950 €.</em> Netto <em>+150 €.</em>", "Non sono la stessa cosa. Ecco la differenza.", "v2/stats-light", size=124, ph_w=680, ph_x=340, ph_y=800),),
+  (*hook(True, "Statistiche", "Saldo <em>21.973 €.</em> Netto <em>+1.190 €.</em>", "Non sono la stessa cosa. Ecco la differenza.", "v2/stats-light", size=124, ph_w=680, ph_x=340, ph_y=800),),
   concept(False, "Il saldo è <em>il punto d’arrivo</em>", equation([("800 €|a inizio mese", "n"), ("+", "op"), ("150 €|netto del mese", "n"), ("=", "op"), ("950 €|saldo attuale", "res")], top=470, size=92)
           + col('<div style="display:flex;height:70px;border-radius:36px;overflow:hidden;gap:6px"><div style="flex:800;background:var(--line);display:flex;align-items:center;padding-left:28px;font-family:SG;font-size:28px;color:var(--fg)">800 €</div><div style="flex:150;background:var(--hi);display:flex;align-items:center;justify-content:center;font-family:SG;font-size:26px;color:#fff">150</div></div>', 800)
           + col(P("Il netto dice cosa ha aggiunto (o tolto) il mese. Il saldo è il risultato finale.", 40), 940), size=84) + (ES,),
@@ -109,12 +110,12 @@ POSTS.append(dict(n=11, slug="ricorrenze-affitto-abbonamenti", pal=3, tag="TUTOR
  slides=[
   (*hook(True, "Ricorrenze", "Scrivile <em>una volta.</em>", "Affitto, bollette, abbonamenti: Bucktrail li mette nei mesi che arrivano.", "old/rules", size=140, ph_w=680, ph_x=340, ph_y=780),),
   (*side(False, "Tutto in una lista", "Ogni serie mostra la prossima data e l’importo.", "old/rules", badge="1", nxt="Come la crei?"), DE),
-  (*side(True, "Dal modulo di aggiunta", "Scegli «Ricorrenza», la frequenza e il conto. Poi salva.", "v2/add-filled-2-light", badge="2"), DE),
+  (*side(True, "Dal modulo di aggiunta", "Scegli «Ricorrenza»: settimanale, mensile o annuale. Poi salva.", "v2/f-rec-menu-light", badge="2"), DE),
   concept(False, "Modifichi: <em>quanto cambia?</em>", cards([
       ("Solo questa", "Una scadenza diversa, la serie resta com’è."),
       ("Questa e successive", "Dal prossimo rinnovo in poi."),
       ("Tutte", "Cambia l’intera serie.")], top=430, gap=26, h=265), size=88),
-  (*duo(True, "L’ambito della modifica", "Scegli prima l’ambito, poi cambia importo o data.", "old/recurrence-scopes", "old/recurrence-following", labels=["Solo questa","Questa e successive"]), DE),
+  (*duo(True, "L’ambito della modifica", "Solo questa, questa e le successive, oppure tutte.", "v2/r-scope-form-light", "v2/r-scope-menu-light", labels=["Apri la serie","Scegli l’ambito"]), DE),
   (*side(False, "Salta, termina, <em>elimina</em>", "Salta un mese, termina la serie da qui o eliminala.", "old/second-recurrence-actions", badge="3"), DE),
   (*peek(True, "Il mese dopo <em>è già nei conti</em>", "Le scadenze future stanno in «In arrivo»: conferma, ripianifica o elimina.", "v2/mov-light", size=80), ),
   final(True, "v2/home-light"),
@@ -143,7 +144,7 @@ POSTS.append(dict(n=13, slug="impostazioni-lingue-tema", pal=4, tag="GUIDA",
           + col(steps(["Impostazioni → Lingua|Tocca «Apri Impostazioni iOS».", "Scegli la lingua di Bucktrail|L’app segue la preferenza di sistema."], top=0, gap=34, size=42), 880), size=92),
   (*side(True, "Il simbolo <em>della valuta</em>", "Scegli € o £: cambia il simbolo, non la cifra. Nessuna conversione automatica.", "v2/b2-settings-light", badge="1", size=70, nxt="Poi chiaro o scuro"), DE),
   (*duo(False, "Chiaro o scuro", "Bucktrail segue il tema di iOS: Impostazioni → Schermo e luminosità.", "v2/home-light", "v2/home-dark", labels=["Chiaro","Scuro"]), DE),
-  (*side(True, "Avvisi e <em>Face ID</em>", "Avvisi su budget e scadenze, blocco con Face ID, report mensile in PDF.", "v2/b2-settings-2-light", badge="2", size=74), DE),
+  (*side(True, "Avvisi e <em>Face ID</em>", "Avvisi su budget e scadenze, blocco con Face ID, report mensile in PDF.", "v2/b2-settings-2-dark", badge="2", size=74), DE),
   (*side(False, "Vuoi solo <em>provarla?</em>", "«Attiva modalità demo»: dati di esempio. I tuoi restano intatti: spegni l’interruttore e torni a casa.", "v2/b2-settings-3-dark", right=False, size=68), DE),
   final(True, "v2/home-light"),
  ]))
@@ -156,9 +157,9 @@ POSTS.append(dict(n=14, slug="esporta-pdf-csv-json", pal=4, tag="TUTORIAL",
       ("PDF", "Il report del mese da Statistiche, pronto da condividere."),
       ("CSV", "L’elenco dei movimenti, per Excel o Numbers."),
       ("JSON", "L’intero profilo: conti, budget e movimenti in un file.")], top=430, gap=26, h=265), size=92),
-  (*side(True, "PDF dal mese", "In Statistiche tocca PDF: anteprima e condivisione.", "old/second-pdf", badge="1", nxt="Poi CSV e JSON"), DE),
-  (*side(False, "CSV e JSON <em>da Impostazioni</em>", "«Genera CSV» per i movimenti, «Esporta tutti i dati» per il profilo.", "v2/b2-settings-2-dark", right=False, badge="2"), DE),
-  (*duo(True, "Ritrova le <em>modifiche</em>", "La cronologia modifiche, in Impostazioni, ricorda cosa è stato fatto.", "old/second-audit-settings", "old/second-audit-log", labels=["Impostazioni","Cronologia"]), DE),
+  (*side(False, "PDF dal mese", "In Statistiche tocca PDF: anteprima e condivisione.", "v2/stats-dark", badge="1", nxt="Poi CSV e JSON"), DE),
+  (*side(True, "<em>CSV</em> e <em>JSON</em>", "«Genera CSV» per i movimenti, «Esporta tutti i dati» per il profilo.", "v2/b2-settings-2-light", right=True, badge="2"), DE),
+  (*duo(False, "Ritrova le <em>modifiche</em>", "La cronologia modifiche, in Impostazioni, ricorda cosa è stato fatto.", "old/second-audit-settings", "old/second-audit-log", labels=["Impostazioni","Cronologia"]), DE),
   final(True, "v2/home-light"),
  ]))
 
@@ -173,6 +174,10 @@ POSTS.append(dict(n=15, slug="spesa-con-doppio-tocco", pal=4, tag="TUTORIAL",
       "Prova: due tocchi sul retro|Tocco posteriore: iPhone 8 e successivi."], top=480, gap=50, size=46), size=90),
   (*side(False, "Inserisci <em>nome e importo</em>", "Si apre il modulo di Bucktrail: scrivi e salva.", "v2/add-filled-light", right=False, badge="3"), DE),
   (*side(True, "Ritrovala in <em>Movimenti</em>", "La spesa è già nella lista, con la sua categoria.", "v2/mov-light", badge="4"), DE),
-  (*peek(False, "Senza aprire l’app", "Spese registrate prima di dimenticarle: l’abitudine che tiene il budget vero.", "v2/home-light", size=84),),
+  concept(False, "Registra subito, <em>ricorda meglio</em>", cards([
+      ("Due campi", "Nome e importo: il resto lo propone Bucktrail."),
+      ("Categoria", "«Ultima usata»: la suggerisce dalla seconda volta."),
+      ("Budget e saldo", "La nuova spesa entra subito nei tuoi conti.")], top=430, gap=26, h=215)
+      + col(tease("Salva il tutorial per dopo"), 1190), size=84),
   final(True, "v2/home-light"),
  ]))
