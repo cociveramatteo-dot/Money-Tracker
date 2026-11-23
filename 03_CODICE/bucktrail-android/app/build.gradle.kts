@@ -23,6 +23,8 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures { compose = true }
+    testOptions { unitTests.isReturnDefaultValues = true }
+    lint { warningsAsErrors = false; abortOnError = true }
 }
 
 kotlin { jvmToolchain(17) }
@@ -32,11 +34,15 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2025.10.01"))
     implementation("androidx.activity:activity-compose:1.11.0")
     implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material:material-icons-core")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.datastore:datastore-preferences:1.1.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.4")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")
     implementation("androidx.room:room-runtime:2.7.2")
     implementation("androidx.room:room-ktx:2.7.2")
     kapt("androidx.room:room-compiler:2.7.2")
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.xerial:sqlite-jdbc:3.50.3.0")
 }

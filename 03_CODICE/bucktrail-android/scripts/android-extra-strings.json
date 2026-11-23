@@ -1,0 +1,4 @@
+{
+  "save_failed": {"it": "Impossibile salvare. Riprova.", "en": "Couldn't save. Try again.", "de": "Speichern nicht möglich. Versuche es erneut.", "es": "No se pudo guardar. Inténtalo de nuevo.", "fr": "Impossible d’enregistrer. Réessaie.", "ja": "保存できませんでした。もう一度お試しください。", "zh-Hans": "无法保存。请重试。"},
+  "hidden_amount": {"it": "Importo nascosto", "en": "Hidden amount", "de": "Betrag verborgen", "es": "Importe oculto", "fr": "Montant masqué", "ja": "金額は非表示です", "zh-Hans": "金额已隐藏"}
+}

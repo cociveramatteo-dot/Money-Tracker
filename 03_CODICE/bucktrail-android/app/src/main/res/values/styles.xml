@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Bucktrail</string>
+    <color name="paper">#F3F4EF</color>
     <style name="Theme.Bucktrail" parent="android:style/Theme.Material.Light.NoActionBar">
         <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">@color/paper</item>
     </style>
 </resources>

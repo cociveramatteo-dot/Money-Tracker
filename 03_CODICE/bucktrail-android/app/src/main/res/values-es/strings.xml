@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERATO da scripts/ios-strings-to-android.py: non modificare a mano -->
+<resources>
+    <string name="s_2f_per_salvato">%1$.2f para %2$s — guardado!</string>
+    <string name="lld_movimenti_pianificati">%d movimientos planificados</string>
+    <string name="aggiungi_budget" formatted="false">+ Añadir presupuesto</string>
+    <string name="aggiungi_conto" formatted="false">+ Añadir cuenta</string>
+    <string name="aggiungi_obiettivo" formatted="false">+ Añadir objetivo</string>
+    <string name="s_2f_salvato">+%1$.2f %2$s — guardado!</string>
+    <string name="s_1_movimento_pianificato" formatted="false">1 movimiento planificado</string>
+    <string name="a" formatted="false">A</string>
+    <string name="a_conti_fatti" formatted="false">Saldo neto</string>
+    <string name="a_conti_fatti_829004" formatted="false">Saldo neto:</string>
+    <string name="abbonamenti" formatted="false">Suscripciones</string>
+    <string name="aggiorna" formatted="false">Actualizar</string>
+    <string name="aggiunge_rapidamente_un_entrata_al_money" formatted="false">Añade rápidamente un ingreso a Money Tracker</string>
+    <string name="aggiunge_rapidamente_una_spesa_al_money" formatted="false">Añade rápidamente un gasto a Money Tracker</string>
+    <string name="aggiungi" formatted="false">Añadir</string>
+    <string name="aggiungi_budget_c8fecf" formatted="false">Añadir presupuesto</string>
+    <string name="aggiungi_conto_73e3ed" formatted="false">Añadir cuenta</string>
+    <string name="aggiungi_entrata" formatted="false">Añadir ingreso</string>
+    <string name="aggiungi_obiettivo_f27d65" formatted="false">Añadir objetivo</string>
+    <string name="aggiungi_progresso" formatted="false">Añadir progreso</string>
+    <string name="aggiungi_risparmio" formatted="false">Añadir ahorro</string>
+    <string name="aggiungi_spesa" formatted="false">Añadir gasto</string>
+    <string name="aggiungi_spese_senza_aprire_l_app_con_la" formatted="false">Añade gastos sin abrir la app: por voz, widget o atajo rápido.</string>
+    <string name="aggiungi_un_conto_per_iniziare_a_traccia" formatted="false">Añade una cuenta para empezar a hacer un seguimiento de tus finanzas.</string>
+    <string name="aggiungi_una_nota" formatted="false">Añadir nota...</string>
+    <string name="altro" formatted="false">Otro</string>
+    <string name="ambito" formatted="false">Ámbito</string>
+    <string name="andamento" formatted="false">Evolución</string>
+    <string name="andamento_12_mesi" formatted="false">Tendencia 12 meses</string>
+    <string name="andamento_6_mesi" formatted="false">Tendencia 6 meses</string>
+    <string name="anno" formatted="false">Año</string>
+    <string name="anno_lld_vs_lld">%1$d vs %2$d</string>
+    <string name="annuale" formatted="false">Anual</string>
+    <string name="annulla" formatted="false">Cancelar</string>
+    <string name="appare_in_fissi_del_mese_nella_home" formatted="false">Aparece en \'Fijos del mes\' en inicio</string>
+    <string name="apri_impostazioni_ios" formatted="false">Abrir Ajustes de iOS</string>
+    <string name="apri_shortcut" formatted="false">Abrir Atajos</string>
+    <string name="archivia" formatted="false">Archivar</string>
+    <string name="archiviati" formatted="false">Archivados</string>
+    <string name="attiva" formatted="false">Activa</string>
+    <string name="attiva_modalita_demo" formatted="false">Activar modo demo</string>
+    <string name="autunno" formatted="false">Otoño</string>
+    <string name="avanti" formatted="false">Siguiente</string>
+    <string name="avvisi_automatici" formatted="false">Alertas automáticas</string>
+    <string name="avviso_all80" formatted="false">Aviso al 80 %</string>
+    <string name="avviso_saldo_basso" formatted="false">Alerta saldo bajo</string>
+    <string name="budget" formatted="false">Presupuesto</string>
+    <string name="budget_quasi_esaurito_fissi_in_scadenza" formatted="false">Presupuesto casi agotado, fijos por pagar, objetivos cerca</string>
+    <string name="budget_usato" formatted="false">Presupuesto usado</string>
+    <string name="cambia_emoji" formatted="false">Cambiar emoji</string>
+    <string name="cambia_icona" formatted="false">Cambiar icono</string>
+    <string name="carta" formatted="false">Tarjeta</string>
+    <string name="casa" formatted="false">Hogar</string>
+    <string name="categoria" formatted="false">Categoría</string>
+    <string name="categoria_opzionale" formatted="false">Categoría (opcional)</string>
+    <string name="categoria_predefinita" formatted="false">Categoría predefinida</string>
+    <string name="categorie" formatted="false">Categorías</string>
+    <string name="cerca_per_nome" formatted="false">Buscar por nombre</string>
+    <string name="cerca" formatted="false">Buscar...</string>
+    <string name="chiudi" formatted="false">Cerrar</string>
+    <string name="chiudi_e_riapri_l_app_per_applicare_la_n" formatted="false">Cierra y vuelve a abrir la app para aplicar el nuevo idioma.</string>
+    <string name="chiudi_l_app" formatted="false">Cerrar la app</string>
+    <string name="cibo" formatted="false">Comida</string>
+    <string name="classico" formatted="false">Clásico</string>
+    <string name="condividi_csv" formatted="false">Compartir CSV</string>
+    <string name="conferma" formatted="false">Confirmar</string>
+    <string name="configura_tocco_sul_retro" formatted="false">Configurar toque posterior</string>
+    <string name="contanti" formatted="false">Efectivo</string>
+    <string name="conti" formatted="false">Cuentas</string>
+    <string name="conti_in_home" formatted="false">Cuentas en inicio</string>
+    <string name="conto" formatted="false">Cuenta</string>
+    <string name="conto_opzionale" formatted="false">Cuenta (opcional)</string>
+    <string name="conto_bancario" formatted="false">Cuenta bancaria</string>
+    <string name="controlla_saldo" formatted="false">Consultar saldo</string>
+    <string name="cosa_hai_comprato" formatted="false">¿Qué compraste?</string>
+    <string name="crea_automaticamente_al_prossimo_periodo" formatted="false">Se crea automáticamente en el próximo período</string>
+    <string name="crea_una_shortcut_in_shortcut_poi_vai_in" formatted="false">Crea un atajo en la app Atajos, luego ve a Ajustes → Accesibilidad → Toque → Toque posterior → Doble toque y elige tu atajo para acceso instantáneo.</string>
+    <string name="da" formatted="false">De</string>
+    <string name="da_pagare" formatted="false">Por pagar</string>
+    <string name="da_ricevere" formatted="false">Por recibir</string>
+    <string name="data" formatted="false">Fecha</string>
+    <string name="dati_insufficienti" formatted="false">Datos insuficientes.</string>
+    <string name="descrizione" formatted="false">Descripción</string>
+    <string name="descrizione_entrata" formatted="false">Descripción del ingreso</string>
+    <string name="dopo" formatted="false">Después</string>
+    <string name="elimina" formatted="false">Eliminar</string>
+    <string name="elimina_definitivamente" formatted="false">Eliminar definitivamente</string>
+    <string name="elimina_entrambi_i_movimenti" formatted="false">Eliminar ambos movimientos</string>
+    <string name="elimina_trasferimento" formatted="false">Eliminar transferencia</string>
+    <string name="eliminare">¿Eliminar \"%s\"?</string>
+    <string name="eliminare_le_occorrenze_selezionate" formatted="false">¿Eliminar las ocurrencias seleccionadas?</string>
+    <string name="entrata" formatted="false">Ingreso</string>
+    <string name="entrata_fissa" formatted="false">Ingreso fijo</string>
+    <string name="entrate" formatted="false">Ingresos</string>
+    <string name="entrate_fisse" formatted="false">Ingresos fijos</string>
+    <string name="entrate_fisse_mensili" formatted="false">Ingresos fijos mensuales</string>
+    <string name="entrate_medie" formatted="false">Ingresos medios</string>
+    <string name="entro" formatted="false">Antes del</string>
+    <string name="escludi_dal_totale" formatted="false">Excluir del total</string>
+    <string name="escluso_dal_totale" formatted="false">Excluido del total</string>
+    <string name="esporta_tutte_le_transazioni_in_formato" formatted="false">Exporta todas las transacciones en formato CSV, compatible con Excel y Numbers.</string>
+    <string name="esportazione_dati" formatted="false">Exportar datos</string>
+    <string name="fa_parte_di_una_serie_ricorrente_tieni_p" formatted="false">Forma parte de una serie recurrente — mantén pulsada la transacción para detenerla</string>
+    <string name="fatto" formatted="false">Hecho</string>
+    <string name="filtri" formatted="false">Filtros</string>
+    <string name="filtri_lld">Filtros (%d)</string>
+    <string name="fine" formatted="false">Listo</string>
+    <string name="fissa" formatted="false">Fijo</string>
+    <string name="fisse" formatted="false">Fijos</string>
+    <string name="fissi_del_mese" formatted="false">Fijos del mes</string>
+    <string name="foresta" formatted="false">Bosque</string>
+    <string name="genera_csv" formatted="false">Generar CSV</string>
+    <string name="generazione_in_corso" formatted="false">Generando…</string>
+    <string name="gestisci" formatted="false">Gestionar</string>
+    <string name="giroconto" formatted="false">Transferencia interna</string>
+    <string name="gia_effettuato" formatted="false">Ya realizado</string>
+    <string name="gia_risparmiato" formatted="false">Ya ahorrado</string>
+    <string name="home" formatted="false">Inicio</string>
+    <string name="i_movimenti_di_questo_periodo_apparirann" formatted="false">Los movimientos de este período aparecerán aquí.</string>
+    <string name="i_pagamenti_che_si_ripetono_per_almeno_2" formatted="false">Los pagos que se repiten durante al menos 2 meses aparecerán aquí.</string>
+    <string name="i_tuoi_dati_reali_restano_intatti_e_priv" formatted="false">Tus datos reales permanecen intactos y privados</string>
+    <string name="i_valori_della_ricorrenza_non_sono_valid" formatted="false">Los valores de la recurrencia no son válidos.</string>
+    <string name="icona" formatted="false">Icono</string>
+    <string name="ieri" formatted="false">Ayer</string>
+    <string name="il_database_non_e_disponibile_apri_l_app" formatted="false">La base de datos no está disponible. Abre la app para solucionar el problema.</string>
+    <string name="il_simbolo_verra_aggiornato_ovunque_nell" formatted="false">El símbolo se actualizará en toda la app. Los importes permanecen sin cambios.</string>
+    <string name="importo" formatted="false">Importe</string>
+    <string name="impossibile_aggiornare_le_ricorrenze_rip" formatted="false">No se pudieron actualizar las recurrencias. Inténtalo de nuevo.</string>
+    <string name="imposta_scadenza" formatted="false">Establecer fecha límite</string>
+    <string name="imposta_un_limite_mensile_per_categoria" formatted="false">Establece un límite mensual por categoría o cuenta.</string>
+    <string name="imposta_un_obiettivo_di_risparmio_e_tien" formatted="false">Establece un objetivo de ahorro y haz un seguimiento de tus progresos.</string>
+    <string name="impostazioni" formatted="false">Ajustes</string>
+    <string name="in_arrivo_pianificati" formatted="false">Próximos · planificados</string>
+    <string name="includi_nel_totale" formatted="false">Incluir en total</string>
+    <string name="info" formatted="false">Info</string>
+    <string name="inserisci_il_saldo_che_hai_adesso_su_que" formatted="false">Introduce el saldo actual de esta cuenta.</string>
+    <string name="inserisci_una_descrizione_per_l_entrata" formatted="false">Introduce una descripción para el ingreso</string>
+    <string name="inserisci_una_descrizione_per_la_spesa" formatted="false">Introduce una descripción para el gasto</string>
+    <string name="interrompi_ricorrenza" formatted="false">Detener recurrencia</string>
+    <string name="investimento" formatted="false">Inversión</string>
+    <string name="irregolare" formatted="false">Irregular</string>
+    <string name="istruzione" formatted="false">Educación</string>
+    <string name="l_app_si_riavviera_con_dati_demo_per_tor" formatted="false">La app se reiniciará con datos demo. Para volver a tus datos, simplemente desactiva el interruptor.</string>
+    <string name="l_importo_deve_essere_un_numero_positivo" formatted="false">El importe debe ser un número positivo (máx. 1.000 millones)</string>
+    <string name="la_data_deve_restare_nello_stesso_mese" formatted="false">La fecha debe estar en el mismo mes.</string>
+    <string name="la_lingua_dell_app_segue_le_preferenze_d" formatted="false">El idioma de la app sigue las preferencias del sistema.</string>
+    <string name="lascia_vuoto_per_applicarlo_a_tutti_i_co" formatted="false">Deja vacío para aplicarlo a todas las cuentas.</string>
+    <string name="lascia_vuoto_per_auto_detect" formatted="false">Dejar vacío para detección automática</string>
+    <string name="lascia_vuoto_per_un_budget_globale_sul_c" formatted="false">Deja vacío para un presupuesto global de la cuenta.</string>
+    <string name="lavoro" formatted="false">Trabajo</string>
+    <string name="le_categorie_predefinite_non_possono_ess" formatted="false">Las categorías predefinidas no se pueden modificar ni eliminar.</string>
+    <string name="le_occorrenze_gia_effettuate_restano_inv" formatted="false">Las ocurrencias completadas no cambian.</string>
+    <string name="le_ricorrenze_richiedono_il_contesto_pri" formatted="false">Las recurrencias requieren el contexto principal.</string>
+    <string name="limite_mensile" formatted="false">Límite mensual</string>
+    <string name="lingua" formatted="false">Idioma</string>
+    <string name="lingua_aggiornata" formatted="false">Idioma actualizado</string>
+    <string name="liquidita" formatted="false">Liquidez</string>
+    <string name="loccorrenza_non_appartiene_alla_serie" formatted="false">La ocurrencia no pertenece a esta serie.</string>
+    <string name="modalita_demo" formatted="false">MODO DEMO</string>
+    <string name="massimo" formatted="false">Máximo</string>
+    <string name="media" formatted="false">Media</string>
+    <string name="media_mensile_ultimi_12_mesi" formatted="false">Media mensual — últimos 12 meses</string>
+    <string name="mensile" formatted="false">Mensual</string>
+    <string name="menta" formatted="false">Menta</string>
+    <string name="mese" formatted="false">Mes</string>
+    <string name="mese_precedente" formatted="false">Mes anterior</string>
+    <string name="mese_successivo" formatted="false">Mes siguiente</string>
+    <string name="minimo" formatted="false">Mínimo</string>
+    <string name="modalita_demo_68b79c" formatted="false">Modo Demo</string>
+    <string name="modifica" formatted="false">Editar</string>
+    <string name="modifica_categoria" formatted="false">Editar categoría</string>
+    <string name="modifica_conto" formatted="false">Editar cuenta</string>
+    <string name="modifica_trasferimento" formatted="false">Editar transferencia</string>
+    <string name="mostra_il_saldo_attuale_di_tutti_i_conti" formatted="false">Muestra el saldo actual de todas las cuentas</string>
+    <string name="mostra_il_totale_delle_entrate_fisse_del" formatted="false">Muestra el total de ingresos fijos del mes en el inicio</string>
+    <string name="mostra_il_totale_delle_spese_fisse_del_m" formatted="false">Muestra el total de gastos fijos del mes en el inicio</string>
+    <string name="mostra_importi" formatted="false">Mostrar importes</string>
+    <string name="mostra_l_app_con_dati_di_esempio_senza_e" formatted="false">Muestra la app con datos de ejemplo sin exponer tus datos reales. Útil para mostrar MoneyTracker a amigos o compañeros.</string>
+    <string name="movimenti" formatted="false">Movimientos</string>
+    <string name="multi_categoria" formatted="false">Varias categorías</string>
+    <string name="nessun_altro_conto" formatted="false">Sin otras cuentas</string>
+    <string name="nessun_budget" formatted="false">Sin presupuesto</string>
+    <string name="nessun_budget_impostato" formatted="false">Sin presupuesto.</string>
+    <string name="nessun_conto" formatted="false">Ninguna cuenta</string>
+    <string name="nessun_conto_trovato_apri_l_app_per_aggi" formatted="false">No se encontró ninguna cuenta. Abre la app para añadir una.</string>
+    <string name="nessun_conto_086014" formatted="false">Sin cuentas.</string>
+    <string name="nessun_dato_disponibile" formatted="false">Sin datos disponibles.</string>
+    <string name="nessun_movimento" formatted="false">Sin movimientos</string>
+    <string name="nessun_movimento_ancora_premi_per_aggiun" formatted="false">Sin movimientos.\nPulsa + para añadir un gasto.</string>
+    <string name="nessun_movimento_corrisponde_alla_ricerc" formatted="false">Ningún movimiento coincide con la búsqueda.</string>
+    <string name="nessun_obiettivo" formatted="false">Sin objetivos</string>
+    <string name="nessun_obiettivo_cd144a" formatted="false">Sin objetivos.</string>
+    <string name="nessun_risultato" formatted="false">Sin resultados</string>
+    <string name="nessuna" formatted="false">Ninguna</string>
+    <string name="nessuna_categoria_personalizzata_premi_p" formatted="false">Sin categorías personalizadas.\nPulsa + para añadir una.</string>
+    <string name="nessuna_scadenza" formatted="false">Sin fecha límite</string>
+    <string name="nessuna_serie_ricorrente" formatted="false">Sin series recurrentes</string>
+    <string name="nessuna_spesa_pianificata" formatted="false">Sin gastos planificados</string>
+    <string name="nessuna_spesa_questo_mese" formatted="false">Sin gastos este mes.</string>
+    <string name="nessuna_uscita_questo_mese" formatted="false">Sin gastos este mes.</string>
+    <string name="nessuna_voce_fissa_premi_aggiungi_una_sp" formatted="false">Sin elementos fijos.\nPulsa + → añade un gasto o ingreso → activa \'Fijo\'.</string>
+    <string name="nessuno" formatted="false">Ninguna</string>
+    <string name="netto" formatted="false">Neto</string>
+    <string name="no" formatted="false">No</string>
+    <string name="nome" formatted="false">Nombre</string>
+    <string name="non_viene_contato_nel_saldo_totale_dei_c" formatted="false">No se incluye en el saldo total</string>
+    <string name="note" formatted="false">Notas</string>
+    <string name="note_opzionale" formatted="false">Notas (opcional)</string>
+    <string name="notifiche" formatted="false">Notificaciones</string>
+    <string name="notte" formatted="false">Noche</string>
+    <string name="nuova_categoria" formatted="false">Nueva categoría</string>
+    <string name="nuovo_budget" formatted="false">Nuevo presupuesto</string>
+    <string name="nuovo_conto" formatted="false">Nueva cuenta</string>
+    <string name="nuovo_movimento" formatted="false">Nuevo movimiento</string>
+    <string name="nuovo_obiettivo" formatted="false">Nuevo objetivo</string>
+    <string name="obiettivi" formatted="false">Objetivos</string>
+    <string name="obiettivo" formatted="false">Objetivo</string>
+    <string name="obiettivo_raggiunto" formatted="false">Objetivo alcanzado</string>
+    <string name="oceano" formatted="false">Océano</string>
+    <string name="oggi" formatted="false">Hoy</string>
+    <string name="opzioni" formatted="false">Opciones</string>
+    <string name="oscura_importi" formatted="false">Ocultar importes</string>
+    <string name="pdf" formatted="false">PDF</string>
+    <string name="pagata" formatted="false">Pagado</string>
+    <string name="patrimonio_totale" formatted="false">Patrimonio total</string>
+    <string name="per_categoria" formatted="false">Por categoría</string>
+    <string name="periodo_personalizzato" formatted="false">Período personalizado</string>
+    <string name="personalizzate" formatted="false">Personalizadas</string>
+    <string name="pianifica" formatted="false">Planificar</string>
+    <string name="pianificato" formatted="false">Planificado</string>
+    <string name="predefinite" formatted="false">Predefinidas</string>
+    <string name="premi_per_aggiungere_la_tua_prima_spesa" formatted="false">Pulsa + para añadir tu primer gasto.</string>
+    <string name="progresso_complessivo" formatted="false">Progreso total</string>
+    <string name="progresso_totale" formatted="false">Progreso total</string>
+    <string name="promemoria_il_1_di_ogni_mese_per_generar" formatted="false">Recordatorio el 1 de cada mes para generar el informe PDF</string>
+    <string name="prossima_occorrenza" formatted="false">Próxima ocurrencia</string>
+    <string name="quale_categoria_per_questa_spesa" formatted="false">¿Qué categoría para este gasto?</string>
+    <string name="quale_conto_hai_usato" formatted="false">¿Qué cuenta usaste?</string>
+    <string name="quanto_hai_ricevuto" formatted="false">¿Cuánto recibiste?</string>
+    <string name="quanto_hai_speso" formatted="false">¿Cuánto gastaste?</string>
+    <string name="questa_e_le_successive" formatted="false">Esta y las siguientes</string>
+    <string name="questo_mese" formatted="false">Este mes</string>
+    <string name="questo_trasferimento_e_composto_da_due_m" formatted="false">Esta transferencia está compuesta por dos movimientos vinculados. Ambos serán eliminados.</string>
+    <string name="regali" formatted="false">Regalos</string>
+    <string name="report_mensile_pdf" formatted="false">Informe PDF mensual</string>
+    <string name="rettifica_saldo" formatted="false">Ajuste de saldo</string>
+    <string name="ricevi_una_notifica_quando_il_saldo_scen" formatted="false">Recibe una notificación cuando el saldo baje de este umbral</string>
+    <string name="ricevuta" formatted="false">Recibido</string>
+    <string name="ricevuto_finora" formatted="false">Recibido hasta ahora</string>
+    <string name="ricorrenti" formatted="false">Recurrentes</string>
+    <string name="ricorrenza" formatted="false">Recurrencia</string>
+    <string name="ricorrenze" formatted="false">Recurrencias</string>
+    <string name="riepilogo" formatted="false">Resumen</string>
+    <string name="rimuovi_filtri" formatted="false">Quitar filtros</string>
+    <string name="rimuovi_tutti_i_filtri" formatted="false">Eliminar todos los filtros</string>
+    <string name="ripristina" formatted="false">Restaurar</string>
+    <string name="risparmio" formatted="false">Ahorro</string>
+    <string name="risparmio_e_investimenti" formatted="false">Ahorro e inversiones</string>
+    <string name="rosa" formatted="false">Rosa</string>
+    <string name="rosso" formatted="false">Rojo</string>
+    <string name="sabbia" formatted="false">Arena</string>
+    <string name="saldo_atteso" formatted="false">Saldo esperado</string>
+    <string name="saldo_atteso_a_fine_mese" formatted="false">Saldo previsto a fin de mes</string>
+    <string name="saldo_attuale" formatted="false">Saldo actual</string>
+    <string name="saldo_conti" formatted="false">Saldo de cuentas</string>
+    <string name="saldo_nascosto" formatted="false">Saldo oculto</string>
+    <string name="salta_mese" formatted="false">Omitir mes</string>
+    <string name="salute" formatted="false">Salud</string>
+    <string name="salva" formatted="false">Guardar</string>
+    <string name="scadenza" formatted="false">Fecha límite</string>
+    <string name="scegli_categoria" formatted="false">Elige categoría...</string>
+    <string name="scegli" formatted="false">Elegir...</string>
+    <string name="segna_come_fatto" formatted="false">Marcar como hecho</string>
+    <string name="segna_come_pianificato" formatted="false">Marcar como planificado</string>
+    <string name="seleziona_almeno_una_categoria_o_un_cont" formatted="false">Selecciona al menos una categoría o una cuenta.</string>
+    <string name="serie_eliminata" formatted="false">Serie eliminada</string>
+    <string name="serie_programmate" formatted="false">Series programadas</string>
+    <string name="settimana" formatted="false">Semana</string>
+    <string name="settimanale" formatted="false">Semanal</string>
+    <string name="sforato" formatted="false">Superado</string>
+    <string name="sforato_di" formatted="false">Excedido en</string>
+    <string name="shopping" formatted="false">Compras</string>
+    <string name="siri_shortcut" formatted="false">Siri y Atajos</string>
+    <string name="soglia_80" formatted="false">Umbral del 80%</string>
+    <string name="solo_questa" formatted="false">Solo esta</string>
+    <string name="sostituisce_il_filtro_mese" formatted="false">Reemplaza el filtro mensual</string>
+    <string name="sotto_la_soglia_di">Por debajo de %s</string>
+    <string name="spesa_entrata" formatted="false">Gasto / Ingreso</string>
+    <string name="spesa_fissa" formatted="false">Gasto fijo</string>
+    <string name="spese_fisse" formatted="false">Gastos fijos</string>
+    <string name="spese_fisse_mensili" formatted="false">Gastos fijos mensuales</string>
+    <string name="speso_finora" formatted="false">Gastado hasta ahora</string>
+    <string name="statistiche" formatted="false">Estadísticas</string>
+    <string name="statistiche_del_mese" formatted="false">Estadísticas del mes</string>
+    <string name="storico" formatted="false">Historial</string>
+    <string name="storico_budget" formatted="false">Historial de presupuesto</string>
+    <string name="su_quale_conto" formatted="false">¿En qué cuenta?</string>
+    <string name="svago" formatted="false">Ocio</string>
+    <string name="si" formatted="false">Sí</string>
+    <string name="tema" formatted="false">Tema</string>
+    <string name="termina_da_qui" formatted="false">Terminar desde aquí</string>
+    <string name="termina_dopo_questa" formatted="false">Terminar después de esta</string>
+    <string name="termina_il" formatted="false">Termina el</string>
+    <string name="terminata" formatted="false">Terminada</string>
+    <string name="tipo" formatted="false">Tipo</string>
+    <string name="tocca_per_segnare_come_da_pagare" formatted="false">Toca para marcar como a pagar</string>
+    <string name="tocca_per_segnare_come_pagata" formatted="false">Toca para marcar como pagado</string>
+    <string name="togli_la_spunta_se_il_trasferimento_e_pi" formatted="false">Desmarca si la transferencia está planificada pero aún no realizada</string>
+    <string name="togli_la_spunta_se_e_pianificata_ma_non" formatted="false">Desmarca si está planificado pero no realizado</string>
+    <string name="totale_attuale" formatted="false">Total actual</string>
+    <string name="transazioni_totali" formatted="false">Transacciones totales</string>
+    <string name="trasf" formatted="false">Transfer.</string>
+    <string name="trasferimento" formatted="false">Transferencia</string>
+    <string name="trasferimento_tra_conti" formatted="false">Transferencia entre cuentas</string>
+    <string name="trasferisci" formatted="false">Transferir</string>
+    <string name="trasporti" formatted="false">Transporte</string>
+    <string name="tutte" formatted="false">Todas</string>
+    <string name="tutte_le_categorie" formatted="false">Todas las categorías</string>
+    <string name="tutte_le_occorrenze_di_questo_pagamento" formatted="false">Se han eliminado todas las repeticiones de este pago recurrente.</string>
+    <string name="tutti" formatted="false">Todos</string>
+    <string name="ultimi_movimenti" formatted="false">Últimos movimientos</string>
+    <string name="ultimo" formatted="false">Último</string>
+    <string name="uscita" formatted="false">Gasto</string>
+    <string name="uscite" formatted="false">Gastos</string>
+    <string name="uscite_medie" formatted="false">Gastos medios</string>
+    <string name="uscite_per_categoria" formatted="false">Gastos por categoría</string>
+    <string name="uscite_totali" formatted="false">Gastos totales</string>
+    <string name="valuta" formatted="false">Divisa</string>
+    <string name="vedi_tutte" formatted="false">Ver todas</string>
+    <string name="vedi_tutti" formatted="false">Ver todo</string>
+    <string name="versione" formatted="false">Versión</string>
+    <string name="viaggi" formatted="false">Viajes</string>
+    <string name="viola" formatted="false">Violeta</string>
+    <string name="virtuale_esclusa_dai_totali" formatted="false">Virtual · excluida de los totales</string>
+    <string name="da_pagare_3fee8d" formatted="false">por pagar</string>
+    <string name="da_ricevere_2edb81" formatted="false">por recibir</string>
+    <string name="dal" formatted="false">desde</string>
+    <string name="demo_account_carta" formatted="false">Tarjeta prepago</string>
+    <string name="demo_account_contanti" formatted="false">Efectivo</string>
+    <string name="demo_account_conto" formatted="false">Cuenta corriente</string>
+    <string name="demo_account_risparmi" formatted="false">Ahorros</string>
+    <string name="demo_goal_computer" formatted="false">Ordenador portátil</string>
+    <string name="demo_goal_emergenza" formatted="false">Fondo de emergencia</string>
+    <string name="demo_goal_fotografia" formatted="false">Curso de fotografía</string>
+    <string name="demo_goal_vacanza" formatted="false">Vacaciones Cerdeña</string>
+    <string name="demo_tx_affitto" formatted="false">Alquiler</string>
+    <string name="demo_tx_bolletta" formatted="false">Factura eléctrica</string>
+    <string name="demo_tx_bonus" formatted="false">Prima de productividad</string>
+    <string name="demo_tx_carburante" formatted="false">Combustible</string>
+    <string name="demo_tx_cinema" formatted="false">Cine + cena</string>
+    <string name="demo_tx_course" formatted="false">Curso de idiomas</string>
+    <string name="demo_tx_dentista" formatted="false">Dentista</string>
+    <string name="demo_tx_farmacia" formatted="false">Farmacia</string>
+    <string name="demo_tx_gym" formatted="false">Gimnasio</string>
+    <string name="demo_tx_hotel" formatted="false">Hotel Roma 2 noches</string>
+    <string name="demo_tx_installment" formatted="false">Cuota de muebles</string>
+    <string name="demo_tx_insurance" formatted="false">Seguro del coche</string>
+    <string name="demo_tx_interest" formatted="false">Intereses del ahorro</string>
+    <string name="demo_tx_internet" formatted="false">Internet de casa</string>
+    <string name="demo_tx_music" formatted="false">Música</string>
+    <string name="demo_tx_other" formatted="false">Pequeños gastos</string>
+    <string name="demo_tx_regalo" formatted="false">Regalo cumpleaños</string>
+    <string name="demo_tx_risparmio" formatted="false">Ahorro mensual</string>
+    <string name="demo_tx_ristorante" formatted="false">Restaurante japonés</string>
+    <string name="demo_tx_shopping" formatted="false">Compras personales</string>
+    <string name="demo_tx_stipendio" formatted="false">Salario</string>
+    <string name="demo_tx_streaming" formatted="false">Vídeo en streaming</string>
+    <string name="demo_tx_supermercato" formatted="false">Supermercado</string>
+    <string name="demo_tx_volo" formatted="false">Vuelo Milán–Roma</string>
+    <string name="es_affitto_netflix_pizza" formatted="false">ej. Alquiler, Netflix, Pizza...</string>
+    <string name="es_carta_unicredit_portafoglio" formatted="false">ej. Tarjeta BBVA, Cartera...</string>
+    <string name="es_musica_sport_palestra" formatted="false">ej. Música, Deporte, Gimnasio...</string>
+    <string name="es_vacanza_auto_nuova" formatted="false">ej. Vacaciones, Auto nuevo...</string>
+    <string name="escluso" formatted="false">excluido</string>
+    <string name="escluso_dal_totale_0aa2dd" formatted="false">excluido del total</string>
+    <string name="in_entrata_pianificate" formatted="false">en ingresos planificados</string>
+    <string name="in_uscite_pianificate" formatted="false">en gastos planificados</string>
+    <string name="meno" formatted="false">menos </string>
+    <string name="nessun_movimento_0ef874" formatted="false">sin movimientos</string>
+    <string name="pianificato_572247" formatted="false">planificado</string>
+    <string name="piu" formatted="false">más </string>
+    <string name="predefinita" formatted="false">predefinida</string>
+    <string name="rimasti" formatted="false">restantes</string>
+    <string name="rispetto_al_mese_precedente" formatted="false">vs mes anterior</string>
+    <string name="rispetto_al_mese_scorso" formatted="false">vs mes anterior</string>
+    <string name="saldo" formatted="false">saldo</string>
+    <string name="volte" formatted="false">veces</string>
+    <string name="ultima_usata" formatted="false">· Última utilizada</string>
+    <string name="suggerita" formatted="false">· sugerida</string>
+    <string name="s_2f_salvato_424b7d">💰 +%1$.2f€ %2$s — ¡guardado!</string>
+    <string name="saldo_totale">💰 Saldo total: %s</string>
+    <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ para %2$s — ¡guardado!</string>
+    <string name="hidden_amount" formatted="false">Importe oculto</string>
+    <string name="save_failed" formatted="false">No se pudo guardar. Inténtalo de nuevo.</string>
+    <plurals name="plurale_mancano_lld_giorni">
+        <item quantity="one">Falta %d día</item>
+        <item quantity="other">Faltan %d días</item>
+    </plurals>
+</resources>

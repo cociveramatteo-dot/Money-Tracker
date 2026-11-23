@@ -170,3 +170,12 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - iPhone e Android fanno parte del lancio previsto. Lo stesso profilo è previsto per ritrovare i dati sulle due piattaforme.
 - Il collegamento bancario arriva dopo il lancio. È facoltativo conto per conto, importa i movimenti dalle banche supportate e chiede conferma quando rileva un possibile doppione manuale. La versione web è fuori dalla comunicazione corrente.
 - SC-4c è circoscritto alla landing e alla conferma della lista d’attesa, in italiano e inglese.
+
+## 2026-11-23 · Android parità: fondamenta (B0) e dati (B1)
+- **Anomalie iOS §4.99:** su Android non si replicano; vale il comportamento coerente. Già applicati: raggruppamento Movimenti per data (non per stringa «d MMM», #5), filtro tipo Movimenti coerente (#1). Le altre si applicano nei blocchi che toccano quelle schermate.
+- **Font form:** Inter variabile (OFL, `inter_variable.ttf`) al posto di SF Pro per sheet e form.
+- **Importi:** `BigDecimal` nel dominio, centesimi `Long` nelle colonne Room, arrotondamento HALF_UP a 2 decimali come iOS.
+- **Migrazione Room 2→3:** ricrea le tabelle (FK RESTRICT→CASCADE); le voci con giorno futuro e `planned=false` diventano `isDone=false`; categoria «Altro»/`tray.fill`. Provata su emulatore con un database v2 reale.
+- **Movimento con data futura:** il form propone «Pianificato» attivo (`isDone=false`) ma l'utente può cambiarlo; pianificato ⇔ `!isDone`.
+- **Stringhe:** `scripts/ios-strings-to-android.py` genera `values*/strings.xml` dai cataloghi iOS; le stringhe solo-Android stanno in `scripts/android-extra-strings.json`.
+- **Supabase:** nessuna sync sul progetto reale di Matteo prima del blocco B9 e del suo ok.
