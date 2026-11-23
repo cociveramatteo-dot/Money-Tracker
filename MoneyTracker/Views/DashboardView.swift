@@ -80,7 +80,45 @@ struct DashboardView: View {
 
     // MARK: - Serie TrailView
 
+    /// Cache della proiezione: evita di ricostruire entry e dizionario a ogni render non legato ai dati
+    /// (es. oscura importi, altezza lista). Non è @State osservato: si scrive solo la scatola, mai durante l'osservazione.
+    private final class ProjectionCache {
+        var fingerprint: Int?
+        var value: (trailInput: TrailInput, plannedByAccount: [PersistentIdentifier: Decimal])?
+    }
+    @State private var projectionCache = ProjectionCache()
+
+    /// Impronta di TUTTO ciò che `buildMonthlyProjection` legge: se non cambia, il risultato è identico.
+    private func projectionFingerprint() -> Int {
+        var hasher = Hasher()
+        hasher.combine(projectionDay)
+        hasher.combine(totalCurrent)
+        for account in includedAccounts { hasher.combine(account.persistentModelID) }
+        for t in transactions {
+            hasher.combine(t.persistentModelID)
+            hasher.combine(t.account?.persistentModelID)
+            hasher.combine(t.date)
+            hasher.combine(t.amount)
+            hasher.combine(t.type)
+            hasher.combine(t.isDone)
+            hasher.combine(t.isFixed)
+            hasher.combine(t.isTransfer)
+            hasher.combine(t.templateId)
+            hasher.combine(t.recurringFrequency)
+        }
+        return hasher.finalize()
+    }
+
     private func monthlyProjection() -> (trailInput: TrailInput, plannedByAccount: [PersistentIdentifier: Decimal]) {
+        let fingerprint = projectionFingerprint()
+        if let cached = projectionCache.value, projectionCache.fingerprint == fingerprint { return cached }
+        let value = buildMonthlyProjection()
+        projectionCache.fingerprint = fingerprint
+        projectionCache.value = value
+        return value
+    }
+
+    private func buildMonthlyProjection() -> (trailInput: TrailInput, plannedByAccount: [PersistentIdentifier: Decimal]) {
         let calendar = Calendar.current
         let ids = Set(includedAccounts.map(\.persistentModelID))
         var entries: [BalanceTrail.Entry] = []
@@ -360,6 +398,7 @@ struct DashboardView: View {
                                 .listRowInsets(EdgeInsets())
                                 .listRowBackground(DS.surface)
                                 .listRowSeparatorTint(DS.divider)
+                                .listRowSeparator(t.persistentModelID == recentNormal.last?.persistentModelID ? .hidden : .visible, edges: .bottom)
                                 .contentShape(Rectangle())
                                 .onTapGesture { editingTransaction = t }
                                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {

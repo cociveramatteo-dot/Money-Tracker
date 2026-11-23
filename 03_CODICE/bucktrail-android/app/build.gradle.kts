@@ -24,10 +24,10 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "0.1.0"
-        // `-PsupabaseUrl=http://10.0.2.2:PORT -PsupabaseKey=...` punta a un server finto locale (prove sull'emulatore, mai il cloud reale)
+        // `-PsupabaseUrl=http://10.0.2.2:PORT -PsupabaseKey=...` (debug) punta a un server finto locale (prove sull'emulatore, mai il cloud reale)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "SUPABASE_URL", "\"${supabaseValue("supabaseUrl", "url")}\"")
-        buildConfigField("String", "SUPABASE_ANON_KEY", "\"${supabaseValue("supabaseKey", "anonKey")}\"")
+        // Il debug NON punta mai al cloud reale: URL finto (non risolvibile) salvo -PsupabaseUrl/-PsupabaseKey espliciti.
+        // Solo la release legge URL e chiave da SupabaseConfig.swift.
     }
 
     compileOptions {
@@ -35,7 +35,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     buildTypes {
+        debug {
+            val url = (findProperty("supabaseUrl") as String?)?.takeIf { it.isNotBlank() } ?: "https://supabase-finto.invalid"
+            val key = (findProperty("supabaseKey") as String?)?.takeIf { it.isNotBlank() } ?: "chiave-finta-debug"
+            buildConfigField("String", "SUPABASE_URL", "\"$url\"")
+            buildConfigField("String", "SUPABASE_ANON_KEY", "\"$key\"")
+        }
         release {
+            buildConfigField("String", "SUPABASE_URL", "\"${supabaseValue("supabaseUrl", "url")}\"")
+            buildConfigField("String", "SUPABASE_ANON_KEY", "\"${supabaseValue("supabaseKey", "anonKey")}\"")
             // R8: codice e risorse inutilizzati tolti (le regole sono in proguard-rules.pro)
             isMinifyEnabled = true
             isShrinkResources = true

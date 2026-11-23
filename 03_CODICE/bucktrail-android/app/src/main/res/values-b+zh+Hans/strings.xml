@@ -178,7 +178,7 @@
     <string name="mostra_il_totale_delle_entrate_fisse_del" formatted="false">在首页显示本月固定收入总额</string>
     <string name="mostra_il_totale_delle_spese_fisse_del_m" formatted="false">在首页显示本月固定支出总额</string>
     <string name="mostra_importi" formatted="false">显示金额</string>
-    <string name="mostra_l_app_con_dati_di_esempio_senza_e" formatted="false">使用示例数据展示应用，不暴露真实数据。适合向朋友或同事展示MoneyTracker。</string>
+    <string name="mostra_l_app_con_dati_di_esempio_senza_e" formatted="false">使用示例数据展示应用，不暴露真实数据。适合向朋友或同事展示Bucktrail。</string>
     <string name="movimenti" formatted="false">交易</string>
     <string name="multi_categoria" formatted="false">多个类别</string>
     <string name="nessun_altro_conto" formatted="false">无其他账户</string>

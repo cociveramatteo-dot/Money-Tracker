@@ -178,7 +178,7 @@
     <string name="mostra_il_totale_delle_entrate_fisse_del" formatted="false">ホーム画面に今月の固定収入の合計を表示</string>
     <string name="mostra_il_totale_delle_spese_fisse_del_m" formatted="false">ホーム画面に今月の固定支出の合計を表示</string>
     <string name="mostra_importi" formatted="false">金額を表示</string>
-    <string name="mostra_l_app_con_dati_di_esempio_senza_e" formatted="false">実データを公開せずにサンプルデータでアプリを表示。友人や同僚にMoneyTrackerを見せるときに便利。</string>
+    <string name="mostra_l_app_con_dati_di_esempio_senza_e" formatted="false">実データを公開せずにサンプルデータでアプリを表示。友人や同僚にBucktrailを見せるときに便利。</string>
     <string name="movimenti" formatted="false">取引</string>
     <string name="multi_categoria" formatted="false">複数カテゴリ</string>
     <string name="nessun_altro_conto" formatted="false">他の口座なし</string>

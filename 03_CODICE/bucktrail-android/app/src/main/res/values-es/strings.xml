@@ -178,7 +178,7 @@
     <string name="mostra_il_totale_delle_entrate_fisse_del" formatted="false">Muestra el total de ingresos fijos del mes en el inicio</string>
     <string name="mostra_il_totale_delle_spese_fisse_del_m" formatted="false">Muestra el total de gastos fijos del mes en el inicio</string>
     <string name="mostra_importi" formatted="false">Mostrar importes</string>
-    <string name="mostra_l_app_con_dati_di_esempio_senza_e" formatted="false">Muestra la app con datos de ejemplo sin exponer tus datos reales. Útil para mostrar MoneyTracker a amigos o compañeros.</string>
+    <string name="mostra_l_app_con_dati_di_esempio_senza_e" formatted="false">Muestra la app con datos de ejemplo sin exponer tus datos reales. Útil para mostrar Bucktrail a amigos o compañeros.</string>
     <string name="movimenti" formatted="false">Movimientos</string>
     <string name="multi_categoria" formatted="false">Varias categorías</string>
     <string name="nessun_altro_conto" formatted="false">Sin otras cuentas</string>

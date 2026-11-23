@@ -47,7 +47,7 @@ class BucktrailApplication : Application() {
     val auditLog by lazy { AuditLog(File(filesDir, "audit-log.jsonl")) }
     val notifications by lazy { NotificationScheduler(applicationContext, appScope) }
 
-    // --- Account e sync Supabase (B9). URL e chiave pubblica arrivano da BuildConfig (letti da SupabaseConfig.swift al build). ---
+    // --- Account e sync Supabase (B9). URL e chiave arrivano da BuildConfig: release da SupabaseConfig.swift, debug URL finto salvo -P espliciti. ---
     /** Falso se l'URL o la chiave non sono disponibili al build: l'app resta pienamente locale. */
     val syncConfigured: Boolean get() = BuildConfig.SUPABASE_URL.isNotBlank() && BuildConfig.SUPABASE_ANON_KEY.isNotBlank()
     private val supabaseApi by lazy { HttpSupabaseApi(BuildConfig.SUPABASE_URL, BuildConfig.SUPABASE_ANON_KEY) }
