@@ -40,6 +40,9 @@ import com.bucktrail.android.data.CategoryEntity
 import com.bucktrail.android.data.TransactionEntity
 import com.bucktrail.android.domain.Amounts
 import com.bucktrail.android.domain.Categories
+import com.bucktrail.android.domain.KeywordCategoryClassifier
+import com.bucktrail.android.domain.LastUsedCategory
+import java.time.Instant
 import com.bucktrail.android.ui.Fmt
 import com.bucktrail.android.ui.categoryLabel
 import com.bucktrail.android.ui.components.GhostButton
@@ -58,8 +61,8 @@ import java.util.UUID
 /** Aggiungi / modifica movimento (§4.3), stile form: Inter al posto di SF Pro. */
 @Composable
 fun AddTransactionForm(
-    existing: TransactionEntity?, accounts: List<AccountEntity>, categories: List<CategoryEntity>, currency: String,
-    today: LocalDate, zone: ZoneId, classify: suspend (String) -> String,
+    existing: TransactionEntity?, accounts: List<AccountEntity>, categories: List<CategoryEntity>, history: List<TransactionEntity>, currency: String,
+    today: LocalDate, zone: ZoneId, classify: suspend (String) -> String, onManageCategories: () -> Unit,
     onSave: suspend (TransactionEntity) -> Boolean, onClose: () -> Unit,
 ) {
     val c = Bt.colors
@@ -74,10 +77,12 @@ fun AddTransactionForm(
     var notes by rememberSaveable { mutableStateOf(existing?.notes.orEmpty()) }
     var accountId by rememberSaveable { mutableStateOf(existing?.accountId ?: active.firstOrNull()?.id) }
     var dateEpochDay by rememberSaveable { mutableStateOf((originalDate ?: today).toEpochDay()) }
-    var planned by rememberSaveable { mutableStateOf(existing?.isDone == false) }
+    var fixed by rememberSaveable { mutableStateOf(existing?.isFixed ?: false) }
+    var done by rememberSaveable { mutableStateOf(existing?.isDone ?: true) }
     var chosenCategory by rememberSaveable { mutableStateOf(existing?.category) }
     var suggested by rememberSaveable { mutableStateOf<String?>(null) }
-    var categoryMenu by remember { mutableStateOf(false) }
+    var suggestedFromHistory by rememberSaveable { mutableStateOf(false) }
+    var categoryPicker by rememberSaveable { mutableStateOf(false) }
     var saving by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
     val date = LocalDate.ofEpochDay(dateEpochDay)
@@ -86,8 +91,13 @@ fun AddTransactionForm(
     LaunchedEffect(name) {
         if (chosenCategory != null || name.isBlank()) { suggested = null; return@LaunchedEffect }
         delay(280)
-        val result = classify(name.trim())
-        suggested = result.takeIf { it != Categories.OTHER && categories.any { c -> c.name == it } }
+        val key = KeywordCategoryClassifier.fold(name.trim().split(" ").first())
+        val past = history.filter { it.isDone && !it.isTransfer && it.id != existing?.id && KeywordCategoryClassifier.fold(it.name).contains(key) }
+            .map { LastUsedCategory.Movement(it.name, it.category, Instant.ofEpochMilli(it.createdAt), it.isDone, it.isTransfer) }
+        val fromHistory = LastUsedCategory.suggest(name.trim(), past, categories.map { it.name }.toSet())
+        val result = fromHistory ?: if (name.trim().length > 2) classify(name.trim()) else null
+        suggested = result?.takeIf { (fromHistory != null || it != Categories.OTHER) && categories.any { c -> c.name == it } }
+        suggestedFromHistory = fromHistory != null
     }
 
     val amount = Amounts.parse(amountText)
@@ -126,28 +136,17 @@ fun AddTransactionForm(
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             SectionLabel(stringResource(R.string.categoria))
-            Box {
-                Row(
-                    Modifier.fillMaxWidth().heightIn(min = 44.dp).testTag("btn_categoryPicker").clickable(role = Role.Button) { categoryMenu = true },
-                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    shownCategory?.let { cat ->
-                        Icon(SfIcons.forName(categories.firstOrNull { it.name == cat }?.icon ?: Categories.iconFor(cat)), null, tint = c.smoke, modifier = Modifier.size(14.dp))
-                    }
-                    Text(shownCategory?.let { categoryLabel(it) } ?: stringResource(R.string.scegli), style = Typo.formOption, color = if (shownCategory == null) c.smoke else c.ink)
-                    if (chosenCategory == null && suggested != null) Text(stringResource(R.string.suggerita), style = Typo.formOptionSub, color = c.smoke)
-                    Box(Modifier.weight(1f))
-                    Icon(SfIcons.forName("chevron.down"), null, tint = c.smoke, modifier = Modifier.size(14.dp))
+            Row(
+                Modifier.fillMaxWidth().heightIn(min = 44.dp).testTag("btn_categoryPicker").clickable(role = Role.Button) { categoryPicker = true },
+                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                shownCategory?.let { cat ->
+                    Icon(SfIcons.forName(categories.firstOrNull { it.name == cat }?.icon ?: Categories.iconFor(cat)), null, tint = c.smoke, modifier = Modifier.size(14.dp))
                 }
-                DropdownMenu(categoryMenu, { categoryMenu = false }) {
-                    categories.forEach { cat ->
-                        DropdownMenuItem(
-                            text = { Text(categoryLabel(cat.name)) },
-                            leadingIcon = { Icon(SfIcons.forName(cat.icon), null, modifier = Modifier.size(16.dp)) },
-                            onClick = { chosenCategory = cat.name; categoryMenu = false },
-                        )
-                    }
-                }
+                Text(shownCategory?.let { categoryLabel(it) } ?: stringResource(R.string.scegli), style = Typo.formOption, color = if (shownCategory == null) c.smoke else c.ink)
+                if (chosenCategory == null && suggested != null) Text(stringResource(if (suggestedFromHistory) R.string.ultima_usata else R.string.suggerita), style = Typo.formOptionSub, color = c.smoke)
+                Box(Modifier.weight(1f))
+                Icon(SfIcons.forName("chevron.down"), null, tint = c.smoke, modifier = Modifier.size(14.dp))
             }
             FieldLine()
         }
@@ -163,15 +162,18 @@ fun AddTransactionForm(
 
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             SectionLabel(stringResource(R.string.opzioni))
+            OptionRow(stringResource(if (income) R.string.entrata_fissa else R.string.spesa_fissa), stringResource(R.string.appare_in_fissi_del_mese_nella_home), Modifier.testTag("toggle_isFixed")) {
+                FormSwitch(fixed, { fixed = it; done = if (it) false else date <= today }, stringResource(if (income) R.string.entrata_fissa else R.string.spesa_fissa))
+            }
+            OptionRow(stringResource(R.string.gia_effettuato), stringResource(R.string.togli_la_spunta_se_e_pianificata_ma_non), Modifier.testTag("toggle_isDone")) {
+                FormSwitch(done, { done = it }, stringResource(R.string.gia_effettuato))
+            }
             OptionRow(stringResource(R.string.data), modifier = Modifier.clickable(role = Role.Button) {
                 DatePickerDialog(context, { _, y, m, d ->
                     val picked = LocalDate.of(y, m + 1, d)
-                    dateEpochDay = picked.toEpochDay(); planned = picked > today
+                    dateEpochDay = picked.toEpochDay(); if (!fixed) done = picked <= today
                 }, date.year, date.monthValue - 1, date.dayOfMonth).show()
             }) { Text(date.format(java.time.format.DateTimeFormatter.ofLocalizedDate(java.time.format.FormatStyle.MEDIUM)), style = Typo.formOption, color = c.ink) }
-            OptionRow(stringResource(R.string.pianificato)) {
-                FormSwitch(planned, { planned = it }, stringResource(R.string.pianificato))
-            }
         }
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -199,7 +201,7 @@ fun AddTransactionForm(
                         val entity = (existing ?: TransactionEntity(id = UUID.randomUUID().toString(), name = "", amountCents = 0, type = "", date = 0)).copy(
                             accountId = accountId, name = name.trim(), amountCents = Amounts.toCents(checkNotNull(amount)),
                             type = if (income) Amounts.TYPE_INCOME else Amounts.TYPE_EXPENSE, category = category, categoryIcon = icon,
-                            date = dateMillis, isDone = !planned, notes = notes.trim(),
+                            date = dateMillis, isDone = done, isFixed = fixed, notes = notes.trim(),
                         )
                         val ok = onSave(entity)
                         saving = false
@@ -209,5 +211,9 @@ fun AddTransactionForm(
             )
             GhostButton(stringResource(R.string.annulla), onClose, Modifier.testTag("btn_cancelAddTransaction"))
         }
+        if (categoryPicker) CategoryPickerSheet(
+            categories, shownCategory, onSelect = { chosenCategory = it; categoryPicker = false },
+            onManage = onManageCategories, onClose = { categoryPicker = false },
+        )
     }
 }

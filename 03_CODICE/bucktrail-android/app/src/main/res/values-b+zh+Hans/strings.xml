@@ -393,8 +393,27 @@
     <string name="s_2f_salvato_424b7d">💰 +%1$.2f€ %2$s — 已保存！</string>
     <string name="saldo_totale">💰 总余额：%s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ 用于 %2$s — 已保存！</string>
+    <string name="apri_impostazioni_lingua" formatted="false">打开语言设置</string>
+    <string name="categoria_esiste_gia" formatted="false">已存在同名分类。</string>
+    <string name="conti_in_home_nascosto" formatted="false">在首页隐藏</string>
+    <string name="conti_in_home_selezionato" formatted="false">在首页显示</string>
+    <string name="da_a_riepilogo">%1$s → %2$s</string>
+    <string name="elimina_categoria_0" formatted="false">确定要删除此分类吗？</string>
+    <string name="elimina_categoria_1" formatted="false">有1笔交易使用此分类，其图标将恢复为默认图标。要继续吗？</string>
+    <string name="elimina_categoria_n">有%1$d笔交易使用此分类，其图标将恢复为默认图标。要继续吗？</string>
+    <string name="elimina_categoria_titolo">删除“%1$s”</string>
+    <string name="elimina_con_1_movimento" formatted="false">删除（1笔交易）</string>
+    <string name="elimina_con_n_movimenti">删除（%1$d笔交易）</string>
+    <string name="filtro_attivo_rimuovi" formatted="false">移除高级筛选</string>
     <string name="hidden_amount" formatted="false">金额已隐藏</string>
+    <string name="movimenti_eliminati" formatted="false">交易已删除</string>
+    <string name="movimento_eliminato" formatted="false">交易已删除</string>
+    <string name="nome_categoria" formatted="false">分类名称</string>
+    <string name="periodo" formatted="false">期间</string>
     <string name="save_failed" formatted="false">无法保存。请重试。</string>
+    <string name="scegli_valuta_conferma" formatted="false">要更改货币吗？</string>
+    <string name="sposta_giu" formatted="false">下移</string>
+    <string name="sposta_su" formatted="false">上移</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="other">还剩%d天</item>
     </plurals>

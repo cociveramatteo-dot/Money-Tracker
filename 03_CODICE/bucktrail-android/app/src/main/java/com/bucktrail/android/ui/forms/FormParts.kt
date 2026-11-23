@@ -32,6 +32,7 @@ import com.bucktrail.android.ui.theme.Typo
 @Composable
 fun FullScreenForm(onDismiss: () -> Unit, content: @Composable () -> Unit) {
     Dialog(onDismissRequest = onDismiss, properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
+        com.bucktrail.android.ui.components.DialogStatusBarEffect()
         Box(Modifier.fillMaxSize().background(Bt.colors.paper).systemBarsPadding().imePadding()) {
             Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 16.dp), verticalArrangement = Arrangement.spacedBy(36.dp)) {
                 content()

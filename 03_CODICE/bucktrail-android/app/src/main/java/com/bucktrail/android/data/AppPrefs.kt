@@ -83,4 +83,6 @@ class AppPrefs(private val context: Context) {
     }
     suspend fun setBalanceThreshold(accountId: String, fixedFraction: String) =
         context.dataStore.edit { it[stringPreferencesKey(K.THRESHOLD + accountId)] = fixedFraction }
+    suspend fun removeBalanceThreshold(accountId: String) =
+        context.dataStore.edit { it.remove(stringPreferencesKey(K.THRESHOLD + accountId)) }
 }

@@ -393,8 +393,27 @@
     <string name="s_2f_salvato_424b7d">💰 +%1$.2f€ %2$s — enregistré !</string>
     <string name="saldo_totale">💰 Solde total : %s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ pour %2$s — enregistré !</string>
+    <string name="apri_impostazioni_lingua" formatted="false">Ouvrir les réglages de langue</string>
+    <string name="categoria_esiste_gia" formatted="false">Une catégorie portant ce nom existe déjà.</string>
+    <string name="conti_in_home_nascosto" formatted="false">Masqué dans Accueil</string>
+    <string name="conti_in_home_selezionato" formatted="false">Affiché dans Accueil</string>
+    <string name="da_a_riepilogo">%1$s → %2$s</string>
+    <string name="elimina_categoria_0" formatted="false">Voulez-vous vraiment supprimer cette catégorie ?</string>
+    <string name="elimina_categoria_1" formatted="false">1 transaction utilise cette catégorie. L’icône reviendra à celle par défaut. Continuer ?</string>
+    <string name="elimina_categoria_n">%1$d transactions utilisent cette catégorie. Les icônes reviendront à celle par défaut. Continuer ?</string>
+    <string name="elimina_categoria_titolo">Supprimer « %1$s »</string>
+    <string name="elimina_con_1_movimento" formatted="false">Supprimer (1 mouvement)</string>
+    <string name="elimina_con_n_movimenti">Supprimer (%1$d mouvements)</string>
+    <string name="filtro_attivo_rimuovi" formatted="false">Retirer les filtres avancés</string>
     <string name="hidden_amount" formatted="false">Montant masqué</string>
+    <string name="movimenti_eliminati" formatted="false">Mouvements supprimés</string>
+    <string name="movimento_eliminato" formatted="false">Mouvement supprimé</string>
+    <string name="nome_categoria" formatted="false">Nom de la catégorie</string>
+    <string name="periodo" formatted="false">Période</string>
     <string name="save_failed" formatted="false">Impossible d’enregistrer. Réessaie.</string>
+    <string name="scegli_valuta_conferma" formatted="false">Changer de devise ?</string>
+    <string name="sposta_giu" formatted="false">Descendre</string>
+    <string name="sposta_su" formatted="false">Monter</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="one">Plus que %d jour</item>
         <item quantity="other">Plus que %d jours</item>

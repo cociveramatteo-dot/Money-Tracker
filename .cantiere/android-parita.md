@@ -461,11 +461,11 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-006 | Spaziature/raggi/misure componenti (§1.3) | sì (B0, `Dim`) |
 | F-007 | FloatingTabBar (capsula 66, pill attiva) a 5 tab | sì (B0, `FloatingTabBar` 5 tab) |
 | F-008 | FAB squircle 58/r20 contestuale per tab | sì (B0; azioni Pianifica vuote fino a B6) |
-| F-009 | FAB menu «Spesa/Entrata» + «Trasferimento» | parziale (menu c'è; «Trasferimento» vuoto fino a B3) |
+| F-009 | FAB menu «Spesa/Entrata» + «Trasferimento» | sì (B3, trasferimento apre `AddTransferForm`) |
 | F-010 | Componenti: Card, HeroCard, HomeHeroCard, ProgressBar, BudgetStatus, SegmentedPill, FilterChip, EmptyState, MonthBar, SectionLabel, ThinDivider, UnderlineSegment, PrimaryButton/Ghost | parziale (B0: Card, HeroCard, ProgressBar, BudgetStatus, SegmentedPill, FilterChip, EmptyState, MonthBar, SectionLabel, ThinDivider, UnderlineSegment, Primary/Ghost; mancano FixedTotalTile extra e banner) |
 | F-011 | MovementRow Sentiero (icona 38 tinta, varianti pianificato/transfer/entrata, `repeat`) | sì (B0, `MovementRow`) |
 | F-012 | Ombre (tab bar, FAB, banner) | sì (tab bar, FAB) |
-| F-013 | Haptic (soft/medium) | no |
+| F-013 | Haptic (soft/medium) | parziale (B2/B3: swipe, FAB) |
 | F-014 | Icone: mappa SF → vettori Android (§1.5) | sì (B0, `SfIcons`, 100+ nomi) |
 | F-015 | Layout accessibile (font grandi), contenuti oltre tab bar (94 + 100) | no |
 | F-016 | Splash + stato iniziale | no |
@@ -500,39 +500,39 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 ### Schermate
 | ID | Funzione | Android |
 |---|---|---|
-| F-050 | Home: header data + wordmark + pulsanti occhio/impostazioni | parziale (titolo + pulsante testuale) |
+| F-050 | Home: header data + wordmark + pulsanti occhio/impostazioni | parziale (B2: ingranaggio Impostazioni aggiunto; resto B4) |
 | F-051 | Home: HomeHeroCard con saldo attuale | parziale |
 | F-052 | Home: TrailView (curva mese reale/proiettata) | no |
 | F-053 | Home: Saldo atteso + riepilogo pianificati | parziale (solo importo, regola diversa) |
 | F-054 | Home: carosello conti (card 148, saldo futuro) | parziale (lista verticale) |
-| F-055 | Home: ordine/visibilità conti (`HomeAccountOrderSheet`) | no |
+| F-055 | Home: ordine/visibilità conti (`HomeAccountOrderSheet`) | sì (B2, `HomeAccountOrderSheet`: check, trascina, salva) |
 | F-056 | Home: «Fissi del mese» (2 tile, toggle Impostazioni) | no |
 | F-057 | Home: Ultimi movimenti (4, collassabile, vuoto, swipe/menu) | parziale (5, no collasso, no swipe, no elimina) |
 | F-058 | Oscura importi (persistito, `•••• €`/`• • •`) | parziale (non persistito, in hero) |
-| F-059 | Movimenti: titolo, ricerca per nome | no |
-| F-060 | Movimenti: chip tipo (Tutti/Fisse/Trasf./Uscite/Entrate) | no |
-| F-061 | Movimenti: menu Mese e Categoria | no |
-| F-062 | Movimenti: filtri avanzati (importo, periodo) + badge + persistenza | no |
-| F-063 | Movimenti: sezione «In arrivo · pianificati» | parziale (sezione «In arrivo» semplice) |
-| F-064 | Movimenti: gruppi per giorno con totale | no |
-| F-065 | Movimenti: swipe Conferma/Pianificato ed Elimina | no (solo tap→modifica) |
-| F-066 | Movimenti: menu contestuale (Ricorrenza/Elimina) | no |
-| F-067 | Movimenti: eliminazione trasferimento con conferma | no |
+| F-059 | Movimenti: titolo, ricerca per nome | sì (B3) |
+| F-060 | Movimenti: chip tipo (Tutti/Fisse/Trasf./Uscite/Entrate) | parziale (B3: Tutti/Fisse/Trasf./Uscite/Entrate; «Ricorrenti» in B5) |
+| F-061 | Movimenti: menu Mese e Categoria | sì (B3) |
+| F-062 | Movimenti: filtri avanzati (importo, periodo) + badge + persistenza | sì (B3, sheet Filtri + badge + chip riepilogo + persistenza min/max/periodo) |
+| F-063 | Movimenti: sezione «In arrivo · pianificati» | sì (B3) |
+| F-064 | Movimenti: gruppi per giorno con totale | sì (B3, per data; totale giorno senza trasferimenti) |
+| F-065 | Movimenti: swipe Conferma/Pianificato ed Elimina | sì (B3, swipe elimina/conferma/pianificato + menu) |
+| F-066 | Movimenti: menu contestuale (Ricorrenza/Elimina) | parziale (B3: menu Modifica/Conferma/Elimina; «Ricorrenza» in B5) |
+| F-067 | Movimenti: eliminazione trasferimento con conferma | sì (B3, dialog elimina entrambe le gambe) |
 | F-068 | Movimenti: pagina Ricorrenti (regole + serie rilevate) | no |
 | F-069 | Movimenti: occorrenze virtuali mesi futuri | no |
-| F-070 | Movimenti: stati vuoti (nessun movimento / nessun risultato) | parziale (testo semplice) |
+| F-070 | Movimenti: stati vuoti (nessun movimento / nessun risultato) | sì (B3) |
 | F-071 | Dettaglio serie rilevata (Storico) | no |
 | F-072 | Editor ricorrenza (ambiti, salta mese, termina, elimina) | no |
-| F-073 | Aggiungi movimento: importo/descrizione/categoria/conto/data/note | parziale (descr., importo, conto, data) |
-| F-074 | Aggiungi movimento: tipo Uscita/Entrata (UnderlineSegment) | parziale (chip) |
-| F-075 | Aggiungi movimento: categoria auto (storico + classificatore, debounce 280) | no |
-| F-076 | Aggiungi movimento: picker categoria + gestione categorie | no |
-| F-077 | Aggiungi movimento: spesa/entrata fissa + «Già effettuato» | no (c'è «Pianificato») |
+| F-073 | Aggiungi movimento: importo/descrizione/categoria/conto/data/note | sì (B3) |
+| F-074 | Aggiungi movimento: tipo Uscita/Entrata (UnderlineSegment) | sì (B3) |
+| F-075 | Aggiungi movimento: categoria auto (storico + classificatore, debounce 280) | sì (B3, storico «Ultima usata» + classificatore, debounce 280) |
+| F-076 | Aggiungi movimento: picker categoria + gestione categorie | sì (B3, `CategoryPickerSheet` + Gestisci) |
+| F-077 | Aggiungi movimento: spesa/entrata fissa + «Già effettuato» | sì (B3, fissa + «Già effettuato») |
 | F-078 | Aggiungi movimento: ricorrenza (nessuna/sett./mens./ann.) | no |
-| F-079 | Modifica movimento (anche copia di serie → serie intera) | parziale (modifica base) |
-| F-080 | Elimina movimento | no |
+| F-079 | Modifica movimento (anche copia di serie → serie intera) | parziale (B3: modifica normale; copia di serie in B5) |
+| F-080 | Elimina movimento | sì (B3, con «Annulla») |
 | F-081 | Notifiche post-salvataggio (budget, soglia saldo) | no |
-| F-082 | Aggiungi/modifica trasferimento | no |
+| F-082 | Aggiungi/modifica trasferimento | sì (B3, `AddTransferForm`) |
 | F-083 | Statistiche: header, PDF, MonthBar | no |
 | F-084 | Statistiche: 3 tile Uscite/Entrate/Netto | no |
 | F-085 | Statistiche: Andamento barre 6M/12M + medie | no |
@@ -547,22 +547,22 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-094 | Obiettivi: hero con anello, card, scadenza, `+` | no |
 | F-095 | Aggiungi/modifica obiettivo (36 icone, scadenza, aggiungi risparmio) | no |
 | F-096 | Elimina obiettivo | no |
-| F-097 | Conti: hero patrimonio + «A conti fatti» | no |
-| F-098 | Conti: gruppi Liquidità / Risparmio e investimenti con totali | no (lista piatta) |
-| F-099 | Conti: AccountRow (tinta tipo, soglia, escluso, → futuro) | parziale (nome+saldo) |
-| F-100 | Conti: aggiungi conto semplice (nome+saldo) | parziale |
-| F-101 | Conti: tipo, escludi dal totale, soglia saldo basso | no |
-| F-102 | Conti: modifica (con rettifica saldo) | no |
-| F-103 | Conti: archivia/ripristina, sezione Archiviati | no |
-| F-104 | Conti: elimina con conferma (cascade) | no |
-| F-105 | Conti: escludi/includi (menu) | no |
-| F-106 | Gestione categorie (aggiungi/rinomina/elimina, 48 icone) | no |
-| F-107 | Impostazioni: lingua, valuta (con conferma), notifiche, report mensile | no |
+| F-097 | Conti: hero patrimonio + «A conti fatti» | sì (B2) |
+| F-098 | Conti: gruppi Liquidità / Risparmio e investimenti con totali | sì (B2) |
+| F-099 | Conti: AccountRow (tinta tipo, soglia, escluso, → futuro) | sì (B2, soglia, escluso, → futuro) |
+| F-100 | Conti: aggiungi conto semplice (nome+saldo) | sì (B2) |
+| F-101 | Conti: tipo, escludi dal totale, soglia saldo basso | sì (B2) |
+| F-102 | Conti: modifica (con rettifica saldo) | sì (B2, rettifica saldo) |
+| F-103 | Conti: archivia/ripristina, sezione Archiviati | sì (B2) |
+| F-104 | Conti: elimina con conferma (cascade) | sì (B2, alert con N movimenti) |
+| F-105 | Conti: escludi/includi (menu) | sì (B2) |
+| F-106 | Gestione categorie (aggiungi/rinomina/elimina, 48 icone) | sì (B2, 48 icone, rinomina riscrive transazioni e budget) |
+| F-107 | Impostazioni: lingua, valuta (con conferma), notifiche, report mensile | parziale (B2: lingua, valuta con conferma; notifiche in B8) |
 | F-108 | Impostazioni: blocco app biometrico + disattivazione protetta | no |
-| F-109 | Impostazioni: toggle Home (fissi) | no |
+| F-109 | Impostazioni: toggle Home (fissi) | sì (B2) |
 | F-110 | Impostazioni: export CSV / JSON | no |
 | F-111 | Impostazioni: modalità demo + banner | no |
-| F-112 | Impostazioni: sezione Siri/Scorciatoie, Info (versione, n. transazioni) | no |
+| F-112 | Impostazioni: sezione Siri/Scorciatoie, Info (versione, n. transazioni) | parziale (B2: Info; scorciatoie in B10) |
 | F-113 | Impostazioni: Account (email, esci, elimina account con ELIMINA) | no |
 | F-114 | Pull-to-refresh con sync manuale | no |
 | F-115 | Dati demo (seeder v6) | no |

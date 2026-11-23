@@ -27,7 +27,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -48,10 +50,12 @@ import androidx.compose.ui.unit.dp
 import com.bucktrail.android.R
 import com.bucktrail.android.data.TransactionEntity
 import com.bucktrail.android.domain.Amounts
+import com.bucktrail.android.domain.TransactionFiltering
 import com.bucktrail.android.ui.AppData
 import com.bucktrail.android.ui.Fmt
 import com.bucktrail.android.ui.categoryLabel
 import com.bucktrail.android.ui.components.EmptyState
+import com.bucktrail.android.ui.components.RoundIconButton
 import com.bucktrail.android.ui.components.SecondaryChip
 import com.bucktrail.android.ui.components.SfIcons
 import com.bucktrail.android.ui.components.ThinDivider
@@ -60,21 +64,28 @@ import com.bucktrail.android.ui.theme.Bt
 import com.bucktrail.android.ui.theme.Dim
 import com.bucktrail.android.ui.theme.Typo
 import java.math.BigDecimal
+import java.time.Instant
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.ZoneId
 import java.util.Locale
 
-private enum class TypeFilter(val tag: String) { All("Tutti"), Fixed("Fisse"), Transfer("Trasf."), Expense("Uscite"), Income("Entrate") }
+private typealias TypeFilter = TransactionFiltering.TypeFilter
 
-private fun foldText(s: String) = com.bucktrail.android.domain.KeywordCategoryClassifier.fold(s)
+private val TypeFilter.tag: String get() = when (this) { TypeFilter.All -> "Tutti"; TypeFilter.Fixed -> "Fisse"; TypeFilter.Transfer -> "Trasf."; TypeFilter.Expense -> "Uscite"; TypeFilter.Income -> "Entrate" }
 
-/** Movimenti (§4.2): ricerca, chip tipo, mese/categoria, «In arrivo» in cima, gruppi per giorno. */
+/** Azioni delle schermate lista movimenti. */
+class MovementActions(
+    val onEdit: (TransactionEntity) -> Unit, val onDelete: (TransactionEntity) -> Unit, val onToggleDone: (TransactionEntity) -> Unit,
+    val onSetFilters: (String, String, Boolean) -> Unit, val onSettings: () -> Unit,
+)
+
+private fun TransactionEntity.filterRow() =
+    TransactionFiltering.Row(name, type, isFixed, isTransfer, category, amountValue(), Instant.ofEpochMilli(date))
+
+/** Movimenti (§4.2): ricerca, chip tipo, mese/categoria, filtri avanzati, «In arrivo» in cima, gruppi per giorno con swipe. */
 @Composable
-fun MovementsScreen(
-    data: AppData, today: LocalDate, zone: ZoneId,
-    onEdit: (TransactionEntity) -> Unit, onDelete: (TransactionEntity) -> Unit, onSearchActiveChange: (Boolean) -> Unit = {},
-) {
+fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: MovementActions, onSearchActiveChange: (Boolean) -> Unit = {}) {
     val c = Bt.colors
     val res = LocalContext.current.resources
     val ledger = data.ledger
@@ -84,31 +95,33 @@ fun MovementsScreen(
     var type by rememberSaveable { mutableStateOf(TypeFilter.All) }
     var monthOffset by rememberSaveable { mutableIntStateOf(0) }
     var category by rememberSaveable { mutableStateOf<String?>(null) }
+    var fromDay by rememberSaveable { mutableLongStateOf(today.minusMonths(1).toEpochDay()) }
+    var toDay by rememberSaveable { mutableLongStateOf(today.toEpochDay()) }
+    var showFilters by rememberSaveable { mutableStateOf(false) }
     var monthMenu by remember { mutableStateOf(false) }
     var categoryMenu by remember { mutableStateOf(false) }
     val locale = Locale.getDefault()
     val month = YearMonth.from(today).plusMonths(monthOffset.toLong())
+    val prefs = data.prefs
+    val advancedCount = TransactionFiltering.activeCount(prefs.txFilterMin, prefs.txFilterMax, prefs.txFilterUseDates)
 
-    val filtered = remember(ledger.transactions, query, type, month, category) {
-        val q = foldText(query.trim())
-        ledger.transactions.filter { t ->
-            (q.isNotEmpty() || YearMonth.from(t.localDate(zone)) == month) &&
-                (q.isEmpty() || foldText(t.name).contains(q)) &&
-                when (type) {
-                    TypeFilter.All -> true
-                    TypeFilter.Fixed -> t.isFixed
-                    TypeFilter.Transfer -> t.isTransfer
-                    TypeFilter.Expense -> t.type == Amounts.TYPE_EXPENSE && !t.isTransfer
-                    TypeFilter.Income -> t.type == Amounts.TYPE_INCOME && !t.isTransfer
-                } && (category == null || t.category == category)
-        }
+    val filtered = remember(ledger.transactions, query, type, month, category, prefs.txFilterMin, prefs.txFilterMax, prefs.txFilterUseDates, fromDay, toDay, zone) {
+        val criteria = TransactionFiltering.Criteria(
+            query, type, month, category, prefs.txFilterMin, prefs.txFilterMax, prefs.txFilterUseDates,
+            LocalDate.ofEpochDay(fromDay), LocalDate.ofEpochDay(toDay),
+        )
+        TransactionFiltering.filter(ledger.transactions, criteria, zone) { it.filterRow() }
     }
     val planned = remember(filtered) { filtered.filter { !it.isDone } }
     val groups = remember(filtered, zone) { filtered.filter { it.isDone }.groupBy { it.localDate(zone) }.toSortedMap(compareByDescending { it }) }
     fun sum(list: List<TransactionEntity>) = list.filter { !it.isTransfer }.fold(BigDecimal.ZERO) { a, t -> a + Amounts.signed(t.amountValue(), t.type) }
+    val ruleIds = remember(ledger.rules) { ledger.rules.map { it.id.lowercase() }.toSet() }
 
     Column(Modifier.fillMaxSize()) {
-        PageHeader(stringResource(R.string.movimenti))
+        PageHeader(stringResource(R.string.movimenti)) {
+            RoundIconButton(SfIcons.forName("line.3.horizontal.decrease"), stringResource(R.string.filtri), { showFilters = true }, Modifier.testTag("btn_advancedFilter"), badge = advancedCount)
+            RoundIconButton(SfIcons.forName("gearshape"), stringResource(R.string.impostazioni), actions.onSettings, Modifier.testTag("btn_openSettings"))
+        }
         // Ricerca
         Row(
             Modifier.padding(horizontal = Dim.cardMargin.dp).fillMaxWidth().heightIn(min = 46.dp).clip(RoundedCornerShape(16.dp)).background(c.surface)
@@ -168,6 +181,15 @@ fun MovementsScreen(
                     }
                 }
             }
+            if (advancedCount > 0) {
+                val label = when (TransactionFiltering.summaryKind(prefs.txFilterMin, prefs.txFilterMax, prefs.txFilterUseDates)) {
+                    TransactionFiltering.SummaryKind.AtLeast -> "≥ ${prefs.txFilterMin} ${Fmt.currencySymbol(currency)}"
+                    TransactionFiltering.SummaryKind.AtMost -> "≤ ${prefs.txFilterMax} ${Fmt.currencySymbol(currency)}"
+                    TransactionFiltering.SummaryKind.Range -> "${prefs.txFilterMin}–${prefs.txFilterMax} ${Fmt.currencySymbol(currency)}"
+                    TransactionFiltering.SummaryKind.Count -> stringResource(R.string.filtri_lld, advancedCount)
+                }
+                SecondaryChip(label, { actions.onSetFilters("", "", false) }, Modifier.testTag("btn_activeFilterBadge"), active = true, trailing = SfIcons.forName("xmark"))
+            }
         }
         LazyColumn(
             Modifier.weight(1f), contentPadding = PaddingValues(start = Dim.cardMargin.dp, end = Dim.cardMargin.dp, bottom = Dim.listBottomPadding.dp),
@@ -181,9 +203,11 @@ fun MovementsScreen(
                     }
                     GroupCard {
                         planned.sortedByDescending { it.date }.forEachIndexed { i, t ->
+                            key(t.id) {
                             if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
                             TransactionRow(t, ledger.accounts, currency, hidden, today, zone, res, compact = true,
-                                recurring = ledger.rules.any { it.id.equals(t.templateId, true) }, onEdit = onEdit, onDelete = onDelete)
+                                recurring = t.templateId.lowercase() in ruleIds, onEdit = actions.onEdit, onDelete = actions.onDelete, onToggleDone = actions.onToggleDone)
+                            }
                         }
                     }
                 }
@@ -198,9 +222,11 @@ fun MovementsScreen(
                         }
                         GroupCard {
                             rows.forEachIndexed { i, t ->
+                                key(t.id) {
                                 if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
                                 TransactionRow(t, ledger.accounts, currency, hidden, today, zone, res, compact = true,
-                                    recurring = ledger.rules.any { it.id.equals(t.templateId, true) }, onEdit = onEdit, onDelete = onDelete)
+                                    recurring = t.templateId.lowercase() in ruleIds, onEdit = actions.onEdit, onDelete = actions.onDelete, onToggleDone = actions.onToggleDone)
+                                }
                             }
                         }
                     }
@@ -212,6 +238,12 @@ fun MovementsScreen(
             }
         }
     }
+
+    if (showFilters) AdvancedFilterSheet(
+        prefs.txFilterMin, prefs.txFilterMax, prefs.txFilterUseDates, LocalDate.ofEpochDay(fromDay), LocalDate.ofEpochDay(toDay), currency, advancedCount,
+        onChange = actions.onSetFilters, onFromChange = { fromDay = it.toEpochDay(); if (toDay < fromDay) toDay = fromDay },
+        onToChange = { toDay = it.toEpochDay(); if (toDay < fromDay) fromDay = toDay }, onClose = { showFilters = false },
+    )
 }
 
 @Composable

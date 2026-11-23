@@ -26,4 +26,16 @@ object Categories {
 
     /** `DS.categoryIcon(for:)`: icona predefinita per nome, altrimenti `circle.dotted`. */
     fun iconFor(name: String): String = byName[name] ?: UNKNOWN_ICON
+
+    /** `DS.availableIcons` (48): griglia del selettore icona categoria. */
+    val availableIcons: List<String> = listOf(
+        "fork.knife", "cup.and.saucer.fill", "cart.fill", "bag.fill", "takeoutbag.and.cup.and.straw.fill", "wineglass.fill",
+        "car.fill", "airplane", "tram.fill", "ferry.fill", "bicycle", "fuelpump.fill",
+        "house.fill", "bolt.fill", "drop.fill", "flame.fill", "wifi", "phone.fill",
+        "heart.fill", "cross.fill", "dumbbell.fill", "figure.run", "stethoscope", "pills.fill",
+        "gamecontroller.fill", "film.fill", "music.note", "book.fill", "theatermasks.fill", "ticket.fill",
+        "briefcase.fill", "laptopcomputer", "graduationcap.fill", "pencil.and.ruler.fill", "doc.fill", "printer.fill",
+        "tshirt.fill", "shoe.fill", "eyeglasses", "crown.fill", "sparkles", "scissors",
+        "eurosign.circle.fill", "creditcard.fill", "gift.fill", "arrow.left.arrow.right", "repeat.circle.fill", "circle.dotted",
+    )
 }

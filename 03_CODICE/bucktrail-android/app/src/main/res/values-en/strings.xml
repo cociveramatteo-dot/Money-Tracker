@@ -393,8 +393,27 @@
     <string name="s_2f_salvato_424b7d">💰 +%1$.2f€ %2$s — saved!</string>
     <string name="saldo_totale">💰 Total balance: %s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ for %2$s — saved!</string>
+    <string name="apri_impostazioni_lingua" formatted="false">Open language settings</string>
+    <string name="categoria_esiste_gia" formatted="false">A category with this name already exists.</string>
+    <string name="conti_in_home_nascosto" formatted="false">Hidden on Home</string>
+    <string name="conti_in_home_selezionato" formatted="false">Shown on Home</string>
+    <string name="da_a_riepilogo">%1$s → %2$s</string>
+    <string name="elimina_categoria_0" formatted="false">Are you sure you want to delete this category?</string>
+    <string name="elimina_categoria_1" formatted="false">1 transaction uses this category. Its icon will go back to the default one. Continue?</string>
+    <string name="elimina_categoria_n">%1$d transactions use this category. Their icons will go back to the default one. Continue?</string>
+    <string name="elimina_categoria_titolo">Delete “%1$s”</string>
+    <string name="elimina_con_1_movimento" formatted="false">Delete (1 transaction)</string>
+    <string name="elimina_con_n_movimenti">Delete (%1$d transactions)</string>
+    <string name="filtro_attivo_rimuovi" formatted="false">Remove advanced filters</string>
     <string name="hidden_amount" formatted="false">Hidden amount</string>
+    <string name="movimenti_eliminati" formatted="false">Transactions deleted</string>
+    <string name="movimento_eliminato" formatted="false">Transaction deleted</string>
+    <string name="nome_categoria" formatted="false">Category name</string>
+    <string name="periodo" formatted="false">Period</string>
     <string name="save_failed" formatted="false">Couldn\'t save. Try again.</string>
+    <string name="scegli_valuta_conferma" formatted="false">Change currency?</string>
+    <string name="sposta_giu" formatted="false">Move down</string>
+    <string name="sposta_su" formatted="false">Move up</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="one">%d day left</item>
         <item quantity="other">%d days left</item>

@@ -100,7 +100,7 @@ object SfIcons {
             "chevron.up" to Icons.Outlined.KeyboardArrowUp, "chevron.down" to Icons.Outlined.KeyboardArrowDown,
             "arrow.up" to Icons.Outlined.ArrowUpward, "arrow.down" to Icons.Outlined.ArrowDownward,
             "person.circle" to Icons.Outlined.AccountCircle, "plus.circle" to Icons.Outlined.AddCircleOutline,
-            "pencil.circle" to Icons.Outlined.Edit, "creditcard.tab" to Icons.Outlined.CreditCard,
+            "pencil.circle" to Icons.Outlined.Edit, "circle" to Icons.Outlined.RadioButtonUnchecked, "line.3.horizontal" to Icons.Outlined.DragHandle, "creditcard.tab" to Icons.Outlined.CreditCard,
         )
     }
 

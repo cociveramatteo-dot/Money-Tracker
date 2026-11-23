@@ -394,8 +394,27 @@
     <string name="s_2f_salvato_424b7d">💰 +%1$.2f€ %2$s — salvato!</string>
     <string name="saldo_totale">💰 Saldo totale: %s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ per %2$s — salvato!</string>
+    <string name="apri_impostazioni_lingua" formatted="false">Apri le impostazioni della lingua</string>
+    <string name="categoria_esiste_gia" formatted="false">Esiste già una categoria con questo nome.</string>
+    <string name="conti_in_home_nascosto" formatted="false">Nascosto in Home</string>
+    <string name="conti_in_home_selezionato" formatted="false">Mostrato in Home</string>
+    <string name="da_a_riepilogo">%1$s → %2$s</string>
+    <string name="elimina_categoria_0" formatted="false">Sei sicuro di voler eliminare questa categoria?</string>
+    <string name="elimina_categoria_1" formatted="false">1 transazione usa questa categoria. L\'icona tornerà a quella predefinita. Continuare?</string>
+    <string name="elimina_categoria_n">%1$d transazioni usano questa categoria. Le icone torneranno a quella predefinita. Continuare?</string>
+    <string name="elimina_categoria_titolo">Elimina «%1$s»</string>
+    <string name="elimina_con_1_movimento" formatted="false">Elimina (1 movimento)</string>
+    <string name="elimina_con_n_movimenti">Elimina (%1$d movimenti)</string>
+    <string name="filtro_attivo_rimuovi" formatted="false">Rimuovi i filtri avanzati</string>
     <string name="hidden_amount" formatted="false">Importo nascosto</string>
+    <string name="movimenti_eliminati" formatted="false">Movimenti eliminati</string>
+    <string name="movimento_eliminato" formatted="false">Movimento eliminato</string>
+    <string name="nome_categoria" formatted="false">Nome categoria</string>
+    <string name="periodo" formatted="false">Periodo</string>
     <string name="save_failed" formatted="false">Impossibile salvare. Riprova.</string>
+    <string name="scegli_valuta_conferma" formatted="false">Cambiare valuta?</string>
+    <string name="sposta_giu" formatted="false">Sposta giù</string>
+    <string name="sposta_su" formatted="false">Sposta su</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="one">Manca %d giorno</item>
         <item quantity="other">Mancano %d giorni</item>

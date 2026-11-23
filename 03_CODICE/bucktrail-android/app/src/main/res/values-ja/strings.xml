@@ -393,8 +393,27 @@
     <string name="s_2f_salvato_424b7d">💰 +%1$.2f€ %2$s — 保存しました！</string>
     <string name="saldo_totale">💰 合計残高: %s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ %2$s — 保存しました！</string>
+    <string name="apri_impostazioni_lingua" formatted="false">言語設定を開く</string>
+    <string name="categoria_esiste_gia" formatted="false">この名前のカテゴリはすでに存在します。</string>
+    <string name="conti_in_home_nascosto" formatted="false">ホームで非表示</string>
+    <string name="conti_in_home_selezionato" formatted="false">ホームに表示中</string>
+    <string name="da_a_riepilogo">%1$s → %2$s</string>
+    <string name="elimina_categoria_0" formatted="false">このカテゴリを削除してもよろしいですか？</string>
+    <string name="elimina_categoria_1" formatted="false">1件の取引がこのカテゴリを使用しています。アイコンは既定のものに戻ります。続行しますか？</string>
+    <string name="elimina_categoria_n">%1$d件の取引がこのカテゴリを使用しています。アイコンは既定のものに戻ります。続行しますか？</string>
+    <string name="elimina_categoria_titolo">「%1$s」を削除</string>
+    <string name="elimina_con_1_movimento" formatted="false">削除（1件の取引）</string>
+    <string name="elimina_con_n_movimenti">削除（%1$d件の取引）</string>
+    <string name="filtro_attivo_rimuovi" formatted="false">詳細フィルターを解除</string>
     <string name="hidden_amount" formatted="false">金額は非表示です</string>
+    <string name="movimenti_eliminati" formatted="false">取引を削除しました</string>
+    <string name="movimento_eliminato" formatted="false">取引を削除しました</string>
+    <string name="nome_categoria" formatted="false">カテゴリ名</string>
+    <string name="periodo" formatted="false">期間</string>
     <string name="save_failed" formatted="false">保存できませんでした。もう一度お試しください。</string>
+    <string name="scegli_valuta_conferma" formatted="false">通貨を変更しますか？</string>
+    <string name="sposta_giu" formatted="false">下へ移動</string>
+    <string name="sposta_su" formatted="false">上へ移動</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="other">残り%d日</item>
     </plurals>

@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -76,7 +77,7 @@ private val EPS = BigDecimal("0.001")
 fun HomeScreen(
     data: AppData, today: LocalDate, zone: ZoneId,
     onToggleHide: () -> Unit, onEdit: (TransactionEntity) -> Unit, onDelete: (TransactionEntity) -> Unit,
-    onSeeAllMovements: () -> Unit, onManageAccounts: () -> Unit,
+    onSeeAllMovements: () -> Unit, onManageAccounts: () -> Unit, onOpenSettings: () -> Unit, onOpenAccountOrder: () -> Unit,
 ) {
     val c = Bt.colors
     val ledger = data.ledger
@@ -124,6 +125,7 @@ fun HomeScreen(
         ledger.transactions.filter { !it.isFixed && !it.isTransfer && it.recurringFrequency.isEmpty() }.take(4)
     }
     var collapsed by rememberSaveable { mutableStateOf(false) }
+    val accountOrderDescription = stringResource(R.string.conti_in_home)
     val hiddenText = Fmt.HIDDEN_HOME
 
     Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = Dim.listBottomPadding.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
@@ -136,10 +138,13 @@ fun HomeScreen(
                 Text(Fmt.headerDate(today, locale), style = Typo.secondary, color = c.smoke, maxLines = 1)
                 Text(stringResource(R.string.app_name), style = Typo.wordmark, color = c.ink)
             }
-            RoundIconButton(
-                SfIcons.forName(if (hidden) "eye.slash" else "eye"),
-                stringResource(if (hidden) R.string.mostra_importi else R.string.oscura_importi), onToggleHide,
-            )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                RoundIconButton(
+                    SfIcons.forName(if (hidden) "eye.slash" else "eye"),
+                    stringResource(if (hidden) R.string.mostra_importi else R.string.oscura_importi), onToggleHide,
+                )
+                RoundIconButton(SfIcons.forName("gearshape"), stringResource(R.string.impostazioni), onOpenSettings, Modifier.testTag("btn_openSettings"))
+            }
         }
 
         // Hero
@@ -178,8 +183,13 @@ fun HomeScreen(
         if (topAccounts.isNotEmpty()) Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(Modifier.fillMaxWidth().padding(horizontal = Dim.screenMargin.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(stringResource(R.string.conti), style = Typo.sectionTitle, color = c.ink)
-                Box(Modifier.heightIn(min = 44.dp).clickable(role = Role.Button, onClick = onManageAccounts).padding(start = 12.dp), contentAlignment = Alignment.Center) {
-                    Text(stringResource(R.string.gestisci), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.accent)
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Box(Modifier.size(44.dp).clickable(role = Role.Button, onClick = onOpenAccountOrder).testTag("btn_homeAccountOrder").semantics { contentDescription = accountOrderDescription }, contentAlignment = Alignment.Center) {
+                        Icon(SfIcons.forName("slider.horizontal.3"), null, tint = c.smoke, modifier = Modifier.size(20.dp))
+                    }
+                    Box(Modifier.heightIn(min = 44.dp).clickable(role = Role.Button, onClick = onManageAccounts), contentAlignment = Alignment.Center) {
+                        Text(stringResource(R.string.gestisci), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.accent)
+                    }
                 }
             }
             Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = Dim.cardMargin.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -228,9 +238,11 @@ fun HomeScreen(
                 if (latest.isEmpty()) EmptyState(SfIcons.forName("tray"), stringResource(R.string.nessun_movimento), stringResource(R.string.premi_per_aggiungere_la_tua_prima_spesa))
                 else Column(Modifier.clip(RoundedCornerShape(20.dp)).background(c.surface)) {
                     latest.forEachIndexed { i, t ->
-                        if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
-                        TransactionRow(t, ledger.accounts, currency, hidden, today, zone, res, recurring = ledger.rules.any { it.id.equals(t.templateId, true) },
-                            onEdit = onEdit, onDelete = onDelete)
+                        androidx.compose.runtime.key(t.id) {
+                            if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
+                            TransactionRow(t, ledger.accounts, currency, hidden, today, zone, res, recurring = ledger.rules.any { it.id.equals(t.templateId, true) },
+                                onEdit = onEdit, onDelete = onDelete)
+                        }
                     }
                 }
             }
@@ -254,33 +266,5 @@ fun FixedTotalTile(label: String, amount: String, color: Color, modifier: Modifi
     Column(modifier.clip(RoundedCornerShape(12.dp)).background(c.fog.copy(alpha = 0.5f)).padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(label, style = Typo.caption, color = c.smoke, maxLines = 1)
         FitText(amount, Typo.rowAmount.copy(fontSize = androidx.compose.ui.unit.TextUnit(20f, androidx.compose.ui.unit.TextUnitType.Sp)), color, minScale = 0.7f)
-    }
-}
-
-/** Riga movimento condivisa da Home e Movimenti: tap = modifica, pressione lunga = menu Elimina. */
-@Composable
-fun TransactionRow(
-    t: TransactionEntity, accounts: List<com.bucktrail.android.data.AccountEntity>, currency: String, hidden: Boolean,
-    today: LocalDate, zone: ZoneId, res: android.content.res.Resources, recurring: Boolean = false, compact: Boolean = false,
-    onEdit: (TransactionEntity) -> Unit, onDelete: (TransactionEntity) -> Unit,
-) {
-    var menu by remember { mutableStateOf(false) }
-    val date = t.localDate(zone)
-    val planned = !t.isDone
-    val account = accountName(accounts, t.accountId)
-    val category = categoryLabel(t.category, res)
-    val meta = if (planned) "${if (t.isFixed) res.getString(R.string.fissa) else category} · ${Fmt.dayMonth(date, today, res)}"
-    else listOf(category, account).filter { it.isNotEmpty() }.joinToString(" · ") + " · " + Fmt.dayMonth(date, today, res)
-    Box {
-        MovementRow(
-            title = t.name, meta = meta, amount = money(t.amountValue(), currency, hidden), kind = t.kind(), categoryName = t.category,
-            categoryIcon = t.categoryIcon, planned = planned, recurring = recurring, compact = compact,
-            onClick = { onEdit(t) }, onLongClick = { menu = true },
-            modifier = Modifier.semantics { contentDescription = "${t.name}, " + (if (planned) res.getString(R.string.pianificato) else res.getString(R.string.fatto)) },
-        )
-        DropdownMenu(menu, { menu = false }) {
-            DropdownMenuItem(text = { Text(stringResource(R.string.modifica)) }, onClick = { menu = false; onEdit(t) })
-            DropdownMenuItem(text = { Text(stringResource(R.string.elimina), color = Bt.colors.danger) }, onClick = { menu = false; onDelete(t) })
-        }
     }
 }

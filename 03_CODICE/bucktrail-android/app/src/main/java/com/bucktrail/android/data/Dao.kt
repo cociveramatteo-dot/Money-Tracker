@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import com.bucktrail.android.domain.CategoryEditing
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -26,8 +27,17 @@ interface BucktrailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun upsertTransactions(transactions: List<TransactionEntity>)
     @Delete suspend fun delete(transaction: TransactionEntity)
     @Query("DELETE FROM transactions WHERE id IN (:ids)") suspend fun deleteTransactions(ids: List<String>)
+    @Query("UPDATE transactions SET category = :newName WHERE category = :oldName") suspend fun renameTransactionCategory(oldName: String, newName: String)
+
+    /** Salva il conto e, se serve, la «Rettifica saldo» nella stessa transazione. */
+    @Transaction
+    suspend fun saveAccountWithAdjustment(account: AccountEntity, adjustment: TransactionEntity?) {
+        upsert(account)
+        adjustment?.let { upsert(it) }
+    }
 
     // Budget, obiettivi
+    @Query("SELECT * FROM budgets") suspend fun budgets(): List<BudgetEntity>
     @Query("SELECT * FROM budgets ORDER BY createdAt, id") fun observeBudgets(): Flow<List<BudgetEntity>>
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun upsert(budget: BudgetEntity)
     @Delete suspend fun delete(budget: BudgetEntity)
@@ -41,6 +51,19 @@ interface BucktrailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun upsert(category: CategoryEntity)
     @Update suspend fun update(category: CategoryEntity)
     @Delete suspend fun delete(category: CategoryEntity)
+
+    /** Rinomina (§4.8): riscrive `category` in transazioni e budget (nomi ordinati e ri-uniti), poi aggiorna la categoria. */
+    @Transaction
+    suspend fun renameCategory(cat: CategoryEntity, newName: String, newIcon: String) {
+        if (newName != cat.name) {
+            renameTransactionCategory(cat.name, newName)
+            for (b in budgets()) {
+                val renamed = CategoryEditing.renameInBudget(b.category, cat.name, newName)
+                if (renamed != b.category) upsert(b.copy(category = renamed))
+            }
+        }
+        update(cat.copy(name = newName, icon = newIcon))
+    }
 
     // Ricorrenze
     @Query("SELECT * FROM recurring_rules ORDER BY createdAt, id") fun observeRules(): Flow<List<RecurringRuleEntity>>
