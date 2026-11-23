@@ -1,5 +1,6 @@
 package com.bucktrail.android.ui.screens
 
+import com.bucktrail.android.domain.HomeProjection
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -88,22 +89,9 @@ fun HomeScreen(
     val month = YearMonth.from(today)
 
     val projection = remember(ledger.accounts, ledger.transactions, today, zone) {
-        val accounts = ledger.accountData
-        val included = Balance.included(accounts)
-        val ids = included.map { it.id }.toSet()
-        val txs = ledger.transactionData
-        // competenza mensile (S-41): una spesa fissa singola futura non fatta di un altro mese non entra nel saldo atteso di questo
-        val entries = txs.filter { it.accountId in ids }.filterNot { t ->
-            t.isFixed && t.type == Amounts.TYPE_EXPENSE && !t.isTransfer && t.templateId.isEmpty() && t.recurringFrequency.isEmpty() &&
-                !t.isDone && YearMonth.from(t.date.atZone(zone)) != month
-        }
-        val total = Balance.total(accounts, txs)
-        val trail = BalanceTrail.make(total, entries.map { BalanceTrail.Entry(it.date, it.signedAmount, it.isDone) }, today.atTime(12, 0).atZone(zone).toInstant(), zone)
-        val plannedByAccount = entries.filter { !it.isDone }.groupBy { it.accountId }
-            .mapValues { (_, v) -> v.fold(BigDecimal.ZERO) { a, t -> a + t.signedAmount } }
-        Triple(total, trail, plannedByAccount)
+        HomeProjection.make(ledger.accountData, ledger.transactionData, today, zone)
     }
-    val (total, trail, plannedByAccount) = projection
+    val (total, trail, plannedByAccount) = projection.let { Triple(it.total, it.trail, it.plannedByAccount) }
 
     val balances = remember(ledger.accounts, ledger.transactions) {
         val txs = ledger.transactionData

@@ -394,6 +394,55 @@
     <string name="saldo_totale">💰 Saldo total: %s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ para %2$s — ¡guardado!</string>
     <string name="apri_impostazioni_lingua" formatted="false">Abrir ajustes de idioma</string>
+    <string name="auth_accedi" formatted="false">Iniciar sesión</string>
+    <string name="auth_accedi_o_crea" formatted="false">Iniciar sesión o crear una cuenta</string>
+    <string name="auth_accedi_per_continuare" formatted="false">Inicia sesión para continuar</string>
+    <string name="auth_account" formatted="false">Cuenta</string>
+    <string name="auth_account_creato" formatted="false">¡Cuenta creada! Revisa tu correo y pulsa el enlace de confirmación para iniciar sesión.</string>
+    <string name="auth_benvenuto" formatted="false">Bienvenido</string>
+    <string name="auth_conferma_eliminazione" formatted="false">Confirmar eliminación</string>
+    <string name="auth_conferma_eliminazione_msg">Para confirmar, escribe %1$s en mayúsculas.</string>
+    <string name="auth_conferma_password" formatted="false">Confirmar contraseña</string>
+    <string name="auth_continua" formatted="false">Continuar</string>
+    <string name="auth_crea_account_sottotitolo" formatted="false">Crea tu cuenta para empezar</string>
+    <string name="auth_crea_account_titolo" formatted="false">Crear cuenta</string>
+    <string name="auth_crea_un_account" formatted="false">Crear una cuenta</string>
+    <string name="auth_elimina_account" formatted="false">Eliminar cuenta</string>
+    <string name="auth_elimina_definitivamente" formatted="false">Eliminar definitivamente</string>
+    <string name="auth_elimina_messaggio" formatted="false">Se eliminarán para siempre todas tus cuentas, movimientos, presupuestos y objetivos, tanto en el dispositivo como en la nube. No se puede deshacer.</string>
+    <string name="auth_elimina_titolo" formatted="false">¿Eliminar la cuenta?</string>
+    <string name="auth_eliminazione_in_corso" formatted="false">Eliminando…</string>
+    <string name="auth_email" formatted="false">Correo electrónico</string>
+    <string name="auth_email_segnaposto" formatted="false">nombre@correo.com</string>
+    <string name="auth_errore_conferma_email" formatted="false">Confirma tu correo antes de iniciar sesión.</string>
+    <string name="auth_errore_credenziali" formatted="false">Correo o contraseña incorrectos.</string>
+    <string name="auth_errore_eliminazione">No se pudo eliminar la cuenta: %1$s</string>
+    <string name="auth_errore_email_non_valida" formatted="false">Dirección de correo no válida.</string>
+    <string name="auth_errore_esiste" formatted="false">Ya existe una cuenta con este correo.</string>
+    <string name="auth_errore_generico">Error: %1$s</string>
+    <string name="auth_errore_password_corta" formatted="false">La contraseña debe tener al menos 6 caracteres.</string>
+    <string name="auth_errore_rete" formatted="false">Sin conexión. Revisa la red e inténtalo de nuevo.</string>
+    <string name="auth_errore_troppi_tentativi" formatted="false">Demasiados intentos. Espera unos minutos e inténtalo de nuevo.</string>
+    <string name="auth_esci" formatted="false">Cerrar sesión</string>
+    <string name="auth_esci_conferma" formatted="false">Salir</string>
+    <string name="auth_esci_messaggio" formatted="false">Tendrás que iniciar sesión de nuevo la próxima vez.</string>
+    <string name="auth_esci_titolo" formatted="false">¿Cerrar sesión?</string>
+    <string name="auth_invia_link" formatted="false">Enviar enlace</string>
+    <string name="auth_minimo_6" formatted="false">Mínimo 6 caracteres</string>
+    <string name="auth_non_configurata" formatted="false">La sincronización no está configurada en esta versión de la app.</string>
+    <string name="auth_non_connesso" formatted="false">Sincroniza tus datos entre dispositivos. Bucktrail funciona muy bien también sin cuenta y sin conexión.</string>
+    <string name="auth_oppure" formatted="false">o</string>
+    <string name="auth_parola_conferma" formatted="false">ELIMINAR</string>
+    <string name="auth_password" formatted="false">Contraseña</string>
+    <string name="auth_password_dimenticata" formatted="false">¿Olvidaste la contraseña?</string>
+    <string name="auth_password_diverse" formatted="false">Las contraseñas no coinciden</string>
+    <string name="auth_registrati" formatted="false">Registrarse</string>
+    <string name="auth_reset_inviata" formatted="false">¡Correo enviado! Revisa tu bandeja de entrada.</string>
+    <string name="auth_reset_messaggio" formatted="false">Introduce tu correo y te enviaremos un enlace para restablecer la contraseña.</string>
+    <string name="auth_reset_titolo" formatted="false">Restablecer contraseña</string>
+    <string name="auth_ripeti_password" formatted="false">Repite la contraseña</string>
+    <string name="auth_scrivi_parola">Escribe %1$s</string>
+    <string name="auth_torna_al_login" formatted="false">Volver al inicio de sesión</string>
     <string name="blocco_app" formatted="false">Bloqueo con biometría o PIN</string>
     <string name="blocco_app_disponibile" formatted="false">Pide huella, rostro o el PIN del dispositivo al abrir</string>
     <string name="blocco_app_non_disponibile" formatted="false">No hay ningún método de desbloqueo configurado en este dispositivo</string>
@@ -446,10 +495,24 @@
     <string name="periodo" formatted="false">Período</string>
     <string name="save_failed" formatted="false">No se pudo guardar. Inténtalo de nuevo.</string>
     <string name="scegli_valuta_conferma" formatted="false">¿Cambiar la moneda?</string>
+    <string name="scorciatoie_aggiungi_tile" formatted="false">Añadir el icono «Añadir gasto»</string>
+    <string name="scorciatoie_aggiungi_widget" formatted="false">Añadir el widget de saldo</string>
+    <string name="scorciatoie_extra_android" formatted="false">Solo Android</string>
+    <string name="scorciatoie_sezione" formatted="false">Atajos</string>
+    <string name="scorciatoie_suggerimento" formatted="false">En algunos teléfonos (como Pixel) puedes asignar una app al doble toque en la parte trasera: Ajustes → Sistema → Gestos → Toque rápido.</string>
+    <string name="scorciatoie_testo" formatted="false">Añade gastos sin abrir la app: mantén pulsado el icono de Bucktrail, usa un widget o el icono de Ajustes rápidos.</string>
     <string name="sicurezza" formatted="false">Seguridad</string>
     <string name="sposta_giu" formatted="false">Bajar</string>
     <string name="sposta_su" formatted="false">Subir</string>
     <string name="statistiche_riepilogo_mese">%1$s: ingresos %2$s, gastos %3$s</string>
+    <string name="su_conto_suffisso">en %1$s</string>
+    <string name="sync_decisione_messaggio" formatted="false">Este dispositivo ya tiene datos y la nube tiene otros. Para continuar, los datos del dispositivo se sustituyen por los de la nube. Si prefieres conservar los del dispositivo, cancela: se cierra la sesión y no cambia nada.</string>
+    <string name="sync_decisione_titolo" formatted="false">Ya hay datos en la nube</string>
+    <string name="sync_in_corso" formatted="false">Sincronizando…</string>
+    <string name="sync_in_sospeso" formatted="false">Sincronización pendiente</string>
+    <string name="sync_offline" formatted="false">Sin conexión — se reanudará automáticamente</string>
+    <string name="sync_usa_cloud" formatted="false">Usar los datos de la nube</string>
+    <string name="widget_descrizione" formatted="false">Saldo actual y saldo previsto a fin de mes, con importes ocultables.</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="one">Falta %d día</item>
         <item quantity="other">Faltan %d días</item>

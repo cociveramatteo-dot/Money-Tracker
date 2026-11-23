@@ -6,6 +6,14 @@ plugins {
     id("androidx.room") version "2.7.2"
 }
 
+/** URL e chiave anon (pubblica per design) si leggono dal codice iOS come configurazione: mai copiate nel repository Android né nei documenti. */
+fun iosSupabase(name: String): String {
+    val file = rootProject.file("../../MoneyTracker/Auth/SupabaseConfig.swift")
+    if (!file.exists()) return ""
+    return Regex("static let $name\\s*=\\s*(?:URL\\(string:\\s*)?\"([^\"]+)\"").find(file.readText())?.groupValues?.get(1) ?: ""
+}
+fun supabaseValue(property: String, iosName: String): String = (findProperty(property) as String?)?.takeIf { it.isNotBlank() } ?: iosSupabase(iosName)
+
 android {
     namespace = "com.bucktrail.android"
     compileSdk = 36
@@ -16,13 +24,16 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "0.1.0"
+        // `-PsupabaseUrl=http://10.0.2.2:PORT -PsupabaseKey=...` punta a un server finto locale (prove sull'emulatore, mai il cloud reale)
+        buildConfigField("String", "SUPABASE_URL", "\"${supabaseValue("supabaseUrl", "url")}\"")
+        buildConfigField("String", "SUPABASE_ANON_KEY", "\"${supabaseValue("supabaseKey", "anonKey")}\"")
     }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    buildFeatures { compose = true }
+    buildFeatures { compose = true; buildConfig = true }
     testOptions { unitTests.isReturnDefaultValues = true }
     lint { warningsAsErrors = false; abortOnError = true }
 }
@@ -41,6 +52,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")
     implementation("androidx.biometric:biometric:1.1.0")
+    implementation("androidx.glance:glance-appwidget:1.1.1")
     implementation("androidx.fragment:fragment:1.8.9")
     implementation("androidx.room:room-runtime:2.7.2")
     implementation("androidx.room:room-ktx:2.7.2")

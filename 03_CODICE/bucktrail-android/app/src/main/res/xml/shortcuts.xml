@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Scorciatoie dell'icona (tieni premuto): equivalenti Android degli App Intent iOS «Aggiungi spesa», «Aggiungi entrata», «Saldo conti». -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="add_expense" android:enabled="true" android:icon="@drawable/ic_shortcut_expense"
+        android:shortcutShortLabel="@string/aggiungi_spesa" android:shortcutLongLabel="@string/aggiungi_spesa">
+        <intent android:action="android.intent.action.VIEW" android:data="bucktrail://add?kind=expense"
+            android:targetPackage="com.bucktrail.android" android:targetClass="com.bucktrail.android.shortcuts.QuickAddActivity" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="add_income" android:enabled="true" android:icon="@drawable/ic_shortcut_income"
+        android:shortcutShortLabel="@string/aggiungi_entrata" android:shortcutLongLabel="@string/aggiungi_entrata">
+        <intent android:action="android.intent.action.VIEW" android:data="bucktrail://add?kind=income"
+            android:targetPackage="com.bucktrail.android" android:targetClass="com.bucktrail.android.shortcuts.QuickAddActivity" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="check_balance" android:enabled="true" android:icon="@drawable/ic_shortcut_balance"
+        android:shortcutShortLabel="@string/saldo_conti" android:shortcutLongLabel="@string/controlla_saldo">
+        <intent android:action="android.intent.action.VIEW" android:data="bucktrail://balance"
+            android:targetPackage="com.bucktrail.android" android:targetClass="com.bucktrail.android.shortcuts.BalanceActivity" />
+    </shortcut>
+</shortcuts>

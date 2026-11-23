@@ -4,4 +4,11 @@
         <item name="android:windowActionModeOverlay">true</item>
         <item name="android:windowBackground">@color/paper</item>
     </style>
+    <!-- Scorciatoie e inserimento rapido: finestra trasparente sopra l'app che lancia (nessuna apertura dell'app completa) -->
+    <style name="Theme.Bucktrail.Translucent" parent="Theme.Bucktrail">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 </resources>

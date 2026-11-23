@@ -58,24 +58,44 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val data: StateFlow<AppData> = combine(repository.state, prefs.state) { l, p -> AppData(l, p, true) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AppData())
 
-    @Volatile private var classifier: KeywordCategoryClassifier? = null
-
     private val scheduler get() = application.notifications
 
     init {
         application.startAudit()
         viewModelScope.launch { application.prepareData() }
+        application.startSync()
+        application.startWidgetUpdates()
+        // dopo un pull le serie del mese si materializzano (coda unica iOS: login -> foreground -> cambio data)
+        if (application.syncConfigured) viewModelScope.launch {
+            application.syncService.pulled.collect { kotlinx.coroutines.delay(500); materializeDue() }
+        }
     }
 
+    // ---- Account e sync (B9) ----
+    val syncConfigured: Boolean get() = application.syncConfigured
+    private val auth get() = application.auth
+    private val sync get() = application.syncService
+    val session: StateFlow<com.bucktrail.android.sync.Session?> get() = auth.session
+    val syncStatus: StateFlow<com.bucktrail.android.sync.SyncStatus> get() = sync.status
+    val needsSyncDecision: StateFlow<Boolean> get() = sync.needsDecision
+
+    /** `null` = accesso riuscito (la sessione apre il primo sync da sola); altrimenti il messaggio da mostrare. */
+    suspend fun signIn(email: String, password: String): com.bucktrail.android.sync.AuthMessage? =
+        try { auth.signIn(email, password); null } catch (e: Exception) { com.bucktrail.android.sync.AuthErrors.login(e) }
+
+    suspend fun signUp(email: String, password: String): Pair<com.bucktrail.android.sync.SignUpResult?, com.bucktrail.android.sync.AuthMessage?> =
+        try { auth.signUp(email, password) to null } catch (e: Exception) { null to com.bucktrail.android.sync.AuthErrors.signUp(e) }
+
+    /** L'esito non mostra mai errori (come iOS: `try?`). */
+    suspend fun resetPassword(email: String) { runCatching { auth.resetPassword(email) } }
+
+    fun signOut() = viewModelScope.launch { sync.signOutAndClear(); application.auditLog.clearAll() }
+    suspend fun deleteAccount(): String? = try { sync.deleteAccountAndClear(); application.auditLog.clearAll(); null } catch (e: Exception) { e.message ?: e.toString() }
+    fun resolveSyncDecision(useCloud: Boolean) = viewModelScope.launch { sync.resolveDecision(useCloud) }
+    suspend fun refresh() = sync.manualRefresh()
+
     /** Categoria suggerita per il nome (classificatore on-device); `Altro` se nulla combacia. */
-    suspend fun classify(name: String): String {
-        val c = classifier ?: withContext(Dispatchers.IO) {
-            val text = application.assets.open("CategoryKeywords.json").bufferedReader().use { it.readText() }
-            val map = (Json.parseToJsonElement(text) as JsonObject).mapValues { (_, v) -> (v as JsonArray).map { it.jsonPrimitive.content } }
-            KeywordCategoryClassifier(map).also { classifier = it }
-        }
-        return withContext(Dispatchers.Default) { c.classify(name) }
-    }
+    suspend fun classify(name: String): String = com.bucktrail.android.data.ClassifierProvider.classify(application, name)
 
     /** Ultima eliminazione, in attesa di «Annulla» (barra temporanea): movimenti oppure una serie (con la sua `restore`). */
     data class UndoState(

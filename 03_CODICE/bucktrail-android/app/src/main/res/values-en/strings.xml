@@ -394,6 +394,55 @@
     <string name="saldo_totale">💰 Total balance: %s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ for %2$s — saved!</string>
     <string name="apri_impostazioni_lingua" formatted="false">Open language settings</string>
+    <string name="auth_accedi" formatted="false">Sign in</string>
+    <string name="auth_accedi_o_crea" formatted="false">Sign in or create an account</string>
+    <string name="auth_accedi_per_continuare" formatted="false">Sign in to continue</string>
+    <string name="auth_account" formatted="false">Account</string>
+    <string name="auth_account_creato" formatted="false">Account created! Check your email and tap the confirmation link to sign in.</string>
+    <string name="auth_benvenuto" formatted="false">Welcome</string>
+    <string name="auth_conferma_eliminazione" formatted="false">Confirm deletion</string>
+    <string name="auth_conferma_eliminazione_msg">To confirm, type %1$s in capital letters.</string>
+    <string name="auth_conferma_password" formatted="false">Confirm password</string>
+    <string name="auth_continua" formatted="false">Continue</string>
+    <string name="auth_crea_account_sottotitolo" formatted="false">Create your account to get started</string>
+    <string name="auth_crea_account_titolo" formatted="false">Create account</string>
+    <string name="auth_crea_un_account" formatted="false">Create an account</string>
+    <string name="auth_elimina_account" formatted="false">Delete account</string>
+    <string name="auth_elimina_definitivamente" formatted="false">Delete permanently</string>
+    <string name="auth_elimina_messaggio" formatted="false">All your accounts, transactions, budgets and goals will be permanently deleted, both on this device and in the cloud. This cannot be undone.</string>
+    <string name="auth_elimina_titolo" formatted="false">Delete the account?</string>
+    <string name="auth_eliminazione_in_corso" formatted="false">Deleting…</string>
+    <string name="auth_email" formatted="false">Email</string>
+    <string name="auth_email_segnaposto" formatted="false">name@email.com</string>
+    <string name="auth_errore_conferma_email" formatted="false">Confirm your email before signing in.</string>
+    <string name="auth_errore_credenziali" formatted="false">Incorrect email or password.</string>
+    <string name="auth_errore_eliminazione">Couldn’t delete the account: %1$s</string>
+    <string name="auth_errore_email_non_valida" formatted="false">Invalid email address.</string>
+    <string name="auth_errore_esiste" formatted="false">An account with this email already exists.</string>
+    <string name="auth_errore_generico">Error: %1$s</string>
+    <string name="auth_errore_password_corta" formatted="false">The password must be at least 6 characters.</string>
+    <string name="auth_errore_rete" formatted="false">No connection. Check your network and try again.</string>
+    <string name="auth_errore_troppi_tentativi" formatted="false">Too many attempts. Wait a few minutes and try again.</string>
+    <string name="auth_esci" formatted="false">Sign out</string>
+    <string name="auth_esci_conferma" formatted="false">Sign out</string>
+    <string name="auth_esci_messaggio" formatted="false">You will need to sign in again next time.</string>
+    <string name="auth_esci_titolo" formatted="false">Sign out?</string>
+    <string name="auth_invia_link" formatted="false">Send link</string>
+    <string name="auth_minimo_6" formatted="false">At least 6 characters</string>
+    <string name="auth_non_configurata" formatted="false">Sync is not set up in this version of the app.</string>
+    <string name="auth_non_connesso" formatted="false">Sync your data across devices. Bucktrail works great without an account too, fully offline.</string>
+    <string name="auth_oppure" formatted="false">or</string>
+    <string name="auth_parola_conferma" formatted="false">DELETE</string>
+    <string name="auth_password" formatted="false">Password</string>
+    <string name="auth_password_dimenticata" formatted="false">Forgot password?</string>
+    <string name="auth_password_diverse" formatted="false">The passwords do not match</string>
+    <string name="auth_registrati" formatted="false">Sign up</string>
+    <string name="auth_reset_inviata" formatted="false">Email sent! Check your inbox.</string>
+    <string name="auth_reset_messaggio" formatted="false">Enter your email and we will send you a link to reset your password.</string>
+    <string name="auth_reset_titolo" formatted="false">Reset password</string>
+    <string name="auth_ripeti_password" formatted="false">Repeat the password</string>
+    <string name="auth_scrivi_parola">Type %1$s</string>
+    <string name="auth_torna_al_login" formatted="false">Back to sign in</string>
     <string name="blocco_app" formatted="false">Lock with biometrics or PIN</string>
     <string name="blocco_app_disponibile" formatted="false">Asks for fingerprint, face or the device PIN when opening</string>
     <string name="blocco_app_non_disponibile" formatted="false">No unlock method is set up on this device</string>
@@ -446,10 +495,24 @@
     <string name="periodo" formatted="false">Period</string>
     <string name="save_failed" formatted="false">Couldn\'t save. Try again.</string>
     <string name="scegli_valuta_conferma" formatted="false">Change currency?</string>
+    <string name="scorciatoie_aggiungi_tile" formatted="false">Add the “Add expense” tile</string>
+    <string name="scorciatoie_aggiungi_widget" formatted="false">Add the Balance widget</string>
+    <string name="scorciatoie_extra_android" formatted="false">Android only</string>
+    <string name="scorciatoie_sezione" formatted="false">Shortcuts</string>
+    <string name="scorciatoie_suggerimento" formatted="false">On some phones (such as Pixel) you can assign an app to the double tap on the back: Settings → System → Gestures → Quick Tap.</string>
+    <string name="scorciatoie_testo" formatted="false">Add expenses without opening the app: long-press the Bucktrail icon, use a widget or the Quick Settings tile.</string>
     <string name="sicurezza" formatted="false">Security</string>
     <string name="sposta_giu" formatted="false">Move down</string>
     <string name="sposta_su" formatted="false">Move up</string>
     <string name="statistiche_riepilogo_mese">%1$s: income %2$s, expenses %3$s</string>
+    <string name="su_conto_suffisso">on %1$s</string>
+    <string name="sync_decisione_messaggio" formatted="false">This device already has data and the cloud has other data. To continue, this device’s data is replaced with the cloud’s. If you prefer to keep this device’s data, cancel: you will be signed out and nothing changes.</string>
+    <string name="sync_decisione_titolo" formatted="false">Data already in the cloud</string>
+    <string name="sync_in_corso" formatted="false">Syncing…</string>
+    <string name="sync_in_sospeso" formatted="false">Sync pending</string>
+    <string name="sync_offline" formatted="false">Offline — will resume automatically</string>
+    <string name="sync_usa_cloud" formatted="false">Use the cloud data</string>
+    <string name="widget_descrizione" formatted="false">Current balance and expected end-of-month balance, with hideable amounts.</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="one">%d day left</item>
         <item quantity="other">%d days left</item>

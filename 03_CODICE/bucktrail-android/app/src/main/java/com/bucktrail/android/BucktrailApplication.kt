@@ -11,6 +11,17 @@ import com.bucktrail.android.data.Repository
 import com.bucktrail.android.data.migration1To2
 import com.bucktrail.android.notifications.NotificationScheduler
 import com.bucktrail.android.notifications.Notifier
+import com.bucktrail.android.sync.AuthManager
+import com.bucktrail.android.sync.HttpSupabaseApi
+import com.bucktrail.android.sync.KeystoreSessionStore
+import com.bucktrail.android.sync.RoomLocalStore
+import com.bucktrail.android.sync.SharedPrefsSyncState
+import com.bucktrail.android.sync.SyncEngine
+import com.bucktrail.android.sync.SyncService
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import androidx.glance.appwidget.updateAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -35,6 +46,75 @@ class BucktrailApplication : Application() {
     }
     val auditLog by lazy { AuditLog(File(filesDir, "audit-log.jsonl")) }
     val notifications by lazy { NotificationScheduler(applicationContext, appScope) }
+
+    // --- Account e sync Supabase (B9). URL e chiave pubblica arrivano da BuildConfig (letti da SupabaseConfig.swift al build). ---
+    /** Falso se l'URL o la chiave non sono disponibili al build: l'app resta pienamente locale. */
+    val syncConfigured: Boolean get() = BuildConfig.SUPABASE_URL.isNotBlank() && BuildConfig.SUPABASE_ANON_KEY.isNotBlank()
+    private val supabaseApi by lazy { HttpSupabaseApi(BuildConfig.SUPABASE_URL, BuildConfig.SUPABASE_ANON_KEY) }
+    val auth by lazy { AuthManager(supabaseApi, KeystoreSessionStore(applicationContext)).also { it.bootstrap() } }
+    private val syncState by lazy { SharedPrefsSyncState(applicationContext) }
+    private val localStore by lazy { RoomLocalStore { database.dao() } }
+    val syncService by lazy {
+        SyncService(
+            appScope, auth, SyncEngine(supabaseApi, localStore, syncState, auth), syncState, localStore,
+            syncEnabled = { !repository.isDemo },
+        )
+    }
+    private var syncStarted = false
+
+    /** Avvia (una volta) account e sync: sessione, monitor di rete, ciclo di vita (background = push, foreground = sync). */
+    @Synchronized
+    fun startSync() {
+        if (syncStarted || !syncConfigured) return
+        syncStarted = true
+        syncService.start()
+        syncService.observe(repository.state)
+        com.bucktrail.android.sync.NetworkMonitor.start(this) { syncService.onNetwork(it) }
+        registerActivityLifecycleCallbacks(object : android.app.Application.ActivityLifecycleCallbacks {
+            private var started = 0
+            private var firstStart = true
+            override fun onActivityStarted(activity: android.app.Activity) {
+                if (started++ == 0) { if (firstStart) firstStart = false else appScope.launch { syncService.syncOnForeground() } }
+            }
+            override fun onActivityStopped(activity: android.app.Activity) {
+                if (--started == 0 && !activity.isChangingConfigurations) appScope.launch { syncService.pushOnBackground() }
+                else if (started < 0) started = 0
+            }
+            override fun onActivityCreated(activity: android.app.Activity, savedInstanceState: android.os.Bundle?) = Unit
+            override fun onActivityResumed(activity: android.app.Activity) = Unit
+            override fun onActivityPaused(activity: android.app.Activity) = Unit
+            override fun onActivitySaveInstanceState(activity: android.app.Activity, outState: android.os.Bundle) = Unit
+            override fun onActivityDestroyed(activity: android.app.Activity) = Unit
+        })
+    }
+
+    /**
+     * Un movimento scritto fuori dalle schermate (scorciatoia, widget): marcato da caricare (come `markTransactionDirty` iOS) e, se c'è un account,
+     * caricato subito prima che il processo venga congelato dal sistema (massimo 5 s; se manca la rete resta in coda per il prossimo avvio).
+     */
+    suspend fun markTransactionChanged(id: String) {
+        runCatching { com.bucktrail.android.shortcuts.BalanceWidget().updateAll(this) }
+        if (!syncConfigured) return
+        startSync()
+        syncState.markDirty(listOf(id), System.currentTimeMillis())
+        syncState.hasPendingChanges = true
+        if (auth.isLoggedIn) kotlinx.coroutines.withTimeoutOrNull(5_000) { syncService.pushOnBackground() }
+    }
+
+    private var widgetsStarted = false
+
+    /** Aggiorna il widget «Saldo» a ogni modifica dei dati reali o della privacy (con un respiro di 1 s). */
+    @Synchronized
+    @OptIn(kotlinx.coroutines.FlowPreview::class)
+    fun startWidgetUpdates() {
+        if (widgetsStarted) return
+        widgetsStarted = true
+        appScope.launch {
+            kotlinx.coroutines.flow.combine(repository.state, prefs.state) { l, p ->
+                if (l.demo) null else listOf(l.accounts, l.transactions, p.hideBalance, p.appLockEnabled, p.currencyCode)
+            }.distinctUntilChanged().debounce(1_000).collect { runCatching { com.bucktrail.android.shortcuts.BalanceWidget().updateAll(this@BucktrailApplication) } }
+        }
+    }
 
     private var auditStarted = false
 

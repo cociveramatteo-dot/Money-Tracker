@@ -394,6 +394,55 @@
     <string name="saldo_totale">💰 总余额：%s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ 用于 %2$s — 已保存！</string>
     <string name="apri_impostazioni_lingua" formatted="false">打开语言设置</string>
+    <string name="auth_accedi" formatted="false">登录</string>
+    <string name="auth_accedi_o_crea" formatted="false">登录或创建账户</string>
+    <string name="auth_accedi_per_continuare" formatted="false">登录以继续</string>
+    <string name="auth_account" formatted="false">账户</string>
+    <string name="auth_account_creato" formatted="false">账户已创建！请查看邮件并点击确认链接后登录。</string>
+    <string name="auth_benvenuto" formatted="false">欢迎</string>
+    <string name="auth_conferma_eliminazione" formatted="false">确认删除</string>
+    <string name="auth_conferma_eliminazione_msg">请输入 %1$s 以确认。</string>
+    <string name="auth_conferma_password" formatted="false">确认密码</string>
+    <string name="auth_continua" formatted="false">继续</string>
+    <string name="auth_crea_account_sottotitolo" formatted="false">创建账户即可开始</string>
+    <string name="auth_crea_account_titolo" formatted="false">创建账户</string>
+    <string name="auth_crea_un_account" formatted="false">创建账户</string>
+    <string name="auth_elimina_account" formatted="false">删除账户</string>
+    <string name="auth_elimina_definitivamente" formatted="false">永久删除</string>
+    <string name="auth_elimina_messaggio" formatted="false">你的所有账户、交易、预算和目标将在设备和云端被永久删除，且无法恢复。</string>
+    <string name="auth_elimina_titolo" formatted="false">删除账户？</string>
+    <string name="auth_eliminazione_in_corso" formatted="false">正在删除…</string>
+    <string name="auth_email" formatted="false">邮箱</string>
+    <string name="auth_email_segnaposto" formatted="false">name@email.com</string>
+    <string name="auth_errore_conferma_email" formatted="false">登录前请先确认你的邮箱。</string>
+    <string name="auth_errore_credenziali" formatted="false">邮箱或密码不正确。</string>
+    <string name="auth_errore_eliminazione">无法删除账户：%1$s</string>
+    <string name="auth_errore_email_non_valida" formatted="false">邮箱地址无效。</string>
+    <string name="auth_errore_esiste" formatted="false">该邮箱已有账户。</string>
+    <string name="auth_errore_generico">错误：%1$s</string>
+    <string name="auth_errore_password_corta" formatted="false">密码至少需要 6 个字符。</string>
+    <string name="auth_errore_rete" formatted="false">无网络连接。请检查网络后重试。</string>
+    <string name="auth_errore_troppi_tentativi" formatted="false">尝试次数过多。请等待几分钟后重试。</string>
+    <string name="auth_esci" formatted="false">退出账户</string>
+    <string name="auth_esci_conferma" formatted="false">退出</string>
+    <string name="auth_esci_messaggio" formatted="false">下次需要重新登录。</string>
+    <string name="auth_esci_titolo" formatted="false">退出账户？</string>
+    <string name="auth_invia_link" formatted="false">发送链接</string>
+    <string name="auth_minimo_6" formatted="false">至少 6 个字符</string>
+    <string name="auth_non_configurata" formatted="false">此版本的应用未配置同步。</string>
+    <string name="auth_non_connesso" formatted="false">在多台设备间同步你的数据。Bucktrail 无需账户、离线也能流畅使用。</string>
+    <string name="auth_oppure" formatted="false">或</string>
+    <string name="auth_parola_conferma" formatted="false">删除</string>
+    <string name="auth_password" formatted="false">密码</string>
+    <string name="auth_password_dimenticata" formatted="false">忘记密码？</string>
+    <string name="auth_password_diverse" formatted="false">两次输入的密码不一致</string>
+    <string name="auth_registrati" formatted="false">注册</string>
+    <string name="auth_reset_inviata" formatted="false">邮件已发送！请查看你的收件箱。</string>
+    <string name="auth_reset_messaggio" formatted="false">输入你的邮箱，我们会发送重置密码的链接。</string>
+    <string name="auth_reset_titolo" formatted="false">重置密码</string>
+    <string name="auth_ripeti_password" formatted="false">再次输入密码</string>
+    <string name="auth_scrivi_parola">输入 %1$s</string>
+    <string name="auth_torna_al_login" formatted="false">返回登录</string>
     <string name="blocco_app" formatted="false">使用生物识别或 PIN 锁定</string>
     <string name="blocco_app_disponibile" formatted="false">打开时需要指纹、面部或设备 PIN</string>
     <string name="blocco_app_non_disponibile" formatted="false">此设备未设置解锁方式</string>
@@ -446,10 +495,24 @@
     <string name="periodo" formatted="false">期间</string>
     <string name="save_failed" formatted="false">无法保存。请重试。</string>
     <string name="scegli_valuta_conferma" formatted="false">要更改货币吗？</string>
+    <string name="scorciatoie_aggiungi_tile" formatted="false">添加“记一笔支出”图块</string>
+    <string name="scorciatoie_aggiungi_widget" formatted="false">添加余额小组件</string>
+    <string name="scorciatoie_extra_android" formatted="false">仅限 Android</string>
+    <string name="scorciatoie_sezione" formatted="false">快捷方式</string>
+    <string name="scorciatoie_suggerimento" formatted="false">部分手机（如 Pixel）可将应用设为背面双击：设置 → 系统 → 手势 → 快速点按。</string>
+    <string name="scorciatoie_testo" formatted="false">无需打开应用即可记账：长按 Bucktrail 图标、使用小组件或快捷设置图块。</string>
     <string name="sicurezza" formatted="false">安全</string>
     <string name="sposta_giu" formatted="false">下移</string>
     <string name="sposta_su" formatted="false">上移</string>
     <string name="statistiche_riepilogo_mese">%1$s:收入 %2$s,支出 %3$s</string>
+    <string name="su_conto_suffisso">在 %1$s</string>
+    <string name="sync_decisione_messaggio" formatted="false">此设备已有数据，云端也有其他数据。继续将用云端数据替换本设备数据。若想保留本设备数据，请取消：将退出登录，不会有任何更改。</string>
+    <string name="sync_decisione_titolo" formatted="false">云端已有数据</string>
+    <string name="sync_in_corso" formatted="false">正在同步…</string>
+    <string name="sync_in_sospeso" formatted="false">同步待处理</string>
+    <string name="sync_offline" formatted="false">离线 — 将自动恢复</string>
+    <string name="sync_usa_cloud" formatted="false">使用云端数据</string>
+    <string name="widget_descrizione" formatted="false">当前余额和月末预计余额，金额可隐藏。</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="other">还剩%d天</item>
     </plurals>

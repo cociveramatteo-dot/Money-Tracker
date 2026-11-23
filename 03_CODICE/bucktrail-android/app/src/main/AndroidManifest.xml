@@ -1,4 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
@@ -15,7 +17,45 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- link profondo: bucktrail://home (o bucktrail://) apre l'app -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="bucktrail" android:host="home" />
+            </intent-filter>
+            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts" />
         </activity>
+        <!-- Inserimento rapido e saldo (extra Android degli App Intent iOS): finestre sopra l'app, senza aprirla -->
+        <activity
+            android:name=".shortcuts.QuickAddActivity" android:exported="true" android:theme="@style/Theme.Bucktrail.Translucent"
+            android:excludeFromRecents="true" android:taskAffinity="" android:launchMode="singleTask" android:label="@string/aggiungi_spesa">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="bucktrail" android:host="add" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".shortcuts.BalanceActivity" android:exported="true" android:theme="@style/Theme.Bucktrail.Translucent"
+            android:excludeFromRecents="true" android:taskAffinity="" android:launchMode="singleTask" android:label="@string/saldo_conti">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="bucktrail" android:host="balance" />
+            </intent-filter>
+        </activity>
+        <service
+            android:name=".shortcuts.QuickAddTileService" android:exported="true" android:icon="@drawable/ic_tile_add"
+            android:label="@string/aggiungi_spesa" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <receiver android:name=".shortcuts.BalanceWidgetReceiver" android:exported="true" android:label="@string/saldo_conti">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/balance_widget_info" />
+        </receiver>
         <receiver android:name=".notifications.ReminderReceiver" android:exported="false" />
         <receiver android:name=".notifications.BootReceiver" android:exported="true">
             <intent-filter>

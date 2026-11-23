@@ -38,6 +38,12 @@ import com.bucktrail.android.data.TransactionEntity
 import com.bucktrail.android.export.ShareFiles
 import com.bucktrail.android.notifications.rememberNotificationPermission
 import com.bucktrail.android.ui.components.DemoBanner
+import com.bucktrail.android.ui.components.SyncBanner
+import com.bucktrail.android.ui.screens.AccountSettings
+import com.bucktrail.android.ui.screens.AuthActions
+import com.bucktrail.android.ui.screens.AuthFlow
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import com.bucktrail.android.ui.screens.AuditLogSheet
 import com.bucktrail.android.ui.screens.StatisticsActions
 import com.bucktrail.android.ui.screens.StatisticsScreen
@@ -100,6 +106,12 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     var planMonth by rememberSaveable { mutableStateOf(0) }
     var historyOpen by rememberSaveable { mutableStateOf(false) }
     var auditOpen by rememberSaveable { mutableStateOf(false) }
+    var authOpen by rememberSaveable { mutableStateOf(false) }
+    var refreshing by remember { mutableStateOf(false) }
+    val session by vm.session.collectAsStateWithLifecycle()
+    val syncStatus by vm.syncStatus.collectAsStateWithLifecycle()
+    val needsSyncDecision by vm.needsSyncDecision.collectAsStateWithLifecycle()
+    LaunchedEffect(session) { if (session != null) authOpen = false }
     var statsMonth by rememberSaveable { mutableStateOf(0) }
     var generatingPdf by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
@@ -136,6 +148,7 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     Column(Modifier.fillMaxSize().background(c.paper).then(if (ledger.demo) Modifier.statusBarsPadding() else Modifier)) {
     if (ledger.demo) DemoBanner()
     Box(Modifier.fillMaxWidth().weight(1f)) {
+        Refreshable(enabled = session != null && !ledger.demo, refreshing = refreshing, onRefresh = { scope.launch { refreshing = true; vm.refresh(); refreshing = false } }) {
         when (tab) {
             Tab.Home -> HomeScreen(data, today, zone, { vm.setHideBalance(!data.prefs.hideBalance) }, edit, requestDelete,
                 onSeeAllMovements = { tab = Tab.Movements }, onManageAccounts = { tab = Tab.Accounts },
@@ -167,6 +180,8 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
                 ),
             )
         }
+        }
+        if (session != null && !ledger.demo) SyncBanner(syncStatus, Modifier.align(Alignment.TopCenter).statusBarsPadding().padding(top = 8.dp))
         FloatingTabBar(tab, labels, { tab = it; searching = false }, Modifier.align(Alignment.BottomCenter))
         undo?.let { u ->
             UndoBar(
@@ -249,6 +264,13 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
             vm::setDemoMode, { runCatching { vm.exportCsv() }.getOrNull() }, { runCatching { vm.exportJson() }.getOrNull() },
             onOpenAudit = { auditOpen = true }, onClose = { settingsOpen = false },
         ),
+        AccountSettings(session?.email, vm.syncConfigured, onSignIn = { authOpen = true }, onSignOut = { vm.signOut().join() }, onDelete = { vm.deleteAccount() }),
+    )
+    if (authOpen && session == null) AuthFlow(AuthActions(vm::signIn, vm::signUp, vm::resetPassword, onClose = { authOpen = false }))
+    if (needsSyncDecision) BtAlert(
+        stringResource(R.string.sync_decisione_titolo), stringResource(R.string.sync_decisione_messaggio), stringResource(R.string.sync_usa_cloud),
+        onConfirm = { vm.resolveSyncDecision(true) }, onDismiss = { vm.resolveSyncDecision(false) }, dismissLabel = stringResource(R.string.annulla), destructive = false,
+        modifier = Modifier.testTag("alert_syncDecision"),
     )
     if (auditOpen) AuditLogSheet({ (context.applicationContext as com.bucktrail.android.BucktrailApplication).auditLog.readAll() }) { auditOpen = false }
     if (homeOrderOpen) {
@@ -285,4 +307,10 @@ private fun TransactionEditor(
         existing, ledger.accounts, ledger.categories, ledger.transactions, data.prefs.currencyCode, today, zone, vm::classify, onManageCategories,
         onSave = { t, frequency -> vm.saveTransaction(t, frequency, isNew = existing == null) }, onClose = onClose,
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun Refreshable(enabled: Boolean, refreshing: Boolean, onRefresh: () -> Unit, content: @Composable () -> Unit) {
+    if (enabled) PullToRefreshBox(refreshing, onRefresh, Modifier.fillMaxSize()) { content() } else content()
 }

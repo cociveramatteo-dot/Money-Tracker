@@ -394,6 +394,55 @@
     <string name="saldo_totale">💰 Gesamtstand: %s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ für %2$s — gespeichert!</string>
     <string name="apri_impostazioni_lingua" formatted="false">Spracheinstellungen öffnen</string>
+    <string name="auth_accedi" formatted="false">Anmelden</string>
+    <string name="auth_accedi_o_crea" formatted="false">Anmelden oder Konto erstellen</string>
+    <string name="auth_accedi_per_continuare" formatted="false">Melde dich an, um fortzufahren</string>
+    <string name="auth_account" formatted="false">Konto</string>
+    <string name="auth_account_creato" formatted="false">Konto erstellt! Prüfe deine E-Mails und klicke auf den Bestätigungslink, um dich anzumelden.</string>
+    <string name="auth_benvenuto" formatted="false">Willkommen</string>
+    <string name="auth_conferma_eliminazione" formatted="false">Löschen bestätigen</string>
+    <string name="auth_conferma_eliminazione_msg">Zur Bestätigung schreibe %1$s in Großbuchstaben.</string>
+    <string name="auth_conferma_password" formatted="false">Passwort bestätigen</string>
+    <string name="auth_continua" formatted="false">Weiter</string>
+    <string name="auth_crea_account_sottotitolo" formatted="false">Erstelle dein Konto, um loszulegen</string>
+    <string name="auth_crea_account_titolo" formatted="false">Konto erstellen</string>
+    <string name="auth_crea_un_account" formatted="false">Konto erstellen</string>
+    <string name="auth_elimina_account" formatted="false">Konto löschen</string>
+    <string name="auth_elimina_definitivamente" formatted="false">Endgültig löschen</string>
+    <string name="auth_elimina_messaggio" formatted="false">Alle deine Konten, Buchungen, Budgets und Ziele werden endgültig gelöscht, sowohl auf dem Gerät als auch in der Cloud. Das kann nicht rückgängig gemacht werden.</string>
+    <string name="auth_elimina_titolo" formatted="false">Konto löschen?</string>
+    <string name="auth_eliminazione_in_corso" formatted="false">Wird gelöscht …</string>
+    <string name="auth_email" formatted="false">E-Mail</string>
+    <string name="auth_email_segnaposto" formatted="false">name@email.com</string>
+    <string name="auth_errore_conferma_email" formatted="false">Bestätige deine E-Mail-Adresse, bevor du dich anmeldest.</string>
+    <string name="auth_errore_credenziali" formatted="false">E-Mail oder Passwort sind nicht korrekt.</string>
+    <string name="auth_errore_eliminazione">Das Konto konnte nicht gelöscht werden: %1$s</string>
+    <string name="auth_errore_email_non_valida" formatted="false">Ungültige E-Mail-Adresse.</string>
+    <string name="auth_errore_esiste" formatted="false">Es gibt bereits ein Konto mit dieser E-Mail-Adresse.</string>
+    <string name="auth_errore_generico">Fehler: %1$s</string>
+    <string name="auth_errore_password_corta" formatted="false">Das Passwort muss mindestens 6 Zeichen lang sein.</string>
+    <string name="auth_errore_rete" formatted="false">Keine Verbindung. Prüfe dein Netzwerk und versuche es erneut.</string>
+    <string name="auth_errore_troppi_tentativi" formatted="false">Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.</string>
+    <string name="auth_esci" formatted="false">Abmelden</string>
+    <string name="auth_esci_conferma" formatted="false">Abmelden</string>
+    <string name="auth_esci_messaggio" formatted="false">Beim nächsten Mal musst du dich erneut anmelden.</string>
+    <string name="auth_esci_titolo" formatted="false">Abmelden?</string>
+    <string name="auth_invia_link" formatted="false">Link senden</string>
+    <string name="auth_minimo_6" formatted="false">Mindestens 6 Zeichen</string>
+    <string name="auth_non_configurata" formatted="false">Die Synchronisierung ist in dieser App-Version nicht eingerichtet.</string>
+    <string name="auth_non_connesso" formatted="false">Synchronisiere deine Daten zwischen mehreren Geräten. Bucktrail funktioniert auch ohne Konto und offline einwandfrei.</string>
+    <string name="auth_oppure" formatted="false">oder</string>
+    <string name="auth_parola_conferma" formatted="false">LÖSCHEN</string>
+    <string name="auth_password" formatted="false">Passwort</string>
+    <string name="auth_password_dimenticata" formatted="false">Passwort vergessen?</string>
+    <string name="auth_password_diverse" formatted="false">Die Passwörter stimmen nicht überein</string>
+    <string name="auth_registrati" formatted="false">Registrieren</string>
+    <string name="auth_reset_inviata" formatted="false">E-Mail gesendet! Prüfe dein Postfach.</string>
+    <string name="auth_reset_messaggio" formatted="false">Gib deine E-Mail-Adresse ein, dann senden wir dir einen Link zum Zurücksetzen des Passworts.</string>
+    <string name="auth_reset_titolo" formatted="false">Passwort zurücksetzen</string>
+    <string name="auth_ripeti_password" formatted="false">Passwort wiederholen</string>
+    <string name="auth_scrivi_parola">Schreibe %1$s</string>
+    <string name="auth_torna_al_login" formatted="false">Zurück zur Anmeldung</string>
     <string name="blocco_app" formatted="false">Sperre mit Biometrie oder PIN</string>
     <string name="blocco_app_disponibile" formatted="false">Verlangt beim Öffnen Fingerabdruck, Gesicht oder die Geräte-PIN</string>
     <string name="blocco_app_non_disponibile" formatted="false">Auf diesem Gerät ist keine Entsperrmethode eingerichtet</string>
@@ -446,10 +495,24 @@
     <string name="periodo" formatted="false">Zeitraum</string>
     <string name="save_failed" formatted="false">Speichern nicht möglich. Versuche es erneut.</string>
     <string name="scegli_valuta_conferma" formatted="false">Währung ändern?</string>
+    <string name="scorciatoie_aggiungi_tile" formatted="false">Kachel „Ausgabe hinzufügen“ hinzufügen</string>
+    <string name="scorciatoie_aggiungi_widget" formatted="false">Saldo-Widget hinzufügen</string>
+    <string name="scorciatoie_extra_android" formatted="false">Nur Android</string>
+    <string name="scorciatoie_sezione" formatted="false">Kurzbefehle</string>
+    <string name="scorciatoie_suggerimento" formatted="false">Bei manchen Telefonen (z. B. Pixel) kannst du dem doppelten Tippen auf die Rückseite eine App zuweisen: Einstellungen → System → Gesten → Schnelltippen.</string>
+    <string name="scorciatoie_testo" formatted="false">Füge Ausgaben hinzu, ohne die App zu öffnen: halte das Bucktrail-Symbol gedrückt, nutze ein Widget oder die Schnelleinstellungs-Kachel.</string>
     <string name="sicurezza" formatted="false">Sicherheit</string>
     <string name="sposta_giu" formatted="false">Nach unten</string>
     <string name="sposta_su" formatted="false">Nach oben</string>
     <string name="statistiche_riepilogo_mese">%1$s: Einnahmen %2$s, Ausgaben %3$s</string>
+    <string name="su_conto_suffisso">auf %1$s</string>
+    <string name="sync_decisione_messaggio" formatted="false">Dieses Gerät enthält bereits Daten und die Cloud andere. Um fortzufahren, werden die Daten dieses Geräts durch die der Cloud ersetzt. Wenn du die Daten des Geräts behalten möchtest, brich ab: Du wirst abgemeldet und nichts ändert sich.</string>
+    <string name="sync_decisione_titolo" formatted="false">Daten bereits in der Cloud</string>
+    <string name="sync_in_corso" formatted="false">Synchronisierung …</string>
+    <string name="sync_in_sospeso" formatted="false">Synchronisierung ausstehend</string>
+    <string name="sync_offline" formatted="false">Offline – wird automatisch fortgesetzt</string>
+    <string name="sync_usa_cloud" formatted="false">Cloud-Daten verwenden</string>
+    <string name="widget_descrizione" formatted="false">Aktueller und erwarteter Kontostand zum Monatsende, Beträge ausblendbar.</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="one">Noch %d Tag</item>
         <item quantity="other">Noch %d Tage</item>

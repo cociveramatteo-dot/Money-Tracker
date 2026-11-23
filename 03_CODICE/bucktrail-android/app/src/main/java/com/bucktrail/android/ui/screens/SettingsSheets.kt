@@ -90,9 +90,9 @@ class SettingsActions(
     val onOpenAudit: () -> Unit, val onClose: () -> Unit,
 )
 
-/** Impostazioni (§4.9): Lingua, Valuta, Notifiche, Sicurezza, Home, Esportazione, Demo, Info. L'account arriva col blocco B9. */
+/** Impostazioni (§4.9): Lingua, Valuta, Notifiche, Sicurezza, Home, Esportazione, Demo, Info, Account. */
 @Composable
-fun SettingsSheet(data: AppData, actions: SettingsActions) {
+fun SettingsSheet(data: AppData, actions: SettingsActions, account: AccountSettings) {
     val c = Bt.colors
     val context = LocalContext.current
     var currencyMenu by remember { mutableStateOf(false) }
@@ -253,12 +253,31 @@ fun SettingsSheet(data: AppData, actions: SettingsActions) {
                 }
             }
             ThinDivider(color = c.fog)
+            // Scorciatoie (equivalente Android di «Siri & Shortcut»)
+            SettingsSection {
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                    SectionLabel(stringResource(R.string.scorciatoie_sezione))
+                    Text(stringResource(R.string.scorciatoie_extra_android), style = Typo.formOptionSub, color = c.smoke)
+                }
+                Text(stringResource(R.string.scorciatoie_testo), style = Typo.formOption.copy(fontSize = 13.sp), color = c.smoke)
+                val pinWidget = remember { com.bucktrail.android.shortcuts.ShortcutSetup.canPinWidget(context) }
+                if (pinWidget) ShortcutRow(stringResource(R.string.scorciatoie_aggiungi_widget), "btn_pinWidget") { com.bucktrail.android.shortcuts.ShortcutSetup.pinWidget(context) }
+                if (Build.VERSION.SDK_INT >= 33) ShortcutRow(stringResource(R.string.scorciatoie_aggiungi_tile), "btn_addTile") { com.bucktrail.android.shortcuts.ShortcutSetup.requestTile(context) }
+                Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(c.fog.copy(alpha = 0.5f)).padding(12.dp), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Icon(SfIcons.forName("lightbulb.fill"), null, tint = c.ink.copy(alpha = 0.5f), modifier = Modifier.size(14.dp).padding(top = 2.dp))
+                    Text(stringResource(R.string.scorciatoie_suggerimento), style = Typo.caption, color = c.smoke)
+                }
+            }
+            ThinDivider(color = c.fog)
             // Info
             SettingsSection {
                 SectionLabel(stringResource(R.string.info))
                 OptionRow(stringResource(R.string.versione)) { Text(version, style = Typo.formOption, color = c.smoke) }
                 OptionRow(stringResource(R.string.transazioni_totali)) { Text("${data.ledger.transactions.size}", style = Typo.formOption, color = c.smoke, modifier = Modifier.testTag("settings_txCount")) }
             }
+            ThinDivider(color = c.fog)
+            // Account (in fondo, come iOS)
+            AccountSection(account)
         }
     }
 
@@ -277,6 +296,18 @@ fun SettingsSheet(data: AppData, actions: SettingsActions) {
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ShortcutRow(label: String, tag: String, onClick: () -> Unit) {
+    val c = Bt.colors
+    Row(
+        Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Button, onClick = onClick).testTag(tag),
+        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Text(label, style = Typo.formOption.copy(fontFamily = Fonts.formMedium), color = c.ink)
+        Icon(SfIcons.forName("arrow.up"), null, tint = c.smoke, modifier = Modifier.size(16.dp).graphicsLayer { rotationZ = 45f })
     }
 }
 

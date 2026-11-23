@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import androidx.room.Upsert
 import com.bucktrail.android.domain.CategoryEditing
 import kotlinx.coroutines.flow.Flow
 
@@ -15,7 +16,9 @@ interface BucktrailDao {
     // Conti
     @Query("SELECT * FROM accounts ORDER BY name COLLATE NOCASE, id")
     fun observeAccounts(): Flow<List<AccountEntity>>
-    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun upsert(account: AccountEntity)
+    /** Mai `REPLACE`: cancellerebbe il conto e, per il cascade, tutti i suoi movimenti e budget. */
+    @Upsert suspend fun upsert(account: AccountEntity)
+    @Upsert suspend fun upsertAccounts(accounts: List<AccountEntity>)
     @Delete suspend fun delete(account: AccountEntity)
 
     @Query("SELECT * FROM accounts") suspend fun accounts(): List<AccountEntity>
@@ -108,6 +111,29 @@ interface BucktrailDao {
         upsertTransactions(d.transactions)
         d.budgets.forEach { upsert(it) }
         d.goals.forEach { upsert(it) }
+    }
+
+    @Upsert suspend fun upsertBudgets(budgets: List<BudgetEntity>)
+    @Upsert suspend fun upsertGoals(goals: List<GoalEntity>)
+    @Upsert suspend fun upsertRules(rules: List<RecurringRuleEntity>)
+    @Query("DELETE FROM accounts WHERE id IN (:ids)") suspend fun deleteAccounts(ids: List<String>)
+    @Query("DELETE FROM budgets WHERE id IN (:ids)") suspend fun deleteBudgets(ids: List<String>)
+    @Query("DELETE FROM goals WHERE id IN (:ids)") suspend fun deleteGoals(ids: List<String>)
+    @Query("DELETE FROM recurring_rules WHERE id IN (:ids)") suspend fun deleteRules(ids: List<String>)
+
+    /** Pull Supabase: tutte le modifiche remote in un'unica transazione (o niente). Prima i conti, poi i figli; le cancellazioni dei conti fanno cascade. */
+    @Transaction
+    suspend fun applySyncPlan(p: com.bucktrail.android.sync.SyncPlan) {
+        if (p.accounts.isNotEmpty()) p.accounts.chunked(500).forEach { upsertAccounts(it) }
+        p.deleteTransactionIds.chunked(500).forEach { deleteTransactions(it) }
+        p.deleteBudgetIds.chunked(500).forEach { deleteBudgets(it) }
+        p.deleteGoalIds.chunked(500).forEach { deleteGoals(it) }
+        p.deleteRuleIds.chunked(500).forEach { deleteRules(it) }
+        p.deleteAccountIds.chunked(500).forEach { deleteAccounts(it) }
+        p.rules.chunked(500).forEach { upsertRules(it) }
+        p.transactions.chunked(500).forEach { upsertTransactions(it) }
+        p.budgets.chunked(500).forEach { upsertBudgets(it) }
+        p.goals.chunked(500).forEach { upsertGoals(it) }
     }
 
     @Query("DELETE FROM transactions") suspend fun deleteAllTransactions()

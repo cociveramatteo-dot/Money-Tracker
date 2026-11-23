@@ -511,5 +511,572 @@
   "fr": "Les notifications sont désactivées dans les réglages du système.",
   "ja": "通知はシステム設定でオフになっています。",
   "zh-Hans": "通知已在系统设置中关闭。"
+ },
+ "auth_accedi_per_continuare": {
+  "it": "Accedi per continuare",
+  "en": "Sign in to continue",
+  "de": "Melde dich an, um fortzufahren",
+  "es": "Inicia sesión para continuar",
+  "fr": "Connecte-toi pour continuer",
+  "ja": "ログインして続ける",
+  "zh-Hans": "登录以继续"
+ },
+ "auth_email": {
+  "it": "Email",
+  "en": "Email",
+  "de": "E-Mail",
+  "es": "Correo electrónico",
+  "fr": "E-mail",
+  "ja": "メールアドレス",
+  "zh-Hans": "邮箱"
+ },
+ "auth_email_segnaposto": {
+  "it": "nome@email.com",
+  "en": "name@email.com",
+  "de": "name@email.com",
+  "es": "nombre@correo.com",
+  "fr": "nom@email.com",
+  "ja": "name@email.com",
+  "zh-Hans": "name@email.com"
+ },
+ "auth_password": {
+  "it": "Password",
+  "en": "Password",
+  "de": "Passwort",
+  "es": "Contraseña",
+  "fr": "Mot de passe",
+  "ja": "パスワード",
+  "zh-Hans": "密码"
+ },
+ "auth_accedi": {
+  "it": "Accedi",
+  "en": "Sign in",
+  "de": "Anmelden",
+  "es": "Iniciar sesión",
+  "fr": "Se connecter",
+  "ja": "ログイン",
+  "zh-Hans": "登录"
+ },
+ "auth_password_dimenticata": {
+  "it": "Password dimenticata?",
+  "en": "Forgot password?",
+  "de": "Passwort vergessen?",
+  "es": "¿Olvidaste la contraseña?",
+  "fr": "Mot de passe oublié ?",
+  "ja": "パスワードをお忘れですか？",
+  "zh-Hans": "忘记密码？"
+ },
+ "auth_oppure": {
+  "it": "oppure",
+  "en": "or",
+  "de": "oder",
+  "es": "o",
+  "fr": "ou",
+  "ja": "または",
+  "zh-Hans": "或"
+ },
+ "auth_crea_un_account": {
+  "it": "Crea un account",
+  "en": "Create an account",
+  "de": "Konto erstellen",
+  "es": "Crear una cuenta",
+  "fr": "Créer un compte",
+  "ja": "アカウントを作成",
+  "zh-Hans": "创建账户"
+ },
+ "auth_reset_titolo": {
+  "it": "Reimposta password",
+  "en": "Reset password",
+  "de": "Passwort zurücksetzen",
+  "es": "Restablecer contraseña",
+  "fr": "Réinitialiser le mot de passe",
+  "ja": "パスワードをリセット",
+  "zh-Hans": "重置密码"
+ },
+ "auth_reset_messaggio": {
+  "it": "Inserisci la tua email e ti mandiamo un link per reimpostare la password.",
+  "en": "Enter your email and we will send you a link to reset your password.",
+  "de": "Gib deine E-Mail-Adresse ein, dann senden wir dir einen Link zum Zurücksetzen des Passworts.",
+  "es": "Introduce tu correo y te enviaremos un enlace para restablecer la contraseña.",
+  "fr": "Saisis ton e-mail et nous t’envoyons un lien pour réinitialiser ton mot de passe.",
+  "ja": "メールアドレスを入力すると、パスワードをリセットするためのリンクをお送りします。",
+  "zh-Hans": "输入你的邮箱，我们会发送重置密码的链接。"
+ },
+ "auth_reset_inviata": {
+  "it": "Email inviata! Controlla la tua casella.",
+  "en": "Email sent! Check your inbox.",
+  "de": "E-Mail gesendet! Prüfe dein Postfach.",
+  "es": "¡Correo enviado! Revisa tu bandeja de entrada.",
+  "fr": "E-mail envoyé ! Vérifie ta boîte de réception.",
+  "ja": "メールを送信しました。受信トレイをご確認ください。",
+  "zh-Hans": "邮件已发送！请查看你的收件箱。"
+ },
+ "auth_invia_link": {
+  "it": "Invia link",
+  "en": "Send link",
+  "de": "Link senden",
+  "es": "Enviar enlace",
+  "fr": "Envoyer le lien",
+  "ja": "リンクを送信",
+  "zh-Hans": "发送链接"
+ },
+ "auth_errore_credenziali": {
+  "it": "Email o password non corretti.",
+  "en": "Incorrect email or password.",
+  "de": "E-Mail oder Passwort sind nicht korrekt.",
+  "es": "Correo o contraseña incorrectos.",
+  "fr": "E-mail ou mot de passe incorrect.",
+  "ja": "メールアドレスまたはパスワードが正しくありません。",
+  "zh-Hans": "邮箱或密码不正确。"
+ },
+ "auth_errore_conferma_email": {
+  "it": "Conferma la tua email prima di accedere.",
+  "en": "Confirm your email before signing in.",
+  "de": "Bestätige deine E-Mail-Adresse, bevor du dich anmeldest.",
+  "es": "Confirma tu correo antes de iniciar sesión.",
+  "fr": "Confirme ton e-mail avant de te connecter.",
+  "ja": "ログインする前にメールアドレスを確認してください。",
+  "zh-Hans": "登录前请先确认你的邮箱。"
+ },
+ "auth_errore_troppi_tentativi": {
+  "it": "Troppi tentativi. Aspetta qualche minuto e riprova.",
+  "en": "Too many attempts. Wait a few minutes and try again.",
+  "de": "Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.",
+  "es": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
+  "fr": "Trop de tentatives. Attends quelques minutes et réessaie.",
+  "ja": "試行回数が多すぎます。数分待ってからもう一度お試しください。",
+  "zh-Hans": "尝试次数过多。请等待几分钟后重试。"
+ },
+ "auth_errore_rete": {
+  "it": "Nessuna connessione. Controlla la rete e riprova.",
+  "en": "No connection. Check your network and try again.",
+  "de": "Keine Verbindung. Prüfe dein Netzwerk und versuche es erneut.",
+  "es": "Sin conexión. Revisa la red e inténtalo de nuevo.",
+  "fr": "Pas de connexion. Vérifie le réseau et réessaie.",
+  "ja": "接続できません。ネットワークを確認してもう一度お試しください。",
+  "zh-Hans": "无网络连接。请检查网络后重试。"
+ },
+ "auth_errore_generico": {
+  "it": "Errore: %1$s",
+  "en": "Error: %1$s",
+  "de": "Fehler: %1$s",
+  "es": "Error: %1$s",
+  "fr": "Erreur : %1$s",
+  "ja": "エラー: %1$s",
+  "zh-Hans": "错误：%1$s"
+ },
+ "auth_benvenuto": {
+  "it": "Benvenuto",
+  "en": "Welcome",
+  "de": "Willkommen",
+  "es": "Bienvenido",
+  "fr": "Bienvenue",
+  "ja": "ようこそ",
+  "zh-Hans": "欢迎"
+ },
+ "auth_crea_account_titolo": {
+  "it": "Crea account",
+  "en": "Create account",
+  "de": "Konto erstellen",
+  "es": "Crear cuenta",
+  "fr": "Créer un compte",
+  "ja": "アカウント作成",
+  "zh-Hans": "创建账户"
+ },
+ "auth_crea_account_sottotitolo": {
+  "it": "Crea il tuo account per iniziare",
+  "en": "Create your account to get started",
+  "de": "Erstelle dein Konto, um loszulegen",
+  "es": "Crea tu cuenta para empezar",
+  "fr": "Crée ton compte pour commencer",
+  "ja": "アカウントを作成して始めましょう",
+  "zh-Hans": "创建账户即可开始"
+ },
+ "auth_minimo_6": {
+  "it": "Minimo 6 caratteri",
+  "en": "At least 6 characters",
+  "de": "Mindestens 6 Zeichen",
+  "es": "Mínimo 6 caracteres",
+  "fr": "6 caractères minimum",
+  "ja": "6文字以上",
+  "zh-Hans": "至少 6 个字符"
+ },
+ "auth_conferma_password": {
+  "it": "Conferma password",
+  "en": "Confirm password",
+  "de": "Passwort bestätigen",
+  "es": "Confirmar contraseña",
+  "fr": "Confirmer le mot de passe",
+  "ja": "パスワードの確認",
+  "zh-Hans": "确认密码"
+ },
+ "auth_ripeti_password": {
+  "it": "Ripeti la password",
+  "en": "Repeat the password",
+  "de": "Passwort wiederholen",
+  "es": "Repite la contraseña",
+  "fr": "Répète le mot de passe",
+  "ja": "パスワードをもう一度入力",
+  "zh-Hans": "再次输入密码"
+ },
+ "auth_password_diverse": {
+  "it": "Le password non coincidono",
+  "en": "The passwords do not match",
+  "de": "Die Passwörter stimmen nicht überein",
+  "es": "Las contraseñas no coinciden",
+  "fr": "Les mots de passe ne correspondent pas",
+  "ja": "パスワードが一致しません",
+  "zh-Hans": "两次输入的密码不一致"
+ },
+ "auth_registrati": {
+  "it": "Registrati",
+  "en": "Sign up",
+  "de": "Registrieren",
+  "es": "Registrarse",
+  "fr": "S’inscrire",
+  "ja": "登録",
+  "zh-Hans": "注册"
+ },
+ "auth_account_creato": {
+  "it": "Account creato! Controlla la tua email e clicca il link di conferma per accedere.",
+  "en": "Account created! Check your email and tap the confirmation link to sign in.",
+  "de": "Konto erstellt! Prüfe deine E-Mails und klicke auf den Bestätigungslink, um dich anzumelden.",
+  "es": "¡Cuenta creada! Revisa tu correo y pulsa el enlace de confirmación para iniciar sesión.",
+  "fr": "Compte créé ! Vérifie tes e-mails et clique sur le lien de confirmation pour te connecter.",
+  "ja": "アカウントを作成しました。メールを確認し、確認リンクをタップしてログインしてください。",
+  "zh-Hans": "账户已创建！请查看邮件并点击确认链接后登录。"
+ },
+ "auth_torna_al_login": {
+  "it": "Torna al login",
+  "en": "Back to sign in",
+  "de": "Zurück zur Anmeldung",
+  "es": "Volver al inicio de sesión",
+  "fr": "Retour à la connexion",
+  "ja": "ログインに戻る",
+  "zh-Hans": "返回登录"
+ },
+ "auth_errore_esiste": {
+  "it": "Esiste già un account con questa email.",
+  "en": "An account with this email already exists.",
+  "de": "Es gibt bereits ein Konto mit dieser E-Mail-Adresse.",
+  "es": "Ya existe una cuenta con este correo.",
+  "fr": "Un compte existe déjà avec cet e-mail.",
+  "ja": "このメールアドレスのアカウントは既に存在します。",
+  "zh-Hans": "该邮箱已有账户。"
+ },
+ "auth_errore_password_corta": {
+  "it": "La password deve avere almeno 6 caratteri.",
+  "en": "The password must be at least 6 characters.",
+  "de": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+  "es": "La contraseña debe tener al menos 6 caracteres.",
+  "fr": "Le mot de passe doit contenir au moins 6 caractères.",
+  "ja": "パスワードは6文字以上にしてください。",
+  "zh-Hans": "密码至少需要 6 个字符。"
+ },
+ "auth_errore_email_non_valida": {
+  "it": "Indirizzo email non valido.",
+  "en": "Invalid email address.",
+  "de": "Ungültige E-Mail-Adresse.",
+  "es": "Dirección de correo no válida.",
+  "fr": "Adresse e-mail non valide.",
+  "ja": "メールアドレスが正しくありません。",
+  "zh-Hans": "邮箱地址无效。"
+ },
+ "auth_account": {
+  "it": "Account",
+  "en": "Account",
+  "de": "Konto",
+  "es": "Cuenta",
+  "fr": "Compte",
+  "ja": "アカウント",
+  "zh-Hans": "账户"
+ },
+ "auth_non_connesso": {
+  "it": "Sincronizza i tuoi dati tra più dispositivi. Bucktrail funziona benissimo anche senza account, offline.",
+  "en": "Sync your data across devices. Bucktrail works great without an account too, fully offline.",
+  "de": "Synchronisiere deine Daten zwischen mehreren Geräten. Bucktrail funktioniert auch ohne Konto und offline einwandfrei.",
+  "es": "Sincroniza tus datos entre dispositivos. Bucktrail funciona muy bien también sin cuenta y sin conexión.",
+  "fr": "Synchronise tes données entre plusieurs appareils. Bucktrail fonctionne très bien aussi sans compte, hors ligne.",
+  "ja": "複数のデバイスでデータを同期します。Bucktrail はアカウントなし・オフラインでも快適に使えます。",
+  "zh-Hans": "在多台设备间同步你的数据。Bucktrail 无需账户、离线也能流畅使用。"
+ },
+ "auth_accedi_o_crea": {
+  "it": "Accedi o crea un account",
+  "en": "Sign in or create an account",
+  "de": "Anmelden oder Konto erstellen",
+  "es": "Iniciar sesión o crear una cuenta",
+  "fr": "Se connecter ou créer un compte",
+  "ja": "ログインまたはアカウント作成",
+  "zh-Hans": "登录或创建账户"
+ },
+ "auth_non_configurata": {
+  "it": "La sincronizzazione non è configurata in questa versione dell’app.",
+  "en": "Sync is not set up in this version of the app.",
+  "de": "Die Synchronisierung ist in dieser App-Version nicht eingerichtet.",
+  "es": "La sincronización no está configurada en esta versión de la app.",
+  "fr": "La synchronisation n’est pas configurée dans cette version de l’app.",
+  "ja": "このバージョンでは同期が設定されていません。",
+  "zh-Hans": "此版本的应用未配置同步。"
+ },
+ "auth_esci": {
+  "it": "Esci dall’account",
+  "en": "Sign out",
+  "de": "Abmelden",
+  "es": "Cerrar sesión",
+  "fr": "Se déconnecter",
+  "ja": "ログアウト",
+  "zh-Hans": "退出账户"
+ },
+ "auth_esci_titolo": {
+  "it": "Esci dall’account?",
+  "en": "Sign out?",
+  "de": "Abmelden?",
+  "es": "¿Cerrar sesión?",
+  "fr": "Se déconnecter ?",
+  "ja": "ログアウトしますか？",
+  "zh-Hans": "退出账户？"
+ },
+ "auth_esci_messaggio": {
+  "it": "Dovrai effettuare di nuovo il login la prossima volta.",
+  "en": "You will need to sign in again next time.",
+  "de": "Beim nächsten Mal musst du dich erneut anmelden.",
+  "es": "Tendrás que iniciar sesión de nuevo la próxima vez.",
+  "fr": "Tu devras te reconnecter la prochaine fois.",
+  "ja": "次回は再度ログインが必要です。",
+  "zh-Hans": "下次需要重新登录。"
+ },
+ "auth_esci_conferma": {
+  "it": "Esci",
+  "en": "Sign out",
+  "de": "Abmelden",
+  "es": "Salir",
+  "fr": "Déconnexion",
+  "ja": "ログアウト",
+  "zh-Hans": "退出"
+ },
+ "auth_elimina_account": {
+  "it": "Elimina account",
+  "en": "Delete account",
+  "de": "Konto löschen",
+  "es": "Eliminar cuenta",
+  "fr": "Supprimer le compte",
+  "ja": "アカウントを削除",
+  "zh-Hans": "删除账户"
+ },
+ "auth_elimina_titolo": {
+  "it": "Eliminare l’account?",
+  "en": "Delete the account?",
+  "de": "Konto löschen?",
+  "es": "¿Eliminar la cuenta?",
+  "fr": "Supprimer le compte ?",
+  "ja": "アカウントを削除しますか？",
+  "zh-Hans": "删除账户？"
+ },
+ "auth_elimina_messaggio": {
+  "it": "Verranno cancellati per sempre tutti i tuoi conti, movimenti, budget e obiettivi, sia sul dispositivo che sul cloud. L’operazione non è reversibile.",
+  "en": "All your accounts, transactions, budgets and goals will be permanently deleted, both on this device and in the cloud. This cannot be undone.",
+  "de": "Alle deine Konten, Buchungen, Budgets und Ziele werden endgültig gelöscht, sowohl auf dem Gerät als auch in der Cloud. Das kann nicht rückgängig gemacht werden.",
+  "es": "Se eliminarán para siempre todas tus cuentas, movimientos, presupuestos y objetivos, tanto en el dispositivo como en la nube. No se puede deshacer.",
+  "fr": "Tous tes comptes, mouvements, budgets et objectifs seront supprimés définitivement, sur l’appareil et dans le cloud. Cette action est irréversible.",
+  "ja": "すべての口座・取引・予算・目標が、この端末とクラウドの両方から完全に削除されます。元に戻せません。",
+  "zh-Hans": "你的所有账户、交易、预算和目标将在设备和云端被永久删除，且无法恢复。"
+ },
+ "auth_continua": {
+  "it": "Continua",
+  "en": "Continue",
+  "de": "Weiter",
+  "es": "Continuar",
+  "fr": "Continuer",
+  "ja": "続ける",
+  "zh-Hans": "继续"
+ },
+ "auth_conferma_eliminazione": {
+  "it": "Conferma eliminazione",
+  "en": "Confirm deletion",
+  "de": "Löschen bestätigen",
+  "es": "Confirmar eliminación",
+  "fr": "Confirmer la suppression",
+  "ja": "削除の確認",
+  "zh-Hans": "确认删除"
+ },
+ "auth_parola_conferma": {
+  "it": "ELIMINA",
+  "en": "DELETE",
+  "de": "LÖSCHEN",
+  "es": "ELIMINAR",
+  "fr": "SUPPRIMER",
+  "ja": "削除",
+  "zh-Hans": "删除"
+ },
+ "auth_scrivi_parola": {
+  "it": "Scrivi %1$s",
+  "en": "Type %1$s",
+  "de": "Schreibe %1$s",
+  "es": "Escribe %1$s",
+  "fr": "Écris %1$s",
+  "ja": "「%1$s」と入力",
+  "zh-Hans": "输入 %1$s"
+ },
+ "auth_conferma_eliminazione_msg": {
+  "it": "Per confermare, scrivi %1$s in maiuscolo.",
+  "en": "To confirm, type %1$s in capital letters.",
+  "de": "Zur Bestätigung schreibe %1$s in Großbuchstaben.",
+  "es": "Para confirmar, escribe %1$s en mayúsculas.",
+  "fr": "Pour confirmer, écris %1$s en majuscules.",
+  "ja": "確認のため「%1$s」と入力してください。",
+  "zh-Hans": "请输入 %1$s 以确认。"
+ },
+ "auth_elimina_definitivamente": {
+  "it": "Elimina definitivamente",
+  "en": "Delete permanently",
+  "de": "Endgültig löschen",
+  "es": "Eliminar definitivamente",
+  "fr": "Supprimer définitivement",
+  "ja": "完全に削除",
+  "zh-Hans": "永久删除"
+ },
+ "auth_eliminazione_in_corso": {
+  "it": "Eliminazione in corso…",
+  "en": "Deleting…",
+  "de": "Wird gelöscht …",
+  "es": "Eliminando…",
+  "fr": "Suppression en cours…",
+  "ja": "削除しています…",
+  "zh-Hans": "正在删除…"
+ },
+ "auth_errore_eliminazione": {
+  "it": "Impossibile eliminare l’account: %1$s",
+  "en": "Couldn’t delete the account: %1$s",
+  "de": "Das Konto konnte nicht gelöscht werden: %1$s",
+  "es": "No se pudo eliminar la cuenta: %1$s",
+  "fr": "Impossible de supprimer le compte : %1$s",
+  "ja": "アカウントを削除できませんでした: %1$s",
+  "zh-Hans": "无法删除账户：%1$s"
+ },
+ "sync_in_corso": {
+  "it": "Sincronizzazione…",
+  "en": "Syncing…",
+  "de": "Synchronisierung …",
+  "es": "Sincronizando…",
+  "fr": "Synchronisation…",
+  "ja": "同期中…",
+  "zh-Hans": "正在同步…"
+ },
+ "sync_in_sospeso": {
+  "it": "Sincronizzazione in sospeso",
+  "en": "Sync pending",
+  "de": "Synchronisierung ausstehend",
+  "es": "Sincronización pendiente",
+  "fr": "Synchronisation en attente",
+  "ja": "同期は保留中",
+  "zh-Hans": "同步待处理"
+ },
+ "sync_offline": {
+  "it": "Offline — riprenderà automaticamente",
+  "en": "Offline — will resume automatically",
+  "de": "Offline – wird automatisch fortgesetzt",
+  "es": "Sin conexión — se reanudará automáticamente",
+  "fr": "Hors ligne — reprendra automatiquement",
+  "ja": "オフライン — 自動的に再開します",
+  "zh-Hans": "离线 — 将自动恢复"
+ },
+ "sync_decisione_titolo": {
+  "it": "Dati già presenti nel cloud",
+  "en": "Data already in the cloud",
+  "de": "Daten bereits in der Cloud",
+  "es": "Ya hay datos en la nube",
+  "fr": "Des données existent déjà dans le cloud",
+  "ja": "クラウドに既存のデータがあります",
+  "zh-Hans": "云端已有数据"
+ },
+ "sync_decisione_messaggio": {
+  "it": "Questo dispositivo contiene già dei dati e il cloud ne ha altri. Per continuare, i dati di questo dispositivo vengono sostituiti da quelli del cloud. Se preferisci tenere quelli del dispositivo, annulla: l’accesso viene chiuso e non cambia nulla.",
+  "en": "This device already has data and the cloud has other data. To continue, this device’s data is replaced with the cloud’s. If you prefer to keep this device’s data, cancel: you will be signed out and nothing changes.",
+  "de": "Dieses Gerät enthält bereits Daten und die Cloud andere. Um fortzufahren, werden die Daten dieses Geräts durch die der Cloud ersetzt. Wenn du die Daten des Geräts behalten möchtest, brich ab: Du wirst abgemeldet und nichts ändert sich.",
+  "es": "Este dispositivo ya tiene datos y la nube tiene otros. Para continuar, los datos del dispositivo se sustituyen por los de la nube. Si prefieres conservar los del dispositivo, cancela: se cierra la sesión y no cambia nada.",
+  "fr": "Cet appareil contient déjà des données et le cloud en contient d’autres. Pour continuer, les données de l’appareil sont remplacées par celles du cloud. Si tu préfères garder celles de l’appareil, annule : la session est fermée et rien ne change.",
+  "ja": "この端末には既にデータがあり、クラウドにも別のデータがあります。続けると、この端末のデータはクラウドのデータに置き換えられます。端末のデータを残したい場合はキャンセルしてください。ログアウトされ、何も変更されません。",
+  "zh-Hans": "此设备已有数据，云端也有其他数据。继续将用云端数据替换本设备数据。若想保留本设备数据，请取消：将退出登录，不会有任何更改。"
+ },
+ "sync_usa_cloud": {
+  "it": "Usa i dati del cloud",
+  "en": "Use the cloud data",
+  "de": "Cloud-Daten verwenden",
+  "es": "Usar los datos de la nube",
+  "fr": "Utiliser les données du cloud",
+  "ja": "クラウドのデータを使う",
+  "zh-Hans": "使用云端数据"
+ },
+ "su_conto_suffisso": {
+  "it": "su %1$s",
+  "en": "on %1$s",
+  "de": "auf %1$s",
+  "es": "en %1$s",
+  "fr": "sur %1$s",
+  "ja": "%1$s に",
+  "zh-Hans": "在 %1$s"
+ },
+ "widget_descrizione": {
+  "it": "Saldo attuale e saldo atteso a fine mese, con importi oscurabili.",
+  "en": "Current balance and expected end-of-month balance, with hideable amounts.",
+  "de": "Aktueller und erwarteter Kontostand zum Monatsende, Beträge ausblendbar.",
+  "es": "Saldo actual y saldo previsto a fin de mes, con importes ocultables.",
+  "fr": "Solde actuel et solde prévu en fin de mois, montants masquables.",
+  "ja": "現在の残高と月末の予想残高。金額は非表示にできます。",
+  "zh-Hans": "当前余额和月末预计余额，金额可隐藏。"
+ },
+ "scorciatoie_sezione": {
+  "it": "Scorciatoie",
+  "en": "Shortcuts",
+  "de": "Kurzbefehle",
+  "es": "Atajos",
+  "fr": "Raccourcis",
+  "ja": "ショートカット",
+  "zh-Hans": "快捷方式"
+ },
+ "scorciatoie_testo": {
+  "it": "Aggiungi spese senza aprire l’app: tieni premuta l’icona di Bucktrail, usa un widget oppure il riquadro nelle Impostazioni rapide.",
+  "en": "Add expenses without opening the app: long-press the Bucktrail icon, use a widget or the Quick Settings tile.",
+  "de": "Füge Ausgaben hinzu, ohne die App zu öffnen: halte das Bucktrail-Symbol gedrückt, nutze ein Widget oder die Schnelleinstellungs-Kachel.",
+  "es": "Añade gastos sin abrir la app: mantén pulsado el icono de Bucktrail, usa un widget o el icono de Ajustes rápidos.",
+  "fr": "Ajoute des dépenses sans ouvrir l’app : appui long sur l’icône Bucktrail, un widget ou la tuile des réglages rapides.",
+  "ja": "アプリを開かずに支出を追加: Bucktrail アイコンを長押し、ウィジェット、またはクイック設定タイルを使います。",
+  "zh-Hans": "无需打开应用即可记账：长按 Bucktrail 图标、使用小组件或快捷设置图块。"
+ },
+ "scorciatoie_aggiungi_widget": {
+  "it": "Aggiungi il widget Saldo",
+  "en": "Add the Balance widget",
+  "de": "Saldo-Widget hinzufügen",
+  "es": "Añadir el widget de saldo",
+  "fr": "Ajouter le widget Solde",
+  "ja": "残高ウィジェットを追加",
+  "zh-Hans": "添加余额小组件"
+ },
+ "scorciatoie_aggiungi_tile": {
+  "it": "Aggiungi il riquadro «Aggiungi spesa»",
+  "en": "Add the “Add expense” tile",
+  "de": "Kachel „Ausgabe hinzufügen“ hinzufügen",
+  "es": "Añadir el icono «Añadir gasto»",
+  "fr": "Ajouter la tuile « Ajouter une dépense »",
+  "ja": "「支出を追加」タイルを追加",
+  "zh-Hans": "添加“记一笔支出”图块"
+ },
+ "scorciatoie_suggerimento": {
+  "it": "Su alcuni telefoni (ad esempio Pixel) puoi assegnare un’app al doppio tocco sul retro: Impostazioni → Sistema → Gesti → Tocco rapido.",
+  "en": "On some phones (such as Pixel) you can assign an app to the double tap on the back: Settings → System → Gestures → Quick Tap.",
+  "de": "Bei manchen Telefonen (z. B. Pixel) kannst du dem doppelten Tippen auf die Rückseite eine App zuweisen: Einstellungen → System → Gesten → Schnelltippen.",
+  "es": "En algunos teléfonos (como Pixel) puedes asignar una app al doble toque en la parte trasera: Ajustes → Sistema → Gestos → Toque rápido.",
+  "fr": "Sur certains téléphones (comme Pixel), tu peux associer une app au double tapotement au dos : Réglages → Système → Gestes → Tapotement rapide.",
+  "ja": "Pixel などの一部の機種では、背面ダブルタップにアプリを割り当てられます: 設定 → システム → ジェスチャー → クイックタップ。",
+  "zh-Hans": "部分手机（如 Pixel）可将应用设为背面双击：设置 → 系统 → 手势 → 快速点按。"
+ },
+ "scorciatoie_extra_android": {
+  "it": "Solo Android",
+  "en": "Android only",
+  "de": "Nur Android",
+  "es": "Solo Android",
+  "fr": "Android uniquement",
+  "ja": "Android 専用",
+  "zh-Hans": "仅限 Android"
  }
 }

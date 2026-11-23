@@ -370,6 +370,13 @@ Container separato (`demo.store`) sempre seminato all'avvio (categorie + dati; `
 16. Versione app mostrata «1.0» (MARKETING_VERSION) mentre il changelog è v3.23.
 17. L'app mostra «MoneyTracker» (splash/login/blocco/PDF/notifica report) e «Bucktrail» (Home, icona); Android ha `app_name=Bucktrail`. Decidere il nome mostrato.
 
+18. (B9) iOS non pagina le `select` PostgREST: con più di 1000 righe (limite predefinito di Supabase) pull e `deleteOrphans` vedrebbero solo le prime 1000 e potrebbero cancellare dati. Android pagina con `Range` fino alla pagina corta. **Da segnalare a Matteo come rischio iOS.**
+19. (B9) iOS, alla riapertura con sessione ripristinata, fa `syncOnLogin` = pull senza push preventivo: le modifiche fatte offline a conti/budget/obiettivi/movimenti già esistenti verrebbero sovrascritte dal remoto. Android prima fa push (se il primo scambio è già avvenuto), poi pull.
+20. (B9) iOS, se la lettura degli id fallisce al login, ripiega sul push alla cieca (può cancellare il cloud con un DB locale vuoto). Android non scrive mai prima di aver letto il cloud.
+21. (B9) iOS, dopo «Invia link» del reset password, chiude subito l'avviso: «Email inviata!» si vede solo riaprendolo. Android mostra la conferma nello stesso dialogo.
+22. (B9) La parola di conferma «ELIMINA» è fissa in italiano su iOS; Android la localizza (DELETE, LÖSCHEN, ELIMINAR, SUPPRIMER, 削除, 删除).
+23. (B2/B9) Bug Android trovato e corretto: `upsert(account)` con `REPLACE` cancellava i movimenti e i budget del conto (cascade) a ogni modifica/archiviazione. Ora `@Upsert`.
+
 ---
 
 ## 5. Auth, sync, Intents, notifiche, export
@@ -562,38 +569,38 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-109 | Impostazioni: toggle Home (fissi) | sì (B2) |
 | F-110 | Impostazioni: export CSV / JSON | sì (B7, «Genera CSV» → «Condividi CSV», JSON completo; formati §5.6, test `ExportsTest`) |
 | F-111 | Impostazioni: modalità demo + banner | sì (B8, DB Room separato `bucktrail-demo.db`, toggle senza riavvio, pillola «MODALITÀ DEMO»; nessun avviso né audit in demo) |
-| F-112 | Impostazioni: sezione Siri/Scorciatoie, Info (versione, n. transazioni) | parziale (B2: Info; scorciatoie in B10) |
-| F-113 | Impostazioni: Account (email, esci, elimina account con ELIMINA) | no |
-| F-114 | Pull-to-refresh con sync manuale | no |
+| F-112 | Impostazioni: sezione Siri/Scorciatoie, Info (versione, n. transazioni) | sì (B2 Info, B10 «Scorciatoie»: testo, «Aggiungi il widget Saldo», «Aggiungi il riquadro», suggerimento Tocco rapido al posto del tocco sul retro) |
+| F-113 | Impostazioni: Account (email, esci, elimina account con ELIMINA) | sì (B9: email, «Esci dall'account» con push resiliente + pulizia dati e cronologia, «Elimina account» a due passaggi + parola di conferma localizzata + autenticazione dispositivo + RPC `delete_own_account`; accesso FACOLTATIVO su Android, vedi DECISIONI) |
+| F-114 | Pull-to-refresh con sync manuale | sì (B9: `PullToRefreshBox` su tutte le tab, solo con account e fuori dalla demo; `manualRefresh` = push, se riuscito pull senza cooldown) |
 | F-115 | Dati demo (seeder v6) | sì (B8, `DemoData` = `DemoDataSeeder` v6: 4 conti, 9 serie, 201 movimenti, 40 budget, 4 obiettivi; test `DemoDataTest`) |
 
 ### Auth, sync, piattaforma
 | ID | Funzione | Android |
 |---|---|---|
-| F-120 | Login email/password | no |
-| F-121 | Registrazione (conferma password, mail di conferma) | no |
-| F-122 | Reset password | no |
-| F-123 | Sessione persistita + schermata splash | no |
+| F-120 | Login email/password | sì (B9: `AuthFlow`/`LoginPage` identiche a `LoginView`, errori mappati sulle stesse sottostringhe e localizzati in 7 lingue; test `HttpSupabaseApiTest`, `AuthManagerTest`) |
+| F-121 | Registrazione (conferma password, mail di conferma) | sì (B9: `SignUpPage`, «Minimo 6 caratteri», avviso password diverse, schermata «Account creato!» con «Torna al login») |
+| F-122 | Reset password | sì (B9: `recover`; l'esito non mostra mai errori. Differenza: dopo «Invia link» il dialogo mostra «Email inviata!» invece di chiudersi) |
+| F-123 | Sessione persistita + schermata splash | sì (B9: sessione in `AuthManager` letta all'avvio senza rete, cifrata con chiave AES-GCM dell'Android Keystore in `KeystoreSessionStore`; nessuno splash: l'app parte offline) |
 | F-124 | Blocco app (overlay, background/foreground) | sì (B8, velo a tutto schermo anche come finestra sopra i fogli; blocca in background, chiede PIN/biometria all'avvio e al ritorno; fade .2 s) |
-| F-125 | Push Supabase (upsert + orfani, dirty tx) | no |
-| F-126 | Pull Supabase (merge campo per campo, guardie) | no |
-| F-127 | syncOnLogin / foreground / background / debounce 1,5 s | no |
-| F-128 | Resilienza: backoff, stato rete, retry | no |
-| F-129 | Banner stato sync | no |
-| F-130 | Isolamento multi-utente + clearLocalData | no |
-| F-131 | Elimina account (RPC) | no |
-| F-132 | Compatibilità dati cross-platform (UUID maiuscoli, UUIDv5, exceptions) | no |
+| F-125 | Push Supabase (upsert + orfani, dirty tx) | sì (B9: `SyncEngine.push`: conti, movimenti «sporchi» + mancanti sul cloud, budget, obiettivi, regole; orfani con UNA richiesta; test con Supabase finto) |
+| F-126 | Pull Supabase (merge campo per campo, guardie) | sì (B9: `SyncMerge`+`SyncEngine.pull`: remoto vince campo per campo, guardie conti/regole vuoti, watermark mai indietro, un'unica transazione Room `applySyncPlan`) |
+| F-127 | syncOnLogin / foreground / background / debounce 1,5 s | sì (B9: `SyncService`: login/sessione ripristinata, foreground con cooldown 5 min, background push, debounce 1,5 s, pull-to-refresh) |
+| F-128 | Resilienza: backoff, stato rete, retry | sì (B9: `Backoff` min(2^n, 60) s, `NetworkMonitor`, stati idle/syncing/waitingForRetry/offline, `hasPendingChanges` persistito) |
+| F-129 | Banner stato sync | sì (B9: `SyncBanner` capsula `ink` 85%, mai rosso, non cliccabile) |
+| F-130 | Isolamento multi-utente + clearLocalData | sì (B9: `lastUserId`, pulizia con altro utente, `clearLocalData` al logout; in più la scelta «usa i dati del cloud» se il dispositivo ha dati creati senza account) |
+| F-131 | Elimina account (RPC) | sì (B9: RPC `delete_own_account` poi pulizia e uscita; se la RPC fallisce non si tocca nulla) |
+| F-132 | Compatibilità dati cross-platform (UUID maiuscoli, UUIDv5, exceptions) | sì (B9: `SyncMapper`: UUID MAIUSCOLI, `template_id`/`transfer_group_id` MAIUSCOLI, `exceptions` stringa con `skip` e `date` in secondi dal 2001, date ISO-8601 UTC .SSS, importi numerici; `SyncMapperTest` su payload iOS) |
 | F-133 | Notifiche locali (budget, fisse, obiettivi, soglia, report) | sì (B8, budget/soglia immediati; fisse 1° 09:00, report 1° 10:00, obiettivo −7 giorni con `AlarmManager.setAndAllowWhileIdle`; ripianificate all'avvio e dopo il riavvio; test `NotificationRulesTest`) |
 | F-134 | Permesso notifiche (Android 13+) + canale | sì (B8, `POST_NOTIFICATIONS` runtime, richiesto al primo avvio e attivando il toggle; canale «Avvisi Bucktrail») |
 | F-135 | Export PDF mensile | sì (B7, `PdfDocument` A4 con le misure iOS, valuta scelta; impaginazione pura testata in `PdfReportTest`) |
 | F-136 | Share sheet / FileProvider | sì (B7, `FileProvider` + `ACTION_SEND` da cache privata, svuotata alla chiusura delle Impostazioni) |
-| F-137 | Scorciatoie app (Aggiungi spesa/entrata/Saldo) ↔ App Intents | no |
-| F-138 | Widget Glance (saldo, aggiungi spesa) — *extra Android* | no |
-| F-139 | Quick Settings Tile — *extra Android* | no |
-| F-140 | Assistant App Actions — *extra Android* | no |
+| F-137 | Scorciatoie app (Aggiungi spesa/entrata/Saldo) ↔ App Intents | sì (B10: scorciatoie dell'icona `shortcuts.xml`, `QuickAddActivity` («Aggiungi spesa/entrata»), `BalanceActivity` («Saldo conti»), link `bucktrail://add|balance|home`; logica 1:1 in `QuickAdd`, test `QuickAddTest`) |
+| F-138 | Widget Glance (saldo, aggiungi spesa) — *extra Android* | sì, extra Android (B10: widget Glance «Saldo» con saldo e atteso a fine mese, «+» apre Aggiungi spesa; importi oscurati se «oscura importi» o blocco app attivi; `WidgetContentTest`) |
+| F-139 | Quick Settings Tile — *extra Android* | sì, extra Android (B10: `QuickAddTileService`, riquadro Impostazioni rapide; richiesta di aggiunta da Impostazioni su Android 13+) |
+| F-140 | Assistant App Actions — *extra Android* | no, rinviato (extra Android: App Actions richiedono capabilities registrate con la pubblicazione su Google Play; non verificabile ora). Il «doppio tocco sul retro» iOS non ha equivalente: documentata la «Tocco rapido» dei Pixel nelle Impostazioni |
 | F-141 | Localizzazione 7 lingue + pipeline + locales_config | parziale (B0: script + 7 lingue + locales_config; stringhe extra Android da completare in B11) |
 | F-142 | Accessibilità (TalkBack, label, identificatori test) | parziale (1 contentDescription) |
-| F-143 | Test: porting test dominio iOS + UI test principali | parziale (2 file test) |
+| F-143 | Test: porting test dominio iOS + UI test principali | parziale (B9-B10: +57 test JVM su mapper/merge/engine/HTTP/auth/watcher/scorciatoie/widget) |
 | F-144 | Icona app Bucktrail | sì |
 | F-145 | Persistenza locale offline | sì |
 

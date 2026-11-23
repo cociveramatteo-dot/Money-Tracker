@@ -394,6 +394,55 @@
     <string name="saldo_totale">💰 合計残高: %s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ %2$s — 保存しました！</string>
     <string name="apri_impostazioni_lingua" formatted="false">言語設定を開く</string>
+    <string name="auth_accedi" formatted="false">ログイン</string>
+    <string name="auth_accedi_o_crea" formatted="false">ログインまたはアカウント作成</string>
+    <string name="auth_accedi_per_continuare" formatted="false">ログインして続ける</string>
+    <string name="auth_account" formatted="false">アカウント</string>
+    <string name="auth_account_creato" formatted="false">アカウントを作成しました。メールを確認し、確認リンクをタップしてログインしてください。</string>
+    <string name="auth_benvenuto" formatted="false">ようこそ</string>
+    <string name="auth_conferma_eliminazione" formatted="false">削除の確認</string>
+    <string name="auth_conferma_eliminazione_msg">確認のため「%1$s」と入力してください。</string>
+    <string name="auth_conferma_password" formatted="false">パスワードの確認</string>
+    <string name="auth_continua" formatted="false">続ける</string>
+    <string name="auth_crea_account_sottotitolo" formatted="false">アカウントを作成して始めましょう</string>
+    <string name="auth_crea_account_titolo" formatted="false">アカウント作成</string>
+    <string name="auth_crea_un_account" formatted="false">アカウントを作成</string>
+    <string name="auth_elimina_account" formatted="false">アカウントを削除</string>
+    <string name="auth_elimina_definitivamente" formatted="false">完全に削除</string>
+    <string name="auth_elimina_messaggio" formatted="false">すべての口座・取引・予算・目標が、この端末とクラウドの両方から完全に削除されます。元に戻せません。</string>
+    <string name="auth_elimina_titolo" formatted="false">アカウントを削除しますか？</string>
+    <string name="auth_eliminazione_in_corso" formatted="false">削除しています…</string>
+    <string name="auth_email" formatted="false">メールアドレス</string>
+    <string name="auth_email_segnaposto" formatted="false">name@email.com</string>
+    <string name="auth_errore_conferma_email" formatted="false">ログインする前にメールアドレスを確認してください。</string>
+    <string name="auth_errore_credenziali" formatted="false">メールアドレスまたはパスワードが正しくありません。</string>
+    <string name="auth_errore_eliminazione">アカウントを削除できませんでした: %1$s</string>
+    <string name="auth_errore_email_non_valida" formatted="false">メールアドレスが正しくありません。</string>
+    <string name="auth_errore_esiste" formatted="false">このメールアドレスのアカウントは既に存在します。</string>
+    <string name="auth_errore_generico">エラー: %1$s</string>
+    <string name="auth_errore_password_corta" formatted="false">パスワードは6文字以上にしてください。</string>
+    <string name="auth_errore_rete" formatted="false">接続できません。ネットワークを確認してもう一度お試しください。</string>
+    <string name="auth_errore_troppi_tentativi" formatted="false">試行回数が多すぎます。数分待ってからもう一度お試しください。</string>
+    <string name="auth_esci" formatted="false">ログアウト</string>
+    <string name="auth_esci_conferma" formatted="false">ログアウト</string>
+    <string name="auth_esci_messaggio" formatted="false">次回は再度ログインが必要です。</string>
+    <string name="auth_esci_titolo" formatted="false">ログアウトしますか？</string>
+    <string name="auth_invia_link" formatted="false">リンクを送信</string>
+    <string name="auth_minimo_6" formatted="false">6文字以上</string>
+    <string name="auth_non_configurata" formatted="false">このバージョンでは同期が設定されていません。</string>
+    <string name="auth_non_connesso" formatted="false">複数のデバイスでデータを同期します。Bucktrail はアカウントなし・オフラインでも快適に使えます。</string>
+    <string name="auth_oppure" formatted="false">または</string>
+    <string name="auth_parola_conferma" formatted="false">削除</string>
+    <string name="auth_password" formatted="false">パスワード</string>
+    <string name="auth_password_dimenticata" formatted="false">パスワードをお忘れですか？</string>
+    <string name="auth_password_diverse" formatted="false">パスワードが一致しません</string>
+    <string name="auth_registrati" formatted="false">登録</string>
+    <string name="auth_reset_inviata" formatted="false">メールを送信しました。受信トレイをご確認ください。</string>
+    <string name="auth_reset_messaggio" formatted="false">メールアドレスを入力すると、パスワードをリセットするためのリンクをお送りします。</string>
+    <string name="auth_reset_titolo" formatted="false">パスワードをリセット</string>
+    <string name="auth_ripeti_password" formatted="false">パスワードをもう一度入力</string>
+    <string name="auth_scrivi_parola">「%1$s」と入力</string>
+    <string name="auth_torna_al_login" formatted="false">ログインに戻る</string>
     <string name="blocco_app" formatted="false">生体認証または PIN でロック</string>
     <string name="blocco_app_disponibile" formatted="false">起動時に指紋・顔認証または端末の PIN を要求します</string>
     <string name="blocco_app_non_disponibile" formatted="false">この端末にはロック解除方法が設定されていません</string>
@@ -446,10 +495,24 @@
     <string name="periodo" formatted="false">期間</string>
     <string name="save_failed" formatted="false">保存できませんでした。もう一度お試しください。</string>
     <string name="scegli_valuta_conferma" formatted="false">通貨を変更しますか？</string>
+    <string name="scorciatoie_aggiungi_tile" formatted="false">「支出を追加」タイルを追加</string>
+    <string name="scorciatoie_aggiungi_widget" formatted="false">残高ウィジェットを追加</string>
+    <string name="scorciatoie_extra_android" formatted="false">Android 専用</string>
+    <string name="scorciatoie_sezione" formatted="false">ショートカット</string>
+    <string name="scorciatoie_suggerimento" formatted="false">Pixel などの一部の機種では、背面ダブルタップにアプリを割り当てられます: 設定 → システム → ジェスチャー → クイックタップ。</string>
+    <string name="scorciatoie_testo" formatted="false">アプリを開かずに支出を追加: Bucktrail アイコンを長押し、ウィジェット、またはクイック設定タイルを使います。</string>
     <string name="sicurezza" formatted="false">セキュリティ</string>
     <string name="sposta_giu" formatted="false">下へ移動</string>
     <string name="sposta_su" formatted="false">上へ移動</string>
     <string name="statistiche_riepilogo_mese">%1$s:収入 %2$s、支出 %3$s</string>
+    <string name="su_conto_suffisso">%1$s に</string>
+    <string name="sync_decisione_messaggio" formatted="false">この端末には既にデータがあり、クラウドにも別のデータがあります。続けると、この端末のデータはクラウドのデータに置き換えられます。端末のデータを残したい場合はキャンセルしてください。ログアウトされ、何も変更されません。</string>
+    <string name="sync_decisione_titolo" formatted="false">クラウドに既存のデータがあります</string>
+    <string name="sync_in_corso" formatted="false">同期中…</string>
+    <string name="sync_in_sospeso" formatted="false">同期は保留中</string>
+    <string name="sync_offline" formatted="false">オフライン — 自動的に再開します</string>
+    <string name="sync_usa_cloud" formatted="false">クラウドのデータを使う</string>
+    <string name="widget_descrizione" formatted="false">現在の残高と月末の予想残高。金額は非表示にできます。</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="other">残り%d日</item>
     </plurals>

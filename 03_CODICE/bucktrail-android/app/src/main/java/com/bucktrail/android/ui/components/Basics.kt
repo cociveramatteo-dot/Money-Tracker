@@ -1,5 +1,6 @@
 package com.bucktrail.android.ui.components
 
+import androidx.compose.ui.platform.testTag
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -363,6 +364,30 @@ fun DemoBanner(modifier: Modifier = Modifier) {
                 stringResource(com.bucktrail.android.R.string.modalita_demo), color = c.plannedText, maxLines = 1,
                 style = Typo.caption.copy(fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace, fontWeight = FontWeight.Bold, fontSize = 11.sp, letterSpacing = 0.5.sp),
             )
+        }
+    }
+}
+
+/** Banner sync (§1.4): capsula `ink` 85%, testo `paper` 11 medium, mai rosso, non cliccabile. `null` = nascosto (idle). */
+@Composable
+fun SyncBanner(status: com.bucktrail.android.sync.SyncStatus, modifier: Modifier = Modifier) {
+    val c = Bt.colors
+    val content: Pair<String?, Int>? = when (status) {
+        com.bucktrail.android.sync.SyncStatus.Idle -> null
+        com.bucktrail.android.sync.SyncStatus.Syncing -> null to com.bucktrail.android.R.string.sync_in_corso
+        is com.bucktrail.android.sync.SyncStatus.WaitingForRetry -> "clock.arrow.circlepath" to com.bucktrail.android.R.string.sync_in_sospeso
+        com.bucktrail.android.sync.SyncStatus.Offline -> "wifi.slash" to com.bucktrail.android.R.string.sync_offline
+    }
+    androidx.compose.animation.AnimatedVisibility(content != null, modifier, enter = androidx.compose.animation.fadeIn() + androidx.compose.animation.slideInVertically { -it }, exit = androidx.compose.animation.fadeOut() + androidx.compose.animation.slideOutVertically { -it }) {
+        val (icon, label) = content ?: return@AnimatedVisibility
+        Row(
+            Modifier.tintedShadow(5.dp, CircleShape, androidx.compose.ui.graphics.Color.Black.copy(alpha = 0.14f)).clip(CircleShape).background(c.ink.copy(alpha = 0.85f)).padding(horizontal = 12.dp, vertical = 6.dp)
+                .testTag("syncBanner"),
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            if (icon == null) androidx.compose.material3.CircularProgressIndicator(Modifier.size(10.dp), color = c.paper, strokeWidth = 1.5.dp)
+            else Icon(SfIcons.forName(icon), null, tint = c.paper, modifier = Modifier.size(10.dp))
+            Text(stringResource(label), style = Typo.caption.copy(fontWeight = FontWeight.Medium, fontSize = 11.sp), color = c.paper, maxLines = 1)
         }
     }
 }
