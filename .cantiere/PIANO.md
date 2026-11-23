@@ -170,7 +170,7 @@ il task e i file indicati.
 - **Collaudo 2026-11-17 11:48 (collaudatore):** [x] collaudo ok. Spostamento identico riga per riga (modificatori, chiavi, accessibilityIdentifier), Binding corretti, file nuovi coperti dal gruppo sincronizzato del target, TransactionsView 579 righe, `git diff --check` pulito, nessuna zona protetta/test toccati. Suite completa su iPhone 18 Pro: 135/135 verdi (90 unit + 45 UI), 0 falliti.
 - **Esecuzione 2026-11-17 11:10:** ramo `refactor-transactionsview` da main; 4 sotto-viste estratte, TransactionsView 864 → 579 righe. Build clean verde, 90 unit + 45 UI verdi; S-33 non riprodotto. Nessun test o zona protetta modificati; nessun push/merge. Dettagli e log in CONSEGNA.md.
 
-### S-36 [~] Potare i rami vecchi — gruppo A (8 rami mergiati) cancellato 2026-11-17 11:56 in locale e su origin. Restano da decidere i 7 fix/nightly-* e tmp-stash-inspect (lavoro non in main, non toccati)
+### S-36 [~] Potare i rami vecchi — gruppo A (8 rami mergiati) cancellato 2026-11-17 11:56 in locale e su origin. Restano da decidere i 7 fix/nightly-* e tmp-stash-inspect (lavoro non in main, non toccati). Collaudo 2026-11-24: elenco e proposta in `.cantiere/collaudo-ios-2026-11-24.md`; solo fix/nightly-20260727-0411 ha lavoro utile; serve decisione di Matteo
 - **Chi:** pulizie (Haiku) elenca i rami già mergiati; Matteo approva la cancellazione. S-16 (precisione Decimal) resta [?] su decisione di Matteo.
 
 ### S-37 [x] Commissione 2026-11-17 — integrità sync e parsing (autorizzato da Matteo) — chiuso 2026-11-17 13:35, collaudo ok
@@ -209,11 +209,13 @@ Primo rilevamento reale registrato il 2026-11-20: post 1 su Instagram e TikTok, 
 
 ### S-40 [ ] Commissione — font fissi (Codex): ~200 `.font(.system(size:))` → token `DS.Typo.*` (Dynamic Type), `SectionLabel` incluso.
 
-### S-41 [~] Home — spesa fissa singola nel mese di competenza (Matteo, 2026-11-20)
+### S-41 [x] Home — spesa fissa singola nel mese di competenza (Matteo, 2026-11-20)
 Il saldo atteso, la curva e le carte dei conti in Home considerano la spesa fissa pianificata senza ricorrenza solo nel mese della sua data. La spesa resta visibile nel suo mese in Movimenti. Il totale «A conti fatti» nella tab Conti ha orizzonte complessivo. Da verificare il passaggio di mese nell’interfaccia durante il collaudo.
+**Collaudo 2026-11-24:** collaudo ok (94 unit, UI mirati, visivo chiaro/scuro/XL, nessuna zona intoccabile). Riserva: passaggio di mese non provato in UI. Dettagli in `.cantiere/collaudo-ios-2026-11-24.md`.
 
-### S-42 [~] Annullamento eliminazione serie e layout Ultimi movimenti (Matteo, 2026-11-20)
+### S-42 [x] Annullamento eliminazione serie e layout Ultimi movimenti (Matteo, 2026-11-20)
 L’azione swipe che apre l’editor di una ricorrenza non rimuove più la riga in anticipo. La lista Ultimi movimenti usa l’altezza reale del contenuto mantenendo le azioni swipe native. Verifica demo su iPhone 18 Pro con screenshot e test UI dedicati.
+**Collaudo 2026-11-24:** collaudo ok (3 test UI verdi). Difetto estetico minore: filo separatore sotto l'ultima riga di Ultimi movimenti.
 
 
 
