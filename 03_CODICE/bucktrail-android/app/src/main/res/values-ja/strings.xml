@@ -506,11 +506,15 @@
     <string name="sposta_su" formatted="false">上へ移動</string>
     <string name="statistiche_riepilogo_mese">%1$s:収入 %2$s、支出 %3$s</string>
     <string name="su_conto_suffisso">%1$s に</string>
+    <string name="sync_cancella_conferma" formatted="false">クラウドから削除</string>
+    <string name="sync_cancella_messaggio">この端末のデータは前回の同期時よりも大幅に少なくなっています（%2$d件のうち%1$d件がクラウドから削除されます）。意図的に削除した場合は確認してください。そうでなければクラウドから復元してください。何も削除されません。</string>
+    <string name="sync_cancella_titolo" formatted="false">クラウドのデータを削除しますか？</string>
     <string name="sync_decisione_messaggio" formatted="false">この端末には既にデータがあり、クラウドにも別のデータがあります。続けると、この端末のデータはクラウドのデータに置き換えられます。端末のデータを残したい場合はキャンセルしてください。ログアウトされ、何も変更されません。</string>
     <string name="sync_decisione_titolo" formatted="false">クラウドに既存のデータがあります</string>
     <string name="sync_in_corso" formatted="false">同期中…</string>
     <string name="sync_in_sospeso" formatted="false">同期は保留中</string>
     <string name="sync_offline" formatted="false">オフライン — 自動的に再開します</string>
+    <string name="sync_ripristina" formatted="false">クラウドから復元</string>
     <string name="sync_usa_cloud" formatted="false">クラウドのデータを使う</string>
     <string name="widget_descrizione" formatted="false">現在の残高と月末の予想残高。金額は非表示にできます。</string>
     <plurals name="plurale_mancano_lld_giorni">

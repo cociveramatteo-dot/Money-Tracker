@@ -83,6 +83,7 @@ class MemorySyncState : SyncStateStore {
     override var lastUserId: String? = null
     override var syncedUserId: String? = null
     override var lastPull: Long = 0
+    override var lastSyncedCount: Int = -1
     override var hasPendingChanges: Boolean = false
     private var dirty = mapOf<String, Long>()
     override fun dirty() = dirty

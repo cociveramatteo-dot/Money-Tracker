@@ -506,11 +506,15 @@
     <string name="sposta_su" formatted="false">Move up</string>
     <string name="statistiche_riepilogo_mese">%1$s: income %2$s, expenses %3$s</string>
     <string name="su_conto_suffisso">on %1$s</string>
+    <string name="sync_cancella_conferma" formatted="false">Delete from cloud</string>
+    <string name="sync_cancella_messaggio">This device has far less data than at the last sync (%1$d records to delete from the cloud, out of %2$d). If you deleted them on purpose, confirm. Otherwise restore the data from the cloud: nothing is deleted.</string>
+    <string name="sync_cancella_titolo" formatted="false">Delete data from the cloud?</string>
     <string name="sync_decisione_messaggio" formatted="false">This device already has data and the cloud has other data. To continue, this device’s data is replaced with the cloud’s. If you prefer to keep this device’s data, cancel: you will be signed out and nothing changes.</string>
     <string name="sync_decisione_titolo" formatted="false">Data already in the cloud</string>
     <string name="sync_in_corso" formatted="false">Syncing…</string>
     <string name="sync_in_sospeso" formatted="false">Sync pending</string>
     <string name="sync_offline" formatted="false">Offline — will resume automatically</string>
+    <string name="sync_ripristina" formatted="false">Restore from cloud</string>
     <string name="sync_usa_cloud" formatted="false">Use the cloud data</string>
     <string name="widget_descrizione" formatted="false">Current balance and expected end-of-month balance, with hideable amounts.</string>
     <plurals name="plurale_mancano_lld_giorni">

@@ -507,11 +507,15 @@
     <string name="sposta_su" formatted="false">Sposta su</string>
     <string name="statistiche_riepilogo_mese">%1$s: entrate %2$s, uscite %3$s</string>
     <string name="su_conto_suffisso">su %1$s</string>
+    <string name="sync_cancella_conferma" formatted="false">Elimina dal cloud</string>
+    <string name="sync_cancella_messaggio">Questo dispositivo ha molti meno dati dell’ultima sincronizzazione (%1$d record da eliminare dal cloud, su %2$d). Se li hai eliminati tu, conferma. Altrimenti ripristina i dati dal cloud: non viene cancellato nulla.</string>
+    <string name="sync_cancella_titolo" formatted="false">Eliminare i dati dal cloud?</string>
     <string name="sync_decisione_messaggio" formatted="false">Questo dispositivo contiene già dei dati e il cloud ne ha altri. Per continuare, i dati di questo dispositivo vengono sostituiti da quelli del cloud. Se preferisci tenere quelli del dispositivo, annulla: l’accesso viene chiuso e non cambia nulla.</string>
     <string name="sync_decisione_titolo" formatted="false">Dati già presenti nel cloud</string>
     <string name="sync_in_corso" formatted="false">Sincronizzazione…</string>
     <string name="sync_in_sospeso" formatted="false">Sincronizzazione in sospeso</string>
     <string name="sync_offline" formatted="false">Offline — riprenderà automaticamente</string>
+    <string name="sync_ripristina" formatted="false">Ripristina dal cloud</string>
     <string name="sync_usa_cloud" formatted="false">Usa i dati del cloud</string>
     <string name="widget_descrizione" formatted="false">Saldo attuale e saldo atteso a fine mese, con importi oscurabili.</string>
     <plurals name="plurale_mancano_lld_giorni">

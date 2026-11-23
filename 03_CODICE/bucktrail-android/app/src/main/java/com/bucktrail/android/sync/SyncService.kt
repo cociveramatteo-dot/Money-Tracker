@@ -48,6 +48,12 @@ class SyncService(
     private val _needsDecision = MutableStateFlow(false)
     /** Vero quando serve la scelta «usa i dati del cloud» (dati creati senza account + cloud con altri dati). */
     val needsDecision: StateFlow<Boolean> = _needsDecision.asStateFlow()
+    private val _deleteConfirmation = MutableStateFlow<PushResult.NeedsConfirmation?>(null)
+    /** Non nulla quando il push cancellerebbe il cloud con DB locale vuoto o in calo anomalo: serve la conferma esplicita dell'utente. */
+    val deleteConfirmation: StateFlow<PushResult.NeedsConfirmation?> = _deleteConfirmation.asStateFlow()
+    private val _ignoredRows = MutableStateFlow(0)
+    /** Righe del cloud ignorate dall'ultimo pull (illeggibili o con importo assurdo): il sync prosegue senza di loro. */
+    val ignoredRows: StateFlow<Int> = _ignoredRows.asStateFlow()
     private val _pulled = MutableSharedFlow<Unit>(extraBufferCapacity = 4)
     /** Emette a ogni pull riuscito (poi si materializzano le ricorrenze). */
     val pulled: SharedFlow<Unit> = _pulled.asSharedFlow()
@@ -67,7 +73,7 @@ class SyncService(
         if (sessionJob != null) return
         sessionJob = scope.launch {
             auth.session.map { it?.userId }.distinctUntilChanged().collect { userId ->
-                if (userId == null) { retryJob?.cancel(); debounceJob?.cancel(); failures = 0; _status.value = SyncStatus.Idle; _needsDecision.value = false }
+                if (userId == null) { retryJob?.cancel(); debounceJob?.cancel(); failures = 0; _status.value = SyncStatus.Idle; _needsDecision.value = false; _deleteConfirmation.value = null }
                 else if (syncEnabled()) ops.withLock { initialSync() }
             }
         }
@@ -94,12 +100,22 @@ class SyncService(
         return when (result) {
             LoginSyncResult.Pulled -> { success(); true }
             LoginSyncResult.Pushed -> { success(); true }
+            is LoginSyncResult.NeedsDeleteConfirmation -> { askDeleteConfirmation(PushResult.NeedsConfirmation(result.deletions, result.baseline)); false }
             LoginSyncResult.NeedsDecision -> { _needsDecision.value = true; _status.value = SyncStatus.Idle; false }
             LoginSyncResult.Failed -> { failed(); false }
         }
     }
 
+    /** Nessun errore né retry: la scelta spetta all'utente (le modifiche restano in attesa). */
+    private fun askDeleteConfirmation(r: PushResult.NeedsConfirmation) {
+        retryJob?.cancel()
+        state.hasPendingChanges = true
+        _deleteConfirmation.value = r
+        _status.value = SyncStatus.Idle
+    }
+
     private suspend fun afterPull() {
+        _ignoredRows.value = engine.lastIgnoredRows
         watcher.rebase(store.snapshot())
         _pulled.tryEmit(Unit)
     }
@@ -117,7 +133,29 @@ class SyncService(
         // primo scambio non ancora avvenuto: non si fa push alla cieca
         if (!engine.canPush(auth.userId!!)) return initialSync()
         _status.value = SyncStatus.Syncing
-        return if (engine.push()) { success(); true } else { failed(); false }
+        return when (val r = engine.pushDetailed()) {
+            PushResult.Done -> { _deleteConfirmation.value = null; success(); true }
+            PushResult.Failed -> { failed(); false }
+            is PushResult.NeedsConfirmation -> { askDeleteConfirmation(r); false }
+        }
+    }
+
+    /**
+     * La scelta dopo `deleteConfirmation`: `delete = true` cancella davvero dal cloud ciò che il dispositivo non ha più;
+     * `false` (anche «Annulla») ripristina i dati dal cloud e non cancella nulla.
+     */
+    suspend fun resolveDeleteConfirmation(delete: Boolean) {
+        _deleteConfirmation.value = null
+        ops.withLock {
+            if (!active) return@withLock
+            _status.value = SyncStatus.Syncing
+            if (delete) {
+                when (engine.pushDetailed(allowDestructive = true)) {
+                    PushResult.Done -> success()
+                    else -> failed()
+                }
+            } else if (!pull()) failed()
+        }
     }
 
     private suspend fun pull(): Boolean {

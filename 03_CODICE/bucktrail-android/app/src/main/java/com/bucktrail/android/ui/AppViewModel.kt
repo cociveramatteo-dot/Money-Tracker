@@ -78,6 +78,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val session: StateFlow<com.bucktrail.android.sync.Session?> get() = auth.session
     val syncStatus: StateFlow<com.bucktrail.android.sync.SyncStatus> get() = sync.status
     val needsSyncDecision: StateFlow<Boolean> get() = sync.needsDecision
+    val syncDeleteConfirmation: StateFlow<com.bucktrail.android.sync.PushResult.NeedsConfirmation?> get() = sync.deleteConfirmation
 
     /** `null` = accesso riuscito (la sessione apre il primo sync da sola); altrimenti il messaggio da mostrare. */
     suspend fun signIn(email: String, password: String): com.bucktrail.android.sync.AuthMessage? =
@@ -91,6 +92,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     fun signOut() = viewModelScope.launch { sync.signOutAndClear(); application.auditLog.clearAll() }
     suspend fun deleteAccount(): String? = try { sync.deleteAccountAndClear(); application.auditLog.clearAll(); null } catch (e: Exception) { e.message ?: e.toString() }
+    fun resolveSyncDeleteConfirmation(delete: Boolean) = viewModelScope.launch { sync.resolveDeleteConfirmation(delete) }
     fun resolveSyncDecision(useCloud: Boolean) = viewModelScope.launch { sync.resolveDecision(useCloud) }
     suspend fun refresh() = sync.manualRefresh()
 

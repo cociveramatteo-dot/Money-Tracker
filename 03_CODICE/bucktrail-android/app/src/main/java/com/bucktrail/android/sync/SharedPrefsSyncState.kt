@@ -23,6 +23,9 @@ class SharedPrefsSyncState(context: Context) : SyncStateStore {
     override var lastPull: Long
         get() = prefs.getLong("lastPull", 0)
         set(v) { prefs.edit().putLong("lastPull", v).apply() }
+    override var lastSyncedCount: Int
+        get() = prefs.getInt("lastSyncedCount", -1)
+        set(v) { prefs.edit().putInt("lastSyncedCount", v).apply() }
     override var hasPendingChanges: Boolean
         get() = prefs.getBoolean("pending", false)
         set(v) { prefs.edit().putBoolean("pending", v).apply() }

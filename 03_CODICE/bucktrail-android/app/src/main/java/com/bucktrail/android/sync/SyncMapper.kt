@@ -30,6 +30,8 @@ class SyncFormatException(message: String) : Exception(message)
  * In scrittura tutte le chiavi sono sempre presenti (i nil diventano NULL), come l'upsert completo di iOS.
  */
 object SyncMapper {
+    /** Stesso limite dei saldi dell'app (`Amounts.MAX_BALANCE` = 10^12) in centesimi. */
+    const val MAX_CENTS = 100_000_000_000_000L
     private val isoOut: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneOffset.UTC)
 
     fun iso(epochMillis: Long): String = isoOut.format(java.time.Instant.ofEpochMilli(epochMillis))
@@ -96,6 +98,7 @@ object SyncMapper {
     private fun JsonObject.int(key: String): Int = (el(key) as? JsonPrimitive)?.intOrNull ?: throw SyncFormatException("campo $key")
     private fun JsonObject.cents(key: String): Long = (el(key) as? JsonPrimitive)?.let {
         runCatching { BigDecimal(it.content).setScale(2, RoundingMode.HALF_UP).movePointRight(2).longValueExact() }.getOrNull()
+            ?.takeIf { c -> c in -MAX_CENTS..MAX_CENTS } // importo assurdo (> 10^12): riga ignorata dal pull
     } ?: throw SyncFormatException("campo $key")
     private fun JsonObject.date(key: String): Long = parseDate(str(key))
     private fun JsonObject.dateOrNull(key: String): Long? = el(key)?.let { parseDate((it as? JsonPrimitive)?.content ?: throw SyncFormatException("campo $key")) }

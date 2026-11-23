@@ -113,6 +113,7 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     val session by vm.session.collectAsStateWithLifecycle()
     val syncStatus by vm.syncStatus.collectAsStateWithLifecycle()
     val needsSyncDecision by vm.needsSyncDecision.collectAsStateWithLifecycle()
+    val deleteConfirmation by vm.syncDeleteConfirmation.collectAsStateWithLifecycle()
     LaunchedEffect(session) { if (session != null) authOpen = false }
     var statsMonth by rememberSaveable { mutableStateOf(0) }
     var generatingPdf by remember { mutableStateOf(false) }
@@ -274,6 +275,13 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
         onConfirm = { vm.resolveSyncDecision(true) }, onDismiss = { vm.resolveSyncDecision(false) }, dismissLabel = stringResource(R.string.annulla), destructive = false,
         modifier = Modifier.testTag("alert_syncDecision"),
     )
+    deleteConfirmation?.let { c ->
+        BtAlert(
+            stringResource(R.string.sync_cancella_titolo), stringResource(R.string.sync_cancella_messaggio, c.deletions, c.baseline), stringResource(R.string.sync_cancella_conferma),
+            onConfirm = { vm.resolveSyncDeleteConfirmation(true) }, onDismiss = { vm.resolveSyncDeleteConfirmation(false) }, dismissLabel = stringResource(R.string.sync_ripristina),
+            modifier = Modifier.testTag("alert_syncDeleteConfirmation"),
+        )
+    }
     if (auditOpen) AuditLogSheet({ (context.applicationContext as com.bucktrail.android.BucktrailApplication).auditLog.readAll() }) { auditOpen = false }
     if (homeOrderOpen) {
         val balances = remember(ledger.accounts, ledger.transactions) {

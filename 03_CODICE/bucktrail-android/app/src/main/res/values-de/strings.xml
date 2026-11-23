@@ -506,11 +506,15 @@
     <string name="sposta_su" formatted="false">Nach oben</string>
     <string name="statistiche_riepilogo_mese">%1$s: Einnahmen %2$s, Ausgaben %3$s</string>
     <string name="su_conto_suffisso">auf %1$s</string>
+    <string name="sync_cancella_conferma" formatted="false">Aus Cloud löschen</string>
+    <string name="sync_cancella_messaggio">Dieses Gerät hat deutlich weniger Daten als bei der letzten Synchronisierung (%1$d Einträge würden aus der Cloud gelöscht, von %2$d). Wenn du sie absichtlich gelöscht hast, bestätige. Sonst stelle die Daten aus der Cloud wieder her: Es wird nichts gelöscht.</string>
+    <string name="sync_cancella_titolo" formatted="false">Daten aus der Cloud löschen?</string>
     <string name="sync_decisione_messaggio" formatted="false">Dieses Gerät enthält bereits Daten und die Cloud andere. Um fortzufahren, werden die Daten dieses Geräts durch die der Cloud ersetzt. Wenn du die Daten des Geräts behalten möchtest, brich ab: Du wirst abgemeldet und nichts ändert sich.</string>
     <string name="sync_decisione_titolo" formatted="false">Daten bereits in der Cloud</string>
     <string name="sync_in_corso" formatted="false">Synchronisierung …</string>
     <string name="sync_in_sospeso" formatted="false">Synchronisierung ausstehend</string>
     <string name="sync_offline" formatted="false">Offline – wird automatisch fortgesetzt</string>
+    <string name="sync_ripristina" formatted="false">Aus Cloud wiederherstellen</string>
     <string name="sync_usa_cloud" formatted="false">Cloud-Daten verwenden</string>
     <string name="widget_descrizione" formatted="false">Aktueller und erwarteter Kontostand zum Monatsende, Beträge ausblendbar.</string>
     <plurals name="plurale_mancano_lld_giorni">

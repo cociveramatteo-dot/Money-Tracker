@@ -1078,5 +1078,41 @@
   "fr": "Android uniquement",
   "ja": "Android 専用",
   "zh-Hans": "仅限 Android"
+ },
+ "sync_cancella_titolo": {
+  "it": "Eliminare i dati dal cloud?",
+  "en": "Delete data from the cloud?",
+  "de": "Daten aus der Cloud löschen?",
+  "es": "¿Eliminar los datos de la nube?",
+  "fr": "Supprimer les données du cloud ?",
+  "ja": "クラウドのデータを削除しますか？",
+  "zh-Hans": "要删除云端数据吗？"
+ },
+ "sync_cancella_messaggio": {
+  "it": "Questo dispositivo ha molti meno dati dell’ultima sincronizzazione (%1$d record da eliminare dal cloud, su %2$d). Se li hai eliminati tu, conferma. Altrimenti ripristina i dati dal cloud: non viene cancellato nulla.",
+  "en": "This device has far less data than at the last sync (%1$d records to delete from the cloud, out of %2$d). If you deleted them on purpose, confirm. Otherwise restore the data from the cloud: nothing is deleted.",
+  "de": "Dieses Gerät hat deutlich weniger Daten als bei der letzten Synchronisierung (%1$d Einträge würden aus der Cloud gelöscht, von %2$d). Wenn du sie absichtlich gelöscht hast, bestätige. Sonst stelle die Daten aus der Cloud wieder her: Es wird nichts gelöscht.",
+  "es": "Este dispositivo tiene muchos menos datos que en la última sincronización (%1$d registros se eliminarían de la nube, de %2$d). Si los eliminaste tú, confirma. Si no, restaura los datos desde la nube: no se borra nada.",
+  "fr": "Cet appareil contient bien moins de données qu’à la dernière synchronisation (%1$d enregistrements seraient supprimés du cloud, sur %2$d). Si tu les as supprimés toi-même, confirme. Sinon, restaure les données depuis le cloud : rien n’est supprimé.",
+  "ja": "この端末のデータは前回の同期時よりも大幅に少なくなっています（%2$d件のうち%1$d件がクラウドから削除されます）。意図的に削除した場合は確認してください。そうでなければクラウドから復元してください。何も削除されません。",
+  "zh-Hans": "此设备的数据比上次同步时少得多（%2$d 条记录中有 %1$d 条将从云端删除）。如果是你有意删除的，请确认。否则请从云端恢复数据：不会删除任何内容。"
+ },
+ "sync_cancella_conferma": {
+  "it": "Elimina dal cloud",
+  "en": "Delete from cloud",
+  "de": "Aus Cloud löschen",
+  "es": "Eliminar de la nube",
+  "fr": "Supprimer du cloud",
+  "ja": "クラウドから削除",
+  "zh-Hans": "从云端删除"
+ },
+ "sync_ripristina": {
+  "it": "Ripristina dal cloud",
+  "en": "Restore from cloud",
+  "de": "Aus Cloud wiederherstellen",
+  "es": "Restaurar desde la nube",
+  "fr": "Restaurer depuis le cloud",
+  "ja": "クラウドから復元",
+  "zh-Hans": "从云端恢复"
  }
 }
