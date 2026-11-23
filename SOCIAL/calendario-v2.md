@@ -12,7 +12,7 @@ Post 1–4 pubblicati e intatti (il Post-3 «Guida: HOME» resta com’è: la Ho
 | 7 | ven 27/11 | 22:00 · 18:00 | Tutorial | Quella spesa da 40 €: dov’è finita? Ritrovala in tre tocchi | «Quella spesa da 40 €: dov’è finita?» | 8 | terracotta |
 | 8 | sab 28/11 | 21:00 · 17:00 | Tutorial | Contanti, carta, banca: tutti i tuoi conti in un’app sola, in ordine | «Contanti, carta, banca: tutto nello stesso posto» | 7 | terracotta |
 | 9 | lun 30/11 | 19:00 · 13:00 | Educazione + tutorial | Il saldo non torna? Riconcilia l’app con la banca e sposta soldi tra conti | «App: 13.120 €. Banca: 13.099 €.» | 8 | terracotta |
-| 10 | mar 01/12 | 19:00 · 06:00 | Educazione + guida | Saldo o netto del mese? La differenza che ti dice com’è andato davvero | «Saldo 950 €. Netto +150 €.» | 7 | prugna |
+| 10 | mar 01/12 | 19:00 · 06:00 | Educazione + guida | Saldo o netto del mese? La differenza che ti dice com’è andato davvero | «Saldo 21.973 €. Netto +1.190 €.» | 7 | prugna |
 | 11 | mer 02/12 | 12:00 · 22:00 | Tutorial | Affitto, abbonamenti, bollette: scrivili una volta e non pensarci più | «Scrivile una volta.» | 8 | prugna |
 | 12 | gio 03/12 | 09:00 · 13:00 | Guida | Il punto più basso del mese non è a fine mese: leggi la curva della Home | «Il punto più basso del mese non è a fine mese» | 7 | prugna |
 | 13 | ven 04/12 | 22:00 · 18:00 | Guida | 7 lingue, valuta, tema chiaro o scuro e Face ID: tutto in un’app sola | «7 lingue. Un’app sola.» | 7 | petrolio |
