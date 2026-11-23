@@ -8,6 +8,16 @@
 2. Confrontare tema, esempio, hook, inquadrature e invito all’azione con lo storico. Correggere gli asset precedenti ancora in lavorazione o destinati al riuso e applicare tutte le correzioni permanenti alla nuova esportazione. Registrare i difetti dei post già usciti e mantenere una copia storica dell’export pubblicato. Eventuali interventi su post online li decide Matteo.
 3. Consultare [schermate-app](schermate-app/README.md) e verificare sulla build il percorso e il risultato promesso. **Per ogni post e ogni altro materiale social, se serve una schermata, un importo, uno stato o un’inquadratura diversi, aprire il simulatore, preparare i dati fittizi nell’app e catturare direttamente quello che serve.** Vale anche quando Matteo ha già fornito screenshot. Usare dati coerenti fra le slide, lasciare intatti gli originali e salvare le nuove catture nell’archivio condiviso o nel materiale del post. Coinvolgere Matteo solo se il materiale richiede davvero un dispositivo fisico o il simulatore non permette di produrlo.
 
+## Stile v2 (dal 23/11/2026, Post-5 in poi)
+
+Perché: Matteo ha giudicato la prima serie (Post 5–42) troppo lunga e povera di contenuto per post, e la grafica da migliorare.
+- **Meno post, più pieni.** Ogni post unisce più argomenti affini (6–8 slide); niente post «da una sola cosa». Nuovo elenco e mappa dei vecchi post: [calendario-v2](calendario-v2.md). I file v1 stanno in `archivio-v1/` (e in Drive `Da postare/_archivio-v1/`), non si cancellano.
+- **Un solo set 1080×1350** per Instagram e TikTok, in italiano, testi nelle zone sicure di entrambi (margini 84/110 px, niente testo importante negli ultimi ~150 px). Niente varianti per piattaforma.
+- **Grafica:** si tengono esattamente i fondi secondari delle palette v1 (stessi gradienti, un gruppo ogni tre post). Tutto il resto è nuovo: barra di avanzamento in alto, titoli enormi con parola chiave evidenziata, slide 1 scura con telefono che spunta dal basso e invito «Scorri», teaser («Poi: …») tra le slide, ritmo alternato scuro/chiaro, schemi essenziali (barre, equazioni, carte) solo per 1–2 slide concettuali. Il resto si spiega SUL TELEFONO con catture reali.
+- **Chiusura di ogni post (stesso schema):** telefono + laptop con la landing, «Presto su iOS e Android», bucktrailapp.com, invito a iscriversi alla lista d’attesa, seguire, mettere mi piace, condividere, salvare. Nessun claim nuovo.
+- **Come si produce:** `SOCIAL/caroselli/v2/` (`lib.py` componenti, `layouts.py` layout, `posts.py` contenuti, `meta.py` titoli/hashtag, `build.py` per renderizzare con Chrome, `esporta.py` per copiare in Drive e scrivere `titolo-e-hashtag.txt` e `LEGGIMI.txt`). Esempio: `python3 SOCIAL/caroselli/v2/build.py 5 && python3 SOCIAL/caroselli/v2/esporta.py 5`.
+- **Catture:** dal simulatore iOS con barra di stato forzata (`xcrun simctl status_bar … override --time 9:41 …`), chiaro e scuro (`simctl ui … appearance`), salvate in `schermate-app/v2/`; il badge demo si cancella in `lib.py`. Si controllano a vista tutte le slide prima di consegnare.
+
 ## Tre rubriche
 
 - **Guida alle schermate.** Copertina ricorrente «Guida: HOME», «Guida: MOVIMENTI», ecc. Mostrare dove si trovano i comandi e a cosa serve la schermata. Raccogliere le guide in [guida](guida/README.md).
