@@ -32,6 +32,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.border
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.testTag
@@ -89,7 +90,10 @@ fun AuthFlow(actions: AuthActions) {
                     Modifier.size(48.dp).clickable(role = Role.Button) { if (signUp) signUp = false else actions.onClose() }.testTag(if (signUp) "btn_authBack" else "btn_authClose"),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Icon(SfIcons.forName(if (signUp) "chevron.left" else "xmark"), stringResource(if (signUp) R.string.auth_accedi else R.string.chiudi), tint = Bt.colors.ink, modifier = Modifier.size(22.dp))
+                    // iOS: la pagina «Crea account» ha il pulsante indietro circolare 44 con bordo `fog`
+                    if (signUp) Box(Modifier.size(44.dp).clip(androidx.compose.foundation.shape.CircleShape).background(Bt.colors.surface).border(1.dp, Bt.colors.fog, androidx.compose.foundation.shape.CircleShape), contentAlignment = Alignment.Center) {
+                        Icon(SfIcons.forName("chevron.left"), stringResource(R.string.auth_accedi), tint = Bt.colors.ink, modifier = Modifier.size(22.dp))
+                    } else Icon(SfIcons.forName("xmark"), stringResource(R.string.chiudi), tint = Bt.colors.ink, modifier = Modifier.size(22.dp))
                 }
                 if (signUp) Text(
                     stringResource(R.string.auth_crea_account_titolo), style = Typo.rowName.copy(fontWeight = FontWeight.SemiBold), color = Bt.colors.ink,

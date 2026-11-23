@@ -25,6 +25,7 @@ android {
         versionCode = 1
         versionName = "0.1.0"
         // `-PsupabaseUrl=http://10.0.2.2:PORT -PsupabaseKey=...` punta a un server finto locale (prove sull'emulatore, mai il cloud reale)
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "SUPABASE_URL", "\"${supabaseValue("supabaseUrl", "url")}\"")
         buildConfigField("String", "SUPABASE_ANON_KEY", "\"${supabaseValue("supabaseKey", "anonKey")}\"")
     }
@@ -67,4 +68,9 @@ dependencies {
     kapt("androidx.room:room-compiler:2.7.2")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.xerial:sqlite-jdbc:3.50.3.0")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2025.10.01"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("androidx.test.ext:junit:1.3.0")
+    androidTestImplementation("androidx.test:runner:1.7.0")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

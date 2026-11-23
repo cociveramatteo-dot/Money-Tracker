@@ -173,11 +173,12 @@ private fun CategoryRowItem(cat: CategoryEntity, isDefault: Boolean, onClick: ()
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Box(Modifier.size(36.dp).clip(CircleShape).background(c.fog), contentAlignment = Alignment.Center) {
-            Icon(SfIcons.forName(cat.icon), null, tint = c.smoke, modifier = Modifier.size(16.dp))
+            Icon(SfIcons.forName(cat.icon), null, tint = c.smoke, modifier = Modifier.size(15.dp))
         }
-        Text(categoryLabel(cat.name), style = Typo.formOption.copy(fontSize = androidx.compose.ui.unit.TextUnit(16f, androidx.compose.ui.unit.TextUnitType.Sp)), color = c.ink, modifier = Modifier.weight(1f))
-        if (isDefault) Text(stringResource(R.string.predefinita), style = Typo.formOptionSub, color = c.smoke)
-        else Icon(SfIcons.forName("chevron.right"), null, tint = c.smoke, modifier = Modifier.size(16.dp))
+        Text(categoryLabel(cat.name), style = Typo.formOption.copy(fontSize = androidx.compose.ui.unit.TextUnit(15f, androidx.compose.ui.unit.TextUnitType.Sp), fontWeight = androidx.compose.ui.text.font.FontWeight.Medium), color = c.ink, modifier = Modifier.weight(1f))
+        if (isDefault) Text(stringResource(R.string.predefinita), style = Typo.formOptionSub.copy(fontSize = androidx.compose.ui.unit.TextUnit(11f, androidx.compose.ui.unit.TextUnitType.Sp)), color = c.smoke,
+            modifier = Modifier.clip(CircleShape).background(c.fog).padding(horizontal = 6.dp, vertical = 3.dp))
+        else Icon(SfIcons.forName("chevron.right"), null, tint = c.smoke, modifier = Modifier.size(11.dp))
     }
 }
 

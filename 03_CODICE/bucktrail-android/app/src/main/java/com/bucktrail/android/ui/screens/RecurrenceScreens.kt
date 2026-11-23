@@ -229,7 +229,7 @@ fun RecurringSeriesDetailSheet(
                 rows.forEachIndexed { i, t ->
                     androidx.compose.runtime.key(t.id) {
                         if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
-                        TransactionRow(t, ledger.accounts, data.prefs.currencyCode, false, today, zone, res, onEdit = onEdit, onDelete = onDelete)
+                        TransactionRow(t, ledger.accounts, data.prefs.currencyCode, false, today, zone, res, onEdit = onEdit, onDelete = onDelete, homeMeta = true)
                     }
                 }
             }

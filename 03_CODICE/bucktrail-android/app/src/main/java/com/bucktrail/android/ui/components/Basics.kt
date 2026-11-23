@@ -258,12 +258,15 @@ fun UnderlineSegment(options: List<String>, selected: Int, onSelect: (Int) -> Un
 @Composable
 fun EmptyState(icon: ImageVector, title: String, subtitle: String? = null, cta: String? = null, onCta: (() -> Unit)? = null, modifier: Modifier = Modifier) {
     val c = Bt.colors
-    Column(modifier.fillMaxWidth().padding(horizontal = 40.dp, vertical = 36.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(modifier.fillMaxWidth().padding(horizontal = 40.dp, vertical = 36.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        // iOS `EmptyStateView`: icona e testi a 16 pt, titolo/sottotitolo a 8 pt, CTA a 16 pt
         Icon(icon, null, tint = c.fog, modifier = Modifier.size(40.dp))
-        Text(title, style = Typo.emptyTitle, color = c.ink, textAlign = TextAlign.Center)
-        subtitle?.let { Text(it, style = Typo.emptySub, color = c.smoke, textAlign = TextAlign.Center) }
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(title, style = Typo.emptyTitle, color = c.ink, textAlign = TextAlign.Center)
+            subtitle?.let { Text(it, style = Typo.emptySub, color = c.smoke, textAlign = TextAlign.Center) }
+        }
         if (cta != null && onCta != null) Text(cta, style = Typo.emptyCta.copy(textDecoration = TextDecoration.Underline), color = c.ink,
-            modifier = Modifier.heightIn(min = 44.dp).clickable(role = Role.Button, onClick = onCta).padding(top = 8.dp))
+            modifier = Modifier.heightIn(min = 44.dp).clickable(role = Role.Button, onClick = onCta))
     }
 }
 

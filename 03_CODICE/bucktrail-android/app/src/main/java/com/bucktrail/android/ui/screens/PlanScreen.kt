@@ -327,7 +327,7 @@ fun BudgetHistorySheet(data: AppData, today: LocalDate, zone: ZoneId, onClose: (
     val locale = Locale.getDefault()
     val months = remember(today) { (5 downTo 0).map { YearMonth.from(today).minusMonths(it.toLong()) } }
     val txs = remember(ledger.transactions) { ledger.transactionData }
-    SheetPage(stringResource(R.string.storico_budget), onClose, trailing = { BarAction(stringResource(R.string.chiudi), onClose, Modifier.testTag("btn_closeHistory")) }) {
+    SheetPage(stringResource(R.string.storico_budget), onClose, trailing = { BarAction(stringResource(R.string.chiudi), onClose, Modifier.testTag("btn_closeHistory")) }, largeTitle = true) {
         months.forEach { m ->
             val list = ledger.budgets.filter { it.month == m.monthValue && it.year == m.year }
             Text(Fmt.monthYear(m, locale), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.ink, modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 12.dp))
