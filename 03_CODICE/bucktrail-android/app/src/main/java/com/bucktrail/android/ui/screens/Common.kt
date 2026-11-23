@@ -1,6 +1,8 @@
 package com.bucktrail.android.ui.screens
 
+import com.bucktrail.android.ui.components.FitText
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,11 +28,18 @@ import java.time.ZoneId
 /** Intestazione di pagina (titolo grande + azioni a destra), margine 20. */
 @Composable
 fun PageHeader(title: String, modifier: Modifier = Modifier, actions: @Composable () -> Unit = {}) {
-    Row(
+    // Con testo molto grande (accessibilità) il titolo prende tutta la riga e le azioni vanno sotto, a destra: niente titolo spezzato a metà parola
+    val stacked = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f
+    if (stacked) {
+        Column(modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 20.dp, vertical = 8.dp)) {
+            FitText(title, Typo.screenTitle, Bt.colors.ink, Modifier.fillMaxWidth(), minScale = 0.5f)
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End), verticalAlignment = Alignment.CenterVertically) { actions() }
+        }
+    } else Row(
         modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 20.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        Text(title, style = Typo.screenTitle, color = Bt.colors.ink, modifier = Modifier.weight(1f))
+        FitText(title, Typo.screenTitle, Bt.colors.ink, Modifier.weight(1f), minScale = 0.5f)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) { actions() }
     }
 }

@@ -92,7 +92,8 @@ fun AddTransactionForm(
     val date = LocalDate.ofEpochDay(dateEpochDay)
 
     // suggerimento categoria (debounce 280 ms), solo se l'utente non l'ha scelta a mano
-    LaunchedEffect(name) {
+    // (anche al variare delle categorie caricate: dopo il ripristino del processo l'elenco arriva dopo il nome)
+    LaunchedEffect(name, categories.size, history.size) {
         if (chosenCategory != null || name.isBlank()) { suggested = null; return@LaunchedEffect }
         delay(280)
         val key = KeywordCategoryClassifier.fold(name.trim().split(" ").first())

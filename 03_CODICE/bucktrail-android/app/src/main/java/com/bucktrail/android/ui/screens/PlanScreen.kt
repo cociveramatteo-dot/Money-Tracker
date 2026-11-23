@@ -111,8 +111,7 @@ fun PlanScreen(
     val month = YearMonth.from(today).plusMonths(monthOffset.toLong())
 
     Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = (Dim.listBottomPadding + Dim.tabBarReserved).dp)) {
-        Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 20.dp).padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(stringResource(R.string.pianifica), style = Typo.screenTitle, color = c.ink, modifier = Modifier.weight(1f))
+        PageHeader(stringResource(R.string.pianifica)) {
             if (segment == 0) PlainIconButton("clock.arrow.circlepath", stringResource(R.string.storico_budget), onHistory, Modifier.testTag("btn_budgetHistory"))
             PlainIconButton("gearshape", stringResource(R.string.impostazioni), actions.onSettings, Modifier.testTag("btn_openSettings"))
         }

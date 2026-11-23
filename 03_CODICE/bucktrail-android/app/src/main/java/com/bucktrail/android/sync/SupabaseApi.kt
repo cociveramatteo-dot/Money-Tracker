@@ -61,6 +61,11 @@ class HttpSupabaseApi(
 ) : SupabaseApi {
     private val base = baseUrl.trimEnd('/')
 
+    private companion object {
+        const val MAX_BODY_BYTES = 48 * 1024 * 1024
+        const val MAX_ROWS = 2_000_000
+    }
+
     private class Response(val status: Int, val body: String)
 
     private suspend fun call(method: String, path: String, body: String? = null, token: String? = null, extra: Map<String, String> = emptyMap()): Response =
@@ -82,7 +87,7 @@ class HttpSupabaseApi(
                 }
                 val status = conn.responseCode
                 val stream = if (status in 200..399) conn.inputStream else conn.errorStream
-                val text = stream?.bufferedReader(Charsets.UTF_8)?.use { it.readText() }.orEmpty()
+                val text = stream?.let { readBounded(it) }.orEmpty()
                 if (status !in 200..299) throw ApiException(kindOf(status), status, errorMessage(text, status))
                 Response(status, text)
             } catch (e: ApiException) {
@@ -93,6 +98,19 @@ class HttpSupabaseApi(
                 conn?.disconnect()
             }
         }
+
+    /** Legge al massimo `MAX_BODY_BYTES`: una risposta enorme (server difettoso o ostile) non deve esaurire la memoria. */
+    private fun readBounded(stream: java.io.InputStream): String = stream.use { input ->
+        val out = java.io.ByteArrayOutputStream()
+        val buffer = ByteArray(16 * 1024)
+        while (true) {
+            val n = input.read(buffer)
+            if (n < 0) break
+            if (out.size() + n > MAX_BODY_BYTES) throw ApiException(ErrorKind.Server, 0, "response too large")
+            out.write(buffer, 0, n)
+        }
+        out.toString(Charsets.UTF_8.name())
+    }
 
     private fun kindOf(status: Int) = when {
         status == 401 || status == 403 -> ErrorKind.Unauthorized
@@ -106,7 +124,10 @@ class HttpSupabaseApi(
         listOf("msg", "error_description", "message", "error").firstNotNullOfOrNull { (o[it] as? JsonPrimitive)?.contentOrNull } ?: text
     }.getOrDefault(text.ifBlank { "HTTP $status" })
 
-    private fun parseSession(text: String, nowSeconds: Long = System.currentTimeMillis() / 1000): Session? {
+    /** `null` per qualunque risposta malformata (JSON non valido, campi mancanti): mai un'eccezione grezza fino alla schermata. */
+    private fun parseSession(text: String, nowSeconds: Long = System.currentTimeMillis() / 1000): Session? = runCatching { parseSessionStrict(text, nowSeconds) }.getOrNull()
+
+    private fun parseSessionStrict(text: String, nowSeconds: Long): Session? {
         val o = Json.parseToJsonElement(text).jsonObject
         val access = (o["access_token"] as? JsonPrimitive)?.contentOrNull ?: return null
         val refresh = (o["refresh_token"] as? JsonPrimitive)?.contentOrNull ?: return null
@@ -141,13 +162,19 @@ class HttpSupabaseApi(
     override suspend fun selectAll(table: String, userId: String, token: String, columns: String): List<JsonObject> {
         val out = ArrayList<JsonObject>()
         var from = 0
+        var previous: List<JsonObject>? = null
         while (true) {
             val r = call(
                 "GET", "/rest/v1/$table?select=${enc(columns)}&user_id=eq.${enc(userId)}&order=id.asc", token = token,
                 extra = mapOf("Range-Unit" to "items", "Range" to "$from-${from + pageSize - 1}"),
             )
-            val page = (Json.parseToJsonElement(r.body) as? JsonArray) ?: throw ApiException(ErrorKind.Server, r.status, "risposta non valida")
-            out += page.map { it as? JsonObject ?: throw ApiException(ErrorKind.Server, r.status, "riga non valida") }
+            val page = runCatching { Json.parseToJsonElement(r.body) as? JsonArray }.getOrNull() ?: throw ApiException(ErrorKind.Server, r.status, "risposta non valida")
+            val rows = page.map { it as? JsonObject ?: throw ApiException(ErrorKind.Server, r.status, "riga non valida") }
+            // server che ignora l'intervallo e rimanda sempre la stessa pagina: senza questo controllo il ciclo non finirebbe mai
+            if (rows.isNotEmpty() && rows == previous) throw ApiException(ErrorKind.Server, r.status, "paginazione non valida")
+            previous = rows
+            out += rows
+            if (out.size > MAX_ROWS) throw ApiException(ErrorKind.Server, r.status, "too many rows") // mai un risultato parziale: il pull ne cancellerebbe il resto
             if (page.size < pageSize) return out
             from += pageSize
         }

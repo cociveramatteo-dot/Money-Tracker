@@ -20,6 +20,12 @@ object Amounts {
     /** Importo valido per l'input utente: `0 < v <= 1_000_000_000`. */
     fun isValidInput(value: BigDecimal?): Boolean = value != null && value.signum() > 0 && value <= MAX
 
+    /** Limite dei saldi (iniziale/rettifica), che possono essere negativi: oltre non entra nei centesimi `Long` (stessa idea di `MAX`, più ampia). */
+    val MAX_BALANCE: BigDecimal = BigDecimal("1000000000000")
+
+    /** Saldo valido: `|v| <= 1_000_000_000_000` (evita l'overflow di `toCents`). */
+    fun isValidBalance(value: BigDecimal?): Boolean = value != null && value.abs() <= MAX_BALANCE
+
     /** Intero senza decimali ("50") altrimenti max 2 decimali, punto, senza raggruppamento. */
     fun editableString(value: BigDecimal): String {
         val v = value.setScale(2, RoundingMode.HALF_UP).stripTrailingZeros()

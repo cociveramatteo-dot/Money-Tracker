@@ -1,5 +1,6 @@
 package com.bucktrail.android.ui.screens
 
+import com.bucktrail.android.ui.components.FitText
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.border
@@ -244,7 +245,7 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                 Column {
                     Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
                         Text(stringResource(R.string.in_arrivo_pianificati), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.plannedText, modifier = Modifier.weight(1f).padding(end = 8.dp))
-                        Text(money(sum(planned), currency, hidden), style = Typo.rowAmount, color = c.plannedText)
+                        FitText(money(sum(planned), currency, hidden), Typo.rowAmount, c.plannedText, Modifier.weight(1f), minScale = 0.6f, textAlign = androidx.compose.ui.text.style.TextAlign.End)
                     }
                     GroupCard {
                         planned.sortedByDescending { it.date }.forEachIndexed { i, t ->
@@ -264,7 +265,7 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                         Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
                             Text(Fmt.dayMonth(day, today, res, locale), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke, modifier = Modifier.weight(1f).padding(end = 8.dp))
                             val total = sum(rows)
-                            Text(money(total, currency, hidden), style = Typo.rowAmount, color = c.smoke)
+                            FitText(money(total, currency, hidden), Typo.rowAmount, c.smoke, Modifier.weight(1f), minScale = 0.6f, textAlign = androidx.compose.ui.text.style.TextAlign.End)
                         }
                         GroupCard {
                             rows.forEachIndexed { i, t ->

@@ -98,8 +98,7 @@ fun StatisticsScreen(
     fun money(v: BigDecimal) = Fmt.currency(v, currency)
 
     Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = (Dim.listBottomPadding + Dim.tabBarReserved).dp)) {
-        Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 20.dp).padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(stringResource(R.string.statistiche), style = Typo.screenTitle, color = c.ink, modifier = Modifier.weight(1f))
+        PageHeader(stringResource(R.string.statistiche)) {
             Row(
                 Modifier.heightIn(min = 44.dp).clip(RoundedCornerShape(12.dp)).background(c.surface).border(1.dp, c.fog, RoundedCornerShape(12.dp))
                     .clickable(enabled = !generatingPdf, role = Role.Button, onClick = actions.onPdf).padding(horizontal = 14.dp).testTag("statistics_pdf"),

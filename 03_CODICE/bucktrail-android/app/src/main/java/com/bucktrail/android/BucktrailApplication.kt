@@ -119,8 +119,20 @@ class BucktrailApplication : Application() {
     private var auditStarted = false
 
     override fun onCreate() {
+        if (BuildConfig.DEBUG) enableStrictMode()
         super.onCreate()
         Notifier.ensureChannel(this)
+    }
+
+    /** Solo debug: segnala nel log (tag StrictMode) letture/scritture su disco e rete sul thread principale, e perdite di risorse. */
+    private fun enableStrictMode() {
+        android.os.StrictMode.setThreadPolicy(
+            android.os.StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build(),
+        )
+        android.os.StrictMode.setVmPolicy(
+            android.os.StrictMode.VmPolicy.Builder().detectLeakedClosableObjects().detectLeakedSqlLiteObjects()
+                .detectActivityLeaks().detectLeakedRegistrationObjects().penaltyLog().build(),
+        )
     }
 
     /** Avvia (una volta) la cronologia modifiche sui dati reali. */

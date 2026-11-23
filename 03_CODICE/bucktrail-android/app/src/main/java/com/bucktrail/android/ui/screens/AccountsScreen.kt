@@ -110,8 +110,8 @@ fun AccountsScreen(data: AppData, actions: AccountActions) {
                     Box(Modifier.fillMaxWidth().height(1.dp).background(c.heroDivider))
                     Spacer(Modifier.height(4.dp))
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                        Text(stringResource(R.string.a_conti_fatti), style = Typo.secondary, color = c.heroSecondary)
-                        Text(money(calc.future, currency, hidden), style = Typo.rowAmount, color = c.heroPlanned)
+                        Text(stringResource(R.string.a_conti_fatti), style = Typo.secondary, color = c.heroSecondary, modifier = Modifier.weight(1f).padding(end = 8.dp))
+                        FitText(money(calc.future, currency, hidden), Typo.rowAmount, c.heroPlanned, Modifier.weight(1f), minScale = 0.6f, textAlign = androidx.compose.ui.text.style.TextAlign.End)
                     }
                 }
             }
@@ -177,7 +177,7 @@ private fun AccountGroup(title: String, accounts: List<AccountEntity>, ctx: Acco
     Column {
         Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(title, style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke, modifier = Modifier.weight(1f).padding(end = 8.dp))
-            Text(money(total, ctx.currency, ctx.hidden), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke)
+            FitText(money(total, ctx.currency, ctx.hidden), Typo.secondary.copy(fontWeight = FontWeight.SemiBold), c.smoke, Modifier.weight(1f), minScale = 0.6f, textAlign = androidx.compose.ui.text.style.TextAlign.End)
         }
         Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(c.surface)) {
             ordered.forEachIndexed { i, acc ->

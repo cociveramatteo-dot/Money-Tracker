@@ -64,11 +64,12 @@ object Migration2To3 {
             val cents = (m["cents"] as Number).toLong()
             val recordedAt = (m["recordedAt"] as Number).toLong()
             val entryDay = (m["entryDay"] as Number?)?.toLong()
-            val date = entryDay?.let { LocalDate.ofEpochDay(it).atTime(12, 0).atZone(zone).toInstant().toEpochMilli() } ?: recordedAt
+            // un `entryDay` assurdo (dato corrotto) non deve far fallire la migrazione e bloccare l'apertura dell'app: si ripiega su `recordedAt`
+            val date = entryDay?.let { runCatching { LocalDate.ofEpochDay(it).atTime(12, 0).atZone(zone).toInstant().toEpochMilli() }.getOrNull() } ?: recordedAt
             val planned = (m["planned"] as Number).toLong() != 0L || (entryDay != null && entryDay > today.toEpochDay())
             sql.exec(
                 "INSERT INTO transactions (id, accountId, name, amountCents, type, category, categoryIcon, date, isDone, isFixed, isTransfer, transferGroupId, notes, recurringFrequency, templateId, createdAt) VALUES (?, ?, ?, ?, ?, 'Altro', 'tray.fill', ?, ?, 0, 0, '', '', '', '', ?)",
-                listOf(m["id"], m["accountId"], m["title"], kotlin.math.abs(cents), if (cents < 0) "Uscita" else "Entrata", date, if (planned) 0L else 1L, recordedAt),
+                listOf(m["id"], m["accountId"], m["title"], if (cents == Long.MIN_VALUE) Long.MAX_VALUE else kotlin.math.abs(cents), if (cents < 0) "Uscita" else "Entrata", date, if (planned) 0L else 1L, recordedAt),
             )
         }
     }

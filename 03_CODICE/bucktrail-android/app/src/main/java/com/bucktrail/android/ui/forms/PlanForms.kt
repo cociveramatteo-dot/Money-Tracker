@@ -177,7 +177,7 @@ fun AddGoalForm(existing: GoalEntity?, currency: String, today: LocalDate, zone:
     val deadline = LocalDate.ofEpochDay(deadlineDay)
     val targetAmount = Amounts.parse(target)
     val extraAmount = Amounts.parse(extra)
-    val valid = name.isNotEmpty() && target.isNotEmpty()
+    val valid = name.isNotEmpty() && target.isNotEmpty() && (extraAmount == null || extraAmount <= Amounts.MAX)
 
     FullScreenForm(onDismiss = { if (!saving) onClose() }, cancelTag = "btn_cancelAddGoal") {
         Text(stringResource(if (existing == null) R.string.nuovo_obiettivo else R.string.modifica), style = Typo.sheetTitle, color = c.ink)

@@ -70,7 +70,7 @@ fun AddAccountForm(
     var saving by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
     val value = if (balance.isBlank()) BigDecimal.ZERO else Amounts.parse(balance)
-    val valid = name.isNotBlank() && value != null
+    val valid = name.isNotBlank() && Amounts.isValidBalance(value)
 
     FullScreenForm(onDismiss = { if (!saving) onClose() }, cancelTag = "btn_cancelAddAccount") {
         Text(stringResource(if (existing == null) R.string.nuovo_conto else R.string.modifica_conto), style = Typo.sheetTitle, color = c.ink)

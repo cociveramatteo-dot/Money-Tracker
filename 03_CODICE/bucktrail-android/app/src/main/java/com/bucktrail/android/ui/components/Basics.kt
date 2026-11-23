@@ -365,6 +365,8 @@ fun FitText(text: String, style: TextStyle, color: Color, modifier: Modifier = M
     var scale = androidx.compose.runtime.remember(text) { androidx.compose.runtime.mutableFloatStateOf(1f) }
     Text(
         text, color = color, maxLines = 1, softWrap = false, textAlign = textAlign, modifier = modifier,
+        // al limite del ridimensionamento meglio «…» di un importo tagliato in silenzio (sembrerebbe un altro numero)
+        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
         style = style.copy(fontSize = style.fontSize * scale.floatValue, letterSpacing = style.letterSpacing),
         onTextLayout = { if (it.didOverflowWidth && scale.floatValue > minScale) scale.floatValue = (scale.floatValue * 0.92f).coerceAtLeast(minScale) },
     )
