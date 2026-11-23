@@ -5,6 +5,12 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### ANDROID · prova sync reale + telefono (quando vuoi, non urgente)
+📍 Chat del capocantiere. ▶️ Scrivi «prova sync android»: ti guido io (account di prova, iPhone + Android o emulatore, widget, impronta/volto). ↩️ Riporta l'esito.
+
+### SOCIAL · pubblicare i Post 5–15
+📍 Drive → `Da postare` → `Post-05…`. ▶️ Carica le slide in ordine su Instagram e TikTok, titolo e hashtag da `titolo-e-hashtag.txt`; date in `SOCIAL/calendario-v2.md`. Post-15: prova prima il doppio tocco su un iPhone vero. ↩️ «pubblicato post N».
+
 ### SOCIAL · SC-6 — avvia Copilot per il diario metriche
 📍 Terminale, nuova scheda, nella cartella del cantiere: `copilot`.
 ▶️ Incolla:
