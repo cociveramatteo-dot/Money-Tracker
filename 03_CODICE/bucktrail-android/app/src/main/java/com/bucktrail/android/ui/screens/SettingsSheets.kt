@@ -116,6 +116,7 @@ fun SettingsSheet(data: AppData, actions: SettingsActions, account: AccountSetti
     SheetPage(
         stringResource(R.string.impostazioni), actions.onClose,
         trailing = { BarAction(stringResource(R.string.chiudi), actions.onClose, Modifier.testTag("btn_closeSettings")) },
+        largeTitle = true,
     ) {
         Column(Modifier.padding(horizontal = 20.dp, vertical = 8.dp)) {
             // Lingua
@@ -130,7 +131,10 @@ fun SettingsSheet(data: AppData, actions: SettingsActions, account: AccountSetti
                     },
                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    Text(stringResource(R.string.apri_impostazioni_lingua), style = Typo.formOption.copy(fontFamily = Fonts.formMedium), color = c.ink)
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Icon(SfIcons.forName("gearshape"), null, tint = c.ink, modifier = Modifier.size(20.dp))
+                        Text(stringResource(R.string.apri_impostazioni_lingua), style = Typo.formOption.copy(fontFamily = Fonts.formMedium, fontSize = 17.sp), color = c.ink)
+                    }
                     Icon(SfIcons.forName("arrow.up"), null, tint = c.smoke, modifier = Modifier.size(16.dp).graphicsLayer { rotationZ = 45f })
                 }
             }
@@ -141,10 +145,10 @@ fun SettingsSheet(data: AppData, actions: SettingsActions, account: AccountSetti
                 Box {
                     Row(
                         Modifier.fillMaxWidth().heightIn(min = 48.dp).testTag("picker_currency").clickable(role = Role.Button) { currencyMenu = true },
-                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp),
                     ) {
-                        Text(currencyLabel(prefs.currencyCode), style = Typo.formOption.copy(fontFamily = Fonts.formMedium), color = c.ink)
-                        Icon(SfIcons.forName("chevron.down"), null, tint = c.smoke, modifier = Modifier.size(16.dp))
+                        Text(currencyLabel(prefs.currencyCode), style = Typo.formOption.copy(fontSize = 17.sp), color = c.ink)
+                        Icon(SfIcons.forName("chevron.up.chevron.down"), null, tint = c.ink, modifier = Modifier.size(16.dp))
                     }
                     DropdownMenu(currencyMenu, { currencyMenu = false }) {
                         Fmt.currencies.forEach { code ->
@@ -291,8 +295,8 @@ fun SettingsSheet(data: AppData, actions: SettingsActions, account: AccountSetti
                 Text(currencyName(code), style = Typo.rowName, color = c.ink)
                 Text(stringResource(R.string.il_simbolo_verra_aggiornato_ovunque_nell), style = Typo.formOption, color = c.smoke, textAlign = TextAlign.Center)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                    BarAction(stringResource(R.string.annulla), { pendingCurrency = null })
-                    BarAction(stringResource(R.string.conferma), { actions.onSetCurrency(code); pendingCurrency = null }, Modifier.testTag("btn_confirmCurrency"), bold = true)
+                    BarAction(stringResource(R.string.annulla), { pendingCurrency = null }, pill = false)
+                    BarAction(stringResource(R.string.conferma), { actions.onSetCurrency(code); pendingCurrency = null }, Modifier.testTag("btn_confirmCurrency"), bold = true, pill = false)
                 }
             }
         }
@@ -383,7 +387,7 @@ private fun Context.findFragmentActivity(): FragmentActivity? {
 }
 
 private fun currencyName(code: String): String = runCatching { Currency.getInstance(code).displayName }.getOrDefault(code)
-private fun currencyLabel(code: String): String = "${Fmt.currencySymbol(code)}  ·  $code  ·  ${currencyName(code)}"
+private fun currencyLabel(code: String): String = "${Fmt.currencySymbol(code)}  ${currencyName(code)}"
 
 @Composable
 private fun SettingsSection(content: @Composable () -> Unit) {
@@ -427,7 +431,7 @@ fun HomeAccountOrderSheet(accounts: List<AccountEntity>, saved: List<String>, on
                         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
                         Box(
-                            Modifier.size(44.dp).clickable(role = Role.Checkbox) { state = HomeAccountOrder.toggle(state, id) }
+                            Modifier.size(48.dp).clickable(role = Role.Checkbox) { state = HomeAccountOrder.toggle(state, id) }
                                 .semantics { stateDescription = if (checked) shownDesc else hiddenDesc },
                             contentAlignment = Alignment.Center,
                         ) {

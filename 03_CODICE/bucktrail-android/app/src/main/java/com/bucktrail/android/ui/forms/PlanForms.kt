@@ -36,6 +36,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.unit.dp
 import com.bucktrail.android.R
 import com.bucktrail.android.data.AccountEntity
@@ -76,17 +79,17 @@ fun AddBudgetForm(
     val amount = Amounts.parse(limit)
     val canSave = Amounts.isValidInput(amount) && (selected.isNotEmpty() || accountId != null)
 
-    FullScreenForm(onDismiss = { if (!saving) onClose() }) {
+    FullScreenForm(onDismiss = { if (!saving) onClose() }, cancelTag = "btn_cancelAddBudget") {
         Text(stringResource(R.string.nuovo_budget), style = Typo.sheetTitle, color = c.ink)
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             SectionLabel(stringResource(R.string.categoria_opzionale))
-            Text(stringResource(R.string.lascia_vuoto_per_un_budget_globale_sul_c), style = Typo.formOptionSub, color = c.smoke)
+            Text(stringResource(R.string.lascia_vuoto_per_un_budget_globale_sul_c), style = Typo.formOptionSub, color = c.smoke, modifier = Modifier.padding(bottom = 4.dp))
             categories.chunked(2).forEach { pair ->
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     pair.forEach { cat ->
                         val sel = cat.name in selected
                         Row(
-                            Modifier.weight(1f).heightIn(min = 44.dp).clip(RoundedCornerShape(8.dp)).background(if (sel) c.ink else c.fog)
+                            Modifier.weight(1f).heightIn(min = 36.dp).clip(RoundedCornerShape(8.dp)).background(if (sel) c.ink else c.fog)
                                 .clickable(role = Role.Checkbox) {
                                     selected = if (sel) { if (chosenIcon == cat.icon) chosenIcon = null; selected - cat.name } else selected + cat.name
                                 }.padding(horizontal = 8.dp).testTag("budgetCat_${cat.name}"),
@@ -106,7 +109,7 @@ fun AddBudgetForm(
             Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 categories.filter { it.name in selected }.forEach { cat ->
                     val chosen = chosenIcon == cat.icon
-                    Box(Modifier.size(44.dp).clip(CircleShape).background(if (chosen) c.ink else c.fog).clickable(role = Role.RadioButton) { chosenIcon = cat.icon }, contentAlignment = Alignment.Center) {
+                    Box(Modifier.size(44.dp).clip(CircleShape).background(if (chosen) c.ink else c.fog).clickable(role = Role.RadioButton) { chosenIcon = cat.icon }.semantics { contentDescription = cat.name; this.selected = chosen }, contentAlignment = Alignment.Center) {
                         Icon(SfIcons.forName(cat.icon), null, tint = if (chosen) c.paper else c.smoke, modifier = Modifier.size(18.dp))
                     }
                 }
@@ -125,7 +128,7 @@ fun AddBudgetForm(
             Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(Fmt.currencySymbol(currency), style = Typo.formAmountSymbol, color = c.smoke, modifier = Modifier.heightIn(min = 56.dp))
                 Box(Modifier.weight(1f)) {
-                    if (limit.isEmpty()) Text("0", style = Typo.formAmount, color = c.fog)
+                    if (limit.isEmpty()) Text("0", style = Typo.formAmount, color = c.smoke.copy(alpha = 0.45f))
                     BasicTextField(limit, { limit = it.take(14) }, singleLine = true, textStyle = Typo.formAmount.copy(color = c.ink), cursorBrush = SolidColor(c.accent),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), modifier = Modifier.fillMaxWidth().testTag("tf_budgetLimit"))
                 }
@@ -145,7 +148,6 @@ fun AddBudgetForm(
                     if (ok) onClose() else failed = true
                 }
             })
-            GhostButton(stringResource(R.string.annulla), onClose, Modifier.testTag("btn_cancelAddBudget"))
         }
     }
 }
@@ -177,7 +179,7 @@ fun AddGoalForm(existing: GoalEntity?, currency: String, today: LocalDate, zone:
     val extraAmount = Amounts.parse(extra)
     val valid = name.isNotEmpty() && target.isNotEmpty()
 
-    FullScreenForm(onDismiss = { if (!saving) onClose() }) {
+    FullScreenForm(onDismiss = { if (!saving) onClose() }, cancelTag = "btn_cancelAddGoal") {
         Text(stringResource(if (existing == null) R.string.nuovo_obiettivo else R.string.modifica), style = Typo.sheetTitle, color = c.ink)
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             SectionLabel(stringResource(R.string.icona))
@@ -190,7 +192,7 @@ fun AddGoalForm(existing: GoalEntity?, currency: String, today: LocalDate, zone:
                 goalIcons.chunked(6).forEach { rowIcons ->
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                         rowIcons.forEach { i ->
-                            Box(Modifier.size(44.dp).clip(CircleShape).background(if (icon == i) c.ink else c.fog).clickable(role = Role.RadioButton) { icon = i; picker = false }, contentAlignment = Alignment.Center) {
+                            Box(Modifier.size(44.dp).clip(CircleShape).background(if (icon == i) c.ink else c.fog).clickable(role = Role.RadioButton) { icon = i; picker = false }.semantics { contentDescription = i.replace('.', ' '); this.selected = icon == i }, contentAlignment = Alignment.Center) {
                                 Icon(SfIcons.forName(i), null, tint = if (icon == i) c.paper else c.smoke, modifier = Modifier.size(18.dp))
                             }
                         }
@@ -202,7 +204,7 @@ fun AddGoalForm(existing: GoalEntity?, currency: String, today: LocalDate, zone:
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             SectionLabel(stringResource(R.string.nome))
             Box {
-                if (name.isEmpty()) Text(stringResource(R.string.es_vacanza_auto_nuova), style = Typo.formDescription, color = c.fog)
+                if (name.isEmpty()) Text(stringResource(R.string.es_vacanza_auto_nuova), style = Typo.formDescription, color = c.smoke.copy(alpha = 0.45f))
                 BasicTextField(name, { name = it.take(80) }, singleLine = true, textStyle = Typo.formDescription.copy(color = c.ink), cursorBrush = SolidColor(c.accent), modifier = Modifier.fillMaxWidth().testTag("tf_goalName"))
             }
             FieldLine()
@@ -212,7 +214,7 @@ fun AddGoalForm(existing: GoalEntity?, currency: String, today: LocalDate, zone:
             Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(Fmt.currencySymbol(currency), style = Typo.formAmountSymbol, color = c.smoke, modifier = Modifier.heightIn(min = 56.dp))
                 Box(Modifier.weight(1f)) {
-                    if (target.isEmpty()) Text("0", style = Typo.formAmount, color = c.fog)
+                    if (target.isEmpty()) Text("0", style = Typo.formAmount, color = c.smoke.copy(alpha = 0.45f))
                     BasicTextField(target, { target = it.take(14) }, singleLine = true, textStyle = Typo.formAmount.copy(color = c.ink), cursorBrush = SolidColor(c.accent),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), modifier = Modifier.fillMaxWidth().testTag("tf_goalTarget"))
                 }
@@ -224,7 +226,7 @@ fun AddGoalForm(existing: GoalEntity?, currency: String, today: LocalDate, zone:
             Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text("+" + Fmt.currencySymbol(currency), style = Typo.formAmountSymbol.copy(fontSize = androidx.compose.ui.unit.TextUnit(22f, androidx.compose.ui.unit.TextUnitType.Sp)), color = c.smoke, modifier = Modifier.heightIn(min = 44.dp))
                 Box(Modifier.weight(1f)) {
-                    if (extra.isEmpty()) Text("0", style = Typo.formDescription.copy(fontSize = androidx.compose.ui.unit.TextUnit(40f, androidx.compose.ui.unit.TextUnitType.Sp)), color = c.fog)
+                    if (extra.isEmpty()) Text("0", style = Typo.formDescription.copy(fontSize = androidx.compose.ui.unit.TextUnit(40f, androidx.compose.ui.unit.TextUnitType.Sp)), color = c.smoke.copy(alpha = 0.45f))
                     BasicTextField(extra, { extra = it.take(14) }, singleLine = true, textStyle = Typo.formDescription.copy(color = c.ink, fontSize = androidx.compose.ui.unit.TextUnit(40f, androidx.compose.ui.unit.TextUnitType.Sp)),
                         cursorBrush = SolidColor(c.accent), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal), modifier = Modifier.fillMaxWidth().testTag("tf_goalSavings"))
                 }
@@ -234,9 +236,9 @@ fun AddGoalForm(existing: GoalEntity?, currency: String, today: LocalDate, zone:
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             SectionLabel(stringResource(R.string.scadenza))
             OptionRow(stringResource(R.string.imposta_scadenza), modifier = Modifier.testTag("toggle_goalDeadline")) { FormSwitch(hasDeadline, { hasDeadline = it }, stringResource(R.string.imposta_scadenza)) }
-            if (hasDeadline) OptionRow(stringResource(R.string.data), modifier = Modifier.clickable(role = Role.Button) {
+            if (hasDeadline) OptionRow(stringResource(R.string.data), titleColor = c.smoke, modifier = Modifier.clickable(role = Role.Button) {
                 DatePickerDialog(context, { _, y, m, d -> deadlineDay = LocalDate.of(y, m + 1, d).toEpochDay() }, deadline.year, deadline.monthValue - 1, deadline.dayOfMonth).show()
-            }.testTag("goalDeadlineDate")) { Text(deadline.format(java.time.format.DateTimeFormatter.ofLocalizedDate(java.time.format.FormatStyle.MEDIUM)), style = Typo.formOption, color = c.ink) }
+            }.testTag("goalDeadlineDate")) { DatePill(deadline.format(java.time.format.DateTimeFormatter.ofLocalizedDate(java.time.format.FormatStyle.MEDIUM))) }
         }
         if (failed) Text(stringResource(R.string.save_failed), style = Typo.formOption, color = c.danger)
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -257,7 +259,6 @@ fun AddGoalForm(existing: GoalEntity?, currency: String, today: LocalDate, zone:
                     if (ok) onClose() else failed = true
                 }
             })
-            GhostButton(stringResource(R.string.annulla), onClose, Modifier.testTag("btn_cancelAddGoal"))
         }
     }
 }

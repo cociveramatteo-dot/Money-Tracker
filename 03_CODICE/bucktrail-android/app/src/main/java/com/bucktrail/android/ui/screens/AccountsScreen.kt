@@ -38,6 +38,7 @@ import com.bucktrail.android.ui.components.EmptyState
 import com.bucktrail.android.ui.components.FitText
 import com.bucktrail.android.ui.components.HeroCard
 import com.bucktrail.android.ui.components.SfIcons
+import com.bucktrail.android.ui.components.PlainIconButton
 import com.bucktrail.android.ui.components.ThinDivider
 import com.bucktrail.android.ui.theme.Bt
 import com.bucktrail.android.ui.theme.Dim
@@ -98,16 +99,16 @@ fun AccountsScreen(data: AppData, actions: AccountActions) {
 
     Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = (Dim.listBottomPadding + Dim.tabBarReserved).dp)) {
         PageHeader(stringResource(R.string.conti)) {
-            RoundIconButton(SfIcons.forName("gearshape"), stringResource(R.string.impostazioni), actions.onSettings, Modifier.testTag("btn_openSettings"))
+            PlainIconButton("gearshape", stringResource(R.string.impostazioni), actions.onSettings, Modifier.testTag("btn_openSettings"))
         }
         Column(Modifier.padding(horizontal = Dim.cardMargin.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            HeroCard(Modifier.fillMaxWidth(), padding = 24.dp) {
-                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            HeroCard(Modifier.fillMaxWidth(), padding = 0.dp) {
+                Column(Modifier.padding(horizontal = 20.dp, vertical = 18.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(stringResource(R.string.patrimonio_totale), style = Typo.secondary, color = c.heroSecondary)
                     FitText(money(calc.total, currency, hidden), Typo.heroAmountSm, c.heroText, Modifier.testTag("accounts_total"))
                     Spacer(Modifier.height(6.dp))
                     Box(Modifier.fillMaxWidth().height(1.dp).background(c.heroDivider))
-                    Spacer(Modifier.height(6.dp))
+                    Spacer(Modifier.height(4.dp))
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                         Text(stringResource(R.string.a_conti_fatti), style = Typo.secondary, color = c.heroSecondary)
                         Text(money(calc.future, currency, hidden), style = Typo.rowAmount, color = c.heroPlanned)
@@ -175,8 +176,8 @@ private fun AccountGroup(title: String, accounts: List<AccountEntity>, ctx: Acco
     val total = accounts.filter { !it.isExcludedFromTotal }.fold(BigDecimal.ZERO) { a, acc -> a + (ctx.current[acc.id] ?: BigDecimal.ZERO) }
     Column {
         Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(title, style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke)
-            Text(money(total, ctx.currency, ctx.hidden), style = Typo.rowAmount, color = c.ink)
+            Text(title, style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke, modifier = Modifier.weight(1f).padding(end = 8.dp))
+            Text(money(total, ctx.currency, ctx.hidden), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke)
         }
         Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(c.surface)) {
             ordered.forEachIndexed { i, acc ->
@@ -231,16 +232,16 @@ private fun AccountRow(account: AccountEntity, ctx: AccountRowContext, archivedR
             }
             DropdownMenu(menu, { menu = false }) {
                 if (archivedRow) {
-                    DropdownMenuItem(text = { Text(stringResource(R.string.ripristina)) }, modifier = Modifier.testTag("account_restore"), onClick = { menu = false; ctx.actions.onArchive(account, false) })
-                    DropdownMenuItem(text = { Text(stringResource(R.string.elimina_definitivamente), color = c.danger) }, onClick = { menu = false; ctx.actions.onDelete(account) })
+                    DropdownMenuItem(text = { Text(stringResource(R.string.ripristina)) }, leadingIcon = { Icon(SfIcons.forName("arrow.uturn.left"), null, modifier = Modifier.size(18.dp)) }, modifier = Modifier.testTag("account_restore"), onClick = { menu = false; ctx.actions.onArchive(account, false) })
+                    DropdownMenuItem(text = { Text(stringResource(R.string.elimina_definitivamente), color = c.danger) }, leadingIcon = { Icon(SfIcons.forName("trash"), null, tint = c.danger, modifier = Modifier.size(18.dp)) }, onClick = { menu = false; ctx.actions.onDelete(account) })
                 } else {
-                    DropdownMenuItem(text = { Text(stringResource(R.string.modifica)) }, modifier = Modifier.testTag("account_edit"), onClick = { menu = false; ctx.actions.onEdit(account) })
+                    DropdownMenuItem(text = { Text(stringResource(R.string.modifica)) }, leadingIcon = { Icon(SfIcons.forName("pencil"), null, modifier = Modifier.size(18.dp)) }, modifier = Modifier.testTag("account_edit"), onClick = { menu = false; ctx.actions.onEdit(account) })
                     DropdownMenuItem(
-                        text = { Text(stringResource(if (excluded) R.string.includi_nel_totale else R.string.escludi_dal_totale)) }, modifier = Modifier.testTag("account_exclude"),
+                        text = { Text(stringResource(if (excluded) R.string.includi_nel_totale else R.string.escludi_dal_totale)) }, modifier = Modifier.testTag("account_exclude"), leadingIcon = { Icon(SfIcons.forName("eye.slash"), null, modifier = Modifier.size(18.dp)) }, 
                         onClick = { menu = false; ctx.actions.onExclude(account, !excluded) },
                     )
-                    DropdownMenuItem(text = { Text(stringResource(R.string.archivia)) }, modifier = Modifier.testTag("account_archive"), onClick = { menu = false; ctx.actions.onArchive(account, true) })
-                    DropdownMenuItem(text = { Text(stringResource(R.string.elimina), color = c.danger) }, onClick = { menu = false; ctx.requestDelete(account) })
+                    DropdownMenuItem(text = { Text(stringResource(R.string.archivia)) }, leadingIcon = { Icon(SfIcons.forName("archivebox"), null, modifier = Modifier.size(18.dp)) }, modifier = Modifier.testTag("account_archive"), onClick = { menu = false; ctx.actions.onArchive(account, true) })
+                    DropdownMenuItem(text = { Text(stringResource(R.string.elimina), color = c.danger) }, leadingIcon = { Icon(SfIcons.forName("trash"), null, tint = c.danger, modifier = Modifier.size(18.dp)) }, onClick = { menu = false; ctx.requestDelete(account) })
                 }
             }
         }

@@ -123,7 +123,7 @@ fun HomeScreen(
             verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Column(Modifier.weight(1f)) {
-                Text(Fmt.headerDate(today, locale), style = Typo.secondary, color = c.smoke, maxLines = 1)
+                Text(Fmt.headerDate(today, locale).replaceFirstChar { it.titlecase(locale) }, style = Typo.secondary, color = c.smoke, maxLines = 1)
                 Text(stringResource(R.string.app_name), style = Typo.wordmark, color = c.ink)
             }
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -172,7 +172,7 @@ fun HomeScreen(
             Row(Modifier.fillMaxWidth().padding(horizontal = Dim.screenMargin.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(stringResource(R.string.conti), style = Typo.sectionTitle, color = c.ink)
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Box(Modifier.size(44.dp).clickable(role = Role.Button, onClick = onOpenAccountOrder).testTag("btn_homeAccountOrder").semantics { contentDescription = accountOrderDescription }, contentAlignment = Alignment.Center) {
+                    Box(Modifier.size(48.dp).clickable(role = Role.Button, onClick = onOpenAccountOrder).testTag("btn_homeAccountOrder").semantics { contentDescription = accountOrderDescription }, contentAlignment = Alignment.Center) {
                         Icon(SfIcons.forName("slider.horizontal.3"), null, tint = c.smoke, modifier = Modifier.size(20.dp))
                     }
                     Box(Modifier.heightIn(min = 44.dp).clickable(role = Role.Button, onClick = onManageAccounts), contentAlignment = Alignment.Center) {
@@ -186,16 +186,16 @@ fun HomeScreen(
                     val delta = plannedByAccount[account.id] ?: BigDecimal.ZERO
                     val balance = balances.getValue(account.id)
                     Column(
-                        Modifier.width(148.dp).clip(RoundedCornerShape(18.dp)).background(c.surface).padding(horizontal = 14.dp, vertical = 12.dp),
+                        Modifier.width((148 * androidx.compose.ui.platform.LocalDensity.current.fontScale.coerceIn(1f, 1.6f)).dp).clip(RoundedCornerShape(18.dp)).background(c.surface).padding(horizontal = 14.dp, vertical = 12.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                             Box(Modifier.size(10.dp).clip(RoundedCornerShape(3.dp)).background(accountDotColor(type)))
                             Text(account.name, style = Typo.secondary, color = c.smoke, maxLines = 1)
                         }
-                        FitText(money(balance, currency, hidden, hiddenText), Typo.rowAmount, c.ink, minScale = 0.7f)
-                        if (delta.abs() > EPS) Text("→ " + money(balance + delta, currency, hidden, hiddenText), style = Typo.caption, color = c.plannedText, maxLines = 1)
-                        else Text(stringResource(R.string.nessun_movimento_0ef874), style = Typo.caption, color = c.smoke, maxLines = 1)
+                        FitText(money(balance, currency, hidden, hiddenText), Typo.rowAmount, c.ink, minScale = 0.5f)
+                        if (delta.abs() > EPS) FitText("→ " + money(balance + delta, currency, hidden, hiddenText), Typo.caption, c.plannedText, minScale = 0.5f)
+                        else FitText(stringResource(R.string.nessun_movimento_0ef874), Typo.caption, c.smoke, minScale = 0.5f)
                     }
                 }
             }
@@ -214,7 +214,7 @@ fun HomeScreen(
         Column(Modifier.padding(horizontal = Dim.cardMargin.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                 Text(stringResource(R.string.ultimi_movimenti), style = Typo.sectionTitle, color = c.ink)
-                Box(Modifier.size(44.dp).clickable(role = Role.Button) { collapsed = !collapsed }, contentAlignment = Alignment.Center) {
+                Box(Modifier.size(48.dp).clickable(role = Role.Button) { collapsed = !collapsed }, contentAlignment = Alignment.Center) {
                     Icon(SfIcons.forName(if (collapsed) "chevron.down" else "chevron.up"), null, tint = c.smoke, modifier = Modifier.size(16.dp))
                 }
                 Spacer(Modifier.weight(1f))
@@ -227,8 +227,8 @@ fun HomeScreen(
                 else Column(Modifier.clip(RoundedCornerShape(20.dp)).background(c.surface)) {
                     latest.forEachIndexed { i, t ->
                         androidx.compose.runtime.key(t.id) {
-                            if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
-                            TransactionRow(t, ledger.accounts, currency, hidden, today, zone, res, recurring = ledger.rules.any { it.id.equals(t.templateId, true) },
+                            if (i > 0) ThinDivider(Modifier.padding(start = 64.dp), c.fog)
+                            TransactionRow(t, ledger.accounts, currency, hidden, today, zone, res, homeMeta = true,
                                 onEdit = onEdit, onDelete = onDelete)
                         }
                     }

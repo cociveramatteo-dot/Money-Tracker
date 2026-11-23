@@ -194,7 +194,7 @@ fun SecondaryChip(label: String, onClick: () -> Unit, modifier: Modifier = Modif
     ) {
         Text(label, style = Typo.secondary.copy(fontWeight = if (active) FontWeight.SemiBold else FontWeight.Normal),
             color = if (active) c.accent else c.ink, maxLines = 1)
-        trailing?.let { Icon(it, null, tint = if (active) c.accent else c.smoke, modifier = Modifier.size(14.dp)) }
+        trailing?.let { Icon(it, null, tint = if (active) c.accent else c.ink, modifier = Modifier.size(16.dp)) }
     }
 }
 
@@ -203,10 +203,10 @@ fun SecondaryChip(label: String, onClick: () -> Unit, modifier: Modifier = Modif
 fun RoundIconButton(icon: ImageVector, description: String, onClick: () -> Unit, modifier: Modifier = Modifier, badge: Int = 0) {
     val c = Bt.colors
     val shape = RoundedCornerShape(14.dp)
-    Box(modifier.size(Dim.touchTarget.dp)) {
+    // Area toccabile 48dp (Android), pulsante disegnato 44 come iOS
+    Box(modifier.size(48.dp).clickable(role = Role.Button, onClick = onClick).semantics { contentDescription = description }, contentAlignment = Alignment.Center) {
         Box(
-            Modifier.matchParentSizeCompat().clip(shape).background(c.surface).border(1.dp, c.fog, shape)
-                .clickable(role = Role.Button, onClick = onClick).semantics { contentDescription = description },
+            Modifier.matchParentSizeCompat().clip(shape).background(c.surface).border(1.dp, c.fog, shape),
             contentAlignment = Alignment.Center,
         ) { Icon(icon, null, tint = c.ink, modifier = Modifier.size(20.dp)) }
         if (badge > 0) Text(
@@ -242,10 +242,10 @@ fun GhostButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifier
 @Composable
 fun UnderlineSegment(options: List<String>, selected: Int, onSelect: (Int) -> Unit, modifier: Modifier = Modifier) {
     val c = Bt.colors
-    Row(modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
+    Row(modifier.fillMaxWidth()) {
         options.forEachIndexed { i, label ->
             val active = i == selected
-            Column(Modifier.width(androidx.compose.foundation.layout.IntrinsicSize.Max).heightIn(min = 44.dp).clickable(role = Role.Tab) { onSelect(i) }.semantics { this.selected = active }, verticalArrangement = Arrangement.Center) {
+            Column(Modifier.weight(1f).heightIn(min = 44.dp).clickable(role = Role.Tab) { onSelect(i) }.semantics { this.selected = active }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                 Text(label, style = Typo.formOption.copy(fontSize = 15.sp, fontWeight = if (active) FontWeight.SemiBold else FontWeight.Normal), color = if (active) c.ink else c.smoke)
                 Spacer(Modifier.height(6.dp))
                 Box(Modifier.fillMaxWidth().height(1.5.dp).background(if (active) c.ink else Color.Transparent))
@@ -271,13 +271,13 @@ fun EmptyState(icon: ImageVector, title: String, subtitle: String? = null, cta: 
 @Composable
 fun MonthBar(label: String, onPrevious: () -> Unit, onNext: () -> Unit, previousDescription: String, nextDescription: String, modifier: Modifier = Modifier) {
     val c = Bt.colors
-    Row(modifier.fillMaxWidth().heightIn(min = 44.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-        Box(Modifier.size(44.dp).clickable(role = Role.Button, onClick = onPrevious).semantics { contentDescription = previousDescription }, contentAlignment = Alignment.Center) {
-            Icon(SfIcons.forName("chevron.left"), null, tint = c.smoke, modifier = Modifier.size(14.dp))
+    Row(modifier.fillMaxWidth().heightIn(min = 44.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+        Box(Modifier.size(48.dp).clickable(role = Role.Button, onClick = onPrevious).semantics { contentDescription = previousDescription }, contentAlignment = Alignment.Center) {
+            Icon(SfIcons.forName("chevron.left"), null, tint = c.ink, modifier = Modifier.size(22.dp))
         }
-        Text(label, style = Typo.rowName, color = c.ink, modifier = Modifier.padding(horizontal = 12.dp))
-        Box(Modifier.size(44.dp).clickable(role = Role.Button, onClick = onNext).semantics { contentDescription = nextDescription }, contentAlignment = Alignment.Center) {
-            Icon(SfIcons.forName("chevron.right"), null, tint = c.smoke, modifier = Modifier.size(14.dp))
+        Text(label, style = Typo.rowName, color = c.ink, modifier = Modifier.padding(horizontal = 12.dp), textAlign = TextAlign.Center)
+        Box(Modifier.size(48.dp).clickable(role = Role.Button, onClick = onNext).semantics { contentDescription = nextDescription }, contentAlignment = Alignment.Center) {
+            Icon(SfIcons.forName("chevron.right"), null, tint = c.ink, modifier = Modifier.size(22.dp))
         }
     }
 }
@@ -312,6 +312,26 @@ fun MovementRow(
     val c = Bt.colors
     val color = when { planned -> c.plannedText; kind == MovementKind.Income -> c.accent; kind == MovementKind.Transfer -> c.transfer; else -> c.ink }
     val sign = when (kind) { MovementKind.Expense -> "\u2212"; MovementKind.Income -> "+"; MovementKind.Transfer -> "" }
+    // Come iOS (`isAccessibilitySize`): con testo molto grande titolo, dettaglio e importo vanno in colonna
+    if (androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.6f) {
+        Row(
+            modifier.fillMaxWidth()
+                .then(if (onClick != null || onLongClick != null) Modifier.combinedClickable(onClick = { onClick?.invoke() }, onLongClick = onLongClick) else Modifier)
+                .padding(horizontal = 14.dp, vertical = if (compact) 10.dp else Dim.rowVPad.dp),
+            verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            CategoryIconBox(categoryIcon, categoryName, planned = planned, transfer = kind == MovementKind.Transfer)
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(title, style = Typo.rowName, color = c.ink)
+                    if (recurring) Icon(SfIcons.forName("repeat"), null, tint = c.smoke, modifier = Modifier.size(12.dp))
+                }
+                Text(meta, style = Typo.caption, color = c.smoke)
+                FitText(sign + amount, Typo.rowAmount, color, Modifier.fillMaxWidth(), minScale = 0.6f, textAlign = TextAlign.End)
+            }
+        }
+        return
+    }
     Row(
         modifier.fillMaxWidth()
             .then(if (onClick != null || onLongClick != null) Modifier.combinedClickable(onClick = { onClick?.invoke() }, onLongClick = onLongClick) else Modifier)
@@ -389,5 +409,13 @@ fun SyncBanner(status: com.bucktrail.android.sync.SyncStatus, modifier: Modifier
             else Icon(SfIcons.forName(icon), null, tint = c.paper, modifier = Modifier.size(10.dp))
             Text(stringResource(label), style = Typo.caption.copy(fontWeight = FontWeight.Medium, fontSize = 11.sp), color = c.paper, maxLines = 1)
         }
+    }
+}
+
+/** Pulsante icona senza contenitore (gear, storico): 44x44, icona `ink` (iOS: tutte le schermate tranne la Home). */
+@Composable
+fun PlainIconButton(icon: String, description: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Box(modifier.size(48.dp).clickable(role = Role.Button, onClick = onClick).semantics { contentDescription = description }, contentAlignment = Alignment.Center) {
+        Icon(SfIcons.forName(icon), null, tint = Bt.colors.ink, modifier = Modifier.size(19.dp))
     }
 }

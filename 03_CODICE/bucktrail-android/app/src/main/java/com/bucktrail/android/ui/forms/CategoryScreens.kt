@@ -3,6 +3,7 @@ package com.bucktrail.android.ui.forms
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +35,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.unit.dp
 import com.bucktrail.android.R
 import com.bucktrail.android.data.CategoryEntity
@@ -93,8 +97,9 @@ fun CategoryManagementSheet(
 
     SheetPage(
         stringResource(R.string.categorie), onClose,
-        leading = { BarAction(stringResource(R.string.chiudi), onClose) },
+        leading = { RoundIconButtonPlain("chevron.left", stringResource(R.string.chiudi), onClose) },
         trailing = { RoundIconButtonPlain("plus", stringResource(R.string.nuova_categoria), { adding = true }, Modifier.testTag("btn_addCategory")) },
+        largeTitle = true,
     ) {
         Column(Modifier.padding(horizontal = 20.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
             Column {
@@ -148,8 +153,15 @@ fun CategoryManagementSheet(
 }
 
 @Composable
-private fun RoundIconButtonPlain(icon: String, description: String, onClick: () -> Unit, modifier: Modifier = Modifier) =
-    RoundIconButton(SfIcons.forName(icon), description, onClick, modifier)
+private fun RoundIconButtonPlain(icon: String, description: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    // iOS: pulsanti circolari 44 con bordo `fog` (indietro, +); area toccabile 48
+    val c = Bt.colors
+    Box(modifier.size(48.dp).clickable(role = Role.Button, onClick = onClick).semantics { contentDescription = description }, contentAlignment = Alignment.Center) {
+        Box(Modifier.size(44.dp).clip(CircleShape).background(c.surface).border(1.dp, c.fog, CircleShape), contentAlignment = Alignment.Center) {
+            Icon(SfIcons.forName(icon), null, tint = c.ink, modifier = Modifier.size(22.dp))
+        }
+    }
+}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -185,7 +197,7 @@ fun AddCategoryForm(
     val duplicate = CategoryEditing.isDuplicate(name, all.map { it.id to it.name }, editing?.id)
     val valid = name.isNotBlank() && !duplicate
 
-    FullScreenForm(onDismiss = { if (!saving) onClose() }) {
+    FullScreenForm(onDismiss = { if (!saving) onClose() }, cancelTag = "btn_cancelAddCategory") {
         Text(stringResource(if (editing == null) R.string.nuova_categoria else R.string.modifica_categoria), style = Typo.sheetTitle, color = c.ink)
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             SectionLabel(stringResource(R.string.icona))
@@ -202,7 +214,7 @@ fun AddCategoryForm(
                         rowIcons.forEach { name ->
                             val sel = icon == name
                             Box(
-                                Modifier.size(44.dp).clip(CircleShape).background(if (sel) c.ink else c.fog).clickable(role = Role.Button) { icon = name; showGrid = false },
+                                Modifier.size(44.dp).clip(CircleShape).background(if (sel) c.ink else c.fog).clickable(role = Role.Button) { icon = name; showGrid = false }.semantics { contentDescription = name.replace('.', ' '); this.selected = sel },
                                 contentAlignment = Alignment.Center,
                             ) { Icon(SfIcons.forName(name), null, tint = if (sel) c.paper else c.smoke, modifier = Modifier.size(18.dp)) }
                         }
@@ -214,7 +226,7 @@ fun AddCategoryForm(
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             SectionLabel(stringResource(R.string.nome))
             Box {
-                if (name.isEmpty()) Text(stringResource(R.string.es_musica_sport_palestra), style = Typo.formDescription, color = c.fog)
+                if (name.isEmpty()) Text(stringResource(R.string.es_musica_sport_palestra), style = Typo.formDescription, color = c.smoke.copy(alpha = 0.45f))
                 BasicTextField(name, { name = it.take(40) }, singleLine = true, textStyle = Typo.formDescription.copy(color = c.ink),
                     cursorBrush = SolidColor(c.accent), modifier = Modifier.fillMaxWidth().testTag("tf_categoryName"))
             }
@@ -232,7 +244,6 @@ fun AddCategoryForm(
                 }
             })
             onDelete?.let { GhostButton(stringResource(R.string.elimina), it, Modifier.testTag("btn_deleteCategory")) }
-            GhostButton(stringResource(R.string.annulla), onClose, Modifier.testTag("btn_cancelAddCategory"))
         }
     }
 }

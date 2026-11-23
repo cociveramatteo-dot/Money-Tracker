@@ -41,7 +41,7 @@ import java.math.BigDecimal
 import com.bucktrail.android.domain.Amounts
 import com.bucktrail.android.ui.Fmt
 import com.bucktrail.android.ui.accountTypeRes
-import com.bucktrail.android.ui.components.GhostButton
+import com.bucktrail.android.ui.components.ThinDivider
 import com.bucktrail.android.ui.components.PrimaryButton
 import com.bucktrail.android.ui.components.SectionLabel
 import com.bucktrail.android.ui.components.SfIcons
@@ -72,13 +72,14 @@ fun AddAccountForm(
     val value = if (balance.isBlank()) BigDecimal.ZERO else Amounts.parse(balance)
     val valid = name.isNotBlank() && value != null
 
-    FullScreenForm(onDismiss = { if (!saving) onClose() }) {
+    FullScreenForm(onDismiss = { if (!saving) onClose() }, cancelTag = "btn_cancelAddAccount") {
         Text(stringResource(if (existing == null) R.string.nuovo_conto else R.string.modifica_conto), style = Typo.sheetTitle, color = c.ink)
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             SectionLabel(stringResource(R.string.tipo))
-            AccountType.entries.forEach { t ->
+            AccountType.entries.forEachIndexed { i, t ->
+                if (i > 0) ThinDivider(color = c.fog)
                 Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.RadioButton) { type = t.raw }, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text(stringResource(accountTypeRes(t)), style = Typo.formOption, color = c.ink)
+                    Text(stringResource(accountTypeRes(t)), style = if (type == t.raw) Typo.formOption.copy(fontFamily = com.bucktrail.android.ui.theme.Fonts.formSemibold) else Typo.formOption, color = c.ink)
                     if (type == t.raw) Icon(SfIcons.forName("checkmark"), null, tint = c.ink, modifier = Modifier.size(18.dp))
                 }
             }
@@ -86,7 +87,7 @@ fun AddAccountForm(
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             SectionLabel(stringResource(R.string.nome))
             Box {
-                if (name.isEmpty()) Text(stringResource(R.string.es_carta_unicredit_portafoglio), style = Typo.formDescription, color = c.fog)
+                if (name.isEmpty()) Text(stringResource(R.string.es_carta_unicredit_portafoglio), style = Typo.formDescription, color = c.smoke.copy(alpha = 0.45f))
                 BasicTextField(name, { name = it.take(60) }, singleLine = true, textStyle = Typo.formDescription.copy(color = c.ink),
                     cursorBrush = SolidColor(c.accent), modifier = Modifier.fillMaxWidth().testTag("tf_accountName"))
             }
@@ -94,17 +95,17 @@ fun AddAccountForm(
         }
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             SectionLabel(stringResource(R.string.saldo_attuale))
+            Text(stringResource(R.string.inserisci_il_saldo_che_hai_adesso_su_que), style = Typo.formOptionSub, color = c.smoke)
             Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(Fmt.currencySymbol(currency), style = Typo.formAmountSymbol, color = c.smoke)
                 Box(Modifier.weight(1f)) {
-                    if (balance.isEmpty()) Text("0", style = Typo.formAmount, color = c.fog)
+                    if (balance.isEmpty()) Text("0", style = Typo.formAmount, color = c.smoke.copy(alpha = 0.45f))
                     BasicTextField(balance, { balance = it.take(14) }, singleLine = true, textStyle = Typo.formAmount.copy(color = c.ink),
                         cursorBrush = SolidColor(c.accent), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         modifier = Modifier.fillMaxWidth().testTag("tf_accountBalance"))
                 }
             }
             FieldLine()
-            Text(stringResource(R.string.inserisci_il_saldo_che_hai_adesso_su_que), style = Typo.formOptionSub, color = c.smoke)
         }
         Column {
             SectionLabel(stringResource(R.string.opzioni))
@@ -149,7 +150,6 @@ fun AddAccountForm(
                     if (ok) onClose() else failed = true
                 }
             })
-            GhostButton(stringResource(R.string.annulla), onClose)
         }
     }
 }

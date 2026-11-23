@@ -515,6 +515,7 @@
     <string name="widget_descrizione" formatted="false">Saldo actual y saldo previsto a fin de mes, con importes ocultables.</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="one">Falta %d día</item>
+        <item quantity="many">Faltan %d días</item>
         <item quantity="other">Faltan %d días</item>
     </plurals>
 </resources>

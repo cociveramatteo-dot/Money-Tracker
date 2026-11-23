@@ -149,7 +149,7 @@ object DemoData {
 
         fun goal(key: String, target: Long, current: Long, emoji: String, months: Long?) = GoalEntity(
             id = newId().toString(), name = name("goal.$key"), emoji = emoji, targetCents = target, currentCents = current,
-            deadline = months?.let { now.atZone(zone).plusMonths(it).toInstant().toEpochMilli() }, isCompleted = current >= target, createdAt = nowMs,
+            deadline = months?.let { now.atZone(zone).plusMonths(it).toInstant().toEpochMilli() }, isCompleted = false, createdAt = nowMs,
         )
         val goals = listOf(
             goal("vacanza", 280_000, 196_000, "airplane", 2), goal("emergenza", 1_500_000, 664_000, "banknote", null),

@@ -69,6 +69,7 @@ import com.bucktrail.android.ui.components.ProgressBar
 import com.bucktrail.android.ui.components.SegmentedPill
 import com.bucktrail.android.ui.components.SfIcons
 import com.bucktrail.android.ui.components.SheetPage
+import com.bucktrail.android.ui.components.PlainIconButton
 import com.bucktrail.android.ui.components.ThinDivider
 import com.bucktrail.android.ui.components.budgetColor
 import com.bucktrail.android.ui.theme.Bt
@@ -121,13 +122,6 @@ fun PlanScreen(
         )
         if (segment == 0) BudgetContent(data, month, today, zone, currency, locale, onMonthOffset, monthOffset, actions)
         else GoalsContent(ledger.goals, currency, today, actions)
-    }
-}
-
-@Composable
-private fun PlainIconButton(icon: String, description: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    Box(modifier.size(44.dp).clickable(role = Role.Button, onClick = onClick).semantics { contentDescription = description }, contentAlignment = Alignment.Center) {
-        Icon(SfIcons.forName(icon), null, tint = Bt.colors.ink, modifier = Modifier.size(22.dp))
     }
 }
 

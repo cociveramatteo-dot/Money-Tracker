@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.customActions
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.bucktrail.android.R
@@ -40,7 +42,7 @@ fun TransactionRow(
     t: TransactionEntity, accounts: List<AccountEntity>, currency: String, hidden: Boolean,
     today: LocalDate, zone: ZoneId, res: android.content.res.Resources, recurring: Boolean = false, compact: Boolean = false,
     onEdit: (TransactionEntity) -> Unit, onDelete: (TransactionEntity) -> Unit, onToggleDone: ((TransactionEntity) -> Unit)? = null,
-    onRecurrence: ((TransactionEntity) -> Unit)? = null, deleteOpensEditor: Boolean = false,
+    onRecurrence: ((TransactionEntity) -> Unit)? = null, deleteOpensEditor: Boolean = false, homeMeta: Boolean = false,
 ) {
     val c = Bt.colors
     var menu by remember { mutableStateOf(false) }
@@ -48,8 +50,10 @@ fun TransactionRow(
     val planned = !t.isDone
     val account = accountName(accounts, t.accountId)
     val category = categoryLabel(t.category, res)
-    val meta = if (planned) "${if (t.isFixed) res.getString(R.string.fissa) else category} · ${Fmt.dayMonth(date, today, res)}"
-    else listOf(category, account).filter { it.isNotEmpty() }.joinToString(" · ") + " · " + Fmt.dayMonth(date, today, res)
+    // iOS: la Home mostra sempre «categoria · conto · data»; Movimenti «categoria · conto» (fatti) o «Fissa/categoria · data» (pianificati).
+    val meta = if (homeMeta) listOf(category, account, Fmt.dayMonth(date, today, res)).filter { it.isNotEmpty() }.joinToString(" · ")
+    else if (planned) "${if (t.isFixed) res.getString(R.string.fissa) else category} · ${Fmt.dayMonth(date, today, res)}"
+    else listOf(category, account).filter { it.isNotEmpty() }.joinToString(" · ")
     val canToggle = onToggleDone != null && SwipeRules.canToggleDone(t.isFixed, t.isDone)
     val needsConfirm = (t.isTransfer && t.transferGroupId.isNotEmpty()) || deleteOpensEditor
     SwipeableRow(
@@ -67,13 +71,21 @@ fun TransactionRow(
                 title = t.name, meta = meta, amount = money(t.amountValue(), currency, hidden), kind = t.kind(), categoryName = t.category,
                 categoryIcon = t.categoryIcon, planned = planned, recurring = recurring, compact = compact,
                 onClick = { onEdit(t) }, onLongClick = { menu = true },
-                modifier = Modifier.semantics { contentDescription = "${t.name}, " + (if (planned) res.getString(R.string.pianificato) else res.getString(R.string.fatto)) },
+                modifier = Modifier.semantics {
+                    contentDescription = "${t.name}, " + (if (planned) res.getString(R.string.pianificato) else res.getString(R.string.fatto))
+                    // Il menu a pressione lunga è come iOS (solo Ricorrenza/Elimina): le azioni dello swipe restano per TalkBack
+                    customActions = buildList {
+                        if (canToggle) add(CustomAccessibilityAction(res.getString(if (planned) R.string.conferma else R.string.pianificato)) { onToggleDone?.invoke(t); true })
+                        add(CustomAccessibilityAction(res.getString(R.string.elimina)) { onDelete(t); true })
+                    }
+                },
             )
             DropdownMenu(menu, { menu = false }) {
-                DropdownMenuItem(text = { Text(stringResource(R.string.modifica)) }, onClick = { menu = false; onEdit(t) })
-                if (canToggle) DropdownMenuItem(
-                    text = { Text(stringResource(if (planned) R.string.conferma else R.string.pianificato)) },
-                    onClick = { menu = false; onToggleDone?.invoke(t) },
+                // iOS: nella Home il menu ha «Modifica» e «Elimina»; in Movimenti solo «Ricorrenza»/«Elimina»
+                if (homeMeta) DropdownMenuItem(
+                    text = { Text(stringResource(R.string.modifica)) },
+                    leadingIcon = { Icon(SfIcons.forName("pencil"), null, modifier = Modifier.size(18.dp)) },
+                    onClick = { menu = false; onEdit(t) },
                 )
                 if (recurring && onRecurrence != null) DropdownMenuItem(
                     text = { Text(stringResource(R.string.ricorrenza)) },

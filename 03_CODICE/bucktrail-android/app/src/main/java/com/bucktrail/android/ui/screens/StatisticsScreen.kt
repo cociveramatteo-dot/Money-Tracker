@@ -110,7 +110,7 @@ fun StatisticsScreen(
                 Text(stringResource(R.string.pdf), style = Typo.secondary, color = c.ink)
             }
             Box(
-                Modifier.size(44.dp).clickable(role = Role.Button, onClick = actions.onSettings).semantics { contentDescription = "" }.testTag("btn_openSettings"),
+                Modifier.size(48.dp).clickable(role = Role.Button, onClick = actions.onSettings).semantics { contentDescription = "" }.testTag("btn_openSettings"),
                 contentAlignment = Alignment.Center,
             ) { Icon(SfIcons.forName("gearshape"), stringResource(R.string.impostazioni), tint = c.ink, modifier = Modifier.size(22.dp)) }
         }

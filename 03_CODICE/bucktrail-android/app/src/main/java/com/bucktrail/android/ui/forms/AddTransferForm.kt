@@ -32,7 +32,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.material3.Icon
+import com.bucktrail.android.ui.components.SfIcons
+import androidx.compose.foundation.layout.size
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.bucktrail.android.R
 import com.bucktrail.android.data.AccountEntity
 import com.bucktrail.android.data.TransactionEntity
@@ -79,7 +83,7 @@ fun AddTransferForm(
     val to = selectable.firstOrNull { it.id == toId }
     val valid = Amounts.isValidInput(amount) && from != null && to != null && from.id != to.id
 
-    FullScreenForm(onDismiss = { if (!saving) onClose() }) {
+    FullScreenForm(onDismiss = { if (!saving) onClose() }, cancelTag = "btn_cancelTransfer") {
         Text(stringResource(if (editing) R.string.modifica_trasferimento else R.string.trasferimento), style = Typo.sheetTitle, color = c.ink)
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -87,7 +91,7 @@ fun AddTransferForm(
             Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(Fmt.currencySymbol(currency), style = Typo.formAmountSymbol, color = c.smoke, modifier = Modifier.heightIn(min = 56.dp))
                 Box(Modifier.weight(1f)) {
-                    if (amountText.isEmpty()) Text("0", style = Typo.formAmount, color = c.fog)
+                    if (amountText.isEmpty()) Text("0", style = Typo.formAmount, color = c.smoke.copy(alpha = 0.45f))
                     BasicTextField(amountText, { amountText = it.take(14) }, singleLine = true, textStyle = Typo.formAmount.copy(color = c.ink),
                         cursorBrush = SolidColor(c.accent), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         modifier = Modifier.fillMaxWidth().testTag("tf_amount"))
@@ -99,8 +103,14 @@ fun AddTransferForm(
         AccountChoice(stringResource(R.string.da), "from", selectable.filter { it.id != toId }, fromId) { fromId = it }
         AccountChoice(stringResource(R.string.a), "to", selectable.filter { it.id != fromId }, toId) { toId = it }
 
-        if (from != null && to != null) Box(Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(c.fog.copy(alpha = 0.5f)).padding(12.dp)) {
-            Text(stringResource(R.string.da_a_riepilogo, from.name, to.name), style = Typo.formOption, color = c.ink)
+        if (from != null && to != null) Row(
+            Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(c.fog).padding(12.dp),
+            horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically,
+        ) {
+            val bold = Typo.formOption.copy(fontFamily = com.bucktrail.android.ui.theme.Fonts.formSemibold, fontSize = 13.sp)
+            Text(from.name, style = bold, color = c.ink)
+            Icon(SfIcons.forName("arrow.right"), null, tint = c.smoke, modifier = Modifier.padding(horizontal = 10.dp).size(14.dp))
+            Text(to.name, style = bold, color = c.ink)
         }
 
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -108,18 +118,17 @@ fun AddTransferForm(
             OptionRow(stringResource(R.string.gia_effettuato), stringResource(R.string.togli_la_spunta_se_il_trasferimento_e_pi)) {
                 FormSwitch(done, { done = it }, stringResource(R.string.gia_effettuato))
             }
-            OptionRow(stringResource(R.string.data), modifier = Modifier.clickable(role = Role.Button) {
+            OptionRow(stringResource(R.string.data), titleColor = c.smoke, modifier = Modifier.clickable(role = Role.Button) {
                 DatePickerDialog(context, { _, y, m, d ->
                     val picked = LocalDate.of(y, m + 1, d)
                     dateEpochDay = picked.toEpochDay(); done = picked <= today
                 }, date.year, date.monthValue - 1, date.dayOfMonth).show()
-            }) { Text(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)), style = Typo.formOption, color = c.ink) }
+            }) { DatePill(date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))) }
         }
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SectionLabel(stringResource(R.string.note_opzionale))
             Box {
-                if (notes.isEmpty()) Text(stringResource(R.string.aggiungi_una_nota), style = Typo.formNote, color = c.fog)
+                if (notes.isEmpty()) Text(stringResource(R.string.note_opzionale), style = Typo.formNote, color = c.smoke.copy(alpha = 0.45f))
                 BasicTextField(notes, { notes = it.take(500) }, maxLines = 3, textStyle = Typo.formNote.copy(color = c.ink),
                     cursorBrush = SolidColor(c.accent), modifier = Modifier.fillMaxWidth().testTag("tf_notes"))
             }
@@ -145,7 +154,6 @@ fun AddTransferForm(
                     }
                 },
             )
-            GhostButton(stringResource(R.string.annulla), onClose, Modifier.testTag("btn_cancelTransfer"))
         }
     }
 }

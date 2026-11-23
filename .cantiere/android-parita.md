@@ -485,7 +485,7 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-022 | Budget, Goal, Category, RecurringRule su Room | sì (B1 entità+DAO; UI nei blocchi successivi) |
 | F-023 | Migrazione Room 2→3 preservando i dati | sì (B1, `Migration2To3` + test JDBC + prova su emulatore) |
 | F-024 | Importi BigDecimal/centesimi + `parseAmount` identico | sì (B1, `Amounts`) |
-| F-025 | Formattazione valuta per locale+valuta scelta | no (Locale.ITALY, EUR) |
+| F-025 | Formattazione valuta per locale+valuta scelta | sì (B11, valuta scelta + locale di sistema; 4 cifre senza punto come iOS) |
 | F-026 | Saldo attuale/futuro per conto (§3.2) | sì (B1, `Balance`) |
 | F-027 | Saldo atteso fine mese con competenza S-41 (§3.3) | sì (B1/Home, competenza S-41) |
 | F-028 | BalanceTrail (serie actual/projected/marks) | sì (B1, `BalanceTrail` + test) |
@@ -496,10 +496,10 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-033 | RecurringMaterializer (watermark, 36 mesi, rollback) | sì (B5, `RecurringOps.materialize` su Room in transazione; avvio, cambio giorno, nuove regole; test) |
 | F-034 | RecurringSeriesEditor (solo questa/seguenti/tutte, salta, termina) | sì (B5, `RecurringOps.apply`: solo questa/seguenti/tutte, salta mese, termina, elimina, rollback; 17 test portati da iOS) |
 | F-035 | RecurringSeriesDetector (serie rilevate) | sì (B1 dominio) |
-| F-036 | Trasferimenti a due gambe con `transferGroupId` | no |
+| F-036 | Trasferimenti a due gambe con `transferGroupId` | sì (B3, `AddTransferForm`, due gambe con `transferGroupId`) |
 | F-037 | Budget: spesa per categoria/conto/mese, soglie 80/100 | sì (B6, spesa per mese/categoria/conto, soglie 80/100) |
 | F-038 | Obiettivi: progresso, aggiunta risparmio, completamento | sì (B6, progresso, aggiungi risparmio, completamento) |
-| F-039 | Rettifica saldo alla modifica conto | no |
+| F-039 | Rettifica saldo alla modifica conto | sì (B2, rettifica saldo alla modifica conto) |
 | F-040 | Cronologia modifiche (audit log) | sì (B8, `AuditTracker` confronta le istantanee dei dati reali → `audit-log.jsonl` append-only; foglio «Cronologia modifiche»; test `AuditLogTest`; `clearAll()` pronto per B9) |
 | F-041 | Preferenze locali (DataStore) per tutte le chiavi di §2 | parziale (B1 `AppPrefs` DataStore) |
 | F-042 | Orologio/ricalcolo al cambio giorno/fuso | parziale (tick 30 s) |
@@ -598,8 +598,8 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-138 | Widget Glance (saldo, aggiungi spesa) — *extra Android* | sì, extra Android (B10: widget Glance «Saldo» con saldo e atteso a fine mese, «+» apre Aggiungi spesa; importi oscurati se «oscura importi» o blocco app attivi; `WidgetContentTest`) |
 | F-139 | Quick Settings Tile — *extra Android* | sì, extra Android (B10: `QuickAddTileService`, riquadro Impostazioni rapide; richiesta di aggiunta da Impostazioni su Android 13+) |
 | F-140 | Assistant App Actions — *extra Android* | no, rinviato (extra Android: App Actions richiedono capabilities registrate con la pubblicazione su Google Play; non verificabile ora). Il «doppio tocco sul retro» iOS non ha equivalente: documentata la «Tocco rapido» dei Pixel nelle Impostazioni |
-| F-141 | Localizzazione 7 lingue + pipeline + locales_config | parziale (B0: script + 7 lingue + locales_config; stringhe extra Android da completare in B11) |
-| F-142 | Accessibilità (TalkBack, label, identificatori test) | parziale (1 contentDescription) |
+| F-141 | Localizzazione 7 lingue + pipeline + locales_config | sì (B11: 512 chiavi in 7 lingue, nessuna stringa fissa, lint pulito, verifica a schermo it/de/fr/ja) |
+| F-142 | Accessibilità (TalkBack, label, identificatori test) | sì (B11: area 48 dp, descrizioni, azioni TalkBack, intestazioni; font 2,0×, tablet, orizzontale) |
 | F-143 | Test: porting test dominio iOS + UI test principali | parziale (B9-B10: +57 test JVM su mapper/merge/engine/HTTP/auth/watcher/scorciatoie/widget) |
 | F-144 | Icona app Bucktrail | sì |
 | F-145 | Persistenza locale offline | sì |

@@ -62,6 +62,7 @@ import com.bucktrail.android.ui.components.EmptyState
 import com.bucktrail.android.ui.components.RoundIconButton
 import com.bucktrail.android.ui.components.SecondaryChip
 import com.bucktrail.android.ui.components.SfIcons
+import com.bucktrail.android.ui.components.PlainIconButton
 import com.bucktrail.android.ui.components.ThinDivider
 import com.bucktrail.android.ui.components.TypeChip
 import com.bucktrail.android.ui.theme.Bt
@@ -150,7 +151,7 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
     Column(Modifier.fillMaxSize()) {
         PageHeader(stringResource(R.string.movimenti)) {
             RoundIconButton(SfIcons.forName("line.3.horizontal.decrease"), stringResource(R.string.filtri), { showFilters = true }, Modifier.testTag("btn_advancedFilter"), badge = advancedCount)
-            RoundIconButton(SfIcons.forName("gearshape"), stringResource(R.string.impostazioni), actions.onSettings, Modifier.testTag("btn_openSettings"))
+            PlainIconButton("gearshape", stringResource(R.string.impostazioni), actions.onSettings, Modifier.testTag("btn_openSettings"))
         }
         // Ricerca
         Row(
@@ -168,14 +169,13 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                     modifier = Modifier.fillMaxWidth().testTag("tf_searchTransactions"),
                 )
             }
-            if (query.isNotEmpty()) Box(Modifier.size(28.dp).androidxClick { query = ""; onSearchActiveChange(false) }, contentAlignment = Alignment.Center) {
+            if (query.isNotEmpty()) Box(Modifier.size(48.dp).androidxClick { query = ""; onSearchActiveChange(false) }, contentAlignment = Alignment.Center) {
                 Icon(SfIcons.forName("xmark"), stringResource(R.string.annulla), tint = c.smoke, modifier = Modifier.size(14.dp))
             }
         }
         // Chip tipo
         Row(Modifier.padding(top = 12.dp).horizontalScroll(rememberScrollState()).padding(horizontal = Dim.cardMargin.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             TypeFilter.entries.forEach { f ->
-                if (f == TypeFilter.Transfer) TypeChip(stringResource(R.string.ricorrenti), false, { showRecurring = true }, Modifier.testTag("txFilterBlock_Ricorrenti"))
                 val label = when (f) {
                     TypeFilter.All -> stringResource(R.string.tutti); TypeFilter.Fixed -> stringResource(R.string.fisse)
                     TypeFilter.Transfer -> stringResource(R.string.trasf); TypeFilter.Expense -> stringResource(R.string.uscite)
@@ -183,11 +183,12 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                 }
                 TypeChip(label, type == f, { type = f }, Modifier.testTag("txFilterBlock_${f.tag}"))
             }
+            TypeChip(stringResource(R.string.ricorrenti), false, { showRecurring = true }, Modifier.testTag("txFilterBlock_Ricorrenti"))
         }
         // Chip secondari
         Row(Modifier.padding(vertical = 10.dp).horizontalScroll(rememberScrollState()).padding(horizontal = Dim.cardMargin.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Box {
-                SecondaryChip(Fmt.monthYear(month, locale), { monthMenu = true }, Modifier.testTag("btn_monthPicker"), trailing = SfIcons.forName("chevron.down"))
+                SecondaryChip(Fmt.monthYear(month, locale), { monthMenu = true }, Modifier.testTag("btn_monthPicker"), trailing = SfIcons.forName("arrowtriangle.down.fill"))
                 DropdownMenu(monthMenu, { monthMenu = false }) {
                     DropdownMenuItem(text = { Text(stringResource(R.string.questo_mese)) }, onClick = { monthOffset = 0; monthMenu = false })
                     DropdownMenuItem(text = { Text(stringResource(R.string.mese_precedente)) }, onClick = { monthOffset -= 1; monthMenu = false })
@@ -201,7 +202,7 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
             }
             Box {
                 SecondaryChip(category?.let { categoryLabel(it) } ?: stringResource(R.string.categoria), { categoryMenu = true }, Modifier.testTag("btn_categoryFilter"),
-                    active = category != null, trailing = SfIcons.forName("chevron.down"))
+                    active = category != null, trailing = SfIcons.forName("arrowtriangle.down.fill"))
                 DropdownMenu(categoryMenu, { categoryMenu = false }) {
                     DropdownMenuItem(text = { Text(stringResource(R.string.tutte_le_categorie)) }, onClick = { category = null; categoryMenu = false })
                     ledger.categories.forEach { cat ->
@@ -242,7 +243,7 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
             if (planned.isNotEmpty()) item("planned") {
                 Column {
                     Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text(stringResource(R.string.in_arrivo_pianificati), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.plannedText)
+                        Text(stringResource(R.string.in_arrivo_pianificati), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.plannedText, modifier = Modifier.weight(1f).padding(end = 8.dp))
                         Text(money(sum(planned), currency, hidden), style = Typo.rowAmount, color = c.plannedText)
                     }
                     GroupCard {
@@ -261,9 +262,9 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                 item(day.toString()) {
                     Column {
                         Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text(Fmt.dayMonth(day, today, res, locale), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke)
+                            Text(Fmt.dayMonth(day, today, res, locale), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke, modifier = Modifier.weight(1f).padding(end = 8.dp))
                             val total = sum(rows)
-                            Text((if (total.signum() > 0 && !hidden) "+" else "") + money(total, currency, hidden), style = Typo.rowAmount, color = c.ink)
+                            Text(money(total, currency, hidden), style = Typo.rowAmount, color = c.smoke)
                         }
                         GroupCard {
                             rows.forEachIndexed { i, t ->

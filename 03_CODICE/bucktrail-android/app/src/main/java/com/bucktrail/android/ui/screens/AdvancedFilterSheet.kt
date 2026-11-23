@@ -60,6 +60,7 @@ fun AdvancedFilterSheet(
     SheetPage(
         stringResource(R.string.filtri), onClose,
         trailing = { BarAction(stringResource(R.string.fine), onClose, Modifier.testTag("btn_doneFilters"), bold = true) },
+        bottomFraction = 0.52f,
     ) {
         Column(Modifier.padding(horizontal = 20.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(24.dp)) {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -100,7 +101,7 @@ private fun AmountField(label: String, placeholder: String, value: String, curre
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(Fmt.currencySymbol(currency), style = Typo.formDescription.copy(fontSize = androidx.compose.ui.unit.TextUnit(16f, androidx.compose.ui.unit.TextUnitType.Sp)), color = c.smoke)
             Box(Modifier.weight(1f)) {
-                if (value.isEmpty()) Text(placeholder, style = Typo.formOption.copy(fontSize = androidx.compose.ui.unit.TextUnit(20f, androidx.compose.ui.unit.TextUnitType.Sp), fontFamily = Fonts.formMedium), color = c.fog)
+                if (value.isEmpty()) Text(placeholder, style = Typo.formOption.copy(fontSize = androidx.compose.ui.unit.TextUnit(20f, androidx.compose.ui.unit.TextUnitType.Sp), fontFamily = Fonts.formMedium), color = c.smoke.copy(alpha = 0.45f))
                 BasicTextField(
                     value, { onChange(it.take(14)) }, singleLine = true,
                     textStyle = Typo.formOption.copy(fontSize = androidx.compose.ui.unit.TextUnit(20f, androidx.compose.ui.unit.TextUnitType.Sp), fontFamily = Fonts.formMedium, color = c.ink),

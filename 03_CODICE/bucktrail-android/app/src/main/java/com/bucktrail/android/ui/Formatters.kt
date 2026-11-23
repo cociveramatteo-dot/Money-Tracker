@@ -18,9 +18,13 @@ object Fmt {
 
     val currencies: List<String> = listOf("EUR", "USD", "GBP", "CHF", "JPY", "CAD", "AUD", "SEK", "NOK", "DKK", "PLN", "RON", "HRK", "CZK", "HUF")
 
+    /** CLDR «minimumGroupingDigits = 2» (it, es, pt, pl): 7662,00 € senza punto, 21.973,16 € con punto, come iOS. */
+    private val minTwoGrouping = setOf("it", "es", "pt", "pl")
+
     fun currency(amount: BigDecimal, code: String = "EUR", locale: Locale = Locale.getDefault()): String =
         NumberFormat.getCurrencyInstance(locale).apply {
             currency = runCatching { Currency.getInstance(code) }.getOrDefault(Currency.getInstance("EUR"))
+            if (locale.language in minTwoGrouping && amount.abs().setScale(0, java.math.RoundingMode.DOWN).toPlainString().length == 4) isGroupingUsed = false
         }.format(amount)
 
     fun currencySymbol(code: String = "EUR", locale: Locale = Locale.getDefault()): String =

@@ -69,6 +69,7 @@ import com.bucktrail.android.ui.components.dashedBorder
 import com.bucktrail.android.ui.forms.CategoryPickerSheet
 import com.bucktrail.android.ui.forms.FieldLine
 import com.bucktrail.android.ui.forms.FormSwitch
+import com.bucktrail.android.ui.forms.DatePill
 import com.bucktrail.android.ui.forms.OptionRow
 import com.bucktrail.android.ui.forms.TextChip
 import com.bucktrail.android.ui.theme.Bt
@@ -255,9 +256,11 @@ fun RecurringPage(
 
     androidx.activity.compose.BackHandler(onBack = onBack)
     Column(Modifier.fillMaxWidth().background(c.paper)) {
-        Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 8.dp).heightIn(min = 52.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.size(44.dp).clickable(role = Role.Button, onClick = onBack).testTag("btn_backRecurring"), contentAlignment = Alignment.Center) {
-                Icon(SfIcons.forName("chevron.left"), stringResource(R.string.movimenti), tint = c.ink, modifier = Modifier.size(20.dp))
+        Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 16.dp).heightIn(min = 52.dp), verticalAlignment = Alignment.CenterVertically) {
+            Box(Modifier.size(48.dp).clickable(role = Role.Button, onClick = onBack).testTag("btn_backRecurring"), contentAlignment = Alignment.Center) {
+                Box(Modifier.size(44.dp).clip(androidx.compose.foundation.shape.CircleShape).background(c.surface).border(1.dp, c.fog, androidx.compose.foundation.shape.CircleShape), contentAlignment = Alignment.Center) {
+                    Icon(SfIcons.forName("chevron.left"), stringResource(R.string.movimenti), tint = c.ink, modifier = Modifier.size(24.dp))
+                }
             }
             Text(stringResource(R.string.ricorrenti), style = Typo.rowName.copy(fontWeight = FontWeight.SemiBold), color = c.ink, modifier = Modifier.weight(1f), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
             Box(Modifier.size(44.dp))
@@ -275,15 +278,15 @@ fun RecurringPage(
             }
         }
         if (ledger.categories.isNotEmpty()) Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            com.bucktrail.android.ui.components.SecondaryChip(stringResource(R.string.tutte_le_categorie), { category = "" }, active = category.isEmpty())
+            com.bucktrail.android.ui.components.FilterChip(stringResource(R.string.tutte_le_categorie), category.isEmpty(), { category = "" }, secondary = true)
             ledger.categories.forEach { cat ->
-                com.bucktrail.android.ui.components.SecondaryChip(categoryLabel(cat.name), { category = if (category == cat.name) "" else cat.name }, active = category == cat.name)
+                com.bucktrail.android.ui.components.FilterChip(categoryLabel(cat.name), category == cat.name, { category = if (category == cat.name) "" else cat.name }, secondary = true)
             }
         }
         if (detected.isEmpty() && ledger.rules.isEmpty()) {
             EmptyState(SfIcons.forName("arrow.triangle.2.circlepath"), stringResource(R.string.nessuna_serie_ricorrente), stringResource(R.string.i_pagamenti_che_si_ripetono_per_almeno_2))
         } else Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(top = 12.dp, bottom = 120.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            SectionLabel(stringResource(R.string.serie_programmate))
+            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { SectionLabel(stringResource(R.string.serie_programmate)) }
             rules.forEach { r -> androidx.compose.runtime.key(r.id) { ProgrammedRuleCard(r, currency, today, zone, res, onSelectRule) } }
             series.forEach { s -> androidx.compose.runtime.key(s.id) { RecurringSeriesCard(s, currency, zone, res, Modifier.clickable { selectedSeries = s.id }.testTag("seriesCard_${s.name}")) } }
         }
@@ -391,7 +394,7 @@ fun RecurrenceEditorSheet(
             LabeledField(stringResource(R.string.importo), amount, { amount = it.take(14) }, Modifier.testTag("recurrence_amount"), KeyboardType.Decimal)
             LabeledField(stringResource(R.string.note), notes, { notes = it.take(500) }, Modifier.testTag("recurrence_notes"))
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                OptionRow(stringResource(R.string.data), modifier = Modifier.clickable(enabled = scopeIndex != 1, role = Role.Button) {
+                OptionRow(stringResource(R.string.data), titleColor = c.smoke, modifier = Modifier.clickable(enabled = scopeIndex != 1, role = Role.Button) {
                     val dialog = DatePickerDialog(ctx, { _, y, m, d -> date = LocalDate.of(y, m + 1, d) }, date.year, date.monthValue - 1, date.dayOfMonth)
                     if (scopeIndex == 0) {
                         val ym = YearMonth.from(day(occ.originalDate))

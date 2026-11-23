@@ -515,6 +515,7 @@
     <string name="widget_descrizione" formatted="false">Solde actuel et solde prévu en fin de mois, montants masquables.</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="one">Plus que %d jour</item>
+        <item quantity="many">Plus que %d jours</item>
         <item quantity="other">Plus que %d jours</item>
     </plurals>
 </resources>

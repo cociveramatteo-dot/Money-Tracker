@@ -1,5 +1,7 @@
 package com.bucktrail.android.ui
 
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -145,7 +147,7 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     LaunchedEffect(data.loaded, data.prefs.notificationsDecided) { if (data.loaded && !data.prefs.notificationsDecided) askNotifications() }
     LaunchedEffect(data.loaded, today, data.prefs.notificationsEnabled, data.prefs.monthlyReportEnabled, ledger.demo) { vm.refreshNotifications() }
 
-    Column(Modifier.fillMaxSize().background(c.paper).then(if (ledger.demo) Modifier.statusBarsPadding() else Modifier)) {
+    Column(Modifier.fillMaxSize().background(c.paper).wrapContentWidth(androidx.compose.ui.Alignment.CenterHorizontally).widthIn(max = 640.dp).fillMaxSize().then(if (ledger.demo) Modifier.statusBarsPadding() else Modifier)) {
     if (ledger.demo) DemoBanner()
     Box(Modifier.fillMaxWidth().weight(1f)) {
         Refreshable(enabled = session != null && !ledger.demo, refreshing = refreshing, onRefresh = { scope.launch { refreshing = true; vm.refresh(); refreshing = false } }) {

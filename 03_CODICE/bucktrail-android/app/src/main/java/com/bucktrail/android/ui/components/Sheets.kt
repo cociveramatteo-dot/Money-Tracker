@@ -1,12 +1,19 @@
 package com.bucktrail.android.ui.components
 
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.Row
+import androidx.compose.runtime.remember
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -60,9 +67,14 @@ fun DialogStatusBarEffect() {
 
 /** Azione testuale nella barra del foglio (Annulla / Fine / Chiudi). */
 @Composable
-fun BarAction(text: String, onClick: () -> Unit, modifier: Modifier = Modifier, bold: Boolean = false, enabled: Boolean = true) {
-    Box(modifier.heightIn(min = 44.dp).widthIn(min = 44.dp).clickable(enabled = enabled, role = Role.Button, onClick = onClick), contentAlignment = Alignment.Center) {
-        Text(text, style = Typo.rowName.copy(fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Medium), color = if (enabled) Bt.colors.ink else Bt.colors.smoke, maxLines = 1, softWrap = false)
+fun BarAction(text: String, onClick: () -> Unit, modifier: Modifier = Modifier, bold: Boolean = false, enabled: Boolean = true, pill: Boolean = true) {
+    val c = Bt.colors
+    val shape = androidx.compose.foundation.shape.RoundedCornerShape(50)
+    // Pulsanti della barra degli sheet iOS: capsula `surface` + bordo `fog`, testo 15 (smoke; ink se azione principale)
+    val look = if (pill) Modifier.clip(shape).background(c.surface).border(1.dp, c.fog, shape).padding(horizontal = 18.dp) else Modifier
+    Box(modifier.heightIn(min = 44.dp).widthIn(min = 44.dp).then(look).clickable(enabled = enabled, role = Role.Button, onClick = onClick), contentAlignment = Alignment.Center) {
+        Text(text, style = if (pill) Typo.ghostButton.copy(fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Normal) else Typo.rowName.copy(fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Medium),
+            color = if (!enabled) c.smoke.copy(alpha = 0.6f) else if (pill && !bold) c.smoke else c.ink, maxLines = 1, softWrap = false)
     }
 }
 
@@ -74,21 +86,38 @@ fun BarAction(text: String, onClick: () -> Unit, modifier: Modifier = Modifier, 
 fun SheetPage(
     title: String, onDismiss: () -> Unit, modifier: Modifier = Modifier,
     leading: (@Composable () -> Unit)? = null, trailing: (@Composable () -> Unit)? = null,
-    scroll: Boolean = true, content: @Composable ColumnScope.() -> Unit,
+    scroll: Boolean = true, largeTitle: Boolean = false, bottomFraction: Float? = null, content: @Composable ColumnScope.() -> Unit,
 ) {
     val c = Bt.colors
     Dialog(onDismissRequest = onDismiss, properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
         DialogStatusBarEffect()
-        Column(Modifier.fillMaxSize().background(c.paper).systemBarsPadding().imePadding()) {
-            Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+        // `bottomFraction`: sheet a mezza altezza come il detent `.medium` iOS (angoli 38, maniglia, velo scuro)
+        val frame = if (bottomFraction == null) Modifier.fillMaxSize().background(c.paper).systemBarsPadding().imePadding().wrapContentWidth(androidx.compose.ui.Alignment.CenterHorizontally).widthIn(max = 640.dp).fillMaxSize()
+        else Modifier.fillMaxWidth().fillMaxHeight(bottomFraction).clip(androidx.compose.foundation.shape.RoundedCornerShape(topStart = 38.dp, topEnd = 38.dp)).background(c.paper).navigationBarsPadding().imePadding()
+        Box(
+            if (bottomFraction == null) Modifier else Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.Black.copy(alpha = 0.32f))
+                .clickable(interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }, indication = null, onClick = onDismiss),
+            contentAlignment = Alignment.BottomCenter,
+        ) {
+        Column(frame.then(if (bottomFraction == null) Modifier else Modifier.clickable(interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }, indication = null) {})) {
+            if (bottomFraction != null) Box(Modifier.padding(top = 6.dp).align(Alignment.CenterHorizontally).size(width = 36.dp, height = 5.dp).clip(androidx.compose.foundation.shape.RoundedCornerShape(50)).background(c.fog))
+            if (largeTitle) {
+                Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(horizontal = 20.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Box(contentAlignment = Alignment.CenterStart) { leading?.invoke() }
+                    Box(Modifier.weight(1f))
+                    Box(contentAlignment = Alignment.CenterEnd) { trailing?.invoke() }
+                }
+                Text(title, style = Typo.screenTitle, color = c.ink, modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp).semantics { heading() })
+            } else Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(horizontal = 20.dp), verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.widthIn(min = 72.dp), contentAlignment = Alignment.CenterStart) { leading?.invoke() }
-                Text(title, style = Typo.rowName.copy(fontWeight = FontWeight.SemiBold), color = c.ink, textAlign = TextAlign.Center, maxLines = 2, modifier = Modifier.weight(1f).padding(horizontal = 4.dp))
+                Text(title, style = Typo.rowName.copy(fontWeight = FontWeight.SemiBold), color = c.ink, textAlign = TextAlign.Center, maxLines = 2, modifier = Modifier.weight(1f).padding(horizontal = 4.dp).semantics { heading() })
                 Box(Modifier.widthIn(min = 72.dp), contentAlignment = Alignment.CenterEnd) { trailing?.invoke() }
             }
             Column(
                 modifier.fillMaxWidth().weight(1f).then(if (scroll) Modifier.verticalScroll(rememberScrollState()) else Modifier),
                 content = content,
             )
+        }
         }
     }
 }
@@ -111,9 +140,9 @@ fun BtAlert(
             }
         }) else null,
         confirmButton = {
-            BarAction(confirm, onConfirm, enabled = confirmEnabled, modifier = Modifier.testTag("alertConfirm"), bold = true)
+            BarAction(confirm, onConfirm, enabled = confirmEnabled, modifier = Modifier.testTag("alertConfirm"), bold = true, pill = false)
         },
-        dismissButton = { BarAction(dismissLabel, onDismiss) },
+        dismissButton = { BarAction(dismissLabel, onDismiss, pill = false) },
     )
 }
 

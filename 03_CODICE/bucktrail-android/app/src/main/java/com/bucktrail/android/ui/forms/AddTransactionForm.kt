@@ -34,6 +34,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontWeight
 import com.bucktrail.android.R
 import com.bucktrail.android.data.AccountEntity
 import com.bucktrail.android.data.CategoryEntity
@@ -106,8 +108,7 @@ fun AddTransactionForm(
     val valid = name.isNotBlank() && Amounts.isValidInput(amount)
     val shownCategory = chosenCategory ?: suggested
 
-    FullScreenForm(onDismiss = { if (!saving) onClose() }) {
-        Text(stringResource(if (existing == null) R.string.nuovo_movimento else R.string.modifica), style = Typo.sheetTitle, color = c.ink)
+    FullScreenForm(onDismiss = { if (!saving) onClose() }, cancelTag = "btn_cancelAddTransaction") {
         UnderlineSegment(listOf(stringResource(R.string.uscita), stringResource(R.string.entrata)), if (income) 1 else 0, { income = it == 1 })
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -115,7 +116,7 @@ fun AddTransactionForm(
             Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text((if (income) "+" else "\u2212") + Fmt.currencySymbol(currency), style = Typo.formAmountSymbol, color = c.smoke, modifier = Modifier.heightIn(min = 56.dp))
                 Box(Modifier.weight(1f)) {
-                    if (amountText.isEmpty()) Text("0", style = Typo.formAmount, color = c.fog)
+                    if (amountText.isEmpty()) Text("0", style = Typo.formAmount, color = c.smoke.copy(alpha = 0.45f))
                     BasicTextField(
                         amountText, { amountText = it.take(14) }, singleLine = true, textStyle = Typo.formAmount.copy(color = c.ink),
                         cursorBrush = SolidColor(c.accent), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
@@ -129,7 +130,7 @@ fun AddTransactionForm(
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             SectionLabel(stringResource(R.string.descrizione))
             Box {
-                if (name.isEmpty()) Text(stringResource(R.string.es_affitto_netflix_pizza), style = Typo.formDescription, color = c.fog)
+                if (name.isEmpty()) Text(stringResource(R.string.es_affitto_netflix_pizza), style = Typo.formDescription, color = c.smoke.copy(alpha = 0.45f))
                 BasicTextField(name, { name = it.take(80) }, singleLine = true, textStyle = Typo.formDescription.copy(color = c.ink),
                     cursorBrush = SolidColor(c.accent), modifier = Modifier.fillMaxWidth().testTag("tf_name"))
             }
@@ -142,13 +143,11 @@ fun AddTransactionForm(
                 Modifier.fillMaxWidth().heightIn(min = 44.dp).testTag("btn_categoryPicker").clickable(role = Role.Button) { categoryPicker = true },
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                shownCategory?.let { cat ->
-                    Icon(SfIcons.forName(categories.firstOrNull { it.name == cat }?.icon ?: Categories.iconFor(cat)), null, tint = c.smoke, modifier = Modifier.size(14.dp))
-                }
-                Text(shownCategory?.let { categoryLabel(it) } ?: stringResource(R.string.scegli), style = Typo.formOption, color = if (shownCategory == null) c.smoke else c.ink)
+                Icon(SfIcons.forName(shownCategory?.let { cat -> categories.firstOrNull { it.name == cat }?.icon ?: Categories.iconFor(cat) } ?: "circle.dotted"), null, tint = c.smoke, modifier = Modifier.size(14.dp))
+                Text(shownCategory?.let { categoryLabel(it) } ?: stringResource(R.string.scegli), style = Typo.formOption.copy(fontSize = 17.sp, fontWeight = FontWeight.Medium), color = if (shownCategory == null) c.smoke else c.ink)
                 if (chosenCategory == null && suggested != null) Text(stringResource(if (suggestedFromHistory) R.string.ultima_usata else R.string.suggerita), style = Typo.formOptionSub, color = c.smoke)
                 Box(Modifier.weight(1f))
-                Icon(SfIcons.forName("chevron.down"), null, tint = c.smoke, modifier = Modifier.size(14.dp))
+                Icon(SfIcons.forName("chevron.right"), null, tint = c.smoke, modifier = Modifier.size(12.dp))
             }
             FieldLine()
         }
@@ -167,7 +166,8 @@ fun AddTransactionForm(
             OptionRow(stringResource(if (income) R.string.entrata_fissa else R.string.spesa_fissa), stringResource(R.string.appare_in_fissi_del_mese_nella_home), Modifier.testTag("toggle_isFixed")) {
                 FormSwitch(fixed, { fixed = it; done = if (it) false else date <= today }, stringResource(if (income) R.string.entrata_fissa else R.string.spesa_fissa))
             }
-            OptionRow(stringResource(R.string.gia_effettuato), stringResource(R.string.togli_la_spunta_se_e_pianificata_ma_non), Modifier.testTag("toggle_isDone")) {
+            // iOS: «Già effettuato» compare solo per le voci fisse
+            if (fixed) OptionRow(stringResource(R.string.gia_effettuato), stringResource(R.string.togli_la_spunta_se_e_pianificata_ma_non), Modifier.testTag("toggle_isDone")) {
                 FormSwitch(done, { done = it }, stringResource(R.string.gia_effettuato))
             }
             if (existing == null) Box {
@@ -175,7 +175,7 @@ fun AddTransactionForm(
                     Modifier.testTag("picker_recurrence").clickable(role = Role.Button) { frequencyMenu = true }) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         Text(stringResource(freqLabelRes(frequency)), style = Typo.formOption, color = c.ink)
-                        Icon(SfIcons.forName("chevron.down"), null, tint = c.smoke, modifier = Modifier.size(12.dp))
+                        Icon(SfIcons.forName("chevron.up.chevron.down"), null, tint = c.ink, modifier = Modifier.size(14.dp))
                     }
                 }
                 DropdownMenu(frequencyMenu, { frequencyMenu = false }) {
@@ -184,18 +184,18 @@ fun AddTransactionForm(
                     }
                 }
             }
-            OptionRow(stringResource(R.string.data), modifier = Modifier.clickable(role = Role.Button) {
+            OptionRow(stringResource(R.string.data), titleColor = c.smoke, modifier = Modifier.clickable(role = Role.Button) {
                 DatePickerDialog(context, { _, y, m, d ->
                     val picked = LocalDate.of(y, m + 1, d)
                     dateEpochDay = picked.toEpochDay(); if (!fixed) done = picked <= today
                 }, date.year, date.monthValue - 1, date.dayOfMonth).show()
-            }) { Text(date.format(java.time.format.DateTimeFormatter.ofLocalizedDate(java.time.format.FormatStyle.MEDIUM)), style = Typo.formOption, color = c.ink) }
+            }) { DatePill(date.format(java.time.format.DateTimeFormatter.ofLocalizedDate(java.time.format.FormatStyle.MEDIUM))) }
         }
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SectionLabel(stringResource(R.string.note_opzionale))
+            SectionLabel(stringResource(R.string.note))
             Box {
-                if (notes.isEmpty()) Text(stringResource(R.string.aggiungi_una_nota), style = Typo.formNote, color = c.fog)
+                if (notes.isEmpty()) Text(stringResource(R.string.aggiungi_una_nota), style = Typo.formNote, color = c.smoke.copy(alpha = 0.45f))
                 BasicTextField(notes, { notes = it.take(500) }, maxLines = 3, textStyle = Typo.formNote.copy(color = c.ink),
                     cursorBrush = SolidColor(c.accent), modifier = Modifier.fillMaxWidth().testTag("tf_notes"))
             }
@@ -225,7 +225,6 @@ fun AddTransactionForm(
                     }
                 },
             )
-            GhostButton(stringResource(R.string.annulla), onClose, Modifier.testTag("btn_cancelAddTransaction"))
         }
         if (categoryPicker) CategoryPickerSheet(
             categories, shownCategory, onSelect = { chosenCategory = it; categoryPicker = false },

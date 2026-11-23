@@ -46,6 +46,9 @@ enum class Tab(val id: String, val sfIcon: String) {
 fun FloatingTabBar(selected: Tab, labels: Map<Tab, String>, onSelect: (Tab) -> Unit, modifier: Modifier = Modifier) {
     val c = Bt.colors
     val shape = RoundedCornerShape(24.dp)
+    // La barra ha altezza fissa (66): il testo cresce al massimo 1.2x, come le tab di sistema in iOS
+    val density = androidx.compose.ui.platform.LocalDensity.current
+    androidx.compose.runtime.CompositionLocalProvider(androidx.compose.ui.platform.LocalDensity provides androidx.compose.ui.unit.Density(density.density, minOf(density.fontScale, 1.2f))) {
     Row(
         modifier.navigationBarsPadding().padding(horizontal = Dim.tabBarSideMargin.dp).padding(bottom = Dim.tabBarBottom.dp)
             .fillMaxWidth().height(Dim.tabBarHeight.dp)
@@ -66,6 +69,7 @@ fun FloatingTabBar(selected: Tab, labels: Map<Tab, String>, onSelect: (Tab) -> U
                 FitText(labels.getValue(tab), if (active) Typo.tabLabelActive else Typo.tabLabel, if (active) c.ink else c.smoke, Modifier.padding(horizontal = 2.dp), minScale = 0.5f)
             }
         }
+    }
     }
 }
 
