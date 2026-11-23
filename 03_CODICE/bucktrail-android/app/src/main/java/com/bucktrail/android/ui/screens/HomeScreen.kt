@@ -128,7 +128,7 @@ fun HomeScreen(
     val accountOrderDescription = stringResource(R.string.conti_in_home)
     val hiddenText = Fmt.HIDDEN_HOME
 
-    Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = Dim.listBottomPadding.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
+    Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = (Dim.listBottomPadding + Dim.tabBarReserved).dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         // Intestazione: data + wordmark, occhio
         Row(
             Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = Dim.screenMargin.dp).padding(top = 8.dp),

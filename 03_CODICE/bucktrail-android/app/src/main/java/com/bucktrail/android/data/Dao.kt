@@ -18,7 +18,10 @@ interface BucktrailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun upsert(account: AccountEntity)
     @Delete suspend fun delete(account: AccountEntity)
 
+    @Query("SELECT * FROM accounts") suspend fun accounts(): List<AccountEntity>
+
     // Movimenti
+    @Query("SELECT * FROM transactions") suspend fun transactions(): List<TransactionEntity>
     @Query("SELECT * FROM transactions ORDER BY date DESC, createdAt DESC, id")
     fun observeTransactions(): Flow<List<TransactionEntity>>
     @Query("SELECT * FROM transactions WHERE templateId = :templateId COLLATE NOCASE")
@@ -38,6 +41,7 @@ interface BucktrailDao {
 
     // Budget, obiettivi
     @Query("SELECT * FROM budgets") suspend fun budgets(): List<BudgetEntity>
+    @Query("SELECT * FROM goals") suspend fun goals(): List<GoalEntity>
     @Query("SELECT * FROM budgets ORDER BY createdAt, id") fun observeBudgets(): Flow<List<BudgetEntity>>
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun upsert(budget: BudgetEntity)
     @Delete suspend fun delete(budget: BudgetEntity)
@@ -94,6 +98,18 @@ interface BucktrailDao {
     suspend fun clearLocalData() {
         deleteAllTransactions(); deleteAllRules(); deleteAllBudgets(); deleteAllGoals(); deleteAllAccounts()
     }
+
+    /** Sostituisce i dati con quelli dimostrativi in un'unica transazione (le categorie restano). */
+    @Transaction
+    suspend fun replaceWithDemo(d: DemoData.Result) {
+        clearLocalData()
+        d.accounts.forEach { upsert(it) }
+        d.rules.forEach { upsert(it) }
+        upsertTransactions(d.transactions)
+        d.budgets.forEach { upsert(it) }
+        d.goals.forEach { upsert(it) }
+    }
+
     @Query("DELETE FROM transactions") suspend fun deleteAllTransactions()
     @Query("DELETE FROM recurring_rules") suspend fun deleteAllRules()
     @Query("DELETE FROM budgets") suspend fun deleteAllBudgets()

@@ -467,7 +467,7 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-012 | Ombre (tab bar, FAB, banner) | sì (tab bar, FAB) |
 | F-013 | Haptic (soft/medium) | parziale (B2/B3: swipe, FAB) |
 | F-014 | Icone: mappa SF → vettori Android (§1.5) | sì (B0, `SfIcons`, 100+ nomi) |
-| F-015 | Layout accessibile (font grandi), contenuti oltre tab bar (94 + 100) | no |
+| F-015 | Layout accessibile (font grandi), contenuti oltre tab bar (94 + 100) | parziale (B7: padding 94+100 su tutte le schermate a scorrimento, font 1,6× verificato su Statistiche/Impostazioni; resto da ricontrollare) |
 | F-016 | Splash + stato iniziale | no |
 
 ### Dati e dominio
@@ -493,7 +493,7 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-037 | Budget: spesa per categoria/conto/mese, soglie 80/100 | sì (B6, spesa per mese/categoria/conto, soglie 80/100) |
 | F-038 | Obiettivi: progresso, aggiunta risparmio, completamento | sì (B6, progresso, aggiungi risparmio, completamento) |
 | F-039 | Rettifica saldo alla modifica conto | no |
-| F-040 | Cronologia modifiche (audit log) | no |
+| F-040 | Cronologia modifiche (audit log) | sì (B8, `AuditTracker` confronta le istantanee dei dati reali → `audit-log.jsonl` append-only; foglio «Cronologia modifiche»; test `AuditLogTest`; `clearAll()` pronto per B9) |
 | F-041 | Preferenze locali (DataStore) per tutte le chiavi di §2 | parziale (B1 `AppPrefs` DataStore) |
 | F-042 | Orologio/ricalcolo al cambio giorno/fuso | parziale (tick 30 s) |
 
@@ -531,13 +531,13 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-078 | Aggiungi movimento: ricorrenza (nessuna/sett./mens./ann.) | sì (B5, picker Nessuna/Settimanale/Mensile/Annuale) |
 | F-079 | Modifica movimento (anche copia di serie → serie intera) | sì (B5, modifica copia = edit(all), «fatto» locale) |
 | F-080 | Elimina movimento | sì (B3, con «Annulla») |
-| F-081 | Notifiche post-salvataggio (budget, soglia saldo) | no |
+| F-081 | Notifiche post-salvataggio (budget, soglia saldo) | sì (B8, dopo Uscita fatta: avvisi budget del mese ≥80%; dopo movimento fatto con conto: soglia saldo; ritardi 2 s / 1 s) |
 | F-082 | Aggiungi/modifica trasferimento | sì (B3, `AddTransferForm`) |
-| F-083 | Statistiche: header, PDF, MonthBar | no |
-| F-084 | Statistiche: 3 tile Uscite/Entrate/Netto | no |
-| F-085 | Statistiche: Andamento barre 6M/12M + medie | no |
-| F-086 | Statistiche: Per categoria + confronto mese scorso | no |
-| F-087 | Statistiche: media 12 mesi + anno vs anno | no |
+| F-083 | Statistiche: header, PDF, MonthBar | sì (B7, titolo, pulsante PDF con spinner, MonthBar indipendente, ingranaggio) |
+| F-084 | Statistiche: 3 tile Uscite/Entrate/Netto | sì (B7, tile Uscite/Entrate/Netto hero, `FitText` .65) |
+| F-085 | Statistiche: Andamento barre 6M/12M + medie | sì (B7, barre affiancate in Canvas 6M/12M, legenda, etichette mese/iniziale, «Uscite medie», riepilogo a11y) |
+| F-086 | Statistiche: Per categoria + confronto mese scorso | sì (B7, Per categoria con %, importo, barra in tinta; variazione vs mese scorso) |
+| F-087 | Statistiche: media 12 mesi + anno vs anno | sì (B7, media su soli mesi >0 + Anno vs Anno con ↑/↓ e %) |
 | F-088 | Pianifica: segmented Budget/Obiettivi, header | sì (B6) |
 | F-089 | Budget: hero «Budget usato» + tacca 80% + giorni (plurale) | sì (B6) |
 | F-090 | Budget: card per budget + stato (NN%/Soglia 80%/Sforato) | sì (B6) |
@@ -557,15 +557,15 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-104 | Conti: elimina con conferma (cascade) | sì (B2, alert con N movimenti) |
 | F-105 | Conti: escludi/includi (menu) | sì (B2) |
 | F-106 | Gestione categorie (aggiungi/rinomina/elimina, 48 icone) | sì (B2, 48 icone, rinomina riscrive transazioni e budget) |
-| F-107 | Impostazioni: lingua, valuta (con conferma), notifiche, report mensile | parziale (B2: lingua, valuta con conferma; notifiche in B8) |
-| F-108 | Impostazioni: blocco app biometrico + disattivazione protetta | no |
+| F-107 | Impostazioni: lingua, valuta (con conferma), notifiche, report mensile | sì (B2 lingua e valuta con conferma; B8 «Avvisi automatici» + «Report mensile PDF» con permesso Android 13+; revert del toggle se il permesso è negato) |
+| F-108 | Impostazioni: blocco app biometrico + disattivazione protetta | sì (B8, `BiometricPrompt` biometria + PIN; spegnere richiede autenticazione; disabilitato senza sblocco configurato) |
 | F-109 | Impostazioni: toggle Home (fissi) | sì (B2) |
-| F-110 | Impostazioni: export CSV / JSON | no |
-| F-111 | Impostazioni: modalità demo + banner | no |
+| F-110 | Impostazioni: export CSV / JSON | sì (B7, «Genera CSV» → «Condividi CSV», JSON completo; formati §5.6, test `ExportsTest`) |
+| F-111 | Impostazioni: modalità demo + banner | sì (B8, DB Room separato `bucktrail-demo.db`, toggle senza riavvio, pillola «MODALITÀ DEMO»; nessun avviso né audit in demo) |
 | F-112 | Impostazioni: sezione Siri/Scorciatoie, Info (versione, n. transazioni) | parziale (B2: Info; scorciatoie in B10) |
 | F-113 | Impostazioni: Account (email, esci, elimina account con ELIMINA) | no |
 | F-114 | Pull-to-refresh con sync manuale | no |
-| F-115 | Dati demo (seeder v6) | no |
+| F-115 | Dati demo (seeder v6) | sì (B8, `DemoData` = `DemoDataSeeder` v6: 4 conti, 9 serie, 201 movimenti, 40 budget, 4 obiettivi; test `DemoDataTest`) |
 
 ### Auth, sync, piattaforma
 | ID | Funzione | Android |
@@ -574,7 +574,7 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-121 | Registrazione (conferma password, mail di conferma) | no |
 | F-122 | Reset password | no |
 | F-123 | Sessione persistita + schermata splash | no |
-| F-124 | Blocco app (overlay, background/foreground) | no |
+| F-124 | Blocco app (overlay, background/foreground) | sì (B8, velo a tutto schermo anche come finestra sopra i fogli; blocca in background, chiede PIN/biometria all'avvio e al ritorno; fade .2 s) |
 | F-125 | Push Supabase (upsert + orfani, dirty tx) | no |
 | F-126 | Pull Supabase (merge campo per campo, guardie) | no |
 | F-127 | syncOnLogin / foreground / background / debounce 1,5 s | no |
@@ -583,10 +583,10 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-130 | Isolamento multi-utente + clearLocalData | no |
 | F-131 | Elimina account (RPC) | no |
 | F-132 | Compatibilità dati cross-platform (UUID maiuscoli, UUIDv5, exceptions) | no |
-| F-133 | Notifiche locali (budget, fisse, obiettivi, soglia, report) | no |
-| F-134 | Permesso notifiche (Android 13+) + canale | no |
-| F-135 | Export PDF mensile | no |
-| F-136 | Share sheet / FileProvider | no |
+| F-133 | Notifiche locali (budget, fisse, obiettivi, soglia, report) | sì (B8, budget/soglia immediati; fisse 1° 09:00, report 1° 10:00, obiettivo −7 giorni con `AlarmManager.setAndAllowWhileIdle`; ripianificate all'avvio e dopo il riavvio; test `NotificationRulesTest`) |
+| F-134 | Permesso notifiche (Android 13+) + canale | sì (B8, `POST_NOTIFICATIONS` runtime, richiesto al primo avvio e attivando il toggle; canale «Avvisi Bucktrail») |
+| F-135 | Export PDF mensile | sì (B7, `PdfDocument` A4 con le misure iOS, valuta scelta; impaginazione pura testata in `PdfReportTest`) |
+| F-136 | Share sheet / FileProvider | sì (B7, `FileProvider` + `ACTION_SEND` da cache privata, svuotata alla chiusura delle Impostazioni) |
 | F-137 | Scorciatoie app (Aggiungi spesa/entrata/Saldo) ↔ App Intents | no |
 | F-138 | Widget Glance (saldo, aggiungi spesa) — *extra Android* | no |
 | F-139 | Quick Settings Tile — *extra Android* | no |

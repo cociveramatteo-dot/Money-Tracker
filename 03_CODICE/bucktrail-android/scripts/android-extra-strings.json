@@ -205,5 +205,311 @@
   "fr": "Icône du budget",
   "ja": "予算のアイコン",
   "zh-Hans": "预算图标"
+ },
+ "notif_channel_name": {
+  "it": "Avvisi Bucktrail",
+  "en": "Bucktrail alerts",
+  "de": "Bucktrail-Hinweise",
+  "es": "Avisos de Bucktrail",
+  "fr": "Alertes Bucktrail",
+  "ja": "Bucktrail の通知",
+  "zh-Hans": "Bucktrail 提醒"
+ },
+ "notif_budget_near_title": {
+  "it": "Budget quasi esaurito",
+  "en": "Budget almost used up",
+  "de": "Budget fast aufgebraucht",
+  "es": "Presupuesto casi agotado",
+  "fr": "Budget presque épuisé",
+  "ja": "予算がほぼ上限です",
+  "zh-Hans": "预算快用完了"
+ },
+ "notif_budget_near_body": {
+  "it": "\"%@\" — %d%% utilizzato",
+  "en": "\"%@\" — %d%% used",
+  "de": "\"%@\" — %d%% verbraucht",
+  "es": "\"%@\" — %d%% utilizado",
+  "fr": "\"%@\" — %d%% utilisé",
+  "ja": "「%@」— %d%% 使用済み",
+  "zh-Hans": "“%@”— 已使用 %d%%"
+ },
+ "notif_budget_over_title": {
+  "it": "Budget sforato",
+  "en": "Budget exceeded",
+  "de": "Budget überschritten",
+  "es": "Presupuesto superado",
+  "fr": "Budget dépassé",
+  "ja": "予算を超えました",
+  "zh-Hans": "预算已超支"
+ },
+ "notif_budget_over_body": {
+  "it": "Hai superato il limite per \"%@\"",
+  "en": "You went over the limit for \"%@\"",
+  "de": "Du hast das Limit für „%@“ überschritten",
+  "es": "Has superado el límite de «%@»",
+  "fr": "Vous avez dépassé la limite pour « %@ »",
+  "ja": "「%@」の上限を超えました",
+  "zh-Hans": "你已超出“%@”的限额"
+ },
+ "notif_fixed_title": {
+  "it": "Spese fisse del mese",
+  "en": "Fixed expenses this month",
+  "de": "Fixkosten des Monats",
+  "es": "Gastos fijos del mes",
+  "fr": "Dépenses fixes du mois",
+  "ja": "今月の固定費",
+  "zh-Hans": "本月固定支出"
+ },
+ "notif_fixed_one": {
+  "it": "Hai 1 spesa fissa da segnare come pagata",
+  "en": "You have 1 fixed expense to mark as paid",
+  "de": "Du hast 1 Fixkosten, die als bezahlt markiert werden sollten",
+  "es": "Tienes 1 gasto fijo por marcar como pagado",
+  "fr": "Vous avez 1 dépense fixe à marquer comme payée",
+  "ja": "支払い済みにする固定費が 1 件あります",
+  "zh-Hans": "你有 1 笔固定支出待标记为已付"
+ },
+ "notif_fixed_many": {
+  "it": "Hai %d spese fisse da segnare come pagate",
+  "en": "You have %d fixed expenses to mark as paid",
+  "de": "Du hast %d Fixkosten, die als bezahlt markiert werden sollten",
+  "es": "Tienes %d gastos fijos por marcar como pagados",
+  "fr": "Vous avez %d dépenses fixes à marquer comme payées",
+  "ja": "支払い済みにする固定費が %d 件あります",
+  "zh-Hans": "你有 %d 笔固定支出待标记为已付"
+ },
+ "notif_goal_title": {
+  "it": "Obiettivo in scadenza",
+  "en": "Goal due soon",
+  "de": "Ziel läuft bald ab",
+  "es": "Objetivo por vencer",
+  "fr": "Objectif bientôt échu",
+  "ja": "目標の期限が近づいています",
+  "zh-Hans": "目标即将到期"
+ },
+ "notif_goal_body": {
+  "it": "\"%@\" scade tra 7 giorni",
+  "en": "\"%@\" is due in 7 days",
+  "de": "„%@“ läuft in 7 Tagen ab",
+  "es": "«%@» vence en 7 días",
+  "fr": "« %@ » arrive à échéance dans 7 jours",
+  "ja": "「%@」の期限まであと 7 日です",
+  "zh-Hans": "“%@”将在 7 天后到期"
+ },
+ "notif_balance_title": {
+  "it": "Saldo basso",
+  "en": "Low balance",
+  "de": "Niedriger Kontostand",
+  "es": "Saldo bajo",
+  "fr": "Solde bas",
+  "ja": "残高が少なくなっています",
+  "zh-Hans": "余额偏低"
+ },
+ "notif_balance_body": {
+  "it": "Il conto \"%@\" è sceso sotto la soglia impostata.",
+  "en": "The account \"%@\" dropped below the threshold you set.",
+  "de": "Das Konto „%@“ liegt unter dem eingestellten Schwellenwert.",
+  "es": "La cuenta «%@» ha bajado del umbral establecido.",
+  "fr": "Le compte « %@ » est passé sous le seuil défini.",
+  "ja": "口座「%@」が設定したしきい値を下回りました。",
+  "zh-Hans": "账户“%@”已低于你设置的阈值。"
+ },
+ "notif_report_title": {
+  "it": "Il tuo report mensile è pronto",
+  "en": "Your monthly report is ready",
+  "de": "Dein Monatsbericht ist bereit",
+  "es": "Tu informe mensual está listo",
+  "fr": "Votre rapport mensuel est prêt",
+  "ja": "月次レポートの準備ができました",
+  "zh-Hans": "你的月度报告已就绪"
+ },
+ "notif_report_body": {
+  "it": "Apri Bucktrail per generare e condividere il PDF del mese scorso.",
+  "en": "Open Bucktrail to generate and share last month's PDF.",
+  "de": "Öffne Bucktrail, um das PDF des letzten Monats zu erstellen und zu teilen.",
+  "es": "Abre Bucktrail para generar y compartir el PDF del mes pasado.",
+  "fr": "Ouvrez Bucktrail pour générer et partager le PDF du mois dernier.",
+  "ja": "Bucktrail を開いて、先月の PDF を作成して共有しましょう。",
+  "zh-Hans": "打开 Bucktrail 生成并分享上个月的 PDF。"
+ },
+ "sicurezza": {
+  "it": "Sicurezza",
+  "en": "Security",
+  "de": "Sicherheit",
+  "es": "Seguridad",
+  "fr": "Sécurité",
+  "ja": "セキュリティ",
+  "zh-Hans": "安全"
+ },
+ "blocco_app": {
+  "it": "Blocco con biometria o PIN",
+  "en": "Lock with biometrics or PIN",
+  "de": "Sperre mit Biometrie oder PIN",
+  "es": "Bloqueo con biometría o PIN",
+  "fr": "Verrouillage biométrique ou code",
+  "ja": "生体認証または PIN でロック",
+  "zh-Hans": "使用生物识别或 PIN 锁定"
+ },
+ "blocco_app_disponibile": {
+  "it": "Richiede impronta, volto o il PIN del dispositivo all'apertura",
+  "en": "Asks for fingerprint, face or the device PIN when opening",
+  "de": "Verlangt beim Öffnen Fingerabdruck, Gesicht oder die Geräte-PIN",
+  "es": "Pide huella, rostro o el PIN del dispositivo al abrir",
+  "fr": "Demande l’empreinte, le visage ou le code de l’appareil à l’ouverture",
+  "ja": "起動時に指紋・顔認証または端末の PIN を要求します",
+  "zh-Hans": "打开时需要指纹、面部或设备 PIN"
+ },
+ "blocco_app_non_disponibile": {
+  "it": "Nessun metodo di sblocco configurato su questo dispositivo",
+  "en": "No unlock method is set up on this device",
+  "de": "Auf diesem Gerät ist keine Entsperrmethode eingerichtet",
+  "es": "No hay ningún método de desbloqueo configurado en este dispositivo",
+  "fr": "Aucune méthode de déverrouillage n’est configurée sur cet appareil",
+  "ja": "この端末にはロック解除方法が設定されていません",
+  "zh-Hans": "此设备未设置解锁方式"
+ },
+ "blocco_titolo": {
+  "it": "Bucktrail è bloccato",
+  "en": "Bucktrail is locked",
+  "de": "Bucktrail ist gesperrt",
+  "es": "Bucktrail está bloqueado",
+  "fr": "Bucktrail est verrouillé",
+  "ja": "Bucktrail はロックされています",
+  "zh-Hans": "Bucktrail 已锁定"
+ },
+ "blocco_sblocca": {
+  "it": "Sblocca",
+  "en": "Unlock",
+  "de": "Entsperren",
+  "es": "Desbloquear",
+  "fr": "Déverrouiller",
+  "ja": "ロック解除",
+  "zh-Hans": "解锁"
+ },
+ "blocco_motivo": {
+  "it": "Sblocca Bucktrail per vedere i tuoi dati finanziari",
+  "en": "Unlock Bucktrail to see your financial data",
+  "de": "Entsperre Bucktrail, um deine Finanzdaten zu sehen",
+  "es": "Desbloquea Bucktrail para ver tus datos financieros",
+  "fr": "Déverrouillez Bucktrail pour voir vos données financières",
+  "ja": "Bucktrail のロックを解除して財務データを表示します",
+  "zh-Hans": "解锁 Bucktrail 以查看你的财务数据"
+ },
+ "cronologia_modifiche": {
+  "it": "Cronologia modifiche",
+  "en": "Change history",
+  "de": "Änderungsverlauf",
+  "es": "Historial de cambios",
+  "fr": "Historique des modifications",
+  "ja": "変更履歴",
+  "zh-Hans": "更改记录"
+ },
+ "cronologia_vuota_titolo": {
+  "it": "Nessuna modifica registrata",
+  "en": "No changes recorded",
+  "de": "Keine Änderungen aufgezeichnet",
+  "es": "Ningún cambio registrado",
+  "fr": "Aucune modification enregistrée",
+  "ja": "記録された変更はありません",
+  "zh-Hans": "暂无更改记录"
+ },
+ "cronologia_vuota_sottotitolo": {
+  "it": "Ogni modifica ai tuoi dati finanziari apparirà qui.",
+  "en": "Every change to your financial data will appear here.",
+  "de": "Jede Änderung an deinen Finanzdaten erscheint hier.",
+  "es": "Cada cambio en tus datos financieros aparecerá aquí.",
+  "fr": "Chaque modification de vos données financières apparaîtra ici.",
+  "ja": "財務データへの変更はここに表示されます。",
+  "zh-Hans": "你对财务数据的每次更改都会显示在这里。"
+ },
+ "cronologia_creato": {
+  "it": "Creato",
+  "en": "Created",
+  "de": "Erstellt",
+  "es": "Creado",
+  "fr": "Créé",
+  "ja": "作成",
+  "zh-Hans": "已创建"
+ },
+ "cronologia_modificato": {
+  "it": "Modificato",
+  "en": "Modified",
+  "de": "Geändert",
+  "es": "Modificado",
+  "fr": "Modifié",
+  "ja": "変更",
+  "zh-Hans": "已修改"
+ },
+ "cronologia_eliminato": {
+  "it": "Eliminato",
+  "en": "Deleted",
+  "de": "Gelöscht",
+  "es": "Eliminado",
+  "fr": "Supprimé",
+  "ja": "削除",
+  "zh-Hans": "已删除"
+ },
+ "cronologia_movimento": {
+  "it": "Movimento",
+  "en": "Transaction",
+  "de": "Buchung",
+  "es": "Movimiento",
+  "fr": "Mouvement",
+  "ja": "取引",
+  "zh-Hans": "交易"
+ },
+ "esporta_json_descrizione": {
+  "it": "Oppure esporta l'intero tuo profilo (conti, budget e obiettivi inclusi) in un unico file JSON.",
+  "en": "Or export your whole profile (accounts, budgets and goals included) as a single JSON file.",
+  "de": "Oder exportiere dein gesamtes Profil (inklusive Konten, Budgets und Ziele) in einer einzigen JSON-Datei.",
+  "es": "O exporta todo tu perfil (con cuentas, presupuestos y objetivos) en un único archivo JSON.",
+  "fr": "Ou exportez tout votre profil (comptes, budgets et objectifs inclus) dans un seul fichier JSON.",
+  "ja": "または、プロフィール全体(口座・予算・目標を含む)を 1 つの JSON ファイルに書き出せます。",
+  "zh-Hans": "或将你的完整资料(含账户、预算和目标)导出为一个 JSON 文件。"
+ },
+ "esporta_json_genera": {
+  "it": "Esporta tutti i dati (JSON)",
+  "en": "Export all data (JSON)",
+  "de": "Alle Daten exportieren (JSON)",
+  "es": "Exportar todos los datos (JSON)",
+  "fr": "Exporter toutes les données (JSON)",
+  "ja": "すべてのデータを書き出す(JSON)",
+  "zh-Hans": "导出所有数据(JSON)"
+ },
+ "esporta_json_condividi": {
+  "it": "Condividi tutti i dati (JSON)",
+  "en": "Share all data (JSON)",
+  "de": "Alle Daten teilen (JSON)",
+  "es": "Compartir todos los datos (JSON)",
+  "fr": "Partager toutes les données (JSON)",
+  "ja": "すべてのデータを共有(JSON)",
+  "zh-Hans": "分享所有数据(JSON)"
+ },
+ "esporta_errore": {
+  "it": "Impossibile creare il file. Riprova.",
+  "en": "Couldn't create the file. Try again.",
+  "de": "Die Datei konnte nicht erstellt werden. Versuche es erneut.",
+  "es": "No se pudo crear el archivo. Inténtalo de nuevo.",
+  "fr": "Impossible de créer le fichier. Réessaie.",
+  "ja": "ファイルを作成できませんでした。もう一度お試しください。",
+  "zh-Hans": "无法创建文件。请重试。"
+ },
+ "statistiche_riepilogo_mese": {
+  "it": "%1$s: entrate %2$s, uscite %3$s",
+  "en": "%1$s: income %2$s, expenses %3$s",
+  "de": "%1$s: Einnahmen %2$s, Ausgaben %3$s",
+  "es": "%1$s: ingresos %2$s, gastos %3$s",
+  "fr": "%1$s : revenus %2$s, dépenses %3$s",
+  "ja": "%1$s:収入 %2$s、支出 %3$s",
+  "zh-Hans": "%1$s:收入 %2$s,支出 %3$s"
+ },
+ "notifiche_permesso_negato": {
+  "it": "Le notifiche sono disattivate nelle impostazioni di sistema.",
+  "en": "Notifications are turned off in system settings.",
+  "de": "Benachrichtigungen sind in den Systemeinstellungen deaktiviert.",
+  "es": "Las notificaciones están desactivadas en los ajustes del sistema.",
+  "fr": "Les notifications sont désactivées dans les réglages du système.",
+  "ja": "通知はシステム設定でオフになっています。",
+  "zh-Hans": "通知已在系统设置中关闭。"
  }
 }

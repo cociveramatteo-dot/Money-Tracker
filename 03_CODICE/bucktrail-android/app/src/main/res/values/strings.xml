@@ -395,9 +395,22 @@
     <string name="saldo_totale">💰 Saldo totale: %s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ per %2$s — salvato!</string>
     <string name="apri_impostazioni_lingua" formatted="false">Apri le impostazioni della lingua</string>
+    <string name="blocco_app" formatted="false">Blocco con biometria o PIN</string>
+    <string name="blocco_app_disponibile" formatted="false">Richiede impronta, volto o il PIN del dispositivo all\'apertura</string>
+    <string name="blocco_app_non_disponibile" formatted="false">Nessun metodo di sblocco configurato su questo dispositivo</string>
+    <string name="blocco_motivo" formatted="false">Sblocca Bucktrail per vedere i tuoi dati finanziari</string>
+    <string name="blocco_sblocca" formatted="false">Sblocca</string>
+    <string name="blocco_titolo" formatted="false">Bucktrail è bloccato</string>
     <string name="categoria_esiste_gia" formatted="false">Esiste già una categoria con questo nome.</string>
     <string name="conti_in_home_nascosto" formatted="false">Nascosto in Home</string>
     <string name="conti_in_home_selezionato" formatted="false">Mostrato in Home</string>
+    <string name="cronologia_creato" formatted="false">Creato</string>
+    <string name="cronologia_eliminato" formatted="false">Eliminato</string>
+    <string name="cronologia_modificato" formatted="false">Modificato</string>
+    <string name="cronologia_modifiche" formatted="false">Cronologia modifiche</string>
+    <string name="cronologia_movimento" formatted="false">Movimento</string>
+    <string name="cronologia_vuota_sottotitolo" formatted="false">Ogni modifica ai tuoi dati finanziari apparirà qui.</string>
+    <string name="cronologia_vuota_titolo" formatted="false">Nessuna modifica registrata</string>
     <string name="da_a_riepilogo">%1$s → %2$s</string>
     <string name="elimina_categoria_0" formatted="false">Sei sicuro di voler eliminare questa categoria?</string>
     <string name="elimina_categoria_1" formatted="false">1 transazione usa questa categoria. L\'icona tornerà a quella predefinita. Continuare?</string>
@@ -405,18 +418,39 @@
     <string name="elimina_categoria_titolo">Elimina «%1$s»</string>
     <string name="elimina_con_1_movimento" formatted="false">Elimina (1 movimento)</string>
     <string name="elimina_con_n_movimenti">Elimina (%1$d movimenti)</string>
+    <string name="esporta_errore" formatted="false">Impossibile creare il file. Riprova.</string>
+    <string name="esporta_json_condividi" formatted="false">Condividi tutti i dati (JSON)</string>
+    <string name="esporta_json_descrizione" formatted="false">Oppure esporta l\'intero tuo profilo (conti, budget e obiettivi inclusi) in un unico file JSON.</string>
+    <string name="esporta_json_genera" formatted="false">Esporta tutti i dati (JSON)</string>
     <string name="filtro_attivo_rimuovi" formatted="false">Rimuovi i filtri avanzati</string>
     <string name="hidden_amount" formatted="false">Importo nascosto</string>
     <string name="icona_budget" formatted="false">Icona budget</string>
     <string name="movimenti_eliminati" formatted="false">Movimenti eliminati</string>
     <string name="movimento_eliminato" formatted="false">Movimento eliminato</string>
     <string name="nome_categoria" formatted="false">Nome categoria</string>
+    <string name="notif_balance_body">Il conto \"%s\" è sceso sotto la soglia impostata.</string>
+    <string name="notif_balance_title" formatted="false">Saldo basso</string>
+    <string name="notif_budget_near_body">\"%1$s\" — %2$d%% utilizzato</string>
+    <string name="notif_budget_near_title" formatted="false">Budget quasi esaurito</string>
+    <string name="notif_budget_over_body">Hai superato il limite per \"%s\"</string>
+    <string name="notif_budget_over_title" formatted="false">Budget sforato</string>
+    <string name="notif_channel_name" formatted="false">Avvisi Bucktrail</string>
+    <string name="notif_fixed_many">Hai %d spese fisse da segnare come pagate</string>
+    <string name="notif_fixed_one" formatted="false">Hai 1 spesa fissa da segnare come pagata</string>
+    <string name="notif_fixed_title" formatted="false">Spese fisse del mese</string>
+    <string name="notif_goal_body">\"%s\" scade tra 7 giorni</string>
+    <string name="notif_goal_title" formatted="false">Obiettivo in scadenza</string>
+    <string name="notif_report_body" formatted="false">Apri Bucktrail per generare e condividere il PDF del mese scorso.</string>
+    <string name="notif_report_title" formatted="false">Il tuo report mensile è pronto</string>
+    <string name="notifiche_permesso_negato" formatted="false">Le notifiche sono disattivate nelle impostazioni di sistema.</string>
     <string name="ok" formatted="false">OK</string>
     <string name="periodo" formatted="false">Periodo</string>
     <string name="save_failed" formatted="false">Impossibile salvare. Riprova.</string>
     <string name="scegli_valuta_conferma" formatted="false">Cambiare valuta?</string>
+    <string name="sicurezza" formatted="false">Sicurezza</string>
     <string name="sposta_giu" formatted="false">Sposta giù</string>
     <string name="sposta_su" formatted="false">Sposta su</string>
+    <string name="statistiche_riepilogo_mese">%1$s: entrate %2$s, uscite %3$s</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="one">Manca %d giorno</item>
         <item quantity="other">Mancano %d giorni</item>

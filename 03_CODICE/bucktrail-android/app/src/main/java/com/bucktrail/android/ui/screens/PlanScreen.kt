@@ -109,7 +109,7 @@ fun PlanScreen(
     val locale = Locale.getDefault()
     val month = YearMonth.from(today).plusMonths(monthOffset.toLong())
 
-    Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = Dim.listBottomPadding.dp)) {
+    Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = (Dim.listBottomPadding + Dim.tabBarReserved).dp)) {
         Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 20.dp).padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             Text(stringResource(R.string.pianifica), style = Typo.screenTitle, color = c.ink, modifier = Modifier.weight(1f))
             if (segment == 0) PlainIconButton("clock.arrow.circlepath", stringResource(R.string.storico_budget), onHistory, Modifier.testTag("btn_budgetHistory"))

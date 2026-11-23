@@ -47,6 +47,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -346,4 +347,22 @@ fun FitText(text: String, style: TextStyle, color: Color, modifier: Modifier = M
         style = style.copy(fontSize = style.fontSize * scale.floatValue, letterSpacing = style.letterSpacing),
         onTextLayout = { if (it.didOverflowWidth && scale.floatValue > minScale) scale.floatValue = (scale.floatValue * 0.92f).coerceAtLeast(minScale) },
     )
+}
+
+/** Pillola «MODALITÀ DEMO» (§4.12): `eye.fill`, monospace 11 bold, fondo `plannedSoft`, testo `plannedText`, ombra leggera. */
+@Composable
+fun DemoBanner(modifier: Modifier = Modifier) {
+    val c = Bt.colors
+    Box(modifier.fillMaxWidth().padding(vertical = 4.dp), contentAlignment = Alignment.Center) {
+        Row(
+            Modifier.tintedShadow(6.dp, CircleShape, c.ink.copy(alpha = 0.12f)).clip(CircleShape).background(c.plannedSoft).padding(horizontal = 12.dp, vertical = 5.dp),
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            Icon(SfIcons.forName("eye"), null, tint = c.plannedText, modifier = Modifier.size(11.dp))
+            Text(
+                stringResource(com.bucktrail.android.R.string.modalita_demo), color = c.plannedText, maxLines = 1,
+                style = Typo.caption.copy(fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace, fontWeight = FontWeight.Bold, fontSize = 11.sp, letterSpacing = 0.5.sp),
+            )
+        }
+    }
 }

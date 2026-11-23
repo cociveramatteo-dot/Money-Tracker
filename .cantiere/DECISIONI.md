@@ -185,3 +185,14 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - **Obiettivo creato già completo:** `isCompleted = current ≥ target` anche alla creazione (iOS lo calcola solo alla modifica, anomalia #3 §4.99 non replicata).
 - **Menu a tendina e tab bar:** menu Material con colori/raggio Sentiero; etichette tab con riduzione fino al 50% a font grandi (iOS `minimumScaleFactor`).
 - **Notifiche budget/soglia dopo il salvataggio:** non ancora (blocco B8).
+
+## 2026-11-23 · Android parità: Statistiche, Export, Notifiche, blocco, audit, demo (B7–B8)
+- **Nome mostrato su Android:** «Bucktrail» ovunque (PDF, blocco app, avvisi, canale notifiche), non «MoneyTracker» come iOS (anomalia #17 §4.99). Resta da decidere con Matteo per iOS.
+- **PDF con la valuta scelta** nelle Impostazioni, non quella di sistema (anomalia #4 non replicata); categorie del PDF localizzate. Impaginazione pura (`PdfReport`) con le misure di `PDFReportGenerator`; stampa su `PdfDocument`.
+- **Condivisione:** i file CSV/JSON/PDF passano da `FileProvider` nella cache privata (Android non può condividere dati solo in memoria come `ShareLink`); la cartella si svuota alla chiusura delle Impostazioni.
+- **Avvisi programmati con `AlarmManager.setAndAllowWhileIdle`** (inesatto, nessun permesso di sveglie esatte): per promemoria al 1° del mese e −7 giorni va bene; ripianificati all'avvio, dopo il riavvio e dopo l'aggiornamento dell'app. In demo non si programma nulla. Budget (2 s) e soglia saldo (1 s) partono in-process come iOS.
+- **Permesso notifiche:** richiesto al primo avvio (preferenza assente) e attivando «Avvisi automatici». Se negato il toggle resta spento (iOS lo lascia acceso: anomalia non replicata) e compare una riga di spiegazione.
+- **Cronologia modifiche:** invece di agganciare ogni salvataggio, `AuditTracker` confronta le istantanee reattive dei dati reali (equivale alla notifica di salvataggio iOS): copre anche materializzazione ricorrenze e import futuri. File `audit-log.jsonl` append-only; mai attivo in demo; cambio database = nuova base di confronto.
+- **Modalità demo:** secondo database Room (`bucktrail-demo.db`), nessun riavvio: `Repository.switchTo` cambia il database attivo e tutta la UI segue. Semina `DemoData` (v6) solo se vuoto o con versione inferiore. L'obiettivo «Corso di fotografia» è completato (come la decisione B6).
+- **Blocco app:** `BiometricPrompt` con biometria debole o PIN/schema/password del dispositivo; il velo è anche una finestra sopra i fogli aperti (iOS lo copre per costruzione, qui i `Dialog` sono finestre separate). `MainActivity` ora estende `FragmentActivity` (richiesto da BiometricPrompt, fragment 1.8.9 per evitare il crash del codice richiesta permessi).
+- **Spazio in fondo alle schermate:** `Dim.listBottomPadding + Dim.tabBarReserved` (100 + 94) su tutte le schermate a scorrimento: prima l'ultima riga restava sotto la tab bar.

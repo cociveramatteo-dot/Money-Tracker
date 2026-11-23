@@ -1,16 +1,17 @@
 package com.bucktrail.android
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.bucktrail.android.security.AppLockGate
 import com.bucktrail.android.ui.BucktrailApp
 import com.bucktrail.android.ui.theme.BucktrailTheme
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent { BucktrailTheme { BucktrailApp() } }
+        setContent { BucktrailTheme { AppLockGate { BucktrailApp() } } }
     }
 }

@@ -22,6 +22,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -54,11 +56,14 @@ fun OptionRow(title: String, subtitle: String? = null, modifier: Modifier = Modi
 }
 
 @Composable
-fun FormSwitch(checked: Boolean, onChange: (Boolean) -> Unit, description: String) {
+fun FormSwitch(
+    checked: Boolean, onChange: (Boolean) -> Unit, description: String, modifier: Modifier = Modifier, enabled: Boolean = true,
+    tint: androidx.compose.ui.graphics.Color = Bt.colors.accent,
+) {
     val c = Bt.colors
     Switch(
-        checked, onChange,
-        colors = SwitchDefaults.colors(checkedThumbColor = c.onAccent, checkedTrackColor = c.accent, uncheckedThumbColor = c.surface, uncheckedTrackColor = c.fog, uncheckedBorderColor = c.fog),
+        checked, onChange, modifier = modifier.androidx_semantics(description), enabled = enabled,
+        colors = SwitchDefaults.colors(checkedThumbColor = c.onAccent, checkedTrackColor = tint, uncheckedThumbColor = c.surface, uncheckedTrackColor = c.fog, uncheckedBorderColor = c.fog),
     )
 }
 
@@ -77,3 +82,5 @@ fun TextChip(label: String, selected: Boolean, onClick: () -> Unit, modifier: Mo
         Box(Modifier.height(1.dp).fillMaxWidth().background(if (selected) c.ink else androidx.compose.ui.graphics.Color.Transparent))
     }
 }
+
+private fun Modifier.androidx_semantics(description: String): Modifier = this.semantics { contentDescription = description }

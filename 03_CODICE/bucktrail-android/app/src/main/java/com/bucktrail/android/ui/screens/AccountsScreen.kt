@@ -96,7 +96,7 @@ fun AccountsScreen(data: AppData, actions: AccountActions) {
     var toDelete by remember { mutableStateOf<AccountEntity?>(null) }
     val ctx = AccountRowContext(calc.current, calc.futureBy, currency, hidden, data.prefs.balanceThresholds, actions) { toDelete = it }
 
-    Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = Dim.listBottomPadding.dp)) {
+    Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = (Dim.listBottomPadding + Dim.tabBarReserved).dp)) {
         PageHeader(stringResource(R.string.conti)) {
             RoundIconButton(SfIcons.forName("gearshape"), stringResource(R.string.impostazioni), actions.onSettings, Modifier.testTag("btn_openSettings"))
         }

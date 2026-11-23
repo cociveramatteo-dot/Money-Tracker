@@ -2,6 +2,9 @@ package com.bucktrail.android.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -14,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -31,6 +35,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bucktrail.android.R
 import com.bucktrail.android.data.TransactionEntity
+import com.bucktrail.android.export.ShareFiles
+import com.bucktrail.android.notifications.rememberNotificationPermission
+import com.bucktrail.android.ui.components.DemoBanner
+import com.bucktrail.android.ui.screens.AuditLogSheet
+import com.bucktrail.android.ui.screens.StatisticsActions
+import com.bucktrail.android.ui.screens.StatisticsScreen
+import kotlinx.coroutines.launch
+import java.time.YearMonth
 import com.bucktrail.android.ui.components.FabButton
 import com.bucktrail.android.ui.components.FloatingTabBar
 import com.bucktrail.android.ui.components.Tab
@@ -87,6 +99,11 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     var planSegment by rememberSaveable { mutableStateOf(0) }
     var planMonth by rememberSaveable { mutableStateOf(0) }
     var historyOpen by rememberSaveable { mutableStateOf(false) }
+    var auditOpen by rememberSaveable { mutableStateOf(false) }
+    var statsMonth by rememberSaveable { mutableStateOf(0) }
+    var generatingPdf by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
     var recurrence by remember { mutableStateOf<com.bucktrail.android.data.RecurringOps.Selection?>(null) }
     var searching by remember { mutableStateOf(false) }
     val labels = mapOf(
@@ -111,7 +128,14 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     // copie mancanti delle serie: all'avvio, a ogni cambio giorno e quando cambiano le regole
     LaunchedEffect(data.loaded, today, ledger.rules.size) { vm.materializeDue() }
 
-    Box(Modifier.fillMaxSize().background(c.paper)) {
+    // Permesso notifiche al primo avvio (la preferenza non esiste ancora) e ripianificazione degli avvisi programmati.
+    val askNotifications = rememberNotificationPermission { vm.setNotifications(it) }
+    LaunchedEffect(data.loaded, data.prefs.notificationsDecided) { if (data.loaded && !data.prefs.notificationsDecided) askNotifications() }
+    LaunchedEffect(data.loaded, today, data.prefs.notificationsEnabled, data.prefs.monthlyReportEnabled, ledger.demo) { vm.refreshNotifications() }
+
+    Column(Modifier.fillMaxSize().background(c.paper).then(if (ledger.demo) Modifier.statusBarsPadding() else Modifier)) {
+    if (ledger.demo) DemoBanner()
+    Box(Modifier.fillMaxWidth().weight(1f)) {
         when (tab) {
             Tab.Home -> HomeScreen(data, today, zone, { vm.setHideBalance(!data.prefs.hideBalance) }, edit, requestDelete,
                 onSeeAllMovements = { tab = Tab.Movements }, onManageAccounts = { tab = Tab.Accounts },
@@ -119,7 +143,17 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
             Tab.Movements -> MovementsScreen(
                 data, today, zone, MovementActions(edit, requestDelete, toggleDone, vm::setTxFilters, { settingsOpen = true }, openRecurrence, { recurrence = it }), { searching = it },
             )
-            Tab.Statistics -> PlaceholderScreen(stringResource(R.string.statistiche), "chart.bar", stringResource(R.string.nessun_dato_disponibile), null)
+            Tab.Statistics -> StatisticsScreen(
+                data, today, zone, statsMonth, { statsMonth = it }, generatingPdf,
+                StatisticsActions(onSettings = { settingsOpen = true }, onPdf = {
+                    scope.launch {
+                        generatingPdf = true
+                        val file = vm.exportPdf(YearMonth.from(today).plusMonths(statsMonth.toLong()))
+                        generatingPdf = false
+                        if (file != null) ShareFiles.share(context, file, "application/pdf")
+                    }
+                }),
+            )
             Tab.Plan -> PlanScreen(
                 data, today, zone, planSegment, { planSegment = it }, planMonth, { planMonth = it },
                 PlanActions({ settingsOpen = true }, { editor = "budget:new" }, { editor = "goal:new" }, { editor = "goal:${it.id}" }, { vm.deleteBudget(it) }, { vm.deleteGoal(it) }),
@@ -157,6 +191,7 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
                     leadingIcon = { Icon(com.bucktrail.android.ui.components.SfIcons.forName("arrow.left.arrow.right"), null) })
             }
         }
+    }
     }
 
     val noopClose = { editor = null }
@@ -209,8 +244,13 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     }
     if (historyOpen) BudgetHistorySheet(data, today, zone) { historyOpen = false }
     if (settingsOpen) SettingsSheet(
-        data, SettingsActions(vm::setCurrency, vm::setShowFixedExpenses, vm::setShowFixedIncome) { settingsOpen = false },
+        data, SettingsActions(
+            vm::setCurrency, vm::setShowFixedExpenses, vm::setShowFixedIncome, vm::setNotifications, vm::setMonthlyReport, vm::setAppLock,
+            vm::setDemoMode, { runCatching { vm.exportCsv() }.getOrNull() }, { runCatching { vm.exportJson() }.getOrNull() },
+            onOpenAudit = { auditOpen = true }, onClose = { settingsOpen = false },
+        ),
     )
+    if (auditOpen) AuditLogSheet({ (context.applicationContext as com.bucktrail.android.BucktrailApplication).auditLog.readAll() }) { auditOpen = false }
     if (homeOrderOpen) {
         val balances = remember(ledger.accounts, ledger.transactions) {
             val txs = ledger.transactionData

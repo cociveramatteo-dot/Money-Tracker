@@ -223,7 +223,7 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
             }
         }
         LazyColumn(
-            Modifier.weight(1f), contentPadding = PaddingValues(start = Dim.cardMargin.dp, end = Dim.cardMargin.dp, bottom = Dim.listBottomPadding.dp),
+            Modifier.weight(1f), contentPadding = PaddingValues(start = Dim.cardMargin.dp, end = Dim.cardMargin.dp, bottom = (Dim.listBottomPadding + Dim.tabBarReserved).dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             if (virtual.isNotEmpty()) item("virtual") {

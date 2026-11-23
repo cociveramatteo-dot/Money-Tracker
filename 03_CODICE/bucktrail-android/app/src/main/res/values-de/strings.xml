@@ -394,9 +394,22 @@
     <string name="saldo_totale">💰 Gesamtstand: %s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ für %2$s — gespeichert!</string>
     <string name="apri_impostazioni_lingua" formatted="false">Spracheinstellungen öffnen</string>
+    <string name="blocco_app" formatted="false">Sperre mit Biometrie oder PIN</string>
+    <string name="blocco_app_disponibile" formatted="false">Verlangt beim Öffnen Fingerabdruck, Gesicht oder die Geräte-PIN</string>
+    <string name="blocco_app_non_disponibile" formatted="false">Auf diesem Gerät ist keine Entsperrmethode eingerichtet</string>
+    <string name="blocco_motivo" formatted="false">Entsperre Bucktrail, um deine Finanzdaten zu sehen</string>
+    <string name="blocco_sblocca" formatted="false">Entsperren</string>
+    <string name="blocco_titolo" formatted="false">Bucktrail ist gesperrt</string>
     <string name="categoria_esiste_gia" formatted="false">Es gibt bereits eine Kategorie mit diesem Namen.</string>
     <string name="conti_in_home_nascosto" formatted="false">In Home ausgeblendet</string>
     <string name="conti_in_home_selezionato" formatted="false">In Home angezeigt</string>
+    <string name="cronologia_creato" formatted="false">Erstellt</string>
+    <string name="cronologia_eliminato" formatted="false">Gelöscht</string>
+    <string name="cronologia_modificato" formatted="false">Geändert</string>
+    <string name="cronologia_modifiche" formatted="false">Änderungsverlauf</string>
+    <string name="cronologia_movimento" formatted="false">Buchung</string>
+    <string name="cronologia_vuota_sottotitolo" formatted="false">Jede Änderung an deinen Finanzdaten erscheint hier.</string>
+    <string name="cronologia_vuota_titolo" formatted="false">Keine Änderungen aufgezeichnet</string>
     <string name="da_a_riepilogo">%1$s → %2$s</string>
     <string name="elimina_categoria_0" formatted="false">Möchtest du diese Kategorie wirklich löschen?</string>
     <string name="elimina_categoria_1" formatted="false">1 Buchung verwendet diese Kategorie. Das Symbol wird auf das Standardsymbol zurückgesetzt. Fortfahren?</string>
@@ -404,18 +417,39 @@
     <string name="elimina_categoria_titolo">„%1$s“ löschen</string>
     <string name="elimina_con_1_movimento" formatted="false">Löschen (1 Buchung)</string>
     <string name="elimina_con_n_movimenti">Löschen (%1$d Buchungen)</string>
+    <string name="esporta_errore" formatted="false">Die Datei konnte nicht erstellt werden. Versuche es erneut.</string>
+    <string name="esporta_json_condividi" formatted="false">Alle Daten teilen (JSON)</string>
+    <string name="esporta_json_descrizione" formatted="false">Oder exportiere dein gesamtes Profil (inklusive Konten, Budgets und Ziele) in einer einzigen JSON-Datei.</string>
+    <string name="esporta_json_genera" formatted="false">Alle Daten exportieren (JSON)</string>
     <string name="filtro_attivo_rimuovi" formatted="false">Erweiterte Filter entfernen</string>
     <string name="hidden_amount" formatted="false">Betrag verborgen</string>
     <string name="icona_budget" formatted="false">Budget-Symbol</string>
     <string name="movimenti_eliminati" formatted="false">Buchungen gelöscht</string>
     <string name="movimento_eliminato" formatted="false">Buchung gelöscht</string>
     <string name="nome_categoria" formatted="false">Kategoriename</string>
+    <string name="notif_balance_body">Das Konto „%s“ liegt unter dem eingestellten Schwellenwert.</string>
+    <string name="notif_balance_title" formatted="false">Niedriger Kontostand</string>
+    <string name="notif_budget_near_body">\"%1$s\" — %2$d%% verbraucht</string>
+    <string name="notif_budget_near_title" formatted="false">Budget fast aufgebraucht</string>
+    <string name="notif_budget_over_body">Du hast das Limit für „%s“ überschritten</string>
+    <string name="notif_budget_over_title" formatted="false">Budget überschritten</string>
+    <string name="notif_channel_name" formatted="false">Bucktrail-Hinweise</string>
+    <string name="notif_fixed_many">Du hast %d Fixkosten, die als bezahlt markiert werden sollten</string>
+    <string name="notif_fixed_one" formatted="false">Du hast 1 Fixkosten, die als bezahlt markiert werden sollten</string>
+    <string name="notif_fixed_title" formatted="false">Fixkosten des Monats</string>
+    <string name="notif_goal_body">„%s“ läuft in 7 Tagen ab</string>
+    <string name="notif_goal_title" formatted="false">Ziel läuft bald ab</string>
+    <string name="notif_report_body" formatted="false">Öffne Bucktrail, um das PDF des letzten Monats zu erstellen und zu teilen.</string>
+    <string name="notif_report_title" formatted="false">Dein Monatsbericht ist bereit</string>
+    <string name="notifiche_permesso_negato" formatted="false">Benachrichtigungen sind in den Systemeinstellungen deaktiviert.</string>
     <string name="ok" formatted="false">OK</string>
     <string name="periodo" formatted="false">Zeitraum</string>
     <string name="save_failed" formatted="false">Speichern nicht möglich. Versuche es erneut.</string>
     <string name="scegli_valuta_conferma" formatted="false">Währung ändern?</string>
+    <string name="sicurezza" formatted="false">Sicherheit</string>
     <string name="sposta_giu" formatted="false">Nach unten</string>
     <string name="sposta_su" formatted="false">Nach oben</string>
+    <string name="statistiche_riepilogo_mese">%1$s: Einnahmen %2$s, Ausgaben %3$s</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="one">Noch %d Tag</item>
         <item quantity="other">Noch %d Tage</item>

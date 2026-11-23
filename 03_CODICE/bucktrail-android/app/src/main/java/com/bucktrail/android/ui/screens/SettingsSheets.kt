@@ -1,5 +1,7 @@
 package com.bucktrail.android.ui.screens
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -11,6 +13,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -18,9 +23,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableFloatStateOf
@@ -43,6 +51,17 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.fragment.app.FragmentActivity
+import com.bucktrail.android.data.AuditLog
+import com.bucktrail.android.domain.AuditDiff
+import com.bucktrail.android.export.ShareFiles
+import com.bucktrail.android.notifications.rememberNotificationPermission
+import com.bucktrail.android.security.Authenticator
+import com.bucktrail.android.ui.components.EmptyState
+import com.bucktrail.android.ui.theme.Dim
+import kotlinx.coroutines.launch
+import java.io.File
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.bucktrail.android.R
@@ -66,10 +85,12 @@ import java.util.Currency
 
 class SettingsActions(
     val onSetCurrency: (String) -> Unit, val onSetFixedExpenses: (Boolean) -> Unit, val onSetFixedIncome: (Boolean) -> Unit,
-    val onClose: () -> Unit,
+    val onSetNotifications: (Boolean) -> Unit, val onSetMonthlyReport: (Boolean) -> Unit, val onSetAppLock: (Boolean) -> Unit,
+    val onSetDemo: (Boolean) -> Unit, val onExportCsv: suspend () -> File?, val onExportJson: suspend () -> File?,
+    val onOpenAudit: () -> Unit, val onClose: () -> Unit,
 )
 
-/** Impostazioni (§4.9): Lingua, Valuta, Home, Info. Sicurezza, notifiche, export, demo e account arrivano nei blocchi B7–B9. */
+/** Impostazioni (§4.9): Lingua, Valuta, Notifiche, Sicurezza, Home, Esportazione, Demo, Info. L'account arriva col blocco B9. */
 @Composable
 fun SettingsSheet(data: AppData, actions: SettingsActions) {
     val c = Bt.colors
@@ -78,6 +99,19 @@ fun SettingsSheet(data: AppData, actions: SettingsActions) {
     var pendingCurrency by remember { mutableStateOf<String?>(null) }
     val version = remember { runCatching { context.packageManager.getPackageInfo(context.packageName, 0).versionName }.getOrNull().orEmpty() }
     val prefs = data.prefs
+    val scope = rememberCoroutineScope()
+    val activity = remember(context) { context.findFragmentActivity() }
+    val lockAvailable = remember { Authenticator.isAvailable(context) }
+    val appName = stringResource(R.string.app_name)
+    val lockReason = stringResource(R.string.blocco_motivo)
+    var permissionDenied by remember { mutableStateOf(false) }
+    val askPermission = rememberNotificationPermission { granted -> if (granted) actions.onSetNotifications(true) else permissionDenied = true }
+    var csv by remember { mutableStateOf<File?>(null) }
+    var json by remember { mutableStateOf<File?>(null) }
+    var csvBusy by remember { mutableStateOf(false) }
+    var jsonBusy by remember { mutableStateOf(false) }
+    var exportFailed by remember { mutableStateOf(false) }
+    DisposableEffect(Unit) { onDispose { ShareFiles.clear(context) } }
 
     SheetPage(
         stringResource(R.string.impostazioni), actions.onClose,
@@ -123,6 +157,56 @@ fun SettingsSheet(data: AppData, actions: SettingsActions) {
                 }
             }
             ThinDivider(color = c.fog)
+            // Notifiche
+            SettingsSection {
+                SectionLabel(stringResource(R.string.notifiche))
+                OptionRow(stringResource(R.string.avvisi_automatici), stringResource(R.string.budget_quasi_esaurito_fissi_in_scadenza)) {
+                    FormSwitch(
+                        prefs.notificationsEnabled,
+                        { on -> if (on) { permissionDenied = false; askPermission() } else actions.onSetNotifications(false) },
+                        stringResource(R.string.avvisi_automatici), Modifier.testTag("toggle_notifications"),
+                    )
+                }
+                if (permissionDenied) Text(stringResource(R.string.notifiche_permesso_negato), style = Typo.formOptionSub, color = c.danger)
+                ThinDivider(color = c.fog)
+                OptionRow(
+                    stringResource(R.string.report_mensile_pdf), stringResource(R.string.promemoria_il_1_di_ogni_mese_per_generar),
+                    Modifier.graphicsLayer { alpha = if (prefs.notificationsEnabled) 1f else 0.4f },
+                ) {
+                    FormSwitch(prefs.monthlyReportEnabled, actions.onSetMonthlyReport, stringResource(R.string.report_mensile_pdf), Modifier.testTag("toggle_monthlyReport"), enabled = prefs.notificationsEnabled)
+                }
+            }
+            ThinDivider(color = c.fog)
+            // Sicurezza
+            SettingsSection {
+                SectionLabel(stringResource(R.string.sicurezza))
+                OptionRow(
+                    stringResource(R.string.blocco_app),
+                    stringResource(if (lockAvailable) R.string.blocco_app_disponibile else R.string.blocco_app_non_disponibile),
+                ) {
+                    FormSwitch(
+                        prefs.appLockEnabled,
+                        { on ->
+                            if (on) actions.onSetAppLock(true)
+                            else scope.launch {
+                                // Spegnere una protezione richiede una nuova autenticazione (se disponibile).
+                                val ok = !lockAvailable || activity == null || Authenticator.authenticate(activity, appName, lockReason)
+                                if (ok) actions.onSetAppLock(false)
+                            }
+                        },
+                        stringResource(R.string.blocco_app), Modifier.testTag("toggle_appLock"), enabled = lockAvailable,
+                    )
+                }
+                ThinDivider(color = c.fog)
+                Row(
+                    Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Button, onClick = actions.onOpenAudit).testTag("btn_auditLog"),
+                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(stringResource(R.string.cronologia_modifiche), style = Typo.formOption, color = c.ink)
+                    Icon(SfIcons.forName("chevron.right"), null, tint = c.smoke, modifier = Modifier.size(14.dp))
+                }
+            }
+            ThinDivider(color = c.fog)
             // Home
             SettingsSection {
                 SectionLabel(stringResource(R.string.home))
@@ -131,6 +215,41 @@ fun SettingsSheet(data: AppData, actions: SettingsActions) {
                 }
                 OptionRow(stringResource(R.string.entrate_fisse_mensili), stringResource(R.string.mostra_il_totale_delle_entrate_fisse_del)) {
                     FormSwitch(prefs.showFixedIncomeTotal, actions.onSetFixedIncome, stringResource(R.string.entrate_fisse_mensili))
+                }
+            }
+            ThinDivider(color = c.fog)
+            // Esportazione dati
+            SettingsSection {
+                SectionLabel(stringResource(R.string.esportazione_dati))
+                Text(stringResource(R.string.esporta_tutte_le_transazioni_in_formato), style = Typo.formOption.copy(fontSize = 13.sp), color = c.smoke)
+                ExportButton(
+                    csv, csvBusy, stringResource(R.string.genera_csv), stringResource(R.string.condividi_csv), primary = true, "btn_generateCsv",
+                    onGenerate = { scope.launch { csvBusy = true; csv = actions.onExportCsv(); csvBusy = false; if (csv == null) exportFailed = true } },
+                    onShare = { csv?.let { ShareFiles.share(context, it, "text/csv") } },
+                )
+                ThinDivider(color = c.fog)
+                Text(stringResource(R.string.esporta_json_descrizione), style = Typo.formOption.copy(fontSize = 13.sp), color = c.smoke)
+                ExportButton(
+                    json, jsonBusy, stringResource(R.string.esporta_json_genera), stringResource(R.string.esporta_json_condividi), primary = false, "btn_generateJson",
+                    onGenerate = { scope.launch { jsonBusy = true; json = actions.onExportJson(); jsonBusy = false; if (json == null) exportFailed = true } },
+                    onShare = { json?.let { ShareFiles.share(context, it, "application/json") } },
+                )
+                if (exportFailed) Text(stringResource(R.string.esporta_errore), style = Typo.formOptionSub, color = c.danger)
+            }
+            ThinDivider(color = c.fog)
+            // Modalità demo
+            SettingsSection {
+                SectionLabel(stringResource(R.string.modalita_demo_68b79c))
+                Text(stringResource(R.string.mostra_l_app_con_dati_di_esempio_senza_e), style = Typo.formOption.copy(fontSize = 13.sp), color = c.smoke)
+                OptionRow(stringResource(R.string.attiva_modalita_demo), stringResource(R.string.i_tuoi_dati_reali_restano_intatti_e_priv)) {
+                    FormSwitch(prefs.demoModeEnabled, actions.onSetDemo, stringResource(R.string.attiva_modalita_demo), Modifier.testTag("toggle_demoMode"), tint = c.planned)
+                }
+                if (prefs.demoModeEnabled) Row(
+                    Modifier.fillMaxWidth().clip(RoundedCornerShape(10.dp)).background(c.fog.copy(alpha = 0.5f)).padding(12.dp),
+                    verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Icon(SfIcons.forName("info.circle.fill"), null, tint = c.planned, modifier = Modifier.size(14.dp).padding(top = 2.dp))
+                    Text(stringResource(R.string.l_app_si_riavviera_con_dati_demo_per_tor), style = Typo.caption, color = c.smoke)
                 }
             }
             ThinDivider(color = c.fog)
@@ -159,6 +278,77 @@ fun SettingsSheet(data: AppData, actions: SettingsActions) {
             }
         }
     }
+}
+
+/** Genera → condividi: a riposo il pulsante crea il file, poi diventa «Condividi…» (come ShareLink iOS). */
+@Composable
+private fun ExportButton(file: File?, busy: Boolean, generate: String, share: String, primary: Boolean, tag: String, onGenerate: () -> Unit, onShare: () -> Unit) {
+    val c = Bt.colors
+    val bg = if (primary) c.ink else c.fog
+    val fg = if (primary) c.surface else c.ink
+    Row(
+        Modifier.fillMaxWidth().height(52.dp).clip(RoundedCornerShape(14.dp)).background(if (busy) bg.copy(alpha = 0.6f) else bg)
+            .clickable(enabled = !busy, role = Role.Button) { if (file != null) onShare() else onGenerate() }.testTag(tag),
+        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center,
+    ) {
+        when {
+            busy -> {
+                CircularProgressIndicator(Modifier.size(18.dp), color = fg, strokeWidth = 2.dp)
+                Spacer(Modifier.width(8.dp))
+                Text(stringResource(R.string.generazione_in_corso), style = Typo.primaryButton.copy(fontSize = if (primary) 17.sp else 15.sp), color = fg)
+            }
+            file != null -> {
+                Icon(SfIcons.forName("square.and.arrow.up"), null, tint = fg, modifier = Modifier.size(16.dp))
+                Spacer(Modifier.width(8.dp))
+                Text(share, style = Typo.formOption.copy(fontFamily = Fonts.formMedium), color = fg)
+            }
+            else -> Text(generate, style = if (primary) Typo.primaryButton else Typo.formOption.copy(fontFamily = Fonts.formMedium), color = fg)
+        }
+    }
+}
+
+/** Foglio «Cronologia modifiche» (§4.11): voci più recenti prima, o stato vuoto. */
+@Composable
+fun AuditLogSheet(load: () -> List<AuditLog.Entry>, onClose: () -> Unit) {
+    val c = Bt.colors
+    val entries = remember { load() }
+    val locale = java.util.Locale.getDefault()
+    val zone = java.time.ZoneId.systemDefault()
+    val format = remember { java.time.format.DateTimeFormatter.ofLocalizedDateTime(java.time.format.FormatStyle.MEDIUM, java.time.format.FormatStyle.SHORT).withLocale(locale) }
+    SheetPage(
+        stringResource(R.string.cronologia_modifiche), onClose,
+        trailing = { BarAction(stringResource(R.string.chiudi), onClose, Modifier.testTag("btn_closeAudit")) },
+    ) {
+        if (entries.isEmpty()) EmptyState(SfIcons.forName("clock.arrow.circlepath"), stringResource(R.string.cronologia_vuota_titolo), stringResource(R.string.cronologia_vuota_sottotitolo), modifier = Modifier.padding(top = 60.dp))
+        entries.forEach { e ->
+            Column {
+                Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Dim.m.dp)) {
+                    Icon(SfIcons.forName(when (e.action) { "created" -> "plus.circle"; "deleted" -> "trash"; else -> "pencil.circle" }), null, tint = c.smoke, modifier = Modifier.size(20.dp))
+                    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                        Text(if (e.summary == AuditDiff.DELETED_SUMMARY) entityLabel(e.entityType) else e.summary, style = Typo.formOption.copy(fontSize = 14.sp), color = c.ink)
+                        val action = stringResource(when (e.action) { "created" -> R.string.cronologia_creato; "deleted" -> R.string.cronologia_eliminato; else -> R.string.cronologia_modificato })
+                        Text("$action · ${format.format(java.time.Instant.ofEpochMilli(e.timestamp).atZone(zone))}", style = Typo.formOptionSub, color = c.smoke)
+                    }
+                }
+                ThinDivider(color = c.fog)
+            }
+        }
+    }
+}
+
+@Composable
+private fun entityLabel(type: String): String = when (type) {
+    AuditDiff.TRANSACTION -> stringResource(R.string.cronologia_movimento)
+    AuditDiff.ACCOUNT -> stringResource(R.string.conto)
+    AuditDiff.BUDGET -> stringResource(R.string.budget)
+    AuditDiff.GOAL -> stringResource(R.string.obiettivo)
+    else -> type
+}
+
+private fun Context.findFragmentActivity(): FragmentActivity? {
+    var ctx = this
+    while (ctx is ContextWrapper) { if (ctx is FragmentActivity) return ctx; ctx = ctx.baseContext }
+    return null
 }
 
 private fun currencyName(code: String): String = runCatching { Currency.getInstance(code).displayName }.getOrDefault(code)

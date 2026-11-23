@@ -12,7 +12,18 @@ import com.bucktrail.android.data.RecurringOps
 import com.bucktrail.android.data.RecurringRuleEntity
 import com.bucktrail.android.data.toSnapshot
 import com.bucktrail.android.domain.RecurrenceCalculator
+import com.bucktrail.android.R
+import com.bucktrail.android.data.JsonExport
+import com.bucktrail.android.data.toData
 import com.bucktrail.android.domain.Amounts
+import com.bucktrail.android.domain.Balance
+import com.bucktrail.android.domain.CsvExport
+import com.bucktrail.android.domain.NotificationRules
+import com.bucktrail.android.domain.PdfReport
+import com.bucktrail.android.domain.Statistics
+import com.bucktrail.android.export.PdfRenderer
+import com.bucktrail.android.export.ShareFiles
+import java.time.YearMonth
 import java.time.Instant
 import java.time.ZoneId
 import java.util.UUID
@@ -49,8 +60,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     @Volatile private var classifier: KeywordCategoryClassifier? = null
 
+    private val scheduler get() = application.notifications
+
     init {
-        viewModelScope.launch { repository.seed() }
+        application.startAudit()
+        viewModelScope.launch { application.prepareData() }
     }
 
     /** Categoria suggerita per il nome (classificatore on-device); `Altro` se nulla combacia. */
@@ -109,7 +123,23 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 dao.saveSeriesEdit(stored.first { it.id == transaction.id }, c)
             }
         }
-    }.isSuccess
+    }.isSuccess.also { if (it) afterTransactionSaved(transaction) }
+
+    /** Dopo il salvataggio (§5.5): Uscita fatta → avvisi budget del mese; movimento fatto con conto → soglia saldo. */
+    private fun afterTransactionSaved(t: TransactionEntity) {
+        if (!data.value.prefs.notificationsEnabled || !t.isDone) return
+        viewModelScope.launch {
+            runCatching {
+                val ledger = repository.snapshot()
+                if (t.type == Amounts.TYPE_EXPENSE) scheduler.checkBudgets(ledger, YearMonth.from(Instant.ofEpochMilli(t.date).atZone(zone)), zone)
+                val account = ledger.accounts.firstOrNull { it.id == t.accountId } ?: return@runCatching
+                val threshold = data.value.prefs.balanceThresholds[account.id]?.let { Amounts.parse(it) }
+                if (threshold == null || threshold.signum() <= 0) return@runCatching
+                val balance = Balance.current(account.toData(), ledger.transactionData)
+                scheduler.checkBalance(account.id, account.name, NotificationRules.balanceBelow(balance, threshold))
+            }
+        }
+    }
 
     sealed interface RecurrenceResult {
         data object Ok : RecurrenceResult
@@ -214,8 +244,12 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     // Budget e obiettivi
     suspend fun saveBudget(b: com.bucktrail.android.data.BudgetEntity): Boolean = runCatching { repository.dao.upsert(b) }.isSuccess
     fun deleteBudget(b: com.bucktrail.android.data.BudgetEntity) = viewModelScope.launch { repository.dao.delete(b) }
-    suspend fun saveGoal(g: com.bucktrail.android.data.GoalEntity): Boolean = runCatching { repository.dao.upsert(g) }.isSuccess
-    fun deleteGoal(g: com.bucktrail.android.data.GoalEntity) = viewModelScope.launch { repository.dao.delete(g) }
+    suspend fun saveGoal(g: com.bucktrail.android.data.GoalEntity): Boolean = runCatching { repository.dao.upsert(g) }.isSuccess.also { ok ->
+        if (ok && data.value.prefs.notificationsEnabled && !repository.isDemo) {
+            if (g.deadline != null) scheduler.scheduleGoal(g.id, g.name, g.deadline) else scheduler.cancelGoal(g.id)
+        }
+    }
+    fun deleteGoal(g: com.bucktrail.android.data.GoalEntity) = viewModelScope.launch { repository.dao.delete(g); scheduler.cancelGoal(g.id) }
 
     // Preferenze
     fun setHomeAccounts(ids: List<String>) = viewModelScope.launch { prefs.setHomeAccounts(ids) }
@@ -223,6 +257,73 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     fun setShowFixedExpenses(v: Boolean) = viewModelScope.launch { prefs.setShowFixedExpenses(v) }
     fun setShowFixedIncome(v: Boolean) = viewModelScope.launch { prefs.setShowFixedIncome(v) }
     fun setTxFilters(min: String, max: String, useDates: Boolean) = viewModelScope.launch { prefs.setTxFilters(min, max, useDates) }
+
+    // Notifiche, sicurezza, demo (§4.9)
+    /** Avvisi automatici: spegnerli cancella tutto il programmato e spegne anche il report mensile. */
+    fun setNotifications(enabled: Boolean) = viewModelScope.launch {
+        prefs.setNotifications(enabled)
+        if (enabled) refreshNotifications(force = true) else {
+            scheduler.cancelAll(data.value.ledger.goals.map { it.id })
+            prefs.setMonthlyReport(false)
+        }
+    }
+
+    fun setMonthlyReport(enabled: Boolean) = viewModelScope.launch {
+        prefs.setMonthlyReport(enabled)
+        scheduler.scheduleMonthlyReport(enabled && data.value.prefs.notificationsEnabled)
+    }
+
+    /** Ripianifica fisse, report e scadenze obiettivi sui dati reali (avvio app, ritorno in primo piano). */
+    fun refreshNotifications(force: Boolean = false) {
+        val state = data.value
+        if (!state.loaded || state.ledger.demo || !(state.prefs.notificationsEnabled || force)) return
+        scheduler.rescheduleAll(state.ledger, state.prefs.monthlyReportEnabled)
+    }
+
+    fun setAppLock(enabled: Boolean) = viewModelScope.launch { prefs.setAppLock(enabled) }
+
+    fun setDemoMode(enabled: Boolean) = viewModelScope.launch { application.setDemoMode(enabled) }
+
+    // Esportazioni: file temporanei in cache, condivisi col foglio di sistema
+    private val res get() = application.resources
+
+    suspend fun exportCsv(): java.io.File = withContext(Dispatchers.Default) {
+        val ledger = repository.snapshot()
+        val labels = CsvExport.Labels(
+            listOf(R.string.data, R.string.descrizione, R.string.importo, R.string.tipo, R.string.categoria, R.string.conto, R.string.fatto, R.string.ricorrenza).map(res::getString),
+            res.getString(R.string.uscita), res.getString(R.string.entrata), res.getString(R.string.si), res.getString(R.string.no),
+        ) { categoryLabel(it, res) }
+        val text = CsvExport.build(ledger.transactionData, ledger.accounts.associate { it.id to it.name }, zone, labels)
+        ShareFiles.write(application, CsvExport.FILE_NAME, text.toByteArray(Charsets.UTF_8))
+    }
+
+    suspend fun exportJson(): java.io.File = withContext(Dispatchers.Default) {
+        val l = repository.snapshot()
+        val json = JsonExport.build(l.accounts, l.transactions, l.budgets, l.goals, Instant.now())
+        ShareFiles.write(application, JsonExport.FILE_NAME, json.toByteArray(Charsets.UTF_8))
+    }
+
+    /** Report del mese (§4.5): valuta scelta nelle Impostazioni (diverge dall'anomalia iOS #4, che usa quella di sistema). */
+    suspend fun exportPdf(month: YearMonth): java.io.File? = withContext(Dispatchers.Default) {
+        runCatching {
+            val ledger = repository.snapshot()
+            val currency = data.value.prefs.currencyCode
+            val all = ledger.transactionData
+            val byMonth = Statistics.byMonth(all, zone)
+            val dayMonth = java.time.format.DateTimeFormatter.ofPattern("d MMM", java.util.Locale.getDefault())
+            val labels = PdfReport.Labels(
+                res.getString(R.string.app_name), res.getString(R.string.uscite), res.getString(R.string.entrate), res.getString(R.string.netto),
+                res.getString(R.string.rispetto_al_mese_precedente), res.getString(R.string.uscite_per_categoria), res.getString(R.string.movimenti),
+            ) { categoryLabel(it, res) }
+            val pages = PdfReport.layout(
+                month, Fmt.monthYear(month), PdfReport.transactionsOf(all, month, zone), Statistics.prevMonthSpent(byMonth, month), labels,
+                { Fmt.currency(it, currency) }, { dayMonth.format(it) },
+            )
+            val file = ShareFiles.target(application, PdfReport.fileName(month))
+            PdfRenderer.write(pages, file)
+            file
+        }.getOrNull()
+    }
 
     fun setHideBalance(value: Boolean) = viewModelScope.launch { prefs.setHideBalance(value) }
 

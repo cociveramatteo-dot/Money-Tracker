@@ -394,9 +394,22 @@
     <string name="saldo_totale">💰 总余额：%s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ 用于 %2$s — 已保存！</string>
     <string name="apri_impostazioni_lingua" formatted="false">打开语言设置</string>
+    <string name="blocco_app" formatted="false">使用生物识别或 PIN 锁定</string>
+    <string name="blocco_app_disponibile" formatted="false">打开时需要指纹、面部或设备 PIN</string>
+    <string name="blocco_app_non_disponibile" formatted="false">此设备未设置解锁方式</string>
+    <string name="blocco_motivo" formatted="false">解锁 Bucktrail 以查看你的财务数据</string>
+    <string name="blocco_sblocca" formatted="false">解锁</string>
+    <string name="blocco_titolo" formatted="false">Bucktrail 已锁定</string>
     <string name="categoria_esiste_gia" formatted="false">已存在同名分类。</string>
     <string name="conti_in_home_nascosto" formatted="false">在首页隐藏</string>
     <string name="conti_in_home_selezionato" formatted="false">在首页显示</string>
+    <string name="cronologia_creato" formatted="false">已创建</string>
+    <string name="cronologia_eliminato" formatted="false">已删除</string>
+    <string name="cronologia_modificato" formatted="false">已修改</string>
+    <string name="cronologia_modifiche" formatted="false">更改记录</string>
+    <string name="cronologia_movimento" formatted="false">交易</string>
+    <string name="cronologia_vuota_sottotitolo" formatted="false">你对财务数据的每次更改都会显示在这里。</string>
+    <string name="cronologia_vuota_titolo" formatted="false">暂无更改记录</string>
     <string name="da_a_riepilogo">%1$s → %2$s</string>
     <string name="elimina_categoria_0" formatted="false">确定要删除此分类吗？</string>
     <string name="elimina_categoria_1" formatted="false">有1笔交易使用此分类，其图标将恢复为默认图标。要继续吗？</string>
@@ -404,18 +417,39 @@
     <string name="elimina_categoria_titolo">删除“%1$s”</string>
     <string name="elimina_con_1_movimento" formatted="false">删除（1笔交易）</string>
     <string name="elimina_con_n_movimenti">删除（%1$d笔交易）</string>
+    <string name="esporta_errore" formatted="false">无法创建文件。请重试。</string>
+    <string name="esporta_json_condividi" formatted="false">分享所有数据(JSON)</string>
+    <string name="esporta_json_descrizione" formatted="false">或将你的完整资料(含账户、预算和目标)导出为一个 JSON 文件。</string>
+    <string name="esporta_json_genera" formatted="false">导出所有数据(JSON)</string>
     <string name="filtro_attivo_rimuovi" formatted="false">移除高级筛选</string>
     <string name="hidden_amount" formatted="false">金额已隐藏</string>
     <string name="icona_budget" formatted="false">预算图标</string>
     <string name="movimenti_eliminati" formatted="false">交易已删除</string>
     <string name="movimento_eliminato" formatted="false">交易已删除</string>
     <string name="nome_categoria" formatted="false">分类名称</string>
+    <string name="notif_balance_body">账户“%s”已低于你设置的阈值。</string>
+    <string name="notif_balance_title" formatted="false">余额偏低</string>
+    <string name="notif_budget_near_body">“%1$s”— 已使用 %2$d%%</string>
+    <string name="notif_budget_near_title" formatted="false">预算快用完了</string>
+    <string name="notif_budget_over_body">你已超出“%s”的限额</string>
+    <string name="notif_budget_over_title" formatted="false">预算已超支</string>
+    <string name="notif_channel_name" formatted="false">Bucktrail 提醒</string>
+    <string name="notif_fixed_many">你有 %d 笔固定支出待标记为已付</string>
+    <string name="notif_fixed_one" formatted="false">你有 1 笔固定支出待标记为已付</string>
+    <string name="notif_fixed_title" formatted="false">本月固定支出</string>
+    <string name="notif_goal_body">“%s”将在 7 天后到期</string>
+    <string name="notif_goal_title" formatted="false">目标即将到期</string>
+    <string name="notif_report_body" formatted="false">打开 Bucktrail 生成并分享上个月的 PDF。</string>
+    <string name="notif_report_title" formatted="false">你的月度报告已就绪</string>
+    <string name="notifiche_permesso_negato" formatted="false">通知已在系统设置中关闭。</string>
     <string name="ok" formatted="false">好</string>
     <string name="periodo" formatted="false">期间</string>
     <string name="save_failed" formatted="false">无法保存。请重试。</string>
     <string name="scegli_valuta_conferma" formatted="false">要更改货币吗？</string>
+    <string name="sicurezza" formatted="false">安全</string>
     <string name="sposta_giu" formatted="false">下移</string>
     <string name="sposta_su" formatted="false">上移</string>
+    <string name="statistiche_riepilogo_mese">%1$s:收入 %2$s,支出 %3$s</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="other">还剩%d天</item>
     </plurals>

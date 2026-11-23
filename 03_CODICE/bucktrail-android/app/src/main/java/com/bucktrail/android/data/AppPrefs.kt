@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +17,8 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 data class PrefsState(
     val currencyCode: String = "EUR",
     val notificationsEnabled: Boolean = true,
+    /** Falso al primo avvio: la chiave `notificationsEnabled` non esiste ancora e va chiesto il permesso. */
+    val notificationsDecided: Boolean = true,
     val monthlyReportEnabled: Boolean = false,
     val demoModeEnabled: Boolean = false,
     val appLockEnabled: Boolean = false,
@@ -29,6 +32,7 @@ data class PrefsState(
     val txFilterUseDates: Boolean = false,
     /** `balanceThreshold_<accountId>` -> stringa `fixedFractionString` ("0.00" = disattivata). */
     val balanceThresholds: Map<String, String> = emptyMap(),
+    val demoSeedVersion: Int = 0,
 ) {
     val homeAccountIds: List<String> get() = homeAccountOrderedShown.split(",").filter { it.isNotBlank() }
 }
@@ -40,6 +44,7 @@ class AppPrefs(private val context: Context) {
         val monthlyReport = booleanPreferencesKey("monthlyReportEnabled")
         val demo = booleanPreferencesKey("demoModeEnabled")
         val lock = booleanPreferencesKey("appLockEnabled")
+        val demoSeed = intPreferencesKey("demoSeedVersion")
         val hide = booleanPreferencesKey("hideBalance")
         val homeAccounts = stringPreferencesKey("homeAccountOrderedShown")
         val fixedExp = booleanPreferencesKey("showFixedExpensesTotal")
@@ -54,6 +59,7 @@ class AppPrefs(private val context: Context) {
         PrefsState(
             currencyCode = p[K.currency] ?: "EUR",
             notificationsEnabled = p[K.notifications] ?: true,
+            notificationsDecided = p[K.notifications] != null,
             monthlyReportEnabled = p[K.monthlyReport] ?: false,
             demoModeEnabled = p[K.demo] ?: false,
             appLockEnabled = p[K.lock] ?: false,
@@ -66,6 +72,7 @@ class AppPrefs(private val context: Context) {
             txFilterUseDates = p[K.filterDates] ?: false,
             balanceThresholds = p.asMap().entries.filter { it.key.name.startsWith(K.THRESHOLD) }
                 .associate { it.key.name.removePrefix(K.THRESHOLD) to it.value.toString() },
+            demoSeedVersion = p[K.demoSeed] ?: 0,
         )
     }
 
@@ -73,6 +80,7 @@ class AppPrefs(private val context: Context) {
     suspend fun setCurrency(code: String) = context.dataStore.edit { it[K.currency] = code }
     suspend fun setNotifications(value: Boolean) = context.dataStore.edit { it[K.notifications] = value }
     suspend fun setMonthlyReport(value: Boolean) = context.dataStore.edit { it[K.monthlyReport] = value }
+    suspend fun setDemoSeedVersion(value: Int) = context.dataStore.edit { it[K.demoSeed] = value }
     suspend fun setDemoMode(value: Boolean) = context.dataStore.edit { it[K.demo] = value }
     suspend fun setAppLock(value: Boolean) = context.dataStore.edit { it[K.lock] = value }
     suspend fun setHomeAccounts(ids: List<String>) = context.dataStore.edit { it[K.homeAccounts] = ids.joinToString(",") }

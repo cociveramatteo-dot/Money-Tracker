@@ -394,9 +394,22 @@
     <string name="saldo_totale">💰 合計残高: %s</string>
     <string name="s_2f_per_salvato_9b5fb3">💸 %1$.2f€ %2$s — 保存しました！</string>
     <string name="apri_impostazioni_lingua" formatted="false">言語設定を開く</string>
+    <string name="blocco_app" formatted="false">生体認証または PIN でロック</string>
+    <string name="blocco_app_disponibile" formatted="false">起動時に指紋・顔認証または端末の PIN を要求します</string>
+    <string name="blocco_app_non_disponibile" formatted="false">この端末にはロック解除方法が設定されていません</string>
+    <string name="blocco_motivo" formatted="false">Bucktrail のロックを解除して財務データを表示します</string>
+    <string name="blocco_sblocca" formatted="false">ロック解除</string>
+    <string name="blocco_titolo" formatted="false">Bucktrail はロックされています</string>
     <string name="categoria_esiste_gia" formatted="false">この名前のカテゴリはすでに存在します。</string>
     <string name="conti_in_home_nascosto" formatted="false">ホームで非表示</string>
     <string name="conti_in_home_selezionato" formatted="false">ホームに表示中</string>
+    <string name="cronologia_creato" formatted="false">作成</string>
+    <string name="cronologia_eliminato" formatted="false">削除</string>
+    <string name="cronologia_modificato" formatted="false">変更</string>
+    <string name="cronologia_modifiche" formatted="false">変更履歴</string>
+    <string name="cronologia_movimento" formatted="false">取引</string>
+    <string name="cronologia_vuota_sottotitolo" formatted="false">財務データへの変更はここに表示されます。</string>
+    <string name="cronologia_vuota_titolo" formatted="false">記録された変更はありません</string>
     <string name="da_a_riepilogo">%1$s → %2$s</string>
     <string name="elimina_categoria_0" formatted="false">このカテゴリを削除してもよろしいですか？</string>
     <string name="elimina_categoria_1" formatted="false">1件の取引がこのカテゴリを使用しています。アイコンは既定のものに戻ります。続行しますか？</string>
@@ -404,18 +417,39 @@
     <string name="elimina_categoria_titolo">「%1$s」を削除</string>
     <string name="elimina_con_1_movimento" formatted="false">削除（1件の取引）</string>
     <string name="elimina_con_n_movimenti">削除（%1$d件の取引）</string>
+    <string name="esporta_errore" formatted="false">ファイルを作成できませんでした。もう一度お試しください。</string>
+    <string name="esporta_json_condividi" formatted="false">すべてのデータを共有(JSON)</string>
+    <string name="esporta_json_descrizione" formatted="false">または、プロフィール全体(口座・予算・目標を含む)を 1 つの JSON ファイルに書き出せます。</string>
+    <string name="esporta_json_genera" formatted="false">すべてのデータを書き出す(JSON)</string>
     <string name="filtro_attivo_rimuovi" formatted="false">詳細フィルターを解除</string>
     <string name="hidden_amount" formatted="false">金額は非表示です</string>
     <string name="icona_budget" formatted="false">予算のアイコン</string>
     <string name="movimenti_eliminati" formatted="false">取引を削除しました</string>
     <string name="movimento_eliminato" formatted="false">取引を削除しました</string>
     <string name="nome_categoria" formatted="false">カテゴリ名</string>
+    <string name="notif_balance_body">口座「%s」が設定したしきい値を下回りました。</string>
+    <string name="notif_balance_title" formatted="false">残高が少なくなっています</string>
+    <string name="notif_budget_near_body">「%1$s」— %2$d%% 使用済み</string>
+    <string name="notif_budget_near_title" formatted="false">予算がほぼ上限です</string>
+    <string name="notif_budget_over_body">「%s」の上限を超えました</string>
+    <string name="notif_budget_over_title" formatted="false">予算を超えました</string>
+    <string name="notif_channel_name" formatted="false">Bucktrail の通知</string>
+    <string name="notif_fixed_many">支払い済みにする固定費が %d 件あります</string>
+    <string name="notif_fixed_one" formatted="false">支払い済みにする固定費が 1 件あります</string>
+    <string name="notif_fixed_title" formatted="false">今月の固定費</string>
+    <string name="notif_goal_body">「%s」の期限まであと 7 日です</string>
+    <string name="notif_goal_title" formatted="false">目標の期限が近づいています</string>
+    <string name="notif_report_body" formatted="false">Bucktrail を開いて、先月の PDF を作成して共有しましょう。</string>
+    <string name="notif_report_title" formatted="false">月次レポートの準備ができました</string>
+    <string name="notifiche_permesso_negato" formatted="false">通知はシステム設定でオフになっています。</string>
     <string name="ok" formatted="false">OK</string>
     <string name="periodo" formatted="false">期間</string>
     <string name="save_failed" formatted="false">保存できませんでした。もう一度お試しください。</string>
     <string name="scegli_valuta_conferma" formatted="false">通貨を変更しますか？</string>
+    <string name="sicurezza" formatted="false">セキュリティ</string>
     <string name="sposta_giu" formatted="false">下へ移動</string>
     <string name="sposta_su" formatted="false">上へ移動</string>
+    <string name="statistiche_riepilogo_mese">%1$s:収入 %2$s、支出 %3$s</string>
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="other">残り%d日</item>
     </plurals>
