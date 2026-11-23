@@ -179,3 +179,9 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - **Movimento con data futura:** il form propone «Pianificato» attivo (`isDone=false`) ma l'utente può cambiarlo; pianificato ⇔ `!isDone`.
 - **Stringhe:** `scripts/ios-strings-to-android.py` genera `values*/strings.xml` dai cataloghi iOS; le stringhe solo-Android stanno in `scripts/android-extra-strings.json`.
 - **Supabase:** nessuna sync sul progetto reale di Matteo prima del blocco B9 e del suo ok.
+
+## 2026-11-23 · Android parità: Home, Ricorrenze, Pianifica (B4–B6)
+- **Ricorrenze:** editor e materializzazione sono funzioni pure (`RecurringOps`) che restituiscono le modifiche; Room le applica in un'unica transazione (se fallisce non cambia nulla, come il rollback iOS). Eliminare una copia di serie da Movimenti apre l'editor (come iOS); l'eliminazione dall'editor offre «Annulla».
+- **Obiettivo creato già completo:** `isCompleted = current ≥ target` anche alla creazione (iOS lo calcola solo alla modifica, anomalia #3 §4.99 non replicata).
+- **Menu a tendina e tab bar:** menu Material con colori/raggio Sentiero; etichette tab con riduzione fino al 50% a font grandi (iOS `minimumScaleFactor`).
+- **Notifiche budget/soglia dopo il salvataggio:** non ancora (blocco B8).

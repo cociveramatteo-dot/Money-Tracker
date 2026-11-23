@@ -71,6 +71,24 @@ interface BucktrailDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun upsert(rule: RecurringRuleEntity)
     @Delete suspend fun delete(rule: RecurringRuleEntity)
 
+    @Query("DELETE FROM recurring_rules WHERE id = :id") suspend fun deleteRuleById(id: String)
+
+    /** Applica in un'unica transazione le modifiche di editor/materializzazione ricorrenze (o niente, se fallisce). */
+    @Transaction
+    suspend fun applyRecurring(c: RecurringOps.Changes) {
+        c.deleteTransactionIds.chunked(500).forEach { deleteTransactions(it) }
+        c.upsertRules.forEach { upsert(it) }
+        if (c.upsertTransactions.isNotEmpty()) upsertTransactions(c.upsertTransactions)
+        c.deleteRuleId?.let { deleteRuleById(it) }
+    }
+
+    /** Salvataggio di una copia di serie modificata + riallineamento di tutta la serie, in un'unica transazione. */
+    @Transaction
+    suspend fun saveSeriesEdit(copy: TransactionEntity, c: RecurringOps.Changes) {
+        upsert(copy)
+        applyRecurring(c)
+    }
+
     /** Pulizia al logout (`clearLocalData`): tutto tranne le categorie. */
     @Transaction
     suspend fun clearLocalData() {

@@ -10,6 +10,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.bucktrail.android.domain.CategoryTint
 
 /** Token «Sentiero» (`DS` iOS, §1.1). Il tema segue sempre il sistema: mai colori fissi né scelta manuale. */
@@ -71,12 +72,17 @@ fun BucktrailTheme(content: @Composable () -> Unit) {
         primary = colors.accent, onPrimary = colors.onAccent, background = colors.paper, onBackground = colors.ink,
         surface = colors.surface, onSurface = colors.ink, onSurfaceVariant = colors.smoke, outline = colors.fog,
         primaryContainer = colors.accentSoft, error = colors.danger, surfaceVariant = colors.fog,
+        surfaceContainer = colors.surface, surfaceContainerHigh = colors.surface, surfaceContainerHighest = colors.surface, surfaceTint = colors.surface,
     ) else lightColorScheme(
         primary = colors.accent, onPrimary = colors.onAccent, background = colors.paper, onBackground = colors.ink,
         surface = colors.surface, onSurface = colors.ink, onSurfaceVariant = colors.smoke, outline = colors.fog,
         primaryContainer = colors.accentSoft, error = colors.danger, surfaceVariant = colors.fog,
+        surfaceContainer = colors.surface, surfaceContainerHigh = colors.surface, surfaceContainerHighest = colors.surface, surfaceTint = colors.surface,
     )
     CompositionLocalProvider(LocalBucktrail provides colors) {
-        MaterialTheme(colorScheme = scheme, typography = MaterialTheme.typography, content = content)
+        MaterialTheme(
+            colorScheme = scheme, typography = MaterialTheme.typography.copy(labelLarge = Typo.rowName, bodyLarge = Typo.rowName),
+            shapes = MaterialTheme.shapes.copy(extraSmall = androidx.compose.foundation.shape.RoundedCornerShape(14.dp)), content = content,
+        )
     }
 }

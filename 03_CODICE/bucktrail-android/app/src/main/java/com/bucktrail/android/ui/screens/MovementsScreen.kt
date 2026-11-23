@@ -48,7 +48,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.bucktrail.android.R
+import com.bucktrail.android.data.RecurringOps
 import com.bucktrail.android.data.TransactionEntity
+import com.bucktrail.android.data.toSnapshot
+import com.bucktrail.android.domain.Occurrence
+import com.bucktrail.android.domain.RecurrenceCalculator
 import com.bucktrail.android.domain.Amounts
 import com.bucktrail.android.domain.TransactionFiltering
 import com.bucktrail.android.ui.AppData
@@ -78,6 +82,10 @@ private val TypeFilter.tag: String get() = when (this) { TypeFilter.All -> "Tutt
 class MovementActions(
     val onEdit: (TransactionEntity) -> Unit, val onDelete: (TransactionEntity) -> Unit, val onToggleDone: (TransactionEntity) -> Unit,
     val onSetFilters: (String, String, Boolean) -> Unit, val onSettings: () -> Unit,
+    /** Apre l'editor della serie da una copia generata (menu «Ricorrenza», elimina di una copia). */
+    val onRecurrence: (TransactionEntity) -> Unit = {},
+    /** Apre l'editor da una serie programmata o da un'occorrenza virtuale. */
+    val onSelectRule: (RecurringOps.Selection) -> Unit = {},
 )
 
 private fun TransactionEntity.filterRow() =
@@ -98,6 +106,7 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
     var fromDay by rememberSaveable { mutableLongStateOf(today.minusMonths(1).toEpochDay()) }
     var toDay by rememberSaveable { mutableLongStateOf(today.toEpochDay()) }
     var showFilters by rememberSaveable { mutableStateOf(false) }
+    var showRecurring by rememberSaveable { mutableStateOf(false) }
     var monthMenu by remember { mutableStateOf(false) }
     var categoryMenu by remember { mutableStateOf(false) }
     val locale = Locale.getDefault()
@@ -112,10 +121,31 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
         )
         TransactionFiltering.filter(ledger.transactions, criteria, zone) { it.filterRow() }
     }
+    // Occorrenze virtuali (solo mesi successivi al corrente): escluse da totali, saldi e filtri importo
+    val virtual = remember(ledger.rules, ledger.transactions, month, today, zone, category, query, type) {
+        if (!month.isAfter(YearMonth.from(today)) || ledger.rules.isEmpty()) emptyList() else {
+            val calc = RecurrenceCalculator(zone)
+            val start = month.atDay(1).atTime(0, 0).atZone(zone).toInstant()
+            val end = month.plusMonths(1).atDay(1).atTime(0, 0).atZone(zone).toInstant()
+            val realIds = ledger.transactions.map { it.id }.toSet()
+            ledger.rules.flatMap { r -> calc.occurrences(r.toSnapshot(), start, end).map { r to it } }
+                .filter { (_, o) ->
+                    o.id.toString() !in realIds && (category == null || o.category == category) &&
+                        (query.isBlank() || o.name.contains(query.trim(), ignoreCase = true)) &&
+                        (type == TypeFilter.All || type == TypeFilter.Fixed && o.isFixed || type == TypeFilter.Expense && o.type == Amounts.TYPE_EXPENSE || type == TypeFilter.Income && o.type == Amounts.TYPE_INCOME)
+                }.sortedBy { it.second.date }
+        }
+    }
     val planned = remember(filtered) { filtered.filter { !it.isDone } }
     val groups = remember(filtered, zone) { filtered.filter { it.isDone }.groupBy { it.localDate(zone) }.toSortedMap(compareByDescending { it }) }
     fun sum(list: List<TransactionEntity>) = list.filter { !it.isTransfer }.fold(BigDecimal.ZERO) { a, t -> a + Amounts.signed(t.amountValue(), t.type) }
     val ruleIds = remember(ledger.rules) { ledger.rules.map { it.id.lowercase() }.toSet() }
+
+    if (showRecurring) {
+        RecurringPage(data, today, zone, actions.onSelectRule, actions.onEdit, actions.onDelete) { showRecurring = false }
+        return
+    }
+    val seriesDelete: (TransactionEntity) -> Unit = { t -> if (t.templateId.lowercase() in ruleIds) actions.onRecurrence(t) else actions.onDelete(t) }
 
     Column(Modifier.fillMaxSize()) {
         PageHeader(stringResource(R.string.movimenti)) {
@@ -145,6 +175,7 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
         // Chip tipo
         Row(Modifier.padding(top = 12.dp).horizontalScroll(rememberScrollState()).padding(horizontal = Dim.cardMargin.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             TypeFilter.entries.forEach { f ->
+                if (f == TypeFilter.Transfer) TypeChip(stringResource(R.string.ricorrenti), false, { showRecurring = true }, Modifier.testTag("txFilterBlock_Ricorrenti"))
                 val label = when (f) {
                     TypeFilter.All -> stringResource(R.string.tutti); TypeFilter.Fixed -> stringResource(R.string.fisse)
                     TypeFilter.Transfer -> stringResource(R.string.trasf); TypeFilter.Expense -> stringResource(R.string.uscite)
@@ -195,6 +226,19 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
             Modifier.weight(1f), contentPadding = PaddingValues(start = Dim.cardMargin.dp, end = Dim.cardMargin.dp, bottom = Dim.listBottomPadding.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
+            if (virtual.isNotEmpty()) item("virtual") {
+                Column {
+                    Text(stringResource(R.string.serie_programmate), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke, modifier = Modifier.padding(horizontal = 4.dp, vertical = 6.dp))
+                    GroupCard {
+                        virtual.forEachIndexed { i, (r, o) ->
+                            key(o.id) {
+                                if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
+                                VirtualOccurrenceRow(o, currency, zone, res) { actions.onSelectRule(RecurringOps.Selection(r, o)) }
+                            }
+                        }
+                    }
+                }
+            }
             if (planned.isNotEmpty()) item("planned") {
                 Column {
                     Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -206,7 +250,8 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                             key(t.id) {
                             if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
                             TransactionRow(t, ledger.accounts, currency, hidden, today, zone, res, compact = true,
-                                recurring = t.templateId.lowercase() in ruleIds, onEdit = actions.onEdit, onDelete = actions.onDelete, onToggleDone = actions.onToggleDone)
+                                recurring = t.templateId.lowercase() in ruleIds, onEdit = actions.onEdit, onDelete = seriesDelete, onToggleDone = actions.onToggleDone,
+                                onRecurrence = actions.onRecurrence, deleteOpensEditor = t.templateId.lowercase() in ruleIds)
                             }
                         }
                     }
@@ -225,14 +270,15 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                                 key(t.id) {
                                 if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
                                 TransactionRow(t, ledger.accounts, currency, hidden, today, zone, res, compact = true,
-                                    recurring = t.templateId.lowercase() in ruleIds, onEdit = actions.onEdit, onDelete = actions.onDelete, onToggleDone = actions.onToggleDone)
+                                    recurring = t.templateId.lowercase() in ruleIds, onEdit = actions.onEdit, onDelete = seriesDelete, onToggleDone = actions.onToggleDone,
+                                onRecurrence = actions.onRecurrence, deleteOpensEditor = t.templateId.lowercase() in ruleIds)
                                 }
                             }
                         }
                     }
                 }
             }
-            if (planned.isEmpty() && groups.isEmpty()) item("empty") {
+            if (planned.isEmpty() && groups.isEmpty() && virtual.isEmpty()) item("empty") {
                 if (query.isNotBlank()) EmptyState(SfIcons.forName("magnifyingglass"), stringResource(R.string.nessun_risultato), stringResource(R.string.nessun_movimento_corrisponde_alla_ricerc))
                 else EmptyState(SfIcons.forName("tray"), stringResource(R.string.nessun_movimento), stringResource(R.string.i_movimenti_di_questo_periodo_apparirann))
             }

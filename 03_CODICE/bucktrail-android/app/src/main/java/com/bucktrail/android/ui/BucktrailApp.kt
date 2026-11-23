@@ -40,6 +40,12 @@ import com.bucktrail.android.ui.forms.CategoryManagementSheet
 import com.bucktrail.android.ui.forms.AddTransactionForm
 import com.bucktrail.android.ui.screens.AccountActions
 import com.bucktrail.android.ui.screens.AccountsScreen
+import com.bucktrail.android.ui.screens.BudgetHistorySheet
+import com.bucktrail.android.ui.screens.PlanActions
+import com.bucktrail.android.ui.screens.PlanScreen
+import com.bucktrail.android.ui.forms.AddBudgetForm
+import com.bucktrail.android.ui.forms.AddGoalForm
+import com.bucktrail.android.ui.screens.RecurrenceEditorSheet
 import com.bucktrail.android.ui.screens.HomeAccountOrderSheet
 import com.bucktrail.android.ui.screens.MovementActions
 import com.bucktrail.android.ui.screens.SettingsActions
@@ -78,6 +84,10 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     var categoriesOpen by rememberSaveable { mutableStateOf(false) }
     var pendingTransferDelete by remember { mutableStateOf<TransactionEntity?>(null) }
     var fabMenu by remember { mutableStateOf(false) }
+    var planSegment by rememberSaveable { mutableStateOf(0) }
+    var planMonth by rememberSaveable { mutableStateOf(0) }
+    var historyOpen by rememberSaveable { mutableStateOf(false) }
+    var recurrence by remember { mutableStateOf<com.bucktrail.android.data.RecurringOps.Selection?>(null) }
     var searching by remember { mutableStateOf(false) }
     val labels = mapOf(
         Tab.Home to stringResource(R.string.home), Tab.Movements to stringResource(R.string.movimenti),
@@ -85,7 +95,7 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     )
     val fabDescription = when (tab) {
         Tab.Home, Tab.Movements -> stringResource(R.string.nuovo_movimento)
-        Tab.Plan -> stringResource(R.string.nuovo_budget)
+        Tab.Plan -> stringResource(if (planSegment == 0) R.string.nuovo_budget else R.string.nuovo_obiettivo)
         Tab.Accounts -> stringResource(R.string.nuovo_conto)
         Tab.Statistics -> ""
     }
@@ -97,6 +107,9 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
         if (t.isTransfer && t.transferGroupId.isNotEmpty()) pendingTransferDelete = t else vm.deleteTransactions(listOf(t))
     }
     val toggleDone: (TransactionEntity) -> Unit = { vm.toggleDone(it, ledger.transactions) }
+    val openRecurrence: (TransactionEntity) -> Unit = { t -> com.bucktrail.android.data.RecurringOps.resolve(t, ledger.rules, zone)?.let { recurrence = it } ?: requestDelete(t) }
+    // copie mancanti delle serie: all'avvio, a ogni cambio giorno e quando cambiano le regole
+    LaunchedEffect(data.loaded, today, ledger.rules.size) { vm.materializeDue() }
 
     Box(Modifier.fillMaxSize().background(c.paper)) {
         when (tab) {
@@ -104,10 +117,14 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
                 onSeeAllMovements = { tab = Tab.Movements }, onManageAccounts = { tab = Tab.Accounts },
                 onOpenSettings = { settingsOpen = true }, onOpenAccountOrder = { homeOrderOpen = true })
             Tab.Movements -> MovementsScreen(
-                data, today, zone, MovementActions(edit, requestDelete, toggleDone, vm::setTxFilters) { settingsOpen = true }, { searching = it },
+                data, today, zone, MovementActions(edit, requestDelete, toggleDone, vm::setTxFilters, { settingsOpen = true }, openRecurrence, { recurrence = it }), { searching = it },
             )
             Tab.Statistics -> PlaceholderScreen(stringResource(R.string.statistiche), "chart.bar", stringResource(R.string.nessun_dato_disponibile), null)
-            Tab.Plan -> PlaceholderScreen(stringResource(R.string.pianifica), "scope", stringResource(R.string.nessun_budget), stringResource(R.string.imposta_un_limite_mensile_per_categoria))
+            Tab.Plan -> PlanScreen(
+                data, today, zone, planSegment, { planSegment = it }, planMonth, { planMonth = it },
+                PlanActions({ settingsOpen = true }, { editor = "budget:new" }, { editor = "goal:new" }, { editor = "goal:${it.id}" }, { vm.deleteBudget(it) }, { vm.deleteGoal(it) }),
+                onHistory = { historyOpen = true },
+            )
             Tab.Accounts -> AccountsScreen(
                 data, AccountActions(
                     onAdd = { editor = "account:new" }, onEdit = { editor = "account:${it.id}" }, onDelete = { vm.deleteAccount(it) },
@@ -119,7 +136,7 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
         FloatingTabBar(tab, labels, { tab = it; searching = false }, Modifier.align(Alignment.BottomCenter))
         undo?.let { u ->
             UndoBar(
-                stringResource(if (u.transactions.size > 1) R.string.movimenti_eliminati else R.string.movimento_eliminato), stringResource(R.string.annulla), u.key,
+                stringResource(if (u.series) R.string.serie_eliminata else if (u.transactions.size > 1) R.string.movimenti_eliminati else R.string.movimento_eliminato), stringResource(R.string.annulla), u.key,
                 onAction = vm::undoDelete, onTimeout = { vm.dismissUndo(u.key) },
                 modifier = Modifier.align(Alignment.BottomStart).navigationBarsPadding().padding(start = Dim.cardMargin.dp, end = 96.dp, bottom = (Dim.fabBottom + 66).dp),
             )
@@ -129,7 +146,8 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
                 when (tab) {
                     Tab.Home, Tab.Movements -> if (ledger.accounts.none { !it.isArchived }) editor = "account:new" else fabMenu = true
                     Tab.Accounts -> editor = "account:new"
-                    else -> Unit // Pianifica: nuovo budget/obiettivo arrivano nel blocco B6
+                    Tab.Plan -> editor = if (planSegment == 0) "budget:new" else "goal:new"
+                    else -> Unit
                 }
             })
             DropdownMenu(fabMenu, { fabMenu = false }) {
@@ -146,9 +164,19 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
         null -> Unit
         "account:new" -> AddAccountForm(null, java.math.BigDecimal.ZERO, false, null, ledger.categories, data.prefs.currencyCode,
             onSave = { vm.saveAccount(it.account, it.adjustment, it.threshold, it.addToHome) }, onClose = noopClose)
+        "budget:new" -> AddBudgetForm(
+            java.time.YearMonth.from(today).plusMonths(planMonth.toLong()), ledger.categories, ledger.accounts, data.prefs.currencyCode,
+            onSave = { vm.saveBudget(it) }, onClose = noopClose,
+        )
+        "goal:new" -> AddGoalForm(null, data.prefs.currencyCode, today, zone, onSave = { vm.saveGoal(it) }, onClose = noopClose)
         "tx:new" -> TransactionEditor(null, data, vm, today, zone, { categoriesOpen = true }, noopClose)
         "transfer:new" -> AddTransferForm(null, null, ledger.accounts, data.prefs.currencyCode, today, zone, onSave = { vm.saveTransactions(it) }, onClose = noopClose)
         else -> when {
+            e.startsWith("goal:") -> {
+                val goal = ledger.goals.firstOrNull { it.id == e.removePrefix("goal:") }
+                if (goal == null) LaunchedEffect(Unit) { editor = null }
+                else AddGoalForm(goal, data.prefs.currencyCode, today, zone, onSave = { vm.saveGoal(it) }, onClose = noopClose)
+            }
             e.startsWith("account:") -> {
                 val account = ledger.accounts.firstOrNull { it.id == e.removePrefix("account:") }
                 if (account == null) LaunchedEffect(Unit) { editor = null } else {
@@ -176,6 +204,10 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
         }
     }
 
+    recurrence?.let { sel ->
+        RecurrenceEditorSheet(sel, ledger.accounts, ledger.categories, zone, apply = { vm.applyRecurrence(it, sel.rule, sel.occurrence.originalDate) }, onClose = { recurrence = null })
+    }
+    if (historyOpen) BudgetHistorySheet(data, today, zone) { historyOpen = false }
     if (settingsOpen) SettingsSheet(
         data, SettingsActions(vm::setCurrency, vm::setShowFixedExpenses, vm::setShowFixedIncome) { settingsOpen = false },
     )
@@ -211,6 +243,6 @@ private fun TransactionEditor(
     val ledger = data.ledger
     AddTransactionForm(
         existing, ledger.accounts, ledger.categories, ledger.transactions, data.prefs.currencyCode, today, zone, vm::classify, onManageCategories,
-        onSave = { vm.saveTransaction(it) }, onClose = onClose,
+        onSave = { t, frequency -> vm.saveTransaction(t, frequency, isNew = existing == null) }, onClose = onClose,
     )
 }

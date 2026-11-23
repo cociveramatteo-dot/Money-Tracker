@@ -63,7 +63,7 @@ import java.util.UUID
 fun AddTransactionForm(
     existing: TransactionEntity?, accounts: List<AccountEntity>, categories: List<CategoryEntity>, history: List<TransactionEntity>, currency: String,
     today: LocalDate, zone: ZoneId, classify: suspend (String) -> String, onManageCategories: () -> Unit,
-    onSave: suspend (TransactionEntity) -> Boolean, onClose: () -> Unit,
+    onSave: suspend (TransactionEntity, String) -> Boolean, onClose: () -> Unit,
 ) {
     val c = Bt.colors
     val context = LocalContext.current
@@ -85,6 +85,8 @@ fun AddTransactionForm(
     var categoryPicker by rememberSaveable { mutableStateOf(false) }
     var saving by remember { mutableStateOf(false) }
     var failed by remember { mutableStateOf(false) }
+    var frequency by rememberSaveable { mutableStateOf("") }
+    var frequencyMenu by remember { mutableStateOf(false) }
     val date = LocalDate.ofEpochDay(dateEpochDay)
 
     // suggerimento categoria (debounce 280 ms), solo se l'utente non l'ha scelta a mano
@@ -168,6 +170,20 @@ fun AddTransactionForm(
             OptionRow(stringResource(R.string.gia_effettuato), stringResource(R.string.togli_la_spunta_se_e_pianificata_ma_non), Modifier.testTag("toggle_isDone")) {
                 FormSwitch(done, { done = it }, stringResource(R.string.gia_effettuato))
             }
+            if (existing == null) Box {
+                OptionRow(stringResource(R.string.ricorrenza), stringResource(R.string.crea_automaticamente_al_prossimo_periodo),
+                    Modifier.testTag("picker_recurrence").clickable(role = Role.Button) { frequencyMenu = true }) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text(stringResource(freqLabelRes(frequency)), style = Typo.formOption, color = c.ink)
+                        Icon(SfIcons.forName("chevron.down"), null, tint = c.smoke, modifier = Modifier.size(12.dp))
+                    }
+                }
+                DropdownMenu(frequencyMenu, { frequencyMenu = false }) {
+                    listOf("", "settimanale", "mensile", "annuale").forEach { f ->
+                        DropdownMenuItem(text = { Text(stringResource(freqLabelRes(f)) + if (f == frequency) "  ✓" else "") }, onClick = { frequency = f; frequencyMenu = false })
+                    }
+                }
+            }
             OptionRow(stringResource(R.string.data), modifier = Modifier.clickable(role = Role.Button) {
                 DatePickerDialog(context, { _, y, m, d ->
                     val picked = LocalDate.of(y, m + 1, d)
@@ -203,7 +219,7 @@ fun AddTransactionForm(
                             type = if (income) Amounts.TYPE_INCOME else Amounts.TYPE_EXPENSE, category = category, categoryIcon = icon,
                             date = dateMillis, isDone = done, isFixed = fixed, notes = notes.trim(),
                         )
-                        val ok = onSave(entity)
+                        val ok = onSave(entity, frequency)
                         saving = false
                         if (ok) onClose() else failed = true
                     }
@@ -216,4 +232,8 @@ fun AddTransactionForm(
             onManage = onManageCategories, onClose = { categoryPicker = false },
         )
     }
+}
+
+private fun freqLabelRes(f: String) = when (f) {
+    "settimanale" -> R.string.settimanale; "mensile" -> R.string.mensile; "annuale" -> R.string.annuale; else -> R.string.nessuna
 }

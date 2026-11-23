@@ -406,9 +406,11 @@
     <string name="elimina_con_n_movimenti">Löschen (%1$d Buchungen)</string>
     <string name="filtro_attivo_rimuovi" formatted="false">Erweiterte Filter entfernen</string>
     <string name="hidden_amount" formatted="false">Betrag verborgen</string>
+    <string name="icona_budget" formatted="false">Budget-Symbol</string>
     <string name="movimenti_eliminati" formatted="false">Buchungen gelöscht</string>
     <string name="movimento_eliminato" formatted="false">Buchung gelöscht</string>
     <string name="nome_categoria" formatted="false">Kategoriename</string>
+    <string name="ok" formatted="false">OK</string>
     <string name="periodo" formatted="false">Zeitraum</string>
     <string name="save_failed" formatted="false">Speichern nicht möglich. Versuche es erneut.</string>
     <string name="scegli_valuta_conferma" formatted="false">Währung ändern?</string>

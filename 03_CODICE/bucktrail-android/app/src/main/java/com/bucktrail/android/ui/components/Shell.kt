@@ -63,7 +63,7 @@ fun FloatingTabBar(selected: Tab, labels: Map<Tab, String>, onSelect: (Tab) -> U
                     Modifier.size(44.dp, 28.dp).clip(RoundedCornerShape(14.dp)).background(if (active) c.accentSoft else androidx.compose.ui.graphics.Color.Transparent),
                     contentAlignment = Alignment.Center,
                 ) { Icon(SfIcons.forName(tab.sfIcon), null, tint = if (active) c.ink else c.smoke, modifier = Modifier.size(20.dp)) }
-                Text(labels.getValue(tab), style = if (active) Typo.tabLabelActive else Typo.tabLabel, color = if (active) c.ink else c.smoke, maxLines = 1, softWrap = false)
+                FitText(labels.getValue(tab), if (active) Typo.tabLabelActive else Typo.tabLabel, if (active) c.ink else c.smoke, Modifier.padding(horizontal = 2.dp), minScale = 0.5f)
             }
         }
     }

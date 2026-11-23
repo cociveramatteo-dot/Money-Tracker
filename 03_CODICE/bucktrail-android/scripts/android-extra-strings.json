@@ -187,5 +187,23 @@
   "fr": "%1$s → %2$s",
   "ja": "%1$s → %2$s",
   "zh-Hans": "%1$s → %2$s"
+ },
+ "ok": {
+  "it": "OK",
+  "en": "OK",
+  "de": "OK",
+  "es": "OK",
+  "fr": "OK",
+  "ja": "OK",
+  "zh-Hans": "好"
+ },
+ "icona_budget": {
+  "it": "Icona budget",
+  "en": "Budget icon",
+  "de": "Budget-Symbol",
+  "es": "Icono del presupuesto",
+  "fr": "Icône du budget",
+  "ja": "予算のアイコン",
+  "zh-Hans": "预算图标"
  }
 }

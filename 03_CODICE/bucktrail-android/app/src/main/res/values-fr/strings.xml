@@ -406,9 +406,11 @@
     <string name="elimina_con_n_movimenti">Supprimer (%1$d mouvements)</string>
     <string name="filtro_attivo_rimuovi" formatted="false">Retirer les filtres avancés</string>
     <string name="hidden_amount" formatted="false">Montant masqué</string>
+    <string name="icona_budget" formatted="false">Icône du budget</string>
     <string name="movimenti_eliminati" formatted="false">Mouvements supprimés</string>
     <string name="movimento_eliminato" formatted="false">Mouvement supprimé</string>
     <string name="nome_categoria" formatted="false">Nom de la catégorie</string>
+    <string name="ok" formatted="false">OK</string>
     <string name="periodo" formatted="false">Période</string>
     <string name="save_failed" formatted="false">Impossible d’enregistrer. Réessaie.</string>
     <string name="scegli_valuta_conferma" formatted="false">Changer de devise ?</string>

@@ -407,9 +407,11 @@
     <string name="elimina_con_n_movimenti">Elimina (%1$d movimenti)</string>
     <string name="filtro_attivo_rimuovi" formatted="false">Rimuovi i filtri avanzati</string>
     <string name="hidden_amount" formatted="false">Importo nascosto</string>
+    <string name="icona_budget" formatted="false">Icona budget</string>
     <string name="movimenti_eliminati" formatted="false">Movimenti eliminati</string>
     <string name="movimento_eliminato" formatted="false">Movimento eliminato</string>
     <string name="nome_categoria" formatted="false">Nome categoria</string>
+    <string name="ok" formatted="false">OK</string>
     <string name="periodo" formatted="false">Periodo</string>
     <string name="save_failed" formatted="false">Impossibile salvare. Riprova.</string>
     <string name="scegli_valuta_conferma" formatted="false">Cambiare valuta?</string>

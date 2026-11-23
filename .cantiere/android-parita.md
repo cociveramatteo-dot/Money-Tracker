@@ -486,12 +486,12 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-030 | Classificatore keyword (T1–T5, soglia 6, JSON 65 KB) | parziale (B1 algoritmo + test; JSON in assets, non ancora collegato a tutte le schermate) |
 | F-031 | LastUsedCategory (cronologia nome→categoria) | sì (B1 dominio + test) |
 | F-032 | RecurrenceCalculator (settimanale/mensile/annuale, eccezioni, UUIDv5) | sì (B1, UUIDv5 + codec + test) |
-| F-033 | RecurringMaterializer (watermark, 36 mesi, rollback) | parziale (B1 pianificazione pura + test; esecuzione su DB in B5) |
-| F-034 | RecurringSeriesEditor (solo questa/seguenti/tutte, salta, termina) | no |
+| F-033 | RecurringMaterializer (watermark, 36 mesi, rollback) | sì (B5, `RecurringOps.materialize` su Room in transazione; avvio, cambio giorno, nuove regole; test) |
+| F-034 | RecurringSeriesEditor (solo questa/seguenti/tutte, salta, termina) | sì (B5, `RecurringOps.apply`: solo questa/seguenti/tutte, salta mese, termina, elimina, rollback; 17 test portati da iOS) |
 | F-035 | RecurringSeriesDetector (serie rilevate) | sì (B1 dominio) |
 | F-036 | Trasferimenti a due gambe con `transferGroupId` | no |
-| F-037 | Budget: spesa per categoria/conto/mese, soglie 80/100 | parziale (B1 calcoli puri + test; UI in B6) |
-| F-038 | Obiettivi: progresso, aggiunta risparmio, completamento | parziale (B1 calcoli puri; UI in B6) |
+| F-037 | Budget: spesa per categoria/conto/mese, soglie 80/100 | sì (B6, spesa per mese/categoria/conto, soglie 80/100) |
+| F-038 | Obiettivi: progresso, aggiunta risparmio, completamento | sì (B6, progresso, aggiungi risparmio, completamento) |
 | F-039 | Rettifica saldo alla modifica conto | no |
 | F-040 | Cronologia modifiche (audit log) | no |
 | F-041 | Preferenze locali (DataStore) per tutte le chiavi di §2 | parziale (B1 `AppPrefs` DataStore) |
@@ -500,36 +500,36 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 ### Schermate
 | ID | Funzione | Android |
 |---|---|---|
-| F-050 | Home: header data + wordmark + pulsanti occhio/impostazioni | parziale (B2: ingranaggio Impostazioni aggiunto; resto B4) |
-| F-051 | Home: HomeHeroCard con saldo attuale | parziale |
-| F-052 | Home: TrailView (curva mese reale/proiettata) | no |
-| F-053 | Home: Saldo atteso + riepilogo pianificati | parziale (solo importo, regola diversa) |
-| F-054 | Home: carosello conti (card 148, saldo futuro) | parziale (lista verticale) |
+| F-050 | Home: header data + wordmark + pulsanti occhio/impostazioni | sì (B4, data+wordmark, occhio persistito, ingranaggio) |
+| F-051 | Home: HomeHeroCard con saldo attuale | sì (B4) |
+| F-052 | Home: TrailView (curva mese reale/proiettata) | sì (B4, TrailView Canvas) |
+| F-053 | Home: Saldo atteso + riepilogo pianificati | sì (B4, competenza S-41) |
+| F-054 | Home: carosello conti (card 148, saldo futuro) | sì (B4, carosello card 148) |
 | F-055 | Home: ordine/visibilità conti (`HomeAccountOrderSheet`) | sì (B2, `HomeAccountOrderSheet`: check, trascina, salva) |
-| F-056 | Home: «Fissi del mese» (2 tile, toggle Impostazioni) | no |
-| F-057 | Home: Ultimi movimenti (4, collassabile, vuoto, swipe/menu) | parziale (5, no collasso, no swipe, no elimina) |
-| F-058 | Oscura importi (persistito, `•••• €`/`• • •`) | parziale (non persistito, in hero) |
+| F-056 | Home: «Fissi del mese» (2 tile, toggle Impostazioni) | sì (B4, Fissi del mese) |
+| F-057 | Home: Ultimi movimenti (4, collassabile, vuoto, swipe/menu) | sì (B4, 4 voci, collasso, swipe/menu) |
+| F-058 | Oscura importi (persistito, `•••• €`/`• • •`) | sì (B4, persistito) |
 | F-059 | Movimenti: titolo, ricerca per nome | sì (B3) |
-| F-060 | Movimenti: chip tipo (Tutti/Fisse/Trasf./Uscite/Entrate) | parziale (B3: Tutti/Fisse/Trasf./Uscite/Entrate; «Ricorrenti» in B5) |
+| F-060 | Movimenti: chip tipo (Tutti/Fisse/Trasf./Uscite/Entrate) | sì (B5, chip Ricorrenti → pagina) |
 | F-061 | Movimenti: menu Mese e Categoria | sì (B3) |
 | F-062 | Movimenti: filtri avanzati (importo, periodo) + badge + persistenza | sì (B3, sheet Filtri + badge + chip riepilogo + persistenza min/max/periodo) |
 | F-063 | Movimenti: sezione «In arrivo · pianificati» | sì (B3) |
 | F-064 | Movimenti: gruppi per giorno con totale | sì (B3, per data; totale giorno senza trasferimenti) |
 | F-065 | Movimenti: swipe Conferma/Pianificato ed Elimina | sì (B3, swipe elimina/conferma/pianificato + menu) |
-| F-066 | Movimenti: menu contestuale (Ricorrenza/Elimina) | parziale (B3: menu Modifica/Conferma/Elimina; «Ricorrenza» in B5) |
+| F-066 | Movimenti: menu contestuale (Ricorrenza/Elimina) | sì (B5, menu Ricorrenza; elimina copia di serie apre l'editor) |
 | F-067 | Movimenti: eliminazione trasferimento con conferma | sì (B3, dialog elimina entrambe le gambe) |
-| F-068 | Movimenti: pagina Ricorrenti (regole + serie rilevate) | no |
-| F-069 | Movimenti: occorrenze virtuali mesi futuri | no |
+| F-068 | Movimenti: pagina Ricorrenti (regole + serie rilevate) | sì (B5, pagina Ricorrenti: ricerca, categorie, serie programmate + rilevate) |
+| F-069 | Movimenti: occorrenze virtuali mesi futuri | sì (B5, occorrenze virtuali nei mesi futuri) |
 | F-070 | Movimenti: stati vuoti (nessun movimento / nessun risultato) | sì (B3) |
-| F-071 | Dettaglio serie rilevata (Storico) | no |
-| F-072 | Editor ricorrenza (ambiti, salta mese, termina, elimina) | no |
+| F-071 | Dettaglio serie rilevata (Storico) | sì (B5, dettaglio serie rilevata + Storico) |
+| F-072 | Editor ricorrenza (ambiti, salta mese, termina, elimina) | sì (B5, editor ricorrenza con annulla dopo elimina) |
 | F-073 | Aggiungi movimento: importo/descrizione/categoria/conto/data/note | sì (B3) |
 | F-074 | Aggiungi movimento: tipo Uscita/Entrata (UnderlineSegment) | sì (B3) |
 | F-075 | Aggiungi movimento: categoria auto (storico + classificatore, debounce 280) | sì (B3, storico «Ultima usata» + classificatore, debounce 280) |
 | F-076 | Aggiungi movimento: picker categoria + gestione categorie | sì (B3, `CategoryPickerSheet` + Gestisci) |
 | F-077 | Aggiungi movimento: spesa/entrata fissa + «Già effettuato» | sì (B3, fissa + «Già effettuato») |
-| F-078 | Aggiungi movimento: ricorrenza (nessuna/sett./mens./ann.) | no |
-| F-079 | Modifica movimento (anche copia di serie → serie intera) | parziale (B3: modifica normale; copia di serie in B5) |
+| F-078 | Aggiungi movimento: ricorrenza (nessuna/sett./mens./ann.) | sì (B5, picker Nessuna/Settimanale/Mensile/Annuale) |
+| F-079 | Modifica movimento (anche copia di serie → serie intera) | sì (B5, modifica copia = edit(all), «fatto» locale) |
 | F-080 | Elimina movimento | sì (B3, con «Annulla») |
 | F-081 | Notifiche post-salvataggio (budget, soglia saldo) | no |
 | F-082 | Aggiungi/modifica trasferimento | sì (B3, `AddTransferForm`) |
@@ -538,15 +538,15 @@ Colonna **Android** = confronto con `03_CODICE/bucktrail-android` al 2026-11-21 
 | F-085 | Statistiche: Andamento barre 6M/12M + medie | no |
 | F-086 | Statistiche: Per categoria + confronto mese scorso | no |
 | F-087 | Statistiche: media 12 mesi + anno vs anno | no |
-| F-088 | Pianifica: segmented Budget/Obiettivi, header | no |
-| F-089 | Budget: hero «Budget usato» + tacca 80% + giorni (plurale) | no |
-| F-090 | Budget: card per budget + stato (NN%/Soglia 80%/Sforato) | no |
-| F-091 | Aggiungi budget (multi-categoria, icona, conto, limite) | no |
-| F-092 | Storico budget (6 mesi) | no |
-| F-093 | Elimina budget (menu) | no |
-| F-094 | Obiettivi: hero con anello, card, scadenza, `+` | no |
-| F-095 | Aggiungi/modifica obiettivo (36 icone, scadenza, aggiungi risparmio) | no |
-| F-096 | Elimina obiettivo | no |
+| F-088 | Pianifica: segmented Budget/Obiettivi, header | sì (B6) |
+| F-089 | Budget: hero «Budget usato» + tacca 80% + giorni (plurale) | sì (B6) |
+| F-090 | Budget: card per budget + stato (NN%/Soglia 80%/Sforato) | sì (B6) |
+| F-091 | Aggiungi budget (multi-categoria, icona, conto, limite) | sì (B6, multi-categoria, icona, conto, limite) |
+| F-092 | Storico budget (6 mesi) | sì (B6, ultimi 6 mesi) |
+| F-093 | Elimina budget (menu) | sì (B6, long-press) |
+| F-094 | Obiettivi: hero con anello, card, scadenza, `+` | sì (B6, anello hero) |
+| F-095 | Aggiungi/modifica obiettivo (36 icone, scadenza, aggiungi risparmio) | sì (B6, 36 icone, scadenza, aggiungi risparmio) |
+| F-096 | Elimina obiettivo | sì (B6, long-press) |
 | F-097 | Conti: hero patrimonio + «A conti fatti» | sì (B2) |
 | F-098 | Conti: gruppi Liquidità / Risparmio e investimenti con totali | sì (B2) |
 | F-099 | Conti: AccountRow (tinta tipo, soglia, escluso, → futuro) | sì (B2, soglia, escluso, → futuro) |

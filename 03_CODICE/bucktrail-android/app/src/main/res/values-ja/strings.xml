@@ -406,9 +406,11 @@
     <string name="elimina_con_n_movimenti">削除（%1$d件の取引）</string>
     <string name="filtro_attivo_rimuovi" formatted="false">詳細フィルターを解除</string>
     <string name="hidden_amount" formatted="false">金額は非表示です</string>
+    <string name="icona_budget" formatted="false">予算のアイコン</string>
     <string name="movimenti_eliminati" formatted="false">取引を削除しました</string>
     <string name="movimento_eliminato" formatted="false">取引を削除しました</string>
     <string name="nome_categoria" formatted="false">カテゴリ名</string>
+    <string name="ok" formatted="false">OK</string>
     <string name="periodo" formatted="false">期間</string>
     <string name="save_failed" formatted="false">保存できませんでした。もう一度お試しください。</string>
     <string name="scegli_valuta_conferma" formatted="false">通貨を変更しますか？</string>

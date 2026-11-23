@@ -40,6 +40,7 @@ fun TransactionRow(
     t: TransactionEntity, accounts: List<AccountEntity>, currency: String, hidden: Boolean,
     today: LocalDate, zone: ZoneId, res: android.content.res.Resources, recurring: Boolean = false, compact: Boolean = false,
     onEdit: (TransactionEntity) -> Unit, onDelete: (TransactionEntity) -> Unit, onToggleDone: ((TransactionEntity) -> Unit)? = null,
+    onRecurrence: ((TransactionEntity) -> Unit)? = null, deleteOpensEditor: Boolean = false,
 ) {
     val c = Bt.colors
     var menu by remember { mutableStateOf(false) }
@@ -50,7 +51,7 @@ fun TransactionRow(
     val meta = if (planned) "${if (t.isFixed) res.getString(R.string.fissa) else category} · ${Fmt.dayMonth(date, today, res)}"
     else listOf(category, account).filter { it.isNotEmpty() }.joinToString(" · ") + " · " + Fmt.dayMonth(date, today, res)
     val canToggle = onToggleDone != null && SwipeRules.canToggleDone(t.isFixed, t.isDone)
-    val needsConfirm = t.isTransfer && t.transferGroupId.isNotEmpty()
+    val needsConfirm = (t.isTransfer && t.transferGroupId.isNotEmpty()) || deleteOpensEditor
     SwipeableRow(
         deleteAction = SwipeAction(stringResource(R.string.elimina), SfIcons.forName("trash"), c.danger, c.onAccent),
         onDelete = { onDelete(t); !needsConfirm },
@@ -73,6 +74,11 @@ fun TransactionRow(
                 if (canToggle) DropdownMenuItem(
                     text = { Text(stringResource(if (planned) R.string.conferma else R.string.pianificato)) },
                     onClick = { menu = false; onToggleDone?.invoke(t) },
+                )
+                if (recurring && onRecurrence != null) DropdownMenuItem(
+                    text = { Text(stringResource(R.string.ricorrenza)) },
+                    leadingIcon = { Icon(SfIcons.forName("repeat"), null, modifier = Modifier.size(18.dp)) },
+                    onClick = { menu = false; onRecurrence(t) },
                 )
                 DropdownMenuItem(
                     text = { Text(stringResource(R.string.elimina), color = c.danger) },

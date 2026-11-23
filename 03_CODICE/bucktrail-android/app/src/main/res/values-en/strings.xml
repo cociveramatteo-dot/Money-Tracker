@@ -406,9 +406,11 @@
     <string name="elimina_con_n_movimenti">Delete (%1$d transactions)</string>
     <string name="filtro_attivo_rimuovi" formatted="false">Remove advanced filters</string>
     <string name="hidden_amount" formatted="false">Hidden amount</string>
+    <string name="icona_budget" formatted="false">Budget icon</string>
     <string name="movimenti_eliminati" formatted="false">Transactions deleted</string>
     <string name="movimento_eliminato" formatted="false">Transaction deleted</string>
     <string name="nome_categoria" formatted="false">Category name</string>
+    <string name="ok" formatted="false">OK</string>
     <string name="periodo" formatted="false">Period</string>
     <string name="save_failed" formatted="false">Couldn\'t save. Try again.</string>
     <string name="scegli_valuta_conferma" formatted="false">Change currency?</string>

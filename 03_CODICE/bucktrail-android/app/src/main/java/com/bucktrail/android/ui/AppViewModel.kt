@@ -8,7 +8,14 @@ import com.bucktrail.android.data.AccountEntity
 import com.bucktrail.android.data.CategoryEntity
 import com.bucktrail.android.data.TransactionOps
 import com.bucktrail.android.domain.AccountEditing
+import com.bucktrail.android.data.RecurringOps
+import com.bucktrail.android.data.RecurringRuleEntity
+import com.bucktrail.android.data.toSnapshot
+import com.bucktrail.android.domain.RecurrenceCalculator
 import com.bucktrail.android.domain.Amounts
+import java.time.Instant
+import java.time.ZoneId
+import java.util.UUID
 import com.bucktrail.android.domain.HomeAccountOrder
 import kotlinx.coroutines.flow.MutableStateFlow
 import com.bucktrail.android.data.AppPrefs
@@ -56,12 +63,93 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         return withContext(Dispatchers.Default) { c.classify(name) }
     }
 
-    /** Ultimo movimento eliminato, in attesa di «Annulla» (barra temporanea). */
-    data class UndoState(val transactions: List<TransactionEntity>, val key: Long = System.nanoTime())
+    /** Ultima eliminazione, in attesa di «Annulla» (barra temporanea): movimenti oppure una serie (con la sua `restore`). */
+    data class UndoState(
+        val transactions: List<TransactionEntity>, val key: Long = System.nanoTime(),
+        val series: Boolean = false, val restore: (suspend () -> Unit)? = null,
+    )
     val undo = MutableStateFlow<UndoState?>(null)
 
-    /** Esegue il salvataggio e riporta l'esito (false = errore: il form resta aperto). */
-    suspend fun saveTransaction(transaction: TransactionEntity): Boolean = runCatching { repository.dao.upsert(transaction) }.isSuccess
+    private val zone get() = ZoneId.systemDefault()
+    private fun accountIds() = data.value.ledger.accounts.map { it.id }.toSet()
+
+    /**
+     * Salva il movimento (false = errore: il form resta aperto). Nuovo + `frequency`: crea la serie (regola + prima copia + copie del mese).
+     * Modifica di una copia di serie: riallinea l'intera serie (`edit(all)`), il «fatto» resta locale alla copia (§3.4).
+     */
+    suspend fun saveTransaction(transaction: TransactionEntity, frequency: String = "", isNew: Boolean = true): Boolean = runCatching {
+        val ledger = data.value.ledger
+        val dao = repository.dao
+        val now = Instant.now()
+        if (isNew && frequency.isNotEmpty()) {
+            val calc = RecurrenceCalculator(zone)
+            val date = Instant.ofEpochMilli(transaction.date)
+            val rule = RecurringRuleEntity(
+                name = transaction.name, type = transaction.type, category = transaction.category, categoryIcon = transaction.categoryIcon,
+                notes = transaction.notes, amountCents = transaction.amountCents, isFixed = transaction.isFixed, accountId = transaction.accountId,
+                frequency = frequency, startDate = date.toEpochMilli(),
+            )
+            val first = transaction.copy(id = RecurrenceCalculator.occurrenceId(UUID.fromString(rule.id), calc.key(date)).toString(), templateId = rule.id.uppercase())
+            val c = RecurringOps.materialize(ledger.rules + rule, ledger.transactions + first, accountIds(), now, zone)
+            val rules = (listOf(rule) + c.upsertRules).associateBy { it.id }.values.toList()
+            dao.applyRecurring(RecurringOps.Changes(c.upsertTransactions + first, emptyList(), rules))
+        } else {
+            val rule = if (isNew) null else RecurringOps.resolve(transaction, ledger.rules, zone)?.let { it.rule to it.occurrence }
+            if (rule == null) dao.upsert(transaction) else {
+                val (r, occ) = rule
+                val calc = RecurrenceCalculator(zone)
+                val values = r.toSnapshot().copy(
+                    name = transaction.name, amount = Amounts.fromCents(transaction.amountCents), type = transaction.type, category = transaction.category,
+                    categoryIcon = transaction.categoryIcon, accountId = transaction.accountId?.let { runCatching { UUID.fromString(it) }.getOrNull() },
+                    isFixed = transaction.isFixed, notes = transaction.notes,
+                )
+                val anchored = values.copy(startDate = calc.anchorForSeriesEdit(values, occ.originalDate, Instant.ofEpochMilli(transaction.date)))
+                val stored = ledger.transactions.map { if (it.id == transaction.id) it.copy(isDone = transaction.isDone) else it }
+                val c = RecurringOps.apply(RecurringOps.Action.Edit(RecurringOps.Scope.All, anchored), r, Instant.ofEpochMilli(r.startDate), stored, accountIds(), now, zone)
+                dao.saveSeriesEdit(stored.first { it.id == transaction.id }, c)
+            }
+        }
+    }.isSuccess
+
+    sealed interface RecurrenceResult {
+        data object Ok : RecurrenceResult
+        data class Error(val problem: RecurringOps.Problem?) : RecurrenceResult
+    }
+
+    /** Editor serie: applica l'azione in un'unica transazione; l'eliminazione mostra «Annulla». */
+    suspend fun applyRecurrence(action: RecurringOps.Action, rule: RecurringRuleEntity, originalDate: Instant): RecurrenceResult {
+        val ledger = data.value.ledger
+        return try {
+            val c = RecurringOps.apply(action, rule, originalDate, ledger.transactions, accountIds(), Instant.now(), zone)
+            val dao = repository.dao
+            dao.applyRecurring(c)
+            if (action is RecurringOps.Action.Delete) {
+                val gone = ledger.transactions.filter { it.id in c.deleteTransactionIds }
+                val oldRules = ledger.rules.filter { it.id == rule.id }
+                undo.value = UndoState(gone, series = true, restore = {
+                    dao.applyRecurring(RecurringOps.Changes(upsertTransactions = gone, upsertRules = oldRules))
+                })
+            }
+            RecurrenceResult.Ok
+        } catch (e: RecurringOps.EditorException) {
+            RecurrenceResult.Error(e.problem)
+        } catch (e: Exception) {
+            RecurrenceResult.Error(null)
+        }
+    }
+
+    /** Copie mancanti delle serie (avvio, ritorno in foreground, cambio giorno). */
+    fun materializeDue() {
+        val state = data.value
+        if (!state.loaded || state.ledger.rules.isEmpty()) return
+        viewModelScope.launch {
+            runCatching {
+                val l = data.value.ledger
+                val c = RecurringOps.materialize(l.rules, l.transactions, accountIds(), Instant.now(), zone)
+                if (!c.isEmpty) repository.dao.applyRecurring(c)
+            }
+        }
+    }
 
     suspend fun saveTransactions(list: List<TransactionEntity>): Boolean = runCatching { repository.dao.upsertTransactions(list) }.isSuccess
 
@@ -76,7 +164,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     fun undoDelete() {
         val state = undo.value ?: return
         undo.value = null
-        viewModelScope.launch { repository.dao.upsertTransactions(state.transactions) }
+        viewModelScope.launch { state.restore?.invoke() ?: repository.dao.upsertTransactions(state.transactions) }
     }
 
     fun dismissUndo(key: Long) { if (undo.value?.key == key) undo.value = null }
@@ -122,6 +210,12 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     }.isSuccess
 
     fun deleteCategory(category: CategoryEntity) = viewModelScope.launch { repository.dao.delete(category) }
+
+    // Budget e obiettivi
+    suspend fun saveBudget(b: com.bucktrail.android.data.BudgetEntity): Boolean = runCatching { repository.dao.upsert(b) }.isSuccess
+    fun deleteBudget(b: com.bucktrail.android.data.BudgetEntity) = viewModelScope.launch { repository.dao.delete(b) }
+    suspend fun saveGoal(g: com.bucktrail.android.data.GoalEntity): Boolean = runCatching { repository.dao.upsert(g) }.isSuccess
+    fun deleteGoal(g: com.bucktrail.android.data.GoalEntity) = viewModelScope.launch { repository.dao.delete(g) }
 
     // Preferenze
     fun setHomeAccounts(ids: List<String>) = viewModelScope.launch { prefs.setHomeAccounts(ids) }
