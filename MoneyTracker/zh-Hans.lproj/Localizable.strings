@@ -394,7 +394,6 @@
 "💰 Saldo totale: %@" = "💰 总余额：%@";
 
 "Avanti"                = "下一步";
-"Fine"                  = "完成";
 
 /* ── Settings / Siri section & accessibility ─── */
 "Siri & Shortcut" = "Siri 与快捷指令";
@@ -461,7 +460,6 @@
 "Attiva" = "有效";
 "Prossima occorrenza" = "下次计划";
 "Nessuno" = "无";
-"Tipo" = "类型";
 "Le ricorrenze richiedono il contesto principale." = "重复计划需要主上下文。";
 "L’occorrenza non appartiene alla serie." = "本次项目不属于此系列。";
 "I valori della ricorrenza non sono validi." = "重复计划的值无效。";
@@ -512,3 +510,49 @@
 
 /* S-30: history category suggestion */
 "· Ultima usata" = "· 上次使用";
+
+/* S-39: stringhe che comparivano in italiano (proposte, da approvare) */
+"Accedi" = "登录";
+"Accedi per continuare" = "登录以继续";
+"Account" = "账户";
+"Atteso" = "预计";
+"Benvenuto" = "欢迎";
+"Blocco con Face ID" = "Face ID 锁定";
+"Condividi tutti i dati (JSON)" = "分享所有数据（JSON）";
+"Conferma eliminazione" = "确认删除";
+"Conferma password" = "确认密码";
+"Continua" = "继续";
+"Crea account" = "创建账户";
+"Crea il tuo account per iniziare" = "创建账户即可开始";
+"Crea un account" = "创建账户";
+"Cronologia modifiche" = "修改记录";
+"Dovrai effettuare di nuovo il login la prossima volta." = "下次需要重新登录。";
+"Elimina account" = "删除账户";
+"Eliminare l'account?" = "要删除账户吗？";
+"Eliminazione in corso…" = "正在删除…";
+"Email" = "邮箱";
+"Esci" = "退出登录";
+"Esci dall'account" = "退出账户";
+"Esci dall'account?" = "要退出账户吗？";
+"Esiste già una categoria con questo nome." = "已存在同名类别。";
+"Esporta tutti i dati (JSON)" = "导出所有数据（JSON）";
+"Icona budget" = "预算图标";
+"Invia link" = "发送链接";
+"Le password non coincidono" = "两次密码不一致";
+"MoneyTracker è bloccato" = "MoneyTracker 已锁定";
+"Nessuna modifica registrata" = "暂无修改记录";
+"Ogni modifica ai tuoi dati finanziari apparirà qui." = "您对财务数据的每次修改都会显示在这里。";
+"Oppure esporta l'intero tuo profilo (conti, budget e obiettivi inclusi) in un unico file JSON." = "或将整个资料（含账户、预算和目标）导出为单个 JSON 文件。";
+"Password" = "密码";
+"Password dimenticata?" = "忘记密码？";
+"Per confermare, scrivi ELIMINA in maiuscolo." = "请输入大写的 ELIMINA 以确认。";
+"Periodo" = "期间";
+"Registrati" = "注册";
+"Reimposta password" = "重置密码";
+"Saldo" = "余额";
+"Sblocca" = "解锁";
+"Scrivi ELIMINA" = "输入 ELIMINA";
+"Sicurezza" = "安全";
+"Torna al login" = "返回登录";
+"Verranno cancellati per sempre tutti i tuoi conti, movimenti, budget e obiettivi, sia sul dispositivo che sul cloud. L'operazione non è reversibile." = "您的所有账户、交易、预算和目标将从设备和云端永久删除。此操作无法撤销。";
+"oppure" = "或";

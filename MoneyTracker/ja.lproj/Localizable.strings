@@ -393,7 +393,6 @@
 "💰 Saldo totale: %@" = "💰 合計残高: %@";
 
 "Avanti"                = "次へ";
-"Fine"                  = "完了";
 
 /* ── Settings / Siri section & accessibility ─── */
 "Siri & Shortcut" = "Siri & ショートカット";
@@ -458,7 +457,6 @@
 "Attiva" = "有効";
 "Prossima occorrenza" = "次回";
 "Nessuno" = "なし";
-"Tipo" = "種類";
 "Le ricorrenze richiedono il contesto principale." = "繰り返しにはメインコンテキストが必要です。";
 "L’occorrenza non appartiene alla serie." = "この回はこのシリーズに属していません。";
 "I valori della ricorrenza non sono validi." = "繰り返しの値が無効です。";
@@ -509,3 +507,49 @@
 
 /* S-30: history category suggestion */
 "· Ultima usata" = "· 前回使用";
+
+/* S-39: stringhe che comparivano in italiano (proposte, da approvare) */
+"Accedi" = "ログイン";
+"Accedi per continuare" = "ログインして続行";
+"Account" = "アカウント";
+"Atteso" = "見込み";
+"Benvenuto" = "ようこそ";
+"Blocco con Face ID" = "Face IDロック";
+"Condividi tutti i dati (JSON)" = "すべてのデータを共有 (JSON)";
+"Conferma eliminazione" = "削除の確認";
+"Conferma password" = "パスワードを確認";
+"Continua" = "続ける";
+"Crea account" = "アカウントを作成";
+"Crea il tuo account per iniziare" = "アカウントを作成して始めましょう";
+"Crea un account" = "アカウントを作成";
+"Cronologia modifiche" = "変更履歴";
+"Dovrai effettuare di nuovo il login la prossima volta." = "次回は再度ログインが必要です。";
+"Elimina account" = "アカウントを削除";
+"Eliminare l'account?" = "アカウントを削除しますか？";
+"Eliminazione in corso…" = "削除中…";
+"Email" = "メールアドレス";
+"Esci" = "ログアウト";
+"Esci dall'account" = "アカウントからログアウト";
+"Esci dall'account?" = "アカウントからログアウトしますか？";
+"Esiste già una categoria con questo nome." = "この名前のカテゴリはすでに存在します。";
+"Esporta tutti i dati (JSON)" = "すべてのデータを書き出す (JSON)";
+"Icona budget" = "予算アイコン";
+"Invia link" = "リンクを送信";
+"Le password non coincidono" = "パスワードが一致しません";
+"MoneyTracker è bloccato" = "MoneyTrackerはロックされています";
+"Nessuna modifica registrata" = "記録された変更はありません";
+"Ogni modifica ai tuoi dati finanziari apparirà qui." = "財務データへの変更はすべてここに表示されます。";
+"Oppure esporta l'intero tuo profilo (conti, budget e obiettivi inclusi) in un unico file JSON." = "または、プロフィール全体（口座・予算・目標を含む）を1つのJSONファイルに書き出します。";
+"Password" = "パスワード";
+"Password dimenticata?" = "パスワードをお忘れですか？";
+"Per confermare, scrivi ELIMINA in maiuscolo." = "確認のため、ELIMINA と大文字で入力してください。";
+"Periodo" = "期間";
+"Registrati" = "登録";
+"Reimposta password" = "パスワードをリセット";
+"Saldo" = "残高";
+"Sblocca" = "ロック解除";
+"Scrivi ELIMINA" = "ELIMINA と入力";
+"Sicurezza" = "セキュリティ";
+"Torna al login" = "ログインに戻る";
+"Verranno cancellati per sempre tutti i tuoi conti, movimenti, budget e obiettivi, sia sul dispositivo che sul cloud. L'operazione non è reversibile." = "すべての口座、取引、予算、目標が、この端末とクラウドの両方から完全に削除されます。この操作は取り消せません。";
+"oppure" = "または";

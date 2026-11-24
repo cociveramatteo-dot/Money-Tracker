@@ -393,7 +393,6 @@
 "💰 Saldo totale: %@" = "💰 Gesamtstand: %@";
 
 "Avanti"                = "Weiter";
-"Fine"                  = "Fertig";
 
 /* ── Settings / Siri section & accessibility ─── */
 "Siri & Shortcut" = "Siri & Kurzbefehle";
@@ -458,7 +457,6 @@
 "Attiva" = "Aktiv";
 "Prossima occorrenza" = "Nächster Termin";
 "Nessuno" = "Keines";
-"Tipo" = "Typ";
 "Le ricorrenze richiedono il contesto principale." = "Wiederholungen erfordern den Hauptkontext.";
 "L’occorrenza non appartiene alla serie." = "Der Termin gehört nicht zu dieser Reihe.";
 "I valori della ricorrenza non sono validi." = "Die Werte der Wiederholung sind ungültig.";
@@ -509,3 +507,49 @@
 
 /* S-30: history category suggestion */
 "· Ultima usata" = "· Zuletzt verwendet";
+
+/* S-39: stringhe che comparivano in italiano (proposte, da approvare) */
+"Accedi" = "Anmelden";
+"Accedi per continuare" = "Zum Fortfahren anmelden";
+"Account" = "Konto";
+"Atteso" = "Erwartet";
+"Benvenuto" = "Willkommen";
+"Blocco con Face ID" = "Face-ID-Sperre";
+"Condividi tutti i dati (JSON)" = "Alle Daten teilen (JSON)";
+"Conferma eliminazione" = "Löschen bestätigen";
+"Conferma password" = "Passwort bestätigen";
+"Continua" = "Weiter";
+"Crea account" = "Konto erstellen";
+"Crea il tuo account per iniziare" = "Erstelle dein Konto, um loszulegen";
+"Crea un account" = "Konto erstellen";
+"Cronologia modifiche" = "Änderungsverlauf";
+"Dovrai effettuare di nuovo il login la prossima volta." = "Du musst dich beim nächsten Mal erneut anmelden.";
+"Elimina account" = "Konto löschen";
+"Eliminare l'account?" = "Konto löschen?";
+"Eliminazione in corso…" = "Wird gelöscht…";
+"Email" = "E-Mail";
+"Esci" = "Abmelden";
+"Esci dall'account" = "Vom Konto abmelden";
+"Esci dall'account?" = "Vom Konto abmelden?";
+"Esiste già una categoria con questo nome." = "Eine Kategorie mit diesem Namen existiert bereits.";
+"Esporta tutti i dati (JSON)" = "Alle Daten exportieren (JSON)";
+"Icona budget" = "Budget-Symbol";
+"Invia link" = "Link senden";
+"Le password non coincidono" = "Die Passwörter stimmen nicht überein";
+"MoneyTracker è bloccato" = "MoneyTracker ist gesperrt";
+"Nessuna modifica registrata" = "Keine Änderungen aufgezeichnet";
+"Ogni modifica ai tuoi dati finanziari apparirà qui." = "Jede Änderung an deinen Finanzdaten erscheint hier.";
+"Oppure esporta l'intero tuo profilo (conti, budget e obiettivi inclusi) in un unico file JSON." = "Oder exportiere dein gesamtes Profil (inklusive Konten, Budgets und Ziele) in eine einzige JSON-Datei.";
+"Password" = "Passwort";
+"Password dimenticata?" = "Passwort vergessen?";
+"Per confermare, scrivi ELIMINA in maiuscolo." = "Zur Bestätigung tippe ELIMINA in Großbuchstaben.";
+"Periodo" = "Zeitraum";
+"Registrati" = "Registrieren";
+"Reimposta password" = "Passwort zurücksetzen";
+"Saldo" = "Saldo";
+"Sblocca" = "Entsperren";
+"Scrivi ELIMINA" = "ELIMINA eingeben";
+"Sicurezza" = "Sicherheit";
+"Torna al login" = "Zurück zur Anmeldung";
+"Verranno cancellati per sempre tutti i tuoi conti, movimenti, budget e obiettivi, sia sul dispositivo che sul cloud. L'operazione non è reversibile." = "Alle deine Konten, Bewegungen, Budgets und Ziele werden endgültig gelöscht, sowohl auf dem Gerät als auch in der Cloud. Dies kann nicht rückgängig gemacht werden.";
+"oppure" = "oder";

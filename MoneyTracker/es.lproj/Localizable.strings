@@ -393,7 +393,6 @@
 "💰 Saldo totale: %@" = "💰 Saldo total: %@";
 
 "Avanti"                = "Siguiente";
-"Fine"                  = "Listo";
 
 /* ── Settings / Siri section & accessibility ─── */
 "Siri & Shortcut" = "Siri y Atajos";
@@ -458,7 +457,6 @@
 "Attiva" = "Activa";
 "Prossima occorrenza" = "Próxima ocurrencia";
 "Nessuno" = "Ninguna";
-"Tipo" = "Tipo";
 "Le ricorrenze richiedono il contesto principale." = "Las recurrencias requieren el contexto principal.";
 "L’occorrenza non appartiene alla serie." = "La ocurrencia no pertenece a esta serie.";
 "I valori della ricorrenza non sono validi." = "Los valores de la recurrencia no son válidos.";
@@ -509,3 +507,49 @@
 
 /* S-30: history category suggestion */
 "· Ultima usata" = "· Última utilizada";
+
+/* S-39: stringhe che comparivano in italiano (proposte, da approvare) */
+"Accedi" = "Iniciar sesión";
+"Accedi per continuare" = "Inicia sesión para continuar";
+"Account" = "Cuenta";
+"Atteso" = "Previsto";
+"Benvenuto" = "Bienvenido";
+"Blocco con Face ID" = "Bloqueo con Face ID";
+"Condividi tutti i dati (JSON)" = "Compartir todos los datos (JSON)";
+"Conferma eliminazione" = "Confirmar eliminación";
+"Conferma password" = "Confirmar contraseña";
+"Continua" = "Continuar";
+"Crea account" = "Crear cuenta";
+"Crea il tuo account per iniziare" = "Crea tu cuenta para empezar";
+"Crea un account" = "Crear una cuenta";
+"Cronologia modifiche" = "Historial de cambios";
+"Dovrai effettuare di nuovo il login la prossima volta." = "Tendrás que iniciar sesión de nuevo la próxima vez.";
+"Elimina account" = "Eliminar cuenta";
+"Eliminare l'account?" = "¿Eliminar la cuenta?";
+"Eliminazione in corso…" = "Eliminando…";
+"Email" = "Correo electrónico";
+"Esci" = "Cerrar sesión";
+"Esci dall'account" = "Cerrar sesión de la cuenta";
+"Esci dall'account?" = "¿Cerrar sesión?";
+"Esiste già una categoria con questo nome." = "Ya existe una categoría con este nombre.";
+"Esporta tutti i dati (JSON)" = "Exportar todos los datos (JSON)";
+"Icona budget" = "Icono del presupuesto";
+"Invia link" = "Enviar enlace";
+"Le password non coincidono" = "Las contraseñas no coinciden";
+"MoneyTracker è bloccato" = "MoneyTracker está bloqueado";
+"Nessuna modifica registrata" = "Ningún cambio registrado";
+"Ogni modifica ai tuoi dati finanziari apparirà qui." = "Cada cambio en tus datos financieros aparecerá aquí.";
+"Oppure esporta l'intero tuo profilo (conti, budget e obiettivi inclusi) in un unico file JSON." = "O exporta todo tu perfil (incluidas cuentas, presupuestos y objetivos) en un único archivo JSON.";
+"Password" = "Contraseña";
+"Password dimenticata?" = "¿Olvidaste la contraseña?";
+"Per confermare, scrivi ELIMINA in maiuscolo." = "Para confirmar, escribe ELIMINA en mayúsculas.";
+"Periodo" = "Período";
+"Registrati" = "Regístrate";
+"Reimposta password" = "Restablecer contraseña";
+"Saldo" = "Saldo";
+"Sblocca" = "Desbloquear";
+"Scrivi ELIMINA" = "Escribe ELIMINA";
+"Sicurezza" = "Seguridad";
+"Torna al login" = "Volver al inicio de sesión";
+"Verranno cancellati per sempre tutti i tuoi conti, movimenti, budget e obiettivi, sia sul dispositivo che sul cloud. L'operazione non è reversibile." = "Se eliminarán para siempre todas tus cuentas, movimientos, presupuestos y objetivos, tanto en el dispositivo como en la nube. Esta acción no se puede deshacer.";
+"oppure" = "o";

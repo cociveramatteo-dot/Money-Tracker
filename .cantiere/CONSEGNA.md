@@ -1,8 +1,7 @@
-# CONSEGNA — segretario · 2026-11-24 02:16
+# CONSEGNA — capocantiere · 2026-11-24 13:12
 
-- Checkpoint 2026-11-24 02:16: vedi `CHECKPOINT.md` (copia in `archivio/checkpoint/2026-11-24_0216.md`). Manuale `docs/MoneyTracker.md` alla versione 3.24 e PDF rigenerato.
-- Collaudi: `collaudo-android-2026-11-23.md` (🟢), `collaudo-ios-2026-11-24.md`. Commissione Suprema: `commissione-suprema-2026-11-24.md` (10/10 al giro 2, commit 045392e).
-- S-41 e S-42 [x]. S-36 [x] 2026-11-24: rami nightly vecchi cancellati, tag `archivio/tmp-stash-inspect`, tenuto solo `fix/nightly-20260727-0411` per decisione di Matteo.
-- Aperto: UI test `testDeleteMonthlyFixedSeriesFromMovementMenuAllScopes` fragile; passaggio di mese di S-41 non provato in UI; telefono Android vero; prova sync reale (serve ok di Matteo e account di prova); release Android usa il Supabase reale (voluto).
-- Fuori dal commit (non mie): modifiche a `AGENTS.md`, `.cantiere/archivio/modello-base/AGENTS.md`, `99_DA_SMISTARE/parita/` (da spostare con il trasloco), grafo `graphify-out/`.
-- Prossimo: prova sync Android con Matteo; poi S-38 (Codex), S-39 (redattore), S-40 (Codex). Banca solo dopo conferma di Matteo.
+- **S-38 [~]** commit 49088bf (Domain toccato solo in `RecurringSeriesDetector` e `RecurringMaterializer`, su richiesta esplicita di Matteo). **S-40 [~]** commit 2b88670. **S-39 [~]** traduzioni in `*.lproj` + riga ⏳ in APPROVAZIONI.
+- Verifica: build ok, 94/94 unit, UI mirati ricorrenze/transazioni 13/13, suite UI completa 45/48. I 3 rossi sono `SentieroReviewFixUITests` (S-43): falliscono identici anche su a4131c2, quindi non sono causati da questi lavori.
+- Da collaudare: S-38, S-39, S-40 (controllo visivo con testo XL/accessibilità e tedesco; i layout con cornici fisse possono tagliarsi).
+- Matteo: approvare le traduzioni S-39; il resto in `PER-MATTEO.md`.
+- Prossimo: collaudatore su S-38/S-39/S-40; poi S-43 (Codex).
