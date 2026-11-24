@@ -5,6 +5,9 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### GITHUB · portare `main` al ramo di lavoro (una frase)
+📍 Chat del capocantiere. ▶️ Scrivi «porta main al redesign». Il push su `main` lo fa solo con il tuo ok esplicito: l'ho provato in autonomia e il controllo permessi l'ha fermato. Fatto questo, anche il guardiano notturno usa la nuova configurazione (landing). ↩️ Niente da riportare.
+
 ### ANDROID · prova sync reale + telefono vero (quando vuoi, non urgente)
 📍 Chat del capocantiere. ▶️ Scrivi «prova sync android»: ti guido io passo passo (account di prova, iPhone + Android o emulatore, widget e riquadro, impronta/volto). Serve il tuo account di prova su Supabase: non lo uso io senza di te perché toccherebbe i dati veri. ↩️ Riporta l'esito.
 

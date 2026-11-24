@@ -1,75 +1,60 @@
 # CHECKPOINT — MoneyTracker
 
-**Data** 2026-11-24 02:16 · **Tag** `checkpoint-2026-11-24-0216` (creato al sigillo) · **Ramo** `redesign-sentiero` · **Fatto da** segretario (Claude Code · Haiku 5.5)
+**Data:** 2026-11-24 15:09 · **Tag:** `checkpoint-2026-11-24-1509` · **Ramo:** `redesign-sentiero` · **Fatto da:** capocantiere (Claude Code · Sonnet 5.5), in autonomia su delega di Matteo
 
 ## Siamo qui
 
-- **Android** completo sulle schermate B0–B11 (parità con iOS): Room v3, export, notifiche, blocco, demo, widget. 247 test JVM verdi e collaudo 🟢 del 2026-11-23. Prova a mano su emulatore: spesa da 12,50 € in demo, saldi coerenti. Sync e login provati solo con server finto.
-- **iOS**: 94/94 unit e 17/18 UI (1 fragile, verde al rilancio). S-41 e S-42 chiusi. S-36 chiuso: rami vecchi cancellati, resta solo `fix/nightly-20260727-0411` per decisione di Matteo.
-- **Manca prima della consegna**: prova sync reale Android (serve ok di Matteo e account di prova), telefono Android vero, pagella consegnabile (1 approvazione in sospeso, voti giudici e guardiano mancanti).
+- **iOS:** restyling «Sentiero» completo. Pacchetto A della Commissione chiuso (S-38 filtri sulle serie virtuali e conferme, S-39 traduzioni, S-40 font che seguono Dynamic Type, S-43 test corretto), più il passaggio di mese di S-41 testato. **99 test unitari e 49 UI verdi.**
+- **Android:** parità con iOS completa (B0–B11). 247 test JVM e 2 strumentati su emulatore verdi. Sync e login provati solo con server finto.
+- **Manca:** la prova di sync reale su Android e il telefono Android vero (servono le tue mani e un account di prova), le pubblicazioni social, `main` da portare al ramo di lavoro (decisione tua).
 
-## Fatto dall'ultimo checkpoint (2026-11-21 10:30)
+## Fatto dall'ultimo checkpoint (2026-11-24 02:17)
 
 | Quando | Chi (strumento · modello) | Cosa |
 |---|---|---|
-| 2026-11-23 12:36 | capocantiere (Claude Code · Sonnet) | Social v2: Post 5–42 unificati in Post-5–15 (81 slide), in Drive «Da postare» |
-| 2026-11-23 20:55 | capocantiere (Claude Code · Sonnet) | Android B0–B11, test di parità grafica, stress test (10 bug corretti, guardia anti-cancellazione cloud) |
-| 2026-11-23 | collaudatore (Claude Code · Sonnet) | Verbale collaudo Android 🟢 (`collaudo-android-2026-11-23.md`) |
-| 2026-11-24 00:44 | collaudatore (Claude Code · Sonnet) | Collaudo iOS: S-41 e S-42 chiusi, 94 unit ok, UI 17/18 |
-| 2026-11-24 00:52 | capocantiere (Claude Code · Sonnet) | Commissione Suprema 10/10 al giro 2 (4 correzioni). Prova a mano Android in demo |
-| 2026-11-24 | non verificato | Rami nightly cancellati (840 → 530 MB), tag `archivio/tmp-stash-inspect` |
+| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | S-38, S-39 (46 chiavi x 6 lingue), S-40 (239 font), S-43 (test), S-16 (precisione Decimal misurata), passaggio di mese S-41 e conferma «Salta mese» con test |
+| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | Collaudi S-38/39/40 (`collaudo-ios-s38-s39-s40-2026-11-24.md`) e Commissione Suprema giro 3 10/10 (`commissione-suprema-2026-11-24-giro3.md`) |
+| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | Chiusi o collaudati SC-3…SC-9 (landing online uguale al locale, smoke FFmpeg), S-33, S-34, S-36; guardiano puntato sulla landing; registri ripuliti |
 
 ## Stato di salute
 
 | Controllo | Esito | Note |
 |---|---|---|
-| Build / test / lint | 🟢 | Android: 247 test JVM verdi. iOS: 94/94 unit, UI 17/18 (1 fragile) |
-| Guardiano notturno | 🟡 | 404: il workflow non è su `main`. Ultimo esito non verificato |
-| Pagella (misurata) | 🟡 | 98/100. Non consegnabile: 1 approvazione in sospeso, voti giudici e guardiano mancanti |
-| Commissione Suprema | 🟢 | 10/10 al giro 2, 4 correzioni (`commissione-suprema-2026-11-24.md`) |
-| Lingue allineate | 🟡 | Non verificate in questo periodo |
-| Sicurezza | 🟡 | Guardia anti-cancellazione cloud in Android. Sync reale mai provato |
-| Ordine e spazio | 🟡 | 12 GB liberi, sotto soglia 35 GB. Screenshot di parità da 114 MB ancora in `99_DA_SMISTARE/parita` |
-| Grafo aggiornato | 🟢 | 3901 nodi, 7763 archi. Entra `bucktrail-android` |
+| Build / test / lint | 🟢 | iOS 99 unit + 49 UI; Android 247 JVM + 2 strumentati; build debug Android ok |
+| Guardiano notturno | 🟡 | giro del 24/11 15:06 sulla landing: 0 errori, 7 avvisi (titoli saltano un livello, 1 link YouTube respinto dal bot). Lighthouse: prestazioni 92, accessibilità 99, SEO 98, buone pratiche 100. Il giro automatico gira su `main`, con la vecchia configurazione fino al merge |
+| Pagella (misurata) | 🟡 | 93/100; più bassa Velocità 66 (LCP 3,7 s su telefono, landing). Non consegnabile: mancano i voti dei giudici (servono solo prima di una consegna) |
+| Lingue allineate | 🟢 | 439 chiavi uguali in 6 lingue, segnaposto coerenti. «Lingue 64» della pagella = nomi piatti della landing contro lo strumento, non un difetto |
+| Sicurezza | 🟡 | Nessuna superficie nuova. Sync reale mai provato |
+| Ordine e spazio | 🟢 | 26 GB liberi; cantiere 558 MB; screenshot di parità già nel magazzino |
+| Grafo aggiornato | 🟢 | 3937 nodi, 7866 archi |
 
 ## Bug
 
-- Risolti: 10 bug dello stress test Android. 4 correzioni della Commissione (debug Android con URL finto, stringa demo, cache proiezione Home, separatore ultima riga).
-- Aperti: UI test `testDeleteMonthlyFixedSeriesFromMovementMenuAllScopes` fragile (iOS, da assegnare). Passaggio di mese di S-41 non provato in UI (da assegnare).
+- Risolti: test `SentieroReviewFixUITests` rosso (era il test, non l'app); conferma mancante su «Salta mese/Termina…»; 2 stringhe italiane nella registrazione.
+- Aperti: nessuno nell'app. Landing: titoli che saltano un livello (moderato, 3 pagine) → da correggere alla prossima ricarica della landing.
 
 ## Cantiere
 
-- Spostati/rinominati: Post 5–42 unificati in Post-5–15 (81 slide) in Drive «Da postare». Calendario v2 e v1 in archivio.
-- Eliminati: rami nightly vecchi e `tmp-stash-inspect` (il secondo recuperabile dal tag `archivio/tmp-stash-inspect`).
-- Da confermare (Matteo): trasloco degli screenshot di parità (vedi sotto). Ramo `fix/nightly-20260727-0411` tenuto (tocca `Auth/`).
+- Spostati/rinominati: niente. Eliminati: niente.
+- `fix/nightly-20260727-0411` tenuto (tocca `Auth/`, decisione di Matteo del 24/11).
+- Collegamento bancario: roadmap dopo il lancio, non lavoro aperto.
 
 ## Struttura (dal grafo)
 
-- Grafo: 3901 nodi, 7763 archi. Android entra nel grafo come `03_CODICE/bucktrail-android`.
-- Archi dubbi iOS → `PdfReport.kt`: probabili omonimie, non verificato.
-- 16 file JSON senza nodi nel grafo.
+- 3937 nodi, 7866 archi, 394 comunità. Novità: `DashboardView.countsInProjection`, `scaledFont` in `Theme.swift`, test `ProjectionMonthTests` e `DecimalPersistenceTests`.
 
 ## Domani si riparte così
 
 1. Sessione nuova nella cartella → `riprendiamo`
-2. Primo lavoro: prova sync Android con Matteo (solo con suo ok e account di prova) — prompt: «Riprendiamo la prova sync Android del cantiere MoneyTracker. Leggi .cantiere/CHECKPOINT.md, sezione "Cose che deve fare Matteo", e la voce "prova reale a due dispositivi" in .cantiere/PER-MATTEO.md. Non usare il Supabase reale senza il mio ok esplicito. Guidami passo passo e registra l'esito in .cantiere/CONSEGNA.md.»
-3. Poi: S-38 → Codex (virtuali, filtri, force-unwrap) — prompt: «Esegui il task S-38 del cantiere MoneyTracker (Codex). Leggi AGENTS.md e solo il task S-38 in .cantiere/PIANO.md, poi i file indicati. Nessun altro task. Build e test iOS verdi. Nessun push né merge. Registra in .cantiere/CONSEGNA.md.»
-4. Poi: S-39 (traduzioni, redattore) e S-40 (font fissi, Codex). Banca: solo dopo la conferma di Matteo sulla proposta in PIANO.md.
+2. Primo lavoro: prova sync reale Android con Matteo — prompt: «Riprendiamo la prova sync Android del cantiere MoneyTracker. Leggi .cantiere/CHECKPOINT.md e la voce «prova sync reale» in .cantiere/PER-MATTEO.md. Non usare il Supabase reale senza il mio ok esplicito. Guidami passo passo e registra l'esito in .cantiere/CONSEGNA.md.»
+3. Poi: pagella completa con i giudici prima di ogni consegna; correzione dei titoli della landing alla prossima ricarica.
 
 ## Cose che deve fare Matteo
 
-- [ ] **Trasloco screenshot di parità (114 MB).** 📍 Terminale, nuova scheda, cartella del cantiere: `cd /Users/matteo/Desktop/APP/MoneyTracker` · ▶️ `bash .cantiere/strumenti/trasloco.sh 99_DA_SMISTARE/parita 02_RISORSE/lavorate/fuori-git/parita-android-2026-11-23` e scrivi `si` solo se dice «Copia verificata» · ↩️ l'ultima riga che stampa.
-- [ ] **Post 5–15 su Instagram e TikTok.** 📍 Drive → `Da postare` → `Post-05…`. ▶️ Carica le slide in ordine, titolo e hashtag da `titolo-e-hashtag.txt`, date in `SOCIAL/calendario-v2.md`. Post-15: prova prima il doppio tocco su un iPhone vero. ↩️ «pubblicato post N».
-- [ ] **TikTok, nome dal 24/11.** 📍 TikTok → Modifica profilo. ▶️ Nome: `Bucktrail · budget`. Dopo il primo post: Impostazioni e privacy → Account → Account Business, sito web `https://bucktrailapp.com/?utm_source=tiktok&utm_medium=bio`. ↩️ «tiktok ok».
-- [ ] **Testi App Store.** 📍 Apri `SOCIAL/testi-v1.md`, scheda IT e EN. ▶️ Scrivi nella chat del capocantiere «testi App Store ok» o le correzioni. ↩️ l'esito.
-- [ ] **NotebookLM, 6 fonti.** 📍 notebooklm.google.com → notebook «MoneyTracker App» → «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/`. ▶️ Aggiungi `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (importanti). Le licenze dei font sono facoltative. ↩️ «notebook ok».
-- [ ] **Spazio disco.** 12 GB liberi, sotto soglia 35 GB. 📍 Terminale, cartella del cantiere · ▶️ `bash .cantiere/strumenti/spazio.sh` · ↩️ l'esito. Dopo il trasloco va meglio.
-- [ ] **Prova sync reale Android e telefono vero** (biometria, widget, notifiche): quando vuoi. 📍 Chat del capocantiere · ▶️ scrivi «prova sync android» · ↩️ l'esito.
-- [ ] **Approvazioni ⏳** in `.cantiere/APPROVAZIONI.md`: vedi `PER-MATTEO.md`.
+- [ ] **Portare `main` al ramo di lavoro.** 📍 Chat del capocantiere. ▶️ Scrivi «porta main al redesign» (il push su `main` richiede il tuo ok esplicito: ho provato in autonomia e il controllo permessi l'ha fermato). Così anche il guardiano notturno usa la nuova configurazione. ↩️ Niente.
+- [ ] Prova sync reale + telefono Android (account di prova) · pubblicare i Post 5–15 · nome TikTok · riprese faceless (SC-2) · 6 fonti NotebookLM. Istruzioni complete in `.cantiere/PER-MATTEO.md`.
 
 ## Suggerimenti · Rischi
 
-- La release Android usa il Supabase reale (voluto). Ogni prova di sync tocca dati veri: nessuna prova senza ok di Matteo.
-- Il guardiano notturno dà 404 finché il workflow non è su `main`. Il merge su `main` resta una decisione di Matteo.
-- PIANO.md ha due voci S-36: la riga 173 è [x]; la voce «fix in TrailView» (riga 424) resta [~] e non è verificata.
-- L'UI test fragile va rilanciato prima di dare per buono un verde.
+- Velocità della landing: LCP 3,7 s su telefono; immagini da ottimizzare alla prossima ricarica.
+- Il dialogo di conferma di «Salta mese» in questa versione di iOS non ha «Annulla»: si annulla toccando fuori.

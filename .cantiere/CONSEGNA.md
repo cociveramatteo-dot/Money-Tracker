@@ -1,6 +1,6 @@
-# CONSEGNA — capocantiere · 2026-11-24 13:41
+# CONSEGNA — capocantiere · 2026-11-24 15:09
 
-- S-43 [x]: test `SentieroReviewFixUITests` corretto con l'ok di Matteo, 3/3 verdi. S-39 [x]: traduzioni approvate da Matteo. S-38, S-39, S-40, S-43 tutti chiusi.
-- Suite UI attesa 48/48 (45 verdi nel giro completo + i 3 ora verdi); non rilanciata per intero dopo la correzione.
-- Aperto: passaggio di mese S-41 in UI; prova sync Android reale; telefono Android vero; voci di `PER-MATTEO.md`.
-- Prossimo: checkpoint (Commissione Suprema 10/10) quando Matteo vuole; poi prova sync Android con Matteo.
+- Checkpoint 2026-11-24 15:09: vedi `CHECKPOINT.md` (copia in `archivio/checkpoint/2026-11-24_1509.md`). Manuale 3.25 e PDF rigenerato.
+- Tutto chiuso tranne ciò che è di Matteo: `main` da portare al ramo (push su main fermato dal controllo permessi), sync Android reale, telefono Android vero, social, SC-2, NotebookLM.
+- Guardiano: giro del 24/11 15:06 sulla landing, 0 errori; sulla landing restano titoli che saltano un livello e LCP 3,7 s su telefono.
+- Prossimo: prova sync Android con Matteo.
