@@ -1,7 +1,8 @@
-# CONSEGNA — capocantiere · 2026-11-24 00:52
+# CONSEGNA — segretario · 2026-11-24 02:16
 
-- Collaudi: `collaudo-android-2026-11-23.md`, `collaudo-ios-2026-11-24.md`. Commissione Suprema: `commissione-suprema-2026-11-24.md` (tutti 10/10, giro 2, commit 045392e).
-- S-41 e S-42 chiusi. S-36 resta `[~]`: nessun ramo vecchio è in main; solo `fix/nightly-20260727-0411` ha lavoro utile (tocca Auth/). Gli altri 6 nightly e `tmp-stash-inspect` sono cancellabili: serve l'ok di Matteo.
-- Aperto: UI test `testDeleteMonthlyFixedSeriesFromMovementMenuAllScopes` fragile; passaggio di mese S-41 non provato in UI; telefono Android vero; prova sync reale (serve ok e account di prova); release Android usa il Supabase reale (voluto).
-- Fuori dal commit: modifiche preesistenti a `AGENTS.md`, `archivio/modello-base/AGENTS.md`, `99_DA_SMISTARE/parita/`.
-- Prossimo: checkpoint (docs/MoneyTracker.md, PDF, push) e poi prova sync con Matteo.
+- Checkpoint 2026-11-24 02:16: vedi `CHECKPOINT.md` (copia in `archivio/checkpoint/2026-11-24_0216.md`). Manuale `docs/MoneyTracker.md` alla versione 3.24 e PDF rigenerato.
+- Collaudi: `collaudo-android-2026-11-23.md` (🟢), `collaudo-ios-2026-11-24.md`. Commissione Suprema: `commissione-suprema-2026-11-24.md` (10/10 al giro 2, commit 045392e).
+- S-41 e S-42 [x]. S-36 [x] 2026-11-24: rami nightly vecchi cancellati, tag `archivio/tmp-stash-inspect`, tenuto solo `fix/nightly-20260727-0411` per decisione di Matteo.
+- Aperto: UI test `testDeleteMonthlyFixedSeriesFromMovementMenuAllScopes` fragile; passaggio di mese di S-41 non provato in UI; telefono Android vero; prova sync reale (serve ok di Matteo e account di prova); release Android usa il Supabase reale (voluto).
+- Fuori dal commit (non mie): modifiche a `AGENTS.md`, `.cantiere/archivio/modello-base/AGENTS.md`, `99_DA_SMISTARE/parita/` (da spostare con il trasloco), grafo `graphify-out/`.
+- Prossimo: prova sync Android con Matteo; poi S-38 (Codex), S-39 (redattore), S-40 (Codex). Banca solo dopo conferma di Matteo.

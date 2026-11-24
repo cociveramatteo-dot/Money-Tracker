@@ -170,7 +170,7 @@ il task e i file indicati.
 - **Collaudo 2026-11-17 11:48 (collaudatore):** [x] collaudo ok. Spostamento identico riga per riga (modificatori, chiavi, accessibilityIdentifier), Binding corretti, file nuovi coperti dal gruppo sincronizzato del target, TransactionsView 579 righe, `git diff --check` pulito, nessuna zona protetta/test toccati. Suite completa su iPhone 18 Pro: 135/135 verdi (90 unit + 45 UI), 0 falliti.
 - **Esecuzione 2026-11-17 11:10:** ramo `refactor-transactionsview` da main; 4 sotto-viste estratte, TransactionsView 864 → 579 righe. Build clean verde, 90 unit + 45 UI verdi; S-33 non riprodotto. Nessun test o zona protetta modificati; nessun push/merge. Dettagli e log in CONSEGNA.md.
 
-### S-36 [~] Potare i rami vecchi — gruppo A (8 rami mergiati) cancellato 2026-11-17 11:56 in locale e su origin. Restano da decidere i 7 fix/nightly-* e tmp-stash-inspect (lavoro non in main, non toccati). Collaudo 2026-11-24: elenco e proposta in `.cantiere/collaudo-ios-2026-11-24.md`; solo fix/nightly-20260727-0411 ha lavoro utile; serve decisione di Matteo
+### S-36 [x] Potare i rami vecchi — chiuso 2026-11-24 per decisione di Matteo: gruppo A cancellato 2026-11-17 11:56; rami nightly vecchi e `tmp-stash-inspect` cancellati (tag `archivio/tmp-stash-inspect`); tenuto solo `fix/nightly-20260727-0411` (tocca `Auth/`). Collaudo: `.cantiere/collaudo-ios-2026-11-24.md`
 - **Chi:** pulizie (Haiku) elenca i rami già mergiati; Matteo approva la cancellazione. S-16 (precisione Decimal) resta [?] su decisione di Matteo.
 
 ### S-37 [x] Commissione 2026-11-17 — integrità sync e parsing (autorizzato da Matteo) — chiuso 2026-11-17 13:35, collaudo ok

@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.23*
+*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.24*
 
 > **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
 
@@ -48,6 +48,7 @@ Una singola app, pagamento una tantum, che sostituisce carta e penna, fogli Exce
 | Sicurezza DB | `NSFileProtectionComplete` su SQLite WAL/SHM |
 | Cloud Sync | Supabase (SDK integrato, in sviluppo) |
 | iOS target | iOS 17+ |
+| Android | Kotlin, Jetpack Compose, Room v3 (`03_CODICE/bucktrail-android`). Parità con iOS sulle schermate B0–B11 |
 | Localizzazione | 7 lingue (IT, EN, ES, FR, DE, ZH-Hans, JA) |
 | Architettura | MVVM implicita, computed properties SwiftUI-native |
 | Xcode project | `PBXFileSystemSynchronizedRootGroup` (auto-scan cartelle) |
@@ -307,6 +308,7 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 - **Nascondi saldo** — pulsante occhio: hero, carte conti e tile mostrano gli importi oscurati (`•••• €`). Stato persistito via `@AppStorage("hideBalance")`
 - **Fissi del mese** — mini-card affiancate "Spese fisse"/"Entrate fisse": somma di tutte le transazioni `isFixed` del mese corrente (pagate o da pagare, `isDone` ignorato). Ciascuna mostrabile/nascondibile indipendentemente da Impostazioni → Home (`@AppStorage("showFixedExpensesTotal")`/`("showFixedIncomeTotal")`); rispetta "Nascondi saldo" (`hideBalance`)
 - **Ultimi movimenti** — collassabile, con link «Vedi tutti» verso il tab Movimenti. Ultime 4 transazioni non fisse (`MovementRow`). Swipe sinistra = Elimina, tap o menu contestuale = Modifica
+- **Cache della proiezione** — la curva del saldo e la proiezione Home sono in cache e si ricalcolano solo quando cambiano i dati (correzione della Commissione del 2026-11-24)
 - Il tema non si sceglie: l'app segue il sistema (chiaro/scuro)
 
 ### Movimenti (TransactionsView)
@@ -427,7 +429,19 @@ Fino al tag `tour-v1` l'app aveva un **onboarding tour a due livelli**: una pano
 
 ---
 
+### Android (`03_CODICE/bucktrail-android`)
+
+- Prima app Android in Kotlin, Jetpack Compose e Room (v3, con migrazione dalla prima build). Parità con iOS sulle schermate B0–B11: Home, Conti, Movimenti (filtri, trasferimenti, swipe, annulla), Pianifica, Statistiche, ricorrenze e impostazioni.
+- Export PDF, CSV e JSON; notifiche; blocco app; cronologia; modalità demo; widget e scorciatoie.
+- Login e sync Supabase: provati solo con un server finto. La build debug usa un URL finto e non tocca il cloud. La build release usa il Supabase reale (scelta voluta). La prova reale a due dispositivi è ancora da fare.
+- Guardia anti-cancellazione del cloud: se il database locale è vuoto o cala in modo anomalo, la sync chiede conferma esplicita. Le righe remote non valide vengono ignorate senza bloccare il pull.
+- Verifica: 247 test JVM verdi; collaudo 🟢 del 2026-11-23 (verbale in `.cantiere/`); stress test con 10 bug corretti.
+
+---
+
 ## 7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»)
+
+> **Aggiornamento 2026-11-24:** Commissione Suprema, giro 2: 10/10 su tutti i giudici dopo 4 correzioni (debug Android con URL finto, stringa demo, cache della proiezione Home, separatore dell'ultima riga). Verbale in `.cantiere/commissione-suprema-2026-11-24.md`.
 
 > **Stato attuale (checkpoint del 2026-11-17):** build verde, **90 test unitari** e **45 UI test** verdi (run completo). Dopo il redesign la Commissione Suprema (6 giudici, 2026-11-17, su `main` @ dd473ca) ha dato **7,0 / 10** di media: Sicurezza 6 · Architettura 7 · Logica 8 · Performance 8 · Robustezza 7 · Lingua/UX 6. Rilievi principali: push di sync con `try?` che può svuotare il cloud, ~40 stringhe non tradotte, `parseAmount` permissivo (correzioni in coda nel piano). Il voto e i bug sotto restano come storico dell'audit originale.
 
@@ -558,6 +572,13 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ## 10. Changelog
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
+
+### v3.24 (24 novembre 2026) — Android a parità con iOS, Commissione Suprema e pulizia dei rami
+
+- Android: parità con iOS sulle schermate B0–B11 (Room v3, export PDF/CSV/JSON, notifiche, blocco app, modalità demo, widget e scorciatoie). 247 test JVM verdi; collaudo del 2026-11-23 superato.
+- Sync Android: guardia anti-cancellazione del cloud (database vuoto o calo anomalo: serve conferma esplicita). Login e sync provati solo con server finto; la prova con il Supabase reale è ancora da fare.
+- Commissione Suprema, giro 2: 10/10 su tutti i giudici dopo 4 correzioni. La build debug Android usa un URL finto. Cache della proiezione Home: la curva si ricalcola solo quando cambiano i dati.
+- iOS: S-41 (spesa fissa singola nel mese di competenza) e S-42 (annullamento eliminazione serie, sezione Ultimi movimenti) chiusi. Rami git vecchi cancellati; resta `fix/nightly-20260727-0411`.
 
 ### v3.23 (21 novembre 2026) — Prima build Android e pianificazione locale
 

@@ -48,6 +48,7 @@
 - Carosello di prova superato (17/11): spostato nel magazzino in `02_RISORSE/lavorate/social-prove/prova-01/` (doppione anche in `social-caroselli/` e `fuori-git/`)
 - `SOCIAL/landing/`, `SOCIAL/montaggio/` — sito landing e script di montaggio (git)
 - `.cantiere/tmp/` — appunti e screenshot di collaudo (da decidere, vedi rapporto magazziniere)
+- `99_DA_SMISTARE/parita/` — screenshot di parità iOS↔Android del 2026-11-23 (114 MB, fuori da git): da spostare da Matteo con `trasloco.sh` in `02_RISORSE/lavorate/fuori-git/parita-android-2026-11-23`
 
 ## Social · backup novembre 2026
 
