@@ -1,21 +1,20 @@
-# REGOLAMENTO DI CANTIERE — {{NOME_PROGETTO}}
+# REGOLAMENTO DI CANTIERE — MoneyTracker
 
 > Lo leggono TUTTI: Claude Code, Antigravity, Codex, Copilot, subagenti, consulenti. È corto apposta (viene caricato
 > a ogni sessione): i dettagli stanno nelle skill (`.agents/skills/`), da aprire solo quando servono.
 
 ## 1. Il progetto
-- **Nome:** {{NOME_PROGETTO}}
-- **Committente:** [DA COMPILARE] · **Chi approva:** [DA COMPILARE]
-- **Obiettivo:** [DA COMPILARE]
-- **Stack:** [DA COMPILARE] (standard dell'azienda: HTML/CSS/JS statico, niente framework se non serve)
-- **Hosting:** [DA COMPILARE] (standard: GitHub Pages. Netlify o altro solo se servono redirect 301, moduli,
-  intestazioni o anteprime: lo propone il capocantiere all'avvio e si scrive qui con il motivo)
-- **Skill in più dallo scaffale:** [nessuna] (skill `attrezza`)
-- **Vincoli non negoziabili:** [DA COMPILARE]
+- **Nome:** MoneyTracker
+- **Committente:** Matteo (l'app è sua, nessun cliente esterno) · **Chi approva:** Matteo
+- **Obiettivo:** applicare a tutta l'app il redesign grafico «Sentiero» (`02_RISORSE/originali/bucktrail-redesign/DESIGN_HANDOFF.md`). Restyling **solo visivo**: nessuna funzione sparisce, nessun calcolo cambia (unica eccezione: rimozione del tour, step 0)
+- **Stack:** app iOS nativa SwiftUI + SwiftData, auth e sync Supabase, 7 lingue (it, en, de, es, fr, ja, zh-Hans). Non è un sito web
+- **Hosting:** nessuno (app iOS). Nessuna pubblicazione App Store/TestFlight senza l'ok di Matteo
+- **Skill in più dallo scaffale:** `frontend-design` (direzione grafica: l'handoff vince sempre)
+- **Vincoli non negoziabili:** `.cantiere/REGOLE-PROGETTO.md` è prioritario e vale per tutti (struttura cartelle, Commissione Suprema, documento master `docs/MoneyTracker.md`, workflow di checkpoint, regole SOCIAL). Zone intoccabili: Models/Persistence, Domain/ (salvo l'aggiunta pura dello step 4), Sync/, Auth/, Intents/, Export/, Formatting/, notifiche, ricorrenze, test esistenti. Lavoro solo sul ramo `redesign-sentiero`; merge su `main` solo con l'ok di Matteo. Mai `preferredColorScheme` né colori non adattivi. Brief completo: `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md`
 - **Regole specifiche del progetto:** `.cantiere/REGOLE-PROGETTO.md` — da leggere SEMPRE, valgono per TUTTI gli strumenti
-- **Sito online / anteprima:** [DA COMPILARE] · **Repository GitHub:** [DA COMPILARE]
-- **Notebook NotebookLM (bibliotecario):** [DA COMPILARE: link]
-- **Magazzino:** `{{MAGAZZINO_CANTIERE}}`
+- **Sito online / anteprima:** nessuno (simulatore Xcode) · **Repository GitHub:** https://github.com/cociveramatteo-dot/Money-Tracker (`origin`)
+- **Notebook NotebookLM (bibliotecario):** «MoneyTracker App» (già esistente, da riusare; aggiungere `DESIGN_HANDOFF.md` come fonte)
+- **Magazzino:** `~/Library/CloudStorage/GoogleDrive-cociveramatteo@gmail.com/Il mio Drive/MAGAZZINO/CANTIERI/moneytracker`
 
 ## 2. La squadra
 | Ruolo | Chi | Quando |
@@ -23,8 +22,8 @@
 | **Direttore dei lavori** | Matteo | decide, assegna, approva: ultima parola |
 | **Capocantiere** | Claude Code (Sonnet) | coordina, smista, controlla, checkpoint. Non esegue lavori lunghi |
 | **Architetto** | subagente `architetto` (Opus) | piani, scelte tecniche, bug difficili. Si chiama poco |
-| **Impresa principale** | **Antigravity** (Gemini: Flash col piano gratuito, modelli più forti con AI Pro) | implementazione, grafica, CSS, refactor, test nel browser, Lighthouse |
-| **Seconda impresa** | **Codex** | logica JS, script, contenuti; riserva quando Antigravity è senza quota (abbonamento fino al 9/12 circa) |
+| **Impresa principale** | **Antigravity** — ⏸ **NON DISPONIBILE fino al 2026-11-20** (Matteo, 2026-11-14): non assegnargli né proporgli nulla, i suoi lavori vanno a Codex; poi torna principale (Gemini: Flash col piano gratuito, modelli più forti con AI Pro) | implementazione, grafica, CSS, refactor, test nel browser, Lighthouse |
+| **Seconda impresa** | **Codex** | logica JS, script, contenuti; riserva quando Antigravity è senza quota (abbonamento fino al 9/12 circa); **fino al 2026-11-20 fa anche le mansioni di Antigravity** |
 | **Terza impresa** | **GitHub Copilot** (CLI `copilot`, Copilot Fusion: sceglie il modello da solo) | task piccoli e medi già descritti, correzioni del guardiano, logica JS; 200 crediti al mese (~1,5 per task piccolo) |
 | **Operaio** | subagente `operaio` (Sonnet) | riserva: task piccoli o urgenti dentro Claude Code |
 | **Redattore** | subagente `redattore` (Sonnet) o Gemini | testi, traduzioni, SEO, messaggi al cliente |

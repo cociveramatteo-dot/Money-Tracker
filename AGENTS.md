@@ -50,6 +50,7 @@ Regola d'oro: **chi costa di più pensa, chi costa meno esegue.** Albo e assunzi
 | "come siamo messi a spazio?" | `spazio` |
 | "pulizia" / "riordina" | `pulizia` |
 | "prepariamo la consegna" | `consegna` |
+| "stress test" / "prova ai limiti" | `stress-test` |
 | "chiudiamo il cantiere" | `archivia` |
 | "assumi …" | `assumi` |
 | "chiudi il turno" · "salva e chiudi" | §4 Fine turno |
@@ -98,7 +99,13 @@ Fermati appena hai quello che ti serve:
 4. **Ogni file al suo posto, col suo nome** (§7). Se non sai dove va: `99_DA_SMISTARE/`.
 5. **Non si cancella niente del cliente** (magazzino, `02_RISORSE/originali/`) senza l'ok di Matteo.
 6. **Il committente approva:** testi, prezzi e grafica in `.cantiere/APPROVAZIONI.md`; niente online senza ✅.
-7. **Il lavoro di imprese e consulenti passa dal collaudatore**, poi dai giudici prima delle consegne.
+7. **Verifica proporzionata.** Ogni impresa esegue i controlli utili del proprio task e li registra. Il
+   collaudatore separato è necessario prima di consegne, dopo bug importanti, su sicurezza/autorizzazioni,
+   migrazioni dati, architettura o quando Matteo chiede un controllo umano/visivo. Non aprire turni di
+   collaudo per una semplice correzione già coperta da build, test e diff.
+   La skill `stress-test` è obbligatoria per limiti, dati, automazioni, reti e casi ad alto rischio.
+   Il controllo visivo si propone una sola volta: Matteo controlla in browser oppure l'impresa usa i test
+   disponibili e lo segnala. Senza scelta esplicita si usa il controllo automatico.
 8. **Decisioni importanti** in `.cantiere/DECISIONI.md` (cosa, perché, alternative scartate).
 9. **Modo di lavorare (linee guida Karpathy):**
    - pensa prima di scrivere: dichiara le ipotesi, se qualcosa non è chiaro chiedi;
@@ -110,7 +117,9 @@ Fermati appena hai quello che ti serve:
 12. **Avvisi spontanei** (una riga, frase pronta, max uno per risposta, mai a metà di un lavoro):
     💾 "salva e chiudi" (lavoro non salvato / fine giornata) · 📍 "facciamo il checkpoint" (2–3 task chiusi, o
     prima di un lavoro rischioso) · 🔥 "stai consumando troppo" (sessione lunga, tanti file letti, stesso errore
-    2 volte → checkpoint veloce + /clear, o passa a un'impresa) · 🔀 "non è lavoro mio" (→ `assegna`) ·
+    2 volte → checkpoint veloce + /clear, o passa a un'impresa) · 🔄 "checkpoint veloce + /clear"
+    (oltre 45–60 minuti, 2–3 passaggi di mano, turno lento o 2 errori ripetuti: salva e riprendi dal file) ·
+    🔀 "non è lavoro mio" (→ `assegna`) ·
     🌐 crediti Netlify prima di ogni push del sito · 💽 spazio sul Mac sotto soglia.
     **🧰 Serve un attrezzo:** se il task richiede qualcosa di spento o non installato (skill dello scaffale,
     claude-in-chrome, un connettore), dillo PRIMA di iniziare: cosa, perché, comando esatto o "lo accendo io?".
