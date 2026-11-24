@@ -476,3 +476,20 @@ Modello di task:
   - 2026-11-24 21:32 · capocantiere (su richiesta di Matteo, autonomia piena): S-44 relazione in `.cantiere/sicurezza-dati-2026-11-24.md` (nessuna falla; Room non cifrato dall'app: decisione di NON aggiungere SQLCipher, motivata lì). S-45 voce FAQ «Come so che i miei dati sono al sicuro?» in index.html e en.html. S-46 scelto Cloudflare Web Analytics: CSP in `_worker.js` aggiornata, `privacy.html` riscritta (it); resta da attivarlo nel pannello (PER-MATTEO). S-47 splash senza icona (res/values-v31 e values-night-v31 + drawable/splash_vuoto.xml), verificato sull'emulatore API 36. S-48 lock.fill e chart.pie.fill ridisegnati in SfIcons.kt (disegno proprio: i glifi SF Symbols non si copiano su Android per licenza Apple). Build, lint e 247 test JVM verdi. Da collaudare.
 
 - [ ] **S-50 · Cifratura end-to-end della sync (opzione «Protezione avanzata»)** → prima **architetto** (solo progetto, nessun codice): generazione e custodia della chiave, chiave di recupero, reset password, migrazione delle righe già sincronizzate, formato identico su iOS e Android, piano di prova con migrazione e recupero finti. Poi implementazione dopo il lancio, opzionale per l'utente così chi non la attiva non cambia. Richiesta di Matteo 2026-11-24 22:37: «se e solo se manteniamo tutto intatto, senza rompere nulla». Zone intoccabili (Sync/, Auth/): serve l'ok di Matteo sul progetto prima di toccarle.
+  **Progetto esecutivo pronto (architetto, 2026-11-24 22:51):** `.cantiere/progetto-e2e-sync.md`. Autorizzazione di Matteo a toccare Sync/ e Auth/ solo per S-50 (riferita dal capocantiere, 2026-11-24). Esecuzione in autonomia di Claude Code con i task qui sotto, in ordine; interruttore spento fino a S-50p.
+  - [ ] **S-50a · Server finto E2E** (fake-supabase.py + test python) → capocantiere/operaio Claude Code · progetto §6.6, §10.3
+  - [ ] **S-50b · Crittografia iOS + vettori condivisi** → capocantiere/operaio Claude Code · §3, §10.3 · dopo S-50a
+  - [ ] **S-50c · Crittografia Android sugli stessi vettori** → capocantiere/operaio Claude Code · §3, §10.3 · dopo S-50b
+  - [ ] **S-50d · iOS: trasporto SyncRemote a comportamento identico** → capocantiere/operaio Claude Code · §8.2, §10.3 · dopo S-50c · poi COLLAUDO BLOCCO 1 (collaudatore, S-50a…d)
+  - [ ] **S-50e · iOS: vault, Keychain, mt_e2e, gate** → capocantiere/operaio Claude Code · §3.4–3.6, §4, §7.2, §10.3 · dopo collaudo blocco 1
+  - [ ] **S-50f · Android: VaultApi, decoratore, Keystore, gate** → capocantiere/operaio Claude Code · §7.2, §8, §10.3 · dopo S-50e
+  - [ ] **S-50g · Interoperabilità righe iOS↔Android (vettori rows)** → capocantiere/operaio Claude Code · §3.7, §10.3 · dopo S-50f
+  - [ ] **S-50h · iOS: migratore, verifica, rollback** → capocantiere/operaio Claude Code · §7, §10.3 · dopo S-50g
+  - [ ] **S-50i · Android: migratore, verifica, rollback** → capocantiere/operaio Claude Code · §7, §10.3 · dopo S-50h · poi COLLAUDO BLOCCO 2 (collaudatore + stress-test, S-50e…i)
+  - [ ] **S-50j · iOS: interfaccia e testi 7 lingue** → capocantiere/operaio Claude Code · §5, §10.3 · dopo collaudo blocco 2
+  - [ ] **S-50k · Android: interfaccia e testi 7 lingue** → capocantiere/operaio Claude Code · §5, §10.3 · dopo S-50j
+  - [ ] **S-50l · Logout, elimina account, cambio utente, stress-test** → capocantiere/operaio Claude Code · §4.2, §10.3 · dopo S-50k · poi COLLAUDO BLOCCO 3 (collaudatore, S-50j…l)
+  - [ ] **S-50m · Commissione Suprema 10/10 + manuale docs/MoneyTracker.md** → capocantiere/operaio Claude Code · §10.3 · dopo collaudo blocco 3
+  - [?] **S-50n · Matteo: incollare lo SQL in Supabase (2 minuti)** → Matteo · istruzioni 📍▶️↩️ nel progetto §6.3 · inerte, si può fare anche subito
+  - [?] **S-50o · Matteo: approvare le schermate (D-014) + prova reale facoltativa con account di prova** → Matteo · §10.3 S-50o · dopo S-50m
+  - [ ] **S-50p · Accensione interruttore + FAQ e privacy del sito** → capocantiere/operaio Claude Code · §10.3 S-50p · SOLO dopo S-50n e S-50o [x]

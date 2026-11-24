@@ -5,6 +5,9 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### S-50n · Protezione avanzata — incollare lo SQL in Supabase (2 minuti, quando vuoi)
+📍 Browser → supabase.com → progetto di Bucktrail → menu a sinistra **SQL Editor** → **New query**. ▶️ Apri `.cantiere/progetto-e2e-sync.md`, §6.2: copia tutto il blocco SQL (da `-- Bucktrail · S-50` fino a `order by 1, 2, 3;`), incollalo e premi **Run**. Non cambia nulla per l'app attuale: resta inerte finché nessuno attiva la Protezione avanzata. ↩️ Dimmi quante righe compaiono nella tabella in basso (devono essere **13**) o copiami l'errore.
+
 ### ANDROID · aggiornare l'app sul tuo telefono
 📍 Terminale, cartella `03_CODICE/bucktrail-android`, telefono collegato con Debug USB acceso. ▶️ `./gradlew installDebug` (con JAVA_HOME e ANDROID_HOME come l'altra volta). Si aggiorna sopra la versione installata, i dati restano. ↩️ Dimmi se all'apertura non vedi più l'icona e se lucchetto e icona del login ti sembrano come su iPhone.
 

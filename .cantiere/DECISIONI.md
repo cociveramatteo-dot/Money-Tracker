@@ -214,3 +214,16 @@ Le cifre 40, 200, 5%, 5 commenti sono mie stime di ordine di grandezza (non font
 - **S-43:** corretta l'asserzione del test perché superata dal progetto (la lista scorre sotto la barra per scelta), non indebolita: ora verifica la posizione dell'ultimo testo.
 - **Guardiano notturno:** puntato sulla landing (`SOCIAL/landing`), l'unico sito del progetto: prima guardava `03_CODICE`, senza pagine, e restava rosso («pagina irraggiungibile ×11»). Le voci «lingue 64» della pagella derivano dai nomi piatti della landing (`en.html` accanto a `index.html`) contro la convenzione a cartelle dello strumento: non è un difetto della landing online.
 - **S-33:** chiuso in osservazione (test verde in tutti i giri di oggi).
+
+## 2026-11-24 · S-50 Protezione avanzata (E2E della sync): progetto esecutivo (architetto)
+Progetto completo: `.cantiere/progetto-e2e-sync.md`. Autorizzazione di Matteo a toccare Sync/ e Auth/ solo per S-50 (riferita dal capocantiere).
+- **Dove sta il cifrato:** tabella nuova `mt_vault` (id, user_id, kind, payload) + `mt_e2e` (chiavi avvolte, stato). Scartate: cifrato nelle colonne esistenti di `mt_*` (un client vecchio lo sovrascriverebbe o rimetterebbe i dati in chiaro) e colonna aggiuntiva (stesso problema).
+- **Unica modifica SQL, additiva e idempotente:** 2 tabelle + RLS proprie + trigger `mt_e2e_guard` sulle 5 tabelle `mt_*` che rifiuta le scritture in chiaro (`bt_e2e_active`, HTTP 400) quando la protezione è attiva. Scartate: nessuna modifica SQL (impossibile fermare i client vecchi), policy RLS restrittiva (HTTP 403 = Android vecchio rinnova il token a ogni tentativo).
+- **Primitive:** AES-256-GCM, PBKDF2-HMAC-SHA256 600 000, HKDF-SHA256, Base64url, Crockford Base32: tutte native (CryptoKit/CommonCrypto, javax.crypto API 26). Scartate: Argon2id/scrypt/XChaCha20 (dipendenze nuove), ChaCha20-Poly1305 (Android solo API 28+).
+- **Chiavi:** DEK casuale avvolta con una frase di sicurezza separata dalla password Supabase (che il server vede) e con una chiave di recupero di 160 bit. Reset della password Supabase senza effetti. Scartata: chiave derivata dalla password di login.
+- **Payload = la riga JSON di oggi** (DTO iOS / SyncMapper Android): la logica di sync non cambia, cambia solo il trasporto (`SyncRemote` iOS, decoratore `VaultSupabaseApi` Android). Scartato: formato nuovo per campo (riscrittura del merge).
+- **Migrazione:** copia in chiaro sul server congelata dal trigger finché la copia cifrata non è verificata (contatori, id, campi, ricevuta SHA-256); riprendibile, idempotente, con rollback fino allo stato `active`. Scartata: migrazione «in un colpo» senza stato server.
+- **Interruttore spento** (`E2EFeature.isEnabled`, `BuildConfig.E2E_ENABLED`) fino a S-50p; una volta acceso in produzione non si spegne (si usa `allowNewActivations`).
+- **D-014:** rispettata spostando l'approvazione delle schermate (S-50o) prima dell'accensione: il codice resta dietro l'interruttore.
+- **Chiavi di localizzazione `e2e_*` identiche** su iOS e Android (in iOS anche in `it.lproj`): eccezione voluta alla convenzione «chiave = testo italiano», per evitare collisioni.
+- **Esecuzione:** 13 task Claude Code (S-50a…m, p) + 2 passi di Matteo (S-50n SQL, S-50o schermate e prova reale facoltativa), 3 collaudi di blocco e Commissione Suprema.
