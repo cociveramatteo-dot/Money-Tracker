@@ -5,9 +5,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### GITHUB · portare `main` al ramo di lavoro (una frase)
-📍 Chat del capocantiere. ▶️ Scrivi «porta main al redesign». Il push su `main` lo fa solo con il tuo ok esplicito: l'ho provato in autonomia e il controllo permessi l'ha fermato. Fatto questo, anche il guardiano notturno usa la nuova configurazione (landing). ↩️ Niente da riportare.
-
 ### ANDROID · prova sync reale + telefono vero (quando vuoi, non urgente)
 📍 Chat del capocantiere. ▶️ Scrivi «prova sync android»: ti guido io passo passo (account di prova, iPhone + Android o emulatore, widget e riquadro, impronta/volto). Serve il tuo account di prova su Supabase: non lo uso io senza di te perché toccherebbe i dati veri. ↩️ Riporta l'esito.
 
@@ -24,6 +21,8 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 📍 notebooklm.google.com → notebook «MoneyTracker App». ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt` e `README.txt` di Inter e Space Grotesk) sono facoltative. ↩️ Scrivi «notebook ok».
 
 ## Fatte
+
+- 2026-11-24 · `main` portato al redesign (fast-forward, push `6d574da..2364d6e`, ok esplicito di Matteo). Bucktrail Android installata e provata su telefono vero via cavo.
 
 - 2026-11-24 · Ripulita la lista dal capocantiere: chiuse in autonomia S-33 (osservazione), S-39 e S-43 (ok di Matteo in chat), SC-6 (diario metriche popolato), decisioni di pulizia 19/11 (tmp e radice già puliti, copie vecchie del carosello già assenti), traduzioni S-19/S-28/S-6/S-7/S-8 (già ✅), segnalazione strumenti CUA (i test ora girano).
 
