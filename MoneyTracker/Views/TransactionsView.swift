@@ -21,11 +21,21 @@ struct TransactionsView: View {
         guard let month = calendar.dateInterval(of: .month, for: selectedMonth),
               let current = calendar.dateInterval(of: .month, for: Date()), month.start > current.start else { return [] }
         let realIDs = Set(all.map(\.id))
+        // Stessi filtri avanzati delle righe reali: importo minimo/massimo e periodo personalizzato.
+        let minAmt = Decimal.parseAmount(filterMinAmount)
+        let maxAmt = Decimal.parseAmount(filterMaxAmount)
+        let from = Calendar.current.startOfDay(for: filterFromDate)
+        let to = Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: filterToDate)) ?? filterToDate
         return occurrenceCache.occurrences(rules: rules, in: month)
-            .filter { !realIDs.contains($0.id) && (selectedCat.isEmpty || $0.category == selectedCat)
-                && (hubSearchQuery.isEmpty || $0.name.localizedCaseInsensitiveContains(hubSearchQuery))
-                && (selectedType == .tutti || selectedType == .fisse && $0.isFixed
-                    || selectedType == .uscite && $0.type == "uscita" || selectedType == .entrate && $0.type == "entrata") }
+            .filter { occ in
+                !realIDs.contains(occ.id) && (selectedCat.isEmpty || occ.category == selectedCat)
+                    && (hubSearchQuery.isEmpty || occ.name.localizedCaseInsensitiveContains(hubSearchQuery))
+                    && (selectedType == .tutti || selectedType == .fisse && occ.isFixed
+                        || selectedType == .uscite && occ.type == "uscita" || selectedType == .entrate && occ.type == "entrata")
+                    && (minAmt.map { occ.amount >= $0 } ?? true)
+                    && (maxAmt.map { occ.amount <= $0 } ?? true)
+                    && (!filterUseCustomDates || (occ.date >= from && occ.date < to))
+            }
             .sorted { $0.date < $1.date }
     }
 
@@ -60,8 +70,23 @@ struct TransactionsView: View {
     @AppStorage("txFilterMin")      private var filterMinAmount:      String = ""
     @AppStorage("txFilterMax")      private var filterMaxAmount:      String = ""
     @AppStorage("txFilterUseDates") private var filterUseCustomDates: Bool   = false
-    @State private var filterFromDate = Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date()
-    @State private var filterToDate   = Date()
+    // Date del periodo personalizzato: persistite come timestamp (0 = non ancora scelte → ultimo mese).
+    @AppStorage("txFilterFrom") private var filterFromStamp: Double = 0
+    @AppStorage("txFilterTo")   private var filterToStamp:   Double = 0
+
+    private var filterFromDate: Date {
+        filterFromStamp > 0 ? Date(timeIntervalSince1970: filterFromStamp)
+            : Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date()
+    }
+    private var filterToDate: Date {
+        filterToStamp > 0 ? Date(timeIntervalSince1970: filterToStamp) : Date()
+    }
+    private var filterFromBinding: Binding<Date> {
+        Binding(get: { filterFromDate }, set: { filterFromStamp = $0.timeIntervalSince1970 })
+    }
+    private var filterToBinding: Binding<Date> {
+        Binding(get: { filterToDate }, set: { filterToStamp = $0.timeIntervalSince1970 })
+    }
 
     private var activeAdvancedFilterCount: Int {
         var n = 0
@@ -114,11 +139,34 @@ struct TransactionsView: View {
     // "Ricorrenti" è all-time (ignora il mese) e usa il rilevamento automatico
     // invece del filtro per tipo/mese di `filtered(for:)`.
     private func recurringSeries(matchingCategory: String) -> [RecurringSeries] {
-        let detected = RecurringSeriesDetector.detect(from: all)
+        let detected = detectedSeries()
         let bySearch = sectionSearch.isEmpty
             ? detected
             : detected.filter { $0.name.localizedCaseInsensitiveContains(sectionSearch) }
         return matchingCategory.isEmpty ? bySearch : bySearch.filter { $0.category == matchingCategory }
+    }
+
+    /// Il rilevamento ordina e raggruppa tutti i movimenti: si rifà solo se cambia qualcosa che legge.
+    private final class SeriesCache {
+        var fingerprint: Int?
+        var value: [RecurringSeries] = []
+    }
+    @State private var seriesCache = SeriesCache()
+
+    private func detectedSeries() -> [RecurringSeries] {
+        var hasher = Hasher()
+        for t in all {
+            hasher.combine(t.id); hasher.combine(t.name); hasher.combine(t.category)
+            hasher.combine(t.type); hasher.combine(t.date); hasher.combine(t.amount)
+            hasher.combine(t.isDone); hasher.combine(t.isTransfer); hasher.combine(t.recurringFrequency)
+            hasher.combine(t.categoryIcon)
+        }
+        let fingerprint = hasher.finalize()
+        if seriesCache.fingerprint != fingerprint {
+            seriesCache.value = RecurringSeriesDetector.detect(from: all)
+            seriesCache.fingerprint = fingerprint
+        }
+        return seriesCache.value
     }
 
     private func grouped(from snapshot: [Transaction]) -> [(key: String, value: [Transaction])] {
@@ -186,7 +234,7 @@ struct TransactionsView: View {
                     .padding(.bottom, DS.Space.xs)
                     .focused($searchFocused)
 
-                typeChips(selected: selectedType)
+                typeChips
                 secondaryChips
 
                 let currentList = filtered(for: selectedType)
@@ -235,8 +283,8 @@ struct TransactionsView: View {
 
     // MARK: - Presentation
 
-    private func typeChips(selected: TxFilter) -> some View {
-        TransactionsTypeChips(selected: selected, typeChipHeight: typeChipHeight, selectedType: $selectedType, navPath: $navPath)
+    private var typeChips: some View {
+        TransactionsTypeChips(typeChipHeight: typeChipHeight, selectedType: $selectedType, navPath: $navPath)
     }
 
     private var secondaryChips: some View {
@@ -294,6 +342,7 @@ struct TransactionsView: View {
     private func movementList(_ snapshot: [Transaction], virtual: [Occurrence]) -> some View {
         let planned = snapshot.filter { !$0.isDone }
         let completed = snapshot.filter { $0.isDone }
+        let ruleIDs = Set(rules.map { $0.id.uuidString })
         return List {
             if !virtual.isEmpty {
                 Section("Serie programmate") {
@@ -309,7 +358,7 @@ struct TransactionsView: View {
             if !planned.isEmpty {
                 Section {
                     ForEach(planned) { t in
-                        swipeableRow(t, isFirst: t.id == planned.first?.id, isLast: t.id == planned.last?.id)
+                        swipeableRow(t, ruleIDs: ruleIDs, isFirst: t.id == planned.first?.id, isLast: t.id == planned.last?.id)
                     }
                 } header: {
                     groupHeader(NSLocalizedString("In arrivo · pianificati", comment: ""), transactions: planned, planned: true)
@@ -319,7 +368,7 @@ struct TransactionsView: View {
             ForEach(grouped(from: completed), id: \.key) { group in
                 Section {
                     ForEach(group.value) { t in
-                        swipeableRow(t, isFirst: t.id == group.value.first?.id, isLast: t.id == group.value.last?.id)
+                        swipeableRow(t, ruleIDs: ruleIDs, isFirst: t.id == group.value.first?.id, isLast: t.id == group.value.last?.id)
                     }
                 } header: {
                     groupHeader(dayTitle(group.value, fallback: group.key), transactions: group.value)
@@ -414,7 +463,7 @@ struct TransactionsView: View {
         TransactionsAdvancedFilterSheet(
             filterMinAmount: $filterMinAmount, filterMaxAmount: $filterMaxAmount,
             filterUseCustomDates: $filterUseCustomDates,
-            filterFromDate: $filterFromDate, filterToDate: $filterToDate,
+            filterFromDate: filterFromBinding, filterToDate: filterToBinding,
             showAdvancedFilter: $showAdvancedFilter,
             activeAdvancedFilterCount: activeAdvancedFilterCount
         )
@@ -423,7 +472,7 @@ struct TransactionsView: View {
     // MARK: - Transaction cell
 
     @ViewBuilder
-    private func transactionCell(_ t: Transaction) -> some View {
+    private func transactionCell(_ t: Transaction, ruleIDs: Set<String>) -> some View {
         MovementRow(
             name: t.name,
             metadata: (t.isDone
@@ -436,7 +485,7 @@ struct TransactionsView: View {
             kind: t.isTransfer ? .transfer : t.transactionType == .entrata ? .income : .expense,
             isPlanned: !t.isDone,
             compact: true,
-            isRecurring: rules.contains { $0.id.uuidString == t.templateId }
+            isRecurring: ruleIDs.contains(t.templateId)
         )
         .padding(.horizontal, 14)
         .contentShape(Rectangle())
@@ -469,8 +518,8 @@ struct TransactionsView: View {
     // MARK: - Riga con swipe actions (riusata da tutte le sezioni non-Ricorrenti)
 
     @ViewBuilder
-    private func swipeableRow(_ t: Transaction, isFirst: Bool, isLast: Bool) -> some View {
-        transactionCell(t)
+    private func swipeableRow(_ t: Transaction, ruleIDs: Set<String>, isFirst: Bool, isLast: Bool) -> some View {
+        transactionCell(t, ruleIDs: ruleIDs)
             .alignmentGuide(.listRowSeparatorLeading) { _ in 14 }
             .listRowInsets(EdgeInsets())
             .listRowBackground(

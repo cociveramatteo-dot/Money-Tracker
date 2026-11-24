@@ -75,7 +75,7 @@ struct DashboardView: View {
     }
 
     private func money(_ value: Decimal) -> String {
-        hideBalance ? "•••• €" : value.currencyFormatted
+        hideBalance ? "•••• \(Double.currencySymbol)" : value.currencyFormatted
     }
 
     // MARK: - Serie TrailView

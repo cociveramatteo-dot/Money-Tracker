@@ -203,7 +203,8 @@ Aggiornato 2026-11-19 01:38 (segretario): post 1 pubblicazione gio 19/11 ore 13:
 Primo rilevamento reale registrato il 2026-11-20: post 1 su Instagram e TikTok, con link e metriche nel diario.
 
 
-### S-38 [ ] Commissione — pacchetto A (Codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per «Salta mese/Termina…», «•••• €» fisso, detector ricalcolato a ogni render, set di ID regole in `movementList`, force-unwrap (RecurrenceControls:69, RecurringSeriesDetector:58-66), `RecurringMaterializer` duplica `snapshot`, tipo/selected ridondanti in `typeChips`.
+### S-38 [~] Commissione — pacchetto A (Codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per «Salta mese/Termina…», «•••• €» fisso, detector ricalcolato a ogni render, set di ID regole in `movementList`, force-unwrap (RecurrenceControls:69, RecurringSeriesDetector:58-66), `RecurringMaterializer` duplica `snapshot`, tipo/selected ridondanti in `typeChips`.
+**Eseguito 2026-11-24 (capocantiere, su richiesta di Matteo, Domain toccato solo per Detector e Materializer):** virtuali con filtri importo e periodo; date del periodo salvate (AppStorage); conferma per «Salta mese/Termina…» (chiavi esistenti, nessuna stringa nuova); «•••• €» usa il simbolo valuta; rilevamento serie in cache con impronta; set ID regole calcolato una volta; force-unwrap tolti (RecurrenceControls, Detector); Materializer usa `RecurringSeriesEditor.snapshot`; chip tipo senza `selected` ridondante. Verifica: build ok, 94/94 unit, 13/13 UI (ricorrenze, appearance, transazioni). Da collaudare.
 
 ### S-39 [ ] Commissione — traduzioni (redattore): ~40 stringhe visibili in italiano in tutte le lingue (Settings, notifiche, Login/SignUp, AuditLog, Budget, filtri…), frasi composte a pezzi, chiavi doppie «Fine»/«Tipo». Poi approvazione Matteo.
 

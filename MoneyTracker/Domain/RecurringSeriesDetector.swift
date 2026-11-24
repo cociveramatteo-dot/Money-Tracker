@@ -48,6 +48,7 @@ enum RecurringSeriesDetector {
         for key in order {
             guard let items = buckets[key], items.count >= 2 else { continue }
             let sorted = items.sorted { $0.date < $1.date }
+            guard let mostRecent = sorted.last, let earliest = sorted.first else { continue }
 
             let distinctMonths = Set(sorted.map { monthKey($0.date) })
             guard distinctMonths.count >= 2 else { continue }
@@ -55,15 +56,14 @@ enum RecurringSeriesDetector {
             let count = sorted.count
             let totalAmount = sorted.reduce(Decimal(0)) { $0 + $1.amount }
             let average = totalAmount / Decimal(count)
-            let lastAmount = sorted.last!.amount
-            let firstDate = sorted.first!.date
-            let lastDate = sorted.last!.date
-            let isVariableAmount = !sorted.allSatisfy { $0.amount == sorted[0].amount }
+            let lastAmount = mostRecent.amount
+            let firstDate = earliest.date
+            let lastDate = mostRecent.date
+            let isVariableAmount = !sorted.allSatisfy { $0.amount == earliest.amount }
 
             let explicitFrequency = sorted.first { !$0.recurringFrequency.isEmpty }?.recurringFrequency
             let frequency = explicitFrequency ?? inferFrequency(sortedByDate: sorted)
 
-            let mostRecent = sorted.last!
             series.append(RecurringSeries(
                 id: key,
                 name: mostRecent.name,

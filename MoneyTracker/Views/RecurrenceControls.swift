@@ -51,6 +51,27 @@ struct RecurrenceEditorView: View {
     @State private var accountID: UUID?
     @State private var fixed = false
     @State private var confirmDelete = false
+    @State private var pendingAction: PendingAction?
+
+    /// Azioni che cambiano la serie senza passare da «Salva»: chiedono conferma.
+    private enum PendingAction: Identifiable {
+        case skip, terminateHere, terminateAfter
+        var id: Self { self }
+        var title: LocalizedStringKey {
+            switch self {
+            case .skip: "Salta mese"
+            case .terminateHere: "Termina da qui"
+            case .terminateAfter: "Termina dopo questa"
+            }
+        }
+        var action: RecurringSeriesEditor.Action {
+            switch self {
+            case .skip: .skipMonth
+            case .terminateHere: .terminate(afterThis: false)
+            case .terminateAfter: .terminate(afterThis: true)
+            }
+        }
+    }
 
     private var editorScope: RecurringSeriesEditor.Scope { scope == 0 ? .onlyThis : scope == 1 ? .following : .all }
     var body: some View {
@@ -66,8 +87,11 @@ struct RecurrenceEditorView: View {
                     TextField("Importo", text: $amount).keyboardType(.decimalPad).accessibilityIdentifier("recurrence_amount")
                     TextField("Note", text: $notes, axis: .vertical).accessibilityIdentifier("recurrence_notes")
                     if scope == 0 {
-                        let month = Calendar(identifier: .gregorian).dateInterval(of: .month, for: selection.occurrence.originalDate)!
-                        DatePicker("Data", selection: $date, in: month.start...month.end.addingTimeInterval(-1), displayedComponents: .date)
+                        if let month = Calendar(identifier: .gregorian).dateInterval(of: .month, for: selection.occurrence.originalDate) {
+                            DatePicker("Data", selection: $date, in: month.start...month.end.addingTimeInterval(-1), displayedComponents: .date)
+                        } else {
+                            DatePicker("Data", selection: $date, displayedComponents: .date)
+                        }
                     } else {
                         DatePicker("Data", selection: $date, displayedComponents: .date).disabled(scope == 1)
                     }
@@ -96,9 +120,9 @@ struct RecurrenceEditorView: View {
                     }
                 }
                 Section {
-                    Button("Salta mese") { apply(.skipMonth) }
-                    Button("Termina da qui", role: .destructive) { apply(.terminate(afterThis: false)) }
-                    Button("Termina dopo questa", role: .destructive) { apply(.terminate(afterThis: true)) }
+                    Button("Salta mese") { pendingAction = .skip }
+                    Button("Termina da qui", role: .destructive) { pendingAction = .terminateHere }
+                    Button("Termina dopo questa", role: .destructive) { pendingAction = .terminateAfter }
                     Button("Elimina", role: .destructive) { confirmDelete = true }
                 }
             }
@@ -116,6 +140,15 @@ struct RecurrenceEditorView: View {
             .confirmationDialog("Eliminare le occorrenze selezionate?", isPresented: $confirmDelete, titleVisibility: .visible) {
                 Button("Elimina", role: .destructive) { apply(.delete(editorScope)) }
                 Button("Annulla", role: .cancel) { }
+            }
+            .confirmationDialog(pendingAction?.title ?? "", isPresented: Binding(
+                get: { pendingAction != nil }, set: { if !$0 { pendingAction = nil } }
+            ), titleVisibility: .visible) {
+                Button(pendingAction?.title ?? "", role: .destructive) {
+                    if let action = pendingAction?.action { apply(action) }
+                    pendingAction = nil
+                }
+                Button("Annulla", role: .cancel) { pendingAction = nil }
             }
             .recurrenceErrorAlert(status)
             .onAppear { load() }

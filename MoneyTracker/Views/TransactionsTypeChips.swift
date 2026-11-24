@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct TransactionsTypeChips: View {
-    let selected: TxFilter
     let typeChipHeight: CGFloat
     @Binding var selectedType: TxFilter
     @Binding var navPath: [TxFilter]
@@ -20,15 +19,15 @@ struct TransactionsTypeChips: View {
                         }
                     } label: {
                         Text(LocalizedStringKey(f.rawValue))
-                            .font(DS.Typo.secondary.weight(selected == f ? .semibold : .medium))
-                            .foregroundStyle(selected == f ? DS.surface : DS.ink)
+                            .font(DS.Typo.secondary.weight(selectedType == f ? .semibold : .medium))
+                            .foregroundStyle(selectedType == f ? DS.surface : DS.ink)
                             .padding(.horizontal, 14)
                             .frame(minHeight: typeChipHeight)
-                            .background(selected == f ? DS.ink : DS.surface, in: RoundedRectangle(cornerRadius: 12))
-                            .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(selected == f ? Color.clear : DS.fog))
+                            .background(selectedType == f ? DS.ink : DS.surface, in: RoundedRectangle(cornerRadius: 12))
+                            .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(selectedType == f ? Color.clear : DS.fog))
                     }
                     .buttonStyle(.plain)
-                    .accessibilityAddTraits(selected == f ? [.isSelected] : [])
+                    .accessibilityAddTraits(selectedType == f ? [.isSelected] : [])
                     .accessibilityIdentifier("txFilterBlock_\(f.rawValue)")
                 }
             }

@@ -40,13 +40,7 @@ struct RecurringMaterializer {
                 continue
             }
             var cursor = max(startMonth, oldestMonth, calculator.adding(.month, value: 1, to: watermark))
-            let snapshot = RuleSnapshot(
-                id: rule.id, name: rule.name, amount: rule.amount, type: rule.type,
-                category: rule.category, categoryIcon: rule.categoryIcon, notes: rule.notes,
-                isFixed: rule.isFixed, accountId: rule.accountId, frequency: rule.frequency,
-                startDate: rule.startDate, endDate: rule.endDate,
-                exceptions: RecurrenceExceptionCodec.decode(rule.exceptionsJSON)
-            )
+            let snapshot = RecurringSeriesEditor.snapshot(rule)
             let ruleIdString = rule.id.uuidString
             let existing = try context.fetch(FetchDescriptor<Transaction>(
                 predicate: #Predicate { $0.templateId == ruleIdString }))
