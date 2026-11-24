@@ -31,6 +31,32 @@ object SfIcons {
         }
     }
 
+    /** SF `lock.fill`: corpo pieno con angoli morbidi e arco sottile (disegno proprio, non il glifo Apple). */
+    private val lockFill: ImageVector by lazy {
+        ImageVector.Builder("lock.fill", 24.dp, 24.dp, 24f, 24f).apply {
+            path(fill = null, stroke = SolidColor(Color.Black), strokeLineWidth = 1.9f, strokeLineCap = androidx.compose.ui.graphics.StrokeCap.Round) {
+                moveTo(7.9f, 10.8f); lineTo(7.9f, 8f); arcTo(4.1f, 4.1f, 0f, false, true, 16.1f, 8f); lineTo(16.1f, 10.8f)
+            }
+            path(fill = SolidColor(Color.Black)) {
+                moveTo(7.2f, 10f); lineTo(16.8f, 10f); arcTo(2.2f, 2.2f, 0f, false, true, 19f, 12.2f); lineTo(19f, 18.8f)
+                arcTo(2.2f, 2.2f, 0f, false, true, 16.8f, 21f); lineTo(7.2f, 21f); arcTo(2.2f, 2.2f, 0f, false, true, 5f, 18.8f)
+                lineTo(5f, 12.2f); arcTo(2.2f, 2.2f, 0f, false, true, 7.2f, 10f); close()
+            }
+        }.build()
+    }
+
+    /** SF `chart.pie.fill`: tre quarti di torta e un quarto staccato in alto a destra (disegno proprio). */
+    private val chartPieFill: ImageVector by lazy {
+        ImageVector.Builder("chart.pie.fill", 24.dp, 24.dp, 24f, 24f).apply {
+            path(fill = SolidColor(Color.Black)) {
+                moveTo(10.5f, 13.5f); lineTo(10.5f, 5f); arcTo(8.5f, 8.5f, 0f, true, false, 19f, 13.5f); close()
+            }
+            path(fill = SolidColor(Color.Black)) {
+                moveTo(12.5f, 11.5f); lineTo(12.5f, 3f); arcTo(8.5f, 8.5f, 0f, false, true, 21f, 11.5f); close()
+            }
+        }.build()
+    }
+
     /** SF `target`: tre cerchi concentrici (il pallino centrale pieno). */
     private val target: ImageVector by lazy {
         ImageVector.Builder("target", 24.dp, 24.dp, 24f, 24f).apply {
@@ -121,9 +147,9 @@ object SfIcons {
             "repeat" to Icons.Outlined.Repeat, "trash" to Icons.Outlined.Delete, "pencil" to Icons.Outlined.Edit,
             "archivebox" to Icons.Outlined.Archive, "arrow.uturn.left" to Icons.AutoMirrored.Outlined.Undo,
             "square.and.arrow.down" to Icons.Outlined.Download, "square.and.arrow.up" to Icons.Outlined.Share,
-            "lock.fill" to Icons.Filled.Lock, "wifi.slash" to Icons.Outlined.WifiOff, "clock.arrow.circlepath" to Icons.Outlined.History,
+            "lock.fill" to lockFill, "wifi.slash" to Icons.Outlined.WifiOff, "clock.arrow.circlepath" to Icons.Outlined.History,
             "envelope.badge.checkmark.fill" to Icons.Filled.MarkEmailRead, "info.circle.fill" to Icons.Filled.Info,
-            "lightbulb.fill" to Icons.Filled.Lightbulb, "chart.pie.fill" to Icons.Filled.PieChart,
+            "lightbulb.fill" to Icons.Filled.Lightbulb, "chart.pie.fill" to chartPieFill,
             "chevron.left" to Icons.AutoMirrored.Outlined.KeyboardArrowLeft, "chevron.up.chevron.down" to Icons.Outlined.UnfoldMore, "chevron.right" to Icons.AutoMirrored.Outlined.KeyboardArrowRight,
             "chevron.up" to Icons.Outlined.KeyboardArrowUp, "chevron.down" to Icons.Outlined.KeyboardArrowDown,
             "arrow.right" to Icons.AutoMirrored.Outlined.ArrowForward, "arrowtriangle.down.fill" to Icons.Filled.ArrowDropDown, "arrow.up" to Icons.Outlined.ArrowUpward, "arrow.down" to Icons.Outlined.ArrowDownward,

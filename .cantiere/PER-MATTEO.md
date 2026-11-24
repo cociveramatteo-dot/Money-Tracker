@@ -5,6 +5,13 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### LANDING · ricaricare su Cloudflare e attivare le statistiche (5 minuti)
+📍 Cloudflare → Workers e Pages → progetto `bucktrailapp`. ▶️ 1) Create deployment e carica la cartella `SOCIAL/landing` (come l'altra volta): porta online la nuova risposta sulla sicurezza, l'informativa privacy aggiornata e le regole di sicurezza che permettono le statistiche. 2) Nello stesso progetto apri **Metrics** (o Web Analytics) e premi **Enable**. ↩️ Scrivi «landing ricaricata»: dopo un giorno controllo che arrivino le visite. Se in 24 ore non compare nulla, dimmelo.
+Nota: le statistiche contano le visite e da dove arrivano, ma non separano le campagne UTM; le iscrizioni per fonte restano in Brevo.
+
+### ANDROID · aggiornare l'app sul tuo telefono
+📍 Terminale, cartella `03_CODICE/bucktrail-android`, telefono collegato con Debug USB acceso. ▶️ `./gradlew installDebug` (con JAVA_HOME e ANDROID_HOME come l'altra volta). Si aggiorna sopra la versione installata, i dati restano. ↩️ Dimmi se all'apertura non vedi più l'icona e se lucchetto e icona del login ti sembrano come su iPhone.
+
 ### ANDROID · prova sync reale + telefono vero (quando vuoi, non urgente)
 📍 Chat del capocantiere. ▶️ Scrivi «prova sync android»: ti guido io passo passo (account di prova, iPhone + Android o emulatore, widget e riquadro, impronta/volto). Serve il tuo account di prova su Supabase: non lo uso io senza di te perché toccherebbe i dati veri. ↩️ Riporta l'esito.
 

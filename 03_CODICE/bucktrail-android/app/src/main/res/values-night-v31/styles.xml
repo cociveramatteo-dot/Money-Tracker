@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.Bucktrail" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">@color/paper</item>
+        <item name="android:windowSplashScreenBackground">@color/paper</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_vuoto</item>
+    </style>
+</resources>
