@@ -554,3 +554,5 @@
 "Torna al login" = "Back to login";
 "Verranno cancellati per sempre tutti i tuoi conti, movimenti, budget e obiettivi, sia sul dispositivo che sul cloud. L'operazione non è reversibile." = "All your accounts, transactions, budgets and goals will be permanently deleted, both on this device and in the cloud. This cannot be undone.";
 "oppure" = "or";
+"Minimo 6 caratteri" = "Minimum 6 characters";
+"Ripeti la password" = "Repeat password";

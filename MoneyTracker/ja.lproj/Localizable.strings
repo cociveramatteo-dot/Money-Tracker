@@ -553,3 +553,5 @@
 "Torna al login" = "ログインに戻る";
 "Verranno cancellati per sempre tutti i tuoi conti, movimenti, budget e obiettivi, sia sul dispositivo che sul cloud. L'operazione non è reversibile." = "すべての口座、取引、予算、目標が、この端末とクラウドの両方から完全に削除されます。この操作は取り消せません。";
 "oppure" = "または";
+"Minimo 6 caratteri" = "6文字以上";
+"Ripeti la password" = "パスワードを再入力";

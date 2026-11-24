@@ -556,3 +556,5 @@
 "Torna al login" = "返回登录";
 "Verranno cancellati per sempre tutti i tuoi conti, movimenti, budget e obiettivi, sia sul dispositivo che sul cloud. L'operazione non è reversibile." = "您的所有账户、交易、预算和目标将从设备和云端永久删除。此操作无法撤销。";
 "oppure" = "或";
+"Minimo 6 caratteri" = "至少 6 个字符";
+"Ripeti la password" = "重复输入密码";

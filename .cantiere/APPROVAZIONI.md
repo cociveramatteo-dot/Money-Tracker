@@ -57,15 +57,15 @@ Chiave `· Ultima usata` in `MoneyTracker/*.lproj/Localizable.strings`, approvat
 |---|---|---|---|---|---|---|---|
 | · Ultima usata | · Last used | · Zuletzt verwendet | · Última utilizada | · Dernière utilisée | · 前回使用 | · 上次使用 | ✅ 2026-11-16 |
 
-## SC-3 · Testi social, scheda App Store e landing (IT/EN) · ⏳ da approvare da Matteo
+## SC-3 · Testi social, scheda App Store e landing (IT/EN) · ✅ approvati (testi), bio aggiornate da Matteo
 ⚠️ 2026-11-19: il formato è cambiato (faceless, SC-7): i testi vanno rivisti prima dell'approvazione. File: `SOCIAL/testi-v1.md` (redattore, 2026-11-17). Bio per TikTok/Instagram/YouTube, caption e hook di F8/F1/F13/F3/F4/F5, scheda App Store IT+EN, testi landing IT+EN. Da decidere/completare: fonte esatta Banca d'Italia; cifre reali per F8 e per l'esempio di F13; titolare e informativa privacy della landing; contatti; conteggi caratteri App Store da ricontrollare nei campi reali; limiti di TikTok su nome/bio; procedura del tocco posteriore per F4; hook F3 «restano sul tuo telefono» escluso finché la sincronizzazione Supabase non è chiarita.
-| Stato | ⏳ |
+| Stato | ✅ testi approvati e bio aggiornate da Matteo (STATO 2026-11-24); landing approvata 2026-11-20. Scheda App Store: da riesaminare solo prima dell'invio ad Apple (nessun invio senza Matteo) |
 
 ## SC-7 · Carosello di presentazione (testi) · ✅ approvato da Matteo 2026-11-19
 File: `SOCIAL/caroselli/presentazione-v1.md` (redattore, 2026-11-19). 8 slide, caption TikTok/Instagram, mood musica. Aggiornato 2026-11-19: file riscritto (v2) con titolo «Ogni conto al suo posto. Ogni euro in chiaro.», 9 slide, caption nuove. Grafica approvata da Matteo; mancano «testi ok» e la scelta del suono.
 | Stato | ✅ approvato da Matteo il 2026-11-19 («testi ok»): testi e caption del post 1. Resta da scegliere il suono in app. |
 
-- ⏳ 2026-11-20 · SC-7, post 2 F13 · testi e grafica della revisione a 8 slide sulle spese fisse e variabili. Anteprima ed esportazione in Drive, «Da postare/post-2». Caption in `SOCIAL/istruzioni-post/post-2.txt`.
+- ✅ 2026-11-24 (pubblicato da Matteo su Instagram e TikTok) · SC-7, post 2 F13 · testi e grafica della revisione a 8 slide sulle spese fisse e variabili. Anteprima ed esportazione in Drive, «Da postare/post-2». Caption in `SOCIAL/istruzioni-post/post-2.txt`.
 
 | SC-4c | Landing IT/EN con lancio iPhone e Android e collegamento bancario tra le funzioni dopo il lancio | SOCIAL/landing | Matteo | ✅ | 2026-11-20 | Pubblicazione autorizzata da Matteo e verificata in produzione |
 | SC-3c | Bio Instagram e TikTok, descrizione YouTube e chiusura post con iPhone e Android | SOCIAL/testi-v1.md, §1 | Matteo | ✅ | 2026-11-20 | Testi approvati e bio dichiarate aggiornate da Matteo. YouTube Studio verificato |

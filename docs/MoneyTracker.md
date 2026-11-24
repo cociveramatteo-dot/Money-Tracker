@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.24*
+*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.25*
 
 > **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
 
@@ -305,7 +305,7 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 - **Hero con sentiero** — `HomeHeroCard`: «Saldo attuale» (totale dei conti inclusi) con sotto la `TrailView`, la curva del mese (verde pieno = reale, ambra tratteggiato = proiezione, serie da `Domain/BalanceTrail`, ricalcolata solo al cambio dei dati)
 - **Saldo atteso** — appare nella hero solo se ci sono movimenti pianificati: saldo futuro, numero di pianificati e delta. Senza pianificati niente tratto ambra
 - **Conti** — carte in scroll orizzontale (nome, saldo, saldo futuro se diverso). Link «Gestisci» porta al tab Conti; il pulsante a cursori apre selezione/ordinamento (`HomeAccountOrderSheet`), ordine persistito via `@AppStorage`
-- **Nascondi saldo** — pulsante occhio: hero, carte conti e tile mostrano gli importi oscurati (`•••• €`). Stato persistito via `@AppStorage("hideBalance")`
+- **Nascondi saldo** — pulsante occhio: hero, carte conti e tile mostrano gli importi oscurati (`•••• ` + simbolo della valuta). Stato persistito via `@AppStorage("hideBalance")`
 - **Fissi del mese** — mini-card affiancate "Spese fisse"/"Entrate fisse": somma di tutte le transazioni `isFixed` del mese corrente (pagate o da pagare, `isDone` ignorato). Ciascuna mostrabile/nascondibile indipendentemente da Impostazioni → Home (`@AppStorage("showFixedExpensesTotal")`/`("showFixedIncomeTotal")`); rispetta "Nascondi saldo" (`hideBalance`)
 - **Ultimi movimenti** — collassabile, con link «Vedi tutti» verso il tab Movimenti. Ultime 4 transazioni non fisse (`MovementRow`). Swipe sinistra = Elimina, tap o menu contestuale = Modifica
 - **Cache della proiezione** — la curva del saldo e la proiezione Home sono in cache e si ricalcolano solo quando cambiano i dati (correzione della Commissione del 2026-11-24)
@@ -316,7 +316,7 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 - **Pagina unica** (S-12): titolo, pulsante filtri avanzati (con badge del numero di filtri attivi), impostazioni, ricerca per nome e chip restano fermi; cambia solo la lista sotto
 - **Chip tipo:** Tutti · Fisse · Trasf. · Uscite · Entrate (stessa pagina) + **Ricorrenti**, che apre una pagina a sé
 - **Zona sotto i chip:** menu **Mese ▾** (questo mese, precedente, successivo, ±6 mesi), menu **Categoria ▾** e, se attivi, chip verde dei filtri avanzati con ✕ per rimuoverli. Filtri combinabili
-- **Filtri avanzati** persistiti via `@AppStorage` (importo min/max, periodo personalizzato che sostituisce il filtro mese)
+- **Filtri avanzati** persistiti via `@AppStorage` (importo min/max, periodo personalizzato con le sue date, che sostituisce il filtro mese). Valgono anche per le occorrenze virtuali «Serie programmate» dei mesi futuri (S-38)
 - **Lista:** movimenti pianificati in cima nella sezione «In arrivo · pianificati», poi card giornaliere (più recenti in cima) con subtotale del giorno solo visivo (trasferimenti esclusi), righe `MovementRow`
 - **Swipe destra:** "Conferma"/"Pianificato" per i movimenti fissi o non ancora effettuati (trasferimenti inclusi); la modifica si apre dal tap sulla riga
 - **Swipe sinistra:** Elimina (singola o entrambe le gambe del trasferimento via `transferGroupId`, con conferma)
@@ -572,6 +572,16 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ## 10. Changelog
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
+
+### v3.25 (24 novembre 2026) — Pacchetto A della Commissione, font scalabili, traduzioni e test
+
+- **S-38:** i filtri avanzati (importo e periodo) valgono anche per le occorrenze virtuali dei mesi futuri; le date del periodo personalizzato restano salvate; «Salta mese», «Termina da qui» e «Termina dopo questa» chiedono conferma (dialogo ancorato: si annulla toccando fuori); il rilevamento delle serie ricorrenti è in cache e si rifà solo se cambiano i dati; tolti i force-unwrap di `RecurrenceControls` e `RecurringSeriesDetector`; `RecurringMaterializer` usa lo `snapshot` unico del editor; «•••• €» usa il simbolo della valuta.
+- **S-40:** 239 `.font(.system(size:))` sostituiti da `.scaledFont(size:weight:)` (`@ScaledMetric`): stesso aspetto a dimensione standard, ora seguono Dynamic Type. Scelta: non mappati su `DS.Typo.*` per non cambiare l'aspetto di icone e numeri decorativi.
+- **S-39:** 46 stringhe che comparivano in italiano tradotte in en/de/es/fr/ja/zh-Hans (Login, Registrazione, Impostazioni, Cronologia modifiche, blocco app, «Saldo/Atteso», «Periodo»); chiavi doppie «Fine»/«Tipo» tolte. 437 chiavi allineate nelle 6 lingue.
+- **S-41 (passaggio di mese):** la condizione «spesa fissa singola nel mese di competenza» è la funzione pura `DashboardView.countsInProjection`, coperta da 3 test; la data di riferimento della Home si aggiorna anche allo scoccare della mezzanotte (`NSCalendarDayChanged`).
+- **S-43:** il test UI `SentieroReviewFixUITests` verificava che la lista finisse sopra il pulsante +, ma la scheda Pianifica la fa scorrere sotto la barra per scelta: ora controlla che, a fine scorrimento, l'ultimo testo resti sopra il pulsante.
+- **S-16:** SwiftData conserva circa 15 cifre significative di un `Decimal`: gli importi reali (tetto 1 miliardo, 2 decimali) tornano esatti, il caso estremo a 19 cifre perde ~3·10⁻¹³ e l'interfaccia non può produrlo. Documentato da `DecimalPersistenceTests`.
+- Test: 99 unitari iOS, 49 UI (nuovo test su conferma «Salta mese»), tutti verdi; Android 247 JVM e 2 strumentati su emulatore. Guardiano notturno riconfigurato sulla landing (`SOCIAL/landing`): prima puntava a una cartella senza sito.
 
 ### v3.24 (24 novembre 2026) — Android a parità con iOS, Commissione Suprema e pulizia dei rami
 

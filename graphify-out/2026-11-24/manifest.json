@@ -225,8 +225,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/DashboardView.swift": {
-    "mtime": 1795209530.178784,
-    "ast_hash": "3daeb3a759a56e20b35b59e194a9b819",
+    "mtime": 1795477487.863026,
+    "ast_hash": "ac9f431d0a8d7be4ed8f76880235cd10",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/GoalsView.swift": {
@@ -260,8 +260,8 @@
     "semantic_hash": ""
   },
   "docs/MoneyTracker.md": {
-    "mtime": 1795250992.1836035,
-    "ast_hash": "e4c12887490446f8c6961994af37222f",
+    "mtime": 1795253232.1691046,
+    "ast_hash": "efc6196d410f99beb65328e1ba9c4f44",
     "semantic_hash": ""
   },
   "docs/MoneyTracker.pdf": {
@@ -525,23 +525,23 @@
     "semantic_hash": ""
   },
   ".cantiere/CHECKPOINT.md": {
-    "mtime": 1795251189.9427075,
-    "ast_hash": "da697634d69d9fd662b1f342d63e6e52",
+    "mtime": 1795253430.4248848,
+    "ast_hash": "30c122e759fe02a1b5c7905782729bb2",
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795252689.836802,
-    "ast_hash": "799c8de6cf2939564a578cfd72300578",
+    "mtime": 1795477927.9572303,
+    "ast_hash": "d73c5103d84ea6975d7a016e4d15b4bc",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
-    "mtime": 1795210905.1469514,
-    "ast_hash": "e85ca0435ae839f54f21a040baa6e0d2",
+    "mtime": 1795444803.5810747,
+    "ast_hash": "99b05c5c56711f0480785f25cca82643",
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795252689.8367338,
-    "ast_hash": "4303b5cf9fa8126cfbeacc3f39df3e06",
+    "mtime": 1795477927.957048,
+    "ast_hash": "ab4d1b1f981b06469dc73e1459c07203",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -550,18 +550,18 @@
     "semantic_hash": ""
   },
   ".cantiere/PAGELLE.md": {
-    "mtime": 1795251006.439041,
-    "ast_hash": "72bc8eca7cd6e62bdc12610a836f6b50",
+    "mtime": 1795253233.036129,
+    "ast_hash": "a032fed9cb2fdd706ce0c1f9d952aca3",
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795252210.362518,
-    "ast_hash": "2dff7a86e1d8a86bc149ce42ddb18a07",
+    "mtime": 1795463541.421192,
+    "ast_hash": "d84ecb4f40a156a7317768a7071b6bb4",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795252689.836425,
-    "ast_hash": "1560b5cd1c02080068b436839749d6bc",
+    "mtime": 1795477407.7461631,
+    "ast_hash": "ea19a5cc319d78dbba8c9f611571e64a",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795252830.7591116,
-    "ast_hash": "9a45f07b0c225a598849f03ac0e1d1bb",
+    "mtime": 1795482753.972402,
+    "ast_hash": "d6005577315bd376f0a71e5b6973546b",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -930,8 +930,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/direttive-social.md": {
-    "mtime": 1795248880.6275904,
-    "ast_hash": "9487515a2962b040eaa5d5ddbeba5e3d",
+    "mtime": 1795433788.642354,
+    "ast_hash": "5d567ce1733ae88386595baff271b2b4",
     "semantic_hash": ""
   },
   "SOCIAL/guida/README.md": {
@@ -974,159 +974,9 @@
     "ast_hash": "f460b28b60cbf47ec4e1f3ac983a76c1",
     "semantic_hash": ""
   },
-  "SOCIAL/istruzioni-post/post-10.txt": {
-    "mtime": 1795248926.5024269,
-    "ast_hash": "34cc0a19b749c4844ece23be1834803b",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-11.txt": {
-    "mtime": 1795248927.345019,
-    "ast_hash": "d94dcd9619fe2567ec6c793836e5ba32",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-12.txt": {
-    "mtime": 1795248928.4219627,
-    "ast_hash": "b291639323f20e067916a2958d00b457",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-13.txt": {
-    "mtime": 1795248929.314252,
-    "ast_hash": "cb61de7c09d8e10a4aac47a1b6fa3c6d",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-14.txt": {
-    "mtime": 1795248930.1134949,
-    "ast_hash": "8fe474b902fc84195a35bd7af2bcb550",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-15.txt": {
-    "mtime": 1795248930.9858344,
-    "ast_hash": "2f8d94100a407152f1709cfc85952298",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-16.txt": {
-    "mtime": 1795248931.7950401,
-    "ast_hash": "753fc0cd4edd4fed48f352fa2a015042",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-17.txt": {
-    "mtime": 1795248932.6688116,
-    "ast_hash": "1d1867a3c22d22ee2962c481fe9dedbf",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-18.txt": {
-    "mtime": 1795248933.5006113,
-    "ast_hash": "eb66280660fdcaebe927cbc6b880cfe7",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-19.txt": {
-    "mtime": 1795248934.348537,
-    "ast_hash": "21c26ca307b338a984600a6b97d2a44e",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-20.txt": {
-    "mtime": 1795248935.1269636,
-    "ast_hash": "cb8cd666d111dd1fbd44ca0c4f88fd67",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-21.txt": {
-    "mtime": 1795248935.9921246,
-    "ast_hash": "4c3a2b93ee228dbfc0ad36c17184c987",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-22.txt": {
-    "mtime": 1795248936.9209378,
-    "ast_hash": "3061d8d3078c05fe2ab1c5b3a503fad9",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-23.txt": {
-    "mtime": 1795249969.6344028,
-    "ast_hash": "7b009ade8984835f19f8a677ff86da6f",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-24.txt": {
-    "mtime": 1795249970.646921,
-    "ast_hash": "8124616f18087fb3668a9ccdd35cd9a4",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-25.txt": {
-    "mtime": 1795249971.6621506,
-    "ast_hash": "8ea658a4b5a96c9e4ba489f0a04e0f8a",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-26.txt": {
-    "mtime": 1795249972.6398668,
-    "ast_hash": "dd284fcfce41a38180827c1d5cee7f1e",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-27.txt": {
-    "mtime": 1795249973.5395699,
-    "ast_hash": "096da660f4219d1ecfe78b5dd7b2df85",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-28.txt": {
-    "mtime": 1795249974.5792956,
-    "ast_hash": "22f4084e9bc4c765f63b5eac06e7ebea",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-29.txt": {
-    "mtime": 1795249975.619746,
-    "ast_hash": "65cc3e78025ebfee21fd9e3b8d287766",
-    "semantic_hash": ""
-  },
   "SOCIAL/istruzioni-post/post-3.txt": {
     "mtime": 1795248920.1703815,
     "ast_hash": "fa1d71ec9e9e14f8152a580ab1d9b4be",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-30.txt": {
-    "mtime": 1795249976.463196,
-    "ast_hash": "ef9279667ce254fbf5a83ee5fe318be4",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-31.txt": {
-    "mtime": 1795249977.5880342,
-    "ast_hash": "268fdd1ec2f689b44e0f6659c17efacf",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-32.txt": {
-    "mtime": 1795249978.5048676,
-    "ast_hash": "7d8a4ad8d91cb92449e6efb45fb10e59",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-33.txt": {
-    "mtime": 1795249979.4053278,
-    "ast_hash": "dc43708d046b0aaa8ce2468e15af9e40",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-34.txt": {
-    "mtime": 1795249980.3104837,
-    "ast_hash": "27020a6e78a84f588293a225afec329f",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-35.txt": {
-    "mtime": 1795249981.2249815,
-    "ast_hash": "c413757e3d7043edfd34c53a4852064b",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-36.txt": {
-    "mtime": 1795249982.0329435,
-    "ast_hash": "bfda12d2b05b93a179720ceb378de939",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-37.txt": {
-    "mtime": 1795249982.887621,
-    "ast_hash": "b6368ab1aae52473170063c171c7af35",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-38.txt": {
-    "mtime": 1795249983.8679166,
-    "ast_hash": "6d5f6df69e3473bf27880ed8e28c5b26",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-39.txt": {
-    "mtime": 1795249984.658514,
-    "ast_hash": "1c374f3d527b4d777876973709bbc87b",
     "semantic_hash": ""
   },
   "SOCIAL/istruzioni-post/post-4.txt": {
@@ -1134,49 +984,9 @@
     "ast_hash": "1648c0e9022d6f63777a944fb9d13cf2",
     "semantic_hash": ""
   },
-  "SOCIAL/istruzioni-post/post-40.txt": {
-    "mtime": 1795249985.565336,
-    "ast_hash": "c76593de6abe650971cd12561958b7e9",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-41.txt": {
-    "mtime": 1795250004.6476188,
-    "ast_hash": "28b7c377b133afac60f5909f8d792f4e",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-42.txt": {
-    "mtime": 1795249987.346203,
-    "ast_hash": "c41020103488b1a032bd11e7f609b843",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-5.txt": {
-    "mtime": 1795248922.1549335,
-    "ast_hash": "37c0480d2b649fa2f717793ee1a28f2a",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-6.txt": {
-    "mtime": 1795248922.9680138,
-    "ast_hash": "729b45473966447d3978e6d0f0ef2e76",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-7.txt": {
-    "mtime": 1795248924.0272129,
-    "ast_hash": "a1f1dcc3a57b9eb13d9f4f21159f815a",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-8.txt": {
-    "mtime": 1795248924.7873285,
-    "ast_hash": "af635f2424677b7d96dfdca6cb85deb3",
-    "semantic_hash": ""
-  },
-  "SOCIAL/istruzioni-post/post-9.txt": {
-    "mtime": 1795248925.6459358,
-    "ast_hash": "7375c1f1e468333ee2f1425d252c0f07",
-    "semantic_hash": ""
-  },
   "03_CODICE/bucktrail-android/app/build.gradle.kts": {
-    "mtime": 1795252262.5738418,
-    "ast_hash": "f62c0b69d22107b9355d3b004e812f73",
+    "mtime": 1795477493.1520662,
+    "ast_hash": "b544d06f885d740fadb271e2f9996de3",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/schemas/com.bucktrail.android.BucktrailDatabase/1.json": {
@@ -1184,19 +994,9 @@
     "ast_hash": "3399f8b1a4a40814954d5a794c8881eb",
     "semantic_hash": ""
   },
-  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/Ledger.kt": {
-    "mtime": 1795252865.5068073,
-    "ast_hash": "8bd7654e03dc1aa1e9bab7808d1c5b6a",
-    "semantic_hash": ""
-  },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/MainActivity.kt": {
-    "mtime": 1795253155.135055,
-    "ast_hash": "2a61195207fd092072ae45a021666a80",
-    "semantic_hash": ""
-  },
-  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/AmountsTest.kt": {
-    "mtime": 1795252262.5682304,
-    "ast_hash": "00cc203e5ab2d2170b827979111958e1",
+    "mtime": 1795442162.9050114,
+    "ast_hash": "0522cb602894ad84b9662181b1c33335",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/gradlew": {
@@ -1210,18 +1010,13 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/README.md": {
-    "mtime": 1795253054.1689124,
-    "ast_hash": "f27f6525defa910f5616cd630a4b47f2",
+    "mtime": 1795444811.085361,
+    "ast_hash": "b4f90ddebf47a3896521e0c9ab0e0e00",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/schemas/com.bucktrail.android.BucktrailDatabase/2.json": {
     "mtime": 1795252963.6368673,
     "ast_hash": "0aa8cabc3140ee7fdee96e95db4cb2af",
-    "semantic_hash": ""
-  },
-  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/LedgerDatesTest.kt": {
-    "mtime": 1795252937.105219,
-    "ast_hash": "29b13137e4cda4ff7a820e2779b9bf75",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/assets/licenses/OFL-Inter.txt": {
@@ -1232,6 +1027,1336 @@
   "03_CODICE/bucktrail-android/app/src/main/assets/licenses/OFL-SpaceGrotesk.txt": {
     "mtime": 1795252723.8341572,
     "ast_hash": "0891f7454b828fedaf3652f2d08986fc",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/schemas/com.bucktrail.android.BucktrailDatabase/3.json": {
+    "mtime": 1795432552.5598173,
+    "ast_hash": "124dbe6d60f8a043b8114b9c537f736e",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/schemas/com.bucktrail.android.data.BucktrailDatabase/3.json": {
+    "mtime": 1795432552.5590794,
+    "ast_hash": "124dbe6d60f8a043b8114b9c537f736e",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/androidTest/java/com/bucktrail/android/ui/LayoutRegressionTest.kt": {
+    "mtime": 1795462438.1395814,
+    "ast_hash": "119d4e1bf4f58cd6171771aaf4cd7950",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/assets/CategoryKeywords.json": {
+    "mtime": 1795432967.1523395,
+    "ast_hash": "8c4a572e1cf416850fe9ca8cb0f03d7a",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/BucktrailApplication.kt": {
+    "mtime": 1795477493.151884,
+    "ast_hash": "317df18ed7bfda8c11987e6649e98619",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/BucktrailDatabase.kt": {
+    "mtime": 1795432601.9019578,
+    "ast_hash": "651ab6f6ed0802d53f6b39177bb1bd3c",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/AppPrefs.kt": {
+    "mtime": 1795441799.0368667,
+    "ast_hash": "9960acd3c8a20d7e9bcc120b8e92a36d",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/AuditLog.kt": {
+    "mtime": 1795441930.7093542,
+    "ast_hash": "bb81cfb95c39efa123f2d4e4a20bf62a",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/ClassifierProvider.kt": {
+    "mtime": 1795444230.7820647,
+    "ast_hash": "0b969adceca8728eb59cfaf8b7e91adf",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/Dao.kt": {
+    "mtime": 1795443350.363206,
+    "ast_hash": "555527e54cdeea16d7c05f358ac810cd",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/DemoData.kt": {
+    "mtime": 1795447937.6948407,
+    "ast_hash": "a440dc4069d5c7873c43ce4de3636c42",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/DemoSeeder.kt": {
+    "mtime": 1795441972.3453887,
+    "ast_hash": "dea808dd811248db0a293d4a57f19c38",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/Entities.kt": {
+    "mtime": 1795432523.4939642,
+    "ast_hash": "b353e8885280aae8700122c6a53f8171",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/JsonExport.kt": {
+    "mtime": 1795441653.8475826,
+    "ast_hash": "1275343ee4382bce83ef7ba976c03fca",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/Migrations.kt": {
+    "mtime": 1795452060.9092414,
+    "ast_hash": "d618d590602feef0369f5528e0abaa59",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/QuickAddOps.kt": {
+    "mtime": 1795444255.5830617,
+    "ast_hash": "88dfc505c265e7e3e354e9bd19223d18",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/RecurringOps.kt": {
+    "mtime": 1795434907.9470024,
+    "ast_hash": "3c4f7c125cc52db5207d3d8cc3ae8312",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/Repository.kt": {
+    "mtime": 1795441793.1346867,
+    "ast_hash": "70d38018b47dad1f39bf0e564baa5710",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/Seed.kt": {
+    "mtime": 1795432601.9020867,
+    "ast_hash": "76b605b44362ea2c84ba41212930cab0",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/TransactionOps.kt": {
+    "mtime": 1795433763.10004,
+    "ast_hash": "be0190fd53b880671b22c930c7d79ded",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/AccountEditing.kt": {
+    "mtime": 1795433738.0640893,
+    "ast_hash": "0dfd0d3404d274b12d8e854d4d434466",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/Amounts.kt": {
+    "mtime": 1795451111.0169458,
+    "ast_hash": "d7ed0f865d740f5851c854c77f5b1b47",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/AuditDiff.kt": {
+    "mtime": 1795441757.1625893,
+    "ast_hash": "8bfeb7e9c91dd606ed7b79365685ffba",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/Balance.kt": {
+    "mtime": 1795432393.555858,
+    "ast_hash": "83821407a15101b9088f3f2affec18a7",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/BalanceTrail.kt": {
+    "mtime": 1795432410.5648248,
+    "ast_hash": "501949d24bad3b3409a570ae7988dc08",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/Budgeting.kt": {
+    "mtime": 1795432488.7099636,
+    "ast_hash": "0d557d0e044f0ee865e74fb14e1165a1",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/Categories.kt": {
+    "mtime": 1795433847.9574633,
+    "ast_hash": "03a588ff54a1a8fdb3a7388f4700573a",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/CategoryEditing.kt": {
+    "mtime": 1795433756.968122,
+    "ast_hash": "4533e8627e489434c43a69b5e4c20d1f",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/CategoryTint.kt": {
+    "mtime": 1795432410.566868,
+    "ast_hash": "2208c9960b90df82a6b168f22066f2d5",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/Exports.kt": {
+    "mtime": 1795441635.8755903,
+    "ast_hash": "8a513da8238aa1700196c8c4aa79bdec",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/HomeAccountOrder.kt": {
+    "mtime": 1795433753.1908834,
+    "ast_hash": "dffb49540711200becda8b094ada6b56",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/HomeProjection.kt": {
+    "mtime": 1795444217.326709,
+    "ast_hash": "9e1e846cd0b67b3b64e712fb570d4099",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/KeywordCategoryClassifier.kt": {
+    "mtime": 1795432488.7048428,
+    "ast_hash": "f5e539ccff1708f00386b8f6651f0ef2",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/LastUsedCategory.kt": {
+    "mtime": 1795432488.7075608,
+    "ast_hash": "31ac8b1c1973563a1309703fdf9268e2",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/Models.kt": {
+    "mtime": 1795432393.5530128,
+    "ast_hash": "a80e92a43b121d0d17df0502bafd1b2c",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/NotificationRules.kt": {
+    "mtime": 1795441757.1596317,
+    "ast_hash": "1ad21e514abe238074b957f94d7893c8",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/PdfReport.kt": {
+    "mtime": 1795441653.8521507,
+    "ast_hash": "df6c1fe15bb5a315641e8eab08b1793f",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/QuickAdd.kt": {
+    "mtime": 1795444217.328697,
+    "ast_hash": "f25b009dc69acf8b555674d78ac2d249",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/Recurrence.kt": {
+    "mtime": 1795432463.9508502,
+    "ast_hash": "4b40239b06734810634f621052927c6c",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/RecurringMaterializer.kt": {
+    "mtime": 1795432463.9531894,
+    "ast_hash": "3d31e01eec8cd8d471ef920392995516",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/RecurringSeriesDetector.kt": {
+    "mtime": 1795432463.9552717,
+    "ast_hash": "70f478e6e733d7309f609527266e27e3",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/Statistics.kt": {
+    "mtime": 1795441612.9687126,
+    "ast_hash": "5c153594f14ff5be55749c6cce465909",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/SwipeRules.kt": {
+    "mtime": 1795433753.192955,
+    "ast_hash": "3c3d9317c76b4a77ee43d3cb1a64d558",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/domain/TransactionFiltering.kt": {
+    "mtime": 1795433738.0618277,
+    "ast_hash": "c313ab0e636f0aef38346531f8828500",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/export/Exports.kt": {
+    "mtime": 1795441972.1832862,
+    "ast_hash": "331648f062d64601f8ae8e96c90959a7",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/notifications/Notifications.kt": {
+    "mtime": 1795442857.7064583,
+    "ast_hash": "7b9c253c2980877b0493d6b70f683b15",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/notifications/Permission.kt": {
+    "mtime": 1795442130.8199131,
+    "ast_hash": "edcaeb15f8b56f15f60951eab006d3b0",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/security/AppLockGate.kt": {
+    "mtime": 1795442162.887646,
+    "ast_hash": "75dde83a796f3258d2db1c972e047409",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/security/Authenticator.kt": {
+    "mtime": 1795441930.7071419,
+    "ast_hash": "cb15c30207b6a6ef98b715d0cb6ae57c",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/shortcuts/BalanceActivity.kt": {
+    "mtime": 1795444280.2120209,
+    "ast_hash": "1eb1627776e291935fbb2dff97a8bb40",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/shortcuts/BalanceWidget.kt": {
+    "mtime": 1795444280.2196484,
+    "ast_hash": "8fba1f4bf2c16bad76bf45e90b54bf7b",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/shortcuts/QuickAddActivity.kt": {
+    "mtime": 1795444255.5908463,
+    "ast_hash": "8b6e9419ad8d7eda0bb98adb359d5804",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/shortcuts/QuickAddTileService.kt": {
+    "mtime": 1795444416.7641299,
+    "ast_hash": "cded8a53ccf3fb2490170bc2091b5cc2",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/shortcuts/ShortcutSetup.kt": {
+    "mtime": 1795444330.517439,
+    "ast_hash": "5979d4b3128beb55121480e54fc7a025",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/AuthManager.kt": {
+    "mtime": 1795443601.1692576,
+    "ast_hash": "583ed03d395a37fa9ff1922a878a11b7",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/KeystoreSessionStore.kt": {
+    "mtime": 1795443367.8292327,
+    "ast_hash": "764e94aa8a480734c0296ca6fbcefdc5",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/NetworkMonitor.kt": {
+    "mtime": 1795443601.170531,
+    "ast_hash": "e776fbb51abbaf55dbcddaa8e3accaf2",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/RoomLocalStore.kt": {
+    "mtime": 1795443367.8330219,
+    "ast_hash": "8b82cfb5dc9b57396ff08e8d09ebc0eb",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SharedPrefsSyncState.kt": {
+    "mtime": 1795459544.0490208,
+    "ast_hash": "1024e5238592bebabacecd93648e6e41",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SupabaseApi.kt": {
+    "mtime": 1795451944.4614217,
+    "ast_hash": "2d8491dba7d13dbd70ce080e0300df06",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SyncEngine.kt": {
+    "mtime": 1795459655.0154228,
+    "ast_hash": "f85d5323bed1948177afce63cfba56f4",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SyncMapper.kt": {
+    "mtime": 1795459544.048514,
+    "ast_hash": "17e554b7fbc187035cb9e60fa9dfb71a",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SyncMerge.kt": {
+    "mtime": 1795459544.0481942,
+    "ast_hash": "ad11c8ad79300682c42fc86c7349dc73",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SyncService.kt": {
+    "mtime": 1795459585.8603127,
+    "ast_hash": "c35822132877f2d564be0b2c2c8a850e",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/AppViewModel.kt": {
+    "mtime": 1795459604.7703488,
+    "ast_hash": "6ba91289518fab21b959cf5c57225079",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/BucktrailApp.kt": {
+    "mtime": 1795459604.7714093,
+    "ast_hash": "02d68b79145d86bdacb171bf4862f23d",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/Formatters.kt": {
+    "mtime": 1795445428.7948112,
+    "ast_hash": "27f1124e9c95c90a8921b28f9b2730a3",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/Labels.kt": {
+    "mtime": 1795432980.931276,
+    "ast_hash": "4abc9be8f276b30c7b1ecbac3090d1c4",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/components/Basics.kt": {
+    "mtime": 1795462846.4468806,
+    "ast_hash": "10e0eaa92b81b3b423225c79ee3b2b02",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/components/SfIcons.kt": {
+    "mtime": 1795448796.2921607,
+    "ast_hash": "f23b5097ab579e2a9196bae2558257ef",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/components/Sheets.kt": {
+    "mtime": 1795461414.2097776,
+    "ast_hash": "c9937301723c082885a0883c4c718510",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/components/Shell.kt": {
+    "mtime": 1795449771.5606792,
+    "ast_hash": "6625e47ff6a691c980795a751df084a7",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/components/TrailView.kt": {
+    "mtime": 1795433004.2187626,
+    "ast_hash": "dae5640ed78aab5748070355d2b4187d",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/forms/AddAccountForm.kt": {
+    "mtime": 1795451111.0175304,
+    "ast_hash": "1605a4c35afd60b9d6a9ca6e42f94a96",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/forms/AddTransactionForm.kt": {
+    "mtime": 1795451641.6550663,
+    "ast_hash": "a429bb261b17883cb21087936df82814",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/forms/AddTransferForm.kt": {
+    "mtime": 1795447949.2169988,
+    "ast_hash": "263f93a89bf651752dbea2f82470effa",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/forms/CategoryScreens.kt": {
+    "mtime": 1795461432.350234,
+    "ast_hash": "febdae5083917082614b760367b909fc",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/forms/FormParts.kt": {
+    "mtime": 1795450014.0448086,
+    "ast_hash": "455f2981d30209ed7326a54a4e6a8811",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/forms/PlanForms.kt": {
+    "mtime": 1795451111.017936,
+    "ast_hash": "c82f4395f1fb69c38826d544e40832d6",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/AccountSection.kt": {
+    "mtime": 1795443578.2285485,
+    "ast_hash": "d79519ccc8ac11695fe7bebb57156d9a",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/AccountsScreen.kt": {
+    "mtime": 1795451854.099944,
+    "ast_hash": "4a3b472daec9abc3e56d5b75505e2265",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/AdvancedFilterSheet.kt": {
+    "mtime": 1795447949.2186265,
+    "ast_hash": "ff070eaa7b30e2e7f07d203fc1583a2b",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/AuthScreens.kt": {
+    "mtime": 1795462190.6319425,
+    "ast_hash": "ca0d51ddddf24d04e6c6cdb20a309424",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/Common.kt": {
+    "mtime": 1795451824.7741501,
+    "ast_hash": "1761cc532e953a160405752d874b7255",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/HomeScreen.kt": {
+    "mtime": 1795449771.5593443,
+    "ast_hash": "5f2cc83f22f7ff8fbed653260761fee2",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/MovementsScreen.kt": {
+    "mtime": 1795451859.0005329,
+    "ast_hash": "b8aaa7e85d272e6e4adb6b44e1aef664",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/PlanScreen.kt": {
+    "mtime": 1795460252.0866132,
+    "ast_hash": "97dd0570a737c88fd00ea86827feec27",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/RecurrenceScreens.kt": {
+    "mtime": 1795461017.1125026,
+    "ast_hash": "b95260617dd4e6684b03d0936fdc94df",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/SettingsSheets.kt": {
+    "mtime": 1795448164.2491615,
+    "ast_hash": "a85e4d6dd4b34f7baa638551f65f99bc",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/StatisticsScreen.kt": {
+    "mtime": 1795451778.2891335,
+    "ast_hash": "a4330298762716b425f7c57fde252565",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/TransactionRow.kt": {
+    "mtime": 1795450220.5772755,
+    "ast_hash": "839102fddb8e742cf6dcccd70d97163f",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/theme/Theme.kt": {
+    "mtime": 1795441239.382477,
+    "ast_hash": "7122cf77a8b0986aa052a9e70a8bcc01",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/theme/Type.kt": {
+    "mtime": 1795432824.128068,
+    "ast_hash": "4bcc8235db3f0d9998efacb26cc16e87",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/data/AuditLogTest.kt": {
+    "mtime": 1795442277.7429142,
+    "ast_hash": "469d0853b0e1b654b36be3a01cfa7d33",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/data/DemoDataTest.kt": {
+    "mtime": 1795442297.149955,
+    "ast_hash": "f079a2afefddf239b20e72977622e3b9",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/data/Migration2To3Test.kt": {
+    "mtime": 1795432703.5049026,
+    "ast_hash": "2cc72d86ee2459852e65badd30d6b133",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/data/RecurringOpsTest.kt": {
+    "mtime": 1795434986.0120506,
+    "ast_hash": "0891e0685567322b48ab69466c30abe8",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/data/TransactionOpsTest.kt": {
+    "mtime": 1795434297.992137,
+    "ast_hash": "09015e6441262e7b31a4c57d5e35f188",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/AccountAndCategoryEditingTest.kt": {
+    "mtime": 1795434297.986856,
+    "ast_hash": "eaab2d8a7a7cb438ea18588926919a80",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/AmountsTest.kt": {
+    "mtime": 1795432656.3641064,
+    "ast_hash": "f360dcae53ee857da9eda41c956b76de",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/BalanceTest.kt": {
+    "mtime": 1795432631.621988,
+    "ast_hash": "3e70f323089923cee057eb33d39e5087",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/BalanceTrailTest.kt": {
+    "mtime": 1795432631.6240804,
+    "ast_hash": "324db64cf4f85cf0c8fec7d39e73e2fb",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/BudgetingTest.kt": {
+    "mtime": 1795432703.5029612,
+    "ast_hash": "4d46e5fbef5cca4b500c2929de384fae",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/CategoryTintTest.kt": {
+    "mtime": 1795432631.6260848,
+    "ast_hash": "1ef654905ad6cf6c943342fa47c697ae",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/ClassifierTest.kt": {
+    "mtime": 1795432703.5009875,
+    "ast_hash": "ad18b8f731498ed4ba2e1edcc5d315ae",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/ExportsTest.kt": {
+    "mtime": 1795442277.7340877,
+    "ast_hash": "a7757e759347e2a8ad6e791bab216760",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/HomeAccountOrderTest.kt": {
+    "mtime": 1795434297.9895742,
+    "ast_hash": "bbbfadc31890c374a9930f9b1eba933c",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/NotificationRulesTest.kt": {
+    "mtime": 1795442277.7385154,
+    "ast_hash": "29cd68ab74d498bffc489353fd1423c0",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/PdfReportTest.kt": {
+    "mtime": 1795442277.7361972,
+    "ast_hash": "1041f7dc512cd81fd905507ab7e2e1b4",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/QuickAddTest.kt": {
+    "mtime": 1795444374.4828045,
+    "ast_hash": "61e265ece3fc0451edea6e31c50d976e",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/RecurrenceCalculatorTest.kt": {
+    "mtime": 1795432656.3684306,
+    "ast_hash": "e821ee52045a40aa269370e5c7dfafe0",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/RecurringMaterializerTest.kt": {
+    "mtime": 1795432703.4988463,
+    "ast_hash": "45e258705ea997c9e1245fec36ae3187",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/StatisticsTest.kt": {
+    "mtime": 1795442277.7317357,
+    "ast_hash": "93e4f2aa16e5b731eefbb1c3268e555b",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/domain/TransactionFilteringTest.kt": {
+    "mtime": 1795434297.9838748,
+    "ast_hash": "0576de7da41a9e80e045ab479ffc7c45",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/shortcuts/WidgetContentTest.kt": {
+    "mtime": 1795444374.485015,
+    "ast_hash": "4b5636f5eea705e4ceb6ba99a8e0418e",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/stress/AmountsLimitsTest.kt": {
+    "mtime": 1795459357.716266,
+    "ast_hash": "793bf0e90039b3bc62f6d53d51860436",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/stress/ExportRoundTripTest.kt": {
+    "mtime": 1795452014.1565452,
+    "ast_hash": "31b49fd1330304d25f6983fa68da5b7b",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/stress/HttpHostileServerTest.kt": {
+    "mtime": 1795451963.8201144,
+    "ast_hash": "9b4ca5c6b4ce2008e6e7162597609777",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/stress/LedgerFuzzTest.kt": {
+    "mtime": 1795451162.8508801,
+    "ast_hash": "946bb97423eda1dee6ab2767e0f681be",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/stress/MigrationStressTest.kt": {
+    "mtime": 1795452060.9162283,
+    "ast_hash": "028401d52903c3aa9e3a811f318dbc34",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/AuthManagerTest.kt": {
+    "mtime": 1795443898.5859966,
+    "ast_hash": "d399925fb6ba12bd2c1520d01c753494",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/HttpSupabaseApiTest.kt": {
+    "mtime": 1795443924.4891617,
+    "ast_hash": "617280858960f770a5390cee2d8bac15",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/SyncEngineTest.kt": {
+    "mtime": 1795443782.8909118,
+    "ast_hash": "12d76a7df94598cccb0dfbddc39617f0",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/SyncFakes.kt": {
+    "mtime": 1795459547.0522492,
+    "ast_hash": "a5714661427ee9000dc8313b5b0d0c3b",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/SyncGuardsTest.kt": {
+    "mtime": 1795459643.4849334,
+    "ast_hash": "31a8dfc2433e6e01702cd0f18f0c6127",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/SyncMapperTest.kt": {
+    "mtime": 1795443782.8875558,
+    "ast_hash": "63fd9c03b3947c92ef78fd06b3ea24f7",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/SyncMergeTest.kt": {
+    "mtime": 1795443782.8936186,
+    "ast_hash": "208f92271fe8d6672466187888d20c03",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/SyncServiceTest.kt": {
+    "mtime": 1795443898.58851,
+    "ast_hash": "ed0358feb72c7684c2fd987f8e10db66",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/scripts/android-extra-strings.json": {
+    "mtime": 1795459597.7319105,
+    "ast_hash": "785f46f4866df667620d5e8bca79b36c",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/scripts/fake-supabase.py": {
+    "mtime": 1795443954.0706007,
+    "ast_hash": "142a8b5603c651b48f635c399593d1e5",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/scripts/ios-strings-to-android.py": {
+    "mtime": 1795432323.9019818,
+    "ast_hash": "de9bb7313f9a88b07f29ff1c0e605862",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/scripts/strings-map.json": {
+    "mtime": 1795459597.8098636,
+    "ast_hash": "3a21d9d82eb22b54b37519ec90847f0a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/build.py": {
+    "mtime": 1795432570.2974732,
+    "ast_hash": "a90982a65c9db5e7906dda4a54a96274",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/esporta.py": {
+    "mtime": 1795433537.223627,
+    "ast_hash": "fbd1ce10ee70e7cffaf96a3fe961ea73",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/layouts.py": {
+    "mtime": 1795434922.4376297,
+    "ast_hash": "0b61249091ccd2f5bbf3be69925ab844",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/lib.py": {
+    "mtime": 1795435286.2469416,
+    "ast_hash": "ed08b4892fe38e7b9f3ee120368b3dd9",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/meta.py": {
+    "mtime": 1795435544.9754212,
+    "ast_hash": "adf214a989cfef436ae44fcd63e37602",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/posts.py": {
+    "mtime": 1795435504.2913811,
+    "ast_hash": "d9ea2b98b7e02e584f63a2da447eb3cd",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/sheet.py": {
+    "mtime": 1795432598.5411963,
+    "ast_hash": "2b91e5ca715568de107d7bb1dc712ec5",
+    "semantic_hash": ""
+  },
+  ".cantiere/android-parita-test.md": {
+    "mtime": 1795463509.6215646,
+    "ast_hash": "72a1e97986c650ab49d4ff4c928eed4d",
+    "semantic_hash": ""
+  },
+  ".cantiere/android-parita.md": {
+    "mtime": 1795450795.8850358,
+    "ast_hash": "35d216782c8be95f6b42ffdc22873efb",
+    "semantic_hash": ""
+  },
+  ".cantiere/android-stress-test.md": {
+    "mtime": 1795463509.622886,
+    "ast_hash": "754b223dd844349bd85b6113eb1c2b34",
+    "semantic_hash": ""
+  },
+  ".cantiere/collaudo-android-2026-11-23.md": {
+    "mtime": 1795464173.6463227,
+    "ast_hash": "f570f81ba118ee0d889f00273669c85f",
+    "semantic_hash": ""
+  },
+  ".cantiere/collaudo-ios-2026-11-24.md": {
+    "mtime": 1795477401.3818228,
+    "ast_hash": "101753a61e6c6cfc8f18c15fa974eaee",
+    "semantic_hash": ""
+  },
+  ".cantiere/commissione-suprema-2026-11-24.md": {
+    "mtime": 1795477901.7919998,
+    "ast_hash": "0c5947cfc28b7be4e5bd5cdb6f3bc9f4",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-10.txt": {
+    "mtime": 1795248926.5024269,
+    "ast_hash": "34cc0a19b749c4844ece23be1834803b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-11.txt": {
+    "mtime": 1795248927.345019,
+    "ast_hash": "d94dcd9619fe2567ec6c793836e5ba32",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-12.txt": {
+    "mtime": 1795248928.4219627,
+    "ast_hash": "b291639323f20e067916a2958d00b457",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-13.txt": {
+    "mtime": 1795248929.314252,
+    "ast_hash": "cb61de7c09d8e10a4aac47a1b6fa3c6d",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-14.txt": {
+    "mtime": 1795248930.1134949,
+    "ast_hash": "8fe474b902fc84195a35bd7af2bcb550",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-15.txt": {
+    "mtime": 1795248930.9858344,
+    "ast_hash": "2f8d94100a407152f1709cfc85952298",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-16.txt": {
+    "mtime": 1795248931.7950401,
+    "ast_hash": "753fc0cd4edd4fed48f352fa2a015042",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-17.txt": {
+    "mtime": 1795248932.6688116,
+    "ast_hash": "1d1867a3c22d22ee2962c481fe9dedbf",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-18.txt": {
+    "mtime": 1795248933.5006113,
+    "ast_hash": "eb66280660fdcaebe927cbc6b880cfe7",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-19.txt": {
+    "mtime": 1795248934.348537,
+    "ast_hash": "21c26ca307b338a984600a6b97d2a44e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-20.txt": {
+    "mtime": 1795248935.1269636,
+    "ast_hash": "cb8cd666d111dd1fbd44ca0c4f88fd67",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-21.txt": {
+    "mtime": 1795248935.9921246,
+    "ast_hash": "4c3a2b93ee228dbfc0ad36c17184c987",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-22.txt": {
+    "mtime": 1795248936.9209378,
+    "ast_hash": "3061d8d3078c05fe2ab1c5b3a503fad9",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-23.txt": {
+    "mtime": 1795249969.6344028,
+    "ast_hash": "7b009ade8984835f19f8a677ff86da6f",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-24.txt": {
+    "mtime": 1795249970.646921,
+    "ast_hash": "8124616f18087fb3668a9ccdd35cd9a4",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-25.txt": {
+    "mtime": 1795249971.6621506,
+    "ast_hash": "8ea658a4b5a96c9e4ba489f0a04e0f8a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-26.txt": {
+    "mtime": 1795249972.6398668,
+    "ast_hash": "dd284fcfce41a38180827c1d5cee7f1e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-27.txt": {
+    "mtime": 1795249973.5395699,
+    "ast_hash": "096da660f4219d1ecfe78b5dd7b2df85",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-28.txt": {
+    "mtime": 1795249974.5792956,
+    "ast_hash": "22f4084e9bc4c765f63b5eac06e7ebea",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-29.txt": {
+    "mtime": 1795249975.619746,
+    "ast_hash": "65cc3e78025ebfee21fd9e3b8d287766",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-30.txt": {
+    "mtime": 1795249976.463196,
+    "ast_hash": "ef9279667ce254fbf5a83ee5fe318be4",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-31.txt": {
+    "mtime": 1795249977.5880342,
+    "ast_hash": "268fdd1ec2f689b44e0f6659c17efacf",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-32.txt": {
+    "mtime": 1795249978.5048676,
+    "ast_hash": "7d8a4ad8d91cb92449e6efb45fb10e59",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-33.txt": {
+    "mtime": 1795249979.4053278,
+    "ast_hash": "dc43708d046b0aaa8ce2468e15af9e40",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-34.txt": {
+    "mtime": 1795249980.3104837,
+    "ast_hash": "27020a6e78a84f588293a225afec329f",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-35.txt": {
+    "mtime": 1795249981.2249815,
+    "ast_hash": "c413757e3d7043edfd34c53a4852064b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-36.txt": {
+    "mtime": 1795249982.0329435,
+    "ast_hash": "bfda12d2b05b93a179720ceb378de939",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-37.txt": {
+    "mtime": 1795249982.887621,
+    "ast_hash": "b6368ab1aae52473170063c171c7af35",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-38.txt": {
+    "mtime": 1795249983.8679166,
+    "ast_hash": "6d5f6df69e3473bf27880ed8e28c5b26",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-39.txt": {
+    "mtime": 1795249984.658514,
+    "ast_hash": "1c374f3d527b4d777876973709bbc87b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-40.txt": {
+    "mtime": 1795249985.565336,
+    "ast_hash": "c76593de6abe650971cd12561958b7e9",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-41.txt": {
+    "mtime": 1795250004.6476188,
+    "ast_hash": "28b7c377b133afac60f5909f8d792f4e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-42.txt": {
+    "mtime": 1795249987.346203,
+    "ast_hash": "c41020103488b1a032bd11e7f609b843",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-5.txt": {
+    "mtime": 1795248922.1549335,
+    "ast_hash": "37c0480d2b649fa2f717793ee1a28f2a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-6.txt": {
+    "mtime": 1795248922.9680138,
+    "ast_hash": "729b45473966447d3978e6d0f0ef2e76",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-7.txt": {
+    "mtime": 1795248924.0272129,
+    "ast_hash": "a1f1dcc3a57b9eb13d9f4f21159f815a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-8.txt": {
+    "mtime": 1795248924.7873285,
+    "ast_hash": "af635f2424677b7d96dfdca6cb85deb3",
+    "semantic_hash": ""
+  },
+  "SOCIAL/archivio-v1/istruzioni-post/post-9.txt": {
+    "mtime": 1795248925.6459358,
+    "ast_hash": "7375c1f1e468333ee2f1425d252c0f07",
+    "semantic_hash": ""
+  },
+  "SOCIAL/calendario-v2.md": {
+    "mtime": 1795435544.9757214,
+    "ast_hash": "432e41f585ae023fd6665671535a0999",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p10-01.html": {
+    "mtime": 1795435434.555353,
+    "ast_hash": "eaa0d0831c62784f13cbf3d3ab33e2c5",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p10-02.html": {
+    "mtime": 1795435438.04493,
+    "ast_hash": "edd94b1b4b2cf5cbb8a69fd49ec5cec7",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p10-03.html": {
+    "mtime": 1795435440.334581,
+    "ast_hash": "c338ea7ae49856010ba62a0bce267857",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p10-04.html": {
+    "mtime": 1795435441.8831725,
+    "ast_hash": "0c32a00a79bdb2bc4ca8ef364b111ef9",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p10-05.html": {
+    "mtime": 1795435443.385623,
+    "ast_hash": "23f939530565c8ad9b15020734cd8ec1",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p10-06.html": {
+    "mtime": 1795435444.7831974,
+    "ast_hash": "3607885c0215ccb68ae48f69ce875fcd",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p10-07.html": {
+    "mtime": 1795435446.106304,
+    "ast_hash": "ec914039c0cbd004849415a0986f23b2",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p11-01.html": {
+    "mtime": 1795435447.9652045,
+    "ast_hash": "af1650bae6c4245371993b1e8dfd24fa",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p11-02.html": {
+    "mtime": 1795435449.404254,
+    "ast_hash": "233c2c2c1567fcdff9f0d37957f4ec81",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p11-03.html": {
+    "mtime": 1795435450.6748288,
+    "ast_hash": "ee96baa87cbab7309e1e79101f77579a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p11-04.html": {
+    "mtime": 1795435451.9654214,
+    "ast_hash": "4c42a303cd1ae3e313117b9f3ec369ee",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p11-05.html": {
+    "mtime": 1795435453.1290672,
+    "ast_hash": "7d0725bedb95bf0efd4c0a8aac4ccd67",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p11-06.html": {
+    "mtime": 1795435454.6384766,
+    "ast_hash": "669aa4ebc3ac5668c2f43a3bf8c58ecd",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p11-07.html": {
+    "mtime": 1795435456.0445104,
+    "ast_hash": "955a8092083544334696f83018e0d7dd",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p11-08.html": {
+    "mtime": 1795435457.3294911,
+    "ast_hash": "301c7f47efc0cd86f98c0d962c6c4d78",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p12-01.html": {
+    "mtime": 1795435458.7333567,
+    "ast_hash": "0994e184ed4cc1cdbb45d514346c203e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p12-02.html": {
+    "mtime": 1795435460.1321962,
+    "ast_hash": "7031235e02056e5fa0aa5cabc93be9eb",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p12-03.html": {
+    "mtime": 1795435461.5263965,
+    "ast_hash": "e50b99b5d2276ae842f6259ecb2860e3",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p12-04.html": {
+    "mtime": 1795435462.8256974,
+    "ast_hash": "39ae9a116bc43a7437e07842c1e4c7d6",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p12-05.html": {
+    "mtime": 1795435464.1542015,
+    "ast_hash": "c0f7663399fd449b1a6497d84def9905",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p12-06.html": {
+    "mtime": 1795435465.8857427,
+    "ast_hash": "74882425bdc7888aa52dce476b2d4ab2",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p12-07.html": {
+    "mtime": 1795435467.1143818,
+    "ast_hash": "5194d64ecdd5bd50725cbe33732a5c09",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p13-01.html": {
+    "mtime": 1795435504.525269,
+    "ast_hash": "fccfb1ac10db7e74151331fb43b363a0",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p13-02.html": {
+    "mtime": 1795435505.8089755,
+    "ast_hash": "143878de9c45f2acebdf0273505e75de",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p13-03.html": {
+    "mtime": 1795435506.938735,
+    "ast_hash": "1b25c06ec24a47ca42a19db63f2edc18",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p13-04.html": {
+    "mtime": 1795435508.258968,
+    "ast_hash": "89ccda223ae7eb2ba8199b4bfd3d1821",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p13-05.html": {
+    "mtime": 1795435509.3926122,
+    "ast_hash": "412045ac420cd93e2145ba174641d68c",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p13-06.html": {
+    "mtime": 1795435510.405278,
+    "ast_hash": "001352748f56491773d5a8087fa3e675",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p13-07.html": {
+    "mtime": 1795435511.4983065,
+    "ast_hash": "9bf130c7205f016c16fbe61964e90c2b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p14-01.html": {
+    "mtime": 1795435477.1976795,
+    "ast_hash": "dcf05d48b6c0bc687471d690d45fb39b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p14-02.html": {
+    "mtime": 1795435478.4686189,
+    "ast_hash": "8f2314def71d153d8ddfac52e55a8bea",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p14-03.html": {
+    "mtime": 1795435479.6198442,
+    "ast_hash": "80d5008d25efe5a57d96bd0b2d037d63",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p14-04.html": {
+    "mtime": 1795435481.007318,
+    "ast_hash": "a0af31dfcf56e5e5b06355c35d1d32ed",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p14-05.html": {
+    "mtime": 1795435482.305379,
+    "ast_hash": "bc39397e58c80f52d81716b48b13e11f",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p14-06.html": {
+    "mtime": 1795435483.6531599,
+    "ast_hash": "adf85af75033c9c9e9e34a4ad6acd463",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p15-01.html": {
+    "mtime": 1795435485.2528238,
+    "ast_hash": "9efee34d2460178aa1f39bac94ea6c62",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p15-02.html": {
+    "mtime": 1795435486.673504,
+    "ast_hash": "b6d0a22802347880610cf588e4acd10e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p15-03.html": {
+    "mtime": 1795435487.7529747,
+    "ast_hash": "a08a104b28c7e904e0eaf01f86e0ef53",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p15-04.html": {
+    "mtime": 1795435489.3031886,
+    "ast_hash": "87986fab5f43898a7d17c998e459f61e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p15-05.html": {
+    "mtime": 1795435490.4175093,
+    "ast_hash": "dd2037045dd5ad7bd039df2f0ef84649",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p15-06.html": {
+    "mtime": 1795435491.7514973,
+    "ast_hash": "c994f67ffecd3ed78b73734e8c929e4d",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p15-07.html": {
+    "mtime": 1795435494.1590443,
+    "ast_hash": "912b45719ac57627756dd53e7fd06b3c",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p5-01.html": {
+    "mtime": 1795435346.2872317,
+    "ast_hash": "23adaa180379ca8e9c48d0b099a9f038",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p5-02.html": {
+    "mtime": 1795435355.7528954,
+    "ast_hash": "77b09a6d2e789baba16f2a69c5cd3952",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p5-03.html": {
+    "mtime": 1795435358.5087647,
+    "ast_hash": "d23d7e1f196eee9464a54bdd482ab649",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p5-04.html": {
+    "mtime": 1795435361.6950505,
+    "ast_hash": "0b2e75c825fd2aafe6c8154ee36f552b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p5-05.html": {
+    "mtime": 1795435364.5665267,
+    "ast_hash": "ef25dfb5b8f049fdec3f84dafc8a8c17",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p5-06.html": {
+    "mtime": 1795435365.9101431,
+    "ast_hash": "f312685853e700b80ddcfa8a684d05fe",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p5-07.html": {
+    "mtime": 1795435367.0854087,
+    "ast_hash": "cb38063703b0adceae425aebc7a7f6aa",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p5-08.html": {
+    "mtime": 1795435370.294035,
+    "ast_hash": "ac237f28c3883661ad1f45062b65b1ea",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p6-01.html": {
+    "mtime": 1795435373.672427,
+    "ast_hash": "27582e20402abf18fd25d96d8313ff91",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p6-02.html": {
+    "mtime": 1795435377.8461266,
+    "ast_hash": "c1ee6d87b54eeac39f30a8662d7851c1",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p6-03.html": {
+    "mtime": 1795435380.5987575,
+    "ast_hash": "7e1800a39aac665ef7a5172ebb5fd012",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p6-04.html": {
+    "mtime": 1795435382.9961402,
+    "ast_hash": "9de7d17a5779934886c35a651cb8c275",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p6-05.html": {
+    "mtime": 1795435386.911193,
+    "ast_hash": "8af67dd50a7484a0712d7ef93548bb82",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p6-06.html": {
+    "mtime": 1795435388.4602842,
+    "ast_hash": "59c90f2687ee3a2b159f880cec42d07d",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p6-07.html": {
+    "mtime": 1795435390.378556,
+    "ast_hash": "803e791b8eb4bad77f6f210ec79958f3",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p6-08.html": {
+    "mtime": 1795435392.378168,
+    "ast_hash": "ac237f28c3883661ad1f45062b65b1ea",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p7-01.html": {
+    "mtime": 1795435394.6487112,
+    "ast_hash": "6a592b0e4e9714db666f767c63a883ef",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p7-02.html": {
+    "mtime": 1795435396.5337803,
+    "ast_hash": "a0c66deee6fe886549c9f62803cecb79",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p7-03.html": {
+    "mtime": 1795435397.7849946,
+    "ast_hash": "8a30095106f47a0fae0280f8ecbb540d",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p7-04.html": {
+    "mtime": 1795435399.4558897,
+    "ast_hash": "2533499659e3b2aa31279ac743b3acce",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p7-05.html": {
+    "mtime": 1795435400.92768,
+    "ast_hash": "47b3d07de73104b8d7de7955cd60237a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p7-06.html": {
+    "mtime": 1795435402.764419,
+    "ast_hash": "8edf6107d277d95c57448954fe72405a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p7-07.html": {
+    "mtime": 1795435403.9700558,
+    "ast_hash": "a6137c79e92bc05c636f50f469fc6e3e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p7-08.html": {
+    "mtime": 1795435405.725065,
+    "ast_hash": "5d10c47dbf60ff46d02d374647dda0d1",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p8-01.html": {
+    "mtime": 1795435407.2984085,
+    "ast_hash": "58e3131046c3af56ae230b5d0e01ebff",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p8-02.html": {
+    "mtime": 1795435408.4786685,
+    "ast_hash": "87d67c1a95649e10762e974569e6861a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p8-03.html": {
+    "mtime": 1795435409.6949227,
+    "ast_hash": "45fbeca8f53bbb5a916510fdaba42630",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p8-04.html": {
+    "mtime": 1795435411.099615,
+    "ast_hash": "d3053addf49be2e047aab9e9d1ff6934",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p8-05.html": {
+    "mtime": 1795435412.6461132,
+    "ast_hash": "1dd38c38e63dc8c26c3f1feae9ff160f",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p8-06.html": {
+    "mtime": 1795435414.7769005,
+    "ast_hash": "fb649ed5d221e9e35630b430fe009c06",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p8-07.html": {
+    "mtime": 1795435416.6703606,
+    "ast_hash": "939ac4c8e7888439c71bd063a9bc54b6",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p9-01.html": {
+    "mtime": 1795435418.083579,
+    "ast_hash": "bdf9b11cc00b8c3b04b4d78c9e1da4d4",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p9-02.html": {
+    "mtime": 1795435419.466763,
+    "ast_hash": "fe9fa951b1fe7753ed98a4a093542e44",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p9-03.html": {
+    "mtime": 1795435420.9408038,
+    "ast_hash": "acd8fec7a2a858ffb128a3bb911140a3",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p9-04.html": {
+    "mtime": 1795435422.632455,
+    "ast_hash": "f614eb6ccdc2cc0b3db5a9d239b216aa",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p9-05.html": {
+    "mtime": 1795435424.5077274,
+    "ast_hash": "3be98c717a567f0825a82e111ee09baf",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p9-06.html": {
+    "mtime": 1795435426.6354702,
+    "ast_hash": "a0486606ad4d034e4cdfe61d0b686dea",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p9-07.html": {
+    "mtime": 1795435428.095662,
+    "ast_hash": "cb9c6372ea6b2162ebf7a36b04f07f4c",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p9-08.html": {
+    "mtime": 1795435431.90899,
+    "ast_hash": "8627157fe19d2c670e7ce2f19fe407e4",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/err.txt": {
+    "mtime": 1795435346.0931957,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
     "semantic_hash": ""
   }
 }

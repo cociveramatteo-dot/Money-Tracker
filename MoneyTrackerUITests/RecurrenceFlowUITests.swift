@@ -42,6 +42,52 @@ final class RecurrenceFlowUITests: MoneyTrackerUITestCase {
         }
     }
 
+    /// «Salta mese» e «Termina…» cambiano la serie senza passare da «Salva»: chiedono conferma (S-38).
+    func testSkipMonthAsksConfirmationAndCanBeCancelled() throws {
+        goToTab("Movimenti")
+        tapFAB(menuItem: "fabMenu_addTransaction")
+        let name = uniqueName("SkipMonth")
+        app.textFields["tf_amount"].tap()
+        app.textFields["tf_amount"].typeText("18")
+        app.textFields["tf_name"].tap()
+        app.textFields["tf_name"].typeText(name)
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.35))
+            .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.15)))
+        app.switches["toggle_isFixed"].tap()
+        app.buttons["picker_recurrence"].tap()
+        app.buttons["Mensile"].tap()
+        let save = app.buttons["btn_saveTransaction"]
+        if !save.isHittable { app.swipeUp() }
+        save.tap()
+        let row = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", name)).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.press(forDuration: 1.2)
+        app.buttons["Ricorrenza"].tap()
+        XCTAssertTrue(app.buttons["recurrence_scope"].waitForExistence(timeout: 5))
+        for _ in 0..<5 {
+            if app.buttons["Salta mese"].isHittable { break }
+            app.swipeUp()
+        }
+        // 1) Annulla: il dialogo è ancorato (popover) e si chiude toccando fuori; l'editor resta aperto.
+        app.buttons["Salta mese"].tap()
+        let confirm = app.sheets.buttons["Salta mese"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 5), "«Salta mese» deve chiedere conferma")
+        let outside = app.otherElements["PopoverDismissRegion"]
+        XCTAssertTrue(outside.exists)
+        outside.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.08)).tap()
+        XCTAssertTrue(NSPredicate(format: "exists == false").evaluate(with: confirm) ||
+            XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: confirm)], timeout: 5) == .completed)
+        XCTAssertTrue(app.buttons["recurrence_scope"].exists, "Dopo aver annullato l'editor resta aperto")
+        // 2) Conferma: l'editor si chiude.
+        app.buttons["Salta mese"].tap()
+        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
+        confirm.tap()
+        XCTAssertTrue(app.buttons["fabButton"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["recurrence_scope"].exists)
+        goToTab("Home")
+        goToTab("Movimenti")
+    }
+
     func testNonRecurringEditCannotCreateSeries() throws {
         goToTab("Movimenti")
         openTransactionsSection("Tutti")

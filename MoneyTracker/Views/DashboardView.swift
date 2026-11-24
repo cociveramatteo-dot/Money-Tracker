@@ -126,12 +126,7 @@ struct DashboardView: View {
 
         for transaction in transactions {
             guard let accountID = transaction.account?.persistentModelID, ids.contains(accountID) else { continue }
-            let isOneOffFixedExpense = transaction.isFixed && transaction.transactionType == .uscita
-                && !transaction.isTransfer && transaction.templateId.isEmpty && transaction.recurringFrequency.isEmpty
-            if !transaction.isDone && isOneOffFixedExpense
-                && !calendar.isDate(transaction.date, equalTo: projectionDay, toGranularity: .month) {
-                continue
-            }
+            guard Self.countsInProjection(transaction, projectionDay: projectionDay, calendar: calendar) else { continue }
 
             let amount = transaction.signedAmount
             entries.append(.init(date: transaction.date, signedAmount: amount, isDone: transaction.isDone))
@@ -141,6 +136,15 @@ struct DashboardView: View {
         }
 
         return (TrailInput(currentBalance: totalCurrent, day: projectionDay, entries: entries), plannedByAccount)
+    }
+
+    /// Una spesa fissa singola pianificata (senza ricorrenza) pesa sulla previsione solo nel mese della sua data (S-41).
+    /// Tutto il resto — fatti, entrate, trasferimenti, serie ricorrenti, spese non fisse — conta sempre.
+    static func countsInProjection(_ transaction: Transaction, projectionDay: Date, calendar: Calendar = .current) -> Bool {
+        let isOneOffFixedExpense = transaction.isFixed && transaction.transactionType == .uscita
+            && !transaction.isTransfer && transaction.templateId.isEmpty && transaction.recurringFrequency.isEmpty
+        guard !transaction.isDone && isOneOffFixedExpense else { return true }
+        return calendar.isDate(transaction.date, equalTo: projectionDay, toGranularity: .month)
     }
 
     private func refreshProjectionDay() {
@@ -172,6 +176,9 @@ struct DashboardView: View {
             }
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active { refreshProjectionDay() }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+                refreshProjectionDay()
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
                 refreshProjectionDay()
