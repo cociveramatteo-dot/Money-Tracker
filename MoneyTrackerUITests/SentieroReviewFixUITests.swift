@@ -38,10 +38,14 @@ final class SentieroReviewFixUITests: MoneyTrackerUITestCase {
         let fab = app.buttons["fabButton"]
         let collection = app.scrollViews.firstMatch
         XCTAssertTrue(collection.waitForExistence(timeout: 5))
-        XCTAssertLessThanOrEqual(collection.frame.maxY, fab.frame.minY)
+        // La lista scorre sotto la barra per scelta (vedi PianificaView, contentMargins):
+        // ciò che conta è che, a fine scorrimento, l'ultimo testo resti sopra il FAB.
         save("review-\(section)-initial")
-        app.swipeUp()
+        for _ in 0..<3 { app.swipeUp() }
         save("review-\(section)-bottom")
+        let lowestText = collection.descendants(matching: .staticText).allElementsBoundByIndex
+            .map(\.frame).filter { $0.height > 0 }.map(\.maxY).max() ?? 0
+        XCTAssertLessThanOrEqual(lowestText, fab.frame.minY)
         for _ in 0..<4 {
             if app.buttons["planning_goals"].isHittable { break }
             app.swipeDown()
