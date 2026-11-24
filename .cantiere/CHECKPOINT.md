@@ -53,9 +53,7 @@
 
 ## Cose che deve fare Matteo
 
-- [ ] **Landing:** alla prossima ricarica carica la cartella `SOCIAL/landing` (porta online hreflang e meta description). 📍 Cloudflare → progetto `bucktrailapp` → Create deployment. ↩️ «ricaricata».
 - [ ] Pubblicare i Post 5–15 · nome TikTok · riprese faceless (SC-2) · 6 fonti NotebookLM. Istruzioni complete in `.cantiere/PER-MATTEO.md`.
-- [ ] Sul telefono Android: togli il Debug USB e riattiva il Blocco automatico.
 
 ## Suggerimenti · Rischi
 
