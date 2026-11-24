@@ -1,7 +1,6 @@
-# CONSEGNA — architetto · 2026-11-24 23:01
+# CONSEGNA — capocantiere · 2026-11-24 23:25
 
-- **S-50 · progetto esecutivo della Protezione avanzata (E2E della sync):** `.cantiere/progetto-e2e-sync.md` (11 sezioni con indice). Nessun codice toccato.
-- Decisioni chiave: tabella nuova `mt_vault` + `mt_e2e`; trigger SQL additivo che blocca le scritture in chiaro dei client vecchi; AES-256-GCM, PBKDF2-SHA256 600k, HKDF, chiave di recupero Crockford; DEK separata dalla password Supabase; payload = riga JSON di oggi (la logica di sync non cambia); migrazione con copia in chiaro congelata fino a verifica; interruttore spento fino a S-50p. Registrate in DECISIONI.md.
-- Task creati in PIANO: S-50a…S-50m e S-50p (Claude Code, in ordine, 3 collaudi di blocco), S-50n e S-50o per Matteo ([?]).
-- Unico passo manuale di Matteo: SQL del §6.2 (S-50n, istruzioni in PER-MATTEO.md). È inerte: si può fare quando vuole.
-- Aperto: tutto l'esecuzione. Prossimo: S-50a (server finto) → operaio Claude Code, prompt nel progetto §10.3.
+- Progetto esecutivo S-50 (cifratura end-to-end della sync) pronto: `progetto-e2e-sync.md`, task S-50a…S-50p in PIANO.md. SQL su Supabase eseguito (S-50n). Nessun codice scritto.
+- **S-50 è in pausa per volere di Matteo**: riparte solo con «parti con S-50» + conferma del permesso su Sync/ e Auth/ (solo per S-50).
+- Landing e FAQ sicurezza online e verificate; app Android provata da Matteo su telefono.
+- Prossimo: se Matteo dice «parti con S-50» → S-50a (operaio Claude Code). Altrimenti titoli/LCP della landing.
