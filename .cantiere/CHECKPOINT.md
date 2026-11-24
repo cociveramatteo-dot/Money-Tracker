@@ -5,6 +5,7 @@
 ## Siamo qui
 
 - **S-50 (cifratura end-to-end della sync):** progetto esecutivo pronto in `.cantiere/progetto-e2e-sync.md` (13 task S-50a…S-50m, 18–22 ore di Claude Code). SQL su Supabase già eseguito da Matteo (S-50n, 13 righe, inerte). **Nessun codice scritto: Matteo ripartirà quando vuole.**
+- **S-60 (collegamento bancario):** progetto esecutivo pronto in `.cantiere/progetto-banca.md` (fornitore Enable Banking, piano B Salt Edge; 19 task S-60a…v, dopo S-50). Nessun codice. Prima verifica per Matteo: S-60t in PER-MATTEO (tipo di account Apple, email a Enable Banking, domanda al professionista).
 - **iOS:** restyling «Sentiero» completo, 99 test unitari e 49 UI verdi (ultimo giro 15:09). Nessun codice iOS toccato in questo giro.
 - **Android:** parità con iOS completa, installata e provata da Matteo su telefono vero (Samsung): sync con il Supabase reale funziona, avvio senza icona, icone di login e sblocco come su iPhone.
 - **Sito:** online su bucktrailapp.com con la risposta «i miei dati sono al sicuro?» (it/en), privacy aggiornata e Cloudflare Web Analytics attivo.
@@ -49,7 +50,7 @@
 ## Domani si riparte così
 
 1. Sessione nuova nella cartella → `riprendiamo`
-2. **Solo quando Matteo scrive «parti con S-50»** (e conferma il permesso di toccare Sync/ e Auth/ per S-50): S-50a → operaio Claude Code — prompt nel progetto §10.3. Finché non lo dice, S-50 resta fermo.
+2. **Solo quando Matteo scrive «parti con S-50»** (e conferma il permesso su Sync/ e Auth/ per S-50): S-50a → operaio Claude Code (prompt nel progetto §10.3). **S-60 parte solo dopo S-50m**, con «parti con S-60». Finché non lo dice, entrambi restano fermi.
 3. Nel frattempo, lavori indipendenti: titoli e LCP della landing (Codex o operaio), privacy in inglese, giudici prima di una consegna.
 
 ## Cose che deve fare Matteo
