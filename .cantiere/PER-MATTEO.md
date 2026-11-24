@@ -5,6 +5,12 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### S-43 · ok a correggere un test UI (una riga di risposta)
+📍 Nella chat del capocantiere. ▶️ Scrivi «S-43: ok, correggi il test» e lo correggo io (5 minuti: il test controlla che la lista finisca sopra il pulsante +, ma l'app la fa scorrere sotto di proposito). ↩️ Niente da riportare.
+
+### S-39 · approva le traduzioni nuove
+📍 `.cantiere/APPROVAZIONI.md`, riga S-39 ⏳. ▶️ Scrivi in chat «S-39 approvate» oppure la correzione per lingua. ↩️ Il testo della risposta.
+
 ### ANDROID · prova sync reale + telefono (quando vuoi, non urgente)
 📍 Chat del capocantiere. ▶️ Scrivi «prova sync android»: ti guido io (account di prova, iPhone + Android o emulatore, widget, impronta/volto). ↩️ Riporta l'esito.
 
