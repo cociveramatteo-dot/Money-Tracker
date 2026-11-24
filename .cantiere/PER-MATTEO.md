@@ -5,9 +5,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### S-50n · Protezione avanzata — incollare lo SQL in Supabase (2 minuti, quando vuoi)
-📍 Browser → supabase.com → progetto di Bucktrail → menu a sinistra **SQL Editor** → **New query**. ▶️ Apri `.cantiere/progetto-e2e-sync.md`, §6.2: copia tutto il blocco SQL (da `-- Bucktrail · S-50` fino a `order by 1, 2, 3;`), incollalo e premi **Run**. Non cambia nulla per l'app attuale: resta inerte finché nessuno attiva la Protezione avanzata. ↩️ Dimmi quante righe compaiono nella tabella in basso (devono essere **13**) o copiami l'errore.
-
 ### ANDROID · aggiornare l'app sul tuo telefono
 📍 Terminale, cartella `03_CODICE/bucktrail-android`, telefono collegato con Debug USB acceso. ▶️ `./gradlew installDebug` (con JAVA_HOME e ANDROID_HOME come l'altra volta). Si aggiorna sopra la versione installata, i dati restano. ↩️ Dimmi se all'apertura non vedi più l'icona e se lucchetto e icona del login ti sembrano come su iPhone.
 
@@ -24,6 +21,8 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 📍 notebooklm.google.com → notebook «MoneyTracker App». ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt` e `README.txt` di Inter e Space Grotesk) sono facoltative. ↩️ Scrivi «notebook ok».
 
 ## Fatte
+
+- 2026-11-24 23:22 · S-50n: SQL della Protezione avanzata eseguito da Matteo su Supabase, controllo finale 13 righe (8 policy + 5 trigger). Inerte finché nessuno attiva l'opzione.
 
 - 2026-11-24 22:28 · Landing ricaricata su Cloudflare con FAQ sicurezza, privacy aggiornata e Web Analytics (verificato online su 5 pagine). Nota: le pagine hanno 2 codici di misura (il nostro, token b8ce…, e uno iniettato in automatico da Cloudflare, token 4f0c…): innocuo; per tenerne uno solo, togliere il nostro dalle 5 pagine al prossimo caricamento.
 

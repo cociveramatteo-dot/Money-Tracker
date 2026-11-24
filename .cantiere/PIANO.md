@@ -490,6 +490,6 @@ Modello di task:
   - [ ] **S-50k · Android: interfaccia e testi 7 lingue** → capocantiere/operaio Claude Code · §5, §10.3 · dopo S-50j
   - [ ] **S-50l · Logout, elimina account, cambio utente, stress-test** → capocantiere/operaio Claude Code · §4.2, §10.3 · dopo S-50k · poi COLLAUDO BLOCCO 3 (collaudatore, S-50j…l)
   - [ ] **S-50m · Commissione Suprema 10/10 + manuale docs/MoneyTracker.md** → capocantiere/operaio Claude Code · §10.3 · dopo collaudo blocco 3
-  - [?] **S-50n · Matteo: incollare lo SQL in Supabase (2 minuti)** → Matteo · istruzioni 📍▶️↩️ nel progetto §6.3 · inerte, si può fare anche subito
+  - [x] (Matteo, 2026-11-24 23:22: eseguito, 13 righe) **S-50n · Matteo: incollare lo SQL in Supabase (2 minuti)** → Matteo · istruzioni 📍▶️↩️ nel progetto §6.3 · inerte, si può fare anche subito
   - [?] **S-50o · Matteo: approvare le schermate (D-014) + prova reale facoltativa con account di prova** → Matteo · §10.3 S-50o · dopo S-50m
   - [ ] **S-50p · Accensione interruttore + FAQ e privacy del sito** → capocantiere/operaio Claude Code · §10.3 S-50p · SOLO dopo S-50n e S-50o [x]
