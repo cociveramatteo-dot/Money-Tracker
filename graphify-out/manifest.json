@@ -25,7 +25,7 @@
     "semantic_hash": "9deb2ada1cc834bbebf8bbad9c8978a1"
   },
   "MoneyTracker/Auth/AppLockGate.swift": {
-    "mtime": 1795522107.249537,
+    "mtime": 1795541502.2813673,
     "ast_hash": "304bfc261af8cade43d891b6dd5fa25c",
     "semantic_hash": ""
   },
@@ -35,12 +35,12 @@
     "semantic_hash": "395836ec09cd185015a4bad596b6b92a"
   },
   "MoneyTracker/Auth/LoginView.swift": {
-    "mtime": 1795522107.2498684,
+    "mtime": 1795541502.2816737,
     "ast_hash": "7687c3f27058744207bb830f9deec70c",
     "semantic_hash": ""
   },
   "MoneyTracker/Auth/SignUpView.swift": {
-    "mtime": 1795522107.250283,
+    "mtime": 1795541502.2819767,
     "ast_hash": "18e549978e742aaa4222b013f07a4145",
     "semantic_hash": ""
   },
@@ -110,7 +110,7 @@
     "semantic_hash": "55b58464e072a50d044333f74a8f3bfd"
   },
   "MoneyTracker/MoneyTrackerApp.swift": {
-    "mtime": 1795522107.2506049,
+    "mtime": 1795541502.28324,
     "ast_hash": "10e01e8632efba0fe73ecfd025e30b63",
     "semantic_hash": ""
   },
@@ -190,47 +190,47 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/AccountsView.swift": {
-    "mtime": 1795522107.251021,
+    "mtime": 1795541502.2834606,
     "ast_hash": "5d38ef8f4f77b0d9d9889b2d8f6d2253",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/AddTransactionView.swift": {
-    "mtime": 1795522107.2513459,
+    "mtime": 1795541502.2837543,
     "ast_hash": "c96d3bd1e4bb774a0d72760f9a4b56ce",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/AddTransferView.swift": {
-    "mtime": 1795522107.2516506,
+    "mtime": 1795541502.284077,
     "ast_hash": "7753860d6dd0a51734684d6376b4f937",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/AuditLogView.swift": {
-    "mtime": 1795522107.2519937,
+    "mtime": 1795541502.284431,
     "ast_hash": "17995bacb16749f7719a9f0434b95424",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/BudgetView.swift": {
-    "mtime": 1795522107.2523875,
+    "mtime": 1795541502.2847667,
     "ast_hash": "a8c63bf1cb1a689f3beda5fd2248c80b",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/CategoryManagementView.swift": {
-    "mtime": 1795522107.2527022,
+    "mtime": 1795541502.2850406,
     "ast_hash": "313d74e32459382855d805aa569f5a54",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/ContentView.swift": {
-    "mtime": 1795522107.2532957,
+    "mtime": 1795541502.2856019,
     "ast_hash": "125375d048322ab339046046944ef653",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/DashboardView.swift": {
-    "mtime": 1795526540.8144612,
+    "mtime": 1795541502.2865844,
     "ast_hash": "c4232fd0d0ba202ecae9bead8d0e360b",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/GoalsView.swift": {
-    "mtime": 1795522107.2546444,
+    "mtime": 1795541502.2867596,
     "ast_hash": "149a3c4a8c5c354959c107e85999cf30",
     "semantic_hash": ""
   },
@@ -240,28 +240,28 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/SettingsView.swift": {
-    "mtime": 1795522107.2561154,
+    "mtime": 1795541502.2876081,
     "ast_hash": "19649f1cdb8979a486d724e5a9fbe19f",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/StatisticsView.swift": {
-    "mtime": 1795522107.256387,
+    "mtime": 1795541502.287879,
     "ast_hash": "a420c6670132be86345a617f65b03e19",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/Theme.swift": {
-    "mtime": 1795522107.2568076,
+    "mtime": 1795541502.2881699,
     "ast_hash": "c3167e072b9d326bdfbd10a92d23615c",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/TransactionsView.swift": {
-    "mtime": 1795522107.2590685,
+    "mtime": 1795541502.2895076,
     "ast_hash": "8e15cd2ac07da4061d3981b78282655b",
     "semantic_hash": ""
   },
   "docs/MoneyTracker.md": {
-    "mtime": 1795483198.8204029,
-    "ast_hash": "39dbbc2d0c67f5954cc9bba26f448386",
+    "mtime": 1795541502.2943609,
+    "ast_hash": "248ca0dbaaf55f4884617c44f9832af0",
     "semantic_hash": ""
   },
   "docs/MoneyTracker.pdf": {
@@ -295,12 +295,12 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Domain/RecurringSeriesDetector.swift": {
-    "mtime": 1795522107.2212172,
+    "mtime": 1795541502.2826433,
     "ast_hash": "324dcf4cdfafd46214abaf79e0bcd497",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/RecurringSeriesDetailView.swift": {
-    "mtime": 1795522107.2557325,
+    "mtime": 1795541502.2873058,
     "ast_hash": "db5f61ee258f89ab6bb9726ad3c9c129",
     "semantic_hash": ""
   },
@@ -345,7 +345,7 @@
     "semantic_hash": ""
   },
   ".cantiere/guardiano.json": {
-    "mtime": 1795524052.593195,
+    "mtime": 1795541502.280963,
     "ast_hash": "6d49602a4271a7507ba5dc8b4780de5e",
     "semantic_hash": ""
   },
@@ -465,7 +465,7 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/Components/FloatingTabBar.swift": {
-    "mtime": 1795522107.2530005,
+    "mtime": 1795541502.2853005,
     "ast_hash": "ee029890fc4b414dd8a917e7a3ad61db",
     "semantic_hash": ""
   },
@@ -515,8 +515,8 @@
     "semantic_hash": ""
   },
   ".cantiere/APPROVAZIONI.md": {
-    "mtime": 1795523404.5025733,
-    "ast_hash": "6d736ad2981b4fdc237dd0226060c762",
+    "mtime": 1795541502.2759287,
+    "ast_hash": "31dfacd708ca89dadc0ff08f41572b5c",
     "semantic_hash": ""
   },
   ".cantiere/AVVIO.md": {
@@ -525,23 +525,23 @@
     "semantic_hash": ""
   },
   ".cantiere/CHECKPOINT.md": {
-    "mtime": 1795483198.216737,
-    "ast_hash": "b4ec19089d960b3ee31b38bcc0669e6d",
+    "mtime": 1795541502.2764025,
+    "ast_hash": "2c23cd144c5e9c9ef08e9282579edf04",
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795523404.5065823,
-    "ast_hash": "18ab924da0677d20892400cf6157b2b1",
+    "mtime": 1795541502.2766469,
+    "ast_hash": "6513ccbd014fb22ca733c7c26a1eebf1",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
-    "mtime": 1795483198.2178893,
-    "ast_hash": "99b05c5c56711f0480785f25cca82643",
+    "mtime": 1795541502.277647,
+    "ast_hash": "56e24b6488741df6bfb78fa77aeaf8e9",
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795523404.5057716,
-    "ast_hash": "3061315e9b74148fbf6c89a5b18951ad",
+    "mtime": 1795552337.987813,
+    "ast_hash": "f48fc22ba6ed4a23caa3a088bb642870",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -550,18 +550,18 @@
     "semantic_hash": ""
   },
   ".cantiere/PAGELLE.md": {
-    "mtime": 1795483198.2191017,
-    "ast_hash": "bd81b5ce8c4a62d1bc72b1adfa802ced",
+    "mtime": 1795541502.2782428,
+    "ast_hash": "8ba5e1028e1b901e275279aa5232bb1b",
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795523404.5050066,
-    "ast_hash": "6f983f12a5a3d5a2e60daa4c37fa9471",
+    "mtime": 1795555697.4877903,
+    "ast_hash": "f3b48b3df5880c16de227647bc9385bf",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795523404.5041254,
-    "ast_hash": "2934725c20c81f837b6ef54d7dc7157e",
+    "mtime": 1795555697.488251,
+    "ast_hash": "8c9890e42f015652294cd52774d6f473",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795524001.1567876,
-    "ast_hash": "49d5503c3cb8c36b812ce180111529e0",
+    "mtime": 1795555780.6542742,
+    "ast_hash": "36f7078203c0552257e26228798703f1",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -650,7 +650,7 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Domain/RecurringMaterializer.swift": {
-    "mtime": 1795522107.2207963,
+    "mtime": 1795541502.2824144,
     "ast_hash": "8a81a5bd76a06f48e1be4f1a8e570ed8",
     "semantic_hash": ""
   },
@@ -675,7 +675,7 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/RecurrenceControls.swift": {
-    "mtime": 1795522107.2221606,
+    "mtime": 1795541502.287143,
     "ast_hash": "0eac1c9de77581ed962e0ec0e45dec9d",
     "semantic_hash": ""
   },
@@ -685,12 +685,12 @@
     "semantic_hash": ""
   },
   "MoneyTrackerUITests/RecurrenceFlowUITests.swift": {
-    "mtime": 1795526437.7088838,
+    "mtime": 1795541502.2933521,
     "ast_hash": "ddc42cf518de78860a0ecd8435d0709a",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/ProgrammedRuleCard.swift": {
-    "mtime": 1795522107.2550225,
+    "mtime": 1795541502.2869318,
     "ast_hash": "a50584986816e6ab2c763b9b959f1deb",
     "semantic_hash": ""
   },
@@ -755,7 +755,7 @@
     "semantic_hash": ""
   },
   "MoneyTrackerUITests/SentieroReviewFixUITests.swift": {
-    "mtime": 1795523215.9930906,
+    "mtime": 1795541502.2935288,
     "ast_hash": "924887264e5d71e908d9bcf84f67c347",
     "semantic_hash": ""
   },
@@ -780,22 +780,22 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/TransactionsAdvancedFilterSheet.swift": {
-    "mtime": 1795522107.2578275,
+    "mtime": 1795541502.2885227,
     "ast_hash": "e39a78697a41fe912debbee3f72572cb",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/TransactionsSearchField.swift": {
-    "mtime": 1795522107.258183,
+    "mtime": 1795541502.2887032,
     "ast_hash": "19a0da5d96ab20b4b2359f4016462834",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/TransactionsSecondaryChips.swift": {
-    "mtime": 1795522107.258611,
+    "mtime": 1795541502.2889714,
     "ast_hash": "503c88a6d76afebeb5dd40735b3415dc",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/TransactionsTypeChips.swift": {
-    "mtime": 1795522107.2224238,
+    "mtime": 1795541502.2891228,
     "ast_hash": "a7f2d6cad2a02a6735f37bf62e0c52f5",
     "semantic_hash": ""
   },
@@ -845,8 +845,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/en.html": {
-    "mtime": 1795483198.812848,
-    "ast_hash": "afd148cbf5f15c546ade5fa038acf67b",
+    "mtime": 1795555586.9284258,
+    "ast_hash": "38b560c12585b8f722d850e8c5647247",
     "semantic_hash": ""
   },
   "SOCIAL/landing/fonts/OFL-Inter.txt": {
@@ -860,13 +860,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/index.html": {
-    "mtime": 1795483198.8151822,
-    "ast_hash": "098c69f732d93530296855271add04ee",
+    "mtime": 1795555586.92863,
+    "ast_hash": "2738fd8677b6e037bb293d5f41582fcd",
     "semantic_hash": ""
   },
   "SOCIAL/landing/privacy.html": {
-    "mtime": 1795483198.8155723,
-    "ast_hash": "48d20f35b96f1fc8b4e8f233fb9d96d8",
+    "mtime": 1795555586.9290407,
+    "ast_hash": "e1e4d49cbfe0456fd5a21e24a4099768",
     "semantic_hash": ""
   },
   "SOCIAL/montaggio/README.md": {
@@ -890,18 +890,18 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/_worker.js": {
-    "mtime": 1795483198.803139,
-    "ast_hash": "b0d83407277081e550dee6028e6aa450",
+    "mtime": 1795552337.9911113,
+    "ast_hash": "53fc7da233712680b16a227d8d73b76e",
     "semantic_hash": ""
   },
   "SOCIAL/landing/confermato.html": {
-    "mtime": 1795483198.8116982,
-    "ast_hash": "bb4424504a5c248bea5147ce4ec2dc25",
+    "mtime": 1795555586.928117,
+    "ast_hash": "91c9d32536815fe6ad0c133ab9a70a0b",
     "semantic_hash": ""
   },
   "SOCIAL/landing/confirmed.html": {
-    "mtime": 1795483198.8119662,
-    "ast_hash": "3814a040f65349a4343381f7fb9c30eb",
+    "mtime": 1795555586.9282553,
+    "ast_hash": "fb9ea18464d7cf89e296fc45e48db941",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/presentazione-v1/build.py": {
@@ -1375,8 +1375,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/components/SfIcons.kt": {
-    "mtime": 1795483198.2880998,
-    "ast_hash": "f23b5097ab579e2a9196bae2558257ef",
+    "mtime": 1795552337.9895492,
+    "ast_hash": "cf7afcfa32c87715d0d5730a491cbe90",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/components/Sheets.kt": {
@@ -2360,13 +2360,28 @@
     "semantic_hash": ""
   },
   "MoneyTrackerTests/ProjectionMonthTests.swift": {
-    "mtime": 1795526575.099066,
+    "mtime": 1795541502.2923636,
     "ast_hash": "281cfe34f739e432d89d219a30a33571",
     "semantic_hash": ""
   },
   ".cantiere/collaudo-ios-s38-s39-s40-2026-11-24.md": {
-    "mtime": 1795522522.6855092,
+    "mtime": 1795541502.2804446,
     "ast_hash": "dd084ca041bd496b91064c716b470b9b",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/DecimalPersistenceTests.swift": {
+    "mtime": 1795541502.2921653,
+    "ast_hash": "38c01edc0a87670f6706709a1e2e8fb9",
+    "semantic_hash": ""
+  },
+  ".cantiere/commissione-suprema-2026-11-24-giro3.md": {
+    "mtime": 1795541502.2806413,
+    "ast_hash": "00ba30b06bb72f32d6e0602a1a3bef34",
+    "semantic_hash": ""
+  },
+  ".cantiere/sicurezza-dati-2026-11-24.md": {
+    "mtime": 1795552337.9892318,
+    "ast_hash": "4f0b9ef7b40008724e6df9968e373a30",
     "semantic_hash": ""
   }
 }

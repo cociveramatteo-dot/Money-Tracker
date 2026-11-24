@@ -1,16 +1,16 @@
 # Graph Report - MoneyTracker  (2026-11-24)
 
 ## Corpus Check
-- 329 files · ~306,270 words
+- 332 files · ~308,507 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 3937 nodes · 7866 edges · 394 communities (186 shown, 208 thin omitted)
-- Extraction: 89% EXTRACTED · 11% INFERRED · 0% AMBIGUOUS · INFERRED: 897 edges (avg confidence: 0.8)
+- 3949 nodes · 7886 edges · 406 communities (195 shown, 211 thin omitted)
+- Extraction: 89% EXTRACTED · 11% INFERRED · 0% AMBIGUOUS · INFERRED: 899 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3d718590`
+- Built from commit: `6f13ff1c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -209,11 +209,30 @@
 - ShareSheet
 - MaterializationError
 - LoginView
+- make
 - HapticStyle
+- .invalidateAll
 - RecurringRule
 - .capture
 - TransactionsAdvancedFilterSheet
 - DaysRemainingPluralTests.swift
+- Row
+- MemorySyncState
+- .dao
+- .materializeDue
+- ProgrammedRuleCard
+- .build
+- FilterChip
+- S-44 · Sicurezza dei dati — verifica sul codice (2026-11-24)
+- AuditLogView
+- RecurringSeriesDetailView
+- 7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»)
+- 8. Roadmap
+- Scope
+- FormatterCache
+- DaysRemainingPluralTests.swift
+- commissione-suprema-2026-11-24-giro3.md
+- SupabaseConfig.swift
 - String
 - Transaction
 - Option
@@ -336,7 +355,6 @@
 - QuickAdd.kt
 - Snapshot
 - categoryLabel
-- LedgerFuzzTest
 - RecurringMaterializerTests
 - Budgeting
 - QuickAddTest
@@ -351,12 +369,10 @@
 - BudgetCard
 - 4. Schermata per schermata
 - AccountEditing
-- Amounts
 - TransactionEntity
 - .build
 - HomeScreen
 - .ledger
-- Account
 - ScriptedApi
 - PianificaView
 - DemoDataTest
@@ -368,12 +384,9 @@
 - Theme.kt
 - SupabaseManager
 - .rule
-- .tx
 - SfIcons
 - AmountsTest
 - HomeAccountOrderTest
-- .world
-- PlanningBudgetCard
 - .suggest
 - .detect
 - .authenticate
@@ -393,7 +406,6 @@
 - 1. Token grafici
 - Test grafico di parità Android ↔ iOS (B11 + collaudo visivo)
 - Collaudo iOS 2026-11-24 (collaudatore, Claude Code · Sonnet)
-- SchemaMigration.swift
 - SyncStatus
 - CategoryTintTest
 - ExportsTest
@@ -407,16 +419,16 @@
 - KeywordCategoryClassifier
 
 ## God Nodes (most connected - your core abstractions)
-1. `Decimal` - 97 edges
+1. `Decimal` - 100 edges
 2. `Text` - 94 edges
 3. `Row` - 61 edges
 4. `AppViewModel` - 53 edges
 5. `Double` - 52 edges
-6. `Foundation` - 49 edges
+6. `Foundation` - 50 edges
 7. `BucktrailDao` - 46 edges
 8. `ModelContext` - 44 edges
-9. `TransactionEntity` - 41 edges
-10. `Snapshot` - 41 edges
+9. `SwiftData` - 42 edges
+10. `TransactionEntity` - 41 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `BudgetStatus` --references--> `Text`  [EXTRACTED]
@@ -433,43 +445,43 @@
 ## Import Cycles
 - None detected.
 
-## Communities (394 total, 208 thin omitted)
+## Communities (406 total, 211 thin omitted)
 
 ### Community 0 - "CategoryManagementView & AddTransactionView"
-Cohesion: 0.09
-Nodes (35): Content, Font, Card, DS, DSIcon, DSTransactionRow, EmptyStateView, FixedExpenseRow (+27 more)
+Cohesion: 0.13
+Nodes (28): BudgetStatus, Color, DS, DSIcon, DSTransactionRow, EmptyStateView, FixedExpenseRow, FixedTotalTile (+20 more)
 
 ### Community 1 - "Ricorrenze — motore backfill & Intents dirty-tracking"
 Cohesion: 0.23
 Nodes (18): Codable, AccountExport, BudgetExport, CSVFile, CurrencyConfirmSheet, GDPRExport, GoalExport, JSONExportFile (+10 more)
 
 ### Community 2 - "Sync/ricorrenze — file sorgente del checkpoint settembre 2026"
-Cohesion: 0.09
-Nodes (28): LayoutRegressionTest, Text, Bundle, MainActivity, AppLockGate(), LockOverlay(), BalanceActivity, BalanceCard() (+20 more)
+Cohesion: 0.23
+Nodes (17): Text, Bundle, QuickAddActivity, QuickAddCard(), AuthActions, AuthButton(), AuthErrorText(), AuthField() (+9 more)
 
 ### Community 3 - "Schema Migration V1→V2 (Decimal precision)"
-Cohesion: 0.22
-Nodes (8): MigrationStage, Double, decimalFromLegacyDouble(), DecimalMigrationBuffer, MoneyTrackerMigrationPlan, UUID, BudgetStatus, SchemaMigrationPlan
+Cohesion: 0.21
+Nodes (9): CGContext, CGPoint, FontRegistrationTests, UIColor, UIFont, UIGraphicsPDFRendererContext, NumberFormatter, PDFReportGenerator (+1 more)
 
 ### Community 4 - "Supabase DTOs (SBAccount/SBBudget/SBGoal/SBTransaction)"
-Cohesion: 0.08
-Nodes (14): Auth, Combine, Foundation, MoneyTracker, DaysRemainingPluralTests, RecurringCollisionTests, StrictRecurrenceAmountTests, Observation (+6 more)
+Cohesion: 0.10
+Nodes (9): Auth, Foundation, MoneyTracker, RecurringCollisionTests, Observation, OSLog, SwiftData, Testing (+1 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.20
-Nodes (9): RecurrenceFlowUITests, TransactionFlowUITests, MoneyTrackerUITestCase, String, StaticString, UInt, AccountFlowUITests, XCTestCase (+1 more)
+Cohesion: 0.23
+Nodes (7): RecurrenceFlowUITests, TransactionFlowUITests, String, StaticString, UInt, AccountFlowUITests, XCUIElement
 
 ### Community 6 - "AppIntents — Tocco posteriore/Siri (AddExpenseIntent)"
 Cohesion: 0.07
-Nodes (32): CategoryStat, CGContext, CGPoint, Charts, App Icon (Dark Mode, 1024x1024), App Icon (Light Mode, 1024x1024), App Icon (Tinted, 1024x1024), CategoryStat (+24 more)
+Nodes (35): CategoryStat, Charts, Identifiable, App Icon (Dark Mode, 1024x1024), App Icon (Light Mode, 1024x1024), App Icon (Tinted, 1024x1024), RecurringSeries, RecurringSeriesDetector (+27 more)
 
 ### Community 7 - "Supabase CodingKeys (snake_case mapping)"
 Cohesion: 0.06
-Nodes (33): Result, toSnapshot(), Boolean, Instant, Int, JsonObject, List, LocalDate (+25 more)
+Nodes (32): toSnapshot(), Boolean, Instant, Int, JsonObject, List, LocalDate, Long (+24 more)
 
 ### Community 9 - "Community 9"
-Cohesion: 0.11
-Nodes (22): ProgrammedRuleCard, Calendar, Date, Occurrence, Void, VirtualOccurrenceRow, haptic(), String (+14 more)
+Cohesion: 0.12
+Nodes (20): haptic(), SeriesCache, Binding, Bool, Date, Int, Occurrence, RecurringSeries (+12 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.12
@@ -487,6 +499,10 @@ Nodes (27): Hashable, AddTransactionView, AddTxFocus, importo, nome, CategoryPic
 Cohesion: 0.20
 Nodes (9): a) Diagnosi: perché oggi le ricorrenti "non compaiono", b) Modello dati, c) Algoritmi, d) Eccezioni (`Domain/RecurringSeriesEditor.swift`, `@MainActor`), Domande per Matteo, e) Viste (solo interfaccia dati, la grafica la fa l'impresa grafica sul mockup), f) Test (Swift Testing, `@Suite`, container in memoria `SchemaV3`), g) Sotto-task (ordine obbligato) (+1 more)
 
+### Community 16 - "SettingsView — biometria, export, GDPR"
+Cohesion: 0.22
+Nodes (5): String, TabBarAppearanceUITests, MoneyTrackerUITestCase, XCTestCase, XCUIApplication
+
 ### Community 17 - "View"
 Cohesion: 0.11
 Nodes (19): In corso / prossimi, S-0 [x] Rimozione del tour, S-11 [x] Riserve da S-5 (XL e badge demo) — assorbito da S-12; resta solo tab bar XL in S-10, S-12 [x] Movimenti: pagina unica + zona sotto i chip + Ricorrenti (da mockup) — collaudo 2026-11-14 01:30 ok, S-13 [x] (S-13f chiuso da Matteo 2026-11-16) Motore ricorrenze a serie virtuali (D-008), S-1 [x] Token, font, dark mode, S-2 [x] Componenti base (chiuso 2026-11-13 20:40, collaudatore), S-2b [x] Correzioni componenti base (+11 more)
@@ -496,11 +512,11 @@ Cohesion: 0.29
 Nodes (6): Chi fa meglio cosa (osservazioni, non verità: aggiornare), Cosa va bene (da tenere), Da cambiare nell'azienda (priorità alta), Esiti recenti, LEZIONI PER L'AZIENDA — da MoneyTracker (redesign Sentiero), Suggerimenti per la versione successiva
 
 ### Community 22 - "RecurrenceEditorView"
-Cohesion: 0.08
-Nodes (11): AnyObject, FileProtectionType, DemoDataSeeder, applyFileProtection(), ModelContainer, URL, Transaction, SystemNotificationManager (+3 more)
+Cohesion: 0.12
+Nodes (8): AnyObject, AddGoalView, GoalRow, Date, Goal, String, SystemNotificationManager, NotificationScheduling
 
 ### Community 27 - "Community 27"
-Cohesion: 0.17
+Cohesion: 0.15
 Nodes (3): DemoShowcaseUITests, String, XCTest
 
 ### Community 29 - "Community 29"
@@ -508,8 +524,8 @@ Cohesion: 0.12
 Nodes (20): chiave(), leggi(), Lettore, main(), Pagina, Path, radice_web(), Cartella servita come "/" del sito: quella con index.html più vicina alla radice (+12 more)
 
 ### Community 30 - "Checkpoint settembre 2026 — Tocco posteriore, perdita dati, ricorrenze arretrate"
-Cohesion: 0.05
-Nodes (41): CodingKey, CodingKeys, accountId, amount, category, categoryIcon, colorHex, createdAt (+33 more)
+Cohesion: 0.06
+Nodes (34): CodingKey, CodingKeys, accountId, amount, category, categoryIcon, colorHex, createdAt (+26 more)
 
 ### Community 31 - "Community 31"
 Cohesion: 0.40
@@ -533,19 +549,15 @@ Nodes (22): background(), body_slide(), brand(), closer(), diagram(), font(), fr
 
 ### Community 38 - "Community 38"
 Cohesion: 0.09
-Nodes (22): Commissione Suprema S-13h (2026-11-14 11:08), Fatti, S-16 [?] FUORI DAL RESTYLING (serve decisione di Matteo: test su precisione Decimal elevata) Verificare precisione Decimal elevata nella persistenza RecurringRule, S-17 [x] (collaudo ok 2026-11-14) Pull: non cancellare regole locali non ancora spedite, S-18 [x] Rifinitura grafica dei virtuali e delle serie programmate, S-19 [x] Revisione testi e traduzioni S-13g · collaudato 2026-11-16 09:47: collaudo ok (solo 7 strings + .cantiere, plutil ok, 380 chiavi allineate, nessuna chiave persa, 0 marker). Approvazione Matteo in APPROVAZIONI.md ancora ⏳. Note: de "Keine" per "Conto" (neutro) → "Keines"; es "Ninguno" per "Conto" (cuenta) → "Ninguna"; de riga 103 resta "Vorkommen"; zh riga 103 "记录" per occorrenze (vs 项目). · **chiuso 2026-11-16 09:48: collaudo ok** (5ca721e): de «Keines»/«Termine», es «Ninguna», zh «项目» applicati, chiavi invariate, plutil ok, nessun altro «Vorkommen»/«记录» residuo (99 «历史记录» = Storico ok). Approvazione Matteo in APPROVAZIONI.md resta ⏳; «Termin» (de) e i termini segnalati vanno riletti da un madrelingua., S-20 [x] collaudato 2026-11-14 11:06 (bf9727e: guard ok, regressione ok, 68 unit verdi) CONFERMATO Verificare editor di una serie terminata prima della prima occorrenza, S-21 [x] Performance: ricalcoli per riga in TransactionsView (Commissione S-13h, giudice 4: 8/10) (+14 more)
+Nodes (22): Commissione Suprema S-13h (2026-11-14 11:08), Fatti, S-16 [x] FUORI DAL RESTYLING (test su precisione Decimal elevata) Verificare precisione Decimal elevata nella persistenza RecurringRule, S-17 [x] (collaudo ok 2026-11-14) Pull: non cancellare regole locali non ancora spedite, S-18 [x] Rifinitura grafica dei virtuali e delle serie programmate, S-19 [x] Revisione testi e traduzioni S-13g · collaudato 2026-11-16 09:47: collaudo ok (solo 7 strings + .cantiere, plutil ok, 380 chiavi allineate, nessuna chiave persa, 0 marker). Approvazione Matteo in APPROVAZIONI.md ancora ⏳. Note: de "Keine" per "Conto" (neutro) → "Keines"; es "Ninguno" per "Conto" (cuenta) → "Ninguna"; de riga 103 resta "Vorkommen"; zh riga 103 "记录" per occorrenze (vs 项目). · **chiuso 2026-11-16 09:48: collaudo ok** (5ca721e): de «Keines»/«Termine», es «Ninguna», zh «项目» applicati, chiavi invariate, plutil ok, nessun altro «Vorkommen»/«记录» residuo (99 «历史记录» = Storico ok). Approvazione Matteo in APPROVAZIONI.md resta ⏳; «Termin» (de) e i termini segnalati vanno riletti da un madrelingua., S-20 [x] collaudato 2026-11-14 11:06 (bf9727e: guard ok, regressione ok, 68 unit verdi) CONFERMATO Verificare editor di una serie terminata prima della prima occorrenza, S-21 [x] Performance: ricalcoli per riga in TransactionsView (Commissione S-13h, giudice 4: 8/10) (+14 more)
 
 ### Community 39 - "Community 39"
 Cohesion: 0.07
-Nodes (28): 10. Changelog, v1 (inverno 2025) — Base, v2 (primavera 2026) — Feature complete, v3.10 (settembre 2026) — Tre bug critici: Tocco posteriore che "sparisce", perdita dati al login, ricorrenze arretrate, v3.11 (novembre 2026) — Redesign «Sentiero», step 0: rimozione del tour, v3.12 (novembre 2026) — Redesign «Sentiero», step 1: token, font, dark mode, v3.13 (novembre 2026) — Redesign «Sentiero», step 2–12: componenti, tab bar, Home, Movimenti, Impostazioni (S-2…S-5, S-9, S-12), v3.14 (novembre 2026) — Ricorrenze a serie virtuali (S-13) — cambio di schema, sync e modello dati (+20 more)
+Nodes (29): 10. Changelog, v1 (inverno 2025) — Base, v2 (primavera 2026) — Feature complete, v3.10 (settembre 2026) — Tre bug critici: Tocco posteriore che "sparisce", perdita dati al login, ricorrenze arretrate, v3.11 (novembre 2026) — Redesign «Sentiero», step 0: rimozione del tour, v3.12 (novembre 2026) — Redesign «Sentiero», step 1: token, font, dark mode, v3.13 (novembre 2026) — Redesign «Sentiero», step 2–12: componenti, tab bar, Home, Movimenti, Impostazioni (S-2…S-5, S-9, S-12), v3.14 (novembre 2026) — Ricorrenze a serie virtuali (S-13) — cambio di schema, sync e modello dati (+21 more)
 
 ### Community 40 - "Community 40"
 Cohesion: 0.11
 Nodes (18): 6. Funzionalità Implementate, Aggiunta Transazione (AddTransactionView), Android (`03_CODICE/bucktrail-android`), Biometria (Auth/), Budget (BudgetView), Conti (AccountsView), Haptic Feedback, Home (DashboardView) (+10 more)
-
-### Community 42 - "RecurrenceOperationStatus"
-Cohesion: 0.31
-Nodes (3): SentieroAccountsUITests, String, XCUIApplication
 
 ### Community 43 - "Community 43"
 Cohesion: 0.18
@@ -564,16 +576,16 @@ Cohesion: 0.17
 Nodes (11): dependencies, axe-core, gremlins.js, lighthouse, pixelmatch, playwright, pngjs, description (+3 more)
 
 ### Community 48 - "Community 48"
-Cohesion: 0.15
-Nodes (14): SBAccount, SBBudget, SBGoal, SBTransaction, Account, Budget, Date, Goal (+6 more)
+Cohesion: 0.19
+Nodes (12): SBAccount, SBBudget, SBGoal, SBTransaction, Account, Budget, Date, Goal (+4 more)
 
 ### Community 50 - "Community 50"
 Cohesion: 0.38
 Nodes (9): esegui_json(), limita(), main(), peso_locale_kb(), Path, radice(), Interpolazione lineare a tratti: punti = [(x, voto), ...] con x crescente., Peso della home: HTML + risorse locali che richiama (stima senza browser). (+1 more)
 
 ### Community 51 - "Community 51"
-Cohesion: 0.14
-Nodes (13): 11. Workflow Checkpoint, 2. Stack Tecnico e Architettura, 3. Struttura del Progetto, 7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»), 8. Roadmap, Bug risolti (sessioni precedenti), Cosa funziona bene, Issue residue (non critiche) (+5 more)
+Cohesion: 0.17
+Nodes (11): 11. Workflow Checkpoint, 2. Stack Tecnico e Architettura, 3. Struttura del Progetto, 9. Setup e Installazione, Configurare il banner Shortcuts, Errori comuni, Installazione da sorgente, MoneyTracker — Documento Completo (+3 more)
 
 ### Community 55 - "Community 55"
 Cohesion: 0.22
@@ -581,11 +593,11 @@ Nodes (8): 1. Il progetto, 2. La squadra, 3. Frasi-comando (uguali con ogni IA: 
 
 ### Community 56 - "Community 56"
 Cohesion: 0.06
-Nodes (34): 2026-11-16 · Riferimenti S-6/S-7/S-8 (Matteo), 2026-11-17 · Nessun premium in abbonamento, 2026-11-17 · Nome utente dei profili social: @bucktrailapp, 2026-11-17 · Regola permanente del progetto SOCIAL, 2026-11-17 · Social prima di Apple Developer Program, 2026-11-17 · Social senza elementi personali; video in IA in valutazione, 2026-11-17 · Soglie del segnale di interesse (✅ CONFERMATE da Matteo il 2026-11-17, cifre comprese: 40 iscritti, 200 visite, 5%, 5 commenti — non si spostano più) — SC-1b, 2026-11-17 · TikTok: account personale, senza musica (+26 more)
+Nodes (35): 2026-11-16 · Riferimenti S-6/S-7/S-8 (Matteo), 2026-11-17 · Nessun premium in abbonamento, 2026-11-17 · Nome utente dei profili social: @bucktrailapp, 2026-11-17 · Regola permanente del progetto SOCIAL, 2026-11-17 · Social prima di Apple Developer Program, 2026-11-17 · Social senza elementi personali; video in IA in valutazione, 2026-11-17 · Soglie del segnale di interesse (✅ CONFERMATE da Matteo il 2026-11-17, cifre comprese: 40 iscritti, 200 visite, 5%, 5 commenti — non si spostano più) — SC-1b, 2026-11-17 · TikTok: account personale, senza musica (+27 more)
 
 ### Community 58 - "PianificaView"
-Cohesion: 0.18
-Nodes (19): accountTypeCategoryProxy(), accountTypeIcon(), accountTypeRes(), AccountType, Int, String, AccountActions, AccountGroup() (+11 more)
+Cohesion: 0.25
+Nodes (6): account(), tx(), Int, JsonObject, String, SyncGuardsTest
 
 ### Community 59 - "Community 59"
 Cohesion: 0.50
@@ -596,8 +608,8 @@ Cohesion: 0.29
 Nodes (7): 4. Modelli Dati, Account, Budget, Category, FormatterCache (performance), Goal (Obiettivo di risparmio), Transaction
 
 ### Community 63 - "Community 63"
-Cohesion: 0.10
-Nodes (26): AuthGateway, Decoded, DeletionGuard, Done, Failed, Boolean, Collection, Int (+18 more)
+Cohesion: 0.07
+Nodes (35): Boolean, Collection, Int, Long, Map, String, SharedPrefsSyncState, AuthGateway (+27 more)
 
 ### Community 64 - "Community 64"
 Cohesion: 0.33
@@ -645,15 +657,15 @@ Nodes (5): 1. Visione e Posizionamento, Differenziatori chiave, L'idea centrale,
 
 ### Community 77 - "Community 77"
 Cohesion: 0.18
-Nodes (10): Bug, Cantiere, CHECKPOINT — MoneyTracker, Cose che deve fare Matteo, Domani si riparte così, Fatto dall'ultimo checkpoint (2026-11-21 10:30), Siamo qui, Stato di salute (+2 more)
+Nodes (10): Bug, Cantiere, CHECKPOINT — MoneyTracker, Cose che deve fare Matteo, Domani si riparte così, Fatto dall'ultimo checkpoint (2026-11-24 02:17), Siamo qui, Stato di salute (+2 more)
 
 ### Community 78 - "Community 78"
 Cohesion: 0.40
 Nodes (4): Come si costruisce, Dettaglio, MAPPA DEL CANTIERE — dove sta tutto, Social · backup novembre 2026
 
 ### Community 79 - "Community 79"
-Cohesion: 0.12
-Nodes (15): ANDROID · prova sync reale + telefono (quando vuoi, non urgente), Approvazione traduzioni (APPROVAZIONI.md), CHECKPOINT 2026-11-19 · Decisioni di pulizia (solo un sì/no, a parole va bene), CHECKPOINT 2026-11-19 · NotebookLM (bibliotecario): 6 fonti da aggiungere, Da fare, Fatte, PER MATTEO — le cose che aspettano te, S-21 — controllo manuale menu dopo il collaudo — ✅ fatto da Matteo 2026-11-16 21:49: tutto OK (+7 more)
+Cohesion: 0.18
+Nodes (10): ANDROID · aggiornare l'app sul tuo telefono, Da fare, Fatte, NotebookLM (bibliotecario) · 6 fonti da aggiungere, PER MATTEO — le cose che aspettano te, S-24 — verifica del blocco sul caso reale, S-30 — approvazione traduzioni (dopo il collaudo), SOCIAL · pubblicare i Post 5–15 (+2 more)
 
 ### Community 82 - "Community 82"
 Cohesion: 0.50
@@ -669,23 +681,19 @@ Nodes (10): LocalAuthentication, AppLockGate, AppLockState, LockOverlay, Bool, V
 
 ### Community 100 - "Community 100"
 Cohesion: 0.06
-Nodes (18): AppViewModel, Error, Boolean, com, Instant, java, List, Long (+10 more)
-
-### Community 101 - "Community 101"
-Cohesion: 0.21
-Nodes (4): AuditLogView, String, AuditLogger, Entry
+Nodes (17): AppViewModel, Error, Boolean, com, java, List, Long, StateFlow (+9 more)
 
 ### Community 102 - "Community 102"
 Cohesion: 0.24
 Nodes (10): AddBudgetView, BudgetHistorySheet, BudgetRow, Account, Bool, Budget, Date, Set (+2 more)
 
 ### Community 104 - "Community 104"
-Cohesion: 0.33
-Nodes (7): Boolean, Collection, Int, Long, Map, String, SharedPrefsSyncState
+Cohesion: 0.31
+Nodes (5): LastUsedCategoryTests, Bool, LastUsedCategory, Set, String
 
 ### Community 105 - "Community 105"
-Cohesion: 0.12
-Nodes (19): auditItems(), DemoData, Instant, List, ZoneId, AuditDiff, Event, Item (+11 more)
+Cohesion: 0.21
+Nodes (9): Boolean, Int, JsonObject, Long, String, SyncFormatException, SyncMapper, DateTimeFormatter (+1 more)
 
 ### Community 106 - "Community 106"
 Cohesion: 0.24
@@ -696,40 +704,40 @@ Cohesion: 0.35
 Nodes (6): ProjectionMonthTests, Bool, Calendar, Date, Int, Transaction
 
 ### Community 108 - "Community 108"
-Cohesion: 0.06
-Nodes (30): CategoryEditing, DeleteMessage, Boolean, Int, List, String, fold(), KeywordCategoryClassifier (+22 more)
+Cohesion: 0.08
+Nodes (22): CategoryEditing, DeleteMessage, Boolean, Int, List, String, ClassifierTest, Boolean (+14 more)
 
 ### Community 109 - "Community 109"
 Cohesion: 0.27
 Nodes (5): AuthField, LoginView, Bool, String, UIKeyboardType
 
 ### Community 112 - "TxFilter"
-Cohesion: 0.11
-Nodes (15): ApiException, ErrorKind, fromJson(), HttpSupabaseApi, Int, java, JsonObject, List (+7 more)
+Cohesion: 0.14
+Nodes (11): ApiException, HttpSupabaseApi, Int, java, JsonObject, List, Long, Map (+3 more)
 
 ### Community 113 - "Schema"
-Cohesion: 0.13
-Nodes (18): CaseIterable, NSCache, NSString, String, KeywordCategoryClassifier, Account, AccountType, carta (+10 more)
+Cohesion: 0.12
+Nodes (19): CaseIterable, NSCache, NSString, String, CategoryClassifying, KeywordCategoryClassifier, Account, AccountType (+11 more)
 
 ### Community 126 - "Community 126"
-Cohesion: 0.27
-Nodes (5): AddGoalView, GoalRow, Date, Goal, String
+Cohesion: 0.19
+Nodes (8): FileProtectionType, DemoDataSeeder, applyFileProtection(), ModelContainer, URL, date, name, SharedStore
 
 ### Community 127 - "Community 127"
-Cohesion: 0.20
-Nodes (9): CGFloat, TransactionsTypeChips, TxFilter, entrate, fisse, ricorrenti, trasf, tutti (+1 more)
+Cohesion: 0.27
+Nodes (6): JsonExport, Instant, List, Long, String, Num
 
 ### Community 128 - "Community 128"
 Cohesion: 0.29
 Nodes (7): 2. Caption per format (primo blocco), F13 (n. 1) — Spese fisse e variabili, F1 — La curva ambra, F3 — Non collegare il conto, F4 — Spesa registrata in 2 secondi, F5 — Carosello "titolo di giornale" (6-7 slide), F8 — Build in public (formato faceless 2026-11-19: carosello o mani+telefono, titolo a schermo, musica TikTok; nessuna voce né volto)
 
 ### Community 129 - "Community 129"
-Cohesion: 0.33
-Nodes (6): 9. Setup e Installazione, Configurare il banner Shortcuts, Errori comuni, Installazione da sorgente, Note, Requisiti
+Cohesion: 0.35
+Nodes (8): fold(), KeywordCategoryClassifier, Int, List, String, levenshtein(), Pair, stem()
 
 ### Community 137 - "StatisticsView.swift"
-Cohesion: 0.08
-Nodes (26): RecurrenceOperationStatus, RecurringSeriesEditor, Bool, Calendar, RecurrenceCalculator, String, TimeZone, Void (+18 more)
+Cohesion: 0.11
+Nodes (18): PendingAction, skip, terminateAfter, terminateHere, RecurrenceContextMenu, RecurrenceEditorView, RecurrenceSelection, Account (+10 more)
 
 ### Community 165 - ".invalidateAll"
 Cohesion: 0.29
@@ -740,24 +748,24 @@ Cohesion: 0.12
 Nodes (14): Backoff, Idle, Boolean, Flow, Int, StateFlow, Unit, Offline (+6 more)
 
 ### Community 182 - "FloatingTabBar"
-Cohesion: 0.16
-Nodes (10): Identifiable, FloatingTabBar, Item, CGFloat, Int, LocalizedStringKey, String, ContentView (+2 more)
+Cohesion: 0.33
+Nodes (3): ContentView, LocalizedStringKey, View
 
 ### Community 183 - ".init"
 Cohesion: 0.50
 Nodes (4): Calendario social Bucktrail · v2 (23/11/2026), Mappa vecchi post → nuovi, Note di verifica, Nuovo elenco
 
 ### Community 184 - "7. Audit Qualità (Score: 7.2 / 10)"
-Cohesion: 0.13
-Nodes (15): App, RecurringMaterializer, Date, Int, RecurrenceCalculator, TimeZone, MoneyTrackerApp, Bool (+7 more)
+Cohesion: 0.22
+Nodes (10): App, MoneyTrackerApp, Bool, Never, String, Task, UUID, View (+2 more)
 
 ### Community 185 - ".init"
 Cohesion: 0.08
 Nodes (24): Progetto SOCIAL (avviato 2026-11-17), S-10 [x] (2026-11-16: Commissione S-10, nessun difetto bloccante; 92 unit verdi; UI 42/45 nel run completo, i 3 falliti rilanciati singolarmente verdi; 2 voti 9 per commento obsoleto e sentence() lunga, corretti in 1748ef5 senza nuova valutazione) Verifica finale + Commissione Suprema, S-14 [x] Statistiche: confronto mese su mese — rimosso su richiesta di Matteo 2026-11-16, S-15 [x] Diagnosticare due test UI che non trovano il movimento appena salvato, S-38 [x] Commissione — pacchetto A (Codex): virtuali che ignorano filtri avanzati, date filtro personalizzato non salvate, conferma per «Salta mese/Termina…», «•••• €» fisso, detector ricalcolato a ogni render, set di ID regole in `movementList`, force-unwrap (RecurrenceControls:69, RecurringSeriesDetector:58-66), `RecurringMaterializer` duplica `snapshot`, tipo/selected ridondanti in `typeChips`., S-39 [x] Commissione — traduzioni (redattore): ~40 stringhe visibili in italiano in tutte le lingue (Settings, notifiche, Login/SignUp, AuditLog, Budget, filtri…), frasi composte a pezzi, chiavi doppie «Fine»/«Tipo». Poi approvazione Matteo., S-40 [x] Commissione — font fissi (Codex): ~200 `.font(.system(size:))` → token `DS.Typo.*` (Dynamic Type), `SectionLabel` incluso., S-41 [x] Home — spesa fissa singola nel mese di competenza (Matteo, 2026-11-20) (+16 more)
 
 ### Community 186 - "Color"
-Cohesion: 0.14
-Nodes (40): budgetColor(), BudgetStatus(), Card(), CategoryIconBox(), dashedBorder(), defaultMinSize18(), DemoBanner(), EmptyState() (+32 more)
+Cohesion: 0.16
+Nodes (33): BudgetStatus(), Card(), CategoryIconBox(), dashedBorder(), defaultMinSize18(), DemoBanner(), FilterChip(), GhostButton() (+25 more)
 
 ### Community 189 - "Action"
 Cohesion: 0.33
@@ -769,39 +777,99 @@ Nodes (7): fetch(), handle(), json(), secure(), SECURITY, subscribe(), UTM
 
 ### Community 192 - "ShareSheet"
 Cohesion: 0.09
-Nodes (37): AccountSaveRequest, AddAccountForm(), BigDecimal, Boolean, List, String, AddTransactionForm(), freqLabelRes() (+29 more)
+Nodes (38): AccountEntity, AccountSaveRequest, AddAccountForm(), BigDecimal, Boolean, List, String, AddTransactionForm() (+30 more)
 
 ### Community 193 - "MaterializationError"
-Cohesion: 0.15
+Cohesion: 0.16
 Nodes (15): RecurringRule, Bool, Date, String, UUID, RecurrencePresentationCache, RuleKey, Bool (+7 more)
 
 ### Community 194 - "LoginView"
 Cohesion: 0.22
 Nodes (8): attribution, button, campaign, fields, form, localPreview, msg, status
 
+### Community 195 - "make"
+Cohesion: 0.24
+Nodes (10): BalanceWidget, BalanceWidgetReceiver, hide(), BigDecimal, Boolean, String, make(), WidgetContent (+2 more)
+
 ### Community 196 - "HapticStyle"
 Cohesion: 0.33
 Nodes (6): HapticStyle, light, medium, rigid, soft, success
+
+### Community 197 - ".invalidateAll"
+Cohesion: 0.29
+Nodes (3): IntentResult, ProvidesDialog, AccountBalanceTests
 
 ### Community 198 - "RecurringRule"
 Cohesion: 0.20
 Nodes (9): Calcolo settimanale, Decisione sui format, Diario delle metriche social, Engagement rate, Post 1 · Instagram, Post 1 · TikTok, Post 2 · Instagram, Post 2 · TikTok (+1 more)
 
 ### Community 201 - "TransactionsAdvancedFilterSheet"
-Cohesion: 0.07
-Nodes (22): FilterChip, Style, advanced, primary, secondary, Void, HeroCard, HomeHeroCard (+14 more)
+Cohesion: 0.08
+Nodes (22): HeroCard, HomeHeroCard, BalanceTrail, Date, PlanningBudgetCard, PlanningGoalCard, PlanningProgressRing, Bool (+14 more)
+
+### Community 203 - "Row"
+Cohesion: 0.36
+Nodes (9): Row, AdvancedFilterSheet(), AmountField(), DateRow(), Boolean, Int, LocalDate, Modifier (+1 more)
+
+### Community 204 - "MemorySyncState"
+Cohesion: 0.24
+Nodes (6): Boolean, Collection, Int, Long, Map, MemorySyncState
+
+### Community 205 - ".dao"
+Cohesion: 0.28
+Nodes (3): BucktrailDatabase, RoomLocalStore, RoomDatabase
+
+### Community 206 - ".materializeDue"
+Cohesion: 0.36
+Nodes (5): RecurringMaterializer, Date, Int, RecurrenceCalculator, TimeZone
+
+### Community 207 - "ProgrammedRuleCard"
+Cohesion: 0.32
+Nodes (6): ProgrammedRuleCard, Calendar, Date, Occurrence, Void, VirtualOccurrenceRow
+
+### Community 208 - ".build"
+Cohesion: 0.33
+Nodes (4): DemoData, Instant, ZoneId, Result
+
+### Community 209 - "FilterChip"
+Cohesion: 0.33
+Nodes (6): FilterChip, Style, advanced, primary, secondary, Void
+
+### Community 210 - "S-44 · Sicurezza dei dati — verifica sul codice (2026-11-24)"
+Cohesion: 0.33
+Nodes (5): Android, Cloud (Supabase, comune a iOS e Android), iOS, Lacune e decisione, S-44 · Sicurezza dei dati — verifica sul codice (2026-11-24)
+
+### Community 212 - "RecurringSeriesDetailView"
+Cohesion: 0.40
+Nodes (4): RecurringSeriesDetailView, RecurringSeries, String, Transaction
+
+### Community 213 - "7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»)"
+Cohesion: 0.50
+Nodes (4): 7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»), Bug risolti (sessioni precedenti), Cosa funziona bene, Issue residue (non critiche)
+
+### Community 214 - "8. Roadmap"
+Cohesion: 0.50
+Nodes (4): 8. Roadmap, Livello 2 — Necessario per essere competitivi, Livello 3 — Feature WOW (differenziazione totale), Livello 4 — Futuro
+
+### Community 215 - "Scope"
+Cohesion: 0.50
+Nodes (4): Scope, all, following, onlyThis
 
 ### Community 226 - "Option"
-Cohesion: 0.09
-Nodes (24): accountName(), amountValue(), kind(), BigDecimal, List, String, ZoneId, localDate() (+16 more)
+Cohesion: 0.06
+Nodes (45): accountTypeCategoryProxy(), accountTypeIcon(), accountTypeRes(), categoryLabel(), AccountType, android, Int, String (+37 more)
 
 ### Community 303 - "8. Roadmap"
 Cohesion: 0.25
 Nodes (7): Commissione Suprema (controllo qualità pre-checkpoint), Graphify, graphify, Progetto SOCIAL, REGOLE DEL PROGETTO — MoneyTracker, Struttura cartella, Workflow checkpoint
 
 ### Community 304 - "Decimal"
-Cohesion: 0.05
-Nodes (46): CryptoKit, Equatable, BalanceTrail, Entry, Point, Bool, Calendar, Date (+38 more)
+Cohesion: 0.07
+Nodes (38): CryptoKit, Equatable, BalanceTrail, Entry, Point, Bool, Calendar, Date (+30 more)
+
+### Community 307 - "PIANO DEI LAVORI"
+Cohesion: 0.50
+Nodes (3): PIANO DEI LAVORI, Proposte prodotto · Android e collegamento bancario, Richieste di Matteo · 2026-11-24 sera
 
 ### Community 309 - "README.md"
 Cohesion: 0.29
@@ -816,24 +884,24 @@ Cohesion: 0.22
 Nodes (4): Guida alle schermate di Bucktrail, Master social Bucktrail, Cosa raccogliere, Schermate dell’app
 
 ### Community 312 - "7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»)"
-Cohesion: 0.11
-Nodes (6): BucktrailDao, com, Flow, List, String, seedDefaultCategories()
+Cohesion: 0.10
+Nodes (7): BucktrailDao, com, Flow, List, String, GoalEntity, seedDefaultCategories()
 
 ### Community 313 - "build.py"
 Cohesion: 0.35
 Nodes (11): calculation(), editorial(), inset(), laptop(), left(), phone(), right_phone(), save() (+3 more)
 
 ### Community 314 - "FormatterCache"
-Cohesion: 0.13
-Nodes (10): IntentResult, AccountBalanceCache, Account, PersistentIdentifier, Decimal, String, CurrencyFormattingTests, StrictAmountParsingTests (+2 more)
+Cohesion: 0.14
+Nodes (10): AccountBalanceCache, Account, PersistentIdentifier, Decimal, String, CurrencyFormattingTests, DecimalPersistenceTests, String (+2 more)
 
 ### Community 315 - ".resolve"
-Cohesion: 0.10
-Nodes (10): BucktrailApplication, Boolean, String, AuditLog, AuditTracker, Entry, Flow, List (+2 more)
+Cohesion: 0.06
+Nodes (26): BucktrailApplication, Boolean, String, AuditLog, AuditTracker, Entry, Flow, List (+18 more)
 
 ### Community 317 - "ProgrammedRuleCard"
-Cohesion: 0.09
-Nodes (24): Any, List, LocalDate, Long, Map, String, ZoneId, migrate() (+16 more)
+Cohesion: 0.05
+Nodes (35): Any, List, LocalDate, Long, Map, String, ZoneId, migrate() (+27 more)
 
 ### Community 318 - "build.gradle.kts"
 Cohesion: 0.83
@@ -856,8 +924,8 @@ Cohesion: 0.29
 Nodes (7): Calendario, approvazione e consegna, Comunicazione sul lancio, Direttive social Bucktrail, Grafica e controllo prima della consegna, Prima di preparare ogni nuovo post, Stile v2 (dal 23/11/2026, Post-5 in poi), Tre rubriche
 
 ### Community 326 - ".rule"
-Cohesion: 0.33
-Nodes (6): LocalizedError, EditorError, crossMonthOverride, invalidOccurrence, invalidValues, requiresMainContext
+Cohesion: 0.22
+Nodes (8): LocalizedError, EditorError, crossMonthOverride, invalidOccurrence, invalidValues, requiresMainContext, RecurrenceOperationStatus, String
 
 ### Community 327 - "AddAccountView"
 Cohesion: 0.27
@@ -876,8 +944,8 @@ Cohesion: 0.13
 Nodes (16): BalanceTrail, Entry, Any, BigDecimal, Boolean, Instant, List, ZoneId (+8 more)
 
 ### Community 332 - "Option"
-Cohesion: 0.26
-Nodes (10): Action, Delete, Edit, Problem, Scope, Selection, SkipMonth, Terminate (+2 more)
+Cohesion: 0.19
+Nodes (13): Action, Delete, Edit, EditorException, Problem, Scope, Selection, SkipMonth (+5 more)
 
 ### Community 333 - ".centsSurviveSwiftDataAndDTOJSON"
 Cohesion: 0.16
@@ -896,32 +964,32 @@ Cohesion: 0.13
 Nodes (7): HttpSupabaseApiTest, Int, ServerSocket, Socket, String, Recorded, Reply
 
 ### Community 337 - "Row"
-Cohesion: 0.15
-Nodes (24): Row, BarAction(), BtAlert(), DialogStatusBarEffect(), androidx, Boolean, Float, Long (+16 more)
+Cohesion: 0.11
+Nodes (23): Bundle, MainActivity, AppLockGate(), LockOverlay(), BalanceActivity, BalanceCard(), Bundle, BarAction() (+15 more)
 
 ### Community 338 - "FakeLocalStore"
-Cohesion: 0.12
-Nodes (12): Snapshot, Int, SyncEngineTest, account(), FakeLocalStore, rule(), tx(), Int (+4 more)
+Cohesion: 0.21
+Nodes (3): Int, SyncEngineTest, FakeLocalStore
 
 ### Community 339 - "Statistics"
 Cohesion: 0.25
 Nodes (10): CategoryStat, BigDecimal, Int, List, Map, YearMonth, ZoneId, MonthStat (+2 more)
 
 ### Community 340 - "NotificationScheduler"
-Cohesion: 0.05
-Nodes (46): Boolean, Flow, List, LedgerState, Repository, Source, BootReceiver, Kind (+38 more)
+Cohesion: 0.06
+Nodes (37): Boolean, Flow, List, LedgerState, Repository, Source, BootReceiver, Content (+29 more)
 
 ### Community 341 - "RecurrenceEditorSheet"
-Cohesion: 0.22
-Nodes (22): SectionLabel(), ActionRow(), frequencyLabel(), android, androidx, com, KeyboardType, List (+14 more)
+Cohesion: 0.19
+Nodes (24): EmptyState(), Unit, SectionLabel(), ActionRow(), frequencyLabel(), android, androidx, com (+16 more)
 
 ### Community 342 - "RecurringRuleEntity"
-Cohesion: 0.20
-Nodes (11): RecurringRuleEntity, Changes, BigDecimal, Instant, List, RecurrenceCalculator, RuleSnapshot, Set (+3 more)
+Cohesion: 0.22
+Nodes (12): RecurringRuleEntity, Changes, BigDecimal, Instant, List, RecurrenceCalculator, RuleSnapshot, Set (+4 more)
 
 ### Community 343 - "AuthManager.kt"
-Cohesion: 0.18
-Nodes (15): EditorException, AlreadyExists, AuthErrors, AuthMessage, EmailNotConfirmed, Generic, InvalidCredentials, InvalidEmail (+7 more)
+Cohesion: 0.22
+Nodes (12): AlreadyExists, AuthErrors, AuthMessage, EmailNotConfirmed, Generic, InvalidCredentials, InvalidEmail, Offline (+4 more)
 
 ### Community 344 - "NotificationRules"
 Cohesion: 0.14
@@ -932,24 +1000,20 @@ Cohesion: 0.22
 Nodes (12): Add, Balance, BalanceLine, BalanceSummary, Draft, Home, Kind, List (+4 more)
 
 ### Community 346 - "Snapshot"
-Cohesion: 0.13
-Nodes (10): BucktrailDatabase, RoomLocalStore, IgnoredIds, Boolean, Int, Set, String, SyncMerge (+2 more)
+Cohesion: 0.16
+Nodes (9): IgnoredIds, Boolean, Int, Set, String, Snapshot, SyncMerge, SyncPlan (+1 more)
 
 ### Community 347 - "categoryLabel"
-Cohesion: 0.26
-Nodes (13): CategoryEntity, AddCategoryForm(), CategoryManagementSheet(), CategoryPickerSheet(), CategoryRowItem(), Boolean, List, Modifier (+5 more)
-
-### Community 348 - "LedgerFuzzTest"
-Cohesion: 0.21
-Nodes (7): Instant, Int, Long, String, LedgerFuzzTest, World, Random
+Cohesion: 0.32
+Nodes (11): CategoryEntity, AddCategoryForm(), CategoryManagementSheet(), CategoryPickerSheet(), CategoryRowItem(), Boolean, List, Modifier (+3 more)
 
 ### Community 350 - "RecurringMaterializerTests"
 Cohesion: 0.25
 Nodes (7): RecurringMaterializerTests, Calendar, Date, Int, ModelContainer, String, RecurringMaterializer
 
 ### Community 352 - "Budgeting"
-Cohesion: 0.16
-Nodes (10): Budgeting, GoalData, BigDecimal, Collection, List, Set, String, YearMonth (+2 more)
+Cohesion: 0.05
+Nodes (43): Amounts, BigDecimal, Boolean, Long, String, BudgetData, Budgeting, GoalData (+35 more)
 
 ### Community 353 - "QuickAddTest"
 Cohesion: 0.16
@@ -959,13 +1023,17 @@ Nodes (4): Boolean, Long, String, QuickAddTest
 Cohesion: 0.27
 Nodes (5): RecurrenceCalculatorTests, Date, Int, RuleSnapshot, String
 
+### Community 355 - "SyncMapperTest"
+Cohesion: 0.15
+Nodes (4): budget(), goal(), rule(), SyncMapperTest
+
 ### Community 356 - "String"
-Cohesion: 0.11
-Nodes (15): budget(), FakeSupabase, FixedAuth, goal(), Boolean, Collection, Int, JsonObject (+7 more)
+Cohesion: 0.27
+Nodes (5): FakeSupabase, JsonObject, List, String, seed()
 
 ### Community 357 - "StatisticsScreen"
-Cohesion: 0.24
-Nodes (16): AverageTile(), androidx, BigDecimal, Boolean, Int, List, LocalDate, Modifier (+8 more)
+Cohesion: 0.11
+Nodes (26): LayoutRegressionTest, Context, FitText(), Float, Modifier, PageHeader(), AverageTile(), androidx (+18 more)
 
 ### Community 358 - "AccountEditingTest"
 Cohesion: 0.15
@@ -984,8 +1052,8 @@ Cohesion: 0.28
 Nodes (8): toData(), Balance, BigDecimal, List, AccountData, AccountType, BigDecimal, TransactionData
 
 ### Community 362 - "BudgetCard"
-Cohesion: 0.13
-Nodes (27): Long, AccountEntity, BudgetEntity, GoalEntity, AppData, Modifier, PageHeader(), BudgetCard() (+19 more)
+Cohesion: 0.24
+Nodes (20): AppData, budgetColor(), BudgetCard(), BudgetContent(), BudgetHistorySheet(), budgetName(), GoalCard(), GoalsContent() (+12 more)
 
 ### Community 363 - "4. Schermata per schermata"
 Cohesion: 0.12
@@ -995,17 +1063,13 @@ Nodes (16): 4.0 Struttura app e navigazione (`ContentView`, `MoneyTrackerApp`), 
 Cohesion: 0.24
 Nodes (10): AccountEditing, Adjust, BalanceChange, BigDecimal, Boolean, List, String, T (+2 more)
 
-### Community 365 - "Amounts"
-Cohesion: 0.27
-Nodes (5): Amounts, BigDecimal, Boolean, Long, String
-
 ### Community 366 - "TransactionEntity"
 Cohesion: 0.33
 Nodes (7): TransactionEntity, Boolean, List, Long, String, TransactionOps, TransferInput
 
 ### Community 367 - ".build"
-Cohesion: 0.09
-Nodes (23): JsonExport, Instant, List, Long, String, Failed, Invalid, Boolean (+15 more)
+Cohesion: 0.21
+Nodes (9): CsvExport, Any, Int, List, Map, String, ZoneId, Labels (+1 more)
 
 ### Community 369 - "HomeScreen"
 Cohesion: 0.16
@@ -1014,10 +1078,6 @@ Nodes (12): BalanceTrail, Modifier, String, TrailView(), accountDotColor(), Fixe
 ### Community 370 - ".ledger"
 Cohesion: 0.15
 Nodes (11): ChangeWatcher, com, List, Map, Set, String, Boolean, com (+3 more)
-
-### Community 371 - "Account"
-Cohesion: 0.34
-Nodes (10): Account, Budget, Goal, Bool, Budget, Date, Int, String (+2 more)
 
 ### Community 373 - "ScriptedApi"
 Cohesion: 0.27
@@ -1036,8 +1096,8 @@ Cohesion: 0.36
 Nodes (5): HomeAccountOrder, Int, List, String, State
 
 ### Community 379 - "SessionStore"
-Cohesion: 0.22
-Nodes (3): SessionStore, KeystoreSessionStore, SecretKey
+Cohesion: 0.15
+Nodes (7): SessionStore, KeystoreSessionStore, ErrorKind, fromJson(), Response, Session, SecretKey
 
 ### Community 380 - "StatisticsTest"
 Cohesion: 0.18
@@ -1056,24 +1116,12 @@ Cohesion: 0.24
 Nodes (3): ObservableObject, SupabaseClient, SupabaseManager
 
 ### Community 386 - ".rule"
-Cohesion: 0.24
+Cohesion: 0.22
 Nodes (5): Encoder, SBRecurringRule, RecurringRuleSyncTests, Date, ModelContainer
-
-### Community 388 - ".tx"
-Cohesion: 0.25
-Nodes (5): BudgetData, BudgetingTest, Boolean, Int, String
 
 ### Community 389 - "SfIcons"
 Cohesion: 0.28
 Nodes (6): Float, ImageVector, Map, Set, String, SfIcons
-
-### Community 392 - ".world"
-Cohesion: 0.33
-Nodes (4): ExportRoundTripTest, Int, List, String
-
-### Community 393 - "PlanningBudgetCard"
-Cohesion: 0.22
-Nodes (8): PlanningBudgetCard, PlanningGoalCard, PlanningProgressRing, Bool, Budget, Goal, String, Void
 
 ### Community 394 - ".suggest"
 Cohesion: 0.36
@@ -1128,8 +1176,8 @@ Cohesion: 0.40
 Nodes (5): HomeProjection, List, LocalDate, ZoneId, make()
 
 ### Community 410 - "Type.kt"
-Cohesion: 0.33
-Nodes (4): Dim, Fonts, Int, Typo
+Cohesion: 0.12
+Nodes (14): Dim, Fonts, Int, Typo, Font, Layout, ScaledSystemFont, Space (+6 more)
 
 ### Community 412 - "1. Token grafici"
 Cohesion: 0.33
@@ -1143,13 +1191,13 @@ Nodes (5): Compito B11, Differenze residue (decise o di piattaforma), Esito per 
 Cohesion: 0.33
 Nodes (5): Collaudo iOS 2026-11-24 (collaudatore, Claude Code · Sonnet), Difetti piccoli, Esito, S-36 — rami vecchi (nessuna cancellazione; proposta), Suggerimenti
 
-### Community 415 - "SchemaMigration.swift"
-Cohesion: 0.60
-Nodes (5): SchemaV1, SchemaV2, SchemaV3, PersistentModel, VersionedSchema
-
 ### Community 416 - "SyncStatus"
-Cohesion: 0.40
-Nodes (5): SyncStatus, idle, offline, syncing, waitingForRetry
+Cohesion: 0.20
+Nodes (9): Combine, Int, SyncStatus, idle, offline, syncing, waitingForRetry, Network (+1 more)
+
+### Community 419 - "ExportsTest"
+Cohesion: 0.19
+Nodes (4): BudgetEntity, AuditLogTest, List, ExportsTest
 
 ### Community 421 - "7. Checklist funzioni (F-xxx)"
 Cohesion: 0.40
@@ -1160,23 +1208,23 @@ Cohesion: 0.40
 Nodes (4): Esiti e correzioni, Non completato / rischi residui, Scenari superati senza difetti, Stress test Android Bucktrail (2026-11-23)
 
 ### Community 425 - "Scope"
-Cohesion: 0.18
-Nodes (10): Action, delete, edit, skipMonth, terminate, Scope, all, following (+2 more)
+Cohesion: 0.14
+Nodes (13): Action, delete, edit, skipMonth, terminate, RecurringSeriesEditor, Bool, Calendar (+5 more)
 
 ## Knowledge Gaps
-- **619 isolated node(s):** `backup.sh script`, `esegui.sh script`, `CHROME_PATH`, `require`, `AXE` (+614 more)
+- **622 isolated node(s):** `backup.sh script`, `esegui.sh script`, `CHROME_PATH`, `require`, `AXE` (+617 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **208 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **211 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Double` connect `Schema Migration V1→V2 (Decimal precision)` to `AppIntents — Tocco posteriore/Siri (AddExpenseIntent)`, `PlanningBudgetCard`, `Community 9`, `Checkpoint settembre 2026 — Tocco posteriore, perdita dati, ricorrenze arretrate`, `Decimal`, `ModelConfiguration`, `FormatterCache`, `Color`, `Decimal`, `Community 69`, `AccountType`, `TransactionsAdvancedFilterSheet`, `QuickAdd.kt`, `Budgeting`, `Community 102`, `BudgetCard`, `Community 108`, `Amounts`, `.build`, `Account`, `PianificaView`?**
-  _High betweenness centrality (0.151) - this node is a cross-community bridge._
-- **Why does `Text` connect `Sync/ricorrenze — file sorgente del checkpoint settembre 2026` to `ShareSheet`, `CategoryManagementView & AddTransactionView`, `Option`, `Schema Migration V1→V2 (Decimal precision)`, `PianificaView`, `StatisticsScreen`, `TransactionsAdvancedFilterSheet`, `AccountBalanceCache`, `Community 11`, `BudgetCard`, `Option`, `Community 10`, `Row`, `HomeScreen`, `NotificationScheduler`, `RecurrenceEditorSheet`, `Color`, `categoryLabel`?**
+- **Why does `Double` connect `Budgeting` to `CategoryManagementView & AddTransactionView`, `Community 129`, `Decimal`, `Community 69`, `AppIntents — Tocco posteriore/Siri (AddExpenseIntent)`, `AccountType`, `Community 102`, `TransactionsAdvancedFilterSheet`, `BudgetCard`, `Community 9`, `FormatterCache`, `Community 104`, `ModelConfiguration`, `PianificaView`, `QuickAdd.kt`, `Color`, `.resolve`?**
+  _High betweenness centrality (0.153) - this node is a cross-community bridge._
+- **Why does `Text` connect `Sync/ricorrenze — file sorgente del checkpoint settembre 2026` to `ShareSheet`, `CategoryManagementView & AddTransactionView`, `Option`, `StatisticsScreen`, `TransactionsAdvancedFilterSheet`, `AccountBalanceCache`, `Community 11`, `Row`, `BudgetCard`, `Option`, `Community 10`, `Row`, `HomeScreen`, `FilterChip`, `RecurrenceEditorSheet`, `Color`, `categoryLabel`?**
+  _High betweenness centrality (0.141) - this node is a cross-community bridge._
+- **Why does `TransactionEntity` connect `TransactionEntity` to `ShareSheet`, `Option`, `ExportsTest`, `Community 100`, `Community 105`, `AccountBalanceCache`, `ShareSheet`, `RecurringRuleEntity`, `7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»)`, `PianificaView`, `.resolve`, `ProgrammedRuleCard`, `Community 127`?**
   _High betweenness centrality (0.140) - this node is a cross-community bridge._
-- **Why does `TransactionEntity` connect `TransactionEntity` to `ShareSheet`, `Option`, `Community 100`, `.world`, `Community 105`, `BudgetCard`, `AccountBalanceCache`, `ShareSheet`, `.build`, `FakeLocalStore`, `RecurringRuleEntity`, `7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»)`, `LedgerFuzzTest`?**
-  _High betweenness centrality (0.138) - this node is a cross-community bridge._
 - **Are the 34 inferred relationships involving `Decimal` (e.g. with `.seed()` and `.perform()`) actually correct?**
   _`Decimal` has 34 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 82 inferred relationships involving `Text` (e.g. with `.pageHeaderStacksTitleAndActionsAtLargeFont()` and `LockOverlay()`) actually correct?**
@@ -1184,4 +1232,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 59 inferred relationships involving `Row` (e.g. with `BalanceCard()` and `.provideGlance()`) actually correct?**
   _`Row` has 59 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `backup.sh script`, `Cartella servita come "/" del sito: quella con index.html più vicina alla radice`, `(lingua dalla cartella, percorso senza cartella della lingua).` to the rest of the system?**
-  _655 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _658 weakly-connected nodes found - possible documentation gaps or missing edges._

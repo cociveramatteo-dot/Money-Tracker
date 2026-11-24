@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.25*
+*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.26*
 
 > **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
 
@@ -572,6 +572,16 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ## 10. Changelog
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
+
+### v3.26 (24 novembre 2026) — Sicurezza dei dati, analytics della landing e rifiniture Android
+
+- **S-44 (verifica sicurezza):** relazione sul codice in `.cantiere/sicurezza-dati-2026-11-24.md`. iOS: protezione file `.complete` sul database, sessione nel Keychain, blocco biometrico. Android: database nell'area privata con backup disattivato, sessione cifrata AES-GCM con chiave del Keystore, blocco biometrico. Cloud: HTTPS, cifratura a riposo di Supabase, RLS. Non è cifratura end-to-end. Nessuna falla trovata; Room non cifrato a livello app, scelta documentata di non aggiungere SQLCipher.
+- **S-45:** nella FAQ della landing (it/en) la risposta «Come so che i miei dati sono al sicuro?», limitata a ciò che S-44 conferma.
+- **S-46:** Cloudflare Web Analytics sulla landing (senza cookie): CSP in `_worker.js`, informativa privacy aggiornata, frammento nelle 5 pagine. Hreflang reciproci aggiunti a `index.html` e `en.html`.
+- **S-47/S-48 (Android):** splash di sistema senza icona (solo fondo carta, chiaro e scuro); lucchetto e grafico a torta ridisegnati come su iPhone (disegno proprio, non i glifi Apple). Provati da Matteo su telefono vero.
+- **S-49:** login e sincronizzazione Supabase su Android provati da Matteo con il cloud reale: funzionano.
+- `main` portato al ramo `redesign-sentiero` (push `6d574da..2364d6e`).
+- Strumento `bilingue.py`: abbinamento esplicito `en.html`↔`index.html` e `confirmed.html`↔`confermato.html` (voto Lingue 64 → 87; resta la privacy solo in italiano).
 
 ### v3.25 (24 novembre 2026) — Pacchetto A della Commissione, font scalabili, traduzioni e test
 

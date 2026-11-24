@@ -1,60 +1,63 @@
 # CHECKPOINT — MoneyTracker
 
-**Data:** 2026-11-24 15:09 · **Tag:** `checkpoint-2026-11-24-1509` · **Ramo:** `redesign-sentiero` · **Fatto da:** capocantiere (Claude Code · Sonnet 5.5), in autonomia su delega di Matteo
+**Data:** 2026-11-24 22:31 · **Tag:** `checkpoint-2026-11-24-2231` · **Ramo:** `redesign-sentiero` (= `main`) · **Fatto da:** capocantiere (Claude Code · Sonnet 5.5), in autonomia su delega di Matteo
 
 ## Siamo qui
 
-- **iOS:** restyling «Sentiero» completo. Pacchetto A della Commissione chiuso (S-38 filtri sulle serie virtuali e conferme, S-39 traduzioni, S-40 font che seguono Dynamic Type, S-43 test corretto), più il passaggio di mese di S-41 testato. **99 test unitari e 49 UI verdi.**
-- **Android:** parità con iOS completa (B0–B11). 247 test JVM e 2 strumentati su emulatore verdi. Sync e login provati solo con server finto.
-- **Manca:** la prova di sync reale su Android e il telefono Android vero (servono le tue mani e un account di prova), le pubblicazioni social, `main` da portare al ramo di lavoro (decisione tua).
+- **iOS:** restyling «Sentiero» completo, 99 test unitari e 49 UI verdi (ultimo giro 15:09). Nessun codice iOS toccato in questo giro.
+- **Android:** parità con iOS completa, installata e provata da Matteo su telefono vero (Samsung): sync con il Supabase reale funziona, avvio senza icona, icone di login e sblocco come su iPhone.
+- **Sito:** online su bucktrailapp.com con la risposta «i miei dati sono al sicuro?» (it/en), privacy aggiornata e Cloudflare Web Analytics attivo.
+- **Manca:** i voti dei giudici (solo prima di una consegna), le pubblicazioni social, qualche ritocco della landing (vedi sotto).
 
-## Fatto dall'ultimo checkpoint (2026-11-24 02:17)
+## Fatto dall'ultimo checkpoint (2026-11-24 15:09)
 
 | Quando | Chi (strumento · modello) | Cosa |
 |---|---|---|
-| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | S-38, S-39 (46 chiavi x 6 lingue), S-40 (239 font), S-43 (test), S-16 (precisione Decimal misurata), passaggio di mese S-41 e conferma «Salta mese» con test |
-| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | Collaudi S-38/39/40 (`collaudo-ios-s38-s39-s40-2026-11-24.md`) e Commissione Suprema giro 3 10/10 (`commissione-suprema-2026-11-24-giro3.md`) |
-| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | Chiusi o collaudati SC-3…SC-9 (landing online uguale al locale, smoke FFmpeg), S-33, S-34, S-36; guardiano puntato sulla landing; registri ripuliti |
+| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | `main` portato a `redesign-sentiero` (ok di Matteo), APK installato sul telefono via cavo |
+| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | S-44 verifica sicurezza (`sicurezza-dati-2026-11-24.md`), S-45 FAQ sicurezza it/en, S-46 Cloudflare Web Analytics (CSP, privacy, 5 pagine), S-47 splash Android, S-48 icone lucchetto/torta, S-49 sync reale (Matteo) |
+| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | Strumento `bilingue.py` corretto (abbinamenti en↔it), hreflang e meta description sulla landing, manuale v3.26 e PDF |
 
 ## Stato di salute
 
 | Controllo | Esito | Note |
 |---|---|---|
-| Build / test / lint | 🟢 | iOS 99 unit + 49 UI; Android 247 JVM + 2 strumentati; build debug Android ok |
-| Guardiano notturno | 🟡 | giro del 24/11 15:06 sulla landing: 0 errori, 7 avvisi (titoli saltano un livello, 1 link YouTube respinto dal bot). Lighthouse: prestazioni 92, accessibilità 99, SEO 98, buone pratiche 100. Il giro automatico gira su `main`, con la vecchia configurazione fino al merge |
-| Pagella (misurata) | 🟡 | 93/100; più bassa Velocità 66 (LCP 3,7 s su telefono, landing). Non consegnabile: mancano i voti dei giudici (servono solo prima di una consegna) |
-| Lingue allineate | 🟢 | 439 chiavi uguali in 6 lingue, segnaposto coerenti. «Lingue 64» della pagella = nomi piatti della landing contro lo strumento, non un difetto |
-| Sicurezza | 🟡 | Nessuna superficie nuova. Sync reale mai provato |
-| Ordine e spazio | 🟢 | 26 GB liberi; cantiere 558 MB; screenshot di parità già nel magazzino |
-| Grafo aggiornato | 🟢 | 3937 nodi, 7866 archi |
+| Build / test / lint | 🟢 | Android: build debug, lint e 247 test JVM verdi; provato su emulatore API 36 e su telefono. iOS invariato |
+| Guardiano notturno | 🟡 | ultimo rapporto 15:06: 0 errori, 7 avvisi. Un giro nuovo era in corso alle 21:28Z, da rileggere domani con `/guardiano` |
+| Pagella (misurata) | 🟡 | 93/100 prima della correzione di `bilingue.py` (Lingue 64 → 87); più bassa Velocità 66 (LCP 3,7 s su telefono). Non consegnabile: mancano i voti dei giudici |
+| Lingue allineate | 🟡 | it/en allineati; la privacy esiste solo in italiano (voto 87) |
+| Sicurezza | 🟢 | relazione S-44: nessuna falla; sync reale provato |
+| Ordine e spazio | 🟢 | cantiere 568 MB; tolti 2 `.DS_Store` e una cartella vuota |
+| Grafo aggiornato | 🟢 | 3949 nodi, 7886 archi, 406 community |
+| Commissione Suprema | 🟡 | non rieseguita: il diff di oggi è solo asset Android, testi e configurazione del sito. Collaudo indipendente (collaudatore): 0 bug |
 
 ## Bug
 
-- Risolti: test `SentieroReviewFixUITests` rosso (era il test, non l'app); conferma mancante su «Salta mese/Termina…»; 2 stringhe italiane nella registrazione.
-- Aperti: nessuno nell'app. Landing: titoli che saltano un livello (moderato, 3 pagine) → da correggere alla prossima ricarica della landing.
+- Risolti: falso allarme «Lingue 64» (era lo strumento).
+- Aperti: landing, titoli che saltano un livello e LCP 3,7 s su telefono; privacy non tradotta in inglese. Nessuno nelle app.
 
 ## Cantiere
 
-- Spostati/rinominati: niente. Eliminati: niente.
-- `fix/nightly-20260727-0411` tenuto (tocca `Auth/`, decisione di Matteo del 24/11).
-- Collegamento bancario: roadmap dopo il lancio, non lavoro aperto.
+- Eliminati: `.DS_Store` (2), cartella vuota `SOCIAL/clip-social/post-3/materiale`.
+- Da confermare (Matteo): `app/build` di Android pesa decine di MB tra APK e mapping (si rigenera, non è in git); le due pagine di conferma `confermato`/`confirmed` sono la coppia it/en, non un doppione. Il worker della landing ha 2 codici di misura (il nostro e quello iniettato da Cloudflare): innocuo.
+- `.gitignore`, `.graphifyignore`, `CLAUDE.md`, `.claude/` non sono nell'elenco della radice di REGOLE-PROGETTO: restano, sono configurazione.
 
 ## Struttura (dal grafo)
 
-- 3937 nodi, 7866 archi, 394 comunità. Novità: `DashboardView.countsInProjection`, `scaledFont` in `Theme.swift`, test `ProjectionMonthTests` e `DecimalPersistenceTests`.
+- 3949 nodi (+12), 7886 archi (+20), 406 community (+12): nuove le icone vettoriali di `SfIcons.kt` e le risorse dello splash. 16 file JSON degli strumenti non producono nodi (graphify riproverà).
 
 ## Domani si riparte così
 
 1. Sessione nuova nella cartella → `riprendiamo`
-2. Primo lavoro: prova sync reale Android con Matteo — prompt: «Riprendiamo la prova sync Android del cantiere MoneyTracker. Leggi .cantiere/CHECKPOINT.md e la voce «prova sync reale» in .cantiere/PER-MATTEO.md. Non usare il Supabase reale senza il mio ok esplicito. Guidami passo passo e registra l'esito in .cantiere/CONSEGNA.md.»
-3. Poi: pagella completa con i giudici prima di ogni consegna; correzione dei titoli della landing alla prossima ricarica.
+2. Primo lavoro: ricaricare la landing (hreflang, meta description) e correggere titoli e LCP → Codex (o operaio) — prompt: «Leggi AGENTS.md e .cantiere/REGOLE-PROGETTO.md. In SOCIAL/landing correggi i titoli che saltano un livello (h1→h2→h3) e riduci l'LCP su telefono (immagine principale: dimensioni e formato). Non toccare testi e claim. Verifica con il guardiano e chiudi il turno.»
+3. Poi: pagella completa con i giudici prima di ogni consegna; versione inglese dell'informativa privacy (da approvare in APPROVAZIONI).
 
 ## Cose che deve fare Matteo
 
-- [ ] **Portare `main` al ramo di lavoro.** 📍 Chat del capocantiere. ▶️ Scrivi «porta main al redesign» (il push su `main` richiede il tuo ok esplicito: ho provato in autonomia e il controllo permessi l'ha fermato). Così anche il guardiano notturno usa la nuova configurazione. ↩️ Niente.
-- [ ] Prova sync reale + telefono Android (account di prova) · pubblicare i Post 5–15 · nome TikTok · riprese faceless (SC-2) · 6 fonti NotebookLM. Istruzioni complete in `.cantiere/PER-MATTEO.md`.
+- [ ] **Landing:** alla prossima ricarica carica la cartella `SOCIAL/landing` (porta online hreflang e meta description). 📍 Cloudflare → progetto `bucktrailapp` → Create deployment. ↩️ «ricaricata».
+- [ ] Pubblicare i Post 5–15 · nome TikTok · riprese faceless (SC-2) · 6 fonti NotebookLM. Istruzioni complete in `.cantiere/PER-MATTEO.md`.
+- [ ] Sul telefono Android: togli il Debug USB e riattiva il Blocco automatico.
 
 ## Suggerimenti · Rischi
 
-- Velocità della landing: LCP 3,7 s su telefono; immagini da ottimizzare alla prossima ricarica.
-- Il dialogo di conferma di «Salta mese» in questa versione di iOS non ha «Annulla»: si annulla toccando fuori.
+- La landing ha due codici di misura: se non vuoi i doppioni, togliere il nostro dalle 5 pagine.
+- Velocità della landing: LCP 3,7 s su telefono; immagini da ottimizzare.

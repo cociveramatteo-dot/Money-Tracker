@@ -107,6 +107,11 @@ def radice_web(radice: Path) -> Path:
     return candidati[0] if candidati else radice
 
 
+# Siti che nominano le versioni in lingua con file diversi (non cartelle): {versione tradotta: pagina principale}.
+# Landing Bucktrail: en.html è index.html in inglese, confirmed.html è confermato.html in inglese.
+ALIAS_COPPIE = {"en.html": "index.html", "confirmed.html": "confermato.html"}
+
+
 def chiave(rel: Path) -> tuple[str, str]:
     """(lingua dalla cartella, percorso senza cartella della lingua)."""
     parti = rel.parts
@@ -135,6 +140,10 @@ def main() -> int:
         if not lingua_cartella:
             lingue_radice[lingua] += 1
         pagine.setdefault(base, {})[lingua] = pag
+
+    for tradotta, principale_alias in ALIAS_COPPIE.items():
+        if tradotta in pagine and principale_alias in pagine:
+            pagine[principale_alias].update(pagine.pop(tradotta))
 
     lingue = Counter(l for gruppo in pagine.values() for l in gruppo)
     errori: list[str] = []
