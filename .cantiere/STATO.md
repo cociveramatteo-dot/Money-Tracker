@@ -9,5 +9,5 @@ S-42: annullamento eliminazione serie e layout Ultimi movimenti verificati in mo
 SC-4c: landing pubblicata e verificata su bucktrailapp.com in italiano e inglese. SC-3c: testi approvati, bio aggiornate da Matteo, messaggio fissato per i prossimi post. Matteo conferma anche post fissato e banner YouTube aggiornati; email di lancio rimandata.
 SC-9: Post-3–42 in Drive. Post-23–42 esportati e verificati, 103 slide con Bucktrail su 120. I LEGGIMI di Post-39 e 41 segnalano le verifiche prima della pubblicazione.
 Android 2026-11-23: B0–B11 completi, parità grafica e stress test fatti (commit fino a 0ec9d96); restano collaudo, commissioni, prove su telefono vero e prova sync reale. Social: post 5–15 (v2) pronti in Drive «Da postare». Android (storico): movimenti locali con data, modifica e pianificazione, migrazione Room verificata. Prossimi flussi locali: categorie e filtri. Supabase rinviato.
-Banca: confronto fornitori e prova di importazione da avviare.
+Banca (S-60): progetto esecutivo pronto in `.cantiere/progetto-banca.md` (Enable Banking, piano B Salt Edge); esecuzione dopo S-50. S-60t (verifiche commerciali/legali di Matteo) si può fare subito.
 Social: calendario e pubblicazione gestiti direttamente da Matteo.

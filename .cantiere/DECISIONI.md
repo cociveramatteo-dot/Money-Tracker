@@ -227,3 +227,19 @@ Progetto completo: `.cantiere/progetto-e2e-sync.md`. Autorizzazione di Matteo a 
 - **D-014:** rispettata spostando l'approvazione delle schermate (S-50o) prima dell'accensione: il codice resta dietro l'interruttore.
 - **Chiavi di localizzazione `e2e_*` identiche** su iOS e Android (in iOS anche in `it.lproj`): eccezione voluta alla convenzione «chiave = testo italiano», per evitare collisioni.
 - **Esecuzione:** 13 task Claude Code (S-50a…m, p) + 2 passi di Matteo (S-50n SQL, S-50o schermate e prova reale facoltativa), 3 collaudi di blocco e Commissione Suprema.
+
+## 2026-11-24 · S-60 Collegamento bancario facoltativo: progetto esecutivo (architetto)
+Progetto completo: `.cantiere/progetto-banca.md`. Dopo il lancio e dopo S-50. Autorizzazione di Matteo a toccare Sync/, Auth/ e punti minimi di Models/Persistence solo per S-60 (riferita dal capocantiere).
+- **Fornitore: Enable Banking** (AISP registrato FIN-FSA, documentazione Italia ufficiale, modalità ristretta gratuita per i conti propri, API semplice). Piano B Salt Edge (Partner Program). Scartati: GoCardless Bank Account Data (iscrizioni chiuse, verificato 2026-11-24), Yapily/TrueLayer/Plaid (minimi mensili), Tink (prezzi non accessibili), open-banking.io (fonte autopromozionale).
+- **Backend:** una sola Supabase Edge Function `bank` come proxy; segreti solo in Supabase; nessun dato bancario salvato sul server. Scartati: server proprio (da mantenere), JWT del fornitore consegnato all'app (credenziale globale), pull e salvataggio lato server.
+- **Sigilli** `bs1.`/`ba1.` (AES-256-GCM, AAD = utente) al posto dell'ID di sessione e dell'uid del conto: l'app e il database non vedono mai gli identificativi del fornitore.
+- **Movimento importato = `Transaction` normale con UUID v5 deterministico**: nessun campo nuovo sui modelli esistenti né colonne su `mt_transactions`; calcoli invariati; idempotenza tra dispositivi. Scartati: campi su `Transaction` (migrazione del modello centrale, client vecchi), archivio JSON separato.
+- **Entità nuove senza relazioni:** BankConnection, BankAccountLink, BankDecision (sincronizzate, tabelle `mt_bank_*` o vault) + BankInboxItem (locale). SwiftData V4 e Room 4 solo additivi.
+- **Riconciliazione:** doppioni sempre confermati dall'utente (stesso conto, segno, importo al centesimo, finestra −5/+3 giorni; ±7 per i pianificati; ±3 % solo con cambio valuta); pendenti mai importati; nessuna modifica o cancellazione automatica; saldo iniziale calcolato solo per conti nuovi; solo conti nella valuta dell'app.
+- **Coerenza con S-50:** percorso unico per tutti; movimenti in transito solo in memoria della funzione; entità bancarie cifrate nel vault con la Protezione avanzata; trigger di guardia esteso alle nuove tabelle. Limite dichiarato: la funzione vede i movimenti in transito.
+- **Scollegare** chiude il consenso e cancella i metadati; i movimenti importati restano salvo scelta esplicita.
+- **Ritorno dalla banca:** browser di sistema + Universal/App Link + pagina di riserva `bucktrail://`, con state monouso e verificatore tipo PKCE. Niente WebView, niente webhook, niente aggiornamento in background.
+- **Interruttori:** compilati spenti fino a S-60v; interruttore server `connect_enabled` solo per spegnere i nuovi collegamenti.
+- **Costi:** v1 incluso nel prezzo con limiti (2 banche per utente, tetto globale, 6 h tra aggiornamenti automatici); se il preventivo supera ~0,10 €/conto/mese, «pass 12 mesi» non rinnovabile (progetto separato S-61). Scartato l'abbonamento automatico.
+- **D-014:** approvazione visiva sostituita da test UI su tutti gli stati e screenshot (libertà data da Matteo); i testi del sito restano da approvare.
+- **Rischio principale da verificare subito (S-60t):** linea guida App Store 5.1.1(ix) per account individuali in ambito finanziario; contratto/KYB Enable Banking per un privato; eventuale registrazione presso Banca d'Italia.

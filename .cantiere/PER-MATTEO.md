@@ -5,6 +5,11 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### BANCA · S-60t — tre verifiche prima del collegamento bancario (si può fare quando vuoi, non blocca il lavoro dell'IA)
+1. 📍 Browser → developer.apple.com/account → «Membership details». ▶️ Guarda il tipo di account. ↩️ «Individual» o «Organization» (le app finanziarie di account individuali rischiano il rifiuto: linea guida 5.1.1(ix)).
+2. 📍 Email a info@enablebanking.com. ▶️ Incolla il messaggio in inglese del §11.4 S-60t di `.cantiere/progetto-banca.md` (te lo copio io se vuoi). ↩️ Incollami la risposta.
+3. 📍 Un avvocato o consulente fintech/privacy. ▶️ La domanda della riga L2 del §9 dello stesso file (registrazione presso Banca d'Italia) e il registro dei trattamenti. ↩️ La risposta in 3 righe.
+
 ### ANDROID · aggiornare l'app sul tuo telefono
 📍 Terminale, cartella `03_CODICE/bucktrail-android`, telefono collegato con Debug USB acceso. ▶️ `./gradlew installDebug` (con JAVA_HOME e ANDROID_HOME come l'altra volta). Si aggiorna sopra la versione installata, i dati restano. ↩️ Dimmi se all'apertura non vedi più l'icona e se lucchetto e icona del login ti sembrano come su iPhone.
 

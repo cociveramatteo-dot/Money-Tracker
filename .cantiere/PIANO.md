@@ -462,7 +462,29 @@ Modello di task:
 - [x] **Date, modifica e pianificazione Android.** Separati pianificati ed effettuati, con previsione limitata al mese di competenza. Migrazione Room verificata su emulatore.
 - [x] **Parità Android con iOS (2026-11-23).** B0–B11 completi, test di parità e stress test fatti; collaudata 2026-11-24 (capocantiere): build debug ok, 247 test JVM e 2 strumentati su emulatore Bucktrail_API_36 verdi; collaudo del 2026-11-23 🟢. (storico:) Continuare da categorie e filtri di Movimenti. Poi trasferimenti, ricorrenze, Pianifica e Statistiche.
 - [x] (Matteo, 2026-11-24 22:16: prova reale fatta, funziona) **Login e sincronizzazione Supabase su Android.** Fatti, provati solo con server finto (test JVM verdi); la prova reale a due dispositivi richiede l'account di prova di Matteo (PER-MATTEO). (storico:) Rinviati su indicazione di Matteo. Alla ripresa usare un ambiente di test e verificare dati, profilo e duplicati su iOS e Android.
-- [ ] **Collegamento bancario facoltativo — roadmap DOPO il lancio (DECISIONI 2026-11-20), non è lavoro del cantiere attuale.** Proposta: prova di lettura con un fornitore AIS. Confrontare TrueLayer e Yapily per copertura reale, tipi di conto, disponibilità dei movimenti in attesa, frequenza, recupero dello storico, rinnovo del consenso, ruolo contrattuale e costo. Provare importazioni ripetute, recupero dopo interruzioni e associazione con movimenti manuali.
+- [ ] **Collegamento bancario facoltativo (S-60) — progetto esecutivo pronto: `.cantiere/progetto-banca.md` (architetto, 2026-11-24).** Resta DOPO il lancio e DOPO S-50 (prerequisito: S-50a…m `[x]`), salvo diversa decisione di Matteo. Fornitore Enable Banking (piano B Salt Edge; GoCardless chiuso alle iscrizioni). Autorizzazione di Matteo a toccare Sync/, Auth/ e i punti minimi di Models/Persistence solo per S-60 (riferita dal capocantiere). Interruttori spenti fino a S-60v. Task sotto, in ordine (§11 del progetto).
+  - [ ] **S-60a · Contratto e vettori condivisi (Python)** → capocantiere/operaio Claude Code · progetto §3.4, §4.3–4.4, §5, §10.2, §11.3
+  - [ ] **S-60b · Edge Function `bank` (TypeScript, test Node)** → capocantiere/operaio Claude Code · §3, §10.3 T2–T4 · dopo S-60a
+  - [ ] **S-60c · SQL S-60 + server finto bank** → capocantiere/operaio Claude Code · §4.5, §10.2 · dopo S-60b · poi COLLAUDO BLOCCO 1 (collaudatore + stress-test sicurezza, S-60a…c)
+  - [ ] **S-60d · Dominio puro iOS (`Domain/Bank/`, solo file nuovi)** → capocantiere/operaio Claude Code · §4.7, §10.2 · dopo collaudo 1
+  - [ ] **S-60e · Dominio puro Android** → capocantiere/operaio Claude Code · §4.7 · dopo S-60d
+  - [ ] **S-60f · Modelli iOS + SchemaV4** → capocantiere/operaio Claude Code · §4.2, §4.6 · dopo S-60e
+  - [ ] **S-60g · Room 3→4** → capocantiere/operaio Claude Code · §4.2, §4.6 · dopo S-60f · poi COLLAUDO BLOCCO 2 (S-60d…g)
+  - [ ] **S-60h · iOS: client e importatore** → capocantiere/operaio Claude Code · §3.4, §4.3–4.4, §5 · dopo collaudo 2
+  - [ ] **S-60i · Android: client e importatore** → capocantiere/operaio Claude Code · idem · dopo S-60h
+  - [ ] **S-60j · iOS: sync entità bancarie (chiaro + vault)** → capocantiere/operaio Claude Code · §4.8, §6 · dopo S-60i
+  - [ ] **S-60k · Android: sync entità bancarie** → capocantiere/operaio Claude Code · §4.8, §6 · dopo S-60j
+  - [ ] **S-60l · Interoperabilità + prova d'insieme col server finto** → capocantiere/operaio Claude Code · §10.3 T13, T17 · dopo S-60k · poi COLLAUDO BLOCCO 3 (collaudatore + stress-test, S-60h…l)
+  - [ ] **S-60m · Link di ritorno (Universal/App Link, PKCE) + pagine landing + script sandbox** → capocantiere/operaio Claude Code · §3.5 · dopo collaudo 3
+  - [ ] **S-60n · Interfaccia iOS + testi 7 lingue + screenshot** → capocantiere/operaio Claude Code · §7 · dopo S-60m
+  - [ ] **S-60o · Interfaccia Android + testi + screenshot** → capocantiere/operaio Claude Code · §7 · dopo S-60n
+  - [ ] **S-60p · Ciclo di vita (scollega, rinnovo, logout, elimina account) + stress-test** → capocantiere/operaio Claude Code · §3.6, §8.3 · dopo S-60o · poi COLLAUDO BLOCCO 4 (S-60m…p)
+  - [ ] **S-60q · Commissione Suprema 10/10 + docs/MoneyTracker.md** → capocantiere/operaio Claude Code · §11.3 · dopo collaudo 4
+  - [?] **S-60r · Matteo: banco di prova tecnico + prova guidata in sandbox (~40 min, una seduta)** → Matteo · istruzioni 📍▶️↩️ §11.4 · dopo S-60m (meglio dopo S-60q)
+  - [ ] **S-60s · Analisi delle risposte reali della sandbox** → capocantiere/operaio Claude Code · §10.4, §11.3 · dopo S-60r
+  - [?] **S-60t · Matteo: verifiche commerciali e legali (tipo account Apple, Enable Banking, professionista)** → Matteo · §9, §11.4 · si può fare SUBITO, blocca solo l'accensione
+  - [?] **S-60u · Matteo: produzione, impronta release, dichiarazioni store, ok testi sito** → Matteo · §8.5, §11.4 · dopo S-60q, S-60s, S-60t
+  - [ ] **S-60v · Accensione interruttori + privacy e FAQ del sito** → capocantiere/operaio Claude Code · §8.4, §11.3 · SOLO dopo S-60q, S-60s, S-60t, S-60u `[x]`
 
 ## Richieste di Matteo · 2026-11-24 sera
 
