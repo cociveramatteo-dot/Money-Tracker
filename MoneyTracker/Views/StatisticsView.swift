@@ -343,7 +343,7 @@ struct StatisticsView: View {
                                     .font(DS.Typo.caption)
                                     .foregroundStyle(DS.smoke)
                                 Text(avgExp.currencyFormatted)
-                                    .font(.system(size: 22, weight: .semibold))
+                                    .scaledFont(size: 22, weight: .semibold)
                                     .foregroundStyle(DS.negative)
                                     .minimumScaleFactor(0.7)
                                     .lineLimit(1)
@@ -361,7 +361,7 @@ struct StatisticsView: View {
                                     .font(DS.Typo.caption)
                                     .foregroundStyle(DS.smoke)
                                 Text(avgInc.currencyFormatted)
-                                    .font(.system(size: 22, weight: .semibold))
+                                    .scaledFont(size: 22, weight: .semibold)
                                     .foregroundStyle(DS.positive)
                                     .minimumScaleFactor(0.7)
                                     .lineLimit(1)
@@ -441,12 +441,12 @@ struct StatisticsView: View {
     private func yearCompareRow(label: LocalizedStringKey, current: Decimal, prev: Decimal, invertSign: Bool) -> some View {
         HStack {
             Text(label)
-                .font(.system(size: 14))
+                .scaledFont(size: 14)
                 .foregroundStyle(DS.smoke)
             Spacer()
             VStack(alignment: .trailing, spacing: 2) {
                 Text(current.currencyFormatted)
-                    .font(.system(size: 15, weight: .medium))
+                    .scaledFont(size: 15, weight: .medium)
                     .foregroundStyle(DS.ink)
                 if prev > 0 {
                     let delta = current - prev
@@ -458,7 +458,7 @@ struct StatisticsView: View {
                     let good  = invertSign ? delta < 0 : delta > 0
                     HStack(spacing: 2) {
                         Image(systemName: delta >= 0 ? "arrow.up" : "arrow.down")
-                            .font(.system(size: 9))
+                            .scaledFont(size: 9)
                         Text("\(sign)\(String(format: "%.0f", pct))% vs \(currentYear - 1)")
                             .font(DS.Typo.caption)
                     }

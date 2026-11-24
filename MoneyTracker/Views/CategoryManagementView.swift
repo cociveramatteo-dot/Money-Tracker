@@ -54,7 +54,7 @@ struct CategoryManagementView: View {
 
                     if custom.isEmpty {
                         Text("Nessuna categoria personalizzata.\nPremi + per aggiungerne una.")
-                            .font(.system(size: 13))
+                            .scaledFont(size: 13)
                             .foregroundStyle(DS.smoke)
                             .padding(.horizontal, DS.Layout.margin)
                             .padding(.bottom, DS.Space.l)
@@ -165,19 +165,19 @@ struct CategoryRow: View {
                     .fill(DS.fog)
                     .frame(width: 36, height: 36)
                 Image(systemName: cat.icon)
-                    .font(.system(size: 15))
+                    .scaledFont(size: 15)
                     .foregroundStyle(DS.smoke)
             }
 
             DS.categoryText(cat.name)
-                .font(.system(size: 15, weight: .medium))
+                .scaledFont(size: 15, weight: .medium)
                 .foregroundStyle(DS.ink)
 
             Spacer()
 
             if isDefault {
                 Text("predefinita")
-                    .font(.system(size: 11))
+                    .scaledFont(size: 11)
                     .foregroundStyle(DS.smoke)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 3)
@@ -185,7 +185,7 @@ struct CategoryRow: View {
                     .clipShape(Capsule())
             } else {
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 11))
+                    .scaledFont(size: 11)
                     .foregroundStyle(DS.smoke)
             }
         }
@@ -224,7 +224,7 @@ struct AddCategoryView: View {
                 VStack(alignment: .leading, spacing: DS.Space.xxl) {
 
                     Text(LocalizedStringKey(editing == nil ? "Nuova categoria" : "Modifica categoria"))
-                        .font(.system(size: 28, weight: .semibold))
+                        .scaledFont(size: 28, weight: .semibold)
                         .foregroundStyle(DS.ink)
 
                     VStack(alignment: .leading, spacing: DS.Space.m) {
@@ -236,15 +236,15 @@ struct AddCategoryView: View {
                                         .fill(DS.fog)
                                         .frame(width: 48, height: 48)
                                     Image(systemName: selectedIcon)
-                                        .font(.system(size: 20))
+                                        .scaledFont(size: 20)
                                         .foregroundStyle(DS.ink)
                                 }
                                 Text("Cambia icona")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.smoke)
                                 Spacer()
                                 Image(systemName: showIconGrid ? "chevron.up" : "chevron.down")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                         }
@@ -261,7 +261,7 @@ struct AddCategoryView: View {
                                                 .fill(selectedIcon == item.symbol ? DS.ink : DS.fog)
                                                 .frame(width: 44, height: 44)
                                             Image(systemName: item.symbol)
-                                                .font(.system(size: 16))
+                                                .scaledFont(size: 16)
                                                 .foregroundStyle(
                                                     selectedIcon == item.symbol ? DS.paper : DS.smoke
                                                 )
@@ -278,13 +278,13 @@ struct AddCategoryView: View {
                     VStack(alignment: .leading, spacing: DS.Space.m) {
                         SectionLabel(text: "Nome")
                         TextField("es. Musica, Sport, Palestra...", text: $name)
-                            .font(.system(size: 22, weight: .light))
+                            .scaledFont(size: 22, weight: .light)
                             .foregroundStyle(DS.ink)
                             .accessibilityIdentifier("tf_categoryName")
                         ThinDivider()
                         if isDuplicateName {
                             Text("Esiste già una categoria con questo nome.")
-                                .font(.system(size: 12))
+                                .scaledFont(size: 12)
                                 .foregroundStyle(DS.smoke)
                         }
                     }

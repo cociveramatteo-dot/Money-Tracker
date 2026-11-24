@@ -194,7 +194,7 @@ struct TransactionsView: View {
                     Spacer(minLength: DS.Space.s)
                     Button { showAdvancedFilter = true } label: {
                         Image(systemName: "line.3.horizontal.decrease")
-                            .font(.system(size: 16))
+                            .scaledFont(size: 16)
                             .foregroundStyle(DS.ink)
                             .frame(width: 44, height: 44)
                     }
@@ -220,7 +220,7 @@ struct TransactionsView: View {
                     .accessibilityIdentifier("btn_advancedFilter")
                     Button { showSettings = true } label: {
                         Image(systemName: "gearshape")
-                            .font(.system(size: 16))
+                            .scaledFont(size: 16)
                             .foregroundStyle(DS.ink)
                     }
                     .accessibilityLabel(Text("Impostazioni"))

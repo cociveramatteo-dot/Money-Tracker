@@ -127,7 +127,7 @@ struct TransactionsSecondaryChips: View {
                             filterUseCustomDates = false
                         } label: {
                             Image(systemName: "xmark")
-                                .font(.system(size: 10, weight: .bold))
+                                .scaledFont(size: 10, weight: .bold)
                                 .foregroundStyle(DS.accent)
                         }
                         .buttonStyle(.plain)

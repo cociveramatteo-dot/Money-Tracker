@@ -37,10 +37,10 @@ struct SignUpView: View {
     private var heroSection: some View {
         VStack(spacing: DS.Space.s) {
             Text("Benvenuto")
-                .font(.system(size: 28, weight: .semibold))
+                .scaledFont(size: 28, weight: .semibold)
                 .foregroundStyle(DS.ink)
             Text("Crea il tuo account per iniziare")
-                .font(.system(size: 15))
+                .scaledFont(size: 15)
                 .foregroundStyle(DS.smoke)
         }
         .padding(.top, 40)
@@ -56,7 +56,7 @@ struct SignUpView: View {
 
             VStack(alignment: .leading, spacing: DS.Space.xs) {
                 Text("Password")
-                    .font(.system(size: 12, weight: .medium))
+                    .scaledFont(size: 12, weight: .medium)
                     .foregroundStyle(DS.smoke)
                 SecureField("Minimo 6 caratteri", text: $password)
                     .padding(14)
@@ -67,7 +67,7 @@ struct SignUpView: View {
 
             VStack(alignment: .leading, spacing: DS.Space.xs) {
                 Text("Conferma password")
-                    .font(.system(size: 12, weight: .medium))
+                    .scaledFont(size: 12, weight: .medium)
                     .foregroundStyle(DS.smoke)
                 SecureField("Ripeti la password", text: $confirmPassword)
                     .padding(14)
@@ -77,7 +77,7 @@ struct SignUpView: View {
                 // Mismatch hint — compare in real time
                 if !confirmPassword.isEmpty && confirmPassword != password {
                     Text("Le password non coincidono")
-                        .font(.system(size: 11))
+                        .scaledFont(size: 11)
                         .foregroundStyle(.red)
                         .padding(.top, 2)
                 }
@@ -89,7 +89,7 @@ struct SignUpView: View {
     @ViewBuilder private var feedbackSection: some View {
         if let msg = errorMessage {
             Text(msg)
-                .font(.system(size: 13))
+                .scaledFont(size: 13)
                 .foregroundStyle(.red)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, DS.Layout.margin)
@@ -98,14 +98,14 @@ struct SignUpView: View {
         if let msg = successMessage {
             VStack(spacing: DS.Space.s) {
                 Image(systemName: "envelope.badge.checkmark.fill")
-                    .font(.system(size: 32))
+                    .scaledFont(size: 32)
                     .foregroundStyle(.green)
                 Text(msg)
-                    .font(.system(size: 14))
+                    .scaledFont(size: 14)
                     .foregroundStyle(DS.smoke)
                     .multilineTextAlignment(.center)
                 Button("Torna al login") { dismiss() }
-                    .font(.system(size: 15, weight: .medium))
+                    .scaledFont(size: 15, weight: .medium)
                     .foregroundStyle(DS.ink)
                     .padding(.top, DS.Space.s)
             }
@@ -124,7 +124,7 @@ struct SignUpView: View {
                         ProgressView().tint(DS.paper)
                     } else {
                         Text("Registrati")
-                            .font(.system(size: 16, weight: .semibold))
+                            .scaledFont(size: 16, weight: .semibold)
                             .foregroundStyle(DS.paper)
                     }
                 }

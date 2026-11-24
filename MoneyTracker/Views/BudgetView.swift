@@ -20,7 +20,7 @@ struct BudgetRow: View {
         VStack(alignment: .leading, spacing: DS.Space.m) {
             HStack(alignment: .firstTextBaseline) {
                 Image(systemName: budget.categoryIcon.isEmpty ? "circle.dotted" : budget.categoryIcon)
-                    .font(.system(size: 13))
+                    .scaledFont(size: 13)
                     .foregroundStyle(DS.smoke)
                 VStack(alignment: .leading, spacing: 2) {
                     let cats = budget.category == "Tutti"
@@ -31,23 +31,23 @@ struct BudgetRow: View {
                         return cats.map { NSLocalizedString($0, comment: "") }.joined(separator: ", ")
                     }()
                     Text(displayLabel)
-                        .font(.system(size: 15, weight: .medium))
+                        .scaledFont(size: 15, weight: .medium)
                         .foregroundStyle(DS.ink)
                     if !cats.isEmpty, let acc = budget.account {
                         Text(acc.name)
-                            .font(.system(size: 11))
+                            .scaledFont(size: 11)
                             .foregroundStyle(DS.smoke)
                     }
                 }
                 Spacer()
                 VStack(alignment: .trailing, spacing: 2) {
                     Text(spentAmount.currencyFormatted + " / " + budget.monthlyLimit.currencyFormatted)
-                        .font(.system(size: 13))
+                        .scaledFont(size: 13)
                         .foregroundStyle(DS.smoke)
                     Text(over
                          ? NSLocalizedString("Sforato di", comment: "") + " " + abs(remaining).currencyFormatted
                          : remaining.currencyFormatted + " " + NSLocalizedString("rimasti", comment: ""))
-                        .font(.system(size: 11))
+                        .scaledFont(size: 11)
                         .foregroundStyle(over ? DS.negative : DS.smoke)
                 }
             }
@@ -113,13 +113,13 @@ struct AddBudgetView: View {
                 VStack(alignment: .leading, spacing: DS.Space.xxl) {
 
                     Text("Nuovo budget")
-                        .font(.system(size: 28, weight: .semibold))
+                        .scaledFont(size: 28, weight: .semibold)
                         .foregroundStyle(DS.ink)
 
                     VStack(alignment: .leading, spacing: DS.Space.m) {
                         SectionLabel(text: "Categoria (opzionale)")
                         Text("Lascia vuoto per un budget globale sul conto.")
-                            .font(.system(size: 11))
+                            .scaledFont(size: 11)
                             .foregroundStyle(DS.smoke)
 
                         let cols = [GridItem(.flexible()), GridItem(.flexible())]
@@ -136,9 +136,9 @@ struct AddBudgetView: View {
                                 } label: {
                                     HStack(spacing: DS.Space.s) {
                                         Image(systemName: cat.icon)
-                                            .font(.system(size: 12))
+                                            .scaledFont(size: 12)
                                         DS.categoryText(cat.name)
-                                            .font(.system(size: 13, weight: .medium))
+                                            .scaledFont(size: 13, weight: .medium)
                                             .lineLimit(1)
                                     }
                                     .foregroundStyle(sel ? DS.paper : DS.smoke)
@@ -167,7 +167,7 @@ struct AddBudgetView: View {
                                                 .fill(isChosen ? DS.ink : DS.fog)
                                                 .frame(width: 44, height: 44)
                                             Image(systemName: cat.icon)
-                                                .font(.system(size: 18))
+                                                .scaledFont(size: 18)
                                                 .foregroundStyle(isChosen ? DS.paper : DS.smoke)
                                         }
                                     }
@@ -181,15 +181,14 @@ struct AddBudgetView: View {
                         VStack(alignment: .leading, spacing: DS.Space.m) {
                             SectionLabel(text: "Conto (opzionale)")
                             Text("Lascia vuoto per applicarlo a tutti i conti.")
-                                .font(.system(size: 11))
+                                .scaledFont(size: 11)
                                 .foregroundStyle(DS.smoke)
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: DS.Space.l) {
                                     Button { selectedAccount = nil } label: {
                                         VStack(spacing: 5) {
                                             Text("Tutti")
-                                                .font(.system(size: 13,
-                                                      weight: selectedAccount == nil ? .semibold : .regular))
+                                                .scaledFont(size: 13, weight: selectedAccount == nil ? .semibold : .regular)
                                                 .foregroundStyle(selectedAccount == nil ? DS.ink : DS.smoke)
                                             Rectangle()
                                                 .fill(selectedAccount == nil ? DS.ink : Color.clear)
@@ -200,8 +199,7 @@ struct AddBudgetView: View {
                                         Button { selectedAccount = acc } label: {
                                             VStack(spacing: 5) {
                                                 Text(acc.name)
-                                                    .font(.system(size: 13,
-                                                          weight: selectedAccount?.id == acc.id ? .semibold : .regular))
+                                                    .scaledFont(size: 13, weight: selectedAccount?.id == acc.id ? .semibold : .regular)
                                                     .foregroundStyle(selectedAccount?.id == acc.id ? DS.ink : DS.smoke)
                                                 Rectangle()
                                                     .fill(selectedAccount?.id == acc.id ? DS.ink : Color.clear)
@@ -218,10 +216,10 @@ struct AddBudgetView: View {
                         SectionLabel(text: "Limite mensile")
                         HStack(alignment: .lastTextBaseline, spacing: 4) {
                             Text(Double.currencySymbol)
-                                .font(.system(size: 28, weight: .ultraLight))
+                                .scaledFont(size: 28, weight: .ultraLight)
                                 .foregroundStyle(DS.smoke)
                             TextField("0", text: $limit)
-                                .font(.system(size: 56, weight: .black))
+                                .scaledFont(size: 56, weight: .black)
                                 .foregroundStyle(DS.ink)
                                 .keyboardType(.decimalPad)
                                 .accessibilityIdentifier("tf_budgetLimit")
@@ -231,7 +229,7 @@ struct AddBudgetView: View {
 
                     if !canSave && !(limit.isEmpty) {
                         Text("Seleziona almeno una categoria o un conto.")
-                            .font(.system(size: 12))
+                            .scaledFont(size: 12)
                             .foregroundStyle(DS.smoke)
                     }
 
@@ -351,7 +349,7 @@ struct BudgetHistorySheet: View {
 
                         VStack(alignment: .leading, spacing: 0) {
                                 Text(month.monthYearFormatted)
-                                .font(.system(size: 13, weight: .semibold))
+                                .scaledFont(size: 13, weight: .semibold)
                                 .foregroundStyle(DS.ink)
                                 .padding(.horizontal, DS.Layout.margin)
                                 .padding(.top, DS.Space.xl)
@@ -359,7 +357,7 @@ struct BudgetHistorySheet: View {
 
                             if monthBudgets.isEmpty {
                                 Text("Nessun budget")
-                                    .font(.system(size: 13))
+                                    .scaledFont(size: 13)
                                     .foregroundStyle(DS.smoke)
                                     .padding(.horizontal, DS.Layout.margin)
                                     .padding(.bottom, DS.Space.m)
@@ -381,18 +379,18 @@ struct BudgetHistorySheet: View {
                                     VStack(alignment: .leading, spacing: DS.Space.s) {
                                         HStack(spacing: DS.Space.s) {
                                             Image(systemName: budget.categoryIcon.isEmpty ? "circle.dotted" : budget.categoryIcon)
-                                                .font(.system(size: 12))
+                                                .scaledFont(size: 12)
                                                 .foregroundStyle(DS.smoke)
                                                 .frame(width: 16)
                                             Text(catLabel)
-                                                .font(.system(size: 14))
+                                                .scaledFont(size: 14)
                                                 .foregroundStyle(DS.ink)
                                             Spacer()
                                             Text(s.currencyFormatted + " / " + budget.monthlyLimit.currencyFormatted)
-                                                .font(.system(size: 12))
+                                                .scaledFont(size: 12)
                                                 .foregroundStyle(DS.smoke)
                                             Text(String(format: "%.0f%%", pct * 100))
-                                                .font(.system(size: 12, weight: .semibold))
+                                                .scaledFont(size: 12, weight: .semibold)
                                                 .foregroundStyle(over ? DS.negative : DS.smoke)
                                                 .frame(width: 36, alignment: .trailing)
                                         }

@@ -20,7 +20,7 @@ struct FloatingTabBar: View {
                 Button { selection = item.id } label: {
                     VStack(spacing: 2) {
                         Image(systemName: item.symbol)
-                            .font(.system(size: 17, weight: active ? .semibold : .regular))
+                            .scaledFont(size: 17, weight: active ? .semibold : .regular)
                             .frame(width: 44, height: 28)
                             .background(active ? DS.accentSoft : .clear, in: Capsule())
                         Text(item.title)

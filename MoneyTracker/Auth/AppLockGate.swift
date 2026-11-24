@@ -74,14 +74,14 @@ private struct LockOverlay: View {
             DS.paper.ignoresSafeArea()
             VStack(spacing: DS.Space.l) {
                 Image(systemName: "lock.fill")
-                    .font(.system(size: 44, weight: .light))
+                    .scaledFont(size: 44, weight: .light)
                     .foregroundStyle(DS.ink)
                 Text("MoneyTracker è bloccato")
-                    .font(.system(size: 17, weight: .medium))
+                    .scaledFont(size: 17, weight: .medium)
                     .foregroundStyle(DS.ink)
                 Button(action: onUnlock) {
                     Text("Sblocca")
-                        .font(.system(size: 15, weight: .semibold))
+                        .scaledFont(size: 15, weight: .semibold)
                         .frame(minWidth: 160, minHeight: DS.Layout.buttonHeight)
                 }
                 .buttonStyle(.borderedProminent)

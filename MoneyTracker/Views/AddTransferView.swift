@@ -35,17 +35,17 @@ struct AddTransferView: View {
                 VStack(alignment: .leading, spacing: DS.Space.xxl) {
 
                     Text(editing == nil ? "Trasferimento" : "Modifica trasferimento")
-                        .font(.system(size: 28, weight: .semibold))
+                        .scaledFont(size: 28, weight: .semibold)
                         .foregroundStyle(DS.ink)
 
                     VStack(alignment: .leading, spacing: DS.Space.m) {
                         SectionLabel(text: "Importo")
                         HStack(alignment: .lastTextBaseline, spacing: 4) {
                             Text(Double.currencySymbol)
-                                .font(.system(size: 28, weight: .ultraLight))
+                                .scaledFont(size: 28, weight: .ultraLight)
                                 .foregroundStyle(DS.smoke)
                             TextField("0", text: $amount)
-                                .font(.system(size: 56, weight: .black))
+                                .scaledFont(size: 56, weight: .black)
                                 .foregroundStyle(DS.ink)
                                 .keyboardType(.decimalPad)
                                 .focused($amountFocused)
@@ -69,13 +69,13 @@ struct AddTransferView: View {
                         HStack(spacing: DS.Space.m) {
                             Spacer()
                             Text(from.name)
-                                .font(.system(size: 13, weight: .semibold))
+                                .scaledFont(size: 13, weight: .semibold)
                                 .foregroundStyle(DS.ink)
                             Image(systemName: "arrow.right")
-                                .font(.system(size: 13))
+                                .scaledFont(size: 13)
                                 .foregroundStyle(DS.smoke)
                             Text(to.name)
-                                .font(.system(size: 13, weight: .semibold))
+                                .scaledFont(size: 13, weight: .semibold)
                                 .foregroundStyle(DS.ink)
                             Spacer()
                         }
@@ -89,10 +89,10 @@ struct AddTransferView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Già effettuato")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.ink)
                                 Text("Togli la spunta se il trasferimento è pianificato")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                             Spacer()
@@ -104,7 +104,7 @@ struct AddTransferView: View {
 
                         HStack {
                             Text("Data")
-                                .font(.system(size: 15))
+                                .scaledFont(size: 15)
                                 .foregroundStyle(DS.smoke)
                             Spacer()
                             DatePicker("", selection: $date, displayedComponents: [.date])
@@ -113,7 +113,7 @@ struct AddTransferView: View {
                         }
                         ThinDivider()
                         TextField("Note (opzionale)", text: $notes, axis: .vertical)
-                            .font(.system(size: 15, weight: .light))
+                            .scaledFont(size: 15, weight: .light)
                             .foregroundStyle(DS.ink)
                             .lineLimit(3, reservesSpace: false)
                         ThinDivider()
@@ -142,7 +142,7 @@ struct AddTransferView: View {
             HStack(spacing: DS.Space.l) {
                 let available = active.filter { $0.id != exclude?.id }
                 if available.isEmpty {
-                    Text("Nessun altro conto").font(.system(size: 13)).foregroundStyle(DS.smoke)
+                    Text("Nessun altro conto").scaledFont(size: 13).foregroundStyle(DS.smoke)
                 } else {
                     ForEach(available) { acc in
                         Button {
@@ -150,8 +150,7 @@ struct AddTransferView: View {
                         } label: {
                             VStack(spacing: 5) {
                                 Text(acc.name)
-                                    .font(.system(size: 13,
-                                          weight: selected.wrappedValue?.id == acc.id ? .semibold : .regular))
+                                    .scaledFont(size: 13, weight: selected.wrappedValue?.id == acc.id ? .semibold : .regular)
                                     .foregroundStyle(selected.wrappedValue?.id == acc.id ? DS.ink : DS.smoke)
                                 Rectangle()
                                     .fill(selected.wrappedValue?.id == acc.id ? DS.ink : Color.clear)

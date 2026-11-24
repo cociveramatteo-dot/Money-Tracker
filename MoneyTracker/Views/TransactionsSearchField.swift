@@ -7,7 +7,7 @@ struct TransactionsSearchField: View {
     var body: some View {
         HStack(spacing: DS.Space.s) {
             Image(systemName: "magnifyingglass")
-                .font(.system(size: 14))
+                .scaledFont(size: 14)
                 .foregroundStyle(DS.smoke)
             TextField("", text: $text, prompt: Text("Cerca per nome").foregroundStyle(DS.smoke))
                 .accessibilityLabel(Text("Cerca per nome"))
@@ -20,7 +20,7 @@ struct TransactionsSearchField: View {
                     text = ""
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 14))
+                        .scaledFont(size: 14)
                         .foregroundStyle(DS.smoke)
                 }
             }

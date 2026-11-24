@@ -19,14 +19,14 @@ struct TransactionsAdvancedFilterSheet: View {
                         HStack(spacing: DS.Space.l) {
                             VStack(alignment: .leading, spacing: DS.Space.s) {
                                 Text("Minimo")
-                                    .font(.system(size: 12))
+                                    .scaledFont(size: 12)
                                     .foregroundStyle(DS.smoke)
                                 HStack(spacing: 4) {
                                     Text(Double.currencySymbol)
-                                        .font(.system(size: 16, weight: .light))
+                                        .scaledFont(size: 16, weight: .light)
                                         .foregroundStyle(DS.smoke)
                                     TextField("0", text: $filterMinAmount)
-                                        .font(.system(size: 20, weight: .medium))
+                                        .scaledFont(size: 20, weight: .medium)
                                         .foregroundStyle(DS.ink)
                                         .keyboardType(.decimalPad)
                                 }
@@ -34,14 +34,14 @@ struct TransactionsAdvancedFilterSheet: View {
                             }
                             VStack(alignment: .leading, spacing: DS.Space.s) {
                                 Text("Massimo")
-                                    .font(.system(size: 12))
+                                    .scaledFont(size: 12)
                                     .foregroundStyle(DS.smoke)
                                 HStack(spacing: 4) {
                                     Text(Double.currencySymbol)
-                                        .font(.system(size: 16, weight: .light))
+                                        .scaledFont(size: 16, weight: .light)
                                         .foregroundStyle(DS.smoke)
                                     TextField("∞", text: $filterMaxAmount)
-                                        .font(.system(size: 20, weight: .medium))
+                                        .scaledFont(size: 20, weight: .medium)
                                         .foregroundStyle(DS.ink)
                                         .keyboardType(.decimalPad)
                                 }
@@ -57,10 +57,10 @@ struct TransactionsAdvancedFilterSheet: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Periodo personalizzato")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.ink)
                                 Text("Sostituisce il filtro mese")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                             Spacer()
@@ -73,7 +73,7 @@ struct TransactionsAdvancedFilterSheet: View {
                             HStack {
                                 VStack(alignment: .leading, spacing: DS.Space.xs) {
                                     Text("Da")
-                                        .font(.system(size: 12))
+                                        .scaledFont(size: 12)
                                         .foregroundStyle(DS.smoke)
                                     DatePicker("", selection: $filterFromDate, displayedComponents: .date)
                                         .labelsHidden()
@@ -82,7 +82,7 @@ struct TransactionsAdvancedFilterSheet: View {
                                 Spacer()
                                 VStack(alignment: .leading, spacing: DS.Space.xs) {
                                     Text("A")
-                                        .font(.system(size: 12))
+                                        .scaledFont(size: 12)
                                         .foregroundStyle(DS.smoke)
                                     DatePicker("", selection: $filterToDate,
                                                in: filterFromDate...,
@@ -105,9 +105,9 @@ struct TransactionsAdvancedFilterSheet: View {
                         } label: {
                             HStack {
                                 Image(systemName: "xmark.circle")
-                                    .font(.system(size: 14))
+                                    .scaledFont(size: 14)
                                 Text("Rimuovi tutti i filtri")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                             }
                             .foregroundStyle(DS.smoke)
                         }
@@ -124,7 +124,7 @@ struct TransactionsAdvancedFilterSheet: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Fine") { showAdvancedFilter = false }
-                        .font(.system(size: 15, weight: .medium))
+                        .scaledFont(size: 15, weight: .medium)
                         .foregroundStyle(DS.ink)
                 }
             }

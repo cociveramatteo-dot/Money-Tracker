@@ -55,15 +55,15 @@ struct LoginView: View {
     private var heroSection: some View {
         VStack(spacing: DS.Space.m) {
             Image(systemName: "chart.pie.fill")
-                .font(.system(size: 52, weight: .ultraLight))
+                .scaledFont(size: 52, weight: .ultraLight)
                 .foregroundStyle(DS.ink)
 
             Text("MoneyTracker")
-                .font(.system(size: 28, weight: .semibold))
+                .scaledFont(size: 28, weight: .semibold)
                 .foregroundStyle(DS.ink)
 
             Text("Accedi per continuare")
-                .font(.system(size: 15))
+                .scaledFont(size: 15)
                 .foregroundStyle(DS.smoke)
         }
         .padding(.top, 64)
@@ -81,7 +81,7 @@ struct LoginView: View {
             // Password
             VStack(alignment: .leading, spacing: DS.Space.xs) {
                 Text("Password")
-                    .font(.system(size: 12, weight: .medium))
+                    .scaledFont(size: 12, weight: .medium)
                     .foregroundStyle(DS.smoke)
                 SecureField("••••••••", text: $password)
                     .padding(14)
@@ -96,7 +96,7 @@ struct LoginView: View {
     @ViewBuilder private var errorSection: some View {
         if let msg = errorMessage {
             Text(msg)
-                .font(.system(size: 13))
+                .scaledFont(size: 13)
                 .foregroundStyle(.red)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, DS.Layout.margin)
@@ -113,7 +113,7 @@ struct LoginView: View {
                     ProgressView().tint(DS.paper)
                 } else {
                     Text("Accedi")
-                        .font(.system(size: 16, weight: .semibold))
+                        .scaledFont(size: 16, weight: .semibold)
                         .foregroundStyle(DS.paper)
                 }
             }
@@ -134,7 +134,7 @@ struct LoginView: View {
             showReset  = true
         } label: {
             Text("Password dimenticata?")
-                .font(.system(size: 14))
+                .scaledFont(size: 14)
                 .foregroundStyle(DS.smoke)
         }
         .padding(.top, DS.Space.m)
@@ -144,7 +144,7 @@ struct LoginView: View {
         HStack(spacing: 0) {
             Rectangle().fill(DS.fog).frame(height: 1)
             Text("oppure")
-                .font(.system(size: 12))
+                .scaledFont(size: 12)
                 .foregroundStyle(DS.smoke)
                 .padding(.horizontal, 12)
             Rectangle().fill(DS.fog).frame(height: 1)
@@ -156,7 +156,7 @@ struct LoginView: View {
     private var signUpButton: some View {
         Button { showSignUp = true } label: {
             Text("Crea un account")
-                .font(.system(size: 16, weight: .medium))
+                .scaledFont(size: 16, weight: .medium)
                 .foregroundStyle(DS.ink)
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
@@ -218,7 +218,7 @@ struct AuthField: View {
     var body: some View {
         VStack(alignment: .leading, spacing: DS.Space.xs) {
             Text(label)
-                .font(.system(size: 12, weight: .medium))
+                .scaledFont(size: 12, weight: .medium)
                 .foregroundStyle(DS.smoke)
             TextField(placeholder, text: $text)
                 .keyboardType(keyboardType)

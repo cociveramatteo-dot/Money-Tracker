@@ -18,7 +18,7 @@ struct ProgrammedRuleCard: View {
         return VStack(alignment: .leading, spacing: DS.Space.m) {
             HStack(alignment: .top, spacing: DS.Space.m) {
                 Image(systemName: rule.categoryIcon.isEmpty ? DS.categoryIcon(for: rule.category) : rule.categoryIcon)
-                    .font(.system(size: 16))
+                    .scaledFont(size: 16)
                     .foregroundStyle(tint.foreground)
                     .frame(width: 38, height: 38)
                     .background(tint.background, in: RoundedRectangle(cornerRadius: 12))
@@ -109,7 +109,7 @@ struct VirtualOccurrenceRow: View {
         Button(action: onSelect) {
             HStack(alignment: .top, spacing: DS.Space.m) {
                 Image(systemName: occurrence.categoryIcon.isEmpty ? DS.categoryIcon(for: occurrence.category) : occurrence.categoryIcon)
-                    .font(.system(size: 16))
+                    .scaledFont(size: 16)
                     .foregroundStyle(DS.plannedText)
                     .frame(width: 38, height: 38)
                     .overlay(RoundedRectangle(cornerRadius: 12)

@@ -304,7 +304,7 @@ struct SectionLabel: View {
     var body: some View {
         Text(text)
             .textCase(.uppercase)
-            .font(.system(size: 11, weight: .semibold))
+            .scaledFont(size: 11, weight: .semibold)
             .foregroundStyle(DS.smoke)
             .tracking(1.2)
     }
@@ -332,7 +332,7 @@ struct HeroAmount: View {
 
     var body: some View {
         Text(hidden ? "• • •" : amount.currencyFormatted)
-            .font(.system(size: size, weight: .black))
+            .scaledFont(size: size, weight: .black)
             .foregroundStyle(color)
             .minimumScaleFactor(0.6)
             .lineLimit(1)
@@ -348,7 +348,7 @@ struct PrimaryButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 17, weight: .semibold))
+                .scaledFont(size: 17, weight: .semibold)
                 .foregroundStyle(DS.paper)
                 .frame(maxWidth: .infinity)
                 .frame(height: DS.Layout.buttonHeight)
@@ -365,7 +365,7 @@ struct GhostButton: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 15))
+                .scaledFont(size: 15)
                 .foregroundStyle(DS.smoke)
         }
     }
@@ -384,22 +384,22 @@ struct EmptyStateView: View {
     var body: some View {
         VStack(spacing: DS.Space.l) {
             Image(systemName: icon)
-                .font(.system(size: 40, weight: .ultraLight))
+                .scaledFont(size: 40, weight: .ultraLight)
                 .foregroundStyle(DS.fog)
             VStack(spacing: DS.Space.s) {
                 Text(title)
-                    .font(.system(size: 17, weight: .medium))
+                    .scaledFont(size: 17, weight: .medium)
                     .foregroundStyle(DS.ink)
                     .multilineTextAlignment(.center)
                 Text(subtitle)
-                    .font(.system(size: 13))
+                    .scaledFont(size: 13)
                     .foregroundStyle(DS.smoke)
                     .multilineTextAlignment(.center)
             }
             if let cta, let ctaAction {
                 Button(action: ctaAction) {
                     Text(cta)
-                        .font(.system(size: 15, weight: .medium))
+                        .scaledFont(size: 15, weight: .medium)
                         .foregroundStyle(DS.ink)
                         .underline()
                 }
@@ -424,8 +424,7 @@ struct UnderlineSegment<T: Hashable & RawRepresentable>: View where T.RawValue =
                 } label: {
                     VStack(spacing: DS.Space.s) {
                         Text(LocalizedStringKey(opt.rawValue))
-                            .font(.system(size: 15,
-                                  weight: selected == opt ? .semibold : .regular))
+                            .scaledFont(size: 15, weight: selected == opt ? .semibold : .regular)
                             .foregroundStyle(selected == opt ? DS.ink : DS.smoke)
                         Rectangle()
                             .fill(selected == opt ? DS.ink : Color.clear)
@@ -451,7 +450,7 @@ struct MonthBar: View {
                 month = Calendar.current.date(byAdding: .month, value: -1, to: month) ?? month
             } label: {
                 Image(systemName: "chevron.left")
-                    .font(.system(size: 14, weight: .medium))
+                    .scaledFont(size: 14, weight: .medium)
                     .foregroundStyle(DS.smoke)
             }
             Spacer()
@@ -465,7 +464,7 @@ struct MonthBar: View {
                 month = Calendar.current.date(byAdding: .month, value: +1, to: month) ?? month
             } label: {
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 14, weight: .medium))
+                    .scaledFont(size: 14, weight: .medium)
                     .foregroundStyle(DS.smoke)
             }
         }
@@ -489,17 +488,17 @@ struct DSTransactionRow: View {
         HStack(spacing: DS.Space.m) {
             // Category icon
             Image(systemName: transaction.categoryIcon.isEmpty ? "circle.dotted" : transaction.categoryIcon)
-                .font(.system(size: 14))
+                .scaledFont(size: 14)
                 .foregroundStyle(DS.smoke)
                 .frame(width: 18)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(transaction.name)
-                    .font(.system(size: 15))
+                    .scaledFont(size: 15)
                     .foregroundStyle(DS.ink)
                     .lineLimit(1)
                 DS.categoryText(transaction.category)
-                    .font(.system(size: 12))
+                    .scaledFont(size: 12)
                     .foregroundStyle(DS.smoke)
             }
 
@@ -509,10 +508,10 @@ struct DSTransactionRow: View {
                 Text(transaction.transactionType == .uscita
                      ? "−\(transaction.amount.currencyFormatted)"
                      : "+\(transaction.amount.currencyFormatted)")
-                    .font(.system(size: 14, weight: .medium))
+                    .scaledFont(size: 14, weight: .medium)
                     .foregroundStyle(amountColor)
                 Text(transaction.date.dayMonthFormatted)
-                    .font(.system(size: 11))
+                    .scaledFont(size: 11)
                     .foregroundStyle(DS.smoke)
             }
         }
@@ -572,7 +571,7 @@ struct FixedExpenseRow: View {
                         .frame(width: 18, height: 18)
                     if paid {
                         Image(systemName: "checkmark")
-                            .font(.system(size: 8, weight: .semibold))
+                            .scaledFont(size: 8, weight: .semibold)
                             .foregroundStyle(DS.ink)
                             .transition(.scale.combined(with: .opacity))
                     }
@@ -583,18 +582,18 @@ struct FixedExpenseRow: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(transaction.name)
-                    .font(.system(size: 15))
+                    .scaledFont(size: 15)
                     .foregroundStyle(DS.ink)
                     .lineLimit(1)
                 Text(statusText)
-                    .font(.system(size: 12))
+                    .scaledFont(size: 12)
                     .foregroundStyle(DS.smoke)
             }
 
             Spacer()
 
             Text(amountText)
-                .font(.system(size: 14, weight: .medium))
+                .scaledFont(size: 14, weight: .medium)
                 .foregroundStyle(amountColor)
         }
         .padding(.vertical, DS.Layout.rowVPad)
@@ -666,7 +665,7 @@ struct RecurringSeriesCard: View {
                         .fill(tint.background)
                         .frame(width: 38, height: 38)
                     Image(systemName: iconName)
-                        .font(.system(size: 16))
+                        .scaledFont(size: 16)
                         .foregroundStyle(tint.foreground)
                 }
                 VStack(alignment: .leading, spacing: 2) {
@@ -719,10 +718,10 @@ struct FixedTotalTile: View {
     var body: some View {
         VStack(alignment: .leading, spacing: DS.Space.xs) {
             Text(title)
-                .font(.system(size: 12))
+                .scaledFont(size: 12)
                 .foregroundStyle(DS.smoke)
             Text(hidden ? "• • •" : amount.currencyFormatted)
-                .font(.system(size: 20, weight: .semibold))
+                .scaledFont(size: 20, weight: .semibold)
                 .foregroundStyle(hidden ? DS.ink : color)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
@@ -732,5 +731,40 @@ struct FixedTotalTile: View {
         .background(DS.fog.opacity(0.5))
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .accessibilityElement(children: .combine)
+    }
+}
+
+// MARK: - Font di sistema che segue Dynamic Type
+
+/// Come `.font(.system(size:weight:))` ma scala con la dimensione del testo scelta dall'utente.
+/// Alla dimensione standard il risultato è identico; lo stile di riferimento dipende dal corpo.
+private struct ScaledSystemFont: ViewModifier {
+    @ScaledMetric private var size: CGFloat
+    let weight: Font.Weight
+
+    init(size: CGFloat, weight: Font.Weight) {
+        let style: Font.TextStyle = switch size {
+        case ..<11.5: .caption2
+        case ..<12.5: .caption
+        case ..<14: .footnote
+        case ..<16: .subheadline
+        case ..<18: .body
+        case ..<23: .title3
+        case ..<29: .title2
+        case ..<35: .title
+        default: .largeTitle
+        }
+        _size = ScaledMetric(wrappedValue: size, relativeTo: style)
+        self.weight = weight
+    }
+
+    func body(content: Content) -> some View {
+        content.font(.system(size: size, weight: weight))
+    }
+}
+
+extension View {
+    func scaledFont(size: CGFloat, weight: Font.Weight = .regular) -> some View {
+        modifier(ScaledSystemFont(size: size, weight: weight))
     }
 }

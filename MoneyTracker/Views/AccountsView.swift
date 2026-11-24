@@ -333,7 +333,7 @@ struct AddAccountView: View {
                 VStack(alignment: .leading, spacing: DS.Space.xxl) {
 
                     Text(editing == nil ? "Nuovo conto" : "Modifica conto")
-                        .font(.system(size: 28, weight: .semibold))
+                        .scaledFont(size: 28, weight: .semibold)
                         .foregroundStyle(DS.ink)
 
                     VStack(alignment: .leading, spacing: DS.Space.m) {
@@ -343,13 +343,12 @@ struct AddAccountView: View {
                                 Button { type = t } label: {
                                     HStack {
                                         Text(t.localizedName)
-                                            .font(.system(size: 15,
-                                                  weight: type == t ? .semibold : .regular))
+                                            .scaledFont(size: 15, weight: type == t ? .semibold : .regular)
                                             .foregroundStyle(DS.ink)
                                         Spacer()
                                         if type == t {
                                             Image(systemName: "checkmark")
-                                                .font(.system(size: 12))
+                                                .scaledFont(size: 12)
                                                 .foregroundStyle(DS.ink)
                                         }
                                     }
@@ -363,7 +362,7 @@ struct AddAccountView: View {
                     VStack(alignment: .leading, spacing: DS.Space.m) {
                         SectionLabel(text: "Nome")
                         TextField("es. Carta Unicredit, Portafoglio...", text: $name)
-                            .font(.system(size: 22, weight: .light))
+                            .scaledFont(size: 22, weight: .light)
                             .foregroundStyle(DS.ink)
                             .accessibilityIdentifier("tf_accountName")
                         ThinDivider()
@@ -372,14 +371,14 @@ struct AddAccountView: View {
                     VStack(alignment: .leading, spacing: DS.Space.s) {
                         SectionLabel(text: "Saldo attuale")
                         Text("Inserisci il saldo che hai adesso su questo conto.")
-                            .font(.system(size: 12))
+                            .scaledFont(size: 12)
                             .foregroundStyle(DS.smoke)
                         HStack(alignment: .lastTextBaseline, spacing: 4) {
                             Text(Double.currencySymbol)
-                                .font(.system(size: 28, weight: .ultraLight))
+                                .scaledFont(size: 28, weight: .ultraLight)
                                 .foregroundStyle(DS.smoke)
                             TextField("0", text: $balance)
-                                .font(.system(size: 56, weight: .black))
+                                .scaledFont(size: 56, weight: .black)
                                 .foregroundStyle(DS.ink)
                                 .keyboardType(.decimalPad)
                                 .accessibilityIdentifier("tf_accountBalance")
@@ -392,10 +391,10 @@ struct AddAccountView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Escludi dal totale")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.ink)
                                 Text("Non viene contato nel saldo totale dei conti")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                             Spacer()
@@ -409,19 +408,19 @@ struct AddAccountView: View {
                             HStack {
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text("Avviso saldo basso")
-                                        .font(.system(size: 15))
+                                        .scaledFont(size: 15)
                                         .foregroundStyle(DS.ink)
                                     Text("Ricevi una notifica quando il saldo scende sotto questa soglia")
-                                        .font(.system(size: 11))
+                                        .scaledFont(size: 11)
                                         .foregroundStyle(DS.smoke)
                                 }
                                 Spacer()
                                 HStack(spacing: 2) {
                                     Text(Double.currencySymbol)
-                                        .font(.system(size: 15))
+                                        .scaledFont(size: 15)
                                         .foregroundStyle(DS.smoke)
                                     TextField("0", text: $alertThresholdStr)
-                                        .font(.system(size: 15, weight: .medium))
+                                        .scaledFont(size: 15, weight: .medium)
                                         .foregroundStyle(DS.ink)
                                         .keyboardType(.decimalPad)
                                         .multilineTextAlignment(.trailing)

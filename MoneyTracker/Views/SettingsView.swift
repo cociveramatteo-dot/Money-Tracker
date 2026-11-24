@@ -118,7 +118,7 @@ struct SettingsView: View {
                     VStack(alignment: .leading, spacing: DS.Space.l) {
                         SectionLabel(text: "Lingua")
                         Text("La lingua dell'app segue le preferenze di sistema.")
-                            .font(.system(size: 13))
+                            .scaledFont(size: 13)
                             .foregroundStyle(DS.smoke)
                         Button {
                             if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -127,12 +127,12 @@ struct SettingsView: View {
                         } label: {
                             HStack {
                                 Image(systemName: "gear")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                 Text("Apri Impostazioni iOS")
-                                    .font(.system(size: 15, weight: .medium))
+                                    .scaledFont(size: 15, weight: .medium)
                                 Spacer()
                                 Image(systemName: "arrow.up.right")
-                                    .font(.system(size: 12))
+                                    .scaledFont(size: 12)
                             }
                             .foregroundStyle(DS.ink)
                         }
@@ -185,10 +185,10 @@ struct SettingsView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Avvisi automatici")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.ink)
                                 Text("Budget quasi esaurito, fissi in scadenza, obiettivi vicini")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                             Spacer()
@@ -208,10 +208,10 @@ struct SettingsView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Report mensile PDF")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.ink)
                                 Text("Promemoria il 1° di ogni mese per generare il report PDF")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                             Spacer()
@@ -233,12 +233,12 @@ struct SettingsView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Blocco con Face ID")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.ink)
                                 Text(biometricAvailable
                                      ? "Richiede Face ID, Touch ID o il codice del dispositivo all'apertura"
                                      : "Nessun metodo di sblocco configurato su questo dispositivo")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                             Spacer()
@@ -276,11 +276,11 @@ struct SettingsView: View {
                         } label: {
                             HStack {
                                 Text("Cronologia modifiche")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.ink)
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .font(.system(size: 12))
+                                    .scaledFont(size: 12)
                                     .foregroundStyle(DS.smoke)
                             }
                         }
@@ -294,10 +294,10 @@ struct SettingsView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Spese fisse mensili")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.ink)
                                 Text("Mostra il totale delle spese fisse del mese in home")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                             Spacer()
@@ -309,10 +309,10 @@ struct SettingsView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Entrate fisse mensili")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.ink)
                                 Text("Mostra il totale delle entrate fisse del mese in home")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                             Spacer()
@@ -328,7 +328,7 @@ struct SettingsView: View {
                         SectionLabel(text: "Esportazione dati")
 
                         Text("Esporta tutte le transazioni in formato CSV, compatibile con Excel e Numbers.")
-                            .font(.system(size: 13))
+                            .scaledFont(size: 13)
                             .foregroundStyle(DS.smoke)
 
                         if let file = csvData {
@@ -338,9 +338,9 @@ struct SettingsView: View {
                             ) {
                                 HStack {
                                     Image(systemName: "square.and.arrow.up")
-                                        .font(.system(size: 15))
+                                        .scaledFont(size: 15)
                                     Text("Condividi CSV")
-                                        .font(.system(size: 15, weight: .medium))
+                                        .scaledFont(size: 15, weight: .medium)
                                 }
                                 .foregroundStyle(DS.paper)
                                 .frame(maxWidth: .infinity)
@@ -354,7 +354,7 @@ struct SettingsView: View {
                                 ProgressView()
                                     .tint(DS.paper)
                                 Text("Generazione in corso…")
-                                    .font(.system(size: 17, weight: .semibold))
+                                    .scaledFont(size: 17, weight: .semibold)
                                     .foregroundStyle(DS.paper)
                             }
                             .frame(maxWidth: .infinity)
@@ -380,7 +380,7 @@ struct SettingsView: View {
                         // GDPR art. 20 — export completo (conti, movimenti, budget, obiettivi),
                         // non solo le transazioni: la portabilità copre l'intero profilo dati.
                         Text("Oppure esporta l'intero tuo profilo (conti, budget e obiettivi inclusi) in un unico file JSON.")
-                            .font(.system(size: 13))
+                            .scaledFont(size: 13)
                             .foregroundStyle(DS.smoke)
 
                         if let file = jsonExportData {
@@ -390,9 +390,9 @@ struct SettingsView: View {
                             ) {
                                 HStack {
                                     Image(systemName: "square.and.arrow.up")
-                                        .font(.system(size: 15))
+                                        .scaledFont(size: 15)
                                     Text("Condividi tutti i dati (JSON)")
-                                        .font(.system(size: 15, weight: .medium))
+                                        .scaledFont(size: 15, weight: .medium)
                                 }
                                 .foregroundStyle(DS.ink)
                                 .frame(maxWidth: .infinity)
@@ -405,7 +405,7 @@ struct SettingsView: View {
                             HStack {
                                 ProgressView().tint(DS.ink)
                                 Text("Generazione in corso…")
-                                    .font(.system(size: 15, weight: .medium))
+                                    .scaledFont(size: 15, weight: .medium)
                                     .foregroundStyle(DS.ink)
                             }
                             .frame(maxWidth: .infinity)
@@ -425,7 +425,7 @@ struct SettingsView: View {
                                 }
                             } label: {
                                 Text("Esporta tutti i dati (JSON)")
-                                    .font(.system(size: 15, weight: .medium))
+                                    .scaledFont(size: 15, weight: .medium)
                                     .foregroundStyle(DS.ink)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: DS.Layout.buttonHeight)
@@ -440,16 +440,16 @@ struct SettingsView: View {
                     VStack(alignment: .leading, spacing: DS.Space.l) {
                         SectionLabel(text: "Modalità Demo")
                         Text("Mostra l'app con dati di esempio senza esporre i tuoi dati reali. Utile per mostrare MoneyTracker ad amici o colleghi.")
-                            .font(.system(size: 13))
+                            .scaledFont(size: 13)
                             .foregroundStyle(DS.smoke)
 
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text("Attiva modalità demo")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.ink)
                                 Text("I tuoi dati reali restano intatti e privati")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                             Spacer()
@@ -462,10 +462,10 @@ struct SettingsView: View {
                         if demoModeEnabled {
                             HStack(spacing: DS.Space.s) {
                                 Image(systemName: "info.circle.fill")
-                                    .font(.system(size: 13))
+                                    .scaledFont(size: 13)
                                     .foregroundStyle(.orange)
                                 Text("L'app si riavvierà con dati demo. Per tornare ai tuoi dati basta disattivare il toggle.")
-                                    .font(.system(size: 12))
+                                    .scaledFont(size: 12)
                                     .foregroundStyle(DS.smoke)
                             }
                             .padding(DS.Space.m)
@@ -483,7 +483,7 @@ struct SettingsView: View {
                         SectionLabel(text: "Siri & Shortcut")
 
                         Text("Aggiungi spese senza aprire l'app: con la voce, un widget o una scorciatoia rapida.")
-                            .font(.system(size: 13))
+                            .scaledFont(size: 13)
                             .foregroundStyle(DS.smoke)
 
                         Button {
@@ -493,12 +493,12 @@ struct SettingsView: View {
                         } label: {
                             HStack {
                                 Image(systemName: "apps.iphone")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                 Text("Apri Shortcut")
-                                    .font(.system(size: 15, weight: .medium))
+                                    .scaledFont(size: 15, weight: .medium)
                                 Spacer()
                                 Image(systemName: "arrow.up.right")
-                                    .font(.system(size: 12))
+                                    .scaledFont(size: 12)
                             }
                             .foregroundStyle(DS.ink)
                         }
@@ -507,11 +507,11 @@ struct SettingsView: View {
                         // Tip callout
                         HStack(alignment: .top, spacing: DS.Space.s) {
                             Image(systemName: "lightbulb.fill")
-                                .font(.system(size: 12))
+                                .scaledFont(size: 12)
                                 .foregroundStyle(DS.ink.opacity(0.5))
                                 .padding(.top, 1)
                             Text("Crea una Shortcut in Shortcut, poi vai in Impostazioni → Accessibilità → Tocco → Tocca sul retro → Doppio tocco e scegli la tua scorciatoia per accesso istantaneo.")
-                                .font(.system(size: 12))
+                                .scaledFont(size: 12)
                                 .foregroundStyle(DS.smoke)
                                 .lineSpacing(2)
                         }
@@ -526,21 +526,21 @@ struct SettingsView: View {
                         SectionLabel(text: "Info")
                         HStack {
                             Text("Versione")
-                                .font(.system(size: 15))
+                                .scaledFont(size: 15)
                                 .foregroundStyle(DS.smoke)
                             Spacer()
                             Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
-                                .font(.system(size: 15))
+                                .scaledFont(size: 15)
                                 .foregroundStyle(DS.smoke)
                         }
                         ThinDivider()
                         HStack {
                             Text("Transazioni totali")
-                                .font(.system(size: 15))
+                                .scaledFont(size: 15)
                                 .foregroundStyle(DS.smoke)
                             Spacer()
                             Text("\(transactionCount)")
-                                .font(.system(size: 15))
+                                .scaledFont(size: 15)
                                 .foregroundStyle(DS.smoke)
                         }
                     }
@@ -593,10 +593,10 @@ struct SettingsView: View {
             if let email = auth.userEmail {
                 HStack(spacing: DS.Space.m) {
                     Image(systemName: "person.circle")
-                        .font(.system(size: 20))
+                        .scaledFont(size: 20)
                         .foregroundStyle(DS.smoke)
                     Text(email)
-                        .font(.system(size: 15))
+                        .scaledFont(size: 15)
                         .foregroundStyle(DS.ink)
                 }
                 ThinDivider()
@@ -608,9 +608,9 @@ struct SettingsView: View {
             } label: {
                 HStack {
                     Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .font(.system(size: 15))
+                        .scaledFont(size: 15)
                     Text("Esci dall'account")
-                        .font(.system(size: 15, weight: .medium))
+                        .scaledFont(size: 15, weight: .medium)
                     Spacer()
                 }
                 .foregroundStyle(.red)
@@ -647,9 +647,9 @@ struct SettingsView: View {
             } label: {
                 HStack {
                     Image(systemName: "trash.fill")
-                        .font(.system(size: 15))
+                        .scaledFont(size: 15)
                     Text("Elimina account")
-                        .font(.system(size: 15, weight: .medium))
+                        .scaledFont(size: 15, weight: .medium)
                     Spacer()
                 }
                 .foregroundStyle(.red)
@@ -699,13 +699,13 @@ struct SettingsView: View {
                 HStack(spacing: DS.Space.s) {
                     ProgressView().tint(DS.smoke)
                     Text("Eliminazione in corso…")
-                        .font(.system(size: 13))
+                        .scaledFont(size: 13)
                         .foregroundStyle(DS.smoke)
                 }
             }
             if let err = deleteAccountError {
                 Text(err)
-                    .font(.system(size: 12))
+                    .scaledFont(size: 12)
                     .foregroundStyle(.red)
             }
         }
@@ -832,10 +832,10 @@ private struct CurrencyConfirmSheet: View {
 
             VStack(spacing: 4) {
                 Text(newSymbol)
-                    .font(.system(size: 52, weight: .black))
+                    .scaledFont(size: 52, weight: .black)
                     .foregroundStyle(DS.ink)
                 Text(newName)
-                    .font(.system(size: 16, weight: .medium))
+                    .scaledFont(size: 16, weight: .medium)
                     .foregroundStyle(DS.ink)
             }
             .frame(maxWidth: .infinity)
@@ -843,7 +843,7 @@ private struct CurrencyConfirmSheet: View {
             .padding(.bottom, DS.Space.m)
 
             Text("Il simbolo verrà aggiornato ovunque nell'app. Gli importi restano invariati.")
-                .font(.system(size: 13))
+                .scaledFont(size: 13)
                 .foregroundStyle(DS.smoke)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, DS.Layout.margin)
@@ -856,7 +856,7 @@ private struct CurrencyConfirmSheet: View {
                     onCancel()
                 } label: {
                     Text("Annulla")
-                        .font(.system(size: 16))
+                        .scaledFont(size: 16)
                         .foregroundStyle(DS.ink)
                         .frame(maxWidth: .infinity)
                         .frame(height: DS.Layout.buttonHeight)
@@ -870,7 +870,7 @@ private struct CurrencyConfirmSheet: View {
                     onConfirm()
                 } label: {
                     Text("Conferma")
-                        .font(.system(size: 16, weight: .semibold))
+                        .scaledFont(size: 16, weight: .semibold)
                         .foregroundStyle(DS.paper)
                         .frame(maxWidth: .infinity)
                         .frame(height: DS.Layout.buttonHeight)

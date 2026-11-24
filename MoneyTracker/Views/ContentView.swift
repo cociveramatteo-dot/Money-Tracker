@@ -128,7 +128,7 @@ struct ContentView: View {
 
     private var fabCircle: some View {
         Image(systemName: "plus")
-            .font(.system(size: 24, weight: .semibold))
+            .scaledFont(size: 24, weight: .semibold)
             .foregroundStyle(DS.onAccent)
             .frame(width: 58, height: 58)
             .background(DS.accent, in: Self.fabShape)

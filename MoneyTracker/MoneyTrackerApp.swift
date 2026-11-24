@@ -191,10 +191,10 @@ struct MoneyTrackerApp: App {
             DS.paper.ignoresSafeArea()
             VStack(spacing: DS.Space.m) {
                 Image(systemName: "chart.pie.fill")
-                    .font(.system(size: 52, weight: .ultraLight))
+                    .scaledFont(size: 52, weight: .ultraLight)
                     .foregroundStyle(DS.ink)
                 Text("MoneyTracker")
-                    .font(.system(size: 22, weight: .semibold))
+                    .scaledFont(size: 22, weight: .semibold)
                     .foregroundStyle(DS.ink)
             }
         }
@@ -290,7 +290,7 @@ struct MoneyTrackerApp: App {
     @ViewBuilder private var demoBanner: some View {
         HStack(spacing: 6) {
             Image(systemName: "eye.fill")
-                .font(.system(size: 10, weight: .bold))
+                .scaledFont(size: 10, weight: .bold)
             Text("MODALITÀ DEMO", comment: "Demo mode banner label")
                 .font(.system(size: 11, weight: .bold, design: .monospaced))
                 .kerning(0.5)
@@ -318,10 +318,10 @@ struct MoneyTrackerApp: App {
                     ProgressView().tint(DS.paper).scaleEffect(0.65)
                 } else {
                     Image(systemName: icon)
-                        .font(.system(size: 10, weight: .semibold))
+                        .scaledFont(size: 10, weight: .semibold)
                 }
                 Text(label)
-                    .font(.system(size: 11, weight: .medium))
+                    .scaledFont(size: 11, weight: .medium)
             }
             .foregroundStyle(DS.paper)
             .padding(.horizontal, 12)

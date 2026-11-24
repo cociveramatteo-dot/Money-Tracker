@@ -22,15 +22,15 @@ struct AuditLogView: View {
                     List(entries) { entry in
                         HStack(spacing: DS.Space.m) {
                             Image(systemName: icon(for: entry.action))
-                                .font(.system(size: 14))
+                                .scaledFont(size: 14)
                                 .foregroundStyle(DS.smoke)
                                 .frame(width: 20)
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(entry.summary == "—" ? entityLabel(entry.entityType) : entry.summary)
-                                    .font(.system(size: 14))
+                                    .scaledFont(size: 14)
                                     .foregroundStyle(DS.ink)
                                 Text("\(actionLabel(entry.action)) · \(entry.timestamp.formatted(date: .abbreviated, time: .shortened))")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                         }

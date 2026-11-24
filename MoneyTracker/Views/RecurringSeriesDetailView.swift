@@ -91,7 +91,7 @@ struct RecurringSeriesDetailView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Fine") { dismiss() }
-                        .font(.system(size: 15, weight: .medium))
+                        .scaledFont(size: 15, weight: .medium)
                         .foregroundStyle(DS.ink)
                 }
             }

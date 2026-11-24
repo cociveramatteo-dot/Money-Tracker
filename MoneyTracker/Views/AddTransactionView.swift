@@ -62,10 +62,10 @@ struct AddTransactionView: View {
                         SectionLabel(text: "Importo")
                         HStack(alignment: .lastTextBaseline, spacing: 4) {
                             Text(type == .uscita ? "−\(Double.currencySymbol)" : "+\(Double.currencySymbol)")
-                                .font(.system(size: 28, weight: .ultraLight))
+                                .scaledFont(size: 28, weight: .ultraLight)
                                 .foregroundStyle(DS.smoke)
                             TextField("0", text: $amount)
-                                .font(.system(size: 56, weight: .black))
+                                .scaledFont(size: 56, weight: .black)
                                 .foregroundStyle(DS.ink)
                                 .keyboardType(.decimalPad)
                                 .focused($focus, equals: .importo)
@@ -79,7 +79,7 @@ struct AddTransactionView: View {
                     VStack(alignment: .leading, spacing: DS.Space.m) {
                         SectionLabel(text: "Descrizione")
                         TextField("es. Affitto, Netflix, Pizza...", text: $name)
-                            .font(.system(size: 22, weight: .light))
+                            .scaledFont(size: 22, weight: .light)
                             .foregroundStyle(DS.ink)
                             .focused($focus, equals: .nome)
                             .submitLabel(.done)
@@ -108,20 +108,20 @@ struct AddTransactionView: View {
                         Button { showCatPicker = true } label: {
                             HStack {
                                 Image(systemName: selectedCat?.icon ?? "circle.dotted")
-                                    .font(.system(size: 14))
+                                    .scaledFont(size: 14)
                                     .foregroundStyle(DS.smoke)
                                     .frame(width: 20)
                                 (selectedCat.map { DS.categoryText($0.name) } ?? Text("Scegli..."))
-                                    .font(.system(size: 17, weight: .medium))
+                                    .scaledFont(size: 17, weight: .medium)
                                     .foregroundStyle(selectedCat != nil ? DS.ink : DS.smoke)
                                 if let cat = selectedCat, cat.name == suggestedCat {
                                     Text(suggestionFromHistory ? LocalizedStringKey("· Ultima usata") : LocalizedStringKey("· suggerita"))
-                                        .font(.system(size: 12))
+                                        .scaledFont(size: 12)
                                         .foregroundStyle(DS.smoke)
                                 }
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                         }
@@ -140,8 +140,7 @@ struct AddTransactionView: View {
                                         } label: {
                                             VStack(spacing: 5) {
                                                 Text(acc.name)
-                                                    .font(.system(size: 13,
-                                                          weight: selectedAccount?.id == acc.id ? .semibold : .regular))
+                                                    .scaledFont(size: 13, weight: selectedAccount?.id == acc.id ? .semibold : .regular)
                                                     .foregroundStyle(selectedAccount?.id == acc.id ? DS.ink : DS.smoke)
                                                 Rectangle()
                                                     .fill(selectedAccount?.id == acc.id ? DS.ink : Color.clear)
@@ -161,10 +160,10 @@ struct AddTransactionView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(LocalizedStringKey(type == .uscita ? "Spesa fissa" : "Entrata fissa"))
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.ink)
                                 Text("Appare in 'Fissi del mese' nella home")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                             Spacer()
@@ -183,10 +182,10 @@ struct AddTransactionView: View {
                             HStack {
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text("Già effettuato")
-                                        .font(.system(size: 15))
+                                        .scaledFont(size: 15)
                                         .foregroundStyle(DS.ink)
                                     Text("Togli la spunta se è pianificata ma non ancora fatta")
-                                        .font(.system(size: 11))
+                                        .scaledFont(size: 11)
                                         .foregroundStyle(DS.smoke)
                                 }
                                 Spacer()
@@ -203,10 +202,10 @@ struct AddTransactionView: View {
                             HStack {
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text("Ricorrenza")
-                                        .font(.system(size: 15))
+                                        .scaledFont(size: 15)
                                         .foregroundStyle(DS.ink)
                                     Text("Crea automaticamente al prossimo periodo")
-                                        .font(.system(size: 11))
+                                        .scaledFont(size: 11)
                                         .foregroundStyle(DS.smoke)
                                 }
                                 Spacer()
@@ -224,7 +223,7 @@ struct AddTransactionView: View {
 
                         HStack {
                             Text("Data")
-                                .font(.system(size: 15))
+                                .scaledFont(size: 15)
                                 .foregroundStyle(DS.smoke)
                             Spacer()
                             DatePicker("", selection: $date, displayedComponents: [.date])
@@ -237,7 +236,7 @@ struct AddTransactionView: View {
                     VStack(alignment: .leading, spacing: DS.Space.m) {
                         SectionLabel(text: "Note")
                         TextField("Aggiungi una nota...", text: $notes, axis: .vertical)
-                            .font(.system(size: 15, weight: .light))
+                            .scaledFont(size: 15, weight: .light)
                             .foregroundStyle(DS.ink)
                             .lineLimit(3, reservesSpace: false)
                             .accessibilityIdentifier("tf_notes")
@@ -448,17 +447,16 @@ struct CategoryPickerView: View {
                         } label: {
                             HStack(spacing: DS.Space.m) {
                                 Image(systemName: cat.icon)
-                                    .font(.system(size: 16))
+                                    .scaledFont(size: 16)
                                     .foregroundStyle(DS.smoke)
                                     .frame(width: 20)
                                 DS.categoryText(cat.name)
-                                    .font(.system(size: 15,
-                                          weight: selected?.id == cat.id ? .semibold : .regular))
+                                    .scaledFont(size: 15, weight: selected?.id == cat.id ? .semibold : .regular)
                                     .foregroundStyle(DS.ink)
                                 Spacer()
                                 if selected?.id == cat.id {
                                     Image(systemName: "checkmark")
-                                        .font(.system(size: 13, weight: .medium))
+                                        .scaledFont(size: 13, weight: .medium)
                                         .foregroundStyle(DS.ink)
                                 }
                             }
@@ -487,7 +485,7 @@ struct CategoryPickerView: View {
                         CategoryManagementView()
                     } label: {
                         Text("Gestisci")
-                            .font(.system(size: 15))
+                            .scaledFont(size: 15)
                             .foregroundStyle(DS.smoke)
                     }
                     .accessibilityIdentifier("btn_manageCategories")

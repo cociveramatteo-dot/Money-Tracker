@@ -213,7 +213,7 @@ struct DashboardView: View {
     private func headerButton(symbol: String, label: LocalizedStringKey, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: symbol)
-                .font(.system(size: 18))
+                .scaledFont(size: 18)
                 .foregroundStyle(DS.ink)
                 .frame(width: 44, height: 44)
                 .background(DS.surface, in: RoundedRectangle(cornerRadius: 14))
@@ -261,7 +261,7 @@ struct DashboardView: View {
             sectionHeader("Conti", link: "Gestisci") { goToTab(4) } trailing: {
                 Button { showAccountOrder = true } label: {
                     Image(systemName: "slider.horizontal.3")
-                        .font(.system(size: 14)).foregroundStyle(DS.smoke)
+                        .scaledFont(size: 14).foregroundStyle(DS.smoke)
                         .frame(width: 44, height: 44)
                 }
                 .buttonStyle(.plain)
@@ -373,7 +373,7 @@ struct DashboardView: View {
                     }
                 } label: {
                     Image(systemName: showRecentMovements ? "chevron.up" : "chevron.down")
-                        .font(.system(size: 12)).foregroundStyle(DS.smoke)
+                        .scaledFont(size: 12).foregroundStyle(DS.smoke)
                         .frame(width: 44, height: 44)
                 }
                 .buttonStyle(.plain)
@@ -492,17 +492,17 @@ struct HomeAccountOrderSheet: View {
                         } label: {
                             Image(systemName: shown.contains(acc.id.uuidString)
                                   ? "checkmark.circle.fill" : "circle")
-                                .font(.system(size: 20))
+                                .scaledFont(size: 20)
                                 .foregroundStyle(shown.contains(acc.id.uuidString) ? DS.ink : DS.smoke)
                         }
                         .buttonStyle(.plain)
 
                         VStack(alignment: .leading, spacing: 2) {
                             Text(acc.name)
-                                .font(.system(size: 15, weight: .medium))
+                                .scaledFont(size: 15, weight: .medium)
                                 .foregroundStyle(DS.ink)
                             Text(acc.accountType.localizedName)
-                                .font(.system(size: 12))
+                                .scaledFont(size: 12)
                                 .foregroundStyle(DS.smoke)
                         }
                         Spacer()
@@ -525,7 +525,7 @@ struct HomeAccountOrderSheet: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Fine") { save(); dismiss() }
-                        .font(.system(size: 15, weight: .medium))
+                        .scaledFont(size: 15, weight: .medium)
                         .foregroundStyle(DS.ink)
                 }
             }

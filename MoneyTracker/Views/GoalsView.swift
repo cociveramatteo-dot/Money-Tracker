@@ -21,18 +21,18 @@ struct GoalRow: View {
                         .fill(DS.fog)
                         .frame(width: 36, height: 36)
                     Image(systemName: iconName)
-                        .font(.system(size: 15))
+                        .scaledFont(size: 15)
                         .foregroundStyle(DS.smoke)
                 }
                 .padding(.trailing, DS.Space.xs)
 
                 VStack(alignment: .leading, spacing: DS.Space.xs) {
                     Text(goal.name)
-                        .font(.system(size: 17, weight: .medium))
+                        .scaledFont(size: 17, weight: .medium)
                         .foregroundStyle(DS.ink)
                     if let d = goal.deadline {
                         Text(NSLocalizedString("Entro", comment: "") + " " + d.dayMonthFormatted)
-                            .font(.system(size: 12))
+                            .scaledFont(size: 12)
                             .foregroundStyle(DS.smoke)
                     }
                 }
@@ -40,14 +40,14 @@ struct GoalRow: View {
                 VStack(alignment: .trailing, spacing: DS.Space.xs) {
                     HStack(alignment: .lastTextBaseline, spacing: 1) {
                         Text(String(Int(goal.progress * 100)))
-                            .font(.system(size: 28, weight: .black))
+                            .scaledFont(size: 28, weight: .black)
                             .foregroundStyle(DS.ink)
                         Text("%")
-                            .font(.system(size: 14, weight: .ultraLight))
+                            .scaledFont(size: 14, weight: .ultraLight)
                             .foregroundStyle(DS.smoke)
                     }
                     Text(goal.currentAmount.currencyFormatted + " / " + goal.targetAmount.currencyFormatted)
-                        .font(.system(size: 11))
+                        .scaledFont(size: 11)
                         .foregroundStyle(DS.smoke)
                 }
             }
@@ -65,7 +65,7 @@ struct GoalRow: View {
 
             if goal.isCompleted {
                 Text("Obiettivo raggiunto")
-                    .font(.system(size: 11, weight: .medium))
+                    .scaledFont(size: 11, weight: .medium)
                     .foregroundStyle(DS.smoke)
                     .tracking(1)
             }
@@ -125,7 +125,7 @@ struct AddGoalView: View {
                 VStack(alignment: .leading, spacing: DS.Space.xxl) {
 
                     Text(LocalizedStringKey(editing == nil ? "Nuovo obiettivo" : "Modifica"))
-                        .font(.system(size: 28, weight: .semibold))
+                        .scaledFont(size: 28, weight: .semibold)
                         .foregroundStyle(DS.ink)
 
                     VStack(alignment: .leading, spacing: DS.Space.m) {
@@ -137,15 +137,15 @@ struct AddGoalView: View {
                                         .fill(DS.fog)
                                         .frame(width: 52, height: 52)
                                     Image(systemName: selectedEmoji)
-                                        .font(.system(size: 22))
+                                        .scaledFont(size: 22)
                                         .foregroundStyle(DS.ink)
                                 }
                                 Text("Cambia icona")
-                                    .font(.system(size: 15))
+                                    .scaledFont(size: 15)
                                     .foregroundStyle(DS.smoke)
                                 Spacer()
                                 Image(systemName: showEmojiPicker ? "chevron.up" : "chevron.down")
-                                    .font(.system(size: 11))
+                                    .scaledFont(size: 11)
                                     .foregroundStyle(DS.smoke)
                             }
                         }
@@ -163,7 +163,7 @@ struct AddGoalView: View {
                                                 .fill(selectedEmoji == icon ? DS.ink : DS.fog)
                                                 .frame(width: 44, height: 44)
                                             Image(systemName: icon)
-                                                .font(.system(size: 16))
+                                                .scaledFont(size: 16)
                                                 .foregroundStyle(selectedEmoji == icon ? DS.paper : DS.smoke)
                                         }
                                     }
@@ -179,7 +179,7 @@ struct AddGoalView: View {
                     VStack(alignment: .leading, spacing: DS.Space.m) {
                         SectionLabel(text: "Nome")
                         TextField("es. Vacanza, Auto nuova...", text: $name)
-                            .font(.system(size: 22, weight: .light))
+                            .scaledFont(size: 22, weight: .light)
                             .foregroundStyle(DS.ink)
                             .accessibilityIdentifier("tf_goalName")
                         ThinDivider()
@@ -189,10 +189,10 @@ struct AddGoalView: View {
                         SectionLabel(text: "Obiettivo")
                         HStack(alignment: .lastTextBaseline, spacing: 4) {
                             Text(Double.currencySymbol)
-                                .font(.system(size: 28, weight: .ultraLight))
+                                .scaledFont(size: 28, weight: .ultraLight)
                                 .foregroundStyle(DS.smoke)
                             TextField("0", text: $target)
-                                .font(.system(size: 56, weight: .black))
+                                .scaledFont(size: 56, weight: .black)
                                 .foregroundStyle(DS.ink)
                                 .keyboardType(.decimalPad)
                                 .accessibilityIdentifier("tf_goalTarget")
@@ -204,10 +204,10 @@ struct AddGoalView: View {
                         SectionLabel(text: editing == nil ? "Già risparmiato" : "Aggiungi risparmio")
                         HStack(alignment: .lastTextBaseline, spacing: 4) {
                             Text("+\(Double.currencySymbol)")
-                                .font(.system(size: 22, weight: .ultraLight))
+                                .scaledFont(size: 22, weight: .ultraLight)
                                 .foregroundStyle(DS.smoke)
                             TextField("0", text: editing == nil ? $current : $addSavings)
-                                .font(.system(size: 40, weight: .light))
+                                .scaledFont(size: 40, weight: .light)
                                 .foregroundStyle(DS.ink)
                                 .keyboardType(.decimalPad)
                         }
@@ -218,7 +218,7 @@ struct AddGoalView: View {
                         SectionLabel(text: "Scadenza")
                         HStack {
                             Toggle("Imposta scadenza", isOn: $hasDeadline)
-                                .font(.system(size: 15))
+                                .scaledFont(size: 15)
                                 .foregroundStyle(DS.smoke)
                                 .tint(DS.ink)
                         }
