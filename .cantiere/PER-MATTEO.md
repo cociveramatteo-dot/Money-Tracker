@@ -12,9 +12,6 @@ Nota: le statistiche contano le visite e da dove arrivano, ma non separano le ca
 ### ANDROID · aggiornare l'app sul tuo telefono
 📍 Terminale, cartella `03_CODICE/bucktrail-android`, telefono collegato con Debug USB acceso. ▶️ `./gradlew installDebug` (con JAVA_HOME e ANDROID_HOME come l'altra volta). Si aggiorna sopra la versione installata, i dati restano. ↩️ Dimmi se all'apertura non vedi più l'icona e se lucchetto e icona del login ti sembrano come su iPhone.
 
-### ANDROID · prova sync reale + telefono vero (quando vuoi, non urgente)
-📍 Chat del capocantiere. ▶️ Scrivi «prova sync android»: ti guido io passo passo (account di prova, iPhone + Android o emulatore, widget e riquadro, impronta/volto). Serve il tuo account di prova su Supabase: non lo uso io senza di te perché toccherebbe i dati veri. ↩️ Riporta l'esito.
-
 ### SOCIAL · pubblicare i Post 5–15
 📍 Drive → `Da postare` → `Post-05…`. ▶️ Carica le slide in ordine su Instagram e TikTok, titolo e hashtag da `titolo-e-hashtag.txt`; date in `SOCIAL/calendario-v2.md`. Post-15: prova prima il doppio tocco su un iPhone vero. ↩️ «pubblicato post N».
 
@@ -28,6 +25,8 @@ Nota: le statistiche contano le visite e da dove arrivano, ma non separano le ca
 📍 notebooklm.google.com → notebook «MoneyTracker App». ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt` e `README.txt` di Inter e Space Grotesk) sono facoltative. ↩️ Scrivi «notebook ok».
 
 ## Fatte
+
+- 2026-11-24 22:16 · Android: prova reale del login e della sync su Supabase fatta da Matteo, funziona (S-49).
 
 - 2026-11-24 · `main` portato al redesign (fast-forward, push `6d574da..2364d6e`, ok esplicito di Matteo). Bucktrail Android installata e provata su telefono vero via cavo.
 
