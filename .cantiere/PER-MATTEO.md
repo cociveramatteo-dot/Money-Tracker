@@ -5,12 +5,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### MAGAZZINO · spostare gli screenshot di parità (114 MB, libera il Mac)
-📍 Terminale, nuova scheda, nella cartella del cantiere: `cd /Users/matteo/Desktop/APP/MoneyTracker`
-▶️ Incolla: `bash .cantiere/strumenti/trasloco.sh 99_DA_SMISTARE/parita 02_RISORSE/lavorate/fuori-git/parita-android-2026-11-23`
-Lo script copia, confronta file e byte, e chiede «si» solo se coincidono. Scrivi `si` solo se ti dice «Copia verificata».
-↩️ Riporta l'ultima riga che stampa (verificata / diversa / spostata).
-
 ### ANDROID · prova sync reale + telefono (quando vuoi, non urgente)
 📍 Chat del capocantiere. ▶️ Scrivi «prova sync android»: ti guido io (account di prova, iPhone + Android o emulatore, widget, impronta/volto). ↩️ Riporta l'esito.
 
