@@ -5,10 +5,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### LANDING · ricaricare su Cloudflare e attivare le statistiche (5 minuti)
-📍 Cloudflare → Workers e Pages → progetto `bucktrailapp`. ▶️ 1) Create deployment e carica la cartella `SOCIAL/landing` (come l'altra volta): porta online la nuova risposta sulla sicurezza, l'informativa privacy aggiornata e le regole di sicurezza che permettono le statistiche. 2) Nello stesso progetto apri **Metrics** (o Web Analytics) e premi **Enable**. ↩️ Scrivi «landing ricaricata»: dopo un giorno controllo che arrivino le visite. Se in 24 ore non compare nulla, dimmelo.
-Nota: le statistiche contano le visite e da dove arrivano, ma non separano le campagne UTM; le iscrizioni per fonte restano in Brevo.
-
 ### ANDROID · aggiornare l'app sul tuo telefono
 📍 Terminale, cartella `03_CODICE/bucktrail-android`, telefono collegato con Debug USB acceso. ▶️ `./gradlew installDebug` (con JAVA_HOME e ANDROID_HOME come l'altra volta). Si aggiorna sopra la versione installata, i dati restano. ↩️ Dimmi se all'apertura non vedi più l'icona e se lucchetto e icona del login ti sembrano come su iPhone.
 
@@ -25,6 +21,8 @@ Nota: le statistiche contano le visite e da dove arrivano, ma non separano le ca
 📍 notebooklm.google.com → notebook «MoneyTracker App». ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt` e `README.txt` di Inter e Space Grotesk) sono facoltative. ↩️ Scrivi «notebook ok».
 
 ## Fatte
+
+- 2026-11-24 22:28 · Landing ricaricata su Cloudflare con FAQ sicurezza, privacy aggiornata e Web Analytics (verificato online su 5 pagine). Nota: le pagine hanno 2 codici di misura (il nostro, token b8ce…, e uno iniettato in automatico da Cloudflare, token 4f0c…): innocuo; per tenerne uno solo, togliere il nostro dalle 5 pagine al prossimo caricamento.
 
 - 2026-11-24 22:16 · Android: prova reale del login e della sync su Supabase fatta da Matteo, funziona (S-49).
 
