@@ -5,6 +5,11 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### BANCA · modello economico — cosa resta a te (tutto spiegato in `.cantiere/banca-modello-economico.md`, copia su Drive `02_RISORSE/lavorate/banca-modello-economico-2026-11-25.md`)
+1. 📍 Browser → developer.apple.com/account → «Membership details». ▶️ Guarda il tipo di account. ↩️ «Individual» o «Organization».
+2. 📍 La tua casella email. ▶️ Invia a info@enablebanking.com la mail del §9 del documento (oggetto e corpo già pronti; cambia la stima del volume se vuoi). ↩️ Incollami la risposta: con costo per conto e fattura minima rifaccio le tabelle e fissiamo i prezzi.
+3. 📍 Un avvocato o commercialista. ▶️ Le 4 domande del §8 (Banca d'Italia, GDPR, P.IVA per vendere via store, P.IVA per essere cliente di Enable Banking). ↩️ La risposta in poche righe.
+
 ### BANCA · S-60t — tre verifiche prima del collegamento bancario (si può fare quando vuoi, non blocca il lavoro dell'IA)
 1. 📍 Browser → developer.apple.com/account → «Membership details». ▶️ Guarda il tipo di account. ↩️ «Individual» o «Organization» (le app finanziarie di account individuali rischiano il rifiuto: linea guida 5.1.1(ix)).
 2. 📍 Email a info@enablebanking.com. ▶️ Incolla il messaggio in inglese del §11.4 S-60t di `.cantiere/progetto-banca.md` (te lo copio io se vuoi). ↩️ Incollami la risposta.
