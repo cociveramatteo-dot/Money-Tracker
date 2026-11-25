@@ -83,6 +83,152 @@
     "wrapped_key_recovery": "bt1.ICEiIyQlJicoKSorkYZCcs6X9-1TV4NAfCNWzaDlQ634Zp8iR_TLz5bKhruusUPfv2RwuerD2idWbJTF",
     "key_id": "7d2c8c067561cc12"
   },
+  "rows": {
+    "key_hex": "a0a1a2a3a4a5a6a7a8a9aaabacadaeafb0b1b2b3b4b5b6b7b8b9babbbcbdbebf",
+    "user_id": "abcdefab-cdef-4abc-8def-abcdefabcdef",
+    "cases": [
+      {
+        "kind": "account",
+        "id": "76543210-abcd-4ef0-8123-abcdef000001",
+        "expected": {
+          "id": "76543210-abcd-4ef0-8123-abcdef000001",
+          "user_id": "abcdefab-cdef-4abc-8def-abcdefabcdef",
+          "created_at": 1700000000125,
+          "name": "Conto 東京 🏦",
+          "type": "Conto Bancario",
+          "initial_balance": "-45.67",
+          "color_hex": "2468AC",
+          "is_archived": true,
+          "is_excluded_from_total": true
+        },
+        "ios": {
+          "nonce_hex": "000000000000000000000001",
+          "plaintext": "{\"color_hex\":\"2468AC\",\"created_at\":\"2023-11-14T22:13:20.125Z\",\"id\":\"76543210-ABCD-4EF0-8123-ABCDEF000001\",\"initial_balance\":-45.67,\"is_archived\":true,\"is_excluded_from_total\":true,\"name\":\"Conto 東京 🏦\",\"type\":\"Conto Bancario\",\"user_id\":\"ABCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF\"}",
+          "sealed": "bt1.AAAAAAAAAAAAAAAB_4vxkhRls2XbbCya2hfq6pRmL8h_k7ZbKQ3Ne7y5d_CLi6lbqvoz-nNbr7wlgAO0k7oBoYTxyfju9G0gMy4679Ik47IEWrdqeZIjD-6nJlXIoOdVOPA-JCQAKkR03349eQRMr5BmlNMZqwLDTXU_7nlOfj0w8vxi0G7kP2bUAVuUuU1zmPTke_C1fychQinvWOKcQ-gi_XiwzXFhnjr27Pxx571OX99QLPiNf5MGprAwlVfZiWQ0tdbg1X1w7xkk3P6HljlqxKeN6d56vCr3HJ6rCG0DwM3eS-V5kEgYwfbwgAnlQVOFS23yk-MhtD8EbV-yascNEGpngqqOo1pFjvzCb8SIV9rmtQRjH5oJ5ozlhrfUvSUuQUE2jd3g6OxG_D91OFMZ8Pg"
+        },
+        "android": {
+          "nonce_hex": "000000000000000000000006",
+          "plaintext": "{\"id\":\"76543210-ABCD-4EF0-8123-ABCDEF000001\",\"user_id\":\"ABCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF\",\"name\":\"Conto 東京 🏦\",\"type\":\"Conto Bancario\",\"initial_balance\":-45.67,\"color_hex\":\"2468AC\",\"created_at\":\"2023-11-14T22:13:20.125Z\",\"is_archived\":true,\"is_excluded_from_total\":true}",
+          "sealed": "bt1.AAAAAAAAAAAAAAAGy4bJgQV3XgcNXIQcv4nGLrZGEqV0UMA6gU8NHK_p5oUNxZlr3vOJw8Aadwjo-WThrjhX-53i-y_c6HUsssrjgjOpkBmSdcq8Zb9JvNkM0DQvJpFyTxsmMr09mFhhEGMvgDc3SnPM8uCY2xY9373dV4Lx653lI6bEfqphtuZhXhSSBTedr3saR6LKD_OyTyl8jJkIU2aXKPiyLQtoRJYGrPrVFJgcXUSvuW-jrxehR9FfVjD0DJqPeqzXYNPnd6UpXSAVeYyODnfIlkmEu81Sk4_KPrU3R3wHcZkaoWnMZyrcdgVjsvjOyMoDiviAF-Els2X1toY3xkrvwSVv96yGijPCKtY92OtWpxNHJSaK4YAFrb53FFX0KTMTAzbys9LFmZWwJIeuNfs"
+        }
+      },
+      {
+        "kind": "transaction",
+        "id": "76543210-abcd-4ef0-8123-abcdef000002",
+        "expected": {
+          "id": "76543210-abcd-4ef0-8123-abcdef000002",
+          "user_id": "abcdefab-cdef-4abc-8def-abcdefabcdef",
+          "created_at": 1700000000125,
+          "account_id": null,
+          "name": "Caffè 京都 ☕",
+          "amount": "-12.34",
+          "type": "Uscita",
+          "category": "旅",
+          "category_icon": "airplane",
+          "date": 1700123456789,
+          "is_done": false,
+          "is_fixed": false,
+          "is_transfer": false,
+          "transfer_group_id": "",
+          "notes": "Rimborso 日本 🧾",
+          "recurring_frequency": "",
+          "template_id": ""
+        },
+        "ios": {
+          "nonce_hex": "000000000000000000000002",
+          "plaintext": "{\"amount\":-12.34,\"category\":\"旅\",\"category_icon\":\"airplane\",\"created_at\":\"2023-11-14T22:13:20.125Z\",\"date\":\"2023-11-16T08:30:56.789Z\",\"id\":\"76543210-ABCD-4EF0-8123-ABCDEF000002\",\"is_done\":false,\"is_fixed\":false,\"is_transfer\":false,\"name\":\"Caffè 京都 ☕\",\"notes\":\"Rimborso 日本 🧾\",\"recurring_frequency\":\"\",\"template_id\":\"\",\"transfer_group_id\":\"\",\"type\":\"Uscita\",\"user_id\":\"ABCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF\"}",
+          "sealed": "bt1.AAAAAAAAAAAAAAACOmq7YCQNZPgcTfycn2rPL1_zKDLvNaQ8n1R3LXTxlHqovtg4NINfAoc72xd0bKlBouERvm6lHK3nKf2rF9DMzchQyTmnw6EA8YXbtxpEXx_9_igM4oUEAyplVxQdJYfB7KsJmHWTI3loRf3hPjzuMeVim-ibH-16M04nwnzlPBt7GMPo4y8S0U6uZqqjGzp4D4L6BX0_4qHEFaKhCkiiHVH5ViLc70Br3be7Snqgu_gCmE4Ahks_lCNUcfT9gOgEGLeNzKodWy6QthQSQ13Z1JonqdXb0EItTEpPWWFWRBt-FlHd_0JPUw-fS93As-MpvFWQXxz4RuUMGSib9HH8gxvFyT0FwpKgZqsAWmJw9-hNU5VbTKxHHc7_MJzr3jxLE9t7SPMH_fyYmyBBAxkyl0-REr9G_SgX3ctPBbe8uPeglMob_DDuhLwF2r06cSvZGyiSG7aqp6PBzWIPISPJR12vOiqBFSk-M2GVMCqEH5c4dfYpPEektYhJE7R-goJSoH9foxGCuG5orygtxLgqVnR35XGwdBq2sXvmKGfk34nUlpFVnhKHa1R-VLa5YHRPBCYLrQ"
+        },
+        "android": {
+          "nonce_hex": "000000000000000000000007",
+          "plaintext": "{\"id\":\"76543210-ABCD-4EF0-8123-ABCDEF000002\",\"user_id\":\"ABCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF\",\"account_id\":null,\"name\":\"Caffè 京都 ☕\",\"amount\":-12.34,\"type\":\"Uscita\",\"category\":\"旅\",\"category_icon\":\"airplane\",\"date\":\"2023-11-16T08:30:56.789Z\",\"is_done\":false,\"is_fixed\":false,\"is_transfer\":false,\"transfer_group_id\":\"\",\"notes\":\"Rimborso 日本 🧾\",\"recurring_frequency\":\"\",\"template_id\":\"\",\"created_at\":\"2023-11-14T22:13:20.125Z\"}",
+          "sealed": "bt1.AAAAAAAAAAAAAAAHSYSZFMLtzctSe8BOwOMI8xxHoR0dOYv3YEVLDcQ3ntyfn7UNpQZx99kWnnyCAIUa9mM-IYZkhaG8uhmscXwUZ1k94-bNG0gSTX88C2SvmUj3dYW3vdA6vTAPKF7tO2a19mKvoXn00F5PdQBEla5rZg7dH524LH3LMrJiKILxB1wHFBpeOWhkWnMkRDA7om7PvDBUz0EJeobSiYc2KTODkxkeHSaDkqeuomZ4gL2hAvG0ZQnu5JBjaVe6jmrP9P7CjcLvN0BnyH2tSjIfYKJagDzynO74fS5_TmLcYk8mwhA6bhNOiOcBt3Ul6eumZ-48g95YRI1je5yPat_hOED_PePJZYE5mEhklO_8EhqJ59dL1ueLVBXDFSCDJeVoR_DjEZNW7NN3_GX0bFTJdRTPRf4APK2_s63X2kLMic4RkHp7eW3RDw7ryezYZFKd4T8I-30vxPY_2PDR8e5scp4xstzlZ2Iw6zxkSdD8wEu87wXBQrysIX7bFHKU3Wpr-u2o09moiB9D_RoaclJnaJchqK1dxqA6ko7jXMlXFa6va05C_zHmGJmP8fRmKjyBNIo5qT31uT7SMJvNfUycEwLxPn_klhv1dA"
+        }
+      },
+      {
+        "kind": "budget",
+        "id": "76543210-abcd-4ef0-8123-abcdef000003",
+        "expected": {
+          "id": "76543210-abcd-4ef0-8123-abcdef000003",
+          "user_id": "abcdefab-cdef-4abc-8def-abcdefabcdef",
+          "created_at": 1700000000125,
+          "account_id": "76543210-abcd-4ef0-8123-abcdef000001",
+          "category": "食費 🍜",
+          "category_icon": "fork.knife",
+          "monthly_limit": "92.14",
+          "month": 11,
+          "year": 2026
+        },
+        "ios": {
+          "nonce_hex": "000000000000000000000003",
+          "plaintext": "{\"account_id\":\"76543210-ABCD-4EF0-8123-ABCDEF000001\",\"category\":\"食費 🍜\",\"category_icon\":\"fork.knife\",\"created_at\":\"2023-11-14T22:13:20.125Z\",\"id\":\"76543210-ABCD-4EF0-8123-ABCDEF000003\",\"month\":11,\"monthly_limit\":92.14,\"user_id\":\"ABCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF\",\"year\":2026}",
+          "sealed": "bt1.AAAAAAAAAAAAAAADjvEO2OVLpX9Kx_PRKuyIsw0wb3-M7WjcL8E31J0uzCYcM-m9nsELOCUFZlKUFs4tg6VoOpREIj7rDKr-3biwI4Bj0X5_q-8XqqqK9NcvEBrQPjUg0uRY_EuMUciYAefEL7KsZ-JKDm0B4_bqXxmWxGAfjvt5E8741Llmv1J9VAAUpTxMsrrnveoBymz9PK-kluA1MCgCw0UGGxlF2IdlocAyfsfBYnvIqLBIWoVrKV5qk7ModFc2hKKXb3l2HC7nfmac-9zMr4jPFZSlF4fDUqwTNRpX_kPj4hKVJO5X_HRuv8ih75Rmv3eNbct3CNUIPubQsCRRY0jShi_-lw11eiR-hTd6PlVHsT8G08vlYwjmydWLzzUSLOA9gzQX2LYkqmPbLyVQLrVT3y0bCg"
+        },
+        "android": {
+          "nonce_hex": "000000000000000000000008",
+          "plaintext": "{\"id\":\"76543210-ABCD-4EF0-8123-ABCDEF000003\",\"user_id\":\"ABCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF\",\"account_id\":\"76543210-ABCD-4EF0-8123-ABCDEF000001\",\"category\":\"食費 🍜\",\"category_icon\":\"fork.knife\",\"monthly_limit\":92.14,\"month\":11,\"year\":2026,\"created_at\":\"2023-11-14T22:13:20.125Z\"}",
+          "sealed": "bt1.AAAAAAAAAAAAAAAIrP9hAX6UJU47M8oE8mJrHyVJjCqIpT1aUV2HIlKOglTTtfzYr6syYCldvKD_eeqUn6yDcw7wvk2dHuft7ujNMg9D7AbudYMg2-1UEUGJ0uulM1vlWWBsM7KES5tx0VnxwEppVocfGdsoL7Yq5l-JLOAKwKj0eDaAsr4P_MaXdpEHYA0AoDwu5qg3xaYCGNiggkrzsf-1T1Go-oOWzU3UjKrHeGy3TLkM65z3kq6zRnop_Cni5VLIvrHmXwdYUA1kZthQ7Z3ngSpUmnjriWCDTp3ONScUw9tIIMp_7TmaWX058hsCIO-KMhXu9AShmD-WNQ3XDc1nbUR9Wv6v4nU1PEgcndmMx7lFIhV0kEelGabkFHzZuo40TFjPeCdhHQaxSJgld1zfByGVhriY-g"
+        }
+      },
+      {
+        "kind": "goal",
+        "id": "76543210-abcd-4ef0-8123-abcdef000004",
+        "expected": {
+          "id": "76543210-abcd-4ef0-8123-abcdef000004",
+          "user_id": "abcdefab-cdef-4abc-8def-abcdefabcdef",
+          "created_at": 1700000000125,
+          "name": "旅行 🚄",
+          "emoji": "🌸",
+          "target_amount": "382.76",
+          "current_amount": "12.45",
+          "deadline": null,
+          "is_completed": false
+        },
+        "ios": {
+          "nonce_hex": "000000000000000000000004",
+          "plaintext": "{\"created_at\":\"2023-11-14T22:13:20.125Z\",\"current_amount\":12.45,\"emoji\":\"🌸\",\"id\":\"76543210-ABCD-4EF0-8123-ABCDEF000004\",\"is_completed\":false,\"name\":\"旅行 🚄\",\"target_amount\":382.76,\"user_id\":\"ABCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF\"}",
+          "sealed": "bt1.AAAAAAAAAAAAAAAETNjdCs1Ll_pvjJb6VHx7VltUqjPf4RQOz3b6HguNO5DI48Q4TYXsguos2j5tBN11M5eQMVxE9iYX82p_zg5otAxo3pJLMUV3tANpUuRAnNFtzsH2M6KEa42kMm0wFyLj0K1U3uLka5lCHz-wzWCGfPZfFxdHudHhvi_y2vj9W08UY0BXHhT4FIV9AhzF_B2vFiUkHkBpIrhPATDlopaQDuyTf4aI3pz2NKVevSce8g-ckxsKLJyg-UEz8PNm-jCU2yc63x6CgNNLUChZCuUeP621atSSfkrT5ngfONfcTG7Q_1uKAieKclocuTzgyCLRR7Q7sfyF9H7uY6BbHA"
+        },
+        "android": {
+          "nonce_hex": "000000000000000000000009",
+          "plaintext": "{\"id\":\"76543210-ABCD-4EF0-8123-ABCDEF000004\",\"user_id\":\"ABCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF\",\"name\":\"旅行 🚄\",\"emoji\":\"🌸\",\"target_amount\":382.76,\"current_amount\":12.45,\"deadline\":null,\"is_completed\":false,\"created_at\":\"2023-11-14T22:13:20.125Z\"}",
+          "sealed": "bt1.AAAAAAAAAAAAAAAJ2kuLiWs8pIqgvlaok7kYhNZus8jCHIIsP3VdX39ooLGdZa4dTySxlkW7qrH3-8ATIWn04JRLzFFSXWRj6YzbbqBIvdJesRLa-aJEtZwQelR9vkQCakhc9b91hq9AyO0KeUJHABPIMdtKM_jmeVD5FJvGZxfOWz34zJQ3btZXuTqjBLnhF1wW2FgAlmVCopzLxr23_IsBxJ0fHMVYbQERbijfndBK--srwdJt_qMNsIrVgRbw44kyuagBzRFAL2VoQdoOljI7EXokzG6W8ImhSXyc8hMkfOUFIpPSUijI6i1EQMDepYSTLbr32D6AxreGu_8HKaKaTnGKvtBFLHDGr6LoEeAonQG7_C8GyMc"
+        }
+      },
+      {
+        "kind": "rule",
+        "id": "76543210-abcd-4ef0-8123-abcdef000005",
+        "expected": {
+          "id": "76543210-abcd-4ef0-8123-abcdef000005",
+          "user_id": "abcdefab-cdef-4abc-8def-abcdefabcdef",
+          "created_at": 1700000000125,
+          "name": "家賃 🏡",
+          "type": "Uscita",
+          "category": "Casa",
+          "category_icon": "house",
+          "notes": "例外あり",
+          "amount": "278.65",
+          "is_fixed": true,
+          "account_id": null,
+          "frequency": "Mensile",
+          "start_date": 1700086400250,
+          "end_date": null,
+          "exceptions": "{\"2023-11-16\":{\"skip\":true}}",
+          "materialized_through": 1700345600750
+        },
+        "ios": {
+          "nonce_hex": "000000000000000000000005",
+          "plaintext": "{\"account_id\":null,\"amount\":278.65,\"category\":\"Casa\",\"category_icon\":\"house\",\"created_at\":\"2023-11-14T22:13:20.125Z\",\"end_date\":null,\"exceptions\":\"{\\\"2023-11-16\\\":{\\\"skip\\\":true}}\",\"frequency\":\"Mensile\",\"id\":\"76543210-ABCD-4EF0-8123-ABCDEF000005\",\"is_fixed\":true,\"materialized_through\":\"2023-11-18T22:13:20.750Z\",\"name\":\"家賃 🏡\",\"notes\":\"例外あり\",\"start_date\":\"2023-11-15T22:13:20.250Z\",\"type\":\"Uscita\",\"user_id\":\"ABCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF\"}",
+          "sealed": "bt1.AAAAAAAAAAAAAAAFx5yTbKRTUTcy2fW09n5VKa-DLw4hSxmKRhQum8ZSJtfZTIeWdqQvpsxsdnd4IxBFT2RQJ4191Gu1bvXV2WrWTEYZOu2DYQZIy7M882y9qilU4Xpol_smDsxisPmz4C_CPALq5_0k4zpicg3VaBWUQhz8cdAjAjWR7WIzJs4eZofbWtWmx0Z3cpMvg5g89b_2Gh4QkJWHREYRcOAQ9fC4RYjM-RN992DaTyChuljGJd_5D2q_1r10MK6cI9dJpGhdyMmmj5xsmZJdv0er3ErRcwQ79gNewAGLIJwssd3DwJ063C3Y7i7SKilnXCikk3W0wsEi8i_wy8lafXFDZbvIuOfeYm73rQotMlPSSC5SRl4fn-AvcqXQCklk7hoIQNKyPHHZiR9GuvjPk6CLzZGFjq9HJEI3I7xjrBAZgzBgOcfXfSmgOvlNsbuP1cP0g4QN1XaS0-TfnkKTLv14wPXqiTprirxtjOfl_FisaJUEiJh6UWvx0D4-jcPvhkH2lt9iuY-hGSamqXrbxNHCybwwzqc8i_XgOXXqMHbrx0YEUGOLRmhK5S_Hu8Nv9RlMyafSAHUeIuiFq_TFr6uQ7ezUMfuV4UF-bxcbWJMMzG764xb_M36qankP6KJy1mB0bw"
+        },
+        "android": {
+          "nonce_hex": "00000000000000000000000a",
+          "plaintext": "{\"id\":\"76543210-ABCD-4EF0-8123-ABCDEF000005\",\"user_id\":\"ABCDEFAB-CDEF-4ABC-8DEF-ABCDEFABCDEF\",\"name\":\"家賃 🏡\",\"type\":\"Uscita\",\"category\":\"Casa\",\"category_icon\":\"house\",\"notes\":\"例外あり\",\"amount\":278.65,\"is_fixed\":true,\"account_id\":null,\"frequency\":\"Mensile\",\"start_date\":\"2023-11-15T22:13:20.250Z\",\"end_date\":null,\"exceptions\":\"{\\\"2023-11-16\\\":{\\\"skip\\\":true}}\",\"materialized_through\":\"2023-11-18T22:13:20.750Z\",\"created_at\":\"2023-11-14T22:13:20.125Z\"}",
+          "sealed": "bt1.AAAAAAAAAAAAAAAKciQwBuVjGzd96djiNQchWwS5kb6jjK58Lzvl_nelp6_hGsZfrZbGzSy9ty1o4IBad8qaZiTpW-xKzol35RJc6ORGH1S4tlqph4BQNmXAZqDPFBO5OyOCM_b0uwhZ-VoFtR8Eomc0wVc8Ue7pLVgaHk-FD7RAQk8ZxiNmpLRgWP7ZFwyFdbZq4StYYs3-jNWgREF7eef42Kz4kDyLOtxFU5iS-ijjThmosi77skUVBsIhbCHFkNhr8Gfvt_7_vLYRbQfFEAiG5trjNnf4wXHdTv_LbbzsntoVFkREbVqKRiAEyNMHvyNhANmIIVw-hMTa0MikFaH6vF7-KvXCCAgFrS1U6rmpSQlBY-Pf8jju5dm8uf41pFs2Ol7Rbql0Q-FruUtyWy7YcRVMLstPHdzXEHorsTORIQoDCScaY7KLzJagugo1JSU4kcJhiH1xrdaa6IH80HUoDSBrJ5YAL0PMIbJMnbYzwcL0G1-8EpcNMj_Bimaa0AYBMxP3e1VIq891iUvN4wNJVpLF0x3tFxccBym0zBoABK_pqrUnyE6YxJ5B9uvXzbYf57f5djZGqeSIeiNz8In_aghOI55qjq5__mdK58tdu32_4O4ugNIL14UJjje4wT0smokypslbGQ"
+        }
+      }
+    ]
+  },
   "negative": {
     "tag_altered": "bt1.ABEiM0RVZneImaq7oaSR3iASJWpKWvEuVL-2ERtv1jh9SEGV6e5wllIYPl3vJQ73EXtVxuzH5_Uqs8ccueBPRcUCfTdDRRLe",
     "unsupported_version": "bt2.ABEiM0RVZneImaq7oaSR3iASJWpKWvEuVL-2ERtv1jh9SEGV6e5wllIYPl3vJQ73EXtVxuzH5_Uqs8ccueBPRcUCfTdDRRLf",
