@@ -11,4 +11,4 @@ SC-9: Post-3–42 in Drive. Post-23–42 esportati e verificati, 103 slide con B
 Android 2026-11-23: B0–B11 completi, parità grafica e stress test fatti (commit fino a 0ec9d96); restano collaudo, commissioni, prove su telefono vero e prova sync reale. Social: post 5–15 (v2) pronti in Drive «Da postare». Android (storico): movimenti locali con data, modifica e pianificazione, migrazione Room verificata. Prossimi flussi locali: categorie e filtri. Supabase rinviato.
 Banca (S-60): progetto esecutivo pronto in `.cantiere/progetto-banca.md` (Enable Banking, piano B Salt Edge); esecuzione dopo S-50. S-60t (verifiche commerciali/legali di Matteo) si può fare subito.
 Social: calendario e pubblicazione gestiti direttamente da Matteo.
-E2E: blocco 1 e blocco 2 collaudati (2026-11-25 16:45). Difetti iOS da chiudere prima dell'accensione: S-50h2 e guardia server S-50q. Prossimo S-50j (Codex).
+E2E: blocchi 1 e 2 collaudati. S-50j iOS implementato [~], suite completa verde e screenshot pronti per S-50o. Interruttore spento. Prossimo S-50k Android. S-50h2 e S-50q restano obbligatori prima di S-50p.

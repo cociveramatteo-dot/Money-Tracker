@@ -5,6 +5,16 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### PROTEZIONE AVANZATA · S-50o — approvazione prima dell'accensione
+
+Dopo S-50m, apri Terminale e incolla questo comando per vedere le schermate iOS e Android:
+
+```zsh
+open "/Users/matteo/Desktop/APP/MoneyTracker/.cantiere/tmp/e2e-ios/screenshots/after" /tmp/e2e-android
+```
+
+Torna nella chat del cantiere e scrivi «Approvo le schermate della Protezione avanzata» oppure indica la schermata e cosa vuoi cambiare. La prova reale è facoltativa e richiede un account di prova da usare insieme al capocantiere.
+
 ### BANCA · modello economico — cosa resta a te (tutto spiegato in `.cantiere/banca-modello-economico.md`, copia su Drive `02_RISORSE/lavorate/banca-modello-economico-2026-11-25.md`)
 1. ✅ Fatto 2026-11-25: nessun account Apple Developer ancora (si sceglie «Individual» all'iscrizione, dopo il gate del 6/12; la banca resta in coda e si chiede ad Apple prima di costruirla). Dettagli nel §10 del documento.
 2. 📍 La tua casella email. ▶️ Invia a info@enablebanking.com la mail del §9 del documento (oggetto e corpo già pronti; cambia la stima del volume se vuoi). ↩️ Incollami la risposta: con costo per conto e fattura minima rifaccio le tabelle e fissiamo i prezzi.

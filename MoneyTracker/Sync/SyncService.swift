@@ -1015,10 +1015,17 @@ final class SyncService: ObservableObject {
 
     private typealias PullRows = E2EVerifier.Snapshot
 
+    @Published private(set) var e2eProtection: E2EController.Protection?
+    private var e2eProtectionUser: UUID?
+    private(set) var e2eSessionGeneration = UUID()
+
+    var currentE2EProtection: E2EController.Protection? {
+        e2eProtectionUser == userId ? e2eProtection : nil
+    }
+
     @Published private(set) var e2eServerSupported: Bool?
     @Published private(set) var e2eLockReason: E2EGate.LockReason?
     private(set) var e2eMigrationToResume: E2EMigrationDirection?
-    private var e2eSessionGeneration = UUID()
     private var e2eTask: (id: UUID, work: Task<Bool, Never>)?
     private let initialSyncKey = "e2e.initialSyncUser"
 
@@ -1036,6 +1043,8 @@ final class SyncService: ObservableObject {
         status = .idle
         e2eLockReason = nil
         e2eServerSupported = nil
+        e2eProtectionUser = nil
+        e2eProtection = nil
         e2eMigrationToResume = nil
         defaults.removeObject(forKey: E2EMigrationMarker.defaultsKey)
         defaults.removeObject(forKey: initialSyncKey)
@@ -1200,6 +1209,7 @@ final class SyncService: ObservableObject {
     func withE2EMigrator<T>(context: ModelContext, authenticationReason: String,
                            checkpoint: @escaping (E2EMigrator.Step) throws -> Void = { _ in },
                            authenticateForTest: (() async throws -> Void)? = nil,
+                           protectionOperation: E2EController.Operation? = nil,
                            action: (E2EMigrator) async throws -> T) async throws -> T {
         guard e2eEnabled, !isMigrating, !isUsingVolatileStore,
               !defaults.bool(forKey: "demoModeEnabled"), let userId, let backend = e2eBackend,
@@ -1232,18 +1242,28 @@ final class SyncService: ObservableObject {
         try validateSession()
         #if DEBUG
         let authenticate = authenticateForTest ?? { try await E2EMigrator.authenticateDevice(reason: authenticationReason) }
-        let stepHook = checkpoint
         #else
         let authenticate = { try await E2EMigrator.authenticateDevice(reason: authenticationReason) }
-        let stepHook: (E2EMigrator.Step) throws -> Void = { _ in }
         #endif
         let migrator = makeMigrator(context: context, userId: userId, backend: backend,
-                                    validateSession: validateSession, checkpoint: stepHook, authenticate: authenticate)
-        let result = try await action(migrator)
+                                    validateSession: validateSession, checkpoint: checkpoint, authenticate: authenticate)
+        let result: Result<T, any Error>
+        do { result = .success(try await action(migrator)) }
+        catch { result = .failure(error) }
         try validateSession()
+        if let operation = protectionOperation {
+            if case .success = result, let protection = operation.completedProtection {
+                e2eServerSupported = true
+                publishE2EProtection(protection, userId: userId)
+            } else if operation != .rotateKey && operation != .changePhrase {
+                await refreshE2EProtection(server: backend.0, userId: userId, validateSession: validateSession)
+                try validateSession()
+            }
+        }
+        let value = try result.get()
         e2eLockReason = nil
         if hasPendingChanges { schedulePush(context: context) }
-        return result
+        return value
     }
 
     private func makeMigrator(context: ModelContext, userId: UUID, backend: E2EBackend,
@@ -1303,9 +1323,17 @@ final class SyncService: ObservableObject {
         isMigrating = true
         defer { isMigrating = false }
         e2eServerSupported = resolution.serverSupported
+        publishE2EProtection(resolution, userId: userId)
         let migrator = makeMigrator(context: context, userId: userId, backend: backend,
                                     validateSession: validateSession)
-        try await migrator.resume(marker, row: resolution.row)
+        do {
+            try await migrator.resume(marker, row: resolution.row)
+        } catch {
+            await refreshE2EProtection(server: backend.0, userId: userId, validateSession: validateSession)
+            throw error
+        }
+        try validateSession()
+        await refreshE2EProtection(server: backend.0, userId: userId, validateSession: validateSession)
         try validateSession()
         e2eLockReason = nil
         e2eMigrationToResume = nil
@@ -1321,6 +1349,7 @@ final class SyncService: ObservableObject {
     private func e2eRemote(for resolution: E2EGate.Resolution, plain: any SyncRemote,
                            vault: any VaultAccess, userId: UUID) -> (any SyncRemote)? {
         e2eServerSupported = resolution.serverSupported
+        publishE2EProtection(resolution, userId: userId)
         e2eLockReason = nil
         e2eMigrationToResume = nil
         switch resolution.mode {
@@ -1330,6 +1359,37 @@ final class SyncService: ObservableObject {
         case .resume(let direction): e2eMigrationToResume = direction
         }
         return nil
+    }
+
+    private func refreshE2EProtection(server: any E2EServerAccess, userId: UUID,
+                                      validateSession: () throws -> Void) async {
+        let gate = E2EGate(server: server, keyStore: e2eKeyStore)
+        let marker = E2EMigrator.marker(in: defaults, userId: userId)
+        guard (try? validateSession()) != nil,
+              let resolution = try? await gate.resolve(userId: userId, enabled: e2eEnabled,
+                                                       marker: marker, validateSession: validateSession),
+              (try? validateSession()) != nil else { return }
+        e2eServerSupported = resolution.serverSupported
+        publishE2EProtection(resolution, userId: userId)
+    }
+
+    private func publishE2EProtection(_ resolution: E2EGate.Resolution, userId: UUID) {
+        let protection: E2EController.Protection? = if resolution.serverSupported != true {
+            nil
+        } else {
+            switch resolution.mode {
+            case .plain: .off
+            case .vault: .active
+            case .locked(let reason): .locked(reason, isEnabling: resolution.row?.state == .migrating)
+            case .resume(let direction): .pending(direction, canCancel: resolution.row?.state == .migrating)
+            }
+        }
+        publishE2EProtection(protection, userId: userId)
+    }
+
+    private func publishE2EProtection(_ protection: E2EController.Protection?, userId: UUID) {
+        e2eProtectionUser = userId
+        if e2eProtection != protection { e2eProtection = protection }
     }
 
     private func pauseE2ESync() -> Bool {

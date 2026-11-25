@@ -24,7 +24,10 @@ struct MoneyTrackerApp: App {
     // In questo modo bypassiamo login Supabase/Face ID e forziamo la modalità demo,
     // ottenendo dati deterministici senza chiamate di rete durante i test.
     static var isUITesting: Bool {
-        ProcessInfo.processInfo.arguments.contains("--uitesting")
+        #if DEBUG
+        if E2EUITestHarness.isRequested { return true }
+        #endif
+        return ProcessInfo.processInfo.arguments.contains("--uitesting")
     }
 
     // MARK: - Init
@@ -141,10 +144,7 @@ struct MoneyTrackerApp: App {
         WindowGroup {
             Group {
                 if Self.isUITesting {
-                    // Bypassa login/splash: gli XCUITest devono partire già dentro
-                    // l'app, su dati demo deterministici, senza rete.
-                    mainAppView
-                        .appLockGate()
+                    uiTestView
                 } else if auth.isLoading {
                     // Splash — visibile solo per il tempo necessario a controllare
                     // la sessione salvata nel Keychain (di solito < 0.5 s).
@@ -182,6 +182,19 @@ struct MoneyTrackerApp: App {
                 }
             }
         }
+    }
+
+    @ViewBuilder
+    private var uiTestView: some View {
+        #if DEBUG
+        if E2EUITestHarness.isRequested {
+            E2EUITestHarness()
+        } else {
+            mainAppView.appLockGate()
+        }
+        #else
+        mainAppView.appLockGate()
+        #endif
     }
 
     // MARK: - Splash

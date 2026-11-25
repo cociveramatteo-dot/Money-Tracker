@@ -132,3 +132,54 @@
 
 /* S-30: history category suggestion */
 "· Ultima usata" = "· Ultima usata";
+
+/* Protezione avanzata · S-50 */
+"e2e_titolo" = "Protezione avanzata";
+"e2e_sottotitolo" = "Cifratura end-to-end della sincronizzazione";
+"e2e_stato_attiva" = "Attiva";
+"e2e_stato_disattivata" = "Disattivata";
+"e2e_intro" = "Con la Protezione avanzata i tuoi dati vengono cifrati su questo dispositivo prima della sincronizzazione. Sul cloud restano solo dati illeggibili: nessuno, nemmeno chi gestisce Bucktrail, può leggerli senza la tua frase di sicurezza o la chiave di recupero.";
+"e2e_metadati" = "Il server vede solo informazioni tecniche: il tuo account, quante voci hai e quando sincronizzi.";
+"e2e_avviso_perdita" = "Se perdi sia la frase di sicurezza sia la chiave di recupero, i dati sul cloud non si possono più recuperare. Nessuno può farlo al posto tuo.";
+"e2e_avviso_aggiorna" = "Prima di attivarla, aggiorna Bucktrail su tutti i dispositivi collegati a questo account: le versioni precedenti smetteranno di sincronizzare.";
+"e2e_attiva" = "Attiva Protezione avanzata";
+"e2e_frase_titolo" = "Scegli una frase di sicurezza";
+"e2e_frase_aiuto" = "Almeno 10 caratteri: meglio quattro o più parole. Non usare la password dell'account. La frase non lascia mai il dispositivo.";
+"e2e_frase_campo" = "Frase di sicurezza";
+"e2e_frase_ripeti" = "Ripeti la frase";
+"e2e_frase_corta" = "La frase deve avere almeno 10 caratteri.";
+"e2e_frase_diverse" = "Le due frasi non coincidono.";
+"e2e_chiave_titolo" = "La tua chiave di recupero";
+"e2e_chiave_testo" = "Conservala fuori da questo telefono, su carta o in un gestore di password. Serve se dimentichi la frase di sicurezza. Non verrà più mostrata.";
+"e2e_copia" = "Copia";
+"e2e_condividi" = "Salva o condividi";
+"e2e_chiave_conferma" = "Per confermare, scrivi l'ultimo gruppo della chiave";
+"e2e_chiave_salvata" = "Ho salvato la chiave";
+"e2e_in_corso" = "Cifratura dei dati in corso… Tieni l'app aperta.";
+"e2e_fatto" = "Protezione avanzata attiva";
+"e2e_cambia_frase" = "Cambia frase di sicurezza";
+"e2e_nuova_chiave" = "Crea una nuova chiave di recupero";
+"e2e_nuova_chiave_nota" = "La chiave di recupero precedente smetterà di funzionare.";
+"e2e_disattiva" = "Disattiva Protezione avanzata";
+"e2e_disattiva_titolo" = "Disattivare la Protezione avanzata?";
+"e2e_disattiva_testo" = "I dati torneranno a sincronizzarsi senza cifratura end-to-end: protetti come prima, ma non con una chiave solo tua.";
+"e2e_disattivazione_in_corso" = "Disattivazione in corso… Tieni l'app aperta.";
+"e2e_pausa" = "Sincronizzazione in pausa: inserisci la frase di sicurezza";
+"e2e_sblocca_titolo" = "Sblocca la sincronizzazione";
+"e2e_sblocca_testo" = "La Protezione avanzata è attiva su questo account. Inserisci la frase di sicurezza per leggere i dati del cloud su questo dispositivo.";
+"e2e_sblocca" = "Sblocca";
+"e2e_usa_chiave" = "Usa la chiave di recupero";
+"e2e_chiave_campo" = "Chiave di recupero";
+"e2e_errata" = "Frase o chiave non corretta.";
+"e2e_perse_entrambe" = "Ho perso frase e chiave";
+"e2e_ricomincia_titolo" = "Ricominciare da questo dispositivo?";
+"e2e_ricomincia_testo" = "Senza frase di sicurezza e chiave di recupero i dati cifrati sul cloud non si possono leggere. Puoi cancellarli e ripartire con i dati di questo dispositivo. L'operazione è irreversibile.";
+"e2e_ricomincia" = "Cancella i dati cifrati e ricomincia";
+"e2e_altro_dispositivo" = "La Protezione avanzata si sta attivando o disattivando su un altro dispositivo. Completa lì l'operazione, oppure inserisci qui la frase di sicurezza per proseguire.";
+"e2e_errore" = "Operazione non completata. I tuoi dati sono al sicuro: riprova.";
+"e2e_annulla_attivazione" = "Annulla attivazione";
+"e2e_riprova" = "Riprova";
+"e2e_gia_in_corso" = "Un altro dispositivo sta già attivando la Protezione avanzata.";
+"e2e_serve_rete" = "Serve una connessione a Internet.";
+"e2e_motivo_biometria" = "Conferma la tua identità per gestire la Protezione avanzata";
+"e2e_frase_cambiata" = "Frase di sicurezza aggiornata";

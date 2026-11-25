@@ -12,7 +12,16 @@ struct ContentView: View {
     /// Segmento attivo dentro PianificaView (0 = Budget, 1 = Obiettivi).
     @State private var planningSegment      = 0
 
+    @ViewBuilder
     var body: some View {
+        if E2EFeature.isEnabled {
+            content.modifier(E2EUnlockPrompt(controller: .shared))
+        } else {
+            content
+        }
+    }
+
+    private var content: some View {
         ZStack(alignment: .bottomTrailing) {
             VStack(spacing: 0) {
             TabView(selection: $selectedTab) {

@@ -271,6 +271,10 @@ struct SettingsView: View {
 
                         ThinDivider()
 
+                        if E2EFeature.isEnabled, SupabaseManager.shared.isLoggedIn, !demoModeEnabled {
+                            E2ESettingsRow(controller: .shared)
+                        }
+
                         Button {
                             showAuditLog = true
                         } label: {

@@ -36,6 +36,13 @@ final class SupabaseManager: ObservableObject {
     // MARK: - Init
 
     private init() {
+        #if DEBUG
+        // UI fixtures use only the demo store or an injected in-memory backend.
+        guard !MoneyTrackerApp.isUITesting else {
+            isLoading = false
+            return
+        }
+        #endif
         Task { await bootstrap() }
     }
 
