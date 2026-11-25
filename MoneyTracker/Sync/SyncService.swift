@@ -10,7 +10,7 @@ import Combine
 // Struct Codable che rispecchiano le colonne delle tabelle Supabase (snake_case).
 // Vengono costruite dai modelli SwiftData locali e decodificate dalle risposte API.
 
-struct SBRecurringRule: Codable {
+struct SBRecurringRule: @MainActor SyncRow {
     let id: UUID
     let userId: UUID
     let name: String
@@ -107,7 +107,7 @@ struct SBRecurringRule: Codable {
     }
 }
 
-private struct SBAccount: Codable {
+struct SBAccount: @MainActor SyncRow {
     let id:                   UUID
     let userId:               UUID
     let name:                 String
@@ -142,7 +142,7 @@ private struct SBAccount: Codable {
     }
 }
 
-private struct SBTransaction: Codable {
+struct SBTransaction: @MainActor SyncRow {
     let id:                 UUID
     let userId:             UUID
     let accountId:          UUID?
@@ -199,7 +199,7 @@ private struct SBTransaction: Codable {
     }
 }
 
-private struct SBBudget: Codable {
+struct SBBudget: @MainActor SyncRow {
     let id:           UUID
     let userId:       UUID
     let accountId:    UUID?
@@ -234,7 +234,7 @@ private struct SBBudget: Codable {
     }
 }
 
-private struct SBGoal: Codable {
+struct SBGoal: @MainActor SyncRow {
     let id:            UUID
     let userId:        UUID
     let name:          String
@@ -303,12 +303,33 @@ enum SyncStatus: Equatable {
 final class SyncService: ObservableObject {
 
     static let shared = SyncService()
+
+    private let injectedRemote: (any SyncRemote)?
+    private let injectedUserId: UUID?
+    private let defaults: UserDefaults
+    private let clearAuditLog: @MainActor () -> Void
+
     private init() {
+        injectedRemote = nil
+        injectedUserId = nil
+        defaults = .standard
+        clearAuditLog = { AuditLogger.shared.clearAll() }
         startNetworkMonitoring()
     }
 
-    private var auth:   SupabaseManager { .shared }
-    private var client: SupabaseClient  { auth.client }
+    /// Isolated service for tests, with no network monitor or live app state.
+    init(remote: any SyncRemote, userId: UUID, defaults: UserDefaults,
+         clearAuditLog: @escaping @MainActor () -> Void = {}) {
+        injectedRemote = remote
+        injectedUserId = userId
+        self.defaults = defaults
+        self.clearAuditLog = clearAuditLog
+    }
+
+    private var auth: SupabaseManager { .shared }
+    private var remote: any SyncRemote { injectedRemote ?? PlainRemote(client: auth.client) }
+    private var userId: UUID? { injectedUserId ?? auth.session?.user.id }
+    private var isUsingVolatileStore: Bool { injectedRemote == nil && MoneyTrackerApp.usingVolatileStore }
 
     private let lastPullKey  = "syncService.lastPull"
     private let lastUserKey  = "syncService.lastUserId"
@@ -331,15 +352,15 @@ final class SyncService: ObservableObject {
     private var consecutiveFailures = 0
     private let maxBackoff: TimeInterval = 60
     private var retryTask: Task<Void, Never>?
-    private let pathMonitor = NWPathMonitor()
+    private lazy var pathMonitor = NWPathMonitor()
     /// Ultimo context "reale" usato per un sync — serve ai retry automatici innescati
     /// dal path monitor, che non hanno un chiamante diretto da cui riceverlo.
     private var lastContext: ModelContext?
 
     /// true se esistono modifiche locali non ancora confermate su Supabase.
     private var hasPendingChanges: Bool {
-        get { UserDefaults.standard.bool(forKey: pendingChangesKey) }
-        set { UserDefaults.standard.set(newValue, forKey: pendingChangesKey) }
+        get { defaults.bool(forKey: pendingChangesKey) }
+        set { defaults.set(newValue, forKey: pendingChangesKey) }
     }
 
     private func startNetworkMonitoring() {
@@ -366,7 +387,7 @@ final class SyncService: ObservableObject {
     /// da solo il prossimo tentativo invece di richiedere un intervento esterno.
     @discardableResult
     func pushResilient(context: ModelContext) async -> Bool {
-        guard !MoneyTrackerApp.usingVolatileStore else { return false }
+        guard !isUsingVolatileStore else { return false }
         lastContext = context
         status = .syncing
         let ok = await push(context: context)
@@ -383,7 +404,7 @@ final class SyncService: ObservableObject {
     }
 
     private func scheduleRetry(context: ModelContext) {
-        guard !MoneyTrackerApp.usingVolatileStore else { return }
+        guard !isUsingVolatileStore else { return }
         retryTask?.cancel()
         let delay = min(pow(2.0, Double(consecutiveFailures)), maxBackoff)
         status = .waitingForRetry(attempt: consecutiveFailures)
@@ -421,13 +442,13 @@ final class SyncService: ObservableObject {
 
     private var dirtyTransactionIds: Set<UUID> {
         get {
-            guard let data = UserDefaults.standard.data(forKey: dirtyTransactionIdsKey),
+            guard let data = defaults.data(forKey: dirtyTransactionIdsKey),
                   let ids  = try? JSONDecoder().decode(Set<UUID>.self, from: data) else { return [] }
             return ids
         }
         set {
             guard let data = try? JSONEncoder().encode(newValue) else { return }
-            UserDefaults.standard.set(data, forKey: dirtyTransactionIdsKey)
+            defaults.set(data, forKey: dirtyTransactionIdsKey)
         }
     }
 
@@ -471,7 +492,7 @@ final class SyncService: ObservableObject {
 
     /// true se è passato abbastanza tempo dall'ultimo pull.
     var shouldPull: Bool {
-        guard let last = UserDefaults.standard.object(forKey: lastPullKey) as? Date else { return true }
+        guard let last = defaults.object(forKey: lastPullKey) as? Date else { return true }
         return Date().timeIntervalSince(last) > pullCooldown
     }
 
@@ -485,7 +506,7 @@ final class SyncService: ObservableObject {
     /// instabile), il pull viene saltato per non cancellare modifiche locali non ancora
     /// caricate sul cloud.
     func manualRefresh(context: ModelContext) async {
-        guard auth.isLoggedIn, !UserDefaults.standard.bool(forKey: "demoModeEnabled") else { return }
+        guard auth.isLoggedIn, !defaults.bool(forKey: "demoModeEnabled") else { return }
         guard await pushResilient(context: context) else { return }
         await pull(context: context)
     }
@@ -497,18 +518,18 @@ final class SyncService: ObservableObject {
     /// • Se Supabase non ha dati → push (dati locali esistenti vanno sul cloud)
     /// • Se Supabase ha già dati  → pull (il cloud è la fonte di verità)
     func syncOnLogin(context: ModelContext) async {
-        guard let userId = auth.session?.user.id else { return }
+        guard let userId else { return }
 
         // Isolamento multi-utente: se l'utente è cambiato, svuota il locale
         // (gestisce anche crash / force quit che hanno saltato il logout)
-        let lastUserId = UserDefaults.standard.string(forKey: lastUserKey)
+        let lastUserId = defaults.string(forKey: lastUserKey)
         if lastUserId != userId.uuidString {
             clearLocalData(context: context)
         }
-        UserDefaults.standard.set(userId.uuidString, forKey: lastUserKey)
+        defaults.set(userId.uuidString, forKey: lastUserKey)
 
         do {
-            let remoteIds = try await fetchIds(table: "mt_accounts", userId: userId)
+            let remoteIds = try await remote.fetchIds(table: .accounts, userId: userId)
             if remoteIds.isEmpty {
                 // Nuovo utente o primo dispositivo: porta i dati locali su Supabase
                 await push(context: context)
@@ -528,7 +549,7 @@ final class SyncService: ObservableObject {
     /// Chiamato automaticamente ad ogni salvataggio del ModelContext.
     /// Se arrivano più salvataggi ravvicinati, parte un solo push.
     func schedulePush(context: ModelContext) {
-        guard !MoneyTrackerApp.usingVolatileStore else { return }
+        guard !isUsingVolatileStore else { return }
         guard auth.isLoggedIn else { return }
         lastContext = context
         hasPendingChanges = true
@@ -566,10 +587,10 @@ final class SyncService: ObservableObject {
         do { try context.delete(model: Account.self) }
         catch { Logger.persistence.error("clearLocalData: delete Account failed → \(error.localizedDescription, privacy: .public)") }
         context.safeSave()
-        UserDefaults.standard.removeObject(forKey: lastPullKey)
+        defaults.removeObject(forKey: lastPullKey)
         // Il registro modifiche (PROP-02) non deve mai sopravvivere ai dati a cui si
         // riferisce, né restare leggibile da un utente diverso sullo stesso dispositivo.
-        AuditLogger.shared.clearAll()
+        clearAuditLog()
     }
 
     // MARK: - Push (SwiftData → Supabase)
@@ -580,8 +601,8 @@ final class SyncService: ObservableObject {
     /// caricate come "cancellate altrove" e le eliminerebbe (vedi pull(), sezione DELETE).
     @discardableResult
     func push(context: ModelContext) async -> Bool {
-        guard !MoneyTrackerApp.usingVolatileStore else { return false }
-        guard let userId = auth.session?.user.id else { return false }
+        guard !isUsingVolatileStore else { return false }
+        guard let userId else { return false }
         Logger.persistence.info("SyncService: push started")
 
         do {
@@ -596,9 +617,9 @@ final class SyncService: ObservableObject {
             // Accounts
             if !accounts.isEmpty {
                 let sb = accounts.map { SBAccount($0, userId: userId) }
-                try await client.from("mt_accounts").upsert(sb).execute()
+                try await remote.upsert(sb, table: .accounts, userId: userId)
             }
-            try await deleteOrphans(table: "mt_accounts",
+            try await deleteOrphans(table: .accounts,
                                     userId: userId,
                                     localIds: Set(accounts.map { $0.id }))
 
@@ -611,40 +632,40 @@ final class SyncService: ObservableObject {
             let dirtyTransactions = dirtyIds.isEmpty ? [] : transactions.filter { dirtyIds.contains($0.id) }
             if !dirtyTransactions.isEmpty {
                 let sb = dirtyTransactions.map { SBTransaction($0, userId: userId) }
-                try await client.from("mt_transactions").upsert(sb).execute()
+                try await remote.upsert(sb, table: .transactions, userId: userId)
                 // Rimuove dal set "sporco" solo gli id appena caricati con successo — se
                 // nel frattempo ne sono arrivati altri (salvataggio concorrente), restano
                 // in coda per il prossimo push invece di andare persi.
                 dirtyTransactionIds.subtract(dirtyTransactions.map { $0.id })
             }
-            try await deleteOrphans(table: "mt_transactions",
+            try await deleteOrphans(table: .transactions,
                                     userId: userId,
                                     localIds: Set(transactions.map { $0.id }))
 
             // Budgets
             if !budgets.isEmpty {
                 let sb = budgets.map { SBBudget($0, userId: userId) }
-                try await client.from("mt_budgets").upsert(sb).execute()
+                try await remote.upsert(sb, table: .budgets, userId: userId)
             }
-            try await deleteOrphans(table: "mt_budgets",
+            try await deleteOrphans(table: .budgets,
                                     userId: userId,
                                     localIds: Set(budgets.map { $0.id }))
 
             // Goals
             if !goals.isEmpty {
                 let sb = goals.map { SBGoal($0, userId: userId) }
-                try await client.from("mt_goals").upsert(sb).execute()
+                try await remote.upsert(sb, table: .goals, userId: userId)
             }
-            try await deleteOrphans(table: "mt_goals",
+            try await deleteOrphans(table: .goals,
                                     userId: userId,
                                     localIds: Set(goals.map { $0.id }))
 
             // Rules use a full upsert, like budgets (including watermark and exceptions).
             if !rules.isEmpty {
-                try await client.from("mt_recurring_rules")
-                    .upsert(rules.map { SBRecurringRule($0, userId: userId) }).execute()
+                let sb = rules.map { SBRecurringRule($0, userId: userId) }
+                try await remote.upsert(sb, table: .recurringRules, userId: userId)
             }
-            try await deleteOrphans(table: "mt_recurring_rules", userId: userId,
+            try await deleteOrphans(table: .recurringRules, userId: userId,
                                     localIds: Set(rules.map { $0.id }))
 
             Logger.persistence.info("SyncService: push complete")
@@ -658,13 +679,12 @@ final class SyncService: ObservableObject {
     // MARK: - Pull (Supabase → SwiftData)
 
     func pull(context: ModelContext) async {
-        guard let userId = auth.session?.user.id else { return }
+        guard let userId else { return }
         Logger.persistence.info("SyncService: pull started")
 
         do {
             // ── 1. ACCOUNTS ────────────────────────────────────────────────
-            let sbAccounts: [SBAccount] = try await client.from("mt_accounts")
-                .select().eq("user_id", value: userId.uuidString).execute().value
+            let sbAccounts: [SBAccount] = try await remote.select(table: .accounts, userId: userId)
 
             // Guard: se Supabase è vuoto ma il locale ha dati, interrompi.
             // Significa che il push precedente non è ancora avvenuto — non cancellare
@@ -711,8 +731,7 @@ final class SyncService: ObservableObject {
             }
 
             // ── 2. TRANSACTIONS ────────────────────────────────────────────
-            let sbTx: [SBTransaction] = try await client.from("mt_transactions")
-                .select().eq("user_id", value: userId.uuidString).execute().value
+            let sbTx: [SBTransaction] = try await remote.select(table: .transactions, userId: userId)
 
             let localTx    = (try? context.fetch(FetchDescriptor<Transaction>())) ?? []
             let localTxMap = Dictionary(localTx.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
@@ -770,8 +789,7 @@ final class SyncService: ObservableObject {
             }
 
             // ── 3. BUDGETS ─────────────────────────────────────────────────
-            let sbBudgets: [SBBudget] = try await client.from("mt_budgets")
-                .select().eq("user_id", value: userId.uuidString).execute().value
+            let sbBudgets: [SBBudget] = try await remote.select(table: .budgets, userId: userId)
 
             let localBudgets    = (try? context.fetch(FetchDescriptor<Budget>())) ?? []
             let localBudgetMap  = Dictionary(localBudgets.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
@@ -803,8 +821,7 @@ final class SyncService: ObservableObject {
             }
 
             // ── 4. GOALS ───────────────────────────────────────────────────
-            let sbGoals: [SBGoal] = try await client.from("mt_goals")
-                .select().eq("user_id", value: userId.uuidString).execute().value
+            let sbGoals: [SBGoal] = try await remote.select(table: .goals, userId: userId)
 
             let localGoals    = (try? context.fetch(FetchDescriptor<Goal>())) ?? []
             let localGoalMap  = Dictionary(localGoals.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
@@ -835,12 +852,11 @@ final class SyncService: ObservableObject {
                 context.delete(local)
             }
 
-            let sbRules: [SBRecurringRule] = try await client.from("mt_recurring_rules")
-                .select().eq("user_id", value: userId.uuidString).execute().value
+            let sbRules: [SBRecurringRule] = try await remote.select(table: .recurringRules, userId: userId)
             try Self.mergeRecurringRules(sbRules, context: context)
 
             context.safeSave()
-            UserDefaults.standard.set(Date(), forKey: lastPullKey)
+            defaults.set(Date(), forKey: lastPullKey)
             Logger.persistence.info("SyncService: pull complete")
 
         } catch {
@@ -870,30 +886,15 @@ final class SyncService: ObservableObject {
 
     // MARK: - Helpers
 
-    /// Recupera gli UUID di tutti i record di un utente in una tabella.
-    private func fetchIds(table: String, userId: UUID) async throws -> Set<UUID> {
-        struct Row: Decodable { let id: UUID }
-        let rows: [Row] = try await client.from(table)
-            .select("id")
-            .eq("user_id", value: userId.uuidString)
-            .execute()
-            .value
-        return Set(rows.map { $0.id })
-    }
-
     /// Elimina da Supabase i record che esistono in remoto ma non localmente.
     /// Una sola richiesta batch (non una per riga): con N record orfani, il pattern
     /// precedente faceva N round-trip di rete sequenziali (classico N+1) — qui è O(1)
     /// indipendentemente da quanti record vanno cancellati.
-    private func deleteOrphans(table: String, userId: UUID, localIds: Set<UUID>) async throws {
-        guard !MoneyTrackerApp.usingVolatileStore else { return }
-        let remoteIds = try await fetchIds(table: table, userId: userId)
+    private func deleteOrphans(table: SyncTable, userId: UUID, localIds: Set<UUID>) async throws {
+        guard !isUsingVolatileStore else { return }
+        let remoteIds = try await remote.fetchIds(table: table, userId: userId)
         let orphans   = remoteIds.subtracting(localIds)
         guard !orphans.isEmpty else { return }
-        try await client.from(table)
-            .delete()
-            .in("id", values: orphans.map { $0.uuidString })
-            .eq("user_id", value: userId.uuidString)
-            .execute()
+        try await remote.delete(ids: Array(orphans), table: table, userId: userId)
     }
 }

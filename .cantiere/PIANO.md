@@ -502,7 +502,7 @@ Modello di task:
   - [~] **S-50a · Server finto E2E** (fake-supabase.py + test python) → **Codex** (decisione di Matteo 2026-11-25 09:01: «partiamo con S-50 e partiamo con codex»; Codex ha quota resettata, Antigravity preferito no) · progetto §6.6, §10.3
   - [~] **S-50b · Crittografia iOS + vettori condivisi** → capocantiere/operaio Claude Code · §3, §10.3 · dopo S-50a
   - [~] **S-50c · Crittografia Android sugli stessi vettori** → impresa (Codex) · T1/T3/T4, 256 JVM, build/lint e 7 strumentati API 36 verdi · collaudo del blocco 1 dopo S-50d
-  - [ ] **S-50d · iOS: trasporto SyncRemote a comportamento identico** → capocantiere/operaio Claude Code · §8.2, §10.3 · dopo S-50c · poi COLLAUDO BLOCCO 1 (collaudatore, S-50a…d)
+  - [~] **S-50d · iOS: trasporto SyncRemote a comportamento identico** → impresa (Codex) · T5/T6 e suite iOS completa verdi (117 unitari, 49 UI) · prossimo COLLAUDO BLOCCO 1 (collaudatore, S-50a…d)
   - [ ] **S-50e · iOS: vault, Keychain, mt_e2e, gate** → capocantiere/operaio Claude Code · §3.4–3.6, §4, §7.2, §10.3 · dopo collaudo blocco 1
   - [ ] **S-50f · Android: VaultApi, decoratore, Keystore, gate** → capocantiere/operaio Claude Code · §7.2, §8, §10.3 · dopo S-50e
   - [ ] **S-50g · Interoperabilità righe iOS↔Android (vettori rows)** → capocantiere/operaio Claude Code · §3.7, §10.3 · dopo S-50f
@@ -511,6 +511,7 @@ Modello di task:
   - [ ] **S-50j · iOS: interfaccia e testi 7 lingue** → capocantiere/operaio Claude Code · §5, §10.3 · dopo collaudo blocco 2
   - [ ] **S-50k · Android: interfaccia e testi 7 lingue** → capocantiere/operaio Claude Code · §5, §10.3 · dopo S-50j
   - [ ] **S-50l · Logout, elimina account, cambio utente, stress-test** → capocantiere/operaio Claude Code · §4.2, §10.3 · dopo S-50k · poi COLLAUDO BLOCCO 3 (collaudatore, S-50j…l)
+  - [ ] **S-50l.1 · iOS: isolamento dei movimenti al cambio utente** · Difetto preesistente riprodotto su iPhone 18 Pro iOS 27.2 con SwiftData, in memoria e su disco: con un movimento collegato a un conto e uno senza conto, il batch delete dei movimenti fallisce e la successiva cascata elimina solo il movimento collegato. Da gestire come correzione separata e collaudare con due utenti finti: zero righe del precedente utente in locale e nessun invio di quelle righe al secondo.
   - [ ] **S-50m · Commissione Suprema 10/10 + manuale docs/MoneyTracker.md** → capocantiere/operaio Claude Code · §10.3 · dopo collaudo blocco 3
   - [x] (Matteo, 2026-11-24 23:22: eseguito, 13 righe) **S-50n · Matteo: incollare lo SQL in Supabase (2 minuti)** → Matteo · istruzioni 📍▶️↩️ nel progetto §6.3 · inerte, si può fare anche subito
   - [?] **S-50o · Matteo: approvare le schermate (D-014) + prova reale facoltativa con account di prova** → Matteo · §10.3 S-50o · dopo S-50m
