@@ -22,7 +22,11 @@ PALETTES = {
     2: ("#FFF4ED", "#421E18", "#A23927", "#FADFCC", "#301919", "#A33D29", "#733025"),   # terracotta
     3: ("#F8F2FF", "#362244", "#74459E", "#EEDFFA", "#25152F", "#7440A4", "#662950"),   # prugna
     4: ("#EEF9F5", "#122F2B", "#197163", "#D4EEE5", "#102A2B", "#007F79", "#244C73"),   # petrolio
-    5: ("#FFF8E9", "#392B15", "#81540D", "#F9E9C2", "#2A2016", "#906014", "#734023"),   # ocra
+    5: ("#FFF8E9", "#392B15", "#81540D", "#F9E9C2", "#2A2016", "#906014", "#734023"),   # ocra (v1, non usata)
+    # Nuove palette (post 16+): tre post per colore, mai usate nella griglia precedente.
+    6: ("#FFF1F7", "#3D1530", "#B0236A", "#FBD9E8", "#2B0F22", "#C42A7B", "#7A1F4C"),   # fucsia (16-18)
+    7: ("#FFF9E8", "#3A2A08", "#A66A00", "#F9E6B0", "#2A1E08", "#9A650A", "#6B3F0A"),   # ocra oro (19-21)
+    8: ("#F6F9E8", "#232F0A", "#5C7C10", "#E4EEC2", "#1B2408", "#5F8212", "#33490F"),   # lime (22-24)
 }
 AMBER = "#FFC786"
 SIZE = (1080, 1350)

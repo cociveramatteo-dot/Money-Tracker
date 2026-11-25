@@ -12,6 +12,14 @@ Una riga del file `diario-metriche.csv` corrisponde a una pubblicazione. Compila
 
 Lascia vuoti i dati non ancora disponibili o non esposti dalla piattaforma. Non usare la riga `ESEMPIO` nei dati reali: va sostituita o rimossa quando si iniziano a registrare pubblicazioni effettive.
 
+## Colonne dal 25/11/2026
+
+Una riga per post e per piattaforma (post 1–24 già predisposti). Data e ora di pubblicazione le inserisce Matteo dopo aver pubblicato. Colonne aggiunte: `post` (numero progressivo), `gancio` (testo slide 1), `tipo` (educativo/app), `colore` (palette, 3 post consecutivi per colore), `rilevato_il`, `pct_dal_per_te`, `nuovi_follower`, `mi_piace`, `condivisioni`. `pct_completamento` = % che arriva all'ultima slide.
+
+Post 1–8 rilevati il 25/11/2026 alle 10:30. Instagram (28 follower): 0 salvataggi e 0 condivisioni su tutti; negli ultimi 30 giorni 131 visite al profilo e 9 tocchi sul link.
+
+**Obiettivi per i post dal 10:** visione media sopra 5 s, almeno 8% fino all'ultima slide, salvataggi e condivisioni maggiori di 0. Dopo 7 giorni si confrontano con i post 1–8 e si propongono aggiustamenti.
+
 ## Calcolo settimanale
 
 Ogni domenica, per ogni piattaforma, calcola la mediana degli ultimi 10 video. Usa la mediana, non la media.

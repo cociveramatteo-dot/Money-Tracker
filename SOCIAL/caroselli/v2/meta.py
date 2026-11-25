@@ -1,7 +1,8 @@
 # Testi dei post v2: titolo (<=90 caratteri), hook (slide 1), caption, hashtag, data/orari indicativi.
 LAUNCH = "In arrivo su iPhone e Android. Iscriviti alla lista d’attesa."
-IG_BASE = "#bucktrail #finanzapersonale #educazionefinanziaria #budget #risparmiare #soldi #appiphone #appfinanze #gestionespese #apputili #fintok #moneytok"
-TT_BASE = "#bucktrail #finanzapersonale #educazionefinanziaria #budget #risparmiare #soldi #fintok #moneytok #appiphone"
+# Dal Post-10: SEMPRE questi 5 hashtag, identici su TikTok e Instagram (nessun tag per post).
+TAGS = "#finanzapersonale #risparmio #budget #educazionefinanziaria #gestionespese"
+IG_BASE = TT_BASE = TAGS
 
 META = {
  5: dict(date="mer 25/11/2026", ig="12:00", tt="22:00",
@@ -29,36 +30,57 @@ META = {
    hook="App: 13.120 €. Banca: 13.099 €.",
    caption="Una differenza di 21 € si trova e si sistema: confronta l’estratto conto, cerca il movimento mancante e, se serve, modifica il saldo: Bucktrail registra la rettifica. E ricorda: spostare soldi tra i tuoi conti non cambia il patrimonio. Dati di esempio.",
    tags="#riconciliazione #conto #banca"),
- 10: dict(date="mar 01/12/2026", ig="19:00", tt="06:00",
-   title="Saldo o netto del mese? La differenza che ti dice com’è andato davvero",
-   hook="Saldo 21.973 €. Netto +1.190 €.",
-   caption="Il saldo (nella schermata di esempio 21.973 €) è il punto di arrivo, il netto (+1.190 €) dice cosa ha aggiunto o tolto il mese: con numeri più semplici, 800 € a inizio mese + 150 € di netto = 950 € di saldo (esempio illustrativo). In Statistiche leggi entrate, uscite, andamento 6M/12M e il peso di ogni categoria. Attenzione ai mesi anomali: una spesa insolita sposta la media. Dati di esempio e calcolo illustrativo.",
-   tags="#statistiche #entrateuscite #analisispese"),
- 11: dict(date="mer 02/12/2026", ig="12:00", tt="22:00",
-   title="Affitto, abbonamenti, bollette: scrivili una volta e non pensarci più",
-   hook="Scrivile una volta.",
-   caption="Le ricorrenze mettono affitto, bollette e abbonamenti nei mesi che arrivano. Modifichi solo una scadenza, da quella in poi o tutta la serie; puoi saltare un mese, terminare o eliminare. Le scadenze future le trovi in «In arrivo». Dati di esempio.",
-   tags="#abbonamenti #spesefisse #ricorrenze"),
- 12: dict(date="gio 03/12/2026", ig="09:00", tt="13:00",
-   title="Il punto più basso del mese non è a fine mese: leggi la curva della Home",
-   hook="Il punto più basso del mese non è a fine mese",
-   caption="Verde ciò che è già successo, ambra il previsto: la curva della Home usa i movimenti pianificati. Scegli quali conti vedere, quali riquadri mostrare e nascondi gli importi con l’occhio. Esempio illustrativo.",
-   tags="#home #saldoprevisto #fineMese"),
- 13: dict(date="ven 04/12/2026", ig="22:00", tt="18:00",
-   title="7 lingue, valuta, tema chiaro o scuro e Face ID: tutto in un’app sola",
-   hook="7 lingue. Un’app sola.",
-   caption="Italiano, English, Deutsch, Español, Français, 日本語, 简体中文: l’app segue la lingua scelta in iOS. Cambia il simbolo della valuta (la cifra non cambia), scegli chiaro o scuro, attiva Face ID e prova tutto con i dati di esempio. Dati di esempio.",
-   tags="#impostazioni #faceid #darkmode"),
- 14: dict(date="sab 05/12/2026", ig="21:00", tt="17:00",
-   title="PDF, CSV o JSON: esporta i tuoi dati e dimentica i fogli Excel a mano",
-   hook="Tre file. Quale ti serve?",
-   caption="Report mensile in PDF, elenco movimenti in CSV (per Excel o Numbers), profilo completo in JSON. E la cronologia modifiche ti aiuta a ritrovare cosa hai cambiato. Basta compilare tutto a mano. Dati di esempio.",
-   tags="#excel #csv #esportadati"),
- 15: dict(date="lun 07/12/2026", ig="19:00", tt="13:00",
-   title="Registra una spesa senza aprire l’app: doppio tocco sul retro dell’iPhone",
-   hook="Due tocchi. Spesa salvata.",
-   caption="Crea il comando «Aggiungi spesa» in Comandi, assegnalo a Tocco posteriore (Impostazioni → Accessibilità → Tocco → Tocco posteriore → Tocco doppio) e registra una spesa in pochi secondi. Tutorial iPhone: il Tocco posteriore richiede iPhone 8 o successivi. Dati di esempio.",
-   tags="#comandirapidi #iphonetips #shortcuts"),
 }
+
+def M(title, hook, caption, launch=False):
+    return dict(title=title, hook=hook, caption=caption, launch=launch, tags="")
+
+META.update({
+ 10: M("+150 € sul conto: hai risparmiato davvero? Saldo e netto del mese non sono la stessa cosa",
+   "+150 € sul conto. Hai risparmiato davvero?",
+   "Saldo e netto non sono la stessa cosa: uno è il punto d’arrivo, l’altro dice com’è andato il mese. Tu guardi il saldo o il netto? Dati di esempio. Salvalo per il prossimo fine mese."),
+ 11: M("841 € escono prima che tu spenda: affitto, streaming e palestra, scritti una volta sola",
+   "841 € escono prima che tu spenda.",
+   "Affitto, streaming, palestra: i fissi pesano più di quanto sembra. Quanto ti costano i tuoi fissi ogni mese? Mandalo a chi scorda le scadenze. Dati di esempio."),
+ 12: M("Stipendio il 27, affitto il 1°: quando tocchi il minimo? Leggi la curva del mese",
+   "Stipendio il 27, affitto il 1°: quando tocchi il minimo?",
+   "La curva ti mostra il punto più basso del mese prima che arrivi. Quando arriva il tuo stipendio? Mandalo a chi finisce lo stipendio il 20. Esempio illustrativo.", True),
+ 13: M("1.200 € al mese: quanti per uscire? La regola 50/30/20 in euro veri",
+   "1.200 € al mese. Quanti per uscire?",
+   "Con 1.200 € la regola 50/30/20 dà 600 € di necessità, 360 € di desideri e 240 € di risparmio: una regola indicativa, da adattare. Tu come dividi lo stipendio? Salvalo. Esempio illustrativo."),
+ 14: M("Spese 900 € al mese: quanti mesi reggi se si ferma tutto? Il calcolo del fondo emergenza",
+   "Spese 900 € al mese. Quanti mesi reggi?",
+   "Spese mensili × 3 è un buon punto di partenza per un fondo emergenza (esempio: 900 € × 3 = 2.700 €). Quanti mesi di scorta hai oggi? Mandalo a chi vive di imprevisti. Esempio illustrativo."),
+ 15: M("Ieri hai speso 8,50 €: te lo ricordi? Salvala con due tocchi sul retro dell’iPhone",
+   "Ieri hai speso 8,50 €. Te lo ricordi?",
+   "Un comando in Comandi + il Tocco posteriore: due tocchi sul retro dell’iPhone e la spesa è registrata (iPhone 8 o successivi). Tu quante spese dimentichi? Salva il tutorial. Dati di esempio.", True),
+ 16: M("Stipendio 1.100 €, il 20 sei a zero? Il calcolo che ti dice quanto puoi spendere al giorno",
+   "1.100 € al mese. Il 20 sei già a zero.",
+   "Togli i fissi, dividi il resto per i giorni del mese: con 280 € avanzati sono circa 9 € al giorno. Tu il 20 a che punto sei? Mandalo a chi finisce lo stipendio il 20. Esempio illustrativo."),
+ 17: M("87 € al mese, 1.044 € l’anno: quanti abbonamenti dimenticati hai? Fai pulizia in 3 passi",
+   "87 € al mese. 1.044 € l’anno. Li usi tutti?",
+   "Cinque piccoli abbonamenti fanno 87 € al mese e 1.044 € all’anno. Tu quanto spendi di abbonamenti al mese? Salvalo e mandalo a chi ne ha troppi. Esempio illustrativo."),
+ 18: M("Aperitivo 12 € × 3 a settimana = ? Il totale dell’anno ti sorprenderà",
+   "Aperitivo 12 € × 3 a settimana = ?",
+   "12 € × 3 volte a settimana × 52 settimane = 1.872 € l’anno. Quante volte a settimana esci per un aperitivo? Mandalo a chi non sa dove vanno i soldi. Esempio illustrativo.", True),
+ 19: M("Tredicesima 1.400 €: dividila prima di spenderla e a gennaio sai dove sono finiti",
+   "Tredicesima 1.400 €. Dove sono a gennaio?",
+   "Prima di spenderla dividi la tredicesima: regali, spese annuali, un obiettivo. Tu cosa ci fai con la tredicesima? Mandalo a chi la riceve a dicembre. Esempio illustrativo."),
+ 20: M("Regali di Natale: 300 € di tetto. Dividilo per persona e non sfori a gennaio",
+   "Regali di Natale: 300 €. Da dove li togli?",
+   "300 € diviso 6 persone sono 50 € a testa: decidi il tetto prima di comprare. Quante persone hai in lista quest’anno? Mandalo a chi fa troppi regali. Esempio illustrativo."),
+ 21: M("Affitto 450 € su 1.100 € di stipendio: quanto pesa davvero? Il calcolo in 10 secondi",
+   "Affitto 450 € su 1.100 € di stipendio. È troppo?",
+   "450 ÷ 1.100 = 41% dello stipendio: guarda le fasce indicative (30% e 40%) e il peso della Casa. Tu quanto paghi di affitto? Mandalo al tuo coinquilino. Esempio illustrativo.", True),
+ 22: M("Saldi: 3 domande da farti prima di pagare (e uno sconto che non è un risparmio)",
+   "Saldi: 3 domande prima di pagare.",
+   "120 € scontati del 40% sono 72 € spesi, non 48 € risparmiati. Tu cosa compri sempre ai saldi? Mandalo a chi non resiste ai saldi. Esempio illustrativo."),
+ 23: M("Dove sono finiti 200 € di questo mese? Ricostruiscilo in 3 passi con Movimenti",
+   "Dove sono finiti 200 € di questo mese?",
+   "Apri Movimenti, filtra per categoria, guarda le Statistiche: in 3 passi trovi dove sono andati i soldi. Tu ti sei mai chiesto dove sono finiti? Salvalo per fine mese. Dati di esempio."),
+ 24: M("Excel, note, app della banca: 3 posti per i soldi? Tutto in un’app sola, senza abbonamento",
+   "Excel, note, app della banca: 3 posti per i soldi.",
+   "Conti, fissi, budget e un file da esportare quando serve, in un’app sola e senza abbonamento (prezzo di lancio previsto 4,99 € una tantum). Tu dove segni le tue spese? Mandalo a chi usa ancora Excel. Dati di esempio.", True),
+})
 for k, v in META.items():
     assert len(v["title"]) <= 90, (k, len(v["title"]))

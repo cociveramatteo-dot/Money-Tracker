@@ -2,6 +2,20 @@
 
 **Lettura obbligatoria all’inizio di ogni lavoro social.** Questo è il riferimento operativo. Il [manuale strategico](Bucktrail_Manuale_Strategico_v2.pdf) resta la fonte per idee, format, hook, metriche e cautele (§1.3, §4, §6, §9, §12). Per le funzioni verificare il [documento prodotto](../docs/MoneyTracker.md) e la build corrente. Il [calendario](calendario-v1.md) contiene proposte, approvazioni e storico.
 
+## Regole dal 25/11/2026 (prevalgono su tutto quanto segue)
+
+Perché: sui post 1–8 la visione media è 2–4 s, solo l’1–4% arriva all’ultima slide, 0 salvataggi e 0 condivisioni. Funziona il problema riconoscibile, non il nome della funzione.
+- **Slide 1 = situazione concreta o domanda con un numero**, leggibile in meno di un secondo (modello: «App: 13.120 €. Banca: 13.099 €.»). Vietato aprire con il nome di una funzione. Nasce dalla vita di uno studente o giovane lavoratore italiano.
+- **Struttura 7–8 slide:** gancio → problema in numeri → 2–4 slide di soluzione con l’app → **slide «Da salvare»** (regola, calcolo o checklist) → chiusura. Le slide 2–3 aprono una curiosità che si chiude solo alla fine.
+- **Almeno 1 post su 2 educativo**, con l’app come strumento. Mai investimenti.
+- **Didascalia: 2–3 righe**, gancio riformulato + domanda per commentare + invito a salvare o mandare il post. La frase su lista d’attesa e uscita solo in 1 post su 3 («Link in bio» su Instagram, bucktrailapp.com su TikTok).
+- **Hashtag sempre gli stessi, massimo 5, identici su TikTok e Instagram:** `#finanzapersonale #risparmio #budget #educazionefinanziaria #gestionespese`. Niente tag inglesi, generici enormi o specifici del post. Questo sostituisce ogni indicazione sul numero di hashtag più sotto.
+- **Niente date né orari** in LEGGIMI, istruzioni e calendari: quando pubblicare lo decide Matteo. Conta solo l’ordine (numero progressivo).
+- **Musica:** carosello con un suono di tendenza scelto da Matteo in app (lo si segnala nel LEGGIMI).
+- **Griglia: 3 post per colore.** 1–3 verde/ambra, 4–6 cobalto, 7–9 terracotta, 10–12 prugna, 13–15 petrolio, 16–18 fucsia, 19–21 ocra, 22–24 lime. Dal 16 si usano colori mai usati prima (palette 6–8 in `caroselli/v2/lib.py`).
+- **Serie nuova:** contenuti in `caroselli/v2/posts_s.py` (post 10–24), testi in `meta.py`. Esporta con `python3 SOCIAL/caroselli/v2/esporta.py N` (mai sui post 5–9, già usciti).
+- **Misura:** `diario-metriche.csv`. Obiettivi: visione media sopra 5 s, almeno 8% fino all’ultima slide, salvataggi e condivisioni maggiori di 0. Dopo 7 giorni confronto con i post 1–8.
+
 ## Prima di preparare ogni nuovo post
 
 1. Aprire e guardare **tutte le slide e tutti i video dei post precedenti**, incluse copertine, chiusure e varianti per canale. Usare i file finali in `clip-social/post-N/pronto/` o recuperare gli export/storico. Registrare nella lavorazione del nuovo post quali numeri e varianti si sono visti, eventuali file mancanti e correzioni emerse. Una lettura dei testi o del codice di generazione da sola non vale come controllo visivo.
@@ -45,4 +59,4 @@ Perché: Matteo ha giudicato la prima serie (Post 5–42) troppo lunga e povera 
 
 - Alternare guide, tutorial ed educazione. Pianificare 1–2 post per giorno di pubblicazione. Quando ce ne sono due, usare rubriche e argomenti diversi. Un post extra entra solo su richiesta di Matteo.
 - Il 20/11 Matteo ha approvato il piano in blocco a condizione che copra tutta l’app. Preparare le scalette e i materiali senza chiedere un nuovo ok per ogni post. Usare la mappa di copertura del calendario, verificare funzioni e catture sulla build e registrare lo stato. Concordare con Matteo date, slot e pubblicazione.
-- Preparare `istruzioni-post/post-N.txt` con data, orari locali per canale, giorni esclusi, ordine, titolo per TikTok, caption, 5–6 hashtag per piattaforma, link e passi di pubblicazione. Omettere la musica dalle istruzioni: ci pensa Matteo. Esportare con `python3 SOCIAL/esporta-post.py N` in «Il mio Drive/Da postare/post-N/». Verificare che contenga solo i file da pubblicare e il LEGGIMI. Matteo pubblica. Registrare link e metriche nel diario.
+- Preparare `istruzioni-post/post-N.txt` con ordine, titolo per TikTok, caption, i 5 hashtag fissi, link e passi di pubblicazione (senza date né orari: vedi le regole dal 25/11/2026). Omettere la musica dalle istruzioni: ci pensa Matteo. Esportare con `python3 SOCIAL/esporta-post.py N` in «Il mio Drive/Da postare/post-N/». Verificare che contenga solo i file da pubblicare e il LEGGIMI. Matteo pubblica. Registrare link e metriche nel diario.

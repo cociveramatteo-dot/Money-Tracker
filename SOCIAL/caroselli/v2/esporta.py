@@ -12,8 +12,11 @@ REPO = ROOT / "clip-social/v2"
 DRIVE = Path.home() / "Library/CloudStorage/GoogleDrive-cociveramatteo@gmail.com/Il mio Drive/Da postare"
 
 def testi(p, m, n):
-    ig = f"{m['title']}\n{m['caption']}\n{meta.LAUNCH} Link in bio.\n{meta.IG_BASE} {m['tags']}"
-    tt = f"{m['caption']}\n{meta.LAUNCH} bucktrailapp.com\n{meta.TT_BASE} {m['tags']}"
+    legacy = "date" in m          # post 5-9 (non rigenerati): formato vecchio
+    assert not legacy, "i post 5-9 non vanno riesportati"
+    launch = (f"\n{meta.LAUNCH}" if m["launch"] else "")
+    tt = f"{m['caption']}{launch}{' bucktrailapp.com' if m['launch'] else ''}\n{meta.TAGS}"
+    ig = f"{m['caption']}{launch}{' Link in bio.' if m['launch'] else ''}\n{meta.TAGS}"
     short = f"""TITOLO (max 90 caratteri, {len(m['title'])} usati)
 {m['title']}
 
@@ -25,16 +28,15 @@ DESCRIZIONE INSTAGRAM (copia-incolla)
 """
     leggimi = f"""POST {p['n']:02d} — {m['title']}
 
-DATA E ORARI (Europe/Rome, indicativi: decide Matteo)
-{m['date']} · Instagram {m['ig']} · TikTok {m['tt']}
-Giorni esclusi: domeniche, 24 e 25 dicembre, 1 gennaio.
-
 FILE
 {n} immagini 1080x1350 (4:5): slide-01.png … slide-{n:02d}.png, in questo ordine, UN SOLO SET per Instagram e TikTok.
-Testi dentro le zone sicure di entrambe le piattaforme. L’ultima slide è la chiusura (iOS e Android, sito, invito a seguire/like/condividere/salvare).
+Gancio in slide 1; la penultima slide è «Da salvare»; l’ultima è la chiusura. Quando pubblicare lo decidi tu: conta solo l’ordine dei post.
+
+MUSICA
+Pubblica il carosello con un suono di tendenza, scelto da te in app (TikTok e Instagram).
 
 TIKTOK — FOTO / CAROSELLO
-Apri Da postare → {p_dir(p)} → salva le {n} immagini in Foto, selezionale in ordine e usa slide-01 come copertina. Musica: la scegli tu in piattaforma.
+Apri Da postare → {p_dir(p)} → salva le {n} immagini in Foto, selezionale in ordine e usa slide-01 come copertina.
 {short.split('DESCRIZIONE INSTAGRAM')[0].strip()}
 
 INSTAGRAM — POST / CAROSELLO
@@ -43,7 +45,7 @@ DESCRIZIONE INSTAGRAM (copia-incolla)
 {ig}
 
 DOPO LA PUBBLICAZIONE
-Controlla ordine e ritaglio, registra piattaforma/data/ora/link in SOCIAL/diario-metriche.csv. Dopo 24 ore rileva visualizzazioni, salvataggi, condivisioni, commenti e visite profilo.
+Controlla ordine e ritaglio, registra piattaforma/data/ora/link in SOCIAL/diario-metriche.csv. Dopo 24 ore rileva visualizzazioni, visione media, % fino all'ultima slide, salvataggi, condivisioni, commenti, visite al profilo e nuovi follower.
 """
     return short, leggimi
 
