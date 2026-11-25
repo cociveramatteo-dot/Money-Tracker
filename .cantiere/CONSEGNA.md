@@ -1,8 +1,10 @@
-# CONSEGNA — impresa (Codex · GPT-6) · 2026-11-25 09:07
+# CONSEGNA — impresa (Codex · GPT-6) · 2026-11-25 10:09
 
-- S-50a è `[~]`, pronto per il collaudo del blocco 1 dopo S-50d. Il server finto implementa PK, filtri e proiezione, 409 sui duplicati, PATCH, guardia P0001, tabelle assenti e interruzione pilotata. Il payload è restituito intatto.
-- `python3 -I 03_CODICE/bucktrail-android/scripts/test-fake-supabase-e2e.py`: 11 prove HTTP verdi, comprese scritture concorrenti, rifiuto atomico dei batch, payload lungo e migrazione interrotta.
-- `ANDROID_HOME="$HOME/Library/Android/sdk" ./gradlew testDebugUnitTest`: verde dalla cartella Android. Ripetuto con `--rerun`: 247 test, zero errori, fallimenti o salti.
-- Scelte da confermare (§6.6): `FAKE_FAIL_AFTER` conta le richieste REST di scrittura riuscite, compresa la cancellazione account. A soglia raggiunta risponde 503 anche alle letture. La PATCH conserva la PK; la DELETE richiede un filtro supportato e, per i nuovi filtri o le nuove tabelle, opera sulle righe dell'utente autenticato.
-- `graphify update .` eseguito. Il grafo e il relativo backup generato in `graphify-out/` restano locali, fuori dal commit S-50a. Nessun file di altri lavori era modificato all'apertura del turno.
-- Prossimo **S-50b · Crittografia iOS + vettori condivisi**, operaio su Claude Code (Sonnet). Prompt completo in `progetto-e2e-sync.md`, §10.3.
+- S-50b è `[~]`, in attesa del collaudo del blocco 1 dopo S-50d. Nucleo iOS con AES-256-GCM, PBKDF2 CommonCrypto, HKDF CryptoKit, Crockford, AAD, chiavi avvolte, key ID e JSON del vault. Flag spento per impostazione predefinita, override `-E2EEnabled YES` solo DEBUG. Il gruppo `rows` è previsto in S-50g.
+- `xcodebuild test -project MoneyTracker.xcodeproj -scheme MoneyTracker -destination 'id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' -only-testing:MoneyTrackerTests/E2ECryptoTests`: 10 test verdi (T1, T3, T4). KAT McGrew–Viega 16 e RFC 5869 A.1 verdi; 10.000 nonce distinti. Rifiutati tag, AAD e credenziali alterati, versioni sconosciute, formati errati e parametri fuori intervallo. Verificati NFC senza trim, importi Decimal, date UTC, payload vuoto e limite di dimensione.
+- Stesso comando Xcode senza `-only-testing`: **109 test unitari + 49 UI** verdi, zero fallimenti. Verifica dei tipi del nucleo anche senza DEBUG.
+- `python3 -I 03_CODICE/bucktrail-android/scripts/e2e-vectors.py --check`: 7 gruppi verdi (1–6 e 8). Derivazioni e codifiche ricalcolate in Python, nessuna chiamata applicativa col nonce fisso. Gli involucri AES a nonce fisso sono stati generati nel test iOS; rigenerazione della fixture identica byte per byte usando gli involucri registrati.
+- Scelte da confermare (§3): per rispettare il vincolo SQL, l'involucro ASCII completo deve restare sotto 65.536 byte (massimo 49.120 byte prima di cifrare). Gli errori operativi di PBKDF2 e del generatore casuale sono distinti dagli errori di input con `operationFailed`. Le 1.000 iterazioni sono disponibili solo tramite helper DEBUG per il vettore di prova.
+- `graphify update .` eseguito. Gli output del grafo erano già modificati all'apertura e restano locali, fuori da questo commit.
+- Provenienza Git: durante la suite iOS il commit concorrente `f4bfd7a` ha incluso i sette file S-50b già in staging insieme ai propri file. Il commit di chiusura S-50b registra esclusivamente CONSEGNA, DIARIO e PIANO.
+- Prossimo **S-50c · Crittografia Android sugli stessi vettori**, operaio su Claude Code (Sonnet). Prompt completo in `progetto-e2e-sync.md`, §10.3.
