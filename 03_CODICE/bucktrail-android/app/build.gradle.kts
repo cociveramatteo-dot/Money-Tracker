@@ -36,12 +36,14 @@ android {
     }
     buildTypes {
         debug {
+            buildConfigField("boolean", "E2E_ENABLED", (findProperty("e2e") == "true").toString())
             val url = (findProperty("supabaseUrl") as String?)?.takeIf { it.isNotBlank() } ?: "https://supabase-finto.invalid"
             val key = (findProperty("supabaseKey") as String?)?.takeIf { it.isNotBlank() } ?: "chiave-finta-debug"
             buildConfigField("String", "SUPABASE_URL", "\"$url\"")
             buildConfigField("String", "SUPABASE_ANON_KEY", "\"$key\"")
         }
         release {
+            buildConfigField("boolean", "E2E_ENABLED", "false")
             buildConfigField("String", "SUPABASE_URL", "\"${supabaseValue("supabaseUrl", "url")}\"")
             buildConfigField("String", "SUPABASE_ANON_KEY", "\"${supabaseValue("supabaseKey", "anonKey")}\"")
             // R8: codice e risorse inutilizzati tolti (le regole sono in proguard-rules.pro)
@@ -51,7 +53,14 @@ android {
         }
     }
     buildFeatures { compose = true; buildConfig = true }
-    testOptions { unitTests.isReturnDefaultValues = true }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+        unitTests.all { test ->
+            val vectors = rootProject.file("../../MoneyTrackerTests/Fixtures/e2e-vectors-v1.json")
+            test.inputs.file(vectors)
+            test.systemProperty("e2eVectors", vectors.absolutePath)
+        }
+    }
     lint { warningsAsErrors = false; abortOnError = true }
 }
 

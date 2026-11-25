@@ -501,7 +501,7 @@ Modello di task:
   **Progetto esecutivo pronto (architetto, 2026-11-24 22:51):** `.cantiere/progetto-e2e-sync.md`. Autorizzazione di Matteo a toccare Sync/ e Auth/ solo per S-50 (riferita dal capocantiere, 2026-11-24). Esecuzione dal 2026-11-25 con i task qui sotto, in ordine, assegnati da Matteo a Codex (non più per forza Claude Code);  interruttore spento fino a S-50p.
   - [~] **S-50a · Server finto E2E** (fake-supabase.py + test python) → **Codex** (decisione di Matteo 2026-11-25 09:01: «partiamo con S-50 e partiamo con codex»; Codex ha quota resettata, Antigravity preferito no) · progetto §6.6, §10.3
   - [~] **S-50b · Crittografia iOS + vettori condivisi** → capocantiere/operaio Claude Code · §3, §10.3 · dopo S-50a
-  - [ ] **S-50c · Crittografia Android sugli stessi vettori** → capocantiere/operaio Claude Code · §3, §10.3 · dopo S-50b
+  - [~] **S-50c · Crittografia Android sugli stessi vettori** → impresa (Codex) · T1/T3/T4, 256 JVM, build/lint e 7 strumentati API 36 verdi · collaudo del blocco 1 dopo S-50d
   - [ ] **S-50d · iOS: trasporto SyncRemote a comportamento identico** → capocantiere/operaio Claude Code · §8.2, §10.3 · dopo S-50c · poi COLLAUDO BLOCCO 1 (collaudatore, S-50a…d)
   - [ ] **S-50e · iOS: vault, Keychain, mt_e2e, gate** → capocantiere/operaio Claude Code · §3.4–3.6, §4, §7.2, §10.3 · dopo collaudo blocco 1
   - [ ] **S-50f · Android: VaultApi, decoratore, Keystore, gate** → capocantiere/operaio Claude Code · §7.2, §8, §10.3 · dopo S-50e

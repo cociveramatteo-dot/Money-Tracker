@@ -210,3 +210,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-24 23:56 | capocantiere (Claude Code · Sonnet 5.5) | salva e chiudi | progetto S-60 (collegamento bancario) scritto dall'architetto e pubblicato; tutto su GitHub e Drive | S-50 e S-60 in attesa di via di Matteo; S-60t a Matteo |
 | 2026-11-25 09:07 | impresa (Codex · GPT-6) | S-50a · Server finto E2E | §6.6 implementato, 11 prove HTTP e 247 test Android verdi, grafo aggiornato in locale | S-50b; collaudo S-50a…d dopo S-50d |
 | 2026-11-25 10:09 | impresa (Codex · GPT-6) | S-50b · Crittografia iOS + vettori condivisi | 10 prove E2E, 109 unitari e 49 UI verdi, 7 gruppi verificati in Python; sorgenti già inclusi in f4bfd7a | S-50c; collaudo S-50a…d dopo S-50d |
+| 2026-11-25 10:20 | impresa (Codex · GPT-6) | S-50c · Crittografia Android | replica Kotlin, 7 gruppi della fixture condivisa, T1/T3/T4, 256 JVM e 7 strumentati API 36 verdi, build e lint verdi | S-50d; collaudo S-50a…d dopo S-50d |
