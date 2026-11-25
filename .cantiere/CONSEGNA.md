@@ -1,8 +1,9 @@
-# CONSEGNA — impresa (Codex · GPT-6) · 2026-11-25 11:04
+# CONSEGNA — collaudatore (Claude Code · Sonnet) · 2026-11-25 11:10
 
-- **S-50d [~].** `SyncRemote` e `PlainRemote` coprono le cinque tabelle. Restano identici l'ordine delle richieste, i filtri SDK, i payload, i campi e la codifica dei DTO `SB*` e il merge delle ricorrenze. Il servizio di test inietta remoto, utente, preferenze e pulizia del registro, con un contesto in memoria e senza avviare `NWPathMonitor`. E2E spento.
-- **T5 e T6 verdi.** 8 test mirati. Il finto `URLProtocol` ha intercettato 20 richieste. Verificati metodo, percorso, query (incluso `columns` nell'upsert), intestazione `Prefer`, JSON e decodifica. Il remoto in memoria ha verificato ordine di push, pull e login, dirty tracking, eliminazione degli orfani per utente, remoto vuoto, errore di lettura e fallback del login.
-- **Suite iOS completa verde.** `xcodebuild test -project MoneyTracker.xcodeproj -scheme MoneyTracker -destination 'id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48'` su iPhone 18 Pro iOS 27.2. 117 unitari e 49 UI passati, zero falliti o saltati. Risultato Xcode `Test-MoneyTracker-2026.11.25_10-31-37-+0100.xcresult`.
-- **Difetto preesistente, S-50l.1.** Con dati sintetici, su iPhone 18 Pro iOS 27.2 e su macOS, riprodotto lo stesso comportamento di SwiftData in memoria e su disco. Crea un conto, un movimento associato e uno senza conto. Esegui le cancellazioni in blocco del percorso di cambio utente e salva. La cancellazione dei movimenti fallisce per il vincolo `Transaction/account`. La cascata dei conti toglie il movimento associato, ma quello senza conto rimane. Attesi 0 movimenti, osservato 1. Il percorso di cancellazione conserva il comportamento precedente in S-50d.
-- `graphify update .` eseguito. Gli output del grafo erano già modificati all'apertura e restano locali. I commit social `5be9b4f` e `05ffb07` sono arrivati in parallelo e riguardano soltanto `SOCIAL/`.
-- **Serve collaudo di blocco 1 (S-50a…d)** da parte del collaudatore. Base del diff `9735c5f`. Il commit misto `f4bfd7a` contiene i sorgenti S-50b e le modifiche al regolamento del cantiere. Prompt in `progetto-e2e-sync.md`, §10.3.
+- **Collaudo blocco 1 (S-50a…d): PASSA.** S-50a…d segnati `[x]` in PIANO.
+- Perimetro: nessun test o fake esistente modificato (solo `fake-supabase.py` estero a S-50a, `build.gradle.kts`, `SyncService.swift` come previsto). Il resto è nuovo.
+- `PlainRemote`: stesse richieste SDK, filtri e corpi del codice precedente, stesso ordine in push/pull/login/orfani. E2E spento (iOS: solo DEBUG con `-E2EEnabled YES`; Android: `E2E_ENABLED` false in release, true in debug solo con `-Pe2e=true`).
+- Fixture `e2e-vectors-v1.json` identica byte per byte (Android è un link simbolico). Nonce casuali in produzione (SecureRandom / AES.GCM.Nonce()), fissi solo nelle API di test. Nessuna libreria nuova, nessun log nei file E2E.
+- Rieseguiti: python fake (11 ok), vettori `--check` ok, Android `testDebugUnitTest lint` ok, iOS unit `-only-testing:MoneyTrackerTests` ok. UI test non rieseguiti (già verdi in CONSEGNA di S-50d).
+- Nota: il commit f4bfd7a e le modifiche ad AGENTS.md / skill assegna non fanno parte del blocco.
+- Prossimo: S-50e a Codex.
