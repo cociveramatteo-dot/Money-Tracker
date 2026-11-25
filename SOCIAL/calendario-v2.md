@@ -1,5 +1,8 @@
 # Calendario social Bucktrail · v2 (23/11/2026)
 
+> **Aggiornamento 25/11/2026:** dal Post-10 vale la serie «problema prima» (vedi [direttive](direttive-social.md), sezione «Regole dal 25/11/2026»). Titoli, ganci e colori dei post 10–24 sono in `caroselli/v2/meta.py` e `posts_s.py`; i post 13 e 14 sono stati sostituiti (regola 50/30/20 e fondo emergenza); date e orari non si indicano più.
+
+
 **Sostituisce la parte «Proposte» del [calendario v1](calendario-v1.md)** (che resta come storico). Perché: i 38 post 5–42 della v1 erano troppi e troppo sottili («non valgono un post»). La v2 li unifica in **11 post pieni** (Post-5–15), 6–8 slide ciascuno, un solo set 1080×1350 per Instagram e TikTok.
 Post 1–4 pubblicati e intatti (il Post-3 «Guida: HOME» resta com’è: la Home è ripresa con un taglio nuovo nel Post-12). Date e orari sono indicativi: giorno di partenza e pubblicazione li decide Matteo. Regole di stile: [direttive](direttive-social.md) §«Stile v2».
 
