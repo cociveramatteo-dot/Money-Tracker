@@ -1,5 +1,8 @@
 package com.bucktrail.android.sync
 
+import com.bucktrail.android.sync.e2e.E2ERowLookup
+import com.bucktrail.android.sync.e2e.VaultApi
+import com.bucktrail.android.sync.e2e.VaultKind
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -36,7 +39,7 @@ data class Session(val accessToken: String, val refreshToken: String, val expire
 enum class ErrorKind { Network, Unauthorized, RateLimit, Client, Server }
 
 /** Errore di rete o risposta non 2xx; `message` è il testo del server (usato per la mappatura sul messaggio, come iOS). */
-class ApiException(val kind: ErrorKind, val status: Int, message: String) : Exception(message)
+class ApiException(val kind: ErrorKind, val status: Int, message: String, val code: String? = null) : Exception(message)
 
 /** Superficie minima di Supabase (GoTrue + PostgREST) usata dall'app. Implementata da `HttpSupabaseApi` e dai finti nei test. */
 interface SupabaseApi {
@@ -58,7 +61,7 @@ class HttpSupabaseApi(
     baseUrl: String, private val anonKey: String,
     private val connectTimeoutMs: Int = 15_000, private val readTimeoutMs: Int = 30_000,
     private val pageSize: Int = 1000,
-) : SupabaseApi {
+) : SupabaseApi, VaultApi {
     private val base = baseUrl.trimEnd('/')
 
     private companion object {
@@ -88,7 +91,12 @@ class HttpSupabaseApi(
                 val status = conn.responseCode
                 val stream = if (status in 200..399) conn.inputStream else conn.errorStream
                 val text = stream?.let { readBounded(it) }.orEmpty()
-                if (status !in 200..299) throw ApiException(kindOf(status), status, errorMessage(text, status))
+                if (status !in 200..299) {
+                    val code = runCatching {
+                        (Json.parseToJsonElement(text).jsonObject["code"] as? JsonPrimitive)?.contentOrNull
+                    }.getOrNull()
+                    throw ApiException(kindOf(status), status, errorMessage(text, status), code)
+                }
                 Response(status, text)
             } catch (e: ApiException) {
                 throw e
@@ -159,14 +167,22 @@ class HttpSupabaseApi(
 
     private fun enc(s: String) = URLEncoder.encode(s, "UTF-8")
 
-    override suspend fun selectAll(table: String, userId: String, token: String, columns: String): List<JsonObject> {
+    override suspend fun selectAll(table: String, userId: String, token: String, columns: String): List<JsonObject> =
+        selectPages(table, userId, token, columns, pageSize)
+
+    override suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String): List<JsonObject> =
+        selectPages("mt_vault", userId, token, columns, minOf(pageSize, 200), "&kind=eq.${enc(kind.wire)}")
+
+    private suspend fun selectPages(
+        table: String, userId: String, token: String, columns: String, size: Int, filter: String = "",
+    ): List<JsonObject> {
         val out = ArrayList<JsonObject>()
         var from = 0
         var previous: List<JsonObject>? = null
         while (true) {
             val r = call(
-                "GET", "/rest/v1/$table?select=${enc(columns)}&user_id=eq.${enc(userId)}&order=id.asc", token = token,
-                extra = mapOf("Range-Unit" to "items", "Range" to "$from-${from + pageSize - 1}"),
+                "GET", "/rest/v1/$table?select=${enc(columns)}&user_id=eq.${enc(userId)}$filter&order=id.asc", token = token,
+                extra = mapOf("Range-Unit" to "items", "Range" to "$from-${from + size - 1}"),
             )
             val page = runCatching { Json.parseToJsonElement(r.body) as? JsonArray }.getOrNull() ?: throw ApiException(ErrorKind.Server, r.status, "risposta non valida")
             val rows = page.map { it as? JsonObject ?: throw ApiException(ErrorKind.Server, r.status, "riga non valida") }
@@ -175,8 +191,8 @@ class HttpSupabaseApi(
             previous = rows
             out += rows
             if (out.size > MAX_ROWS) throw ApiException(ErrorKind.Server, r.status, "too many rows") // mai un risultato parziale: il pull ne cancellerebbe il resto
-            if (page.size < pageSize) return out
-            from += pageSize
+            if (page.size < size) return out
+            from += size
         }
     }
 
@@ -185,10 +201,45 @@ class HttpSupabaseApi(
         call("POST", "/rest/v1/$table", JsonArray(rows).toString(), token, mapOf("Prefer" to "resolution=merge-duplicates,return=minimal"))
     }
 
-    override suspend fun deleteIn(table: String, ids: List<String>, userId: String, token: String) {
+    override suspend fun deleteIn(table: String, ids: List<String>, userId: String, token: String) =
+        deleteRows(table, ids, userId, token)
+
+    override suspend fun upsertVault(rows: List<JsonObject>, token: String) = upsert("mt_vault", rows, token)
+
+    override suspend fun deleteVault(kind: VaultKind, ids: List<String>, userId: String, token: String) =
+        deleteRows("mt_vault", ids, userId, token, "&kind=eq.${enc(kind.wire)}")
+
+    private suspend fun deleteRows(table: String, ids: List<String>, userId: String, token: String, filter: String = "") {
         ids.chunked(100).forEach { chunk ->
-            call("DELETE", "/rest/v1/$table?id=in.(${chunk.joinToString(",") { enc(it) }})&user_id=eq.${enc(userId)}", token = token, extra = mapOf("Prefer" to "return=minimal"))
+            call("DELETE", "/rest/v1/$table?id=in.(${chunk.joinToString(",") { enc(it) }})&user_id=eq.${enc(userId)}$filter", token = token, extra = mapOf("Prefer" to "return=minimal"))
         }
+    }
+
+    override suspend fun getE2e(userId: String, token: String): E2ERowLookup {
+        val response = try {
+            call("GET", "/rest/v1/mt_e2e?user_id=eq.${enc(userId)}&select=*", token = token)
+        } catch (e: ApiException) {
+            if (e.status == 404 || (e.kind == ErrorKind.Client && (e.code == "PGRST205" || e.code == "42P01"))) {
+                return E2ERowLookup.Unavailable
+            }
+            throw e
+        }
+        val rows = runCatching { Json.parseToJsonElement(response.body) as? JsonArray }.getOrNull()
+        if (rows?.isEmpty() == true) return E2ERowLookup.Absent
+        val row = rows?.singleOrNull() as? JsonObject ?: return E2ERowLookup.Malformed
+        return E2ERowLookup.Present(row)
+    }
+
+    override suspend fun insertE2e(row: JsonObject, token: String) {
+        call("POST", "/rest/v1/mt_e2e", row.toString(), token, mapOf("Prefer" to "return=minimal"))
+    }
+
+    override suspend fun patchE2e(userId: String, changes: JsonObject, token: String) {
+        call("PATCH", "/rest/v1/mt_e2e?user_id=eq.${enc(userId)}", changes.toString(), token, mapOf("Prefer" to "return=minimal"))
+    }
+
+    override suspend fun deleteE2e(userId: String, token: String) {
+        call("DELETE", "/rest/v1/mt_e2e?user_id=eq.${enc(userId)}", token = token, extra = mapOf("Prefer" to "return=minimal"))
     }
 
     override suspend fun rpc(function: String, token: String) { call("POST", "/rest/v1/rpc/$function", "{}", token) }

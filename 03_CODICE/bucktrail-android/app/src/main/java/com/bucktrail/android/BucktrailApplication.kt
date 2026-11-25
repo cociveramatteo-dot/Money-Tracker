@@ -18,6 +18,8 @@ import com.bucktrail.android.sync.RoomLocalStore
 import com.bucktrail.android.sync.SharedPrefsSyncState
 import com.bucktrail.android.sync.SyncEngine
 import com.bucktrail.android.sync.SyncService
+import com.bucktrail.android.sync.e2e.E2EController
+import com.bucktrail.android.sync.e2e.E2EKeyStore
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -54,10 +56,20 @@ class BucktrailApplication : Application() {
     val auth by lazy { AuthManager(supabaseApi, KeystoreSessionStore(applicationContext)).also { it.bootstrap() } }
     private val syncState by lazy { SharedPrefsSyncState(applicationContext) }
     private val localStore by lazy { RoomLocalStore { database.dao() } }
+    private val e2e by lazy {
+        if (BuildConfig.E2E_ENABLED) {
+            E2EController(supabaseApi, supabaseApi, E2EKeyStore(applicationContext), enabled = true)
+        } else {
+            null
+        }
+    }
     val syncService by lazy {
+        val engine = SyncEngine(supabaseApi, localStore, syncState, auth,
+            onClear = { e2e?.clearLocalData(syncState.lastUserId) },
+        )
         SyncService(
-            appScope, auth, SyncEngine(supabaseApi, localStore, syncState, auth), syncState, localStore,
-            syncEnabled = { !repository.isDemo },
+            appScope, auth, engine, syncState, localStore,
+            syncEnabled = { !repository.isDemo }, e2e = e2e,
         )
     }
     private var syncStarted = false

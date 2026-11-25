@@ -83,11 +83,24 @@ class SyncEngine(
     private val api: SupabaseApi, private val store: LocalStore, private val state: SyncStateStore,
     private val auth: AuthGateway, private val nowMillis: () -> Long = System::currentTimeMillis,
     private val chunk: Int = 500,
+    private val onClear: () -> Unit = {},
 ) {
     /** Ponte verso `AuthManager` (nei test: finto con un token fisso). */
     interface AuthGateway {
         val userId: String?
         suspend fun <T> authed(block: suspend (token: String) -> T): T
+    }
+
+    /** Un trasporto per tutta l'operazione, legato alla sessione che ha risolto il gate. */
+    internal fun using(api: SupabaseApi, owner: String): SyncEngine {
+        val scopedAuth = object : AuthGateway {
+            override val userId: String? get() = auth.userId?.takeIf { it == owner }
+            override suspend fun <T> authed(block: suspend (String) -> T): T = auth.authed { token ->
+                if (userId == null) throw NotSignedInException()
+                block(token).also { if (userId == null) throw NotSignedInException() }
+            }
+        }
+        return SyncEngine(api, store, state, scopedAuth, nowMillis, chunk, onClear)
     }
 
     /** Il push è consentito solo dopo il primo scambio riuscito per questo utente. */
@@ -256,6 +269,7 @@ class SyncEngine(
     /** Logout: svuota i dati dell'utente e lo stato di sync (come `clearLocalData` iOS). */
     suspend fun clearLocalData() {
         store.clear()
+        onClear()
         state.lastPull = 0
         state.syncedUserId = null
         state.lastUserId = null

@@ -1,8 +1,11 @@
 package com.bucktrail.android.sync
 
 import com.bucktrail.android.data.LedgerState
+import com.bucktrail.android.sync.e2e.E2EController
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -42,6 +45,7 @@ class SyncService(
     private val store: LocalStore, private val syncEnabled: () -> Boolean,
     private val nowMillis: () -> Long = System::currentTimeMillis,
     private val sleep: suspend (Long) -> Unit = { delay(it) },
+    private val e2e: E2EController? = null,
 ) {
     private val _status = MutableStateFlow<SyncStatus>(SyncStatus.Idle)
     val status: StateFlow<SyncStatus> = _status.asStateFlow()
@@ -65,6 +69,7 @@ class SyncService(
     private var sessionJob: Job? = null
     @Volatile private var online = true
     private val watcher = ChangeWatcher()
+    private var e2eSelection: E2EController.Selection? = null
 
     private val active: Boolean get() = auth.isLoggedIn && syncEnabled()
 
@@ -74,7 +79,7 @@ class SyncService(
         sessionJob = scope.launch {
             auth.session.map { it?.userId }.distinctUntilChanged().collect { userId ->
                 if (userId == null) { retryJob?.cancel(); debounceJob?.cancel(); failures = 0; _status.value = SyncStatus.Idle; _needsDecision.value = false; _deleteConfirmation.value = null }
-                else if (syncEnabled()) ops.withLock { initialSync() }
+                else if (syncEnabled()) ops.withLock { withGate { initialSync(it) } }
             }
         }
     }
@@ -91,12 +96,12 @@ class SyncService(
 
     // ---- operazioni (sempre dentro la coda `ops`) -------------------------------------------------------------
 
-    private suspend fun initialSync(): Boolean {
+    private suspend fun initialSync(selected: SyncEngine): Boolean {
         if (!active) return false
         _status.value = SyncStatus.Syncing
         watcher.silent = true
         // `afterPull` (nuova base del watcher) resta dentro la finestra «silenziosa»: nessuna modifica del sync diventa un push
-        val result = try { engine.syncOnLogin().also { if (it == LoginSyncResult.Pulled) afterPull() } } finally { watcher.silent = false }
+        val result = try { selected.syncOnLogin().also { if (it == LoginSyncResult.Pulled) afterPull(selected) } } finally { watcher.silent = false }
         return when (result) {
             LoginSyncResult.Pulled -> { success(); true }
             LoginSyncResult.Pushed -> { success(); true }
@@ -114,8 +119,8 @@ class SyncService(
         _status.value = SyncStatus.Idle
     }
 
-    private suspend fun afterPull() {
-        _ignoredRows.value = engine.lastIgnoredRows
+    private suspend fun afterPull(selected: SyncEngine) {
+        _ignoredRows.value = selected.lastIgnoredRows
         watcher.rebase(store.snapshot())
         _pulled.tryEmit(Unit)
     }
@@ -123,17 +128,18 @@ class SyncService(
     private fun success() { failures = 0; state.hasPendingChanges = false; _status.value = if (online) SyncStatus.Idle else SyncStatus.Offline }
 
     private fun failed() {
+        if (e2eSelection?.plainWriteRejected == true) return // Prima si rivaluta il gate.
         failures += 1
         state.hasPendingChanges = true
         scheduleRetry()
     }
 
-    private suspend fun pushResilient(): Boolean {
+    private suspend fun pushResilient(selected: SyncEngine): Boolean {
         if (!active) return false
         // primo scambio non ancora avvenuto: non si fa push alla cieca
-        if (!engine.canPush(auth.userId!!)) return initialSync()
+        if (!selected.canPush(auth.userId!!)) return initialSync(selected)
         _status.value = SyncStatus.Syncing
-        return when (val r = engine.pushDetailed()) {
+        return when (val r = selected.pushDetailed()) {
             PushResult.Done -> { _deleteConfirmation.value = null; success(); true }
             PushResult.Failed -> { failed(); false }
             is PushResult.NeedsConfirmation -> { askDeleteConfirmation(r); false }
@@ -148,23 +154,25 @@ class SyncService(
         _deleteConfirmation.value = null
         ops.withLock {
             if (!active) return@withLock
-            _status.value = SyncStatus.Syncing
-            if (delete) {
-                when (engine.pushDetailed(allowDestructive = true)) {
-                    PushResult.Done -> success()
-                    else -> failed()
-                }
-            } else if (!pull()) failed()
+            withGate { selected ->
+                _status.value = SyncStatus.Syncing
+                if (delete) {
+                    when (selected.pushDetailed(allowDestructive = true)) {
+                        PushResult.Done -> success()
+                        else -> failed()
+                    }
+                } else if (!pull(selected)) failed()
+            }
         }
     }
 
-    private suspend fun pull(): Boolean {
+    private suspend fun pull(selected: SyncEngine): Boolean {
         if (!active) return false
         _status.value = SyncStatus.Syncing
         watcher.silent = true
         return try {
-            when (engine.pull()) {
-                PullOutcome.Done -> { afterPull(); success(); true }
+            when (selected.pull()) {
+                PullOutcome.Done -> { afterPull(selected); success(); true }
                 PullOutcome.Skipped -> { _status.value = SyncStatus.Idle; false }
                 PullOutcome.Failed -> { _status.value = SyncStatus.Idle; false }
             }
@@ -175,7 +183,7 @@ class SyncService(
         retryJob?.cancel()
         _status.value = SyncStatus.WaitingForRetry(failures)
         val wait = (Backoff.seconds(failures) * 1000).toLong()
-        retryJob = scope.launch { sleep(wait); ops.withLock { pushResilient() } }
+        retryJob = scope.launch { sleep(wait); ops.withLock { withGate { pushResilient(it) } } }
     }
 
     val shouldPull: Boolean get() = nowMillis() - state.lastPull > PULL_COOLDOWN_MS
@@ -185,16 +193,16 @@ class SyncService(
     /** Ritorno in primo piano: push, poi pull solo se il push è riuscito e il cooldown è scaduto. */
     suspend fun syncOnForeground() = ops.withLock {
         if (!active) return@withLock
-        if (pushResilient() && shouldPull) pull()
+        withGate { selected -> if (pushResilient(selected) && shouldPull) pull(selected) }
     }
 
     /** L'app va in background: carica quanto prima (resiliente). */
-    suspend fun pushOnBackground() = ops.withLock { if (active) pushResilient() }
+    suspend fun pushOnBackground() = ops.withLock { if (active) withGate { pushResilient(it) } }
 
     /** Pull-to-refresh: push e, se riuscito, pull senza cooldown. */
     suspend fun manualRefresh() = ops.withLock {
         if (!active) return@withLock
-        if (pushResilient()) pull()
+        withGate { selected -> if (pushResilient(selected)) pull(selected) }
     }
 
     /** Push con debounce 1,5 s a ogni salvataggio. */
@@ -206,7 +214,7 @@ class SyncService(
             delay(DEBOUNCE_MS)
             // una modifica appena fatta è un buon motivo per riprovare subito
             failures = 0; retryJob?.cancel()
-            ops.withLock { pushResilient() }
+            ops.withLock { withGate { pushResilient(it) } }
         }
     }
 
@@ -215,13 +223,17 @@ class SyncService(
         _needsDecision.value = false
         if (!useCloud) { auth.signOut(); return }
         ops.withLock {
-            _status.value = SyncStatus.Syncing
-            watcher.silent = true
-            val result = try { engine.syncOnLogin(useCloud = true).also { if (it == LoginSyncResult.Pulled) afterPull() } } finally { watcher.silent = false }
-            when (result) {
-                LoginSyncResult.Pulled -> success()
-                LoginSyncResult.Pushed -> success()
-                else -> failed()
+            withGate { selected ->
+                _status.value = SyncStatus.Syncing
+                watcher.silent = true
+                val result = try {
+                    selected.syncOnLogin(useCloud = true).also { if (it == LoginSyncResult.Pulled) afterPull(selected) }
+                } finally { watcher.silent = false }
+                when (result) {
+                    LoginSyncResult.Pulled -> success()
+                    LoginSyncResult.Pushed -> success()
+                    else -> failed()
+                }
             }
         }
     }
@@ -232,12 +244,12 @@ class SyncService(
         if (!auth.isLoggedIn) return
         if (!available) { _status.value = SyncStatus.Offline; return }
         if (_status.value == SyncStatus.Offline) _status.value = SyncStatus.Idle
-        if (state.hasPendingChanges && syncEnabled()) { retryJob?.cancel(); scope.launch { ops.withLock { pushResilient() } } }
+        if (state.hasPendingChanges && syncEnabled()) { retryJob?.cancel(); scope.launch { ops.withLock { withGate { pushResilient(it) } } } }
     }
 
     /** Esci: carica le modifiche (resiliente), chiude la sessione, svuota i dati locali (isolamento tra utenti). */
     suspend fun signOutAndClear() {
-        ops.withLock { if (active) pushResilient() }
+        ops.withLock { if (active) withGate { pushResilient(it) } }
         retryJob?.cancel(); debounceJob?.cancel()
         auth.signOut()
         ops.withLock { engine.clearLocalData(); watcher.rebase(store.snapshot()) }
@@ -254,6 +266,88 @@ class SyncService(
         }
         auth.signOut()
         failures = 0; _status.value = SyncStatus.Idle
+    }
+
+    private suspend fun withGate(action: suspend (SyncEngine) -> Unit) {
+        val controller = e2e?.takeIf { it.enabled }
+        if (controller == null) {
+            action(engine)
+            return
+        }
+        if (!active) return
+        val userId = auth.userId ?: return
+
+        // Un cambio d'utente deve isolare il DB anche se il gate mette la sync in pausa.
+        // Mantenere la pulizia nel motore conserva il callback e lo stesso reset di sync.
+        if (currentCoroutineContext()[Job] !== retryJob) retryJob?.cancel()
+        _status.value = SyncStatus.Syncing
+        try {
+            if (state.lastUserId?.let { it != userId } == true) {
+                watcher.silent = true
+                try {
+                    engine.clearLocalData()
+                    watcher.rebase(store.snapshot())
+                    state.lastUserId = userId
+                    _ignoredRows.value = 0
+                    _needsDecision.value = false
+                    _deleteConfirmation.value = null
+                } finally {
+                    watcher.silent = false
+                }
+            }
+
+            val selection = controller.resolve(auth, userId)
+            e2eSelection = selection
+            val transport = selection.transport
+            if (transport == null) {
+                pauseForProtection()
+                return
+            }
+            val selected = engine.using(transport, userId)
+            if (selection.needsInitialSync) {
+                restartInitialSync(selected, controller)
+            } else {
+                action(selected)
+            }
+            if (!selection.plainWriteRejected) return
+
+            val refreshed = controller.resolve(auth, userId)
+            e2eSelection = refreshed
+            val updated = refreshed.transport
+            when {
+                updated == null -> pauseForProtection()
+                refreshed.needsInitialSync -> {
+                    restartInitialSync(engine.using(updated, userId), controller)
+                }
+                else -> failed() // Il server continua a rifiutare il trasporto in chiaro.
+            }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (_: NotSignedInException) {
+            _status.value = SyncStatus.Idle
+        } catch (_: Exception) {
+            e2eSelection = null
+            failed()
+        } finally {
+            e2eSelection = null
+        }
+    }
+
+    private suspend fun restartInitialSync(selected: SyncEngine, controller: E2EController) {
+        _needsDecision.value = false
+        _deleteConfirmation.value = null
+        if (initialSync(selected) || _needsDecision.value || _deleteConfirmation.value != null) {
+            controller.initialSyncCompleted()
+        }
+    }
+
+    private fun pauseForProtection() {
+        retryJob?.cancel()
+        failures = 0
+        state.hasPendingChanges = true
+        _needsDecision.value = false
+        _deleteConfirmation.value = null
+        _status.value = SyncStatus.Idle
     }
 
     companion object {
