@@ -5,6 +5,7 @@ import com.bucktrail.android.data.BudgetEntity
 import com.bucktrail.android.data.GoalEntity
 import com.bucktrail.android.data.RecurringRuleEntity
 import com.bucktrail.android.data.TransactionEntity
+import com.bucktrail.android.sync.e2e.VaultKind
 
 /** Stato di sync persistito (UserDefaults iOS: `syncService.*`). */
 interface SyncStateStore {
@@ -84,6 +85,7 @@ class SyncEngine(
     private val auth: AuthGateway, private val nowMillis: () -> Long = System::currentTimeMillis,
     private val chunk: Int = 500,
     private val onClear: () -> Unit = {},
+    private val completeSnapshot: Boolean = false,
 ) {
     /** Ponte verso `AuthManager` (nei test: finto con un token fisso). */
     interface AuthGateway {
@@ -92,7 +94,9 @@ class SyncEngine(
     }
 
     /** Un trasporto per tutta l'operazione, legato alla sessione che ha risolto il gate. */
-    internal fun using(api: SupabaseApi, owner: String): SyncEngine {
+    internal fun using(
+        api: SupabaseApi, owner: String, completeSnapshot: Boolean = false, batchSize: Int = chunk,
+    ): SyncEngine {
         val scopedAuth = object : AuthGateway {
             override val userId: String? get() = auth.userId?.takeIf { it == owner }
             override suspend fun <T> authed(block: suspend (String) -> T): T = auth.authed { token ->
@@ -100,7 +104,7 @@ class SyncEngine(
                 block(token).also { if (userId == null) throw NotSignedInException() }
             }
         }
-        return SyncEngine(api, store, state, scopedAuth, nowMillis, chunk, onClear)
+        return SyncEngine(api, store, state, scopedAuth, nowMillis, batchSize, onClear, completeSnapshot)
     }
 
     /** Il push è consentito solo dopo il primo scambio riuscito per questo utente. */
@@ -119,10 +123,20 @@ class SyncEngine(
         return try { pushInternal(userId, allowDestructive) } catch (e: Exception) { PushResult.Failed }
     }
 
-    private suspend fun pushInternal(userId: String, allowDestructive: Boolean): PushResult {
+    /** Usa una copia immutabile e conserva le marcature che serviranno dopo il cambio di modalità. */
+    internal suspend fun pushMigration(
+        snapshot: Snapshot, allTransactions: Boolean, pruneOrphans: Boolean, allowDestructive: Boolean,
+    ): PushResult = pushInternal(
+        auth.userId ?: throw NotSignedInException(), allowDestructive, snapshot, allTransactions, pruneOrphans,
+    )
+
+    private suspend fun pushInternal(
+        userId: String, allowDestructive: Boolean, frozen: Snapshot? = null, allTransactions: Boolean = false,
+        pruneOrphans: Boolean = true,
+    ): PushResult {
         // prima le marcature, poi la lettura: una modifica arrivata dopo resta in coda (la sua marcatura cambia)
         val dirtyAtStart = state.dirty()
-        val snap = store.snapshot()
+        val snap = frozen ?: store.snapshot()
         val tables = listOf(
             "mt_accounts" to snap.accounts.map { it.id }.toSet(), "mt_transactions" to snap.transactions.map { it.id }.toSet(),
             "mt_budgets" to snap.budgets.map { it.id }.toSet(), "mt_goals" to snap.goals.map { it.id }.toSet(),
@@ -131,28 +145,28 @@ class SyncEngine(
         return auth.authed<PushResult> { token ->
             // guardia: prima di scrivere o cancellare qualsiasi cosa si sa quanto verrebbe cancellato dal cloud
             val remoteIdsByTable = tables.associate { (t, _) -> t to fetchIds(t, userId, token) }
-            val deletions = tables.sumOf { (t, local) -> (remoteIdsByTable.getValue(t) - local).size }
+            val deletions = if (pruneOrphans) tables.sumOf { (t, local) -> (remoteIdsByTable.getValue(t) - local).size } else 0
             val baseline = state.lastSyncedCount.takeIf { it >= 0 } ?: remoteIdsByTable.values.sumOf { it.size }
             if (!allowDestructive && DeletionGuard.requiresConfirmation(deletions, snap.count, baseline)) {
                 return@authed PushResult.NeedsConfirmation(deletions, baseline)
             }
             upload("mt_accounts", snap.accounts.map { SyncMapper.accountRow(it, userId) }, token)
-            deleteOrphans("mt_accounts", userId, snap.accounts.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_accounts"))
+            if (pruneOrphans) deleteOrphans("mt_accounts", userId, snap.accounts.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_accounts"))
 
             // movimenti: i «sporchi» + quelli che il cloud non ha (una marcatura persa non deve mai far cancellare un movimento al pull)
             val remoteTx = remoteIdsByTable.getValue("mt_transactions")
-            val toUpload = snap.transactions.filter { it.id in dirtyAtStart || it.id !in remoteTx }
+            val toUpload = snap.transactions.filter { allTransactions || it.id in dirtyAtStart || it.id !in remoteTx }
             upload("mt_transactions", toUpload.map { SyncMapper.transactionRow(it, userId) }, token)
-            state.clearDirty(dirtyAtStart.filterKeys { id -> toUpload.any { it.id == id } })
-            deleteOrphans("mt_transactions", userId, snap.transactions.map { it.id }.toSet(), token, remoteTx)
+            if (frozen == null) state.clearDirty(dirtyAtStart.filterKeys { id -> toUpload.any { it.id == id } })
+            if (pruneOrphans) deleteOrphans("mt_transactions", userId, snap.transactions.map { it.id }.toSet(), token, remoteTx)
 
             upload("mt_budgets", snap.budgets.map { SyncMapper.budgetRow(it, userId) }, token)
-            deleteOrphans("mt_budgets", userId, snap.budgets.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_budgets"))
+            if (pruneOrphans) deleteOrphans("mt_budgets", userId, snap.budgets.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_budgets"))
             upload("mt_goals", snap.goals.map { SyncMapper.goalRow(it, userId) }, token)
-            deleteOrphans("mt_goals", userId, snap.goals.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_goals"))
+            if (pruneOrphans) deleteOrphans("mt_goals", userId, snap.goals.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_goals"))
             upload("mt_recurring_rules", snap.rules.map { SyncMapper.ruleRow(it, userId) }, token)
-            deleteOrphans("mt_recurring_rules", userId, snap.rules.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_recurring_rules"))
-            state.lastSyncedCount = snap.count
+            if (pruneOrphans) deleteOrphans("mt_recurring_rules", userId, snap.rules.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_recurring_rules"))
+            if (frozen == null) state.lastSyncedCount = snap.count
             PushResult.Done
         }
     }
@@ -179,7 +193,7 @@ class SyncEngine(
             val (remote, ignored) = auth.authed { token ->
                 val accounts = decode(api.selectAll("mt_accounts", userId, token), SyncMapper::account)
                 // remoto senza conti: le altre tabelle non contano (la guardia del merge impedisce di cancellare il locale)
-                if (accounts.items.isEmpty() && accounts.ignored.isEmpty()) return@authed Snapshot() to IgnoredIds()
+                if (!completeSnapshot && accounts.items.isEmpty() && accounts.ignored.isEmpty()) return@authed Snapshot() to IgnoredIds()
                 val tx = decode(api.selectAll("mt_transactions", userId, token), SyncMapper::transaction)
                 val budgets = decode(api.selectAll("mt_budgets", userId, token), SyncMapper::budget)
                 val goals = decode(api.selectAll("mt_goals", userId, token), SyncMapper::goal)
@@ -222,7 +236,9 @@ class SyncEngine(
      * Primo scambio dopo l'accesso. `useCloud` = scelta dell'utente quando il dispositivo ha dati creati senza account
      * e il cloud ne ha altri: i dati del dispositivo vengono sostituiti da quelli del cloud.
      */
-    suspend fun syncOnLogin(useCloud: Boolean = false): LoginSyncResult {
+    suspend fun syncOnLogin(useCloud: Boolean = false): LoginSyncResult = syncOnLogin(useCloud, fresh = false)
+
+    internal suspend fun syncOnLogin(useCloud: Boolean, fresh: Boolean): LoginSyncResult {
         val userId = auth.userId ?: return LoginSyncResult.Failed
         val previousUser = state.lastUserId
         // isolamento multi-utente: dati di un altro utente non restano mai
@@ -234,7 +250,7 @@ class SyncEngine(
             state.hasPendingChanges = false
         }
         // sessione ripresa dopo un primo scambio già riuscito: prima si caricano le modifiche locali, poi si scarica
-        if (canPush(userId)) {
+        if (!fresh && canPush(userId)) {
             state.lastUserId = userId
             when (val r = pushDetailed()) {
                 is PushResult.NeedsConfirmation -> return LoginSyncResult.NeedsDeleteConfirmation(r.deletions, r.baseline)
@@ -243,14 +259,17 @@ class SyncEngine(
             }
             return if (pull() == PullOutcome.Done) LoginSyncResult.Pulled else LoginSyncResult.Pushed
         }
-        val remoteIds = try {
-            auth.authed { fetchIds("mt_accounts", userId, it) }
+        val remoteEmpty = try {
+            auth.authed { token ->
+                if (!completeSnapshot) fetchIds("mt_accounts", userId, token).isEmpty()
+                else VaultKind.entries.none { fetchIds(it.table, userId, token).isNotEmpty() }
+            }
         } catch (e: Exception) {
             // iOS ripiega sul push; qui mai: senza sapere cosa c'è sul cloud non si scrive (il primo scambio non è ancora avvenuto)
             return LoginSyncResult.Failed
         }
         val local = store.snapshot()
-        if (remoteIds.isEmpty()) {
+        if (remoteEmpty) {
             // nuovo utente o primo dispositivo: i dati locali vanno sul cloud
             state.lastUserId = userId
             state.syncedUserId = userId

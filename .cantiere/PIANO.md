@@ -508,7 +508,7 @@ Modello di task:
   - [~] **S-50f · Android: VaultApi, decoratore, Keystore, gate** · 2026-11-25 Codex, build/lint verdi, 276 JVM e 2 strumentati verdi, T5/T6/T12/T14 Android coperti. Da collaudare nel blocco 2
   - [~] **S-50g · Interoperabilità righe iOS↔Android (vettori rows)** · 2026-11-25 Codex, T2 verde su entrambe le piattaforme, 139 unitari e 49 UI iOS, 278 JVM Android, build/lint e verifica Python verdi. Da collaudare nel blocco 2
   - [~] **S-50h · iOS: migratore, verifica, rollback** · 2026-11-25 Codex. T7–T11 e T13 con remoti finti, 157 unitari e 49 UI con retry mirati. Interruttore spento. Da collaudare nel blocco 2.
-  - [ ] **S-50i · Android: migratore, verifica, rollback** → capocantiere/operaio Claude Code · §7, §10.3 · dopo S-50h · poi COLLAUDO BLOCCO 2 (collaudatore + stress-test, S-50e…i)
+  - [~] **S-50i · Android: migratore, verifica, rollback** · 2026-11-25 Codex. T7–T11 e T13 con fake, 300 JVM, build/lint e 1 strumentato HTTP verdi. Interruttore spento. Prossimo COLLAUDO BLOCCO 2 (S-50e…i) → capocantiere con collaudatore + stress-test, incluse le gare tra dispositivi e il confine di atomicità lato server.
   - [ ] **S-50j · iOS: interfaccia e testi 7 lingue** → capocantiere/operaio Claude Code · §5, §10.3 · dopo collaudo blocco 2
   - [ ] **S-50k · Android: interfaccia e testi 7 lingue** → capocantiere/operaio Claude Code · §5, §10.3 · dopo S-50j
   - [ ] **S-50l · Logout, elimina account, cambio utente, stress-test** → capocantiere/operaio Claude Code · §4.2, §10.3 · dopo S-50k · poi COLLAUDO BLOCCO 3 (collaudatore, S-50j…l)

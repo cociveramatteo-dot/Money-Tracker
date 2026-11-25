@@ -2,6 +2,7 @@ package com.bucktrail.android.sync.e2e
 
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import java.time.OffsetDateTime
 import java.util.UUID
 
 /** Superficie PostgREST delle tabelle E2E. I record del vault contengono solo id, utente, kind e involucro cifrato. */
@@ -13,7 +14,30 @@ interface VaultApi {
     suspend fun insertE2e(row: JsonObject, token: String)
     suspend fun patchE2e(userId: String, changes: JsonObject, token: String)
     suspend fun deleteE2e(userId: String, token: String)
+
+    suspend fun patchE2eIfCurrent(row: JsonObject, changes: JsonObject, token: String): Boolean {
+        val owner = checkNotNull(row.text("user_id"))
+        if (!(getE2e(owner, token) as? E2ERowLookup.Present)?.row.sameGeneration(row)) return false
+        patchE2e(owner, changes, token)
+        return true
+    }
+
+    suspend fun deleteE2eIfCurrent(row: JsonObject, token: String): Boolean {
+        val owner = checkNotNull(row.text("user_id"))
+        if (!(getE2e(owner, token) as? E2ERowLookup.Present)?.row.sameGeneration(row)) return false
+        deleteE2e(owner, token)
+        return true
+    }
 }
+
+internal fun JsonObject.generation(): String? = text("updated_at")?.let {
+    OffsetDateTime.parse(it).toInstant().toString()
+}
+
+internal fun JsonObject?.sameGeneration(expected: JsonObject): Boolean = this != null &&
+    text("user_id").equals(expected.text("user_id"), ignoreCase = true) &&
+    text("key_id") == expected.text("key_id") && text("state") == expected.text("state") &&
+    text("updated_at") == expected.text("updated_at")
 
 enum class VaultKind(val table: String, val wire: String) {
     Account("mt_accounts", "account"),

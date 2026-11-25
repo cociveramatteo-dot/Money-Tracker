@@ -242,6 +242,25 @@ class HttpSupabaseApi(
         call("DELETE", "/rest/v1/mt_e2e?user_id=eq.${enc(userId)}", token = token, extra = mapOf("Prefer" to "return=minimal"))
     }
 
+    override suspend fun patchE2eIfCurrent(row: JsonObject, changes: JsonObject, token: String): Boolean =
+        mutateCurrentE2e("PATCH", row, changes.toString(), token)
+
+    override suspend fun deleteE2eIfCurrent(row: JsonObject, token: String): Boolean =
+        mutateCurrentE2e("DELETE", row, null, token)
+
+    private suspend fun mutateCurrentE2e(method: String, row: JsonObject, body: String?, token: String): Boolean {
+        val required = listOf("user_id", "key_id", "state")
+        val filter = (required + listOfNotNull("updated_at".takeIf { row.containsKey(it) })).joinToString("&") { key ->
+            val expected = requireNotNull((row[key] as? JsonPrimitive)?.contentOrNull)
+            "$key=eq.${enc(expected)}"
+        }
+        val response = call(method, "/rest/v1/mt_e2e?$filter&select=user_id", body, token,
+            mapOf("Prefer" to "return=representation"))
+        val rows = Json.parseToJsonElement(response.body) as? JsonArray
+            ?: throw SyncFormatException("Invalid E2E mutation response")
+        return rows.singleOrNull() is JsonObject
+    }
+
     override suspend fun rpc(function: String, token: String) { call("POST", "/rest/v1/rpc/$function", "{}", token) }
 }
 

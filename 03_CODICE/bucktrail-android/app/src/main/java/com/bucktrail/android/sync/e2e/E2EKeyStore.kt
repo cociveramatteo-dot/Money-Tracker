@@ -24,15 +24,29 @@ interface E2ESecrets {
     fun clear(userId: String)
 }
 
+interface MigrationSecrets : E2ESecrets {
+    fun clearMarker(userId: String)
+}
+
 class LocalDek(val bytes: ByteArray, val keyId: String)
 
 enum class MigrationDirection(val wire: String) { Enable("enable"), Disable("disable") }
 
 data class E2EMigrationMarker(
     val direction: MigrationDirection, val userId: String, val keyId: String, val startedAt: Long,
-)
+    val phase: Phase? = null,
+    val generation: String? = null,
+) {
+    enum class Phase(val wire: String) {
+        Verified("verified"), RollingBack("rollingBack"), DisableCleanup("disableCleanup"), Resetting("resetting")
+    }
 
-class E2EKeyStore(context: Context) : E2ESecrets {
+    internal fun owns(row: JsonObject): Boolean =
+        keyId == row.text("key_id") && (generation == null || generation == row.generation())
+}
+
+class E2EKeyStore(context: Context) : MigrationSecrets {
+    internal val backupDirectory = context.applicationContext.noBackupFilesDir.resolve("e2e")
     private val prefs = context.applicationContext.getSharedPreferences("bucktrail_e2e", Context.MODE_PRIVATE)
 
     @Synchronized
@@ -87,7 +101,8 @@ class E2EKeyStore(context: Context) : E2ESecrets {
         val userId = canonicalUuid(row.text("user_id"))?.toString() ?: return null
         val keyId = row.text("key_id") ?: return null
         val startedAt = (row["started_at"] as? JsonPrimitive)?.longOrNull ?: return null
-        return E2EMigrationMarker(direction, userId, keyId, startedAt)
+        val phase = row.text("phase")?.let { wire -> E2EMigrationMarker.Phase.entries.firstOrNull { it.wire == wire } ?: return null }
+        return E2EMigrationMarker(direction, userId, keyId, startedAt, phase, row.text("generation"))
     }
 
     @Synchronized
@@ -97,8 +112,15 @@ class E2EKeyStore(context: Context) : E2ESecrets {
             put("user_id", JsonPrimitive(owner(marker.userId)))
             put("key_id", JsonPrimitive(marker.keyId))
             put("started_at", JsonPrimitive(marker.startedAt))
+            marker.phase?.let { put("phase", JsonPrimitive(it.wire)) }
+            marker.generation?.let { put("generation", JsonPrimitive(it)) }
         }
         check(prefs.edit().putString(MIGRATION, json.toString()).commit())
+    }
+
+    @Synchronized
+    override fun clearMarker(userId: String) {
+        if (marker()?.userId == owner(userId)) check(prefs.edit().remove(MIGRATION).commit())
     }
 
     @Synchronized

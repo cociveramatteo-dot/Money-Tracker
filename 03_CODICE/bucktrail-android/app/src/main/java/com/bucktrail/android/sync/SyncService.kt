@@ -1,7 +1,10 @@
 package com.bucktrail.android.sync
 
+import com.bucktrail.android.BuildConfig
 import com.bucktrail.android.data.LedgerState
 import com.bucktrail.android.sync.e2e.E2EController
+import com.bucktrail.android.sync.e2e.E2EMigrator
+import com.bucktrail.android.sync.e2e.E2EVerifier
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -62,6 +65,8 @@ class SyncService(
     /** Emette a ogni pull riuscito (poi si materializzano le ricorrenze). */
     val pulled: SharedFlow<Unit> = _pulled.asSharedFlow()
 
+    val protection = e2e?.status
+
     private val ops = Mutex()
     private var failures = 0
     private var retryJob: Job? = null
@@ -96,12 +101,12 @@ class SyncService(
 
     // ---- operazioni (sempre dentro la coda `ops`) -------------------------------------------------------------
 
-    private suspend fun initialSync(selected: SyncEngine): Boolean {
+    private suspend fun initialSync(selected: SyncEngine, fresh: Boolean = false): Boolean {
         if (!active) return false
         _status.value = SyncStatus.Syncing
         watcher.silent = true
         // `afterPull` (nuova base del watcher) resta dentro la finestra «silenziosa»: nessuna modifica del sync diventa un push
-        val result = try { selected.syncOnLogin().also { if (it == LoginSyncResult.Pulled) afterPull(selected) } } finally { watcher.silent = false }
+        val result = try { selected.syncOnLogin(useCloud = false, fresh = fresh).also { if (it == LoginSyncResult.Pulled) afterPull(selected) } } finally { watcher.silent = false }
         return when (result) {
             LoginSyncResult.Pulled -> { success(); true }
             LoginSyncResult.Pushed -> { success(); true }
@@ -298,12 +303,13 @@ class SyncService(
 
             val selection = controller.resolve(auth, userId)
             e2eSelection = selection
+            if (resumeMigration(controller, userId, selection)) return
             val transport = selection.transport
             if (transport == null) {
                 pauseForProtection()
                 return
             }
-            val selected = engine.using(transport, userId)
+            val selected = engine.using(transport, userId, completeSnapshot = selection.completeSnapshot)
             if (selection.needsInitialSync) {
                 restartInitialSync(selected, controller)
             } else {
@@ -313,11 +319,12 @@ class SyncService(
 
             val refreshed = controller.resolve(auth, userId)
             e2eSelection = refreshed
+            if (resumeMigration(controller, userId, refreshed)) return
             val updated = refreshed.transport
             when {
                 updated == null -> pauseForProtection()
                 refreshed.needsInitialSync -> {
-                    restartInitialSync(engine.using(updated, userId), controller)
+                    restartInitialSync(engine.using(updated, userId, completeSnapshot = refreshed.completeSnapshot), controller)
                 }
                 else -> failed() // Il server continua a rifiutare il trasporto in chiaro.
             }
@@ -325,11 +332,67 @@ class SyncService(
             throw e
         } catch (_: NotSignedInException) {
             _status.value = SyncStatus.Idle
+        } catch (_: E2EMigrator.Failure) {
+            pauseForProtection()
+        } catch (_: E2EVerifier.Mismatch) {
+            pauseForProtection()
         } catch (_: Exception) {
             e2eSelection = null
             failed()
         } finally {
             e2eSelection = null
+        }
+    }
+
+    private suspend fun resumeMigration(
+        controller: E2EController, userId: String, selection: E2EController.Selection,
+    ): Boolean {
+        val pending = selection.pending ?: return false
+        runMigration(controller, userId) { it.resume(pending.marker, pending.row) }
+        return true
+    }
+
+    /** Ingresso per le azioni di protezione avanzata e per i test con interruzioni iniettate. */
+    internal suspend fun <T> withE2EMigrator(
+        checkpoint: suspend (E2EMigrator.Step) -> Unit = {},
+        action: suspend (E2EMigrator) -> T,
+    ): T = ops.withLock {
+        val controller = e2e?.takeIf { it.enabled && active } ?: throw E2EMigrator.Failure(E2EMigrator.Problem.Unavailable)
+        val userId = auth.userId ?: throw NotSignedInException()
+        if (state.lastUserId?.let { it != userId } == true) throw NotSignedInException()
+        retryJob?.cancel()
+        runMigration(controller, userId, checkpoint, action)
+    }
+
+    private suspend fun <T> runMigration(
+        controller: E2EController, userId: String,
+        checkpoint: suspend (E2EMigrator.Step) -> Unit = {},
+        action: suspend (E2EMigrator) -> T,
+    ): T {
+        _status.value = SyncStatus.Syncing
+        try {
+            return controller.migrate(auth, userId, engine, store,
+                initialSync = { initialSync(it, fresh = true) },
+                pull = { selected ->
+                    // Suppress echo only during the actual Room merge.
+                    watcher.silent = true
+                    try {
+                        val applied = selected.pull() == PullOutcome.Done && selected.lastIgnoredRows == 0
+                        if (applied) watcher.rebase(store.snapshot())
+                        applied
+                    } finally {
+                        watcher.silent = false
+                    }
+                },
+                completedCopy = { state.lastUserId = userId; state.syncedUserId = userId },
+                checkpoint = if (BuildConfig.DEBUG) checkpoint else { _ -> }, action = action,
+            ).also {
+                if (state.lastUserId == null) state.lastUserId = userId
+                state.hasPendingChanges = state.hasPendingChanges || state.dirty().isNotEmpty()
+            }
+        } finally {
+            if (controller.hasPendingMigration(userId)) state.hasPendingChanges = true
+            if (_status.value == SyncStatus.Syncing) _status.value = if (online) SyncStatus.Idle else SyncStatus.Offline
         }
     }
 
