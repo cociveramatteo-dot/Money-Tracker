@@ -503,7 +503,7 @@ Modello di task:
   - [x] (2026-11-25 11:10, collaudo ok blocco 1) **S-50b · Crittografia iOS + vettori condivisi** → capocantiere/operaio Claude Code · §3, §10.3 · dopo S-50a
   - [x] (2026-11-25 11:10, collaudo ok blocco 1) **S-50c · Crittografia Android sugli stessi vettori** → impresa (Codex) · T1/T3/T4, 256 JVM, build/lint e 7 strumentati API 36 verdi · collaudo del blocco 1 dopo S-50d
   - [x] (2026-11-25 11:10, collaudo ok blocco 1) **S-50d · iOS: trasporto SyncRemote a comportamento identico** → impresa (Codex) · T5/T6 e suite iOS completa verdi (117 unitari, 49 UI) · prossimo COLLAUDO BLOCCO 1 (collaudatore, S-50a…d)
-  - [ ] **S-50e · iOS: vault, Keychain, mt_e2e, gate** → capocantiere/operaio Claude Code · §3.4–3.6, §4, §7.2, §10.3 · dopo collaudo blocco 1
+  - [~] **S-50e · iOS: vault, Keychain, mt_e2e, gate** · 2026-11-25 Codex, 137 unitari e 49 UI verdi, T5/T6/T12/T14 iOS coperti, da collaudare nel blocco 2
   - [ ] **S-50f · Android: VaultApi, decoratore, Keystore, gate** → capocantiere/operaio Claude Code · §7.2, §8, §10.3 · dopo S-50e
   - [ ] **S-50g · Interoperabilità righe iOS↔Android (vettori rows)** → capocantiere/operaio Claude Code · §3.7, §10.3 · dopo S-50f
   - [ ] **S-50h · iOS: migratore, verifica, rollback** → capocantiere/operaio Claude Code · §7, §10.3 · dopo S-50g

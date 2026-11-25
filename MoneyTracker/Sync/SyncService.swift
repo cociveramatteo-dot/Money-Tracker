@@ -308,22 +308,31 @@ final class SyncService: ObservableObject {
     private let injectedUserId: UUID?
     private let defaults: UserDefaults
     private let clearAuditLog: @MainActor () -> Void
+    private let e2eEnabled: Bool
+    private let e2eKeyStore = E2EKeyStore()
 
     private init() {
         injectedRemote = nil
         injectedUserId = nil
         defaults = .standard
         clearAuditLog = { AuditLogger.shared.clearAll() }
+        e2eEnabled = E2EFeature.isEnabled
         startNetworkMonitoring()
     }
 
     /// Isolated service for tests, with no network monitor or live app state.
     init(remote: any SyncRemote, userId: UUID, defaults: UserDefaults,
+         e2eLaunchArguments: [String]? = nil,
          clearAuditLog: @escaping @MainActor () -> Void = {}) {
         injectedRemote = remote
         injectedUserId = userId
         self.defaults = defaults
         self.clearAuditLog = clearAuditLog
+        #if DEBUG
+        e2eEnabled = e2eLaunchArguments.map(E2EFeature.isEnabled(arguments:)) ?? E2EFeature.isEnabled
+        #else
+        e2eEnabled = E2EFeature.isEnabled
+        #endif
     }
 
     private var auth: SupabaseManager { .shared }
@@ -356,6 +365,7 @@ final class SyncService: ObservableObject {
     /// Ultimo context "reale" usato per un sync — serve ai retry automatici innescati
     /// dal path monitor, che non hanno un chiamante diretto da cui riceverlo.
     private var lastContext: ModelContext?
+    private var e2eRetryOperation: E2EOperation?
 
     /// true se esistono modifiche locali non ancora confermate su Supabase.
     private var hasPendingChanges: Bool {
@@ -373,7 +383,11 @@ final class SyncService: ObservableObject {
                     if self.status == .offline { self.status = .idle }
                     if self.hasPendingChanges, let ctx = self.lastContext {
                         self.retryTask?.cancel()
-                        await self.pushResilient(context: ctx)
+                        if let operation = self.e2eRetryOperation {
+                            await self.runE2ESync(operation, context: ctx)
+                        } else {
+                            await self.pushResilient(context: ctx)
+                        }
                     }
                 } else {
                     self.status = .offline
@@ -388,6 +402,7 @@ final class SyncService: ObservableObject {
     @discardableResult
     func pushResilient(context: ModelContext) async -> Bool {
         guard !isUsingVolatileStore else { return false }
+        if e2eEnabled { return await runE2ESync(.push, context: context) }
         lastContext = context
         status = .syncing
         let ok = await push(context: context)
@@ -403,16 +418,21 @@ final class SyncService: ObservableObject {
         return ok
     }
 
-    private func scheduleRetry(context: ModelContext) {
+    private func scheduleRetry(context: ModelContext, e2eOperation: E2EOperation? = nil) {
         guard !isUsingVolatileStore else { return }
         retryTask?.cancel()
+        e2eRetryOperation = e2eOperation
         let delay = min(pow(2.0, Double(consecutiveFailures)), maxBackoff)
         status = .waitingForRetry(attempt: consecutiveFailures)
         Logger.persistence.info("SyncService: push fallito, nuovo tentativo tra \(delay, format: .fixed(precision: 0))s (tentativo #\(self.consecutiveFailures))")
         retryTask = Task { [weak self] in
             try? await Task.sleep(for: .seconds(delay))
             guard !Task.isCancelled, let self else { return }
-            await self.pushResilient(context: context)
+            if let e2eOperation {
+                await self.runE2ESync(e2eOperation, context: context)
+            } else {
+                await self.pushResilient(context: context)
+            }
         }
     }
 
@@ -420,6 +440,10 @@ final class SyncService: ObservableObject {
     /// push resiliente, poi pull solo se il push è riuscito e il cooldown è scaduto.
     /// Centralizza qui la logica prima duplicata/inline in MoneyTrackerApp.
     func syncOnForeground(context: ModelContext) async {
+        if e2eEnabled {
+            await runE2ESync(.foreground, context: context)
+            return
+        }
         let pushed = await pushResilient(context: context)
         if pushed && shouldPull {
             await pull(context: context)
@@ -506,6 +530,10 @@ final class SyncService: ObservableObject {
     /// instabile), il pull viene saltato per non cancellare modifiche locali non ancora
     /// caricate sul cloud.
     func manualRefresh(context: ModelContext) async {
+        if e2eEnabled {
+            await runE2ESync(.refresh, context: context)
+            return
+        }
         guard auth.isLoggedIn, !defaults.bool(forKey: "demoModeEnabled") else { return }
         guard await pushResilient(context: context) else { return }
         await pull(context: context)
@@ -518,6 +546,10 @@ final class SyncService: ObservableObject {
     /// • Se Supabase non ha dati → push (dati locali esistenti vanno sul cloud)
     /// • Se Supabase ha già dati  → pull (il cloud è la fonte di verità)
     func syncOnLogin(context: ModelContext) async {
+        if e2eEnabled {
+            await runE2ESync(.login, context: context)
+            return
+        }
         guard let userId else { return }
 
         // Isolamento multi-utente: se l'utente è cambiato, svuota il locale
@@ -550,7 +582,7 @@ final class SyncService: ObservableObject {
     /// Se arrivano più salvataggi ravvicinati, parte un solo push.
     func schedulePush(context: ModelContext) {
         guard !isUsingVolatileStore else { return }
-        guard auth.isLoggedIn else { return }
+        guard e2eEnabled ? userId != nil : auth.isLoggedIn else { return }
         lastContext = context
         hasPendingChanges = true
         debounceTask?.cancel()
@@ -572,6 +604,15 @@ final class SyncService: ObservableObject {
     /// Chiamato al logout per garantire che il prossimo utente
     /// non veda i dati del precedente.
     func clearLocalData(context: ModelContext) {
+        if e2eEnabled {
+            let previousUser = defaults.string(forKey: lastUserKey).flatMap(UUID.init(uuidString:))
+            clearE2ESession(userId: previousUser ?? userId)
+            defaults.removeObject(forKey: lastUserKey)
+        }
+        clearLocalStore(context: context)
+    }
+
+    private func clearLocalStore(context: ModelContext) {
         // Ordine importante: prima le dipendenze, poi gli account (cascade). Ogni
         // cancellazione è loggata se fallisce: un fallimento silenzioso qui vorrebbe
         // dire che il prossimo utente sullo stesso dispositivo può ritrovarsi a vedere
@@ -603,8 +644,20 @@ final class SyncService: ObservableObject {
     func push(context: ModelContext) async -> Bool {
         guard !isUsingVolatileStore else { return false }
         guard let userId else { return false }
-        Logger.persistence.info("SyncService: push started")
+        if e2eEnabled { return await runE2ESync(.push, context: context) }
 
+        do {
+            try await upload(context: context, remote: remote, userId: userId)
+            return true
+        } catch {
+            Logger.persistence.error("SyncService push error: \(error.localizedDescription, privacy: .public)")
+            return false
+        }
+    }
+
+    private func upload(context: ModelContext, remote: any SyncRemote, userId: UUID,
+                        validateSession: () throws -> Void = {}) async throws {
+        Logger.persistence.info("SyncService: push started")
         do {
             let accounts     = try context.fetch(FetchDescriptor<Account>())
             let transactions = try context.fetch(FetchDescriptor<Transaction>())
@@ -615,12 +668,13 @@ final class SyncService: ObservableObject {
             let rules = try context.fetch(FetchDescriptor<RecurringRule>())
 
             // Accounts
+            try validateSession()
             if !accounts.isEmpty {
                 let sb = accounts.map { SBAccount($0, userId: userId) }
                 try await remote.upsert(sb, table: .accounts, userId: userId)
             }
-            try await deleteOrphans(table: .accounts,
-                                    userId: userId,
+            try await deleteOrphans(remote: remote, table: .accounts,
+                                    userId: userId, validateSession: validateSession,
                                     localIds: Set(accounts.map { $0.id }))
 
             // Transactions — sync incrementale: carica solo le righe segnate come
@@ -630,49 +684,50 @@ final class SyncService: ObservableObject {
             // vedere l'intero set per rilevare correttamente le cancellazioni.
             let dirtyIds = dirtyTransactionIds
             let dirtyTransactions = dirtyIds.isEmpty ? [] : transactions.filter { dirtyIds.contains($0.id) }
+            try validateSession()
             if !dirtyTransactions.isEmpty {
                 let sb = dirtyTransactions.map { SBTransaction($0, userId: userId) }
                 try await remote.upsert(sb, table: .transactions, userId: userId)
                 // Rimuove dal set "sporco" solo gli id appena caricati con successo — se
                 // nel frattempo ne sono arrivati altri (salvataggio concorrente), restano
                 // in coda per il prossimo push invece di andare persi.
+                try validateSession()
                 dirtyTransactionIds.subtract(dirtyTransactions.map { $0.id })
             }
-            try await deleteOrphans(table: .transactions,
-                                    userId: userId,
+            try await deleteOrphans(remote: remote, table: .transactions,
+                                    userId: userId, validateSession: validateSession,
                                     localIds: Set(transactions.map { $0.id }))
 
             // Budgets
+            try validateSession()
             if !budgets.isEmpty {
                 let sb = budgets.map { SBBudget($0, userId: userId) }
                 try await remote.upsert(sb, table: .budgets, userId: userId)
             }
-            try await deleteOrphans(table: .budgets,
-                                    userId: userId,
+            try await deleteOrphans(remote: remote, table: .budgets,
+                                    userId: userId, validateSession: validateSession,
                                     localIds: Set(budgets.map { $0.id }))
 
             // Goals
+            try validateSession()
             if !goals.isEmpty {
                 let sb = goals.map { SBGoal($0, userId: userId) }
                 try await remote.upsert(sb, table: .goals, userId: userId)
             }
-            try await deleteOrphans(table: .goals,
-                                    userId: userId,
+            try await deleteOrphans(remote: remote, table: .goals,
+                                    userId: userId, validateSession: validateSession,
                                     localIds: Set(goals.map { $0.id }))
 
             // Rules use a full upsert, like budgets (including watermark and exceptions).
+            try validateSession()
             if !rules.isEmpty {
                 let sb = rules.map { SBRecurringRule($0, userId: userId) }
                 try await remote.upsert(sb, table: .recurringRules, userId: userId)
             }
-            try await deleteOrphans(table: .recurringRules, userId: userId,
+            try await deleteOrphans(remote: remote, table: .recurringRules, userId: userId, validateSession: validateSession,
                                     localIds: Set(rules.map { $0.id }))
 
             Logger.persistence.info("SyncService: push complete")
-            return true
-        } catch {
-            Logger.persistence.error("SyncService push error: \(error.localizedDescription, privacy: .public)")
-            return false
         }
     }
 
@@ -680,11 +735,36 @@ final class SyncService: ObservableObject {
 
     func pull(context: ModelContext) async {
         guard let userId else { return }
-        Logger.persistence.info("SyncService: pull started")
+        if e2eEnabled {
+            await runE2ESync(.pull, context: context)
+            return
+        }
+        do {
+            try await download(context: context, remote: remote, userId: userId)
+        } catch {
+            Logger.persistence.error("SyncService pull error: \(error.localizedDescription, privacy: .public)")
+        }
+    }
 
+    private func downloadE2E(context: ModelContext, remote: any SyncRemote, userId: UUID,
+                             validateSession: () throws -> Void) async throws {
+        // Finish all reads before touching SwiftData: a bad vault row or a
+        // stale session must not look like a remote deletion.
+        let snapshot = try await PullRows(remote: remote, userId: userId)
+        try validateSession()
+        try await download(context: context, remote: remote, userId: userId, snapshot: snapshot)
+    }
+
+    private func download(context: ModelContext, remote: any SyncRemote, userId: UUID,
+                          snapshot: PullRows? = nil) async throws {
+        Logger.persistence.info("SyncService: pull started")
         do {
             // ── 1. ACCOUNTS ────────────────────────────────────────────────
-            let sbAccounts: [SBAccount] = try await remote.select(table: .accounts, userId: userId)
+            let sbAccounts: [SBAccount] = if let snapshot {
+                snapshot.accounts
+            } else {
+                try await remote.select(table: .accounts, userId: userId)
+            }
 
             // Guard: se Supabase è vuoto ma il locale ha dati, interrompi.
             // Significa che il push precedente non è ancora avvenuto — non cancellare
@@ -731,7 +811,11 @@ final class SyncService: ObservableObject {
             }
 
             // ── 2. TRANSACTIONS ────────────────────────────────────────────
-            let sbTx: [SBTransaction] = try await remote.select(table: .transactions, userId: userId)
+            let sbTx: [SBTransaction] = if let snapshot {
+                snapshot.transactions
+            } else {
+                try await remote.select(table: .transactions, userId: userId)
+            }
 
             let localTx    = (try? context.fetch(FetchDescriptor<Transaction>())) ?? []
             let localTxMap = Dictionary(localTx.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
@@ -789,7 +873,11 @@ final class SyncService: ObservableObject {
             }
 
             // ── 3. BUDGETS ─────────────────────────────────────────────────
-            let sbBudgets: [SBBudget] = try await remote.select(table: .budgets, userId: userId)
+            let sbBudgets: [SBBudget] = if let snapshot {
+                snapshot.budgets
+            } else {
+                try await remote.select(table: .budgets, userId: userId)
+            }
 
             let localBudgets    = (try? context.fetch(FetchDescriptor<Budget>())) ?? []
             let localBudgetMap  = Dictionary(localBudgets.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
@@ -821,7 +909,11 @@ final class SyncService: ObservableObject {
             }
 
             // ── 4. GOALS ───────────────────────────────────────────────────
-            let sbGoals: [SBGoal] = try await remote.select(table: .goals, userId: userId)
+            let sbGoals: [SBGoal] = if let snapshot {
+                snapshot.goals
+            } else {
+                try await remote.select(table: .goals, userId: userId)
+            }
 
             let localGoals    = (try? context.fetch(FetchDescriptor<Goal>())) ?? []
             let localGoalMap  = Dictionary(localGoals.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
@@ -852,15 +944,16 @@ final class SyncService: ObservableObject {
                 context.delete(local)
             }
 
-            let sbRules: [SBRecurringRule] = try await remote.select(table: .recurringRules, userId: userId)
+            let sbRules: [SBRecurringRule] = if let snapshot {
+                snapshot.rules
+            } else {
+                try await remote.select(table: .recurringRules, userId: userId)
+            }
             try Self.mergeRecurringRules(sbRules, context: context)
 
             context.safeSave()
             defaults.set(Date(), forKey: lastPullKey)
             Logger.persistence.info("SyncService: pull complete")
-
-        } catch {
-            Logger.persistence.error("SyncService pull error: \(error.localizedDescription, privacy: .public)")
         }
     }
 
@@ -890,11 +983,234 @@ final class SyncService: ObservableObject {
     /// Una sola richiesta batch (non una per riga): con N record orfani, il pattern
     /// precedente faceva N round-trip di rete sequenziali (classico N+1) — qui è O(1)
     /// indipendentemente da quanti record vanno cancellati.
-    private func deleteOrphans(table: SyncTable, userId: UUID, localIds: Set<UUID>) async throws {
+    private func deleteOrphans(remote: any SyncRemote, table: SyncTable, userId: UUID,
+                               validateSession: () throws -> Void, localIds: Set<UUID>) async throws {
         guard !isUsingVolatileStore else { return }
+        try validateSession()
         let remoteIds = try await remote.fetchIds(table: table, userId: userId)
+        try validateSession()
         let orphans   = remoteIds.subtracting(localIds)
         guard !orphans.isEmpty else { return }
         try await remote.delete(ids: Array(orphans), table: table, userId: userId)
+    }
+
+    // MARK: - E2E operations
+
+    private enum E2EOperation {
+        case push, foreground, refresh, login, pull
+    }
+
+    private struct PullRows {
+        let accounts: [SBAccount]
+        let transactions: [SBTransaction]
+        let budgets: [SBBudget]
+        let goals: [SBGoal]
+        let rules: [SBRecurringRule]
+
+        init(remote: any SyncRemote, userId: UUID) async throws {
+            accounts = try await remote.select(table: .accounts, userId: userId)
+            transactions = try await remote.select(table: .transactions, userId: userId)
+            budgets = try await remote.select(table: .budgets, userId: userId)
+            goals = try await remote.select(table: .goals, userId: userId)
+            rules = try await remote.select(table: .recurringRules, userId: userId)
+        }
+    }
+
+    @Published private(set) var e2eServerSupported: Bool?
+    @Published private(set) var e2eLockReason: E2EGate.LockReason?
+    private(set) var e2eMigrationToResume: E2EMigrationDirection?
+    private var e2eSessionGeneration = UUID()
+    private var e2eTask: (id: UUID, work: Task<Bool, Never>)?
+    private let initialSyncKey = "e2e.initialSyncUser"
+
+    private func clearE2ESession(userId: UUID?) {
+        e2eSessionGeneration = UUID()
+        e2eTask?.work.cancel()
+        e2eTask = nil
+        debounceTask?.cancel()
+        retryTask?.cancel()
+        e2eRetryOperation = nil
+        lastContext = nil
+        hasPendingChanges = false
+        dirtyTransactionIds = []
+        consecutiveFailures = 0
+        status = .idle
+        e2eLockReason = nil
+        e2eServerSupported = nil
+        e2eMigrationToResume = nil
+        defaults.removeObject(forKey: E2EMigrationMarker.defaultsKey)
+        defaults.removeObject(forKey: initialSyncKey)
+        if let userId {
+            do { try e2eKeyStore.remove(userId: userId) }
+            catch { Logger.persistence.error("SyncService: E2E key removal failed") }
+        }
+    }
+
+    private func prepareE2ELogin(userId: UUID, context: ModelContext) -> Bool {
+        let previousUser = defaults.string(forKey: lastUserKey).flatMap(UUID.init(uuidString:))
+        guard previousUser != userId else { return true }
+        clearE2ESession(userId: previousUser)
+        clearLocalStore(context: context)
+        // A failed batch delete must never allow the old store to be uploaded
+        // under new credentials.
+        do {
+            guard try context.fetchCount(FetchDescriptor<Account>()) == 0,
+                  try context.fetchCount(FetchDescriptor<Transaction>()) == 0,
+                  try context.fetchCount(FetchDescriptor<Budget>()) == 0,
+                  try context.fetchCount(FetchDescriptor<Goal>()) == 0,
+                  try context.fetchCount(FetchDescriptor<RecurringRule>()) == 0 else {
+                Logger.persistence.error("SyncService: E2E login stopped because local data remains")
+                return false
+            }
+        } catch {
+            Logger.persistence.error("SyncService: E2E login could not verify the local store")
+            return false
+        }
+        defaults.set(userId.uuidString, forKey: lastUserKey)
+        return true
+    }
+
+    @discardableResult
+    private func runE2ESync(_ operation: E2EOperation, context: ModelContext) async -> Bool {
+        guard !isUsingVolatileStore, !defaults.bool(forKey: "demoModeEnabled"), let userId else { return false }
+        if operation == .login, !prepareE2ELogin(userId: userId, context: context) { return false }
+        guard defaults.string(forKey: lastUserKey).flatMap(UUID.init(uuidString:)) == userId else { return false }
+
+        let generation = e2eSessionGeneration
+        let previous = e2eTask?.work
+        let id = UUID()
+        let work = Task { @MainActor in
+            _ = await previous?.value
+            return await performE2ESync(operation, context: context, userId: userId, generation: generation)
+        }
+        e2eTask = (id, work)
+        let success = await work.value
+        if e2eTask?.id == id { e2eTask = nil }
+        return success
+    }
+
+    private func performE2ESync(_ operation: E2EOperation, context: ModelContext,
+                                userId: UUID, generation: UUID) async -> Bool {
+        func validateSession() throws {
+            guard self.userId == userId, e2eSessionGeneration == generation else { throw CancellationError() }
+            try Task.checkCancellation()
+        }
+        guard (try? validateSession()) != nil else { return false }
+        let server: any E2EServerAccess
+        let vault: any VaultAccess
+        if let injectedRemote {
+            guard let backend = injectedRemote as? (any E2EServerAccess & VaultAccess) else { return false }
+            server = backend
+            vault = backend
+        } else {
+            server = E2EServer(client: auth.client)
+            vault = SupabaseVaultAccess(client: auth.client)
+        }
+
+        retryTask?.cancel()
+        e2eRetryOperation = nil
+        lastContext = context
+        status = .syncing
+        let gate = E2EGate(server: server, keyStore: e2eKeyStore)
+        let marker = defaults.data(forKey: E2EMigrationMarker.defaultsKey)
+            .flatMap { try? JSONDecoder().decode(E2EMigrationMarker.self, from: $0) }
+        var retryOperation = operation
+        if operation == .login { defaults.set(userId.uuidString, forKey: initialSyncKey) }
+
+        do {
+            if injectedRemote == nil {
+                let session = try await auth.client.auth.session
+                guard session.user.id == userId else { throw CancellationError() }
+                try validateSession()
+            }
+            let resolution = try await gate.resolve(userId: userId, enabled: e2eEnabled,
+                                                     marker: marker, validateSession: validateSession)
+            try validateSession()
+            if resolution.needsPlainInitialSync { defaults.set(userId.uuidString, forKey: initialSyncKey) }
+
+            guard let selectedRemote = e2eRemote(for: resolution, plain: remote, vault: vault, userId: userId)
+            else { return pauseE2ESync() }
+            var initialSync = defaults.string(forKey: initialSyncKey) == userId.uuidString
+            var didPush = false
+
+            do {
+                if initialSync {
+                    didPush = try await initialE2ESync(context: context, remote: selectedRemote,
+                                                     userId: userId, validateSession: validateSession)
+                } else if operation != .pull {
+                    try await upload(context: context, remote: selectedRemote, userId: userId,
+                                     validateSession: validateSession)
+                    didPush = true
+                }
+            } catch where E2EServer.blockedPlainWrite(error) {
+                try validateSession()
+                let refreshed = try await gate.resolve(userId: userId, enabled: e2eEnabled,
+                                                        marker: marker, validateSession: validateSession)
+                try validateSession()
+                guard let refreshedRemote = e2eRemote(for: refreshed, plain: remote, vault: vault, userId: userId)
+                else { return pauseE2ESync() }
+                guard case .vault = refreshed.mode else { throw error }
+                defaults.set(userId.uuidString, forKey: initialSyncKey)
+                initialSync = true
+                didPush = try await initialE2ESync(context: context, remote: refreshedRemote,
+                                                 userId: userId, validateSession: validateSession)
+            }
+
+            try validateSession()
+            if didPush { hasPendingChanges = !dirtyTransactionIds.isEmpty }
+            if initialSync {
+                defaults.removeObject(forKey: initialSyncKey)
+            } else if operation == .pull || operation == .refresh || (operation == .foreground && shouldPull) {
+                retryOperation = .pull
+                try await downloadE2E(context: context, remote: selectedRemote, userId: userId,
+                                      validateSession: validateSession)
+            }
+            try validateSession()
+            consecutiveFailures = 0
+            status = .idle
+            return didPush || operation != .push
+        } catch is CancellationError {
+            return false
+        } catch {
+            guard (try? validateSession()) != nil else { return false }
+            Logger.persistence.error("SyncService: E2E sync operation failed")
+            hasPendingChanges = true
+            consecutiveFailures += 1
+            scheduleRetry(context: context, e2eOperation: retryOperation)
+            return false
+        }
+    }
+
+    private func e2eRemote(for resolution: E2EGate.Resolution, plain: any SyncRemote,
+                           vault: any VaultAccess, userId: UUID) -> (any SyncRemote)? {
+        e2eServerSupported = resolution.serverSupported
+        e2eLockReason = nil
+        e2eMigrationToResume = nil
+        switch resolution.mode {
+        case .plain: return plain
+        case .vault(let dek): return VaultRemote(access: vault, dek: dek, owner: userId)
+        case .locked(let reason): e2eLockReason = reason
+        case .resume(let direction): e2eMigrationToResume = direction
+        }
+        return nil
+    }
+
+    private func pauseE2ESync() -> Bool {
+        consecutiveFailures = 0
+        hasPendingChanges = true
+        status = .idle
+        return false
+    }
+
+    private func initialE2ESync(context: ModelContext, remote: any SyncRemote, userId: UUID,
+                                validateSession: () throws -> Void) async throws -> Bool {
+        let accounts = try await remote.fetchIds(table: .accounts, userId: userId)
+        try validateSession()
+        if accounts.isEmpty {
+            try await upload(context: context, remote: remote, userId: userId, validateSession: validateSession)
+            return true
+        }
+        try await downloadE2E(context: context, remote: remote, userId: userId, validateSession: validateSession)
+        return false
     }
 }

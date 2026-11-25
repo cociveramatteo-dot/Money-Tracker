@@ -1,9 +1,9 @@
-# CONSEGNA — collaudatore (Claude Code · Sonnet) · 2026-11-25 11:10
+# CONSEGNA — impresa (Codex · GPT-6) · 2026-11-25 11:40
 
-- **Collaudo blocco 1 (S-50a…d): PASSA.** S-50a…d segnati `[x]` in PIANO.
-- Perimetro: nessun test o fake esistente modificato (solo `fake-supabase.py` estero a S-50a, `build.gradle.kts`, `SyncService.swift` come previsto). Il resto è nuovo.
-- `PlainRemote`: stesse richieste SDK, filtri e corpi del codice precedente, stesso ordine in push/pull/login/orfani. E2E spento (iOS: solo DEBUG con `-E2EEnabled YES`; Android: `E2E_ENABLED` false in release, true in debug solo con `-Pe2e=true`).
-- Fixture `e2e-vectors-v1.json` identica byte per byte (Android è un link simbolico). Nonce casuali in produzione (SecureRandom / AES.GCM.Nonce()), fissi solo nelle API di test. Nessuna libreria nuova, nessun log nei file E2E.
-- Rieseguiti: python fake (11 ok), vettori `--check` ok, Android `testDebugUnitTest lint` ok, iOS unit `-only-testing:MoneyTrackerTests` ok. UI test non rieseguiti (già verdi in CONSEGNA di S-50d).
-- Nota: il commit f4bfd7a e le modifiche ad AGENTS.md / skill assegna non fanno parte del blocco.
-- Prossimo: S-50e a Codex.
+- **S-50e [~].** Vault cifrato in blocchi da 200 con AAD, verifica dell'ID interno e richieste circoscritte a utente e kind. DEK nel Keychain per utente con `AfterFirstUnlockThisDeviceOnly`. CRUD `mt_e2e` e risoluzione del gate per operazione. Il trigger di scrittura in chiaro fa rivalutare il gate.
+- **Verifica iOS completa.** iPhone 18 Pro con iOS 27.2, due worker Xcode, 137 test unitari e 49 UI verdi, zero fallimenti e zero saltati. T5, T6, T12 e T14 iOS verdi. Il test aggiuntivo conferma `E2EFeature.isEnabled == false` in assenza dell'argomento `-E2EEnabled`.
+- **Casi limite verificati.** Vault con 401 righe, payload rilocato, ID interno errato, riga corrotta nell'ultima parte del pull, 404 con e senza JSON, PGRST205, 42P01, 5xx, rete assente, trigger attivato fra lettura e scrittura, cambio utente e modifica locale durante la pausa. Supabase simulato con remoto in memoria o URLProtocol.
+- **Scelta da confermare al collaudo.** Con il gate attivo il pull legge tutte le tabelle prima di aggiornare SwiftData, così una riga illeggibile blocca l'intera applicazione del pull. Il cambio utente interrompe la sync protetta se la pulizia lascia dati locali. La correzione della pulizia SwiftData rimane in S-50l.1.
+- **Aperto.** Il gate espone la direzione di ripresa al migratore di S-50h. Collaudo del blocco 2 dopo S-50i.
+- **Git.** Grafo aggiornato in locale. Le modifiche preesistenti e l'aggiornamento sotto `graphify-out/` restano fuori dal commit.
+- **Prossimo.** S-50f Android, VaultApi, decoratore, Keystore e gate, secondo il §10.3 di `.cantiere/progetto-e2e-sync.md`.
