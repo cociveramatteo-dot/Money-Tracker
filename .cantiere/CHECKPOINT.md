@@ -1,36 +1,35 @@
 # CHECKPOINT — MoneyTracker
 
-**Data:** 2026-11-24 22:31 · **Tag:** `checkpoint-2026-11-24-2231` · **Ramo:** `redesign-sentiero` (= `main`) · **Fatto da:** capocantiere (Claude Code · Sonnet 5.5), in autonomia su delega di Matteo
+**Data:** 2026-11-26 00:50 · **Tag:** `checkpoint-2026-11-26-0050` · **Ramo:** `redesign-sentiero` · **Fatto da:** capocantiere (Claude Code · Sonnet 5.5), checkpoint veloce
 
 ## Siamo qui
 
-- **S-50 (cifratura end-to-end della sync):** progetto esecutivo pronto in `.cantiere/progetto-e2e-sync.md` (13 task S-50a…S-50m, 18–22 ore di Claude Code). SQL su Supabase già eseguito da Matteo (S-50n, 13 righe, inerte). **Nessun codice scritto: Matteo ripartirà quando vuole.**
-- **S-60 (collegamento bancario):** progetto esecutivo pronto in `.cantiere/progetto-banca.md` (fornitore Enable Banking, piano B Salt Edge; 19 task S-60a…v, dopo S-50). Nessun codice. Prima verifica per Matteo: S-60t in PER-MATTEO (tipo di account Apple, email a Enable Banking, domanda al professionista).
-- **iOS:** restyling «Sentiero» completo, 99 test unitari e 49 UI verdi (ultimo giro 15:09). Nessun codice iOS toccato in questo giro.
-- **Android:** parità con iOS completa, installata e provata da Matteo su telefono vero (Samsung): sync con il Supabase reale funziona, avvio senza icona, icone di login e sblocco come su iPhone.
-- **Sito:** online su bucktrailapp.com con la risposta «i miei dati sono al sicuro?» (it/en), privacy aggiornata e Cloudflare Web Analytics attivo.
-- **Manca:** i voti dei giudici (solo prima di una consegna), le pubblicazioni social, qualche ritocco della landing (vedi sotto).
+- **S-50 (cifratura end-to-end della sync, «Protezione avanzata»):** scritto da Codex e collaudato per i blocchi 1, 2 e 3. Fatti e chiusi `[x]`: S-50a…l (crittografia, server finto, migrazione e rollback su iOS e Android, interfaccia in 7 lingue, uscita/cambio utente/eliminazione account, stress, bug S-50l.1). **Interruttore SPENTO** in release su entrambe le piattaforme: gli utenti non vedono nulla.
+- **Bloccanti per l'accensione (S-50p):** S-50h2 (iOS: 3 gare nel migratore, da allineare ad Android) · S-50q (guardia atomica sul server: secondo SQL che Matteo dovrà incollare in Supabase, con istruzioni complete) · S-50l.2 (iOS: ricevute di verifica nei log di debug). Poi S-50m (Commissione Suprema 10/10 + docs), S-50n/S-50o (Matteo approva le schermate, prova su due dispositivi).
+- **Banca (S-60/S-61):** modello deciso (abbonamento 2/6 banche, mensile o annuale, solo acquisto in-app), in `DECISIONI.md` e `.cantiere/banca-modello-economico.md`. Mail inviata a Enable Banking da `ciao@bucktrailapp.com`: **si aspetta la risposta** (costo per conto, minimo mensile, persona fisica senza P.IVA). Nessun codice prima.
+- **Sito:** `ciao@bucktrailapp.com` al posto della Gmail, «pulsante», nuove pagine Chi siamo / About, online.
+- **Apple Developer:** Matteo non ha account; non pagare prima del gate social del 6/12.
+- **Quota Codex:** al 12% a fine serata, finestra da 5 ore.
 
-## Fatto dall'ultimo checkpoint (2026-11-24 15:09)
+## Fatto dall'ultimo checkpoint (2026-11-24 23:56)
 
 | Quando | Chi (strumento · modello) | Cosa |
 |---|---|---|
-| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | `main` portato a `redesign-sentiero` (ok di Matteo), APK installato sul telefono via cavo |
-| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | S-44 verifica sicurezza (`sicurezza-dati-2026-11-24.md`), S-45 FAQ sicurezza it/en, S-46 Cloudflare Web Analytics (CSP, privacy, 5 pagine), S-47 splash Android, S-48 icone lucchetto/torta, S-49 sync reale (Matteo) |
-| 2026-11-24 | capocantiere (Claude Code · Sonnet 5.5) | Strumento `bilingue.py` corretto (abbinamenti en↔it), hreflang e meta description sulla landing, manuale v3.26 e PDF |
+| 2026-11-25 | impresa (Codex) | S-50a…l: crittografia, vault, migrazione/rollback iOS e Android, interfaccia 7 lingue, ciclo di vita chiavi, stress (20.000 movimenti, 17 interruzioni di rete) |
+| 2026-11-25/26 | collaudatore (Claude Code · Sonnet) | collaudi dei blocchi 1, 2, 3: 165 unitari + 49 UI iOS, 311 JVM + lint Android verdi; difetti in PIANO (S-50h2, S-50q, S-50l.2) |
+| 2026-11-25 | capocantiere (Claude Code · Sonnet 5.5) | sito: email, «pulsante», Chi siamo/About; modello economico banca, mail a Enable Banking, routing email Cloudflare; regola Codex `--yolo` in tutti i cantieri |
 
 ## Stato di salute
 
 | Controllo | Esito | Note |
 |---|---|---|
-| Build / test / lint | 🟢 | Android: build debug, lint e 247 test JVM verdi; provato su emulatore API 36 e su telefono. iOS invariato |
-| Guardiano notturno | 🟡 | ultimo rapporto 15:06: 0 errori, 7 avvisi. Un giro nuovo era in corso alle 21:28Z, da rileggere domani con `/guardiano` |
-| Pagella (misurata) | 🟡 | 93/100 prima della correzione di `bilingue.py` (Lingue 64 → 87); più bassa Velocità 66 (LCP 3,7 s su telefono). Non consegnabile: mancano i voti dei giudici |
-| Lingue allineate | 🟡 | it/en allineati; la privacy esiste solo in italiano (voto 87) |
-| Sicurezza | 🟢 | relazione S-44: nessuna falla; sync reale provato |
-| Ordine e spazio | 🟢 | cantiere 568 MB; tolti 2 `.DS_Store` e una cartella vuota |
-| Grafo aggiornato | 🟢 | 3949 nodi, 7886 archi, 406 community |
-| Commissione Suprema | 🟡 | non rieseguita: il diff di oggi è solo asset Android, testi e configurazione del sito. Collaudo indipendente (collaudatore): 0 bug |
+| Build / test / lint | 🟢 | iOS 165 unitari + 49 UI (4 prove instabili del simulatore, verdi alla riprova); Android 311 JVM e lint verdi |
+| Guardiano notturno | 🟡 | non riletto in questo giro |
+| Pagella (misurata) | 🟡 | 94/100 · Velocità 66 (LCP 3,7 s), Lingue 74 (privacy non tradotta in inglese) · non consegnabile: mancano i giudici |
+| Sicurezza | 🟡 | flag E2E spento; S-50l.2 (log) e S-50h2/S-50q da chiudere prima di accendere |
+| Ordine e spazio | 🟡 | `magazzino.py` segnala cartelle di build/cache da ignorare (`.kotlin/sessions`, ecc.), niente di grave |
+| Grafo aggiornato | 🟢 | `graphify update .` eseguito |
+| Commissione Suprema | 🟡 | non rieseguita: prevista in S-50m prima dell'accensione |
 
 ## Bug
 
@@ -49,13 +48,19 @@
 
 ## Domani si riparte così
 
-1. Sessione nuova nella cartella → `riprendiamo`
-2. **Solo quando Matteo scrive «parti con S-50»** (e conferma il permesso su Sync/ e Auth/ per S-50): S-50a → operaio Claude Code (prompt nel progetto §10.3). **S-60 parte solo dopo S-50m**, con «parti con S-60». Finché non lo dice, entrambi restano fermi.
-3. Nel frattempo, lavori indipendenti: titoli e LCP della landing (Codex o operaio), privacy in inglese, giudici prima di una consegna.
+1. Sessione nuova nella cartella → `riprendiamo`.
+2. **S-50h2 + S-50l.2** a Codex in un solo turno (iOS, lavori piccoli; controllare la quota con `/status`). Si lancia con `codex --yolo -C /Users/matteo/Desktop/APP/MoneyTracker`.
+3. **S-50q** (SQL guardia atomica sul server): la scrive il capocantiere; poi Matteo la esegue su Supabase con istruzioni complete; Codex adatta server finto e test.
+4. Poi S-50m (Commissione Suprema) → S-50o (Matteo approva schermate) → S-50p (accensione). Non si accende prima.
+5. Se arriva la risposta di Enable Banking in `bucktrailapp@gmail.com`: rifare le tabelle prezzi con `c` e minimo reali.
+6. Opzionale: APK Android per l'amico (da un commit stabile, quando Codex è fermo; build `assembleDebug`).
 
 ## Cose che deve fare Matteo
 
-- [ ] Pubblicare i Post 5–15 · nome TikTok · riprese faceless (SC-2) · 6 fonti NotebookLM. Istruzioni complete in `.cantiere/PER-MATTEO.md`.
+- [ ] Leggere la risposta di Enable Banking quando arriva e riportarla al capocantiere.
+- [ ] Fare le 4 domande al professionista (Banca d'Italia, GDPR/DPIA, P.IVA per vendere negli store, P.IVA per essere cliente Enable Banking): testo in `.cantiere/banca-modello-economico.md` §8.
+- [ ] Non iscriversi ad Apple Developer prima del 6/12.
+- [ ] Pubblicare i Post 5–15 · nome TikTok · riprese faceless (SC-2) · 6 fonti NotebookLM. Istruzioni in `.cantiere/PER-MATTEO.md`.
 
 ## Suggerimenti · Rischi
 

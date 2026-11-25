@@ -45,9 +45,9 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Auth/SupabaseManager.swift": {
-    "mtime": 1787302879.8056548,
-    "ast_hash": "3dd5bdb21e6e94e3c717187063928842",
-    "semantic_hash": "3dd5bdb21e6e94e3c717187063928842"
+    "mtime": 1795642432.1295936,
+    "ast_hash": "75c2070c9b1b95caeeb3a28c44db6435",
+    "semantic_hash": ""
   },
   "MoneyTracker/Domain/AccountBalanceCache.swift": {
     "mtime": 1794860913.2741969,
@@ -110,8 +110,8 @@
     "semantic_hash": "55b58464e072a50d044333f74a8f3bfd"
   },
   "MoneyTracker/MoneyTrackerApp.swift": {
-    "mtime": 1795541502.28324,
-    "ast_hash": "10e01e8632efba0fe73ecfd025e30b63",
+    "mtime": 1795642432.1308284,
+    "ast_hash": "2c039dbcdcc9f9a8e6fee94343369077",
     "semantic_hash": ""
   },
   "MoneyTracker/Persistence/Logging.swift": {
@@ -135,8 +135,8 @@
     "semantic_hash": "8c4a572e1cf416850fe9ca8cb0f03d7a"
   },
   "MoneyTracker/Sync/SyncService.swift": {
-    "mtime": 1794919945.052896,
-    "ast_hash": "78fc2a9d4f54b3ba21d02dcde4bc1386",
+    "mtime": 1795642432.129181,
+    "ast_hash": "65cc67011e67e08327ddaa3040a3f893",
     "semantic_hash": ""
   },
   "MoneyTrackerTests/AccountBalanceTests.swift": {
@@ -220,8 +220,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/ContentView.swift": {
-    "mtime": 1795541502.2856019,
-    "ast_hash": "125375d048322ab339046046944ef653",
+    "mtime": 1795621428.0950801,
+    "ast_hash": "5b157a8afaf3e8430d63f5bcab11005f",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/DashboardView.swift": {
@@ -240,8 +240,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/SettingsView.swift": {
-    "mtime": 1795541502.2876081,
-    "ast_hash": "19649f1cdb8979a486d724e5a9fbe19f",
+    "mtime": 1795642432.1300943,
+    "ast_hash": "ab0ce8f16c7d240fbdd7a6933b35252d",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/StatisticsView.swift": {
@@ -260,8 +260,8 @@
     "semantic_hash": ""
   },
   "docs/MoneyTracker.md": {
-    "mtime": 1795541502.2943609,
-    "ast_hash": "248ca0dbaaf55f4884617c44f9832af0",
+    "mtime": 1795555910.634241,
+    "ast_hash": "a136472c97fae8b15f855754d5c2ddd7",
     "semantic_hash": ""
   },
   "docs/MoneyTracker.pdf": {
@@ -370,8 +370,8 @@
     "semantic_hash": ""
   },
   ".cantiere/strumenti/bilingue.py": {
-    "mtime": 1795218702.0260754,
-    "ast_hash": "ee51a77d7ca3bc480417a763bb1828ab",
+    "mtime": 1795555910.6332073,
+    "ast_hash": "7da8021c82498eab91db1102ebea2237",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/catalogo.py": {
@@ -525,23 +525,23 @@
     "semantic_hash": ""
   },
   ".cantiere/CHECKPOINT.md": {
-    "mtime": 1795541502.2764025,
-    "ast_hash": "2c23cd144c5e9c9ef08e9282579edf04",
+    "mtime": 1795561025.47451,
+    "ast_hash": "197ae4406081fe4a3d70b49a6a263da5",
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795541502.2766469,
-    "ast_hash": "6513ccbd014fb22ca733c7c26a1eebf1",
+    "mtime": 1795650447.0180895,
+    "ast_hash": "572f2efb67fa6d71be0eb7058a326f50",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
-    "mtime": 1795541502.277647,
-    "ast_hash": "56e24b6488741df6bfb78fa77aeaf8e9",
+    "mtime": 1795620651.7583926,
+    "ast_hash": "19234af6769ef584ed75c85f4ed5a2a5",
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795552337.987813,
-    "ast_hash": "f48fc22ba6ed4a23caa3a088bb642870",
+    "mtime": 1795650447.011491,
+    "ast_hash": "5a3535499937dd4c9de541951c433f92",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -550,18 +550,18 @@
     "semantic_hash": ""
   },
   ".cantiere/PAGELLE.md": {
-    "mtime": 1795541502.2782428,
-    "ast_hash": "8ba5e1028e1b901e275279aa5232bb1b",
+    "mtime": 1795650579.6296372,
+    "ast_hash": "e50b2ffff53b66c9a327862c092745a5",
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795555697.4877903,
-    "ast_hash": "f3b48b3df5880c16de227647bc9385bf",
+    "mtime": 1795642012.6398902,
+    "ast_hash": "412b8fc233d7005a900a507ec5294639",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795555697.488251,
-    "ast_hash": "8c9890e42f015652294cd52774d6f473",
+    "mtime": 1795650446.9836507,
+    "ast_hash": "74c77f023533f6d3b52cbf0c685d6b08",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795555780.6542742,
-    "ast_hash": "36f7078203c0552257e26228798703f1",
+    "mtime": 1795650447.014645,
+    "ast_hash": "e89572586c16a6b4e9cc2c35a04b3826",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -605,8 +605,8 @@
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "mtime": 1795483198.3320801,
-    "ast_hash": "46cb48736e377c53c476443487dc5f92",
+    "mtime": 1795597081.7106836,
+    "ast_hash": "70a5ff5e210004e75cad983a2fa085a0",
     "semantic_hash": ""
   },
   "GEMINI.md": {
@@ -810,8 +810,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/waitlist.js": {
-    "mtime": 1795483198.8163695,
-    "ast_hash": "16ca89d582ce7321ba16667c1f3b5d11",
+    "mtime": 1795615251.105751,
+    "ast_hash": "8980eeeff99916663d9e1c3ea46726ff",
     "semantic_hash": ""
   },
   "SOCIAL/montaggio/master.sh": {
@@ -840,13 +840,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/diario-metriche.md": {
-    "mtime": 1795483198.7998383,
-    "ast_hash": "3e7e9d00e831a4b217599492c519ca95",
+    "mtime": 1795599687.2841952,
+    "ast_hash": "82dbbd2af5553bc54be7889a4efcbfdc",
     "semantic_hash": ""
   },
   "SOCIAL/landing/en.html": {
-    "mtime": 1795555586.9284258,
-    "ast_hash": "38b560c12585b8f722d850e8c5647247",
+    "mtime": 1795616329.7101579,
+    "ast_hash": "f6bb4d3d5adcd9fa0003b9b23af641d5",
     "semantic_hash": ""
   },
   "SOCIAL/landing/fonts/OFL-Inter.txt": {
@@ -860,13 +860,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/index.html": {
-    "mtime": 1795555586.92863,
-    "ast_hash": "2738fd8677b6e037bb293d5f41582fcd",
+    "mtime": 1795616329.7097318,
+    "ast_hash": "5f88bd646b1a2b0b710de10e795cd114",
     "semantic_hash": ""
   },
   "SOCIAL/landing/privacy.html": {
-    "mtime": 1795555586.9290407,
-    "ast_hash": "e1e4d49cbfe0456fd5a21e24a4099768",
+    "mtime": 1795615251.1051412,
+    "ast_hash": "24f7c3e03a57e209fe9d3b47dd850d32",
     "semantic_hash": ""
   },
   "SOCIAL/montaggio/README.md": {
@@ -895,13 +895,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/confermato.html": {
-    "mtime": 1795555586.928117,
-    "ast_hash": "91c9d32536815fe6ad0c133ab9a70a0b",
+    "mtime": 1795555910.6333566,
+    "ast_hash": "a0701c8cfa09110a939f2a364b50e120",
     "semantic_hash": ""
   },
   "SOCIAL/landing/confirmed.html": {
-    "mtime": 1795555586.9282553,
-    "ast_hash": "fb9ea18464d7cf89e296fc45e48db941",
+    "mtime": 1795555910.6335027,
+    "ast_hash": "3b572c7dd080a72bc73e0e3e2335a3a4",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/presentazione-v1/build.py": {
@@ -930,8 +930,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/direttive-social.md": {
-    "mtime": 1795483198.8000813,
-    "ast_hash": "5d567ce1733ae88386595baff271b2b4",
+    "mtime": 1795599698.1706064,
+    "ast_hash": "e609e2132b7d9298e298c8856261d58e",
     "semantic_hash": ""
   },
   "SOCIAL/guida/README.md": {
@@ -985,8 +985,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/build.gradle.kts": {
-    "mtime": 1795483198.261401,
-    "ast_hash": "b544d06f885d740fadb271e2f9996de3",
+    "mtime": 1795598238.3148732,
+    "ast_hash": "2e8019c4b0c102b2c0a20d29df60ae43",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/schemas/com.bucktrail.android.BucktrailDatabase/1.json": {
@@ -1050,8 +1050,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/BucktrailApplication.kt": {
-    "mtime": 1795483198.2671323,
-    "ast_hash": "317df18ed7bfda8c11987e6649e98619",
+    "mtime": 1795642314.7332094,
+    "ast_hash": "6789b39b27723a716ef03da2272114e9",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/BucktrailDatabase.kt": {
@@ -1300,8 +1300,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/AuthManager.kt": {
-    "mtime": 1795483198.283919,
-    "ast_hash": "583ed03d395a37fa9ff1922a878a11b7",
+    "mtime": 1795643014.7357333,
+    "ast_hash": "62e12e395ad8f8bc983dcd5169bec679",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/KeystoreSessionStore.kt": {
@@ -1325,13 +1325,13 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SupabaseApi.kt": {
-    "mtime": 1795483198.2848785,
-    "ast_hash": "2d8491dba7d13dbd70ce080e0300df06",
+    "mtime": 1795620171.5623176,
+    "ast_hash": "155b534073d2aa5877f34bb91a00b361",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SyncEngine.kt": {
-    "mtime": 1795483198.285136,
-    "ast_hash": "f85d5323bed1948177afce63cfba56f4",
+    "mtime": 1795642314.7326057,
+    "ast_hash": "e5d21e980049ce07d2bd35115aa69301",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SyncMapper.kt": {
@@ -1345,18 +1345,18 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SyncService.kt": {
-    "mtime": 1795483198.2864528,
-    "ast_hash": "c35822132877f2d564be0b2c2c8a850e",
+    "mtime": 1795642314.7335203,
+    "ast_hash": "04caa3a312291479da618f58fd80e95e",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/AppViewModel.kt": {
-    "mtime": 1795483198.2867515,
-    "ast_hash": "6ba91289518fab21b959cf5c57225079",
+    "mtime": 1795640150.7410133,
+    "ast_hash": "1fa1b87c8168c0b47004bd908f871d1b",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/BucktrailApp.kt": {
-    "mtime": 1795483198.2870333,
-    "ast_hash": "02d68b79145d86bdacb171bf4862f23d",
+    "mtime": 1795640807.154558,
+    "ast_hash": "cefad20199b0cb5800bbd970467d4055",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/Formatters.kt": {
@@ -1380,8 +1380,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/components/Sheets.kt": {
-    "mtime": 1795483198.2885113,
-    "ast_hash": "c9937301723c082885a0883c4c718510",
+    "mtime": 1795640289.8139389,
+    "ast_hash": "fa8bb504f7de94f9e2d8eb59e58a06d9",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/components/Shell.kt": {
@@ -1470,8 +1470,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/SettingsSheets.kt": {
-    "mtime": 1795483198.2931113,
-    "ast_hash": "a85e4d6dd4b34f7baa638551f65f99bc",
+    "mtime": 1795640504.3331563,
+    "ast_hash": "6088bb0b742c665584eb4620507fa0d2",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/StatisticsScreen.kt": {
@@ -1675,8 +1675,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/scripts/fake-supabase.py": {
-    "mtime": 1795483198.3313315,
-    "ast_hash": "142a8b5603c651b48f635c399593d1e5",
+    "mtime": 1795640723.9889657,
+    "ast_hash": "de41dc930dc90b6259ccbaec4339a8e1",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/scripts/ios-strings-to-android.py": {
@@ -1695,8 +1695,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/esporta.py": {
-    "mtime": 1795483198.797164,
-    "ast_hash": "fbd1ce10ee70e7cffaf96a3fe961ea73",
+    "mtime": 1795599302.0375917,
+    "ast_hash": "b7330eea55c20269e4d15caf350ab135",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/layouts.py": {
@@ -1705,18 +1705,18 @@
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/lib.py": {
-    "mtime": 1795483198.7985225,
-    "ast_hash": "ed08b4892fe38e7b9f3ee120368b3dd9",
+    "mtime": 1795599199.480436,
+    "ast_hash": "e2860af0f7b1761373d7bebd80ba4fd9",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/meta.py": {
-    "mtime": 1795483198.7987647,
-    "ast_hash": "adf214a989cfef436ae44fcd63e37602",
+    "mtime": 1795599302.0026493,
+    "ast_hash": "55ed9b7b73b279ff232603e6b8d519c9",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/posts.py": {
-    "mtime": 1795483198.799004,
-    "ast_hash": "d9ea2b98b7e02e584f63a2da447eb3cd",
+    "mtime": 1795599292.937612,
+    "ast_hash": "53853910f2a730edc68ad5bc3ec08b97",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/sheet.py": {
@@ -1945,217 +1945,217 @@
     "semantic_hash": ""
   },
   "SOCIAL/calendario-v2.md": {
-    "mtime": 1795483198.7941525,
-    "ast_hash": "432e41f585ae023fd6665671535a0999",
+    "mtime": 1795600425.676488,
+    "ast_hash": "49ad33c23378d1bfb0d49eb4535c4716",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p10-01.html": {
-    "mtime": 1795435434.555353,
-    "ast_hash": "eaa0d0831c62784f13cbf3d3ab33e2c5",
+    "mtime": 1795599435.1192462,
+    "ast_hash": "e3e8bf638648abdc2510dcd65853ffda",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p10-02.html": {
-    "mtime": 1795435438.04493,
-    "ast_hash": "edd94b1b4b2cf5cbb8a69fd49ec5cec7",
+    "mtime": 1795599437.4303029,
+    "ast_hash": "d11448d4f39957056f5d310fd1f34032",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p10-03.html": {
-    "mtime": 1795435440.334581,
-    "ast_hash": "c338ea7ae49856010ba62a0bce267857",
+    "mtime": 1795599438.3417807,
+    "ast_hash": "4ae48187eecbbdf470e4afe3bf653861",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p10-04.html": {
-    "mtime": 1795435441.8831725,
-    "ast_hash": "0c32a00a79bdb2bc4ca8ef364b111ef9",
+    "mtime": 1795599439.1955848,
+    "ast_hash": "2c141d0cb9a2ed5e9326dd2e05180640",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p10-05.html": {
-    "mtime": 1795435443.385623,
-    "ast_hash": "23f939530565c8ad9b15020734cd8ec1",
+    "mtime": 1795599440.1360009,
+    "ast_hash": "8f4ba17ef1f79e952570c730648d7a90",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p10-06.html": {
-    "mtime": 1795435444.7831974,
-    "ast_hash": "3607885c0215ccb68ae48f69ce875fcd",
+    "mtime": 1795599441.127823,
+    "ast_hash": "05b52ce53da777e839be6f091f080ef6",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p10-07.html": {
-    "mtime": 1795435446.106304,
-    "ast_hash": "ec914039c0cbd004849415a0986f23b2",
+    "mtime": 1795599442.1350691,
+    "ast_hash": "777c6825745941069a9fb4c533764aa2",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p11-01.html": {
-    "mtime": 1795435447.9652045,
-    "ast_hash": "af1650bae6c4245371993b1e8dfd24fa",
+    "mtime": 1795599443.8912864,
+    "ast_hash": "17ea8e46284ce057a29c20767846868c",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p11-02.html": {
-    "mtime": 1795435449.404254,
-    "ast_hash": "233c2c2c1567fcdff9f0d37957f4ec81",
+    "mtime": 1795599444.793536,
+    "ast_hash": "ca02f33dfab0125287a113e3a9c35034",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p11-03.html": {
-    "mtime": 1795435450.6748288,
-    "ast_hash": "ee96baa87cbab7309e1e79101f77579a",
+    "mtime": 1795599445.7939124,
+    "ast_hash": "4a976e0e0af8562635456dd03292ca72",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p11-04.html": {
-    "mtime": 1795435451.9654214,
-    "ast_hash": "4c42a303cd1ae3e313117b9f3ec369ee",
+    "mtime": 1795599446.7248387,
+    "ast_hash": "b5ed6fc3a27394c21ff80dc1e8450830",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p11-05.html": {
-    "mtime": 1795435453.1290672,
-    "ast_hash": "7d0725bedb95bf0efd4c0a8aac4ccd67",
+    "mtime": 1795599447.5939746,
+    "ast_hash": "2261f5f3f0a5ebc61bafabdbb4914a53",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p11-06.html": {
-    "mtime": 1795435454.6384766,
-    "ast_hash": "669aa4ebc3ac5668c2f43a3bf8c58ecd",
+    "mtime": 1795599448.401625,
+    "ast_hash": "7eb00a7473334508d04b202370f27f79",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p11-07.html": {
-    "mtime": 1795435456.0445104,
-    "ast_hash": "955a8092083544334696f83018e0d7dd",
+    "mtime": 1795599449.5563815,
+    "ast_hash": "e13e34f9e487064fddc4ba2dd8090277",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p11-08.html": {
-    "mtime": 1795435457.3294911,
-    "ast_hash": "301c7f47efc0cd86f98c0d962c6c4d78",
+    "mtime": 1795599450.6043744,
+    "ast_hash": "dd8a6072ddc8ab8afbfdbd9cab53081b",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p12-01.html": {
-    "mtime": 1795435458.7333567,
-    "ast_hash": "0994e184ed4cc1cdbb45d514346c203e",
+    "mtime": 1795599451.563943,
+    "ast_hash": "65951601f2865b41027f0efbf98837d8",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p12-02.html": {
-    "mtime": 1795435460.1321962,
-    "ast_hash": "7031235e02056e5fa0aa5cabc93be9eb",
+    "mtime": 1795599452.4896183,
+    "ast_hash": "e18c3053df85df096f5e290747466fb0",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p12-03.html": {
-    "mtime": 1795435461.5263965,
-    "ast_hash": "e50b99b5d2276ae842f6259ecb2860e3",
+    "mtime": 1795599453.4467688,
+    "ast_hash": "8d71ed5ef65f1ebaf5873fd5d4ca6af5",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p12-04.html": {
-    "mtime": 1795435462.8256974,
-    "ast_hash": "39ae9a116bc43a7437e07842c1e4c7d6",
+    "mtime": 1795599454.3934085,
+    "ast_hash": "f7d460e4a606aa1d88446a869d7c22d2",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p12-05.html": {
-    "mtime": 1795435464.1542015,
-    "ast_hash": "c0f7663399fd449b1a6497d84def9905",
+    "mtime": 1795599455.303655,
+    "ast_hash": "1cb4cce8be932742fe2a66d40a01adc5",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p12-06.html": {
-    "mtime": 1795435465.8857427,
-    "ast_hash": "74882425bdc7888aa52dce476b2d4ab2",
+    "mtime": 1795599456.2454224,
+    "ast_hash": "1eff0f92f5cd45516a74f28e41a6bd9b",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p12-07.html": {
-    "mtime": 1795435467.1143818,
-    "ast_hash": "5194d64ecdd5bd50725cbe33732a5c09",
+    "mtime": 1795599457.1836514,
+    "ast_hash": "ec914039c0cbd004849415a0986f23b2",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p13-01.html": {
-    "mtime": 1795435504.525269,
-    "ast_hash": "fccfb1ac10db7e74151331fb43b363a0",
+    "mtime": 1795599570.48679,
+    "ast_hash": "3f8112b911a5e9115cfb8d1abd9ecded",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p13-02.html": {
-    "mtime": 1795435505.8089755,
-    "ast_hash": "143878de9c45f2acebdf0273505e75de",
+    "mtime": 1795599572.9910874,
+    "ast_hash": "8ff1b4a1d150302d53cbe57880b97ed1",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p13-03.html": {
-    "mtime": 1795435506.938735,
-    "ast_hash": "1b25c06ec24a47ca42a19db63f2edc18",
+    "mtime": 1795599574.1264024,
+    "ast_hash": "52be336c54d0924f614b6f2760ddda5e",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p13-04.html": {
-    "mtime": 1795435508.258968,
-    "ast_hash": "89ccda223ae7eb2ba8199b4bfd3d1821",
+    "mtime": 1795599575.136569,
+    "ast_hash": "3da4ce65092053644a55c634cbf27ea9",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p13-05.html": {
-    "mtime": 1795435509.3926122,
-    "ast_hash": "412045ac420cd93e2145ba174641d68c",
+    "mtime": 1795599576.0595946,
+    "ast_hash": "ac52b6d19c6340c7156664d1bc2c43f6",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p13-06.html": {
-    "mtime": 1795435510.405278,
-    "ast_hash": "001352748f56491773d5a8087fa3e675",
+    "mtime": 1795599576.923095,
+    "ast_hash": "3d675b4fdbcb4e5fa2a1a28a681439b3",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p13-07.html": {
-    "mtime": 1795435511.4983065,
-    "ast_hash": "9bf130c7205f016c16fbe61964e90c2b",
+    "mtime": 1795599577.788474,
+    "ast_hash": "1e2a2854ecba92136ccc67fb1af02cb7",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p14-01.html": {
-    "mtime": 1795435477.1976795,
-    "ast_hash": "dcf05d48b6c0bc687471d690d45fb39b",
+    "mtime": 1795599579.9101906,
+    "ast_hash": "6780c597096a08f092ab93ee9cc7bc14",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p14-02.html": {
-    "mtime": 1795435478.4686189,
-    "ast_hash": "8f2314def71d153d8ddfac52e55a8bea",
+    "mtime": 1795599580.805756,
+    "ast_hash": "09a1e9e0b9404500f6814e663bea7cfb",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p14-03.html": {
-    "mtime": 1795435479.6198442,
-    "ast_hash": "80d5008d25efe5a57d96bd0b2d037d63",
+    "mtime": 1795599581.7395258,
+    "ast_hash": "dbe7c0d5ae8d58450c923d0e98bc274e",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p14-04.html": {
-    "mtime": 1795435481.007318,
-    "ast_hash": "a0af31dfcf56e5e5b06355c35d1d32ed",
+    "mtime": 1795599582.629631,
+    "ast_hash": "d925b677ebc4ac5a2db9148a8bf1e7c0",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p14-05.html": {
-    "mtime": 1795435482.305379,
-    "ast_hash": "bc39397e58c80f52d81716b48b13e11f",
+    "mtime": 1795599583.62432,
+    "ast_hash": "248afa7e764f2b2f5a638a755be351ec",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p14-06.html": {
-    "mtime": 1795435483.6531599,
-    "ast_hash": "adf85af75033c9c9e9e34a4ad6acd463",
+    "mtime": 1795599584.9027674,
+    "ast_hash": "668125965c25cb3849e0e4bd5a71530a",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p15-01.html": {
-    "mtime": 1795435485.2528238,
-    "ast_hash": "9efee34d2460178aa1f39bac94ea6c62",
+    "mtime": 1795599471.8170493,
+    "ast_hash": "27ebe2065c10a7e9723a0d166a039dc3",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p15-02.html": {
-    "mtime": 1795435486.673504,
+    "mtime": 1795599472.7485604,
     "ast_hash": "b6d0a22802347880610cf588e4acd10e",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p15-03.html": {
-    "mtime": 1795435487.7529747,
+    "mtime": 1795599473.867932,
     "ast_hash": "a08a104b28c7e904e0eaf01f86e0ef53",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p15-04.html": {
-    "mtime": 1795435489.3031886,
+    "mtime": 1795599475.0878031,
     "ast_hash": "87986fab5f43898a7d17c998e459f61e",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p15-05.html": {
-    "mtime": 1795435490.4175093,
+    "mtime": 1795599476.0161152,
     "ast_hash": "dd2037045dd5ad7bd039df2f0ef84649",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p15-06.html": {
-    "mtime": 1795435491.7514973,
-    "ast_hash": "c994f67ffecd3ed78b73734e8c929e4d",
+    "mtime": 1795599476.871066,
+    "ast_hash": "c4d7237a85ee782475fb2811ce0dd78e",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/v2/_work/p15-07.html": {
-    "mtime": 1795435494.1590443,
+    "mtime": 1795599477.783895,
     "ast_hash": "912b45719ac57627756dd53e7fd06b3c",
     "semantic_hash": ""
   },
@@ -2382,6 +2382,681 @@
   ".cantiere/sicurezza-dati-2026-11-24.md": {
     "mtime": 1795552337.9892318,
     "ast_hash": "4f0b9ef7b40008724e6df9968e373a30",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/scripts/test-fake-supabase-e2e.py": {
+    "mtime": 1795593975.9706016,
+    "ast_hash": "76808d82a8ca5963c60c94f533e47001",
+    "semantic_hash": ""
+  },
+  ".cantiere/progetto-banca.md": {
+    "mtime": 1795560760.3583302,
+    "ast_hash": "481efe20890accdca85545806e899189",
+    "semantic_hash": ""
+  },
+  ".cantiere/progetto-e2e-sync.md": {
+    "mtime": 1795557702.9680746,
+    "ast_hash": "ea92b336b0d1466f0c53fb25020e1f42",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/scripts/e2e-vectors.py": {
+    "mtime": 1795595571.4965086,
+    "ast_hash": "e7297c5075611d7e694900a8bf36e35a",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/E2EFeature.swift": {
+    "mtime": 1795601422.257821,
+    "ast_hash": "35f79196a0bf2441af996457e21ce770",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/RecoveryKey.swift": {
+    "mtime": 1795595477.699382,
+    "ast_hash": "a037b9ce31970f09e0d51beaa6059fae",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/VaultCrypto.swift": {
+    "mtime": 1795595477.6992483,
+    "ast_hash": "f29b2f3f096dfe5eba497de54a9a97cf",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/VaultJSON.swift": {
+    "mtime": 1795595477.6995618,
+    "ast_hash": "caa41f14502b04771e128eee3d583967",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/E2ECryptoTests.swift": {
+    "mtime": 1795595734.3388393,
+    "ast_hash": "3c278f4f2dea25a6da3bd75aab11ffab",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/Fixtures/e2e-vectors-v1.json": {
+    "mtime": 1795604602.0475254,
+    "ast_hash": "d1350a52c03abf890b2f8ed5fd7192e5",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/androidTest/assets/e2e-vectors-v1.json": {
+    "mtime": 1795604602.0475254,
+    "ast_hash": "d1350a52c03abf890b2f8ed5fd7192e5",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/androidTest/java/com/bucktrail/android/sync/e2e/E2EVectorsInstrumentedTest.kt": {
+    "mtime": 1795598271.6568923,
+    "ast_hash": "81978eb7e94da4b6d19adc561de1f58e",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/e2e/RecoveryKey.kt": {
+    "mtime": 1795598122.5156252,
+    "ast_hash": "aa6bd19a3ea72638cc1bd0bc08a63674",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/e2e/VaultCrypto.kt": {
+    "mtime": 1795598271.6561618,
+    "ast_hash": "47427652db9305fa5ab8c53f90ba2c85",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/VaultCryptoVectorsTest.kt": {
+    "mtime": 1795598271.6566176,
+    "ast_hash": "aae7c575f2114e0cb85e2a6c808546e3",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/SyncRemote.swift": {
+    "mtime": 1795615080.40778,
+    "ast_hash": "c03fdb1d1467662e0aa5f023b9112d13",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/Support/InMemoryRemote.swift": {
+    "mtime": 1795601527.5999453,
+    "ast_hash": "f9323de490a49d5b43c92d8d5f6ded07",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/SyncRemoteGoldenTests.swift": {
+    "mtime": 1795599051.280089,
+    "ast_hash": "5637e566d6092a4aab3936ccaddd782c",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/SyncServiceFlagOffTests.swift": {
+    "mtime": 1795598975.375122,
+    "ast_hash": "8828d0a47d6bb3ccb87b65299e1b1aa9",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/E2EGate.swift": {
+    "mtime": 1795615493.0910394,
+    "ast_hash": "de235d2880a93407da6271b5eb3cff90",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/E2EKeyStore.swift": {
+    "mtime": 1795642669.2186592,
+    "ast_hash": "7f527312fb84e4dfc33b035009fe1678",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/E2EServer.swift": {
+    "mtime": 1795615216.5805655,
+    "ast_hash": "e011ebf6bf5723e14455b889c3b56b0d",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/VaultRemote.swift": {
+    "mtime": 1795601571.0448484,
+    "ast_hash": "6532a2131883dcf8dca55de49e7be537",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/E2EGateTests.swift": {
+    "mtime": 1795601680.585308,
+    "ast_hash": "29f2d64d44b83cd9bd9f2f72c82d011d",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/E2EServerTests.swift": {
+    "mtime": 1795601818.8733306,
+    "ast_hash": "40c6c86a0209984dea6cc1b5ed3ae12a",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/E2EVaultRemoteTests.swift": {
+    "mtime": 1795601680.5875907,
+    "ast_hash": "05320023e0e55c3ea771b9890435ead4",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/posts_s.py": {
+    "mtime": 1795599570.3769093,
+    "ast_hash": "ff70c87add3e9b02f7a1acf6a35dbdd4",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p10-08.html": {
+    "mtime": 1795599443.0929074,
+    "ast_hash": "dd8a6072ddc8ab8afbfdbd9cab53081b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p13-08.html": {
+    "mtime": 1795599578.7873003,
+    "ast_hash": "c4b67b59bb02cf90ab877df806a6d718",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p14-07.html": {
+    "mtime": 1795599585.91342,
+    "ast_hash": "192a479c1fc9222706064444d9cf8d5b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p16-01.html": {
+    "mtime": 1795599478.7806602,
+    "ast_hash": "ce747d70013210d9485f7c081f215c54",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p16-02.html": {
+    "mtime": 1795599479.6873474,
+    "ast_hash": "d09517303d18274579ffc792177fc94e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p16-03.html": {
+    "mtime": 1795599480.5589302,
+    "ast_hash": "c073cdad92c47b486f3a50882d44ba33",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p16-04.html": {
+    "mtime": 1795599481.4963143,
+    "ast_hash": "982cbeff513e42aee4308450d2bce15d",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p16-05.html": {
+    "mtime": 1795599482.4428134,
+    "ast_hash": "f843dc6be5612cd713566c5400a8f9f2",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p16-06.html": {
+    "mtime": 1795599483.5396132,
+    "ast_hash": "01df06ad953cebc4bb167defd4476175",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p16-07.html": {
+    "mtime": 1795599484.460263,
+    "ast_hash": "bdf6ee3a4a0153d85ccbe86adc5364b2",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p16-08.html": {
+    "mtime": 1795599485.4515016,
+    "ast_hash": "fd54ada535a932899c1597bdea2a32b7",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p17-01.html": {
+    "mtime": 1795599486.5020397,
+    "ast_hash": "08988275481794e04376ec23b69a08f4",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p17-02.html": {
+    "mtime": 1795599487.4881794,
+    "ast_hash": "5d062c7bc74fb6cfa2ff00c0bbedac0c",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p17-03.html": {
+    "mtime": 1795599488.5660439,
+    "ast_hash": "feb68888e4383462c12cd66920b57377",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p17-04.html": {
+    "mtime": 1795599489.7477822,
+    "ast_hash": "761360f375913a358229e666b6425c24",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p17-05.html": {
+    "mtime": 1795599490.8162482,
+    "ast_hash": "ab37c2a5c19777c95919b959a265e826",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p17-06.html": {
+    "mtime": 1795599491.776708,
+    "ast_hash": "f0e2b3e083dcac358a93d1a238810d36",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p17-07.html": {
+    "mtime": 1795599492.6328855,
+    "ast_hash": "aab0caf1d1832e4b81177ed7a66e1f4d",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p17-08.html": {
+    "mtime": 1795599493.6287637,
+    "ast_hash": "fd54ada535a932899c1597bdea2a32b7",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p18-01.html": {
+    "mtime": 1795599494.6538506,
+    "ast_hash": "5b0d396b322e001dc6993a24729eb403",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p18-02.html": {
+    "mtime": 1795599496.166265,
+    "ast_hash": "bd38db6cb9499cec73a88ed83442dcab",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p18-03.html": {
+    "mtime": 1795599497.0285625,
+    "ast_hash": "cf5f5d501c368498c06252a05f85ccdc",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p18-04.html": {
+    "mtime": 1795599497.8902042,
+    "ast_hash": "0d7c57edcdb9d9ea8e305dc4642ef3c1",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p18-05.html": {
+    "mtime": 1795599498.862896,
+    "ast_hash": "f30ced99afcc834d55bb9769c49f1b57",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p18-06.html": {
+    "mtime": 1795599499.8600433,
+    "ast_hash": "cf46746ff2ea2f76496f984c1c72fc9e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p18-07.html": {
+    "mtime": 1795599500.7188485,
+    "ast_hash": "e982ac361babe72be415e17f236b40ff",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p18-08.html": {
+    "mtime": 1795599501.7089005,
+    "ast_hash": "fd54ada535a932899c1597bdea2a32b7",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p19-01.html": {
+    "mtime": 1795599502.613225,
+    "ast_hash": "161d06b15400b9887fafb08b5813067b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p19-02.html": {
+    "mtime": 1795599503.5212348,
+    "ast_hash": "8e0478ebb9062ab84054036393a1c34c",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p19-03.html": {
+    "mtime": 1795599504.442653,
+    "ast_hash": "d52f049ecb81e977ccd16a8033c8f882",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p19-04.html": {
+    "mtime": 1795599505.6438057,
+    "ast_hash": "67e45b314a8607bf01979651f8d19b1a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p19-05.html": {
+    "mtime": 1795599506.6212013,
+    "ast_hash": "cdcd713e1d1b0f4c6e9a4e52fec80254",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p19-06.html": {
+    "mtime": 1795599507.8871827,
+    "ast_hash": "9af1b322c40d049372e0d91919a233a0",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p19-07.html": {
+    "mtime": 1795599508.8385668,
+    "ast_hash": "06cef6c18d0446a65e548e7daa305374",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p20-01.html": {
+    "mtime": 1795599509.7888453,
+    "ast_hash": "67cb2fcaec6d0a4057f9ebf22a9acd1a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p20-02.html": {
+    "mtime": 1795599510.6255662,
+    "ast_hash": "e6c0835e1a7493e79c3fff9ad201d1f2",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p20-03.html": {
+    "mtime": 1795599511.4991624,
+    "ast_hash": "60858f26904849a961e2ea5ad0f3148b",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p20-04.html": {
+    "mtime": 1795599512.3807735,
+    "ast_hash": "5bc5e2727cb8c5240ecafc6086f512c6",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p20-05.html": {
+    "mtime": 1795599513.360522,
+    "ast_hash": "847ed1db664328b1b4a89de2ed406b76",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p20-06.html": {
+    "mtime": 1795599514.4459608,
+    "ast_hash": "f03a8dc5b28a8d500f79b511b6bfc05e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p20-07.html": {
+    "mtime": 1795599515.3253992,
+    "ast_hash": "06cef6c18d0446a65e548e7daa305374",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p21-01.html": {
+    "mtime": 1795599516.3406298,
+    "ast_hash": "a2ffb3f2b57ff51ae4fe73daaf05f6bf",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p21-02.html": {
+    "mtime": 1795599517.4583979,
+    "ast_hash": "6a10015ecf30482d2d9ed1b6c86b61a9",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p21-03.html": {
+    "mtime": 1795599518.3899367,
+    "ast_hash": "e437d146a5d112bcd41881bf27637b45",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p21-04.html": {
+    "mtime": 1795599519.2585785,
+    "ast_hash": "8a0c0da69af041fc0f330a008e958a3d",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p21-05.html": {
+    "mtime": 1795599520.12667,
+    "ast_hash": "4566e3e93310b4b3bf6581f0b523c11a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p21-06.html": {
+    "mtime": 1795599520.9844089,
+    "ast_hash": "99d26da68c7f014c6e4d32b1cea9b399",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p21-07.html": {
+    "mtime": 1795599521.9957469,
+    "ast_hash": "06cef6c18d0446a65e548e7daa305374",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p22-01.html": {
+    "mtime": 1795599522.8576763,
+    "ast_hash": "efd0efb9866ff5940e8ff5d4ea93cdfa",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p22-02.html": {
+    "mtime": 1795599523.751274,
+    "ast_hash": "d0b9b63391f42225823b262f4cbe074f",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p22-03.html": {
+    "mtime": 1795599524.5752037,
+    "ast_hash": "5ab2669d21c94c1a177dee9b92f52b80",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p22-04.html": {
+    "mtime": 1795599525.57139,
+    "ast_hash": "f6df681c9b9f06883d1a846554ee98ef",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p22-05.html": {
+    "mtime": 1795599526.51065,
+    "ast_hash": "e897b5b0ddc35fcb7e618ad38e2deb68",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p22-06.html": {
+    "mtime": 1795599527.8914967,
+    "ast_hash": "0d8ba74bc86b97f871373fcb8d30d4a7",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p22-07.html": {
+    "mtime": 1795599528.9320133,
+    "ast_hash": "78521ed63d95a24ce1be40aeb98e5090",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p23-01.html": {
+    "mtime": 1795599529.795762,
+    "ast_hash": "e844dc90e9e408ceb83405f64f1920bf",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p23-02.html": {
+    "mtime": 1795599530.6852293,
+    "ast_hash": "a7fdd6b43dc6770cdb3b109b0cac9c0e",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p23-03.html": {
+    "mtime": 1795599531.5638509,
+    "ast_hash": "794ecf85ebb83e89098448b7ca70f48f",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p23-04.html": {
+    "mtime": 1795599532.4217691,
+    "ast_hash": "935cdbf86785b53fbd5158995c240b77",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p23-05.html": {
+    "mtime": 1795599533.3010418,
+    "ast_hash": "2f1a8238549043831f8164d3a37428f0",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p23-06.html": {
+    "mtime": 1795599534.3512213,
+    "ast_hash": "2e6736bfc24959ecdd3431dd8e0f726a",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p23-07.html": {
+    "mtime": 1795599535.2352588,
+    "ast_hash": "78521ed63d95a24ce1be40aeb98e5090",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p24-01.html": {
+    "mtime": 1795599586.8009644,
+    "ast_hash": "2d01b5cdd89bc3df0dab419b50b84657",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p24-02.html": {
+    "mtime": 1795599587.6435056,
+    "ast_hash": "0e4242defd3a04dd0cdf778893acf5cc",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p24-03.html": {
+    "mtime": 1795599588.7026448,
+    "ast_hash": "9efbd8579cc9e493d27053361651ca69",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p24-04.html": {
+    "mtime": 1795599589.7491672,
+    "ast_hash": "c22fa811d5516c24e575bc9c179969b2",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p24-05.html": {
+    "mtime": 1795599590.6563923,
+    "ast_hash": "953def5134dbfe18464364602f1654ac",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p24-06.html": {
+    "mtime": 1795599591.5244837,
+    "ast_hash": "6d5c8593753ba5acc2c0c01a1b9b0a39",
+    "semantic_hash": ""
+  },
+  "SOCIAL/caroselli/v2/_work/p24-07.html": {
+    "mtime": 1795599592.5909846,
+    "ast_hash": "78521ed63d95a24ce1be40aeb98e5090",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/androidTest/java/com/bucktrail/android/sync/e2e/E2EKeyStoreInstrumentedTest.kt": {
+    "mtime": 1795604005.6344872,
+    "ast_hash": "610c0b8d17370d92ead96c1a11ecb912",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/e2e/E2EController.kt": {
+    "mtime": 1795642314.7321246,
+    "ast_hash": "8c090c881577b99e15440c2aff8795b4",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/e2e/E2EGate.kt": {
+    "mtime": 1795620104.9011862,
+    "ast_hash": "bc38e644c0392bc22db71b69273143a9",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/e2e/E2EKeyStore.kt": {
+    "mtime": 1795619900.4869645,
+    "ast_hash": "77233dc657bc37a029116f32438a83fe",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/e2e/VaultApi.kt": {
+    "mtime": 1795619900.487339,
+    "ast_hash": "4822dea5bafd200941d1f4b8583f81d9",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/e2e/VaultSupabaseApi.kt": {
+    "mtime": 1795603621.0235677,
+    "ast_hash": "e1ecf6b0ecca76cbabdf5cb672b9cc29",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/E2EFlagOffTest.kt": {
+    "mtime": 1795603882.3557818,
+    "ast_hash": "771065109f01b559ea325ce0cf66a342",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/E2EGateTest.kt": {
+    "mtime": 1795604138.5981197,
+    "ast_hash": "58c069551c82b7069fedafac20af1e3e",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/FakeVaultSupabase.kt": {
+    "mtime": 1795603882.3516676,
+    "ast_hash": "356ae6bd4b3a24862e8b9b5c7dbd4d40",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/HttpSupabaseApiGoldenTest.kt": {
+    "mtime": 1795604005.6294105,
+    "ast_hash": "371bd631a62101aa6725239605368290",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/VaultSupabaseApiTest.kt": {
+    "mtime": 1795603882.3538537,
+    "ast_hash": "cfc600a0f159b158a7e1be0310a8b12e",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/RowInteropTest.kt": {
+    "mtime": 1795604493.736269,
+    "ast_hash": "f4a7f48fd00f078fe800eb2cd57e68f0",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/E2ERowInteropTests.swift": {
+    "mtime": 1795604602.0565047,
+    "ast_hash": "0743806fcd61b21250815921f0651127",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/E2EMigrator.swift": {
+    "mtime": 1795615866.6828346,
+    "ast_hash": "e6508b8c5be2dd1e0e2827aa0cc91945",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/E2EVerifier.swift": {
+    "mtime": 1795615866.6822104,
+    "ast_hash": "a6f40ea4da53cc036835fd45353a13d7",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/E2EMigratorTests.swift": {
+    "mtime": 1795615866.6851404,
+    "ast_hash": "fa97bf4842606355b7ae8d394a6378d1",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/androidTest/java/com/bucktrail/android/sync/e2e/E2EMigrationTransportInstrumentedTest.kt": {
+    "mtime": 1795620212.2004776,
+    "ast_hash": "881fd5ee1358d39f7f4f399269f1feb9",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/e2e/E2EMigrator.kt": {
+    "mtime": 1795640150.7401245,
+    "ast_hash": "9a5900c9dc28498c0258e656afc968a9",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/e2e/E2EVerifier.kt": {
+    "mtime": 1795620171.562653,
+    "ast_hash": "2e400e503afdfe022c8ee484d8d5781d",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/E2EMigratorTest.kt": {
+    "mtime": 1795620366.6523805,
+    "ast_hash": "735b677173a78af46105b6b6d7507d82",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/OldClientTest.kt": {
+    "mtime": 1795620065.3399832,
+    "ast_hash": "096f393880fcc2f9a8a6f02ace0c6a43",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/TwoDevicesTest.kt": {
+    "mtime": 1795620422.6572375,
+    "ast_hash": "ad0c8b06e7fd0dedfe9eb3d69fd1f152",
+    "semantic_hash": ""
+  },
+  ".cantiere/banca-modello-economico.md": {
+    "mtime": 1795620944.8606968,
+    "ast_hash": "1f196dfb4a7fc6b160098caf585cdcbc",
+    "semantic_hash": ""
+  },
+  "SOCIAL/landing/about.html": {
+    "mtime": 1795616329.7092211,
+    "ast_hash": "d01f804cd7cf7d9974504d124c818e18",
+    "semantic_hash": ""
+  },
+  "SOCIAL/landing/chi-siamo.html": {
+    "mtime": 1795616329.7091315,
+    "ast_hash": "e945f003cee3adc3e7bb16f713b24358",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Sync/E2E/E2EController.swift": {
+    "mtime": 1795622845.5340085,
+    "ast_hash": "a55bbe72e424361a20719b911fc47d52",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/E2E/AdvancedProtectionView.swift": {
+    "mtime": 1795623780.3378353,
+    "ast_hash": "4b2e90054a6aafb7017d9f2cc2191837",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/E2E/E2EActivationFlow.swift": {
+    "mtime": 1795622845.5352485,
+    "ast_hash": "4342f25843ff28321fce17786d7ccdd4",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/E2E/E2EUnlockView.swift": {
+    "mtime": 1795621797.0100996,
+    "ast_hash": "11eaaf38c02bce36ddadcc2ddd5b3872",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Views/E2E/RecoveryKeyCard.swift": {
+    "mtime": 1795621517.9587271,
+    "ast_hash": "08cef0d572f2341a983e11ecdac2322f",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/E2ELocalizationTests.swift": {
+    "mtime": 1795621679.4989796,
+    "ast_hash": "4fe7903b1737cfd766e10e2f80fc1e32",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/E2EUITests.swift": {
+    "mtime": 1795624631.4412706,
+    "ast_hash": "474c24c82622305c01def139bbc17484",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/androidTest/java/com/bucktrail/android/ui/E2EProtectionUiTest.kt": {
+    "mtime": 1795641238.3528988,
+    "ast_hash": "a58896eae5a92beac765784f89ce89b4",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/AdvancedProtectionScreens.kt": {
+    "mtime": 1795641409.5709832,
+    "ast_hash": "78f30e00bc402f62603694161bd1254b",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/E2EStringsTest.kt": {
+    "mtime": 1795640540.776658,
+    "ast_hash": "054b4abe95a144d55ae19a1cfdff3557",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/E2ELifecycleTest.kt": {
+    "mtime": 1795643014.7361465,
+    "ast_hash": "b0693b94a639d123c20dc2defc5fb4e3",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/E2EStressTest.kt": {
+    "mtime": 1795642713.417521,
+    "ast_hash": "c3b3531e5c1eefeb6f884f10641b5ede",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/E2ELifecycleTests.swift": {
+    "mtime": 1795642942.451688,
+    "ast_hash": "525d1c68b84d5fd4f88e648d6beaa6e7",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/E2EStressTests.swift": {
+    "mtime": 1795643149.71968,
+    "ast_hash": "3a17a2b94daa86feba476ad676207e33",
     "semantic_hash": ""
   }
 }
