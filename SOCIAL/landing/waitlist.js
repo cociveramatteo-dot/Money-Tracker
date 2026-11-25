@@ -24,7 +24,7 @@ const localPreview = ["localhost", "127.0.0.1", "[::1]"].includes(location.hostn
 const msg = {
   ok: it ? "Fatto: ti scriveremo il giorno del lancio." : "Done: we'll write to you on launch day.",
   confirm: it ? "Quasi fatto: ti abbiamo scritto, clicca il link nell'email per confermare (controlla anche la posta indesiderata)." : "Almost done: we've emailed you, click the link to confirm (check your spam folder too).",
-  fail: it ? "Qualcosa non ha funzionato. Riprova tra poco o scrivi a bucktrailapp@gmail.com." : "Something went wrong. Try again soon or write to bucktrailapp@gmail.com.",
+  fail: it ? "Qualcosa non ha funzionato. Riprova tra poco o scrivi a ciao@bucktrailapp.com." : "Something went wrong. Try again soon or write to ciao@bucktrailapp.com.",
   preview: it ? "Anteprima locale. Per iscriverti e ricevere l’email, usa il sito pubblico bucktrailapp.com." : "Local preview. To sign up and receive an email, use the live site at bucktrailapp.com.",
   sending: it ? "Invio in corso…" : "Sending…",
 };
