@@ -148,7 +148,7 @@ Matteo Cocivera
 Note per Matteo: il volume («qualche centinaio di conti nel primo anno») è una stima prudente scritta dal capocantiere, non un dato tuo: cambialo se pensi a un altro numero.
 
 ## 10. Cosa fare, in ordine
-1. (Matteo) Guardare nell'account Apple Developer il tipo di account: Individual o Organization (2 minuti). Vedi PER-MATTEO.
+1. ✅ FATTO 2026-11-25 (Matteo): **non ha ancora un account Apple Developer Program** (pagina «Iscriviti all'Apple Developer Program»; solo Apple Account gratuito). Nessun pagamento fatto: il tipo si sceglie all'iscrizione. Scelta realistica senza P.IVA: **Individual**, app pubblicata **senza** collegamento bancario; la banca resta in coda. Prima di costruire S-60 chiedere ad Apple (Contact Us → App Review, con account attivo) se un'app di finanza personale con AISP terzo può uscire da un account individuale (linea guida 5.1.1(ix)); se no, srl semplificata (e P.IVA). Non pagare i 99 $ prima del gate del 6 dicembre del piano social.
 2. (Matteo) Inviare la mail del §9 e incollare la risposta al capocantiere.
 3. (Matteo) Porre le domande del §8 al professionista.
 4. Con le risposte: rifare le tabelle del §6 con `c` e minimo veri; scegliere prezzi, durata dello sconto annuale, eventuale livello da 4 banche; aggiornare `progetto-banca.md` §12.2 e DECISIONI.md.

@@ -6,7 +6,7 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 ## Da fare
 
 ### BANCA · modello economico — cosa resta a te (tutto spiegato in `.cantiere/banca-modello-economico.md`, copia su Drive `02_RISORSE/lavorate/banca-modello-economico-2026-11-25.md`)
-1. 📍 Browser → developer.apple.com/account → «Membership details». ▶️ Guarda il tipo di account. ↩️ «Individual» o «Organization».
+1. ✅ Fatto 2026-11-25: nessun account Apple Developer ancora (si sceglie «Individual» all'iscrizione, dopo il gate del 6/12; la banca resta in coda e si chiede ad Apple prima di costruirla). Dettagli nel §10 del documento.
 2. 📍 La tua casella email. ▶️ Invia a info@enablebanking.com la mail del §9 del documento (oggetto e corpo già pronti; cambia la stima del volume se vuoi). ↩️ Incollami la risposta: con costo per conto e fattura minima rifaccio le tabelle e fissiamo i prezzi.
 3. 📍 Un avvocato o commercialista. ▶️ Le 4 domande del §8 (Banca d'Italia, GDPR, P.IVA per vendere via store, P.IVA per essere cliente di Enable Banking). ↩️ La risposta in poche righe.
 
