@@ -1,0 +1,96 @@
+{
+  "aes_gcm_kat": {
+    "key_hex": "feffe9928665731c6d6a8f9467308308feffe9928665731c6d6a8f9467308308",
+    "nonce_hex": "cafebabefacedbaddecaf888",
+    "aad_hex": "feedfacedeadbeeffeedfacedeadbeefabaddad2",
+    "plaintext_hex": "d9313225f88406e5a55909c5aff5269a86a7a9531534f7da2e4c303d8a318a721c3c0c95956809532fcf0e2449a6b525b16aedf5aa0de657ba637b39",
+    "ciphertext_hex": "522dc1f099567d07f47f37a32a84427d643a8cdcbfe5c0c97598a2bd2555d1aa8cb08e48590dbb3da7b08b1056828838c5f61e6393ba7a0abcc9f662",
+    "tag_hex": "76fc6ece0f4e1768cddf8853bb2d551b",
+    "envelope": "bt1.yv66vvrO263eyviIUi3B8JlWfQf0fzejKoRCfWQ6jNy_5cDJdZiivSVV0aqMsI5IWQ27PaewixBWgog4xfYeY5O6egq8yfZidvxuzg9OF2jN34hTuy1VGw"
+  },
+  "hkdf_rfc5869": {
+    "ikm_hex": "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
+    "salt_hex": "000102030405060708090a0b0c",
+    "info_hex": "f0f1f2f3f4f5f6f7f8f9",
+    "length": 42,
+    "okm_hex": "3cb25f25faacd57a90434f64d0362f2a2d2d0a90cf1a5a4c5db02d56ecc4c5bf34007208d5b887185865"
+  },
+  "pbkdf2": [
+    {
+      "passphrase": "Bucktrail test passphrase",
+      "salt": "AAECAwQFBgcICQoLDA0ODw",
+      "iterations": 1000,
+      "kek_hex": "792d1bbcd49f9912bcaef9045e5c642a58f034c9707f92eb911c7ed84dbba765"
+    },
+    {
+      "passphrase": "Bucktrail test passphrase",
+      "salt": "AAECAwQFBgcICQoLDA0ODw",
+      "iterations": 600000,
+      "kek_hex": "0fe901e4dcabfd5aac10a08ba4ef94a66786e963b2ba1167e0b65054a8c4c4c3"
+    },
+    {
+      "passphrase": "Pässwörd 日本 🔑 è",
+      "salt": "AAECAwQFBgcICQoLDA0ODw",
+      "iterations": 600000,
+      "kek_hex": "12be7f6334a4295d06940d22fde90b83a70d8c7e9af2ec6f4478844001744e3a"
+    }
+  ],
+  "crockford": [
+    {
+      "bytes_hex": "0000000000000000000000000000000000000000",
+      "formatted": "0000-0000-0000-0000-0000-0000-0000-0000",
+      "input": "oOoo - 0O00 0000-0000-0000-0000-0000-0000"
+    },
+    {
+      "bytes_hex": "0842108421084210842108421084210842108421",
+      "formatted": "1111-1111-1111-1111-1111-1111-1111-1111",
+      "input": "l1iI-1111-1111-1111-1111-1111-1111-1111"
+    },
+    {
+      "bytes_hex": "ffffffffffffffffffffffffffffffffffffffff",
+      "formatted": "ZZZZ-ZZZZ-ZZZZ-ZZZZ-ZZZZ-ZZZZ-ZZZZ-ZZZZ",
+      "input": "zzzz-zzzz-zzzz-zzzz-zzzz-zzzz-zzzz-zzzz"
+    },
+    {
+      "bytes_hex": "000102030405060708090a0b0c0d0e0f10111213",
+      "formatted": "000G-40R4-0M30-E209-185G-R38E-1W81-24GK",
+      "input": "000G-40R4-0M30-E209-185G-R38E-1W81-24GK"
+    }
+  ],
+  "envelope": {
+    "key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "nonce_hex": "00112233445566778899aabb",
+    "kind": "transaction",
+    "id": "12345678-abcd-4ef0-8123-abcdef012345",
+    "user_id": "abcdefab-cdef-4abc-8def-abcdefabcdef",
+    "aad": "bucktrail/e2e/v1/row/transaction/12345678-abcd-4ef0-8123-abcdef012345/abcdefab-cdef-4abc-8def-abcdefabcdef",
+    "plaintext": "{\"amount\":12.34,\"memo\":\"caffè 日本 🔑\"}",
+    "sealed": "bt1.ABEiM0RVZneImaq7oaSR3iASJWpKWvEuVL-2ERtv1jh9SEGV6e5wllIYPl3vJQ73EXtVxuzH5_Uqs8ccueBPRcUCfTdDRRLf"
+  },
+  "wrap": {
+    "user_id": "abcdefab-cdef-4abc-8def-abcdefabcdef",
+    "passphrase": "Pässwörd 日本 🔑 è",
+    "salt": "AAECAwQFBgcICQoLDA0ODw",
+    "iterations": 600000,
+    "dek_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+    "recovery_key": "000G-40R4-0M30-E209-185G-R38E-1W81-24GK",
+    "recovery_kek_hex": "7f2177b54222adfc96d6a4b5854f64331921d14c26ca1fc5d17bf248cf340b68",
+    "passphrase_aad": "bucktrail/e2e/v1/wrap/passphrase/abcdefab-cdef-4abc-8def-abcdefabcdef",
+    "recovery_aad": "bucktrail/e2e/v1/wrap/recovery/abcdefab-cdef-4abc-8def-abcdefabcdef",
+    "passphrase_nonce_hex": "101112131415161718191a1b",
+    "recovery_nonce_hex": "202122232425262728292a2b",
+    "wrapped_key_passphrase": "bt1.EBESExQVFhcYGRobUOS0dxks6M7bWWcyN3yZQSr6XZGp7HhdIP8wmRwFFm-xdtIVytvXJp0iCg9QpO1O",
+    "wrapped_key_recovery": "bt1.ICEiIyQlJicoKSorkYZCcs6X9-1TV4NAfCNWzaDlQ634Zp8iR_TLz5bKhruusUPfv2RwuerD2idWbJTF",
+    "key_id": "7d2c8c067561cc12"
+  },
+  "negative": {
+    "tag_altered": "bt1.ABEiM0RVZneImaq7oaSR3iASJWpKWvEuVL-2ERtv1jh9SEGV6e5wllIYPl3vJQ73EXtVxuzH5_Uqs8ccueBPRcUCfTdDRRLe",
+    "unsupported_version": "bt2.ABEiM0RVZneImaq7oaSR3iASJWpKWvEuVL-2ERtv1jh9SEGV6e5wllIYPl3vJQ73EXtVxuzH5_Uqs8ccueBPRcUCfTdDRRLf",
+    "invalid_base64": "bt1.%%%%",
+    "wrong_id_aad": "bucktrail/e2e/v1/row/transaction/12345679-abcd-4ef0-8123-abcdef012345/abcdefab-cdef-4abc-8def-abcdefabcdef",
+    "wrong_kind_aad": "bucktrail/e2e/v1/row/budget/12345678-abcd-4ef0-8123-abcdef012345/abcdefab-cdef-4abc-8def-abcdefabcdef",
+    "wrong_user_aad": "bucktrail/e2e/v1/row/transaction/12345678-abcd-4ef0-8123-abcdef012345/abcdefac-cdef-4abc-8def-abcdefabcdef",
+    "wrong_passphrase": "another test passphrase",
+    "wrong_recovery_key": "100G-40R4-0M30-E209-185G-R38E-1W81-24GK"
+  }
+}

@@ -27,7 +27,7 @@ description: Decide a quale membro della squadra dare un lavoro (Antigravity, Co
 💸 Peso sulla quota Claude: nullo / basso / medio / alto
 ▶️ Come: <una delle opzioni sotto>
 ```
-- **Impresa (Antigravity / Codex / Copilot)**: copia il prompt di `.cantiere/prompt/IMPRESA.md` PAROLA PER PAROLA (per Copilot: «esci e apri `copilot` qui»; al primo avvio «sì» alla fiducia nella cartella),
+- **Impresa (Antigravity / Codex / Copilot)**: copia il prompt di `.cantiere/prompt/IMPRESA.md` PAROLA PER PAROLA (per Codex: «esci e lancia `codex --yolo -C <cartella-del-cantiere>`», sempre con `--yolo`; per Copilot: «esci e apri `copilot` qui»; al primo avvio «sì» alla fiducia nella cartella),
   cambiando solo il numero del task (le istruzioni specifiche stanno nel task in PIANO.md, non nel prompt; al massimo
   una riga "Nota:" in fondo). Poi chiudi il turno (cartellino).
 - **Subagente Claude**: "lo lancio?" → al sì delega passandogli SOLO il testo del task.
