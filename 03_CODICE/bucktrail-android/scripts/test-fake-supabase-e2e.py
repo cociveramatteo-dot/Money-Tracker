@@ -1,0 +1,264 @@
+#!/usr/bin/env python3
+"""Prove HTTP del fake Supabase E2E. Richiede solo la libreria standard."""
+
+from concurrent.futures import ThreadPoolExecutor
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+import tempfile
+import time
+import unittest
+from urllib.error import HTTPError
+from urllib.request import ProxyHandler, Request, build_opener
+
+
+SERVER = Path(__file__).with_name("fake-supabase.py")
+E2E = "/rest/v1/mt_e2e"
+VAULT = "/rest/v1/mt_vault"
+PLAIN = [
+    f"/rest/v1/mt_{name}"
+    for name in ("accounts", "transactions", "budgets", "goals", "recurring_rules")
+]
+ACTIVE = {"code": "P0001", "message": "bt_e2e_active"}
+MIGRATING = {"code": "P0001", "message": "bt_e2e_migrating"}
+DUPLICATE = {"code": "23505", "message": "duplicate key value violates unique constraint"}
+UNAVAILABLE = {"message": "service unavailable"}
+
+
+class FakeSupabaseE2ETests(unittest.TestCase):
+    def start_server(self, **settings):
+        env = {key: value for key, value in os.environ.items() if not key.startswith("FAKE_")}
+        env.update(settings)
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        log = Path(directory.name) / "server.log"
+        with log.open("wb") as output:
+            server = subprocess.Popen(
+                [sys.executable, "-I", str(SERVER), "0"],
+                env=env,
+                stderr=output,
+            )
+        self.addCleanup(self.stop_server, server)
+        deadline = time.monotonic() + 5
+        while time.monotonic() < deadline and server.poll() is None:
+            match = re.search(r"Supabase FINTO su (http://127\.0\.0\.1:\d+)", log.read_text())
+            if match:
+                self.url = match[1]
+                return
+            time.sleep(0.02)
+        self.fail(f"Avvio del server fallito: {log.read_text()}")
+
+    @staticmethod
+    def stop_server(server):
+        if server.poll() is None:
+            server.terminate()
+        try:
+            server.wait(timeout=3)
+        except subprocess.TimeoutExpired:
+            server.kill()
+            server.wait()
+
+    def request(self, method, path, body=None, *, token=None, headers=None):
+        request = Request(
+            self.url + path,
+            data=None if body is None else json.dumps(body).encode(),
+            method=method,
+            headers={"Content-Type": "application/json", **(headers or {})},
+        )
+        if token:
+            request.add_header("Authorization", f"Bearer {token}")
+        try:
+            response = build_opener(ProxyHandler({})).open(request, timeout=3)
+        except HTTPError as error:
+            response = error
+        with response:
+            raw = response.read()
+            return response.status, json.loads(raw) if raw else None
+
+    def login(self, *, second_user=False):
+        path = "/auth/v1/signup" if second_user else "/auth/v1/token?grant_type=password"
+        email = "auto@test.it" if second_user else "demo@test.it"
+        status, body = self.request("POST", path, {"email": email, "password": "password1"})
+        self.assertEqual(status, 200)
+        return body["user"]["id"], body["access_token"]
+
+    def test_primary_keys_and_on_conflict(self):
+        self.start_server()
+        uid, token = self.login()
+        row = {"user_id": uid.upper(), "state": "migrating"}
+        self.assertEqual(self.request("POST", E2E, [row], token=token), (201, None))
+        updated = {"user_id": uid, "state": "active"}
+        self.assertEqual(
+            self.request("POST", E2E + "?on_conflict=id", updated, token=token,
+                         headers={"Prefer": "resolution=merge-duplicates, return=minimal"}),
+            (201, None),
+        )
+        self.assertEqual(self.request("GET", E2E, token=token), (200, [updated]))
+        row = {"id": "AB", "user_id": uid, "kind": "goal", "payload": "bt1.Old"}
+        self.assertEqual(self.request("POST", VAULT, [row], token=token), (201, None))
+        row = {**row, "id": "ab", "payload": "bt1.New"}
+        self.assertEqual(self.request("POST", VAULT + "?on_conflict=user_id", [row], token=token), (201, None))
+        self.assertEqual(self.request("GET", VAULT, token=token), (200, [row]))
+
+    def test_get_filters_projection_and_range(self):
+        self.start_server()
+        uid, token = self.login()
+        other_uid, other_token = self.login(second_user=True)
+        rows = [
+            {"id": "B", "user_id": uid, "kind": "goal", "payload": "bt1.B"},
+            {"id": "A", "user_id": uid, "kind": "goal", "payload": "bt1.A"},
+            {"id": "C", "user_id": uid, "kind": "account", "payload": "bt1.C"},
+        ]
+        self.assertEqual(self.request("POST", VAULT, rows, token=token), (201, None))
+        other = {"id": "D", "user_id": other_uid, "kind": "goal", "payload": "bt1.D"}
+        self.assertEqual(self.request("POST", VAULT, [other], token=other_token), (201, None))
+        query = f"?kind=eq.goal&user_id=eq.{uid.upper()}&select=id,payload"
+        self.assertEqual(
+            self.request("GET", VAULT + query, token=token, headers={"Range": "0-0"}),
+            (206, [{"id": "a", "payload": "bt1.A"}]),
+        )
+        self.assertEqual(
+            self.request("GET", VAULT + f"?user_id=eq.{other_uid}", token=token), (200, []),
+        )
+
+    def test_delete_filters_and_legacy_ids(self):
+        self.start_server()
+        uid, token = self.login()
+        other_uid, other_token = self.login(second_user=True)
+        rows = [
+            {"id": "A", "user_id": uid, "kind": "goal", "payload": "bt1.A"},
+            {"id": "B", "user_id": uid, "kind": "goal", "payload": "bt1.B"},
+            {"id": "C", "user_id": uid, "kind": "account", "payload": "bt1.C"},
+        ]
+        other = {"id": "d", "user_id": other_uid, "kind": "goal", "payload": "bt1.D"}
+        self.assertEqual(self.request("POST", VAULT, rows, token=token), (201, None))
+        self.assertEqual(self.request("POST", VAULT, [other], token=other_token), (201, None))
+        self.assertEqual(self.request("DELETE", VAULT + "?kind=eq.goal", token=token), (204, None))
+        remaining = {**rows[2], "id": "c"}
+        self.assertEqual(self.request("GET", VAULT, token=token), (200, [remaining]))
+        self.assertEqual(self.request("GET", VAULT, token=other_token), (200, [other]))
+        delete = VAULT + f"?user_id=eq.{uid}&kind=eq.account"
+        self.assertEqual(self.request("DELETE", delete, token=token), (204, None))
+        self.assertEqual(self.request("GET", VAULT, token=token), (200, []))
+        self.assertEqual(self.request("POST", PLAIN[0], [{"id": "ABC", "user_id": uid}], token=token), (201, None))
+        self.assertEqual(self.request("DELETE", PLAIN[0] + "?id=in.(ABC)", token=token), (204, None))
+        self.assertEqual(self.request("GET", PLAIN[0], token=token), (200, []))
+
+    def test_duplicate_conflict_is_atomic(self):
+        self.start_server()
+        uid, token = self.login()
+        other_uid, other_token = self.login(second_user=True)
+        row = {"user_id": uid, "state": "migrating"}
+        self.assertEqual(self.request("POST", E2E, row, token=token), (201, None))
+        self.assertEqual(self.request(
+            "POST", E2E, [{"user_id": other_uid, "state": "active"}, {**row, "state": "active"}], token=token,
+        ), (409, DUPLICATE))
+        self.assertEqual(self.request("GET", E2E, token=token), (200, [row]))
+        self.assertEqual(self.request("GET", E2E, token=other_token), (200, []))
+
+    def test_patch_updates_only_selected_row_and_fields(self):
+        self.start_server()
+        uid, token = self.login()
+        other_uid, other_token = self.login(second_user=True)
+        row = {"user_id": uid, "state": "migrating", "salt": "Unchanged"}
+        other = {"user_id": other_uid, "state": "migrating"}
+        self.assertEqual(self.request("POST", E2E, row, token=token), (201, None))
+        self.assertEqual(self.request("POST", E2E, other, token=other_token), (201, None))
+        patch = {"state": "active", "wrapped_key_passphrase": "bt1.UpdatedKey"}
+        self.assertEqual(self.request("PATCH", E2E + f"?user_id=eq.{uid.upper()}", patch, token=token), (204, None))
+        self.assertEqual(self.request("GET", E2E, token=token), (200, [{**row, **patch}]))
+        self.assertEqual(self.request("GET", E2E, token=other_token), (200, [other]))
+
+    def test_guard_blocks_plain_writes_and_migrating_deletes(self):
+        self.start_server()
+        uid, token = self.login()
+        other_uid, other_token = self.login(second_user=True)
+        existing = {"id": "existing", "user_id": uid}
+        new = {"id": "new", "user_id": uid}
+        other = {"id": "other", "user_id": other_uid}
+        for path in PLAIN:
+            self.assertEqual(self.request("POST", path, [existing], token=token), (201, None))
+        self.assertEqual(self.request("POST", E2E, {"user_id": uid, "state": "migrating"}, token=token), (201, None))
+        for state in ("migrating", "active", "disabling"):
+            filter_path = E2E + f"?user_id=eq.{uid}"
+            self.assertEqual(self.request("PATCH", filter_path, {"state": state}, token=token), (204, None))
+            for path in PLAIN:
+                with self.subTest(state=state, table=path):
+                    self.assertEqual(self.request("POST", path, [other], token=other_token), (201, None))
+                    expected = (201, None) if state == "disabling" else (400, ACTIVE)
+                    self.assertEqual(self.request("POST", path, [new], token=token), expected)
+                    self.assertEqual(self.request("POST", path, [{**existing, "changed": True}], token=token), expected)
+                    delete = path + "?id=in.(existing,other)"
+                    if state == "migrating":
+                        self.assertEqual(self.request("DELETE", delete, token=token), (400, MIGRATING))
+                        self.assertEqual(self.request("GET", path, token=token), (200, [existing]))
+                        self.assertEqual(self.request("GET", path, token=other_token), (200, [other]))
+                    else:
+                        self.assertEqual(self.request("DELETE", delete, token=token), (204, None))
+
+    def test_delete_own_account_bypasses_guard(self):
+        self.start_server()
+        uid, token = self.login()
+        original = {"id": "original", "user_id": uid}
+        vault = {**original, "kind": "account", "payload": "bt1.Payload"}
+        self.assertEqual(self.request("POST", PLAIN[0], [original], token=token), (201, None))
+        self.assertEqual(self.request("POST", VAULT, [vault], token=token), (201, None))
+        self.assertEqual(self.request("POST", E2E, {"user_id": uid, "state": "migrating"}, token=token), (201, None))
+        self.assertEqual(self.request("POST", "/rest/v1/rpc/delete_own_account", token=token), (204, None))
+        for path in (PLAIN[0], VAULT, E2E):
+            self.assertEqual(self.request("GET", path, token=token), (200, []))
+
+    def test_no_e2e_tables(self):
+        self.start_server(FAKE_NO_E2E="1")
+        uid, token = self.login()
+        missing = {"code": "PGRST205", "message": "Could not find the table"}
+        for path in (E2E, VAULT):
+            for method in ("GET", "POST"):
+                with self.subTest(path=path, method=method):
+                    body = {} if method == "POST" else None
+                    self.assertEqual(self.request(method, path, body, token=token), (404, missing))
+        self.assertEqual(self.request("POST", PLAIN[0], [{"id": "a", "user_id": uid}], token=token), (201, None))
+        self.assertEqual(self.request("DELETE", PLAIN[0] + "?id=in.(a)", token=token), (204, None))
+
+    def test_fail_after_counts_successful_writes_only(self):
+        self.start_server(FAKE_FAIL_AFTER="3")
+        uid, token = self.login()
+        row = {"user_id": uid, "state": "migrating"}
+        self.assertEqual(self.request("POST", E2E, row, token=token), (201, None))
+        self.assertEqual(self.request("POST", E2E, row, token=token), (409, DUPLICATE))
+        self.assertEqual(self.request("GET", E2E, token=token), (200, [row]))
+        self.assertEqual(self.request("POST", PLAIN[0], [{"id": "a", "user_id": uid}], token=token), (400, ACTIVE))
+        path = E2E + f"?user_id=eq.{uid}"
+        self.assertEqual(self.request("PATCH", path, {"state": "active"}, token=token), (204, None))
+        self.assertEqual(self.request("DELETE", path, token=token), (204, None))
+        for method in ("GET", "POST", "PATCH", "DELETE"):
+            with self.subTest(method=method):
+                self.assertEqual(self.request(method, path, token=token), (503, UNAVAILABLE))
+
+    def test_fail_after_enforces_limit_with_concurrent_writes(self):
+        self.start_server(FAKE_FAIL_AFTER="1")
+        uid, token = self.login()
+
+        def insert(id_value):
+            return self.request("POST", PLAIN[0], [{"id": id_value, "user_id": uid}], token=token)
+
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            self.assertCountEqual(pool.map(insert, ("a", "b")), [(201, None), (503, UNAVAILABLE)])
+
+    def test_payload_round_trips_unchanged(self):
+        self.start_server()
+        uid, token = self.login()
+        payload = "bt1.AzZ_09-É" + "Aa" * 4096
+        row = {"id": "AB", "user_id": uid, "kind": "transaction", "payload": payload}
+        self.assertEqual(self.request("POST", VAULT, [row], token=token), (201, None))
+        self.assertEqual(
+            self.request("GET", VAULT + "?select=id,payload", token=token),
+            (200, [{"id": "ab", "payload": payload}]),
+        )
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
