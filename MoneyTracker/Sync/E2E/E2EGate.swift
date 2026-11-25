@@ -11,9 +11,14 @@ struct E2EMigrationMarker: Codable {
     let userId: UUID
     let keyId: String
     let startedAt: Int64
+    var phase: Phase? = nil
+
+    enum Phase: String, Codable {
+        case verified, rollingBack, resetting
+    }
 
     enum CodingKeys: String, CodingKey {
-        case direction
+        case direction, phase
         case userId = "user_id"
         case keyId = "key_id"
         case startedAt = "started_at"
@@ -36,6 +41,7 @@ struct E2EGate {
         let mode: Mode
         var serverSupported: Bool? = true
         var needsPlainInitialSync = false
+        var row: E2EServerRow?
     }
 
     let server: any E2EServerAccess
@@ -57,6 +63,9 @@ struct E2EGate {
         case .unavailable:
             return Resolution(mode: .plain, serverSupported: false)
         case .absent:
+            if let marker, marker.userId == userId, marker.direction == .disable {
+                return Resolution(mode: .resume(.disable))
+            }
             let hadKey = try keyStore.load(userId: userId) != nil
             if hadKey { try keyStore.remove(userId: userId) }
             return Resolution(mode: .plain, needsPlainInitialSync: hadKey)
@@ -70,17 +79,30 @@ struct E2EGate {
                 try keyStore.remove(userId: userId)
             }
 
+            if let marker, marker.userId == userId, marker.keyId == row.keyId {
+                switch (row.state, marker.direction, marker.phase) {
+                case (.active, .enable, .verified), (.active, .disable, .rollingBack):
+                    if matchingKey != nil {
+                        return Resolution(mode: .resume(marker.direction), row: row)
+                    }
+                case (.active, .disable, .resetting):
+                    return Resolution(mode: .resume(.disable), row: row)
+                default:
+                    break
+                }
+            }
+
             switch row.state {
             case .active:
-                if let matchingKey { return Resolution(mode: .vault(matchingKey)) }
-                return Resolution(mode: .locked(.needsSecret))
+                if let matchingKey { return Resolution(mode: .vault(matchingKey), row: row) }
+                return Resolution(mode: .locked(.needsSecret), row: row)
             case .migrating, .disabling:
                 let direction: E2EMigrationDirection = row.state == .migrating ? .enable : .disable
                 if matchingKey != nil, let marker,
                    marker.userId == userId, marker.direction == direction, marker.keyId == row.keyId {
-                    return Resolution(mode: .resume(direction))
+                    return Resolution(mode: .resume(direction), row: row)
                 }
-                return Resolution(mode: .locked(.transition))
+                return Resolution(mode: .locked(.transition), row: row)
             }
         }
     }

@@ -243,3 +243,9 @@ Progetto completo: `.cantiere/progetto-banca.md`. Dopo il lancio e dopo S-50. Au
 - **Costi:** v1 incluso nel prezzo con limiti (2 banche per utente, tetto globale, 6 h tra aggiornamenti automatici); se il preventivo supera ~0,10 €/conto/mese, «pass 12 mesi» non rinnovabile (progetto separato S-61). Scartato l'abbonamento automatico.
 - **D-014:** approvazione visiva sostituita da test UI su tutti gli stati e screenshot (libertà data da Matteo); i testi del sito restano da approvare.
 - **Rischio principale da verificare subito (S-60t):** linea guida App Store 5.1.1(ix) per account individuali in ambito finanziario; contratto/KYB Enable Banking per un privato; eventuale registrazione presso Banca d'Italia.
+
+## 2026-11-25 · S-50h · Verifica e cancellazione nel migratore iOS
+
+- I push preparatori A0 e D4 mantengono le righe in chiaro fuori dalla normale rimozione degli orfani. Una divergenza blocca la verifica. A7 cancella solo dopo la prova completa del vault, con marcatore verificato e conferma di stato `active` e `key_id` prima di ogni blocco.
+- Se D5 fallisce due volte, il rollback verifica il vault contro il backup D2 e riporta lo stato ad `active` prima della pulizia. Se trova ID in chiaro assenti dalla copia verificata, conserva tutte le righe in chiaro e lascia il marcatore di rollback per il collaudo.
+- Le transizioni su `mt_e2e` aggiornano o eliminano soltanto la riga corrispondente a utente, chiave e stato atteso. La cancellazione per blocchi e la lettura di stato sono richieste distinte nello schema §6.2. Il collaudo del blocco 2 deve esaminare un cambio di stato concorrente fra le richieste prima dell'accensione.

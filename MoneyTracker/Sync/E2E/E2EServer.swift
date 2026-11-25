@@ -71,6 +71,28 @@ protocol E2EServerAccess {
     func insert(_ row: E2EServerRow) async throws
     func patch(_ changes: E2EServerPatch, userId: UUID) async throws
     func delete(userId: UUID) async throws
+    func patch(_ changes: E2EServerPatch, ifCurrent row: E2EServerRow) async throws -> Bool
+    func delete(ifCurrent row: E2EServerRow) async throws -> Bool
+}
+
+extension E2EServerAccess {
+    func patch(_ changes: E2EServerPatch, ifCurrent row: E2EServerRow) async throws -> Bool {
+        guard try await stillCurrent(row) else { return false }
+        try await patch(changes, userId: row.userId)
+        return true
+    }
+
+    func delete(ifCurrent row: E2EServerRow) async throws -> Bool {
+        guard try await stillCurrent(row) else { return false }
+        try await delete(userId: row.userId)
+        return true
+    }
+
+    private func stillCurrent(_ expected: E2EServerRow) async throws -> Bool {
+        guard case .row(let row) = try await lookup(userId: expected.userId) else { return false }
+        try Task.checkCancellation()
+        return row.userId == expected.userId && row.keyId == expected.keyId && row.state == expected.state
+    }
 }
 
 struct E2EServer: E2EServerAccess {
@@ -118,6 +140,22 @@ struct E2EServer: E2EServerAccess {
     func delete(userId: UUID) async throws {
         try await client.from("mt_e2e").delete()
             .eq("user_id", value: userId.uuidString.lowercased()).execute()
+    }
+
+    func patch(_ changes: E2EServerPatch, ifCurrent row: E2EServerRow) async throws -> Bool {
+        let updated: [E2EServerRow] = try await client.from("mt_e2e").update(changes)
+            .eq("user_id", value: row.userId.uuidString.lowercased())
+            .eq("key_id", value: row.keyId).eq("state", value: row.state.rawValue)
+            .select().execute().value
+        return updated.count == 1
+    }
+
+    func delete(ifCurrent row: E2EServerRow) async throws -> Bool {
+        let deleted: [E2EServerRow] = try await client.from("mt_e2e").delete()
+            .eq("user_id", value: row.userId.uuidString.lowercased())
+            .eq("key_id", value: row.keyId).eq("state", value: row.state.rawValue)
+            .select().execute().value
+        return deleted.count == 1
     }
 
     private static func isUnavailable(_ error: any Error) -> Bool {
