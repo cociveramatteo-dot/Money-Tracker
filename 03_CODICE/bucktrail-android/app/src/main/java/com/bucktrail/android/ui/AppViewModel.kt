@@ -75,6 +75,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val syncConfigured: Boolean get() = application.syncConfigured
     private val auth get() = application.auth
     private val sync get() = application.syncService
+    internal val protectionSync get() = if (com.bucktrail.android.BuildConfig.E2E_ENABLED) sync else null
     val session: StateFlow<com.bucktrail.android.sync.Session?> get() = auth.session
     val syncStatus: StateFlow<com.bucktrail.android.sync.SyncStatus> get() = sync.status
     val needsSyncDecision: StateFlow<Boolean> get() = sync.needsDecision

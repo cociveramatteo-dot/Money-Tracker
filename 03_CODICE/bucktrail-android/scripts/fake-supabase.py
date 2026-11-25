@@ -88,12 +88,25 @@ class H(BaseHTTPRequestHandler):
         rows = TABLES.setdefault(table, {})
         user_filter = eq_filter(query, "user_id")
         kind_filter = eq_filter(query, "kind")
+        metadata_filters = {column: eq_filter(query, column) for column in ("key_id", "state", "updated_at")
+                            if table == "mt_e2e" and column in query}
+        preferences = {value.strip() for value in self.headers.get("Prefer", "").split(",")}
 
         def matches(row):
             return (
                 (user_filter is None or row["user_id"].lower() == user_filter.lower())
                 and (kind_filter is None or row.get("kind") == kind_filter)
+                and all(value is not None and row.get(column) == value
+                        for column, value in metadata_filters.items())
             )
+
+        def mutation_response(changed):
+            if table != "mt_e2e" or "return=representation" not in preferences:
+                return 204, b""
+            columns = query.get("select", ["*"])[0]
+            if columns != "*":
+                changed = [{column: row.get(column) for column in columns.split(",")} for row in changed]
+            return 200, changed
 
         if method == "GET":
             mine = [
@@ -118,7 +131,6 @@ class H(BaseHTTPRequestHandler):
                 return 400, {"code": "P0001", "message": "bt_e2e_active"}
             updates = {row[pk].lower(): row for row in incoming}
             if table == "mt_e2e":
-                preferences = {value.strip() for value in self.headers.get("Prefer", "").split(",")}
                 duplicate = rows.keys() & updates.keys() or len(updates) != len(incoming)
                 if duplicate and "resolution=merge-duplicates" not in preferences:
                     return 409, {"code": "23505", "message": "duplicate key value violates unique constraint"}
@@ -128,7 +140,8 @@ class H(BaseHTTPRequestHandler):
             row = rows.get(uid)
             if row is not None and matches(row):
                 rows[uid] = {**row, **body, pk: row[pk]}
-            return 204, b""
+                return mutation_response([rows[uid]])
+            return mutation_response([])
         if method == "DELETE":
             id_filter = query.get("id", [""])[0]
             if (
@@ -153,9 +166,7 @@ class H(BaseHTTPRequestHandler):
                 ]
             if table in PLAIN_TABLES and any(e2e_state(rows[key]) == "migrating" for key in candidates):
                 return 400, {"code": "P0001", "message": "bt_e2e_migrating"}
-            for key in candidates:
-                del rows[key]
-            return 204, b""
+            return mutation_response([rows.pop(key) for key in candidates])
         return 404, {"message": "not found " + urlparse(self.path).path}
 
     def route(self, method):

@@ -69,6 +69,7 @@ import com.bucktrail.android.ui.screens.RecurrenceEditorSheet
 import com.bucktrail.android.ui.screens.HomeAccountOrderSheet
 import com.bucktrail.android.ui.screens.MovementActions
 import com.bucktrail.android.ui.screens.SettingsActions
+import com.bucktrail.android.ui.screens.AdvancedProtectionSheet
 import com.bucktrail.android.ui.screens.SettingsSheet
 import com.bucktrail.android.ui.components.BtAlert
 import com.bucktrail.android.ui.components.UndoBar
@@ -133,6 +134,25 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     }
     val fabVisible = tab != Tab.Statistics && !(tab == Tab.Movements && searching)
     val ledger = data.ledger
+    val protectionUser = session?.userId
+    val protectionSync = if (com.bucktrail.android.BuildConfig.E2E_ENABLED &&
+        protectionUser != null && data.loaded && !ledger.demo
+    ) vm.protectionSync else null
+    val protection = protectionSync?.protection?.collectAsStateWithLifecycle()?.value
+        ?.takeIf { it.userId == protectionUser }
+    var protectionOpen by remember(protectionUser) { mutableStateOf(false) }
+    var unlockOpen by remember(protectionUser) { mutableStateOf(false) }
+    var unlockPrompted by rememberSaveable(protectionUser) { mutableStateOf(false) }
+    if (protectionSync != null) {
+        LaunchedEffect(protection?.lockReason, protectionOpen) {
+            if (protection?.lockReason != null && !unlockPrompted && !protectionOpen) {
+                unlockPrompted = true
+                unlockOpen = true
+            }
+        }
+    } else if (protectionOpen || unlockOpen) {
+        LaunchedEffect(Unit) { protectionOpen = false; unlockOpen = false }
+    }
     val edit: (TransactionEntity) -> Unit = { editor = if (it.isTransfer && it.transferGroupId.isNotEmpty()) "transfer:${it.id}" else "tx:${it.id}" }
     // Elimina: i trasferimenti collegati chiedono conferma, il resto esce subito con «Annulla».
     val requestDelete: (TransactionEntity) -> Unit = { t ->
@@ -268,7 +288,16 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
             onOpenAudit = { auditOpen = true }, onClose = { settingsOpen = false },
         ),
         AccountSettings(session?.email, vm.syncConfigured, onSignIn = { authOpen = true }, onSignOut = { vm.signOut().join() }, onDelete = { vm.deleteAccount() }),
+        protection = protection, onProtection = { protectionOpen = true },
     )
+    if ((protectionOpen || unlockOpen) && protectionSync != null && protectionUser != null) {
+        androidx.compose.runtime.key(protectionUser) {
+            AdvancedProtectionSheet(protectionSync, protectionUser, protection, unlockInitially = unlockOpen) {
+                protectionOpen = false
+                unlockOpen = false
+            }
+        }
+    }
     if (authOpen && session == null) AuthFlow(AuthActions(vm::signIn, vm::signUp, vm::resetPassword, onClose = { authOpen = false }))
     if (needsSyncDecision) BtAlert(
         stringResource(R.string.sync_decisione_titolo), stringResource(R.string.sync_decisione_messaggio), stringResource(R.string.sync_usa_cloud),

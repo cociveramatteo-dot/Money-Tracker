@@ -67,14 +67,14 @@ fun DialogStatusBarEffect() {
 
 /** Azione testuale nella barra del foglio (Annulla / Fine / Chiudi). */
 @Composable
-fun BarAction(text: String, onClick: () -> Unit, modifier: Modifier = Modifier, bold: Boolean = false, enabled: Boolean = true, pill: Boolean = true, color: androidx.compose.ui.graphics.Color? = null) {
+fun BarAction(text: String, onClick: () -> Unit, modifier: Modifier = Modifier, bold: Boolean = false, enabled: Boolean = true, pill: Boolean = true, color: androidx.compose.ui.graphics.Color? = null, wrap: Boolean = false) {
     val c = Bt.colors
     val shape = androidx.compose.foundation.shape.RoundedCornerShape(50)
     // Pulsanti della barra degli sheet iOS: capsula `surface` + bordo `fog`, testo 15 (smoke; ink se azione principale)
     val look = if (pill) Modifier.clip(shape).background(c.surface).border(1.dp, c.fog, shape).padding(horizontal = 18.dp) else Modifier
     Box(modifier.heightIn(min = 44.dp).widthIn(min = 44.dp).then(look).clickable(enabled = enabled, role = Role.Button, onClick = onClick), contentAlignment = Alignment.Center) {
         Text(text, style = if (pill) Typo.ghostButton.copy(fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Normal) else Typo.rowName.copy(fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Medium),
-            color = if (!enabled) c.smoke.copy(alpha = 0.6f) else color ?: if (pill && !bold) c.smoke else c.ink, maxLines = 1, softWrap = false)
+            color = if (!enabled) c.smoke.copy(alpha = 0.6f) else color ?: if (pill && !bold) c.smoke else c.ink, maxLines = if (wrap) Int.MAX_VALUE else 1, softWrap = wrap)
     }
 }
 
@@ -127,7 +127,7 @@ fun SheetPage(
 fun BtAlert(
     title: String, message: String?, confirm: String, onConfirm: () -> Unit, onDismiss: () -> Unit,
     dismissLabel: String, destructive: Boolean = true, confirmEnabled: Boolean = true,
-    modifier: Modifier = Modifier, extra: (@Composable () -> Unit)? = null,
+    modifier: Modifier = Modifier, confirmWrap: Boolean = false, extra: (@Composable () -> Unit)? = null,
 ) {
     val c = Bt.colors
     AlertDialog(
@@ -140,7 +140,7 @@ fun BtAlert(
             }
         }) else null,
         confirmButton = {
-            BarAction(confirm, onConfirm, enabled = confirmEnabled, modifier = Modifier.testTag("alertConfirm"), bold = true, pill = false, color = if (destructive) c.danger else null)
+            BarAction(confirm, onConfirm, enabled = confirmEnabled, modifier = Modifier.testTag("alertConfirm"), bold = true, pill = false, color = if (destructive) c.danger else null, wrap = confirmWrap)
         },
         dismissButton = { BarAction(dismissLabel, onDismiss, pill = false) },
     )

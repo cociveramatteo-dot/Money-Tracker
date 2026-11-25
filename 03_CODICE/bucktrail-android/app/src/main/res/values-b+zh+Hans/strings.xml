@@ -520,4 +520,55 @@
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="other">还剩%d天</item>
     </plurals>
+
+    <!-- Protezione avanzata · S-50 -->
+    <string name="e2e_titolo" formatted="false">高级保护</string>
+    <string name="e2e_sottotitolo" formatted="false">同步的端到端加密</string>
+    <string name="e2e_stato_attiva" formatted="false">已开启</string>
+    <string name="e2e_stato_disattivata" formatted="false">已关闭</string>
+    <string name="e2e_intro" formatted="false">开启高级保护后，你的数据会先在此设备上加密，再进行同步。云端只保存无法读取的数据：没有你的安全短语或恢复密钥，任何人（包括 Bucktrail 的运营者）都无法读取。</string>
+    <string name="e2e_metadati" formatted="false">服务器只能看到技术信息：你的账户、条目数量以及同步时间。</string>
+    <string name="e2e_avviso_perdita" formatted="false">如果同时丢失安全短语和恢复密钥，云端数据将无法恢复。任何人都无法替你恢复。</string>
+    <string name="e2e_avviso_aggiorna" formatted="false">开启前，请在登录此账户的所有设备上更新 Bucktrail：旧版本将停止同步。</string>
+    <string name="e2e_attiva" formatted="false">开启高级保护</string>
+    <string name="e2e_frase_titolo" formatted="false">设置安全短语</string>
+    <string name="e2e_frase_aiuto" formatted="false">至少 10 个字符，最好使用四个或更多单词。不要使用账户密码。安全短语永远不会离开你的设备。</string>
+    <string name="e2e_frase_campo" formatted="false">安全短语</string>
+    <string name="e2e_frase_ripeti" formatted="false">再次输入</string>
+    <string name="e2e_frase_corta" formatted="false">安全短语至少需要 10 个字符。</string>
+    <string name="e2e_frase_diverse" formatted="false">两次输入的短语不一致。</string>
+    <string name="e2e_chiave_titolo" formatted="false">你的恢复密钥</string>
+    <string name="e2e_chiave_testo" formatted="false">请将它保存在此手机以外的地方，例如纸上或密码管理器中。忘记安全短语时需要用到它。它不会再次显示。</string>
+    <string name="e2e_copia" formatted="false">复制</string>
+    <string name="e2e_condividi" formatted="false">保存或分享</string>
+    <string name="e2e_chiave_conferma" formatted="false">请输入密钥的最后一组以确认</string>
+    <string name="e2e_chiave_salvata" formatted="false">我已保存密钥</string>
+    <string name="e2e_in_corso" formatted="false">正在加密数据…请保持应用打开。</string>
+    <string name="e2e_fatto" formatted="false">高级保护已开启</string>
+    <string name="e2e_cambia_frase" formatted="false">更改安全短语</string>
+    <string name="e2e_nuova_chiave" formatted="false">创建新的恢复密钥</string>
+    <string name="e2e_nuova_chiave_nota" formatted="false">之前的恢复密钥将失效。</string>
+    <string name="e2e_disattiva" formatted="false">关闭高级保护</string>
+    <string name="e2e_disattiva_titolo" formatted="false">要关闭高级保护吗？</string>
+    <string name="e2e_disattiva_testo" formatted="false">数据将重新以非端到端加密的方式同步：保护方式与之前相同，但不再使用只有你持有的密钥。</string>
+    <string name="e2e_disattivazione_in_corso" formatted="false">正在关闭…请保持应用打开。</string>
+    <string name="e2e_pausa" formatted="false">同步已暂停：请输入安全短语</string>
+    <string name="e2e_sblocca_titolo" formatted="false">解锁同步</string>
+    <string name="e2e_sblocca_testo" formatted="false">此账户已开启高级保护。请输入安全短语，以在此设备上读取云端数据。</string>
+    <string name="e2e_sblocca" formatted="false">解锁</string>
+    <string name="e2e_usa_chiave" formatted="false">使用恢复密钥</string>
+    <string name="e2e_chiave_campo" formatted="false">恢复密钥</string>
+    <string name="e2e_errata" formatted="false">安全短语或密钥不正确。</string>
+    <string name="e2e_perse_entrambe" formatted="false">安全短语和密钥都丢失了</string>
+    <string name="e2e_ricomincia_titolo" formatted="false">要从此设备重新开始吗？</string>
+    <string name="e2e_ricomincia_testo" formatted="false">没有安全短语和恢复密钥，就无法读取云端的加密数据。你可以删除这些数据，并用此设备上的数据重新开始。此操作无法撤销。</string>
+    <string name="e2e_ricomincia" formatted="false">删除加密数据并重新开始</string>
+    <string name="e2e_altro_dispositivo" formatted="false">另一台设备正在开启或关闭高级保护。请在那台设备上完成，或在此输入安全短语继续。</string>
+    <string name="e2e_errore" formatted="false">操作未完成。你的数据是安全的，请重试。</string>
+    <string name="e2e_annulla_attivazione" formatted="false">取消开启</string>
+    <string name="e2e_riprova" formatted="false">重试</string>
+    <string name="e2e_gia_in_corso" formatted="false">另一台设备已在开启高级保护。</string>
+    <string name="e2e_serve_rete" formatted="false">需要互联网连接。</string>
+    <string name="e2e_motivo_biometria" formatted="false">请验证身份以管理高级保护</string>
+    <string name="e2e_frase_cambiata" formatted="false">安全短语已更新</string>
 </resources>

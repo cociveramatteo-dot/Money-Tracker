@@ -151,6 +151,18 @@ internal class E2EMigrator(
         }
     }
 
+    /** A fresh form cannot finish a migration whose recovery key was shown on an earlier form. */
+    internal suspend fun resumeForUi(direction: MigrationDirection, allowCommitted: Boolean = true): Boolean {
+        val saved = marker() ?: return false
+        if (saved.direction != direction) throw Failure(Problem.StateChanged)
+        val current = (lookup() as? E2ERowLookup.Present)?.row
+        if (current != null && !allowCommitted) throw Failure(Problem.StateChanged)
+        resume(saved, current)
+        if (saved.phase == Phase.RollingBack) throw Failure(Problem.Verification)
+        if (current == null && direction == MigrationDirection.Enable) return false
+        return !(direction == MigrationDirection.Disable && current?.text("state") == "active" && saved.phase == null)
+    }
+
     suspend fun cancelEnable() {
         val current = row("migrating")
         val marker = marker()?.takeIf { it.direction == MigrationDirection.Enable && it.owns(current) }

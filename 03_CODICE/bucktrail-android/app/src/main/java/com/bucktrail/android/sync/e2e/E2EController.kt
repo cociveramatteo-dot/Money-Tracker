@@ -3,6 +3,7 @@ package com.bucktrail.android.sync.e2e
 import com.bucktrail.android.sync.ApiException
 import android.util.Log
 import com.bucktrail.android.sync.AuthManager
+import com.bucktrail.android.sync.ErrorKind
 import com.bucktrail.android.sync.LocalStore
 import com.bucktrail.android.sync.SyncEngine
 import com.bucktrail.android.sync.NotSignedInException
@@ -25,6 +26,10 @@ class E2EController(
         val lockReason: E2EGate.LockReason? = null,
         val resume: MigrationDirection? = null,
         val protection: Protection = Protection.Unavailable,
+        val busy: Boolean = false,
+        val issue: Reason? = null,
+        val canCancelActivation: Boolean = false,
+        val remoteEnabling: Boolean = false,
     )
 
     sealed interface Protection {
@@ -34,7 +39,6 @@ class E2EController(
         data class Locked(val reason: E2EGate.LockReason) : Protection
         data class Activating(val completed: Int, val total: Int = 9) : Protection
         data class Disabling(val completed: Int, val total: Int = 8) : Protection
-        data class Error(val reason: Reason) : Protection
     }
 
     enum class Reason { StateChanged, Unavailable, Verification, ConcurrentActivation, InvalidPhrase, RecoveryNotConfirmed, Authentication, Secret, Network }
@@ -70,7 +74,6 @@ class E2EController(
                 mode is E2EGate.Mode.Vault && marker.direction == MigrationDirection.Disable && marker.phase == null
             )) migrationSecrets?.clearMarker(owner)
         val previous = _status.value
-        val lock = (mode as? E2EGate.Mode.Locked)?.reason
         val resume = (mode as? E2EGate.Mode.Resume)?.direction
         val restart = when (mode) {
             E2EGate.Mode.Plain -> resolution.needsPlainInitialSync || (resolution.serverSupported == true && protected)
@@ -83,13 +86,7 @@ class E2EController(
             protected = mode != E2EGate.Mode.Plain
             lastVaultKeyId = (mode as? E2EGate.Mode.Vault)?.keyId
         }
-        val protection = when (mode) {
-            E2EGate.Mode.Plain -> if (resolution.serverSupported == true) Protection.Off else Protection.Unavailable
-            is E2EGate.Mode.Vault -> Protection.On
-            is E2EGate.Mode.Locked -> Protection.Locked(mode.reason)
-            is E2EGate.Mode.Resume -> if (mode.direction == MigrationDirection.Enable) Protection.Activating(0) else Protection.Disabling(0)
-        }
-        _status.value = Status(userId, resolution.serverSupported, lock, resume, protection)
+        publishStatus(userId, resolution)
 
         val transport = when (mode) {
             E2EGate.Mode.Plain -> PlainWriteGuard(plain)
@@ -99,6 +96,38 @@ class E2EController(
         val pending = if (resume != null && marker != null) PendingMigration(marker, resolution.row) else null
         return Selection(transport, needsInitialSync, pending,
             completeSnapshot = migrationConfigured && (mode is E2EGate.Mode.Vault || needsInitialSync))
+    }
+
+    private fun publishStatus(userId: String, resolution: E2EGate.Resolution) {
+        val mode = resolution.mode
+        val lock = (mode as? E2EGate.Mode.Locked)?.reason
+        val resume = (mode as? E2EGate.Mode.Resume)?.direction
+        val protection = when (mode) {
+            E2EGate.Mode.Plain -> if (resolution.serverSupported == true) Protection.Off else Protection.Unavailable
+            is E2EGate.Mode.Vault -> Protection.On
+            is E2EGate.Mode.Locked -> Protection.Locked(mode.reason)
+            is E2EGate.Mode.Resume -> if (mode.direction == MigrationDirection.Enable) Protection.Activating(0) else Protection.Disabling(0)
+        }
+        val migrating = resolution.row?.text("state") == "migrating"
+        _status.value = Status(userId, resolution.serverSupported, lock, resume, protection,
+            canCancelActivation = migrating && resume == MigrationDirection.Enable,
+            remoteEnabling = migrating && lock == E2EGate.LockReason.Transition,
+        )
+    }
+
+    private suspend fun readStatusForUi(auth: AuthManager, userId: String) {
+        fun validate() {
+            if (auth.userId != userId) throw NotSignedInException()
+        }
+        val readOnly = object : E2ESecrets by secrets {
+            override fun remove(userId: String) = Unit
+        }
+        val resolution = auth.authed { token ->
+            validate()
+            E2EGate(vault, readOnly, enabled).resolve(userId, token, ::validate, resumeCleanup = migrationConfigured)
+        }
+        validate()
+        publishStatus(userId, resolution)
     }
 
     internal fun hasPendingMigration(userId: String): Boolean =
@@ -135,6 +164,8 @@ class E2EController(
         initialSync: suspend (SyncEngine) -> Boolean, pull: suspend (SyncEngine) -> Boolean,
         completedCopy: () -> Unit,
         checkpoint: suspend (E2EMigrator.Step) -> Unit = {},
+        refreshOnSuccess: Boolean = true,
+        readOnFailureForUi: Boolean = false,
         action: suspend (E2EMigrator) -> T,
     ): T {
         val directory = backupDirectory ?: throw E2EMigrator.Failure(E2EMigrator.Problem.Unavailable)
@@ -150,22 +181,43 @@ class E2EController(
             log = { if (secrets is E2EKeyStore) Log.i("BucktrailE2E", it) },
             checkpoint = checkpoint,
         )
+        val previous = _status.value
+        _status.value = previous.copy(busy = true, issue = null)
         try {
             val result = action(migrator)
-            resolve(auth, userId)
-            initialSyncCompleted()
+            if (auth.userId != userId) throw NotSignedInException()
+            if (refreshOnSuccess) {
+                resolve(auth, userId)
+                initialSyncCompleted()
+            } else {
+                _status.value = previous.copy(issue = null)
+            }
             return result
         } catch (cancelled: CancellationException) {
+            if (auth.userId == userId) _status.value = previous
             throw cancelled
         } catch (error: Exception) {
-            val reason = when (error) {
-                is E2EMigrator.Failure -> Reason.valueOf(error.problem.name)
-                is VaultCrypto.CryptoException -> Reason.Secret
-                is ApiException -> Reason.Network
-                else -> Reason.Verification
+            if (auth.userId == userId) {
+                val reason = issueFor(error)
+                _status.value = previous
+                if (readOnFailureForUi && reason != Reason.Authentication && reason != Reason.Secret) {
+                    try { readStatusForUi(auth, userId) }
+                    catch (cancelled: CancellationException) { throw cancelled }
+                    catch (_: Exception) { /* Keep the last known gate state when offline. */ }
+                }
+                if (auth.userId == userId) _status.value = _status.value.copy(issue = reason, busy = false)
             }
-            _status.value = _status.value.copy(protection = Protection.Error(reason))
             throw error
+        }
+    }
+
+    internal companion object {
+        fun issueFor(error: Exception): Reason = when (error) {
+            is E2EMigrator.Failure -> Reason.valueOf(error.problem.name)
+            is VaultCrypto.CryptoException -> Reason.Secret
+            is ApiException -> if (error.kind in setOf(ErrorKind.Network, ErrorKind.Server)) Reason.Network else Reason.Verification
+            is java.io.IOException -> Reason.Network
+            else -> Reason.Verification
         }
     }
 

@@ -92,7 +92,11 @@ class SettingsActions(
 
 /** Impostazioni (§4.9): Lingua, Valuta, Notifiche, Sicurezza, Home, Esportazione, Demo, Info, Account. */
 @Composable
-fun SettingsSheet(data: AppData, actions: SettingsActions, account: AccountSettings) {
+fun SettingsSheet(
+    data: AppData, actions: SettingsActions, account: AccountSettings,
+    protection: com.bucktrail.android.sync.e2e.E2EController.Status? = null,
+    onProtection: () -> Unit = {},
+) {
     val c = Bt.colors
     val context = LocalContext.current
     var currencyMenu by remember { mutableStateOf(false) }
@@ -202,6 +206,10 @@ fun SettingsSheet(data: AppData, actions: SettingsActions, account: AccountSetti
                     )
                 }
                 ThinDivider(color = c.fog)
+                if (com.bucktrail.android.BuildConfig.E2E_ENABLED && protection?.serverSupported == true) {
+                    AdvancedProtectionRow(protection, onProtection)
+                    ThinDivider(color = c.fog)
+                }
                 Row(
                     Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable(role = Role.Button, onClick = actions.onOpenAudit).testTag("btn_auditLog"),
                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
@@ -380,7 +388,7 @@ private fun entityLabel(type: String): String = when (type) {
     else -> type
 }
 
-private fun Context.findFragmentActivity(): FragmentActivity? {
+internal fun Context.findFragmentActivity(): FragmentActivity? {
     var ctx = this
     while (ctx is ContextWrapper) { if (ctx is FragmentActivity) return ctx; ctx = ctx.baseContext }
     return null

@@ -522,4 +522,55 @@
         <item quantity="one">Manca %d giorno</item>
         <item quantity="other">Mancano %d giorni</item>
     </plurals>
+
+    <!-- Protezione avanzata · S-50 -->
+    <string name="e2e_titolo" formatted="false">Protezione avanzata</string>
+    <string name="e2e_sottotitolo" formatted="false">Cifratura end-to-end della sincronizzazione</string>
+    <string name="e2e_stato_attiva" formatted="false">Attiva</string>
+    <string name="e2e_stato_disattivata" formatted="false">Disattivata</string>
+    <string name="e2e_intro" formatted="false">Con la Protezione avanzata i tuoi dati vengono cifrati su questo dispositivo prima della sincronizzazione. Sul cloud restano solo dati illeggibili: nessuno, nemmeno chi gestisce Bucktrail, può leggerli senza la tua frase di sicurezza o la chiave di recupero.</string>
+    <string name="e2e_metadati" formatted="false">Il server vede solo informazioni tecniche: il tuo account, quante voci hai e quando sincronizzi.</string>
+    <string name="e2e_avviso_perdita" formatted="false">Se perdi sia la frase di sicurezza sia la chiave di recupero, i dati sul cloud non si possono più recuperare. Nessuno può farlo al posto tuo.</string>
+    <string name="e2e_avviso_aggiorna" formatted="false">Prima di attivarla, aggiorna Bucktrail su tutti i dispositivi collegati a questo account: le versioni precedenti smetteranno di sincronizzare.</string>
+    <string name="e2e_attiva" formatted="false">Attiva Protezione avanzata</string>
+    <string name="e2e_frase_titolo" formatted="false">Scegli una frase di sicurezza</string>
+    <string name="e2e_frase_aiuto" formatted="false">Almeno 10 caratteri: meglio quattro o più parole. Non usare la password dell\'account. La frase non lascia mai il dispositivo.</string>
+    <string name="e2e_frase_campo" formatted="false">Frase di sicurezza</string>
+    <string name="e2e_frase_ripeti" formatted="false">Ripeti la frase</string>
+    <string name="e2e_frase_corta" formatted="false">La frase deve avere almeno 10 caratteri.</string>
+    <string name="e2e_frase_diverse" formatted="false">Le due frasi non coincidono.</string>
+    <string name="e2e_chiave_titolo" formatted="false">La tua chiave di recupero</string>
+    <string name="e2e_chiave_testo" formatted="false">Conservala fuori da questo telefono, su carta o in un gestore di password. Serve se dimentichi la frase di sicurezza. Non verrà più mostrata.</string>
+    <string name="e2e_copia" formatted="false">Copia</string>
+    <string name="e2e_condividi" formatted="false">Salva o condividi</string>
+    <string name="e2e_chiave_conferma" formatted="false">Per confermare, scrivi l\'ultimo gruppo della chiave</string>
+    <string name="e2e_chiave_salvata" formatted="false">Ho salvato la chiave</string>
+    <string name="e2e_in_corso" formatted="false">Cifratura dei dati in corso… Tieni l\'app aperta.</string>
+    <string name="e2e_fatto" formatted="false">Protezione avanzata attiva</string>
+    <string name="e2e_cambia_frase" formatted="false">Cambia frase di sicurezza</string>
+    <string name="e2e_nuova_chiave" formatted="false">Crea una nuova chiave di recupero</string>
+    <string name="e2e_nuova_chiave_nota" formatted="false">La chiave di recupero precedente smetterà di funzionare.</string>
+    <string name="e2e_disattiva" formatted="false">Disattiva Protezione avanzata</string>
+    <string name="e2e_disattiva_titolo" formatted="false">Disattivare la Protezione avanzata?</string>
+    <string name="e2e_disattiva_testo" formatted="false">I dati torneranno a sincronizzarsi senza cifratura end-to-end: protetti come prima, ma non con una chiave solo tua.</string>
+    <string name="e2e_disattivazione_in_corso" formatted="false">Disattivazione in corso… Tieni l\'app aperta.</string>
+    <string name="e2e_pausa" formatted="false">Sincronizzazione in pausa: inserisci la frase di sicurezza</string>
+    <string name="e2e_sblocca_titolo" formatted="false">Sblocca la sincronizzazione</string>
+    <string name="e2e_sblocca_testo" formatted="false">La Protezione avanzata è attiva su questo account. Inserisci la frase di sicurezza per leggere i dati del cloud su questo dispositivo.</string>
+    <string name="e2e_sblocca" formatted="false">Sblocca</string>
+    <string name="e2e_usa_chiave" formatted="false">Usa la chiave di recupero</string>
+    <string name="e2e_chiave_campo" formatted="false">Chiave di recupero</string>
+    <string name="e2e_errata" formatted="false">Frase o chiave non corretta.</string>
+    <string name="e2e_perse_entrambe" formatted="false">Ho perso frase e chiave</string>
+    <string name="e2e_ricomincia_titolo" formatted="false">Ricominciare da questo dispositivo?</string>
+    <string name="e2e_ricomincia_testo" formatted="false">Senza frase di sicurezza e chiave di recupero i dati cifrati sul cloud non si possono leggere. Puoi cancellarli e ripartire con i dati di questo dispositivo. L\'operazione è irreversibile.</string>
+    <string name="e2e_ricomincia" formatted="false">Cancella i dati cifrati e ricomincia</string>
+    <string name="e2e_altro_dispositivo" formatted="false">La Protezione avanzata si sta attivando o disattivando su un altro dispositivo. Completa lì l\'operazione, oppure inserisci qui la frase di sicurezza per proseguire.</string>
+    <string name="e2e_errore" formatted="false">Operazione non completata. I tuoi dati sono al sicuro: riprova.</string>
+    <string name="e2e_annulla_attivazione" formatted="false">Annulla attivazione</string>
+    <string name="e2e_riprova" formatted="false">Riprova</string>
+    <string name="e2e_gia_in_corso" formatted="false">Un altro dispositivo sta già attivando la Protezione avanzata.</string>
+    <string name="e2e_serve_rete" formatted="false">Serve una connessione a Internet.</string>
+    <string name="e2e_motivo_biometria" formatted="false">Conferma la tua identità per gestire la Protezione avanzata</string>
+    <string name="e2e_frase_cambiata" formatted="false">Frase di sicurezza aggiornata</string>
 </resources>

@@ -355,18 +355,24 @@ class SyncService(
     /** Ingresso per le azioni di protezione avanzata e per i test con interruzioni iniettate. */
     internal suspend fun <T> withE2EMigrator(
         checkpoint: suspend (E2EMigrator.Step) -> Unit = {},
+        expectedUser: String? = null,
+        refreshOnSuccess: Boolean = true,
         action: suspend (E2EMigrator) -> T,
     ): T = ops.withLock {
         val controller = e2e?.takeIf { it.enabled && active } ?: throw E2EMigrator.Failure(E2EMigrator.Problem.Unavailable)
         val userId = auth.userId ?: throw NotSignedInException()
-        if (state.lastUserId?.let { it != userId } == true) throw NotSignedInException()
+        if (expectedUser?.let { it != userId } == true ||
+            state.lastUserId?.let { it != userId } == true
+        ) throw NotSignedInException()
         retryJob?.cancel()
-        runMigration(controller, userId, checkpoint, action)
+        runMigration(controller, userId, checkpoint, refreshOnSuccess, readOnFailureForUi = expectedUser != null, action = action)
     }
 
     private suspend fun <T> runMigration(
         controller: E2EController, userId: String,
         checkpoint: suspend (E2EMigrator.Step) -> Unit = {},
+        refreshOnSuccess: Boolean = true,
+        readOnFailureForUi: Boolean = false,
         action: suspend (E2EMigrator) -> T,
     ): T {
         _status.value = SyncStatus.Syncing
@@ -385,7 +391,7 @@ class SyncService(
                     }
                 },
                 completedCopy = { state.lastUserId = userId; state.syncedUserId = userId },
-                checkpoint = if (BuildConfig.DEBUG) checkpoint else { _ -> }, action = action,
+                checkpoint = if (BuildConfig.DEBUG) checkpoint else { _ -> }, refreshOnSuccess = refreshOnSuccess, readOnFailureForUi = readOnFailureForUi, action = action,
             ).also {
                 if (state.lastUserId == null) state.lastUserId = userId
                 state.hasPendingChanges = state.hasPendingChanges || state.dirty().isNotEmpty()

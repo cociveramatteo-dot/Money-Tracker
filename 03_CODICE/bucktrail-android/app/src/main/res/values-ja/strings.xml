@@ -520,4 +520,55 @@
     <plurals name="plurale_mancano_lld_giorni">
         <item quantity="other">残り%d日</item>
     </plurals>
+
+    <!-- Protezione avanzata · S-50 -->
+    <string name="e2e_titolo" formatted="false">高度な保護</string>
+    <string name="e2e_sottotitolo" formatted="false">同期のエンドツーエンド暗号化</string>
+    <string name="e2e_stato_attiva" formatted="false">オン</string>
+    <string name="e2e_stato_disattivata" formatted="false">オフ</string>
+    <string name="e2e_intro" formatted="false">高度な保護をオンにすると、データは同期の前にこのデバイス上で暗号化されます。クラウドに残るのは読み取れないデータだけです。セキュリティフレーズまたは復旧キーがなければ、Bucktrailの運営者を含め誰も読むことはできません。</string>
+    <string name="e2e_metadati" formatted="false">サーバーに見えるのは技術的な情報だけです：アカウント、項目の数、同期した時刻。</string>
+    <string name="e2e_avviso_perdita" formatted="false">セキュリティフレーズと復旧キーの両方をなくすと、クラウドのデータは二度と復元できません。誰にも代わりに復元することはできません。</string>
+    <string name="e2e_avviso_aggiorna" formatted="false">オンにする前に、このアカウントにつながっているすべてのデバイスでBucktrailをアップデートしてください。古いバージョンは同期できなくなります。</string>
+    <string name="e2e_attiva" formatted="false">高度な保護をオンにする</string>
+    <string name="e2e_frase_titolo" formatted="false">セキュリティフレーズを決めてください</string>
+    <string name="e2e_frase_aiuto" formatted="false">10文字以上。4語以上がおすすめです。アカウントのパスワードは使わないでください。フレーズがデバイスの外に出ることはありません。</string>
+    <string name="e2e_frase_campo" formatted="false">セキュリティフレーズ</string>
+    <string name="e2e_frase_ripeti" formatted="false">もう一度入力</string>
+    <string name="e2e_frase_corta" formatted="false">フレーズは10文字以上にしてください。</string>
+    <string name="e2e_frase_diverse" formatted="false">2つのフレーズが一致しません。</string>
+    <string name="e2e_chiave_titolo" formatted="false">あなたの復旧キー</string>
+    <string name="e2e_chiave_testo" formatted="false">この電話以外の場所（紙やパスワード管理アプリ）に保管してください。セキュリティフレーズを忘れたときに必要です。今後は表示されません。</string>
+    <string name="e2e_copia" formatted="false">コピー</string>
+    <string name="e2e_condividi" formatted="false">保存または共有</string>
+    <string name="e2e_chiave_conferma" formatted="false">確認のため、キーの最後のグループを入力してください</string>
+    <string name="e2e_chiave_salvata" formatted="false">キーを保存しました</string>
+    <string name="e2e_in_corso" formatted="false">データを暗号化しています… アプリを開いたままにしてください。</string>
+    <string name="e2e_fatto" formatted="false">高度な保護はオンです</string>
+    <string name="e2e_cambia_frase" formatted="false">セキュリティフレーズを変更</string>
+    <string name="e2e_nuova_chiave" formatted="false">新しい復旧キーを作成</string>
+    <string name="e2e_nuova_chiave_nota" formatted="false">以前の復旧キーは使えなくなります。</string>
+    <string name="e2e_disattiva" formatted="false">高度な保護をオフにする</string>
+    <string name="e2e_disattiva_titolo" formatted="false">高度な保護をオフにしますか？</string>
+    <string name="e2e_disattiva_testo" formatted="false">データは再びエンドツーエンド暗号化なしで同期されます。これまでどおり保護されますが、あなただけが持つキーによる保護ではなくなります。</string>
+    <string name="e2e_disattivazione_in_corso" formatted="false">オフにしています… アプリを開いたままにしてください。</string>
+    <string name="e2e_pausa" formatted="false">同期を一時停止中：セキュリティフレーズを入力してください</string>
+    <string name="e2e_sblocca_titolo" formatted="false">同期のロックを解除</string>
+    <string name="e2e_sblocca_testo" formatted="false">このアカウントでは高度な保護がオンになっています。このデバイスでクラウドのデータを読むには、セキュリティフレーズを入力してください。</string>
+    <string name="e2e_sblocca" formatted="false">ロックを解除</string>
+    <string name="e2e_usa_chiave" formatted="false">復旧キーを使う</string>
+    <string name="e2e_chiave_campo" formatted="false">復旧キー</string>
+    <string name="e2e_errata" formatted="false">フレーズまたはキーが正しくありません。</string>
+    <string name="e2e_perse_entrambe" formatted="false">フレーズとキーの両方をなくした</string>
+    <string name="e2e_ricomincia_titolo" formatted="false">このデバイスからやり直しますか？</string>
+    <string name="e2e_ricomincia_testo" formatted="false">セキュリティフレーズと復旧キーがなければ、クラウドの暗号化データは読めません。削除して、このデバイスのデータでやり直すことができます。この操作は取り消せません。</string>
+    <string name="e2e_ricomincia" formatted="false">暗号化データを削除してやり直す</string>
+    <string name="e2e_altro_dispositivo" formatted="false">別のデバイスで高度な保護のオン／オフを処理中です。そちらで完了させるか、ここでセキュリティフレーズを入力して続行してください。</string>
+    <string name="e2e_errore" formatted="false">操作を完了できませんでした。データは安全です。もう一度お試しください。</string>
+    <string name="e2e_annulla_attivazione" formatted="false">設定をキャンセル</string>
+    <string name="e2e_riprova" formatted="false">再試行</string>
+    <string name="e2e_gia_in_corso" formatted="false">別のデバイスがすでに高度な保護をオンにしています。</string>
+    <string name="e2e_serve_rete" formatted="false">インターネット接続が必要です。</string>
+    <string name="e2e_motivo_biometria" formatted="false">高度な保護を管理するため本人確認をしてください</string>
+    <string name="e2e_frase_cambiata" formatted="false">セキュリティフレーズを更新しました</string>
 </resources>

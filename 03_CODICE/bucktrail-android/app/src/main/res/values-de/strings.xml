@@ -521,4 +521,55 @@
         <item quantity="one">Noch %d Tag</item>
         <item quantity="other">Noch %d Tage</item>
     </plurals>
+
+    <!-- Protezione avanzata · S-50 -->
+    <string name="e2e_titolo" formatted="false">Erweiterter Schutz</string>
+    <string name="e2e_sottotitolo" formatted="false">Ende-zu-Ende-Verschlüsselung der Synchronisierung</string>
+    <string name="e2e_stato_attiva" formatted="false">Aktiv</string>
+    <string name="e2e_stato_disattivata" formatted="false">Aus</string>
+    <string name="e2e_intro" formatted="false">Mit dem erweiterten Schutz werden deine Daten auf diesem Gerät verschlüsselt, bevor sie synchronisiert werden. In der Cloud liegen nur unlesbare Daten: Niemand, auch nicht das Bucktrail-Team, kann sie ohne deine Sicherheitsphrase oder deinen Wiederherstellungsschlüssel lesen.</string>
+    <string name="e2e_metadati" formatted="false">Der Server sieht nur technische Informationen: dein Konto, wie viele Einträge du hast und wann du synchronisierst.</string>
+    <string name="e2e_avviso_perdita" formatted="false">Wenn du sowohl die Sicherheitsphrase als auch den Wiederherstellungsschlüssel verlierst, lassen sich die Daten in der Cloud nicht mehr wiederherstellen. Niemand kann das für dich tun.</string>
+    <string name="e2e_avviso_aggiorna" formatted="false">Aktualisiere Bucktrail vor dem Aktivieren auf allen Geräten, die mit diesem Konto verbunden sind: Ältere Versionen synchronisieren danach nicht mehr.</string>
+    <string name="e2e_attiva" formatted="false">Erweiterten Schutz aktivieren</string>
+    <string name="e2e_frase_titolo" formatted="false">Wähle eine Sicherheitsphrase</string>
+    <string name="e2e_frase_aiuto" formatted="false">Mindestens 10 Zeichen, am besten vier oder mehr Wörter. Verwende nicht dein Kontopasswort. Die Phrase verlässt nie dein Gerät.</string>
+    <string name="e2e_frase_campo" formatted="false">Sicherheitsphrase</string>
+    <string name="e2e_frase_ripeti" formatted="false">Phrase wiederholen</string>
+    <string name="e2e_frase_corta" formatted="false">Die Phrase muss mindestens 10 Zeichen lang sein.</string>
+    <string name="e2e_frase_diverse" formatted="false">Die beiden Phrasen stimmen nicht überein.</string>
+    <string name="e2e_chiave_titolo" formatted="false">Dein Wiederherstellungsschlüssel</string>
+    <string name="e2e_chiave_testo" formatted="false">Bewahre ihn außerhalb dieses Telefons auf, auf Papier oder in einem Passwortmanager. Du brauchst ihn, wenn du die Sicherheitsphrase vergisst. Er wird nicht noch einmal angezeigt.</string>
+    <string name="e2e_copia" formatted="false">Kopieren</string>
+    <string name="e2e_condividi" formatted="false">Sichern oder teilen</string>
+    <string name="e2e_chiave_conferma" formatted="false">Gib zur Bestätigung die letzte Gruppe des Schlüssels ein</string>
+    <string name="e2e_chiave_salvata" formatted="false">Ich habe den Schlüssel gesichert</string>
+    <string name="e2e_in_corso" formatted="false">Daten werden verschlüsselt … Lass die App geöffnet.</string>
+    <string name="e2e_fatto" formatted="false">Erweiterter Schutz ist aktiv</string>
+    <string name="e2e_cambia_frase" formatted="false">Sicherheitsphrase ändern</string>
+    <string name="e2e_nuova_chiave" formatted="false">Neuen Wiederherstellungsschlüssel erstellen</string>
+    <string name="e2e_nuova_chiave_nota" formatted="false">Der bisherige Wiederherstellungsschlüssel funktioniert dann nicht mehr.</string>
+    <string name="e2e_disattiva" formatted="false">Erweiterten Schutz deaktivieren</string>
+    <string name="e2e_disattiva_titolo" formatted="false">Erweiterten Schutz deaktivieren?</string>
+    <string name="e2e_disattiva_testo" formatted="false">Deine Daten werden wieder ohne Ende-zu-Ende-Verschlüsselung synchronisiert: geschützt wie zuvor, aber nicht mit einem Schlüssel, den nur du hast.</string>
+    <string name="e2e_disattivazione_in_corso" formatted="false">Wird deaktiviert … Lass die App geöffnet.</string>
+    <string name="e2e_pausa" formatted="false">Synchronisierung pausiert: Gib deine Sicherheitsphrase ein</string>
+    <string name="e2e_sblocca_titolo" formatted="false">Synchronisierung entsperren</string>
+    <string name="e2e_sblocca_testo" formatted="false">Für dieses Konto ist der erweiterte Schutz aktiv. Gib deine Sicherheitsphrase ein, um deine Cloud-Daten auf diesem Gerät zu lesen.</string>
+    <string name="e2e_sblocca" formatted="false">Entsperren</string>
+    <string name="e2e_usa_chiave" formatted="false">Wiederherstellungsschlüssel verwenden</string>
+    <string name="e2e_chiave_campo" formatted="false">Wiederherstellungsschlüssel</string>
+    <string name="e2e_errata" formatted="false">Phrase oder Schlüssel falsch.</string>
+    <string name="e2e_perse_entrambe" formatted="false">Ich habe Phrase und Schlüssel verloren</string>
+    <string name="e2e_ricomincia_titolo" formatted="false">Mit diesem Gerät neu beginnen?</string>
+    <string name="e2e_ricomincia_testo" formatted="false">Ohne Sicherheitsphrase und Wiederherstellungsschlüssel können die verschlüsselten Cloud-Daten nicht gelesen werden. Du kannst sie löschen und mit den Daten dieses Geräts neu beginnen. Das lässt sich nicht rückgängig machen.</string>
+    <string name="e2e_ricomincia" formatted="false">Verschlüsselte Daten löschen und neu beginnen</string>
+    <string name="e2e_altro_dispositivo" formatted="false">Der erweiterte Schutz wird gerade auf einem anderen Gerät aktiviert oder deaktiviert. Schließe den Vorgang dort ab oder gib hier deine Sicherheitsphrase ein, um fortzufahren.</string>
+    <string name="e2e_errore" formatted="false">Der Vorgang wurde nicht abgeschlossen. Deine Daten sind sicher: Versuche es erneut.</string>
+    <string name="e2e_annulla_attivazione" formatted="false">Aktivierung abbrechen</string>
+    <string name="e2e_riprova" formatted="false">Erneut versuchen</string>
+    <string name="e2e_gia_in_corso" formatted="false">Ein anderes Gerät aktiviert bereits den erweiterten Schutz.</string>
+    <string name="e2e_serve_rete" formatted="false">Eine Internetverbindung ist erforderlich.</string>
+    <string name="e2e_motivo_biometria" formatted="false">Bestätige deine Identität, um den erweiterten Schutz zu verwalten</string>
+    <string name="e2e_frase_cambiata" formatted="false">Sicherheitsphrase aktualisiert</string>
 </resources>

@@ -521,4 +521,55 @@
         <item quantity="one">%d day left</item>
         <item quantity="other">%d days left</item>
     </plurals>
+
+    <!-- Protezione avanzata · S-50 -->
+    <string name="e2e_titolo" formatted="false">Advanced Protection</string>
+    <string name="e2e_sottotitolo" formatted="false">End-to-end encryption for sync</string>
+    <string name="e2e_stato_attiva" formatted="false">On</string>
+    <string name="e2e_stato_disattivata" formatted="false">Off</string>
+    <string name="e2e_intro" formatted="false">With Advanced Protection your data is encrypted on this device before it syncs. The cloud only holds unreadable data: no one, not even the people who run Bucktrail, can read it without your security phrase or recovery key.</string>
+    <string name="e2e_metadati" formatted="false">The server only sees technical information: your account, how many items you have and when you sync.</string>
+    <string name="e2e_avviso_perdita" formatted="false">If you lose both your security phrase and your recovery key, your cloud data can no longer be recovered. No one can do it for you.</string>
+    <string name="e2e_avviso_aggiorna" formatted="false">Before turning it on, update Bucktrail on every device signed in to this account: older versions will stop syncing.</string>
+    <string name="e2e_attiva" formatted="false">Turn on Advanced Protection</string>
+    <string name="e2e_frase_titolo" formatted="false">Choose a security phrase</string>
+    <string name="e2e_frase_aiuto" formatted="false">At least 10 characters: four or more words work best. Don\'t use your account password. The phrase never leaves your device.</string>
+    <string name="e2e_frase_campo" formatted="false">Security phrase</string>
+    <string name="e2e_frase_ripeti" formatted="false">Repeat the phrase</string>
+    <string name="e2e_frase_corta" formatted="false">The phrase must be at least 10 characters long.</string>
+    <string name="e2e_frase_diverse" formatted="false">The two phrases don\'t match.</string>
+    <string name="e2e_chiave_titolo" formatted="false">Your recovery key</string>
+    <string name="e2e_chiave_testo" formatted="false">Keep it somewhere other than this phone, on paper or in a password manager. You\'ll need it if you forget your security phrase. It won\'t be shown again.</string>
+    <string name="e2e_copia" formatted="false">Copy</string>
+    <string name="e2e_condividi" formatted="false">Save or share</string>
+    <string name="e2e_chiave_conferma" formatted="false">To confirm, type the last group of the key</string>
+    <string name="e2e_chiave_salvata" formatted="false">I\'ve saved the key</string>
+    <string name="e2e_in_corso" formatted="false">Encrypting your data… Keep the app open.</string>
+    <string name="e2e_fatto" formatted="false">Advanced Protection is on</string>
+    <string name="e2e_cambia_frase" formatted="false">Change security phrase</string>
+    <string name="e2e_nuova_chiave" formatted="false">Create a new recovery key</string>
+    <string name="e2e_nuova_chiave_nota" formatted="false">Your previous recovery key will stop working.</string>
+    <string name="e2e_disattiva" formatted="false">Turn off Advanced Protection</string>
+    <string name="e2e_disattiva_titolo" formatted="false">Turn off Advanced Protection?</string>
+    <string name="e2e_disattiva_testo" formatted="false">Your data will sync without end-to-end encryption again: protected as before, but not with a key only you hold.</string>
+    <string name="e2e_disattivazione_in_corso" formatted="false">Turning off… Keep the app open.</string>
+    <string name="e2e_pausa" formatted="false">Sync paused: enter your security phrase</string>
+    <string name="e2e_sblocca_titolo" formatted="false">Unlock sync</string>
+    <string name="e2e_sblocca_testo" formatted="false">Advanced Protection is on for this account. Enter your security phrase to read your cloud data on this device.</string>
+    <string name="e2e_sblocca" formatted="false">Unlock</string>
+    <string name="e2e_usa_chiave" formatted="false">Use recovery key</string>
+    <string name="e2e_chiave_campo" formatted="false">Recovery key</string>
+    <string name="e2e_errata" formatted="false">Incorrect phrase or key.</string>
+    <string name="e2e_perse_entrambe" formatted="false">I\'ve lost both phrase and key</string>
+    <string name="e2e_ricomincia_titolo" formatted="false">Start over from this device?</string>
+    <string name="e2e_ricomincia_testo" formatted="false">Without your security phrase and recovery key, the encrypted cloud data can\'t be read. You can delete it and start over with the data on this device. This can\'t be undone.</string>
+    <string name="e2e_ricomincia" formatted="false">Delete encrypted data and start over</string>
+    <string name="e2e_altro_dispositivo" formatted="false">Advanced Protection is being turned on or off on another device. Finish there, or enter your security phrase here to continue.</string>
+    <string name="e2e_errore" formatted="false">The operation didn\'t complete. Your data is safe: please try again.</string>
+    <string name="e2e_annulla_attivazione" formatted="false">Cancel setup</string>
+    <string name="e2e_riprova" formatted="false">Try again</string>
+    <string name="e2e_gia_in_corso" formatted="false">Another device is already turning on Advanced Protection.</string>
+    <string name="e2e_serve_rete" formatted="false">An internet connection is required.</string>
+    <string name="e2e_motivo_biometria" formatted="false">Confirm your identity to manage Advanced Protection</string>
+    <string name="e2e_frase_cambiata" formatted="false">Security phrase updated</string>
 </resources>
