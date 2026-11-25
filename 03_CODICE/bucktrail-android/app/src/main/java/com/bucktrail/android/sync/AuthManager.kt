@@ -53,8 +53,9 @@ class AuthManager(
     suspend fun resetPassword(email: String) = api.recover(email)
 
     /** Esce: chiama il server se può, ma la sessione locale si chiude comunque. */
-    suspend fun signOut() {
+    suspend fun signOut(expectedUser: String? = null) {
         val s = _session.value
+        if (expectedUser != null && s?.userId != expectedUser) return
         set(null)
         if (s != null) runCatching { api.signOut(s.accessToken) }
     }
@@ -62,28 +63,39 @@ class AuthManager(
     /** Diritto all'oblio: RPC lato database che agisce sull'utente della sessione. */
     suspend fun deleteAccount() { authed { api.rpc("delete_own_account", it) } }
 
-    private suspend fun validToken(forceRefresh: Boolean = false): String = lock.withLock {
+    internal suspend fun deleteAccountToken(owner: String): String = authed(expectedUser = owner) { token ->
+        api.rpc("delete_own_account", token)
+        token
+    }
+
+    private suspend fun validToken(forceRefresh: Boolean = false, expectedUser: String? = null): String = lock.withLock {
         val s = _session.value ?: throw NotSignedInException()
+        if (expectedUser != null && s.userId != expectedUser) throw NotSignedInException()
         if (!forceRefresh && !s.isExpiring(nowSeconds())) return s.accessToken
         try {
             val fresh = api.refresh(s.refreshToken)
+            if (expectedUser != null && (fresh.userId != expectedUser || _session.value != s)) {
+                throw NotSignedInException()
+            }
             set(fresh)
             fresh.accessToken
         } catch (e: ApiException) {
             // rifiuto esplicito = sessione scaduta: si esce senza cancellare i dati. Errori di rete/server: si tiene la sessione.
-            if (e.kind == ErrorKind.Unauthorized || e.kind == ErrorKind.Client) set(null)
+            if (_session.value == s && (e.kind == ErrorKind.Unauthorized || e.kind == ErrorKind.Client)) set(null)
             throw e
         }
     }
 
     /** Esegue `block` con un token valido; su 401 rinnova una volta e riprova. */
-    override suspend fun <T> authed(block: suspend (token: String) -> T): T {
-        val token = validToken()
+    override suspend fun <T> authed(block: suspend (token: String) -> T): T = authed(expectedUser = null, block = block)
+
+    private suspend fun <T> authed(expectedUser: String?, block: suspend (token: String) -> T): T {
+        val token = validToken(expectedUser = expectedUser)
         return try {
             block(token)
         } catch (e: ApiException) {
             if (e.kind != ErrorKind.Unauthorized) throw e
-            block(validToken(forceRefresh = true))
+            block(validToken(forceRefresh = true, expectedUser = expectedUser))
         }
     }
 }

@@ -8,6 +8,8 @@ import com.bucktrail.android.sync.e2e.E2EVerifier
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -252,25 +254,53 @@ class SyncService(
         if (state.hasPendingChanges && syncEnabled()) { retryJob?.cancel(); scope.launch { ops.withLock { withGate { pushResilient(it) } } } }
     }
 
-    /** Esci: carica le modifiche (resiliente), chiude la sessione, svuota i dati locali (isolamento tra utenti). */
+    /** Esci: prova il push, poi chiude la sessione e isola i dati locali. */
     suspend fun signOutAndClear() {
-        ops.withLock { if (active) withGate { pushResilient(it) } }
-        retryJob?.cancel(); debounceJob?.cancel()
-        auth.signOut()
-        ops.withLock { engine.clearLocalData(); watcher.rebase(store.snapshot()) }
-        failures = 0; _status.value = SyncStatus.Idle
+        ops.withLock {
+            val owner = auth.userId
+            if (active) withGate { pushResilient(it) }
+            withContext(NonCancellable) {
+                retryJob?.cancel(); debounceJob?.cancel()
+                try { auth.signOut(expectedUser = owner) }
+                finally { clearAccountData(owner) }
+            }
+        }
     }
 
-    /** Elimina l'account sul cloud, poi i dati locali, poi esce. Se la RPC fallisce non si tocca nulla. */
+    /** La RPC deve riuscire prima di qualsiasi cancellazione E2E o locale. */
     suspend fun deleteAccountAndClear() {
         ops.withLock {
-            auth.deleteAccount()
-            retryJob?.cancel(); debounceJob?.cancel()
-            engine.clearLocalData()
-            watcher.rebase(store.snapshot())
+            val owner = auth.userId ?: throw NotSignedInException()
+            val controller = e2e?.takeIf { it.enabled }
+            val token = if (controller != null) auth.deleteAccountToken(owner) else {
+                auth.deleteAccount()
+                null
+            }
+            withContext(NonCancellable) {
+                retryJob?.cancel(); debounceJob?.cancel()
+                try {
+                    if (token != null) controller?.eraseRemoteAccountData(owner, token)
+                    clearAccountData(owner)
+                } finally {
+                    auth.signOut(expectedUser = owner)
+                }
+            }
         }
-        auth.signOut()
-        failures = 0; _status.value = SyncStatus.Idle
+    }
+
+    private suspend fun clearAccountData(owner: String?) {
+        watcher.silent = true
+        try {
+            engine.clearLocalData(owner)
+            watcher.rebase(store.snapshot())
+        } finally {
+            watcher.silent = false
+            failures = 0
+            _status.value = SyncStatus.Idle
+            _ignoredRows.value = 0
+            _needsDecision.value = false
+            _deleteConfirmation.value = null
+        }
     }
 
     private suspend fun withGate(action: suspend (SyncEngine) -> Unit) {

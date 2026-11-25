@@ -82,7 +82,8 @@ final class SupabaseManager: ObservableObject {
     }
 
     /// Logout — invalida la sessione locale e sul server.
-    func signOut() async throws {
+    func signOut(expectedUser: UUID? = nil) async throws {
+        if let expectedUser, client.auth.currentSession?.user.id != expectedUser { return }
         try await client.auth.signOut()
     }
 
@@ -96,7 +97,30 @@ final class SupabaseManager: ObservableObject {
     /// Esegue una funzione lato database che opera solo sull'utente della sessione
     /// corrente (vedi migrazione `gdpr_right_to_erasure`) — irreversibile.
     /// Il chiamante deve poi ripulire lo store locale e disconnettersi.
-    func deleteAccount() async throws {
+    func deleteAccount(expectedUser: UUID? = nil) async throws {
+        guard E2EFeature.isEnabled else {
+            try await client.rpc("delete_own_account").execute()
+            return
+        }
+
+        let activeSession = try await client.auth.session
+        let owner = activeSession.user.id
+        guard expectedUser == nil || expectedUser == owner else { throw CancellationError() }
+        let token = activeSession.accessToken
+        let pinned = SupabaseClient(
+            supabaseURL: SupabaseConfig.url, supabaseKey: SupabaseConfig.anonKey,
+            options: SupabaseClientOptions(auth: .init(accessToken: { token }))
+        )
+        try await Self.deleteRemoteAccount(client: pinned, owner: owner)
+    }
+
+    /// The caller uses a client pinned to the deleting user's token. The RPC
+    /// can invalidate that token immediately through the auth.users cascade.
+    static func deleteRemoteAccount(client: SupabaseClient, owner: UUID) async throws {
         try await client.rpc("delete_own_account").execute()
+        let userFilter = owner.uuidString.lowercased()
+        for table in ["mt_vault", "mt_e2e"] {
+            _ = try? await client.from(table).delete().eq("user_id", value: userFilter).execute()
+        }
     }
 }

@@ -344,6 +344,10 @@ final class SyncService: ObservableObject {
     private var userId: UUID? { injectedUserId ?? auth.session?.user.id }
     private var isUsingVolatileStore: Bool { injectedRemote == nil && MoneyTrackerApp.usingVolatileStore }
 
+    private func ownsPlainStore(userId: UUID) -> Bool {
+        defaults.string(forKey: lastUserKey).map { $0 == userId.uuidString } ?? true
+    }
+
     private let lastPullKey  = "syncService.lastPull"
     private let lastUserKey  = "syncService.lastUserId"
     private let pullCooldown: TimeInterval = 300   // 5 minuti
@@ -559,8 +563,8 @@ final class SyncService: ObservableObject {
         // Isolamento multi-utente: se l'utente è cambiato, svuota il locale
         // (gestisce anche crash / force quit che hanno saltato il logout)
         let lastUserId = defaults.string(forKey: lastUserKey)
-        if lastUserId != userId.uuidString {
-            clearLocalData(context: context)
+        if lastUserId != userId.uuidString, !clearLocalData(context: context) {
+            return
         }
         defaults.set(userId.uuidString, forKey: lastUserKey)
 
@@ -607,35 +611,102 @@ final class SyncService: ObservableObject {
     /// Cancella tutti i dati locali reali (NON demo).
     /// Chiamato al logout per garantire che il prossimo utente
     /// non veda i dati del precedente.
-    func clearLocalData(context: ModelContext) {
+    @discardableResult
+    func clearLocalData(context: ModelContext, retiredUser: UUID? = nil) -> Bool {
         if e2eEnabled {
             let previousUser = defaults.string(forKey: lastUserKey).flatMap(UUID.init(uuidString:))
-            clearE2ESession(userId: previousUser ?? userId)
-            defaults.removeObject(forKey: lastUserKey)
+            let owner = previousUser ?? retiredUser ?? userId ?? e2eProtectionUser
+            clearE2ESession(userId: owner)
+            if let retiredUser, retiredUser != owner { removeE2EKey(userId: retiredUser) }
         }
-        clearLocalStore(context: context)
+        guard clearLocalStore(context: context) else { return false }
+        if e2eEnabled { defaults.removeObject(forKey: lastUserKey) }
+        return true
     }
 
-    private func clearLocalStore(context: ModelContext) {
-        // Ordine importante: prima le dipendenze, poi gli account (cascade). Ogni
-        // cancellazione è loggata se fallisce: un fallimento silenzioso qui vorrebbe
-        // dire che il prossimo utente sullo stesso dispositivo può ritrovarsi a vedere
-        // i dati finanziari di quello precedente — non deve mai passare inosservato.
-        do { try context.delete(model: Transaction.self) }
-        catch { Logger.persistence.error("clearLocalData: delete Transaction failed → \(error.localizedDescription, privacy: .public)") }
-        do { try context.delete(model: RecurringRule.self) }
-        catch { Logger.persistence.error("clearLocalData: delete RecurringRule failed → \(error.localizedDescription, privacy: .public)") }
-        do { try context.delete(model: Budget.self) }
-        catch { Logger.persistence.error("clearLocalData: delete Budget failed → \(error.localizedDescription, privacy: .public)") }
-        do { try context.delete(model: Goal.self) }
-        catch { Logger.persistence.error("clearLocalData: delete Goal failed → \(error.localizedDescription, privacy: .public)") }
-        do { try context.delete(model: Account.self) }
-        catch { Logger.persistence.error("clearLocalData: delete Account failed → \(error.localizedDescription, privacy: .public)") }
-        context.safeSave()
+    private func clearLocalStore(context: ModelContext) -> Bool {
+        // Delete instances so SwiftData handles relationships and unlinked
+        // rows together. Batch deletion can fail on inverse relationships.
+        func deleteAll<Model: PersistentModel>(_ type: Model.Type) throws {
+            for row in try context.fetch(FetchDescriptor<Model>()) {
+                context.delete(row)
+            }
+        }
+        do {
+            try context.transaction {
+                try deleteAll(Transaction.self)
+                try deleteAll(RecurringRule.self)
+                try deleteAll(Budget.self)
+                try deleteAll(Goal.self)
+                try deleteAll(Account.self)
+            }
+        } catch {
+            context.rollback()
+            Logger.persistence.error("SyncService: local account data removal failed")
+            return false
+        }
         defaults.removeObject(forKey: lastPullKey)
-        // Il registro modifiche (PROP-02) non deve mai sopravvivere ai dati a cui si
-        // riferisce, né restare leggibile da un utente diverso sullo stesso dispositivo.
         clearAuditLog()
+        return true
+    }
+
+    func signOutAndClear(context: ModelContext, pushPending: Bool = true) async {
+        await signOutAndClear(context: context, pushPending: pushPending) { owner in
+            try? await self.auth.signOut(expectedUser: owner)
+        }
+    }
+
+    func signOutAndClear(context: ModelContext, pushPending: Bool = true,
+                         signOut: (UUID?) async -> Void) async {
+        guard !closingAccount else { return }
+        let owner = userId
+        if pushPending { await pushResilient(context: context) }
+        guard !closingAccount, userId == owner else { return }
+        guard e2eEnabled else {
+            await signOut(owner)
+            clearLocalData(context: context)
+            return
+        }
+
+        closingAccount = true
+        clearLocalData(context: context, retiredUser: owner)
+        await signOut(owner)
+        closingAccount = false
+        if let current = userId, current != owner { await syncOnLogin(context: context) }
+    }
+
+    func deleteAccount(context: ModelContext) async throws {
+        guard e2eEnabled else {
+            try await auth.deleteAccount()
+            clearLocalData(context: context)
+            try? await auth.signOut()
+            return
+        }
+        try await deleteEncryptedAccount(
+            context: context,
+            deleteRemote: { try await self.auth.deleteAccount(expectedUser: $0) },
+            signOut: { try? await self.auth.signOut(expectedUser: $0) }
+        )
+    }
+
+    func deleteEncryptedAccount(context: ModelContext, deleteRemote: (UUID) async throws -> Void,
+                                signOut: (UUID) async -> Void) async throws {
+        guard e2eEnabled, let owner = userId, !isMigrating, !closingAccount else {
+            throw E2EMigrator.Failure.stateChanged
+        }
+        closingAccount = true
+        do {
+            _ = await e2eTask?.work.value
+            guard userId == owner else { throw CancellationError() }
+            try await deleteRemote(owner)
+        } catch {
+            closingAccount = false
+            throw error
+        }
+        clearLocalData(context: context, retiredUser: owner)
+        if userId == owner { await signOut(owner) }
+        closingAccount = false
+        if let current = userId, current != owner { await syncOnLogin(context: context) }
     }
 
     // MARK: - Push (SwiftData → Supabase)
@@ -649,6 +720,7 @@ final class SyncService: ObservableObject {
         guard !isUsingVolatileStore else { return false }
         guard let userId else { return false }
         if e2eEnabled { return await runE2ESync(.push, context: context) }
+        guard ownsPlainStore(userId: userId) else { return false }
 
         do {
             try await upload(context: context, remote: remote, userId: userId)
@@ -741,6 +813,7 @@ final class SyncService: ObservableObject {
             await runE2ESync(.pull, context: context)
             return
         }
+        guard ownsPlainStore(userId: userId) else { return }
         do {
             try await download(context: context, remote: remote, userId: userId)
         } catch {
@@ -1026,6 +1099,7 @@ final class SyncService: ObservableObject {
     @Published private(set) var e2eServerSupported: Bool?
     @Published private(set) var e2eLockReason: E2EGate.LockReason?
     private(set) var e2eMigrationToResume: E2EMigrationDirection?
+    private var closingAccount = false
     private var e2eTask: (id: UUID, work: Task<Bool, Never>)?
     private let initialSyncKey = "e2e.initialSyncUser"
 
@@ -1055,18 +1129,20 @@ final class SyncService: ObservableObject {
         } catch {
             Logger.persistence.error("SyncService: E2E backup removal failed")
         }
-        if let userId {
-            do { try e2eKeyStore.remove(userId: userId) }
-            catch { Logger.persistence.error("SyncService: E2E key removal failed") }
-        }
+        if let userId { removeE2EKey(userId: userId) }
+    }
+
+    private func removeE2EKey(userId: UUID) {
+        do { try e2eKeyStore.remove(userId: userId) }
+        catch { Logger.persistence.error("SyncService: E2E key removal failed") }
     }
 
     private func prepareE2ELogin(userId: UUID, context: ModelContext) -> Bool {
         let previousUser = defaults.string(forKey: lastUserKey).flatMap(UUID.init(uuidString:))
         guard previousUser != userId else { return true }
         clearE2ESession(userId: previousUser)
-        clearLocalStore(context: context)
-        // A failed batch delete must never allow the old store to be uploaded
+        guard clearLocalStore(context: context) else { return false }
+        // A failed deletion must never allow the old store to be uploaded
         // under new credentials.
         do {
             guard try context.fetchCount(FetchDescriptor<Account>()) == 0,
@@ -1087,7 +1163,7 @@ final class SyncService: ObservableObject {
 
     @discardableResult
     private func runE2ESync(_ operation: E2EOperation, context: ModelContext) async -> Bool {
-        guard !isMigrating, !isUsingVolatileStore, !defaults.bool(forKey: "demoModeEnabled"),
+        guard !closingAccount, !isMigrating, !isUsingVolatileStore, !defaults.bool(forKey: "demoModeEnabled"),
               let userId else { return false }
         if operation == .login, !prepareE2ELogin(userId: userId, context: context) { return false }
         guard defaults.string(forKey: lastUserKey).flatMap(UUID.init(uuidString:)) == userId else { return false }
@@ -1211,7 +1287,7 @@ final class SyncService: ObservableObject {
                            authenticateForTest: (() async throws -> Void)? = nil,
                            protectionOperation: E2EController.Operation? = nil,
                            action: (E2EMigrator) async throws -> T) async throws -> T {
-        guard e2eEnabled, !isMigrating, !isUsingVolatileStore,
+        guard e2eEnabled, !closingAccount, !isMigrating, !isUsingVolatileStore,
               !defaults.bool(forKey: "demoModeEnabled"), let userId, let backend = e2eBackend,
               defaults.string(forKey: lastUserKey).flatMap(UUID.init(uuidString:)) == userId else {
             throw E2EMigrator.Failure.unavailable
@@ -1226,7 +1302,7 @@ final class SyncService: ObservableObject {
             if e2eTask?.id == previous.id { e2eTask = nil }
             try validateSession()
         }
-        guard !isMigrating else { throw E2EMigrator.Failure.stateChanged }
+        guard !closingAccount, !isMigrating else { throw E2EMigrator.Failure.stateChanged }
         isMigrating = true
         status = .syncing
         retryTask?.cancel()

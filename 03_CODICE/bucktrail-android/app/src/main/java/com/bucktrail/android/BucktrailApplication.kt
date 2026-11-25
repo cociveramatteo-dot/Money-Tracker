@@ -65,7 +65,7 @@ class BucktrailApplication : Application() {
     }
     val syncService by lazy {
         val engine = SyncEngine(supabaseApi, localStore, syncState, auth,
-            onClear = { e2e?.clearLocalData(syncState.lastUserId) },
+            onClear = { owner -> e2e?.clearLocalData(owner) },
         )
         SyncService(
             appScope, auth, engine, syncState, localStore,

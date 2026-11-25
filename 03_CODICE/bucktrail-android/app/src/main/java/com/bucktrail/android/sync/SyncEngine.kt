@@ -84,7 +84,7 @@ class SyncEngine(
     private val api: SupabaseApi, private val store: LocalStore, private val state: SyncStateStore,
     private val auth: AuthGateway, private val nowMillis: () -> Long = System::currentTimeMillis,
     private val chunk: Int = 500,
-    private val onClear: () -> Unit = {},
+    private val onClear: (String?) -> Unit = {},
     private val completeSnapshot: Boolean = false,
 ) {
     /** Ponte verso `AuthManager` (nei test: finto con un token fisso). */
@@ -286,9 +286,14 @@ class SyncEngine(
     }
 
     /** Logout: svuota i dati dell'utente e lo stato di sync (come `clearLocalData` iOS). */
-    suspend fun clearLocalData() {
-        store.clear()
-        onClear()
+    suspend fun clearLocalData(retiredUser: String? = null) {
+        val owner = state.lastUserId ?: retiredUser
+        try {
+            store.clear()
+        } finally {
+            onClear(owner)
+            if (retiredUser != null && retiredUser != owner) onClear(retiredUser)
+        }
         state.lastPull = 0
         state.syncedUserId = null
         state.lastUserId = null

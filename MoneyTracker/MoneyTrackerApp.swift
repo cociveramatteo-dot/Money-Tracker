@@ -234,6 +234,7 @@ struct MoneyTrackerApp: App {
             }
                 .background(DS.paper)
                 .modelContainer(activeContainer)
+                .environment(\.accountModelContext, realContainer.mainContext)
                 // .id() forza la ricreazione completa dell'albero di viste al cambio
                 // di modalità, garantendo che @Query e @Environment siano agganciati
                 // al container giusto senza residui del precedente.

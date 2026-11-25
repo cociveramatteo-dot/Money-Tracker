@@ -3,6 +3,12 @@ import Foundation
 import Security
 
 struct E2EKeyStore {
+    private let service: String
+
+    init(service: String = "com.bucktrail.e2e.dek") {
+        self.service = service
+    }
+
     struct Entry {
         let dek: SymmetricKey
         let keyId: String
@@ -75,7 +81,7 @@ struct E2EKeyStore {
     private func identity(userId: UUID) -> [String: Any] {
         [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: "com.bucktrail.e2e.dek",
+            kSecAttrService as String: service,
             kSecAttrAccount as String: userId.uuidString.lowercased(),
             kSecAttrSynchronizable as String: false
         ]

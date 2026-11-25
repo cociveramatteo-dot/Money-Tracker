@@ -150,6 +150,20 @@ class E2EController(
         needsInitialSync = false
     }
 
+    /** After the RPC succeeds, the original token may already be revoked. */
+    internal suspend fun eraseRemoteAccountData(owner: String, token: String) {
+        check(enabled)
+        for (kind in VaultKind.entries) {
+            runCatching {
+                vault.selectVault(kind, owner, token, "id")
+                    .mapNotNull { it.text("id") }
+                    .chunked(200)
+                    .forEach { ids -> runCatching { vault.deleteVault(kind, ids, owner, token) } }
+            }
+        }
+        runCatching { vault.deleteE2e(owner, token) }
+    }
+
     internal data class PendingMigration(val marker: E2EMigrationMarker, val row: JsonObject?)
 
     internal data class Selection(

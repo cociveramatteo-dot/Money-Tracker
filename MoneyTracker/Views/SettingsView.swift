@@ -65,8 +65,13 @@ private struct GDPRExport: Codable {
     let goals: [GoalExport]
 }
 
+extension EnvironmentValues {
+    @Entry var accountModelContext: ModelContext? = nil
+}
+
 struct SettingsView: View {
     @Environment(\.modelContext) private var context
+    @Environment(\.accountModelContext) private var accountContext
     @Environment(\.dismiss)      private var dismiss
 
     // PERF-04: replaced @Query (keeps all rows in memory) with lazy fetch for count + CSV
@@ -625,17 +630,9 @@ struct SettingsView: View {
                                 titleVisibility: .visible) {
                 Button("Esci", role: .destructive) {
                     Task {
-                        // Prova a caricare le eventuali modifiche non ancora sincronizzate
-                        // prima di sconnettersi — altrimenti resterebbero solo su questo
-                        // dispositivo e andrebbero perse allo svuotamento locale sotto.
-                        await SyncService.shared.pushResilient(context: context)
-                        try? await auth.signOut()
-                        // Logout esplicito e intenzionale: qui è corretto svuotare subito
-                        // lo store locale (così il prossimo utente sullo stesso dispositivo
-                        // non vede i dati del precedente). A differenza di questo, una
-                        // sessione persa passivamente (token scaduto/refresh fallito) NON
-                        // deve più svuotare i dati locali — vedi MoneyTrackerApp.swift.
-                        SyncService.shared.clearLocalData(context: context)
+                        await SyncService.shared.signOutAndClear(
+                            context: accountContext ?? context, pushPending: !demoModeEnabled
+                        )
                     }
                 }
                 Button("Annulla", role: .cancel) { }
@@ -720,11 +717,7 @@ struct SettingsView: View {
         deleteAccountError = nil
         Task {
             do {
-                try await SupabaseManager.shared.deleteAccount()
-                // L'account su Supabase è già cancellato: ripulisci lo store locale
-                // e disconnetti — MoneyTrackerApp mostrerà automaticamente il login.
-                SyncService.shared.clearLocalData(context: context)
-                try? await SupabaseManager.shared.signOut()
+                try await SyncService.shared.deleteAccount(context: accountContext ?? context)
             } catch {
                 deleteAccountError = String(
                     format: NSLocalizedString("Impossibile eliminare l'account: %@", comment: ""),
