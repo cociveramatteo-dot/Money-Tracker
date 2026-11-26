@@ -18,9 +18,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 ### ANDROID · aggiornare l'app sul tuo telefono
 📍 Terminale, cartella `03_CODICE/bucktrail-android`, telefono collegato con Debug USB acceso. ▶️ `./gradlew installDebug` (con JAVA_HOME e ANDROID_HOME come l'altra volta). Si aggiorna sopra la versione installata, i dati restano. ↩️ Dimmi se all'apertura non vedi più l'icona e se lucchetto e icona del login ti sembrano come su iPhone.
 
-### SOCIAL · pubblicare i Post 5–15
-📍 Drive → `Da postare` → `Post-05…`. ▶️ Carica le slide in ordine su Instagram e TikTok, titolo e hashtag da `titolo-e-hashtag.txt`; date in `SOCIAL/calendario-v2.md`. Post-15: prova prima il doppio tocco su un iPhone vero. ↩️ «pubblicato post N».
-
 ### SOCIAL · TikTok — nome e account Business
 📍 TikTok → Profilo → Modifica profilo → Nome. ▶️ Scrivi `Bucktrail · budget`. Dopo il primo post passa ad Account Business (Impostazioni e privacy → Account) e nel campo Sito web metti `https://bucktrailapp.com/?utm_source=tiktok&utm_medium=bio`; poi la bio può tornare a «link in bio». ↩️ Scrivi «tiktok ok».
 
@@ -31,6 +28,8 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 📍 notebooklm.google.com → notebook «MoneyTracker App». ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt` e `README.txt` di Inter e Space Grotesk) sono facoltative. ↩️ Scrivi «notebook ok».
 
 ## Fatte
+
+- 2026-11-26 13:44 · S-30: traduzioni confermate da Matteo (già ✅ in APPROVAZIONI dal 16/11). Post social: li pubblica Matteo giorno per giorno, non ricordarli più. Apple Developer: ricordarlo solo a ridosso del 6/12.
 
 - 2026-11-26 13:40 · S-50o: Matteo approva le schermate della Protezione avanzata (incluse le 8 nuove «protezione rimossa»).
 
@@ -76,13 +75,6 @@ Copia: pianificata / già effettuata. Data iniziale serie: …
 Se sì: app si chiude / resta ferma / Xcode evidenzia una riga (quale: …).
 ```
 - Autorizzazioni Domain S-24/S-25 e test S-15 ricevute il 2026-11-15; nessuna autorizzazione ulteriore pendente. Già effettuato resta della singola copia (D-010).
-
-## S-30 — approvazione traduzioni (dopo il collaudo)
-- [ ] 📍 In questa chat, dopo il collaudo indipendente, leggere la tabella S-30 in `.cantiere/APPROVAZIONI.md` (it/en/de/es/fr/ja/zh-Hans). ▶️ Rispondere con il testo qui sotto, indicando eventuali correzioni. ↩️ Riportare approvazione o testo corretto per lingua.
-```text
-S-30: approvo le traduzioni di «Ultima usata» nelle sette lingue.
-Oppure: correggere [lingua] in «[testo]».
-```
 
 - [ ] 📍 **Prova reale a due dispositivi (iPhone + Android) con un account di prova** — Android B9 è finito e provato SOLO con un server finto: il Supabase vero non è mai stato toccato. Prima di usarlo con i tuoi dati serve una prova controllata. ▶️ (1) Su iPhone, nell'app, esci dall'account e crea un account NUOVO con un'email di prova (es. una tua seconda casella): è il «account di prova». Aggiungi 2 conti, 5 movimenti, 1 budget, 1 obiettivo e una spesa ricorrente mensile (con una occorrenza modificata «solo questa»). (2) Sul Mac, Terminale, cartella del cantiere: `cd 03_CODICE/bucktrail-android && export JAVA_HOME="$(/usr/libexec/java_home -v 17)" ANDROID_HOME="$HOME/Library/Android/sdk" && ./gradlew installDebug` (l'emulatore o il telefono Android collegato devono essere accesi; questa build usa il Supabase vero perché legge l'indirizzo dal codice iOS). (3) Su Android: Impostazioni → in fondo «Account» → «Accedi o crea un account» → accedi con l'account di prova. Devono comparire gli stessi conti, movimenti, budget, obiettivi e la serie ricorrente (con l'occorrenza modificata). Se compare l'avviso «Dati già presenti nel cloud» è normale solo se su Android avevi già dati: scegli «Annulla». (4) Su Android aggiungi 1 spesa, modifica un movimento e cancellane uno; su iPhone tira giù per aggiornare e controlla che le tre modifiche ci siano. Poi fai l'inverso (modifica su iPhone, tira giù su Android). (5) Prova l'offline: modalità aereo su Android, aggiungi una spesa, vedi il banner «Offline», riattiva la rete: deve partire da sola. (6) Prova «Esci dall'account» su Android: i dati locali spariscono; riaccedi: tornano. NON provare «Elimina account» sull'account vero. ↩️ Riportami: cosa torna uguale, cosa no (con uno screenshot per ogni differenza) e se qualche movimento è comparso doppio o sparito.
 - [ ] 📍 **(Facoltativo, più sicuro) Progetto Supabase di prova** — se vuoi non toccare mai il progetto vero: su supabase.com crea un progetto gratuito nuovo, poi Dashboard → SQL Editor → incolla lo schema delle 5 tabelle `mt_*` (ti preparo io lo script se lo chiedi: nel repository non c'è il codice SQL) con le regole RLS `user_id = auth.uid()` e la funzione `delete_own_account`. Poi dammi URL e chiave «anon/public» del progetto di prova (la chiave anon è pubblica per design, la «service_role» NON darmela mai): le userò con `./gradlew installDebug -PsupabaseUrl=… -PsupabaseKey=…` senza modificare il codice iOS. ↩️ Riportami URL e chiave anon del progetto di prova.

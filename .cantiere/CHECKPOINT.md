@@ -56,8 +56,7 @@
 
 - [ ] Leggere la risposta di Enable Banking quando arriva e riportarla al capocantiere.
 - [ ] Fare le 4 domande al professionista (Banca d'Italia, GDPR/DPIA, P.IVA per vendere negli store, P.IVA per essere cliente Enable Banking): testo in `.cantiere/banca-modello-economico.md` §8.
-- [ ] Non iscriversi ad Apple Developer prima del 6/12.
-- [ ] Pubblicare i Post 5–15 · nome TikTok · riprese faceless (SC-2) · 6 fonti NotebookLM. Istruzioni in `.cantiere/PER-MATTEO.md`.
+- [ ] Nome TikTok · riprese faceless (SC-2) · 6 fonti NotebookLM. Istruzioni in `.cantiere/PER-MATTEO.md`.
 
 ## Suggerimenti · Rischi
 

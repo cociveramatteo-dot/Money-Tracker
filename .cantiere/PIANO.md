@@ -405,7 +405,7 @@ Modello di task:
 
 - **S-29 eseguito Codex 2026-11-16:** helper calendario senza unwrap nei tre Domain, ultimo mese da end−1 s, fetch transazioni unico per regola e Set ID. Quattro errorDescription localizzati; messaggio status già NSLocalizedString, cinque chiavi verificate in tutte le 7 lingue senza nuovi testi. Nuovo test Decimal su store riaperto + DTO JSON + apply: 0.29/1234.56/999999.99 esatti. Build + 81 unit + 3 UI verdi. Da ricollaudare; poi nuova Commissione, non attribuiti voti.
 
-### S-30 [x] Categoria dall'ultima volta (nuova funzione) — 2026-11-16 collaudo ok (traduzioni ancora ⏳ per Matteo)
+### S-30 [x] Categoria dall'ultima volta (nuova funzione) — 2026-11-16 collaudo ok (traduzioni approvate da Matteo, riconfermate 2026-11-26)
 - **Quando:** dopo S-14, S-10, checkpoint finale e merge/ok di Matteo sul restyling. Matteo lo avvia lui («partiamo con l'altro lavoro»). Non è restyling: tocca la logica dell'inserimento.
 - **A chi:** Codex (Antigravity sospeso fino al 2026-11-20) · collaudo indipendente + Commissione.
 - **Obiettivo:** se il nome di un movimento non ha categoria dalle parole chiave (`KeywordCategoryClassifier`), usare la categoria dell'ultimo movimento con lo stesso nome (D-011). Es.: «Mc» → ultima categoria scelta per «Mc».
