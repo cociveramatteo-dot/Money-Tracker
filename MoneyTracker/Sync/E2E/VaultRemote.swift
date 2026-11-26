@@ -32,6 +32,7 @@ protocol VaultAccess {
     func vaultIds(table: SyncTable, userId: UUID, keyId: String) async throws -> Set<UUID>
     func vaultRows(table: SyncTable, userId: UUID, keyId: String?) async throws -> [VaultRecord]
     func vaultKeyRows(table: SyncTable, userId: UUID) async throws -> [VaultKeyRow]
+    func obsoleteVaultKeyRows(table: SyncTable, userId: UUID, liveKey: String) async throws -> [VaultKeyRow]
     func upsertVault(_ rows: [VaultRecord]) async throws
     func deleteVault(ids: [UUID], table: SyncTable, userId: UUID, keyId: String) async throws
 }
@@ -42,7 +43,7 @@ extension VaultAccess {
         for table in SyncTable.allCases {
             try await requireCurrent()
             do {
-                let rows = try await vaultKeyRows(table: table, userId: userId)
+                let rows = try await obsoleteVaultKeyRows(table: table, userId: userId, liveKey: liveKey)
                 let deadKeys = Dictionary(grouping: rows) { $0.keyId }
                 for (key, records) in deadKeys {
                     guard let key, key != liveKey else { continue }
@@ -74,6 +75,10 @@ extension VaultAccess {
         }
     }
 
+    func obsoleteVaultKeyRows(table: SyncTable, userId: UUID, liveKey: String) async throws -> [VaultKeyRow] {
+        try await vaultKeyRows(table: table, userId: userId).filter { $0.keyId != liveKey }
+    }
+
     func vaultKeyRows(table: SyncTable, userId: UUID) async throws -> [VaultKeyRow] {
         try await vaultRows(table: table, userId: userId, keyId: nil).map {
             VaultKeyRow(id: $0.id, keyId: $0.keyId)
@@ -101,8 +106,12 @@ struct SupabaseVaultAccess: VaultAccess {
         try await read(columns: "id,key_id", table: table, userId: userId, keyId: nil, id: \.id)
     }
 
+    func obsoleteVaultKeyRows(table: SyncTable, userId: UUID, liveKey: String) async throws -> [VaultKeyRow] {
+        try await read(columns: "id,key_id", table: table, userId: userId, keyId: nil, excludingKeyId: liveKey, id: \.id)
+    }
+
     private func read<Row: Decodable>(columns: String, table: SyncTable, userId: UUID,
-                                      keyId: String?, id: KeyPath<Row, UUID>) async throws -> [Row] {
+                                      keyId: String?, excludingKeyId: String? = nil, id: KeyPath<Row, UUID>) async throws -> [Row] {
         // Full rows carry the ciphertext: smaller pages keep each response light.
         let pageSize = columns == "*" ? 200 : 1000
         var rows: [Row] = []
@@ -112,6 +121,7 @@ struct SupabaseVaultAccess: VaultAccess {
                 .eq("user_id", value: userId.uuidString.lowercased())
                 .eq("kind", value: table.kind)
             if let keyId { _ = query.eq("key_id", value: keyId) }
+            if let excludingKeyId { _ = query.neq("key_id", value: excludingKeyId) }
             if let cursor { _ = query.gt("id", value: cursor.uuidString.lowercased()) }
             let page: [Row] = try await query.order("id").limit(pageSize).execute().value
             rows.append(contentsOf: page)

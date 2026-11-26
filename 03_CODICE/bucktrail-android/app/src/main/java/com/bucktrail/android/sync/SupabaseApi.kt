@@ -175,6 +175,10 @@ class HttpSupabaseApi(
         selectPages("mt_vault", userId, token, columns, if (columns == "*") minOf(pageSize, 200) else pageSize,
             "&kind=eq.${enc(kind.wire)}" + (keyId?.let { "&key_id=eq.${enc(it)}" } ?: ""))
 
+    override suspend fun selectObsoleteVaultKeys(kind: VaultKind, userId: String, token: String, liveKey: String): List<JsonObject> =
+        selectPages("mt_vault", userId, token, "id,key_id", pageSize,
+            "&kind=eq.${enc(kind.wire)}&key_id=neq.${enc(liveKey)}")
+
     private suspend fun selectPages(
         table: String, userId: String, token: String, columns: String, size: Int, filter: String = "",
     ): List<JsonObject> {

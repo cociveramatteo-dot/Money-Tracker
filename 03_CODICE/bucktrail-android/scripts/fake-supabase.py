@@ -108,13 +108,19 @@ class H(BaseHTTPRequestHandler):
         user_filter = eq_filter(query, "user_id")
         kind_filter = eq_filter(query, "kind")
         columns = ("key_id", "state", "updated_at") if table == "mt_e2e" else ("key_id",) if table == "mt_vault" else ()
-        metadata_filters = {column: eq_filter(query, column) for column in columns if column in query}
+        key_filter = query.get("key_id", [""])[0]
+        excluded_key = key_filter[4:] if method == "GET" and table == "mt_vault" and key_filter.startswith("neq.") else None
+        metadata_filters = {
+            column: eq_filter(query, column) for column in columns
+            if column in query and (column != "key_id" or excluded_key is None)
+        }
         preferences = {value.strip() for value in self.headers.get("Prefer", "").split(",")}
 
         def matches(row):
             return (
                 (user_filter is None or row["user_id"].lower() == user_filter.lower())
                 and (kind_filter is None or row.get("kind") == kind_filter)
+                and (excluded_key is None or row.get("key_id") not in (None, excluded_key))
                 and all(value is not None and (
                     same_generation(row.get(column), value) if column == "updated_at" else row.get(column) == value
                 )

@@ -9,6 +9,9 @@ import java.util.UUID
 /** Superficie PostgREST delle tabelle E2E. I record del vault contengono solo id, utente, kind, key_id e involucro cifrato. */
 interface VaultApi {
     suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String = "*", keyId: String? = null): List<JsonObject>
+    suspend fun selectObsoleteVaultKeys(kind: VaultKind, userId: String, token: String, liveKey: String): List<JsonObject> =
+        selectVault(kind, userId, token, "id,key_id").filter { it.text("key_id") != liveKey }
+
     suspend fun upsertVault(rows: List<JsonObject>, token: String)
     suspend fun deleteVault(kind: VaultKind, ids: List<String>, userId: String, token: String, keyId: String)
     suspend fun activateE2e(row: JsonObject, generation: String, counts: Map<String, Int>, token: String)
@@ -88,7 +91,7 @@ internal suspend fun VaultApi.clearDeadVaultKeys(
         request(requireCurrent)
         try {
             request { token ->
-                val rows = selectVault(kind, userId, token, "id,key_id")
+                val rows = selectObsoleteVaultKeys(kind, userId, token, liveKey)
                 for ((key, records) in rows.groupBy { it.text("key_id") }) {
                     if (key == null || key == liveKey) continue
                     val ids = records.mapNotNull { canonicalUuid(it.text("id"))?.toString() }.distinct()
