@@ -8,11 +8,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 ### PROTEZIONE AVANZATA · S-50h2 — perimetro della PATCH condizionata
 📍 In questa chat del cantiere. ▶️ Se vuoi completare il punto 3, scrivi «Autorizzo le modifiche a E2EServer.swift ed E2EGate.swift per S-50h2». ↩️ Con la risposta, Codex riprende il punto 3 e i relativi test.
 
-### PROTEZIONE AVANZATA · S-50q — secondo script SQL su Supabase (2 minuti, non cambia nulla per l'app di oggi)
-📍 Browser → supabase.com → progetto Bucktrail → menu a sinistra **SQL Editor** → **New query**.
-▶️ Apri `.cantiere/progetto-e2e-sync.md`, §6.7: copia il blocco SQL da `-- Bucktrail · S-50q` fino a `order by 1, 2;`, incollalo e premi **Run** (oppure chiedi al capocantiere di copiartelo negli appunti).
-↩️ Scrivi «S-50q fatto, 4 righe» oppure incolla il testo dell'errore.
-
 ### PROTEZIONE AVANZATA · S-50o — approvazione prima dell'accensione
 
 Dopo S-50m, apri Terminale e incolla questo comando per vedere le schermate iOS e Android:
@@ -49,6 +44,8 @@ Torna nella chat del cantiere e scrivi «Approvo le schermate della Protezione a
 📍 notebooklm.google.com → notebook «MoneyTracker App». ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt` e `README.txt` di Inter e Space Grotesk) sono facoltative. ↩️ Scrivi «notebook ok».
 
 ## Fatte
+
+- 2026-11-26 10:11 · S-50q: secondo SQL eseguito da Matteo su Supabase, controllo finale 4 righe (colonna key_id, funzione mt_e2e_activate, trigger mt_e2e_state_guard e mt_vault_guard). Inerte finché la protezione è spenta.
 
 - 2026-11-24 23:22 · S-50n: SQL della Protezione avanzata eseguito da Matteo su Supabase, controllo finale 13 righe (8 policy + 5 trigger). Inerte finché nessuno attiva l'opzione.
 
