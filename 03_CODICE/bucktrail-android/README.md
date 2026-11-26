@@ -34,4 +34,18 @@ python3 scripts/fake-supabase.py 54321
 ./gradlew installDebug -PsupabaseUrl=http://10.0.2.2:54321 -PsupabaseKey=chiave-finta
 ```
 
-Utenti di prova (password `password1`): `demo@test.it`, `unconfirmed@test.it` (email non confermata), `limit@test.it` (troppi tentativi). Un `installDebug` senza le due opzioni usa invece il Supabase vero.
+Utenti di prova (password `password1`): `demo@test.it`, `unconfirmed@test.it` (email non confermata), `limit@test.it` (troppi tentativi). Senza le due opzioni, il build Debug usa un indirizzo fittizio.
+
+## Prova S-51b su Supabase reale
+
+Dalla radice di MoneyTracker, sul Mac con Xcode, iPhone 18 Pro, Java 17, SDK Android e immagine `system-images;android-36;default;arm64-v8a`.
+
+```sh
+./03_CODICE/bucktrail-android/scripts/prova-due-dispositivi.py
+```
+
+Il file locale `~/.config/moneytracker/test-account.env` deve contenere `MT_TEST_EMAIL` e `MT_TEST_PASSWORD` di un account di prova dedicato con Protezione avanzata disattivata. Racchiudi i valori tra apici se contengono spazi o caratteri speciali. Lo script genera `MT_TEST_PHRASE` nello stesso file se manca. Durante la prova tieni chiuse le altre istanze dell’app con lo stesso account.
+
+Lo script avvia un iPhone 18 Pro e un emulatore Android temporanei. Usa XCTest ospitato nell’app iOS e la strumentazione Android con i servizi reali di autenticazione, salvataggio e sincronizzazione. Su iOS il test scavalca la sola autenticazione del dispositivo durante la migrazione. Le credenziali sono trasferite in memoria tramite un indirizzo locale temporaneo e non compaiono nelle schermate. Ogni scambio verifica i movimenti salvati dopo il riavvio effettivo del processo iOS, anche dalla scheda Movimenti tramite XCUITest. Lo script riusa un conto attivo, oppure ne crea uno se manca. Sul cloud rimangono fino a sei movimenti di prova riconoscibili dal prefisso `S51b`.
+
+L’uscita elenca gli esiti dei singoli scenari. In caso di errore lo script prova a tornare allo stato con protezione disattivata e verifica lo stato su Supabase. Se il ripristino risulta KO durante la migrazione, lo script conserva il simulatore iOS. Usa quel simulatore per controllare la Protezione avanzata prima di rilanciare. La frase necessaria per lo sblocco è nel file locale.
