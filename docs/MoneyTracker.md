@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.27*
+*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.28*
 
 > **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
 
@@ -437,11 +437,11 @@ Fino al tag `tour-v1` l'app aveva un **onboarding tour a due livelli**: una pano
 - Guardia anti-cancellazione del cloud: se il database locale è vuoto o cala in modo anomalo, la sync chiede conferma esplicita. Le righe remote non valide vengono ignorate senza bloccare il pull.
 - Verifica: 247 test JVM verdi; collaudo 🟢 del 2026-11-23 (verbale in `.cantiere/`); stress test con 10 bug corretti.
 
-### Protezione avanzata (cifratura end-to-end) — dietro interruttore, SPENTA in release
+### Protezione avanzata (cifratura end-to-end) — interruttore ACCESO in release (S-50p)
 
 Cifratura end-to-end facoltativa della sync, costruita su iOS e Android (S-50). Progetto completo: `.cantiere/progetto-e2e-sync.md`.
 
-- **Interruttore:** `E2EFeature.isEnabled = false` (iOS) e `BuildConfig.E2E_ENABLED = false` (Android). Da spento l'app non fa nessuna richiesta nuova, non mostra schermate nuove e la sync è identica a prima. Si accende solo in S-50p, dopo l'approvazione delle schermate (S-50o). Una volta pubblicato acceso non si torna indietro: per fermare nuove attivazioni c'è `allowNewActivations`.
+- **Interruttore:** acceso in release dal 2026-11-26 (S-50p): `E2EFeature.isEnabled = true` (iOS) e `BuildConfig.E2E_ENABLED = true` (Android). Nelle build di debug resta spento salvo l'argomento `-E2EEnabled YES` (iOS) o `-Pe2e=true` (Android), così i test del caso «spento» continuano a girare. Una volta pubblicato acceso non si torna indietro: per fermare nuove attivazioni c'è `allowNewActivations`.
 - **Dove si trova:** Impostazioni → sezione «Sicurezza», riga «Protezione avanzata» (nascosta in modalità demo, senza accesso o se il server non supporta la funzione). Testi con chiavi `e2e_*` identiche sulle due piattaforme, nelle 7 lingue.
 - **Crittografia (solo primitive di sistema, nessuna dipendenza nuova):** AES-256-GCM per ogni riga; una chiave dati casuale (DEK) avvolta due volte: con la **frase di sicurezza** (PBKDF2-HMAC-SHA256, 600 000 iterazioni, almeno 10 caratteri, distinta dalla password dell'account) e con la **chiave di recupero** (160 bit casuali, 32 caratteri in 8 gruppi da 4, HKDF-SHA256). Ogni riga cifrata è legata a tipo, id e utente: se il server la sposta o la altera, viene rifiutata.
 - **Chiave solo sul dispositivo:** la DEK sta nel Keychain iOS (`ThisDeviceOnly`, niente iCloud Keychain) o in Android Keystore. Frase e DEK non lasciano mai il telefono in chiaro; reset della password Supabase senza effetti sui dati.
@@ -590,6 +590,11 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ## 10. Changelog
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
+
+### v3.28 (26 novembre 2026) — Protezione avanzata accesa (S-50p)
+
+- **Interruttore acceso in release** su iOS e Android: la riga «Protezione avanzata» compare in Impostazioni → Sicurezza per chi ha l'account. Debug invariato (spento salvo argomento di avvio).
+- **Sito (`SOCIAL/landing`):** FAQ «Come so che i miei dati sono al sicuro?» aggiornata in italiano e inglese con la Protezione avanzata; nuova sezione nell'informativa privacy su cosa conserva il server con la protezione attiva. Testi in attesa di approvazione in `.cantiere/APPROVAZIONI.md`, pubblicazione a cura di Matteo.
 
 ### v3.27 (25–26 novembre 2026) — Protezione avanzata (cifratura end-to-end), interruttore spento
 

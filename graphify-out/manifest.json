@@ -260,8 +260,8 @@
     "semantic_hash": ""
   },
   "docs/MoneyTracker.md": {
-    "mtime": 1795694916.754872,
-    "ast_hash": "a5f6c344f0578205eb85ee93fa14886a",
+    "mtime": 1795703900.4538436,
+    "ast_hash": "f014f4d9c3c431afd8554fefdc2925b9",
     "semantic_hash": ""
   },
   "docs/MoneyTracker.pdf": {
@@ -515,8 +515,8 @@
     "semantic_hash": ""
   },
   ".cantiere/APPROVAZIONI.md": {
-    "mtime": 1795696803.5376854,
-    "ast_hash": "0cc11aea19a76f690e53d4ef3e2c2456",
+    "mtime": 1795703900.4582164,
+    "ast_hash": "78d813dd99efa6c441a1ec8de0897db9",
     "semantic_hash": ""
   },
   ".cantiere/AVVIO.md": {
@@ -525,8 +525,8 @@
     "semantic_hash": ""
   },
   ".cantiere/CHECKPOINT.md": {
-    "mtime": 1795697072.2698426,
-    "ast_hash": "4bd55b9e9278aea4df9d1a9abf8061f7",
+    "mtime": 1795703762.9426148,
+    "ast_hash": "fb3fe776e7695daa559b6ab618ffde8f",
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
@@ -540,8 +540,8 @@
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795703656.3611722,
-    "ast_hash": "c67b291c003371552603821fae133947",
+    "mtime": 1795703762.9452894,
+    "ast_hash": "4269b0ec1241c7ab3dc97e143c4c739e",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -550,13 +550,13 @@
     "semantic_hash": ""
   },
   ".cantiere/PAGELLE.md": {
-    "mtime": 1795696818.6191628,
-    "ast_hash": "52103068b0956c4b75222a7096035678",
+    "mtime": 1795703749.75815,
+    "ast_hash": "e15ca8dc9882d443a04e02760e9237ba",
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795701449.9840367,
-    "ast_hash": "5bffd4e8af24f818d284a675f295587f",
+    "mtime": 1795704238.972899,
+    "ast_hash": "ab9f4a801ca09949b28f4989c8edfe78",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795703740.3963716,
-    "ast_hash": "456c8cefc8f56b5c3759eceeec6e5844",
+    "mtime": 1795703843.9431329,
+    "ast_hash": "cad057d9fa5874c13ace642f50073c43",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -845,8 +845,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/en.html": {
-    "mtime": 1795616329.7101579,
-    "ast_hash": "f6bb4d3d5adcd9fa0003b9b23af641d5",
+    "mtime": 1795703867.35936,
+    "ast_hash": "f70be0edd38579add54d074bd50031cf",
     "semantic_hash": ""
   },
   "SOCIAL/landing/fonts/OFL-Inter.txt": {
@@ -860,13 +860,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/index.html": {
-    "mtime": 1795616329.7097318,
-    "ast_hash": "5f88bd646b1a2b0b710de10e795cd114",
+    "mtime": 1795703867.3589263,
+    "ast_hash": "fe232a9b9a64bb4591b4f94bd60ba52b",
     "semantic_hash": ""
   },
   "SOCIAL/landing/privacy.html": {
-    "mtime": 1795615251.1051412,
-    "ast_hash": "24f7c3e03a57e209fe9d3b47dd850d32",
+    "mtime": 1795703878.0865192,
+    "ast_hash": "b235648aaa54b6c9d2bb1f0622a23172",
     "semantic_hash": ""
   },
   "SOCIAL/montaggio/README.md": {
@@ -985,8 +985,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/build.gradle.kts": {
-    "mtime": 1795598238.3148732,
-    "ast_hash": "2e8019c4b0c102b2c0a20d29df60ae43",
+    "mtime": 1795703855.9239388,
+    "ast_hash": "96c06397b22a263149e6f79a1e756d84",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/schemas/com.bucktrail.android.BucktrailDatabase/1.json": {
@@ -2405,8 +2405,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Sync/E2E/E2EFeature.swift": {
-    "mtime": 1795601422.257821,
-    "ast_hash": "35f79196a0bf2441af996457e21ce770",
+    "mtime": 1795703855.9212627,
+    "ast_hash": "fadd86a0faf8199e45237b9ef5d26a20",
     "semantic_hash": ""
   },
   "MoneyTracker/Sync/E2E/RecoveryKey.swift": {

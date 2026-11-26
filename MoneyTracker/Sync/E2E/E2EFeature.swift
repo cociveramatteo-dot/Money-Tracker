@@ -8,7 +8,7 @@ nonisolated enum E2EFeature {
         zip(arguments, arguments.dropFirst()).contains { $0 == "-E2EEnabled" && $1 == "YES" }
     }
     #else
-    static let isEnabled = false
+    static let isEnabled = true
     #endif
 
     static let allowNewActivations = true

@@ -1984,7 +1984,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_androidtest_java_com_bucktrail_android_ui_layoutregressiontest",
-      "community": 221,
+      "community": 201,
       "norm_label": "layoutregressiontest.kt"
     },
     {
@@ -1994,7 +1994,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_androidtest_java_com_bucktrail_android_ui_layoutregressiontest_layoutregressiontest",
-      "community": 221,
+      "community": 201,
       "norm_label": "layoutregressiontest"
     },
     {
@@ -2004,7 +2004,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_androidtest_java_com_bucktrail_android_ui_layoutregressiontest_layoutregressiontest_fittextellipsizesinsteadofsilentlyclipping",
-      "community": 221,
+      "community": 201,
       "norm_label": ".fittextellipsizesinsteadofsilentlyclipping()"
     },
     {
@@ -2014,7 +2014,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_androidtest_java_com_bucktrail_android_ui_layoutregressiontest_layoutregressiontest_pageheaderstackstitleandactionsatlargefont",
-      "community": 221,
+      "community": 201,
       "norm_label": ".pageheaderstackstitleandactionsatlargefont()"
     },
     {
@@ -2204,7 +2204,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_mainactivity",
-      "community": 204,
+      "community": 201,
       "norm_label": "mainactivity.kt"
     },
     {
@@ -2214,7 +2214,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_mainactivity_mainactivity",
-      "community": 204,
+      "community": 201,
       "norm_label": "mainactivity"
     },
     {
@@ -2224,7 +2224,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "fragmentactivity",
-      "community": 204,
+      "community": 201,
       "norm_label": "fragmentactivity"
     },
     {
@@ -2234,7 +2234,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_mainactivity_mainactivity_oncreate",
-      "community": 204,
+      "community": 201,
       "norm_label": ".oncreate()"
     },
     {
@@ -2244,7 +2244,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_mainactivity_kt_bundle",
-      "community": 204,
+      "community": 201,
       "norm_label": "bundle"
     },
     {
@@ -7954,7 +7954,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_security_applockgate",
-      "community": 204,
+      "community": 201,
       "norm_label": "applockgate.kt"
     },
     {
@@ -7964,7 +7964,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_security_applockgate_applockgate",
-      "community": 204,
+      "community": 201,
       "norm_label": "applockgate()"
     },
     {
@@ -7974,7 +7974,7 @@
       "source_location": "L103",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_security_applockgate_lockoverlay",
-      "community": 204,
+      "community": 201,
       "norm_label": "lockoverlay()"
     },
     {
@@ -8064,7 +8064,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_shortcuts_balanceactivity",
-      "community": 204,
+      "community": 201,
       "norm_label": "balanceactivity.kt"
     },
     {
@@ -8074,7 +8074,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_shortcuts_balanceactivity_balanceactivity",
-      "community": 204,
+      "community": 201,
       "norm_label": "balanceactivity"
     },
     {
@@ -8084,7 +8084,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_shortcuts_balanceactivity_balanceactivity_oncreate",
-      "community": 204,
+      "community": 201,
       "norm_label": ".oncreate()"
     },
     {
@@ -8094,7 +8094,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_shortcuts_balanceactivity_kt_bundle",
-      "community": 204,
+      "community": 201,
       "norm_label": "bundle"
     },
     {
@@ -8104,7 +8104,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_shortcuts_balanceactivity_balancecard",
-      "community": 204,
+      "community": 201,
       "norm_label": "balancecard()"
     },
     {
@@ -8254,7 +8254,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_shortcuts_quickaddactivity",
-      "community": 221,
+      "community": 201,
       "norm_label": "quickaddactivity.kt"
     },
     {
@@ -8264,7 +8264,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_shortcuts_quickaddactivity_quickaddactivity",
-      "community": 221,
+      "community": 201,
       "norm_label": "quickaddactivity"
     },
     {
@@ -8274,7 +8274,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "componentactivity",
-      "community": 221,
+      "community": 201,
       "norm_label": "componentactivity"
     },
     {
@@ -8284,7 +8284,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_shortcuts_quickaddactivity_quickaddactivity_oncreate",
-      "community": 221,
+      "community": 201,
       "norm_label": ".oncreate()"
     },
     {
@@ -8294,7 +8294,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_shortcuts_quickaddactivity_kt_bundle",
-      "community": 221,
+      "community": 201,
       "norm_label": "bundle"
     },
     {
@@ -14614,7 +14614,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_components_basics_kt_float",
-      "community": 221,
+      "community": 186,
       "norm_label": "float"
     },
     {
@@ -14624,7 +14624,7 @@
       "source_location": "L112",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_components_basics_budgetcolor",
-      "community": 337,
+      "community": 186,
       "norm_label": "budgetcolor()"
     },
     {
@@ -14864,7 +14864,7 @@
       "source_location": "L366",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_components_basics_fittext",
-      "community": 221,
+      "community": 186,
       "norm_label": "fittext()"
     },
     {
@@ -14874,7 +14874,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "textstyle",
-      "community": 221,
+      "community": 201,
       "norm_label": "textstyle"
     },
     {
@@ -14884,7 +14884,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "textalign",
-      "community": 221,
+      "community": 186,
       "norm_label": "textalign"
     },
     {
@@ -16654,7 +16654,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_movementsscreen",
-      "community": 2,
+      "community": 342,
       "norm_label": "movementsscreen.kt"
     },
     {
@@ -16664,7 +16664,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_movementsscreen_movementactions",
-      "community": 2,
+      "community": 342,
       "norm_label": "movementactions"
     },
     {
@@ -16674,7 +16674,7 @@
       "source_location": "L93",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_movementsscreen_filterrow",
-      "community": 2,
+      "community": 342,
       "norm_label": "filterrow()"
     },
     {
@@ -16684,7 +16684,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_movementsscreen_movementsscreen",
-      "community": 2,
+      "community": 342,
       "norm_label": "movementsscreen()"
     },
     {
@@ -16694,7 +16694,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_movementsscreen_kt_localdate",
-      "community": 2,
+      "community": 342,
       "norm_label": "localdate"
     },
     {
@@ -16704,7 +16704,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_movementsscreen_kt_zoneid",
-      "community": 2,
+      "community": 342,
       "norm_label": "zoneid"
     },
     {
@@ -16714,7 +16714,7 @@
       "source_location": "L297",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_movementsscreen_groupcard",
-      "community": 2,
+      "community": 342,
       "norm_label": "groupcard()"
     },
     {
@@ -16724,7 +16724,7 @@
       "source_location": "L302",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_movementsscreen_androidxclick",
-      "community": 2,
+      "community": 342,
       "norm_label": "androidxclick()"
     },
     {
@@ -16734,7 +16734,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_movementsscreen_kt_modifier",
-      "community": 2,
+      "community": 342,
       "norm_label": "modifier"
     },
     {
@@ -17504,7 +17504,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_transactionrow",
-      "community": 2,
+      "community": 458,
       "norm_label": "transactionrow.kt"
     },
     {
@@ -17514,7 +17514,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_transactionrow_transactionrow",
-      "community": 2,
+      "community": 458,
       "norm_label": "transactionrow()"
     },
     {
@@ -17524,7 +17524,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_transactionrow_kt_list",
-      "community": 2,
+      "community": 458,
       "norm_label": "list"
     },
     {
@@ -17534,7 +17534,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_transactionrow_kt_string",
-      "community": 2,
+      "community": 458,
       "norm_label": "string"
     },
     {
@@ -17544,7 +17544,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_transactionrow_kt_boolean",
-      "community": 2,
+      "community": 458,
       "norm_label": "boolean"
     },
     {
@@ -17554,7 +17554,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_transactionrow_kt_localdate",
-      "community": 2,
+      "community": 458,
       "norm_label": "localdate"
     },
     {
@@ -17564,7 +17564,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_transactionrow_kt_zoneid",
-      "community": 2,
+      "community": 458,
       "norm_label": "zoneid"
     },
     {
@@ -17574,7 +17574,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_transactionrow_kt_android",
-      "community": 2,
+      "community": 458,
       "norm_label": "android"
     },
     {
@@ -17584,7 +17584,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_screens_transactionrow_kt_unit",
-      "community": 2,
+      "community": 458,
       "norm_label": "unit"
     },
     {
@@ -17594,7 +17594,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_theme_theme",
-      "community": 337,
+      "community": 204,
       "norm_label": "theme.kt"
     },
     {
@@ -17604,7 +17604,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_theme_theme_bucktrailcolors",
-      "community": 337,
+      "community": 204,
       "norm_label": "bucktrailcolors"
     },
     {
@@ -17614,7 +17614,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_theme_theme_bucktrailcolors_sign",
-      "community": 337,
+      "community": 204,
       "norm_label": ".sign()"
     },
     {
@@ -17624,7 +17624,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_theme_theme_kt_int",
-      "community": 337,
+      "community": 204,
       "norm_label": "int"
     },
     {
@@ -17634,7 +17634,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_theme_theme_c",
-      "community": 337,
+      "community": 204,
       "norm_label": "c()"
     },
     {
@@ -17644,7 +17644,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_theme_theme_kt_long",
-      "community": 337,
+      "community": 204,
       "norm_label": "long"
     },
     {
@@ -17654,7 +17654,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_theme_theme_bt",
-      "community": 337,
+      "community": 204,
       "norm_label": "bt"
     },
     {
@@ -17664,7 +17664,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_theme_theme_tintcolors",
-      "community": 337,
+      "community": 204,
       "norm_label": "tintcolors"
     },
     {
@@ -17674,7 +17674,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_theme_theme_colors",
-      "community": 337,
+      "community": 204,
       "norm_label": "colors()"
     },
     {
@@ -17684,7 +17684,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_theme_theme_kt_boolean",
-      "community": 337,
+      "community": 204,
       "norm_label": "boolean"
     },
     {
@@ -17694,7 +17694,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_app_src_main_java_com_bucktrail_android_ui_theme_theme_bucktrailtheme",
-      "community": 221,
+      "community": 201,
       "norm_label": "bucktrailtheme()"
     },
     {
@@ -25030,7 +25030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_scripts_e2e_vectors",
-      "community": 362,
+      "community": 477,
       "norm_label": "e2e-vectors.py"
     },
     {
@@ -25040,7 +25040,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_scripts_e2e_vectors_b64url",
-      "community": 362,
+      "community": 477,
       "norm_label": "b64url()"
     },
     {
@@ -25050,7 +25050,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_scripts_e2e_vectors_unb64url",
-      "community": 362,
+      "community": 477,
       "norm_label": "unb64url()"
     },
     {
@@ -25060,7 +25060,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_scripts_e2e_vectors_pbkdf2",
-      "community": 362,
+      "community": 477,
       "norm_label": "pbkdf2()"
     },
     {
@@ -25070,7 +25070,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_scripts_e2e_vectors_hkdf",
-      "community": 362,
+      "community": 477,
       "norm_label": "hkdf()"
     },
     {
@@ -25080,7 +25080,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_scripts_e2e_vectors_crockford_format",
-      "community": 362,
+      "community": 477,
       "norm_label": "crockford_format()"
     },
     {
@@ -25090,7 +25090,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_scripts_e2e_vectors_crockford_parse",
-      "community": 362,
+      "community": 477,
       "norm_label": "crockford_parse()"
     },
     {
@@ -25100,7 +25100,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_scripts_e2e_vectors_envelope_bytes",
-      "community": 362,
+      "community": 477,
       "norm_label": "envelope_bytes()"
     },
     {
@@ -25110,7 +25110,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_scripts_e2e_vectors_vectors",
-      "community": 362,
+      "community": 477,
       "norm_label": "vectors()"
     },
     {
@@ -25120,7 +25120,7 @@
       "source_location": "L190",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_scripts_e2e_vectors_check_nonce_calls",
-      "community": 362,
+      "community": 477,
       "norm_label": "check_nonce_calls()"
     },
     {
@@ -25130,7 +25130,7 @@
       "source_location": "L200",
       "_origin": "ast",
       "id": "03_codice_bucktrail_android_scripts_e2e_vectors_main",
-      "community": 362,
+      "community": 477,
       "norm_label": "main()"
     },
     {
@@ -25812,7 +25812,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "combine",
-      "community": 395,
+      "community": 189,
       "norm_label": "combine"
     },
     {
@@ -25832,7 +25832,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "observableobject",
-      "community": 189,
+      "community": 110,
       "norm_label": "observableobject"
     },
     {
@@ -25994,7 +25994,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "localauthentication",
-      "community": 110,
+      "community": 189,
       "norm_label": "localauthentication"
     },
     {
@@ -26064,7 +26064,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "view",
-      "community": 130,
+      "community": 9,
       "norm_label": "view"
     },
     {
@@ -26104,7 +26104,7 @@
       "source_location": "L185",
       "_origin": "ast",
       "id": "moneytracker_auth_loginview_loginview_sendreset",
-      "community": 395,
+      "community": 110,
       "norm_label": ".sendreset()"
     },
     {
@@ -26224,7 +26224,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager",
-      "community": 395,
+      "community": 189,
       "norm_label": "supabasemanager.swift"
     },
     {
@@ -26245,7 +26245,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_supabasemanager",
-      "community": 395,
+      "community": 110,
       "norm_label": "supabasemanager"
     },
     {
@@ -26255,7 +26255,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_supabasemanager_init",
-      "community": 395,
+      "community": 110,
       "norm_label": ".init()"
     },
     {
@@ -26265,7 +26265,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_supabasemanager_bootstrap",
-      "community": 395,
+      "community": 110,
       "norm_label": ".bootstrap()"
     },
     {
@@ -26275,7 +26275,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_swift_bool",
-      "community": 395,
+      "community": 110,
       "norm_label": "bool"
     },
     {
@@ -26285,7 +26285,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_swift_string",
-      "community": 395,
+      "community": 110,
       "norm_label": "string"
     },
     {
@@ -26295,7 +26295,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_supabasemanager_signup",
-      "community": 395,
+      "community": 110,
       "norm_label": ".signup()"
     },
     {
@@ -26305,7 +26305,7 @@
       "source_location": "L80",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_supabasemanager_signin",
-      "community": 395,
+      "community": 110,
       "norm_label": ".signin()"
     },
     {
@@ -26325,7 +26325,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_swift_uuid",
-      "community": 395,
+      "community": 110,
       "norm_label": "uuid"
     },
     {
@@ -26335,7 +26335,7 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_supabasemanager_resetpassword",
-      "community": 395,
+      "community": 110,
       "norm_label": ".resetpassword()"
     },
     {
@@ -26345,7 +26345,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_supabasemanager_deleteaccount",
-      "community": 395,
+      "community": 110,
       "norm_label": ".deleteaccount()"
     },
     {
@@ -26355,7 +26355,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_supabasemanager_deleteremoteaccount",
-      "community": 395,
+      "community": 110,
       "norm_label": ".deleteremoteaccount()"
     },
     {
@@ -26365,7 +26365,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_auth_supabasemanager_swift_supabaseclient",
-      "community": 395,
+      "community": 110,
       "norm_label": "supabaseclient"
     },
     {
@@ -26396,7 +26396,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytracker_debug_demodataseeder_demodataseeder",
-      "community": 184,
+      "community": 181,
       "norm_label": "demodataseeder"
     },
     {
@@ -26406,7 +26406,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "moneytracker_debug_demodataseeder_demodataseeder_forcereset",
-      "community": 184,
+      "community": 181,
       "norm_label": ".forcereset()"
     },
     {
@@ -26416,7 +26416,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "moneytracker_debug_demodataseeder_demodataseeder_seedifneeded",
-      "community": 184,
+      "community": 181,
       "norm_label": ".seedifneeded()"
     },
     {
@@ -26426,7 +26426,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "moneytracker_debug_demodataseeder_demodataseeder_seed",
-      "community": 184,
+      "community": 181,
       "norm_label": ".seed()"
     },
     {
@@ -26446,7 +26446,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache",
-      "community": 226,
+      "community": 6,
       "norm_label": "accountbalancecache"
     },
     {
@@ -26466,7 +26466,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache_init",
-      "community": 226,
+      "community": 6,
       "norm_label": ".init()"
     },
     {
@@ -26476,7 +26476,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_swift_persistentidentifier",
-      "community": 226,
+      "community": 6,
       "norm_label": "persistentidentifier"
     },
     {
@@ -26486,7 +26486,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache_invalidateall",
-      "community": 69,
+      "community": 6,
       "norm_label": ".invalidateall()"
     },
     {
@@ -26496,7 +26496,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache_currentbalance",
-      "community": 226,
+      "community": 6,
       "norm_label": ".currentbalance()"
     },
     {
@@ -26506,7 +26506,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_swift_account",
-      "community": 226,
+      "community": 6,
       "norm_label": "account"
     },
     {
@@ -26516,7 +26516,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "moneytracker_domain_accountbalancecache_accountbalancecache_futurebalance",
-      "community": 226,
+      "community": 6,
       "norm_label": ".futurebalance()"
     },
     {
@@ -26767,7 +26767,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_balancetrail_swift_date",
-      "community": 330,
+      "community": 304,
       "norm_label": "date"
     },
     {
@@ -26827,7 +26827,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_categoryclassifying_swift",
-      "community": 456,
+      "community": 304,
       "norm_label": "categoryclassifying.swift"
     },
     {
@@ -26837,7 +26837,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_categoryclassifying_categoryclassifying",
-      "community": 456,
+      "community": 304,
       "norm_label": "categoryclassifying"
     },
     {
@@ -26857,7 +26857,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_keywordcategoryclassifier",
-      "community": 456,
+      "community": 109,
       "norm_label": "keywordcategoryclassifier"
     },
     {
@@ -26877,7 +26877,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "nscache",
-      "community": 456,
+      "community": 109,
       "norm_label": "nscache"
     },
     {
@@ -26887,7 +26887,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "nsstring",
-      "community": 456,
+      "community": 109,
       "norm_label": "nsstring"
     },
     {
@@ -26897,7 +26897,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_keywordcategoryclassifier_init",
-      "community": 456,
+      "community": 109,
       "norm_label": ".init()"
     },
     {
@@ -26917,7 +26917,7 @@
       "source_location": "L68",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_keywordcategoryclassifier_loadkeywords",
-      "community": 456,
+      "community": 109,
       "norm_label": ".loadkeywords()"
     },
     {
@@ -26937,7 +26937,7 @@
       "source_location": "L152",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_keywordcategoryclassifier_singlewordscore",
-      "community": 456,
+      "community": 109,
       "norm_label": ".singlewordscore()"
     },
     {
@@ -26947,7 +26947,7 @@
       "source_location": "L211",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_keywordcategoryclassifier_italianstem",
-      "community": 456,
+      "community": 109,
       "norm_label": ".italianstem()"
     },
     {
@@ -26957,7 +26957,7 @@
       "source_location": "L222",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_keywordcategoryclassifier_levenshtein",
-      "community": 456,
+      "community": 109,
       "norm_label": ".levenshtein()"
     },
     {
@@ -27088,7 +27088,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager",
-      "community": 184,
+      "community": 434,
       "norm_label": "systemnotificationmanager"
     },
     {
@@ -27098,7 +27098,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_init",
-      "community": 184,
+      "community": 434,
       "norm_label": ".init()"
     },
     {
@@ -27118,7 +27118,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_requestpermission",
-      "community": 184,
+      "community": 104,
       "norm_label": ".requestpermission()"
     },
     {
@@ -27128,7 +27128,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_cancelall",
-      "community": 184,
+      "community": 434,
       "norm_label": ".cancelall()"
     },
     {
@@ -27138,7 +27138,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_checkbudgets",
-      "community": 184,
+      "community": 434,
       "norm_label": ".checkbudgets()"
     },
     {
@@ -27158,7 +27158,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_schedulebudgetwarning",
-      "community": 184,
+      "community": 434,
       "norm_label": ".schedulebudgetwarning()"
     },
     {
@@ -27178,7 +27178,7 @@
       "source_location": "L118",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_schedulefixedreminderifneeded",
-      "community": 184,
+      "community": 434,
       "norm_label": ".schedulefixedreminderifneeded()"
     },
     {
@@ -27188,7 +27188,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_schedulefixedreminder",
-      "community": 184,
+      "community": 434,
       "norm_label": ".schedulefixedreminder()"
     },
     {
@@ -27228,7 +27228,7 @@
       "source_location": "L192",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_checkbalancethreshold",
-      "community": 184,
+      "community": 105,
       "norm_label": ".checkbalancethreshold()"
     },
     {
@@ -27238,7 +27238,7 @@
       "source_location": "L222",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationmanager_systemnotificationmanager_schedulemonthlyreportreminder",
-      "community": 184,
+      "community": 434,
       "norm_label": ".schedulemonthlyreportreminder()"
     },
     {
@@ -27258,7 +27258,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_domain_notificationscheduling_notificationscheduling",
-      "community": 184,
+      "community": 434,
       "norm_label": "notificationscheduling"
     },
     {
@@ -27268,7 +27268,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "anyobject",
-      "community": 184,
+      "community": 434,
       "norm_label": "anyobject"
     },
     {
@@ -27559,7 +27559,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_recurringmaterializer",
-      "community": 104,
+      "community": 181,
       "norm_label": "recurringmaterializer"
     },
     {
@@ -27569,7 +27569,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_swift_recurrencecalculator",
-      "community": 104,
+      "community": 181,
       "norm_label": "recurrencecalculator"
     },
     {
@@ -27609,7 +27609,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_recurringmaterializer_init",
-      "community": 104,
+      "community": 181,
       "norm_label": ".init()"
     },
     {
@@ -27619,7 +27619,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_swift_timezone",
-      "community": 104,
+      "community": 181,
       "norm_label": "timezone"
     },
     {
@@ -27629,7 +27629,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_recurringmaterializer_materializedue",
-      "community": 104,
+      "community": 181,
       "norm_label": ".materializedue()"
     },
     {
@@ -27639,7 +27639,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_swift_date",
-      "community": 104,
+      "community": 181,
       "norm_label": "date"
     },
     {
@@ -27649,7 +27649,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_swift_int",
-      "community": 104,
+      "community": 181,
       "norm_label": "int"
     },
     {
@@ -27659,7 +27659,7 @@
       "source_location": "L89",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringmaterializer_recurringmaterializer_month",
-      "community": 104,
+      "community": 181,
       "norm_label": ".month()"
     },
     {
@@ -27820,7 +27820,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_swift_string",
-      "community": 444,
+      "community": 105,
       "norm_label": "string"
     },
     {
@@ -27850,7 +27850,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_swift_bool",
-      "community": 479,
+      "community": 105,
       "norm_label": "bool"
     },
     {
@@ -27910,7 +27910,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_action",
-      "community": 479,
+      "community": 105,
       "norm_label": "action"
     },
     {
@@ -27920,7 +27920,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_action_edit",
-      "community": 479,
+      "community": 105,
       "norm_label": "edit"
     },
     {
@@ -27930,7 +27930,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_swift_rulesnapshot",
-      "community": 479,
+      "community": 105,
       "norm_label": "rulesnapshot"
     },
     {
@@ -27940,7 +27940,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_action_delete",
-      "community": 479,
+      "community": 105,
       "norm_label": "delete"
     },
     {
@@ -27950,7 +27950,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_action_skipmonth",
-      "community": 479,
+      "community": 105,
       "norm_label": "skipmonth"
     },
     {
@@ -27960,7 +27960,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_action_terminate",
-      "community": 479,
+      "community": 105,
       "norm_label": "terminate"
     },
     {
@@ -27970,7 +27970,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_editorerror",
-      "community": 444,
+      "community": 105,
       "norm_label": "editorerror"
     },
     {
@@ -27980,7 +27980,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "localizederror",
-      "community": 444,
+      "community": 105,
       "norm_label": "localizederror"
     },
     {
@@ -27990,7 +27990,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_editorerror_requiresmaincontext",
-      "community": 444,
+      "community": 105,
       "norm_label": "requiresmaincontext"
     },
     {
@@ -28000,7 +28000,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_editorerror_invalidoccurrence",
-      "community": 444,
+      "community": 105,
       "norm_label": "invalidoccurrence"
     },
     {
@@ -28010,7 +28010,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_editorerror_invalidvalues",
-      "community": 444,
+      "community": 105,
       "norm_label": "invalidvalues"
     },
     {
@@ -28020,7 +28020,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_editorerror_crossmonthoverride",
-      "community": 444,
+      "community": 105,
       "norm_label": "crossmonthoverride"
     },
     {
@@ -28100,7 +28100,7 @@
       "source_location": "L277",
       "_origin": "ast",
       "id": "moneytracker_domain_recurringserieseditor_recurringserieseditor_assign",
-      "community": 479,
+      "community": 105,
       "norm_label": ".assign()"
     },
     {
@@ -28401,7 +28401,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "moneytracker_formatting_currencyformatting_decimal",
-      "community": 226,
+      "community": 6,
       "norm_label": "decimal"
     },
     {
@@ -28481,7 +28481,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_swift",
-      "community": 22,
+      "community": 104,
       "norm_label": "formattercache.swift"
     },
     {
@@ -28491,7 +28491,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_formattercache",
-      "community": 22,
+      "community": 104,
       "norm_label": "formattercache"
     },
     {
@@ -28521,7 +28521,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_formattercache_registerlocaleobserver",
-      "community": 22,
+      "community": 104,
       "norm_label": ".registerlocaleobserver()"
     },
     {
@@ -28531,7 +28531,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_formatting_formattercache_formattercache_currencyformatter",
-      "community": 22,
+      "community": 104,
       "norm_label": ".currencyformatter()"
     },
     {
@@ -28642,7 +28642,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "moneytracker_intents_addexpenseintent_addexpenseintent_perform",
-      "community": 69,
+      "community": 6,
       "norm_label": ".perform()"
     },
     {
@@ -28652,7 +28652,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "intentresult",
-      "community": 69,
+      "community": 6,
       "norm_label": "intentresult"
     },
     {
@@ -28662,7 +28662,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "providesdialog",
-      "community": 69,
+      "community": 6,
       "norm_label": "providesdialog"
     },
     {
@@ -28682,7 +28682,7 @@
       "source_location": "L142",
       "_origin": "ast",
       "id": "moneytracker_intents_addexpenseintent_addincomeintent_perform",
-      "community": 69,
+      "community": 6,
       "norm_label": ".perform()"
     },
     {
@@ -28702,7 +28702,7 @@
       "source_location": "L207",
       "_origin": "ast",
       "id": "moneytracker_intents_addexpenseintent_checkbalanceintent_perform",
-      "community": 69,
+      "community": 6,
       "norm_label": ".perform()"
     },
     {
@@ -28792,7 +28792,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_swift",
-      "community": 109,
+      "community": 106,
       "norm_label": "account.swift"
     },
     {
@@ -28802,7 +28802,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype",
-      "community": 109,
+      "community": 106,
       "norm_label": "accounttype"
     },
     {
@@ -28822,7 +28822,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "caseiterable",
-      "community": 415,
+      "community": 106,
       "norm_label": "caseiterable"
     },
     {
@@ -28832,7 +28832,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_contanti",
-      "community": 109,
+      "community": 106,
       "norm_label": "contanti"
     },
     {
@@ -28842,7 +28842,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_carta",
-      "community": 109,
+      "community": 106,
       "norm_label": "carta"
     },
     {
@@ -28852,7 +28852,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_conto",
-      "community": 109,
+      "community": 106,
       "norm_label": "conto"
     },
     {
@@ -28862,7 +28862,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_risparmio",
-      "community": 109,
+      "community": 106,
       "norm_label": "risparmio"
     },
     {
@@ -28872,7 +28872,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_investimento",
-      "community": 109,
+      "community": 106,
       "norm_label": "investimento"
     },
     {
@@ -28882,7 +28882,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_account",
-      "community": 109,
+      "community": 106,
       "norm_label": "account"
     },
     {
@@ -28942,7 +28942,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_account_account_init",
-      "community": 109,
+      "community": 106,
       "norm_label": ".init()"
     },
     {
@@ -28962,7 +28962,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_budget_budget",
-      "community": 109,
+      "community": 106,
       "norm_label": "budget"
     },
     {
@@ -29022,7 +29022,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_budget_budget_init",
-      "community": 109,
+      "community": 106,
       "norm_label": ".init()"
     },
     {
@@ -29212,7 +29212,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_recurringrule",
-      "community": 479,
+      "community": 105,
       "norm_label": "recurringrule"
     },
     {
@@ -29222,7 +29222,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_uuid",
-      "community": 479,
+      "community": 105,
       "norm_label": "uuid"
     },
     {
@@ -29232,7 +29232,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_string",
-      "community": 479,
+      "community": 105,
       "norm_label": "string"
     },
     {
@@ -29242,7 +29242,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_bool",
-      "community": 479,
+      "community": 105,
       "norm_label": "bool"
     },
     {
@@ -29252,7 +29252,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_swift_date",
-      "community": 479,
+      "community": 105,
       "norm_label": "date"
     },
     {
@@ -29262,7 +29262,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "moneytracker_models_recurringrule_recurringrule_init",
-      "community": 479,
+      "community": 105,
       "norm_label": ".init()"
     },
     {
@@ -29272,7 +29272,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_swift",
-      "community": 109,
+      "community": 99,
       "norm_label": "transaction.swift"
     },
     {
@@ -29282,7 +29282,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype",
-      "community": 109,
+      "community": 106,
       "norm_label": "transactiontype"
     },
     {
@@ -29292,7 +29292,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_uscita",
-      "community": 109,
+      "community": 106,
       "norm_label": "uscita"
     },
     {
@@ -29302,7 +29302,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
-      "community": 109,
+      "community": 106,
       "norm_label": "entrata"
     },
     {
@@ -29312,7 +29312,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
-      "community": 109,
+      "community": 106,
       "norm_label": "transaction"
     },
     {
@@ -29362,7 +29362,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction_init",
-      "community": 109,
+      "community": 106,
       "norm_label": ".init()"
     },
     {
@@ -29382,7 +29382,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_moneytrackerapp",
-      "community": 395,
+      "community": 104,
       "norm_label": "moneytrackerapp.swift"
     },
     {
@@ -29393,7 +29393,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "auth",
-      "community": 395,
+      "community": 104,
       "norm_label": "auth"
     },
     {
@@ -29423,7 +29423,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_moneytrackerapp_swift_modelcontainer",
-      "community": 184,
+      "community": 104,
       "norm_label": "modelcontainer"
     },
     {
@@ -29483,7 +29483,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "moneytracker_moneytrackerapp_moneytrackerapp_init",
-      "community": 184,
+      "community": 104,
       "norm_label": ".init()"
     },
     {
@@ -29533,7 +29533,7 @@
       "source_location": "L369",
       "_origin": "ast",
       "id": "moneytracker_moneytrackerapp_applyfileprotection",
-      "community": 395,
+      "community": 104,
       "norm_label": "applyfileprotection()"
     },
     {
@@ -29543,7 +29543,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_moneytrackerapp_swift_url",
-      "community": 395,
+      "community": 104,
       "norm_label": "url"
     },
     {
@@ -29553,7 +29553,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "fileprotectiontype",
-      "community": 395,
+      "community": 104,
       "norm_label": "fileprotectiontype"
     },
     {
@@ -29573,7 +29573,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "moneytracker_persistence_logging_logger",
-      "community": 459,
+      "community": 4,
       "norm_label": "logger"
     },
     {
@@ -29593,7 +29593,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_persistence_modelcontextsaving_modelcontext",
-      "community": 459,
+      "community": 35,
       "norm_label": "modelcontext"
     },
     {
@@ -29603,7 +29603,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_persistence_modelcontextsaving_modelcontext_safesave",
-      "community": 184,
+      "community": 181,
       "norm_label": ".safesave()"
     },
     {
@@ -30013,7 +30013,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_persistence_sharedstore_sharedstore",
-      "community": 184,
+      "community": 104,
       "norm_label": "sharedstore"
     },
     {
@@ -30033,7 +30033,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytracker_persistence_sharedstore_sharedstore_migratelegacystoreifneeded",
-      "community": 184,
+      "community": 104,
       "norm_label": ".migratelegacystoreifneeded()"
     },
     {
@@ -30053,7 +30053,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_e2econtroller",
-      "community": 110,
+      "community": 189,
       "norm_label": "e2econtroller.swift"
     },
     {
@@ -30964,7 +30964,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_e2ekeystore_failure",
-      "community": 484,
+      "community": 219,
       "norm_label": "failure"
     },
     {
@@ -30984,7 +30984,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "osstatus",
-      "community": 484,
+      "community": 219,
       "norm_label": "osstatus"
     },
     {
@@ -30994,7 +30994,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_e2ekeystore_failure_invalidentry",
-      "community": 484,
+      "community": 219,
       "norm_label": "invalidentry"
     },
     {
@@ -31704,7 +31704,7 @@
       "source_location": "L391",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_e2emigrator_e2emigrator_reset",
-      "community": 329,
+      "community": 436,
       "norm_label": ".reset()"
     },
     {
@@ -31814,7 +31814,7 @@
       "source_location": "L528",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_e2emigrator_e2emigrator_setstate",
-      "community": 113,
+      "community": 329,
       "norm_label": ".setstate()"
     },
     {
@@ -31824,7 +31824,7 @@
       "source_location": "L532",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_e2emigrator_e2emigrator_patch",
-      "community": 113,
+      "community": 329,
       "norm_label": ".patch()"
     },
     {
@@ -31964,7 +31964,7 @@
       "source_location": "L634",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_e2emigrator_e2emigrator_updatepassphrase",
-      "community": 113,
+      "community": 329,
       "norm_label": ".updatepassphrase()"
     },
     {
@@ -33575,7 +33575,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_vaultremote_codingkeys",
-      "community": 465,
+      "community": 137,
       "norm_label": "codingkeys"
     },
     {
@@ -33585,7 +33585,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_vaultremote_codingkeys_id",
-      "community": 465,
+      "community": 137,
       "norm_label": "id"
     },
     {
@@ -33595,7 +33595,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_vaultremote_codingkeys_kind",
-      "community": 465,
+      "community": 137,
       "norm_label": "kind"
     },
     {
@@ -33605,7 +33605,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_vaultremote_codingkeys_payload",
-      "community": 465,
+      "community": 137,
       "norm_label": "payload"
     },
     {
@@ -33615,7 +33615,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "moneytracker_sync_e2e_vaultremote_codingkeys_userid",
-      "community": 465,
+      "community": 137,
       "norm_label": "userid"
     },
     {
@@ -34265,7 +34265,7 @@
       "source_location": "L408",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_e2e_continuewithoute2eprotection",
-      "community": 459,
+      "community": 4,
       "norm_label": "continuewithoute2eprotection()"
     },
     {
@@ -34366,7 +34366,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_swift_bool",
-      "community": 459,
+      "community": 48,
       "norm_label": "bool"
     },
     {
@@ -34416,7 +34416,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_codingkeys_name",
-      "community": 184,
+      "community": 181,
       "norm_label": "name"
     },
     {
@@ -34586,7 +34586,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_sbrecurringrule_apply",
-      "community": 479,
+      "community": 105,
       "norm_label": ".apply()"
     },
     {
@@ -34676,7 +34676,7 @@
       "source_location": "L173",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_codingkeys_date",
-      "community": 184,
+      "community": 181,
       "norm_label": "date"
     },
     {
@@ -35066,7 +35066,7 @@
       "source_location": "L372",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_ownsplainstore",
-      "community": 459,
+      "community": 48,
       "norm_label": ".ownsplainstore()"
     },
     {
@@ -35156,7 +35156,7 @@
       "source_location": "L544",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_marktransactiondirty",
-      "community": 48,
+      "community": 459,
       "norm_label": ".marktransactiondirty()"
     },
     {
@@ -35196,7 +35196,7 @@
       "source_location": "L640",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_clearlocaldata",
-      "community": 459,
+      "community": 4,
       "norm_label": ".clearlocaldata()"
     },
     {
@@ -35206,7 +35206,7 @@
       "source_location": "L658",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_clearlocalstore",
-      "community": 459,
+      "community": 4,
       "norm_label": ".clearlocalstore()"
     },
     {
@@ -35246,7 +35246,7 @@
       "source_location": "L771",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_push",
-      "community": 459,
+      "community": 48,
       "norm_label": ".push()"
     },
     {
@@ -35316,7 +35316,7 @@
       "source_location": "L892",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_download",
-      "community": 459,
+      "community": 48,
       "norm_label": ".download()"
     },
     {
@@ -35336,7 +35336,7 @@
       "source_location": "L1112",
       "_origin": "ast",
       "id": "moneytracker_sync_syncservice_syncservice_mergerecurringrules",
-      "community": 479,
+      "community": 105,
       "norm_label": ".mergerecurringrules()"
     },
     {
@@ -35466,7 +35466,7 @@
       "source_location": "L454",
       "_origin": "ast",
       "id": "moneytracker_views_accountsview_addaccountview_load",
-      "community": 6,
+      "community": 327,
       "norm_label": ".load()"
     },
     {
@@ -35526,7 +35526,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_addtransactionview_swift_transaction",
-      "community": 184,
+      "community": 105,
       "norm_label": "transaction"
     },
     {
@@ -35656,7 +35656,7 @@
       "source_location": "L344",
       "_origin": "ast",
       "id": "moneytracker_views_addtransactionview_addtransactionview_save",
-      "community": 184,
+      "community": 105,
       "norm_label": ".save()"
     },
     {
@@ -35796,7 +35796,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_auditlogview",
-      "community": 454,
+      "community": 437,
       "norm_label": "auditlogview.swift"
     },
     {
@@ -35806,7 +35806,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "moneytracker_views_auditlogview_auditlogview",
-      "community": 454,
+      "community": 437,
       "norm_label": "auditlogview"
     },
     {
@@ -35816,7 +35816,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "moneytracker_views_auditlogview_auditlogview_icon",
-      "community": 454,
+      "community": 437,
       "norm_label": ".icon()"
     },
     {
@@ -35826,7 +35826,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_auditlogview_swift_string",
-      "community": 454,
+      "community": 437,
       "norm_label": "string"
     },
     {
@@ -35836,7 +35836,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "moneytracker_views_auditlogview_auditlogview_actionlabel",
-      "community": 454,
+      "community": 437,
       "norm_label": ".actionlabel()"
     },
     {
@@ -35846,7 +35846,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "moneytracker_views_auditlogview_auditlogview_entitylabel",
-      "community": 454,
+      "community": 437,
       "norm_label": ".entitylabel()"
     },
     {
@@ -36006,7 +36006,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview",
-      "community": 314,
+      "community": 184,
       "norm_label": "categorymanagementview.swift"
     },
     {
@@ -36016,7 +36016,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_categorymanagementview",
-      "community": 314,
+      "community": 184,
       "norm_label": "categorymanagementview"
     },
     {
@@ -36026,7 +36026,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_swift_transaction",
-      "community": 314,
+      "community": 184,
       "norm_label": "transaction"
     },
     {
@@ -36036,7 +36036,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_swift_string",
-      "community": 314,
+      "community": 184,
       "norm_label": "string"
     },
     {
@@ -36046,7 +36046,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_swift_int",
-      "community": 314,
+      "community": 184,
       "norm_label": "int"
     },
     {
@@ -36056,7 +36056,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_categorymanagementview_rebuildtxcount",
-      "community": 314,
+      "community": 184,
       "norm_label": ".rebuildtxcount()"
     },
     {
@@ -36066,7 +36066,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_categorymanagementview_txcount",
-      "community": 314,
+      "community": 184,
       "norm_label": ".txcount()"
     },
     {
@@ -36076,7 +36076,7 @@
       "source_location": "L157",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_categoryrow",
-      "community": 314,
+      "community": 184,
       "norm_label": "categoryrow"
     },
     {
@@ -36086,7 +36086,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_swift_bool",
-      "community": 314,
+      "community": 184,
       "norm_label": "bool"
     },
     {
@@ -36096,7 +36096,7 @@
       "source_location": "L198",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_addcategoryview",
-      "community": 314,
+      "community": 184,
       "norm_label": "addcategoryview"
     },
     {
@@ -36106,7 +36106,7 @@
       "source_location": "L312",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_addcategoryview_load",
-      "community": 314,
+      "community": 184,
       "norm_label": ".load()"
     },
     {
@@ -36116,7 +36116,7 @@
       "source_location": "L324",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_addcategoryview_save",
-      "community": 314,
+      "community": 184,
       "norm_label": ".save()"
     },
     {
@@ -36126,7 +36126,7 @@
       "source_location": "L344",
       "_origin": "ast",
       "id": "moneytracker_views_categorymanagementview_addcategoryview_renamecategoryeverywhere",
-      "community": 314,
+      "community": 184,
       "norm_label": ".renamecategoryeverywhere()"
     },
     {
@@ -36236,7 +36236,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_components_budgetstatus",
-      "community": 337,
+      "community": 186,
       "norm_label": "budgetstatus.swift"
     },
     {
@@ -36246,7 +36246,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_components_budgetstatus_budgetstatus",
-      "community": 337,
+      "community": 186,
       "norm_label": "budgetstatus"
     },
     {
@@ -36256,7 +36256,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "moneytracker_views_components_budgetstatus_budgetstatus_color",
-      "community": 337,
+      "community": 186,
       "norm_label": ".color()"
     },
     {
@@ -36286,7 +36286,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_components_filterchip",
-      "community": 450,
+      "community": 9,
       "norm_label": "filterchip.swift"
     },
     {
@@ -36296,7 +36296,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "moneytracker_views_components_filterchip_filterchip",
-      "community": 450,
+      "community": 9,
       "norm_label": "filterchip"
     },
     {
@@ -36306,7 +36306,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_components_filterchip_style",
-      "community": 450,
+      "community": 9,
       "norm_label": "style"
     },
     {
@@ -36316,7 +36316,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_components_filterchip_style_primary",
-      "community": 450,
+      "community": 9,
       "norm_label": "primary"
     },
     {
@@ -36326,7 +36326,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_components_filterchip_style_secondary",
-      "community": 450,
+      "community": 9,
       "norm_label": "secondary"
     },
     {
@@ -36336,7 +36336,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_components_filterchip_style_advanced",
-      "community": 450,
+      "community": 9,
       "norm_label": "advanced"
     },
     {
@@ -36346,7 +36346,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_filterchip_swift_void",
-      "community": 450,
+      "community": 9,
       "norm_label": "void"
     },
     {
@@ -36426,7 +36426,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_components_herocard",
-      "community": 130,
+      "community": 0,
       "norm_label": "herocard.swift"
     },
     {
@@ -36436,7 +36436,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "moneytracker_views_components_herocard_herocard",
-      "community": 130,
+      "community": 0,
       "norm_label": "herocard"
     },
     {
@@ -36446,7 +36446,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_components_homeherocard",
-      "community": 130,
+      "community": 322,
       "norm_label": "homeherocard.swift"
     },
     {
@@ -36456,7 +36456,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_components_homeherocard_homeherocard",
-      "community": 130,
+      "community": 322,
       "norm_label": "homeherocard"
     },
     {
@@ -36466,7 +36466,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_homeherocard_swift_balancetrail",
-      "community": 130,
+      "community": 322,
       "norm_label": "balancetrail"
     },
     {
@@ -36476,7 +36476,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_homeherocard_swift_date",
-      "community": 130,
+      "community": 322,
       "norm_label": "date"
     },
     {
@@ -36556,7 +36556,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards",
-      "community": 130,
+      "community": 314,
       "norm_label": "planningcards.swift"
     },
     {
@@ -36566,7 +36566,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_planningbudgetcard",
-      "community": 130,
+      "community": 314,
       "norm_label": "planningbudgetcard"
     },
     {
@@ -36576,7 +36576,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_budget",
-      "community": 130,
+      "community": 314,
       "norm_label": "budget"
     },
     {
@@ -36586,7 +36586,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_bool",
-      "community": 130,
+      "community": 314,
       "norm_label": "bool"
     },
     {
@@ -36596,7 +36596,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_string",
-      "community": 130,
+      "community": 314,
       "norm_label": "string"
     },
     {
@@ -36606,7 +36606,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_planninggoalcard",
-      "community": 130,
+      "community": 314,
       "norm_label": "planninggoalcard"
     },
     {
@@ -36616,7 +36616,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_goal",
-      "community": 130,
+      "community": 314,
       "norm_label": "goal"
     },
     {
@@ -36626,7 +36626,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_swift_void",
-      "community": 130,
+      "community": 314,
       "norm_label": "void"
     },
     {
@@ -36636,7 +36636,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "moneytracker_views_components_planningcards_planningprogressring",
-      "community": 130,
+      "community": 314,
       "norm_label": "planningprogressring"
     },
     {
@@ -36646,7 +36646,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_components_progressbar",
-      "community": 455,
+      "community": 0,
       "norm_label": "progressbar.swift"
     },
     {
@@ -36656,7 +36656,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "moneytracker_views_components_progressbar_progressbar",
-      "community": 455,
+      "community": 0,
       "norm_label": "progressbar"
     },
     {
@@ -38507,7 +38507,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_recurrenceselection_resolve",
-      "community": 433,
+      "community": 105,
       "norm_label": ".resolve()"
     },
     {
@@ -38517,7 +38517,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_swift_transaction",
-      "community": 433,
+      "community": 105,
       "norm_label": "transaction"
     },
     {
@@ -38637,7 +38637,7 @@
       "source_location": "L189",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_recurrencecontextmenu",
-      "community": 433,
+      "community": 105,
       "norm_label": "recurrencecontextmenu"
     },
     {
@@ -38647,7 +38647,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_recurrencecontrols_swift_void",
-      "community": 433,
+      "community": 105,
       "norm_label": "void"
     },
     {
@@ -39418,7 +39418,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "moneytracker_views_theme_color",
-      "community": 337,
+      "community": 186,
       "norm_label": "color"
     },
     {
@@ -39548,7 +39548,7 @@
       "source_location": "L208",
       "_origin": "ast",
       "id": "moneytracker_views_theme_ds_categoryicon",
-      "community": 69,
+      "community": 6,
       "norm_label": ".categoryicon()"
     },
     {
@@ -39998,7 +39998,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssearchfield",
-      "community": 130,
+      "community": 9,
       "norm_label": "transactionssearchfield.swift"
     },
     {
@@ -40008,7 +40008,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssearchfield_transactionssearchfield",
-      "community": 130,
+      "community": 9,
       "norm_label": "transactionssearchfield"
     },
     {
@@ -40018,7 +40018,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssearchfield_swift_string",
-      "community": 130,
+      "community": 9,
       "norm_label": "string"
     },
     {
@@ -40028,7 +40028,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssecondarychips",
-      "community": 106,
+      "community": 184,
       "norm_label": "transactionssecondarychips.swift"
     },
     {
@@ -40038,7 +40038,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssecondarychips_transactionssecondarychips",
-      "community": 106,
+      "community": 184,
       "norm_label": "transactionssecondarychips"
     },
     {
@@ -40048,7 +40048,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssecondarychips_swift_date",
-      "community": 106,
+      "community": 184,
       "norm_label": "date"
     },
     {
@@ -40058,7 +40058,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssecondarychips_swift_string",
-      "community": 106,
+      "community": 184,
       "norm_label": "string"
     },
     {
@@ -40068,7 +40068,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssecondarychips_swift_bool",
-      "community": 106,
+      "community": 184,
       "norm_label": "bool"
     },
     {
@@ -40078,7 +40078,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssecondarychips_swift_cgfloat",
-      "community": 106,
+      "community": 184,
       "norm_label": "cgfloat"
     },
     {
@@ -40088,7 +40088,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionssecondarychips_swift_int",
-      "community": 106,
+      "community": 184,
       "norm_label": "int"
     },
     {
@@ -40098,7 +40098,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytracker_views_transactionstypechips",
-      "community": 130,
+      "community": 9,
       "norm_label": "transactionstypechips.swift"
     },
     {
@@ -40108,7 +40108,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "moneytracker_views_transactionstypechips_transactionstypechips",
-      "community": 130,
+      "community": 9,
       "norm_label": "transactionstypechips"
     },
     {
@@ -40118,7 +40118,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytracker_views_transactionstypechips_swift_cgfloat",
-      "community": 130,
+      "community": 9,
       "norm_label": "cgfloat"
     },
     {
@@ -40510,7 +40510,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytrackertests_accountbalancetests_accountbalancetests",
-      "community": 69,
+      "community": 6,
       "norm_label": "accountbalancetests"
     },
     {
@@ -40520,7 +40520,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytrackertests_accountbalancetests_accountbalancetests_balancesreflectdonevsplanned",
-      "community": 69,
+      "community": 6,
       "norm_label": ".balancesreflectdonevsplanned()"
     },
     {
@@ -40530,7 +40530,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytrackertests_accountbalancetests_accountbalancetests_cacheinvalidatesondemand",
-      "community": 69,
+      "community": 6,
       "norm_label": ".cacheinvalidatesondemand()"
     },
     {
@@ -40540,7 +40540,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "users_matteo_desktop_moneytracker_moneytrackertests_accountbalancetests_accountbalancetests_decimalavoidsbinaryroundingerrors",
-      "community": 69,
+      "community": 6,
       "norm_label": ".decimalavoidsbinaryroundingerrors()"
     },
     {
@@ -40700,7 +40700,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_categorytinttests",
-      "community": 99,
+      "community": 415,
       "norm_label": "categorytinttests.swift"
     },
     {
@@ -40850,7 +40850,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "moneytrackertests_decimalpersistencetests_decimalpersistencetests",
-      "community": 226,
+      "community": 6,
       "norm_label": "decimalpersistencetests"
     },
     {
@@ -40860,7 +40860,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "moneytrackertests_decimalpersistencetests_decimalpersistencetests_roundtrip",
-      "community": 226,
+      "community": 6,
       "norm_label": ".roundtrip()"
     },
     {
@@ -40870,7 +40870,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_decimalpersistencetests_swift_string",
-      "community": 226,
+      "community": 6,
       "norm_label": "string"
     },
     {
@@ -40880,7 +40880,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "moneytrackertests_decimalpersistencetests_decimalpersistencetests_realisticamountsareexact",
-      "community": 226,
+      "community": 6,
       "norm_label": ".realisticamountsareexact()"
     },
     {
@@ -40890,7 +40890,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "moneytrackertests_decimalpersistencetests_decimalpersistencetests_extremeprecisionstaysclose",
-      "community": 226,
+      "community": 6,
       "norm_label": ".extremeprecisionstaysclose()"
     },
     {
@@ -40940,7 +40940,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests",
-      "community": 181,
+      "community": 477,
       "norm_label": "e2ecryptotests"
     },
     {
@@ -40950,7 +40950,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_aesgcmknownanswer",
-      "community": 181,
+      "community": 477,
       "norm_label": ".aesgcmknownanswer()"
     },
     {
@@ -40960,7 +40960,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_hkdfrfc5869",
-      "community": 181,
+      "community": 477,
       "norm_label": ".hkdfrfc5869()"
     },
     {
@@ -40970,7 +40970,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_pbkdf2vectorsandverbatimwhitespace",
-      "community": 181,
+      "community": 477,
       "norm_label": ".pbkdf2vectorsandverbatimwhitespace()"
     },
     {
@@ -40980,7 +40980,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_crockfordvectors",
-      "community": 181,
+      "community": 477,
       "norm_label": ".crockfordvectors()"
     },
     {
@@ -40990,7 +40990,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_envelopeandwrappingvectors",
-      "community": 181,
+      "community": 477,
       "norm_label": ".envelopeandwrappingvectors()"
     },
     {
@@ -41000,7 +41000,7 @@
       "source_location": "L104",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_invalidenvelopesandcredentialsarerejected",
-      "community": 181,
+      "community": 477,
       "norm_label": ".invalidenvelopesandcredentialsarerejected()"
     },
     {
@@ -41010,7 +41010,7 @@
       "source_location": "L153",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_randomnoncesdonotrepeat",
-      "community": 181,
+      "community": 477,
       "norm_label": ".randomnoncesdonotrepeat()"
     },
     {
@@ -41020,7 +41020,7 @@
       "source_location": "L164",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_envelopesizeandkeyboundaries",
-      "community": 181,
+      "community": 477,
       "norm_label": ".envelopesizeandkeyboundaries()"
     },
     {
@@ -41030,7 +41030,7 @@
       "source_location": "L185",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_jsonusessortedkeysdecimalnumbersandutcmilliseconds",
-      "community": 181,
+      "community": 477,
       "norm_label": ".jsonusessortedkeysdecimalnumbersandutcmilliseconds()"
     },
     {
@@ -41040,7 +41040,7 @@
       "source_location": "L212",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_featureisoffbydefault",
-      "community": 181,
+      "community": 477,
       "norm_label": ".featureisoffbydefault()"
     },
     {
@@ -41050,7 +41050,7 @@
       "source_location": "L217",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_fixture",
-      "community": 181,
+      "community": 477,
       "norm_label": ".fixture()"
     },
     {
@@ -41060,7 +41060,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_swift_fixture",
-      "community": 181,
+      "community": 477,
       "norm_label": "fixture"
     },
     {
@@ -41070,7 +41070,7 @@
       "source_location": "L226",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_bytes",
-      "community": 181,
+      "community": 477,
       "norm_label": ".bytes()"
     },
     {
@@ -41090,7 +41090,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_swift_data",
-      "community": 181,
+      "community": 477,
       "norm_label": "data"
     },
     {
@@ -41100,7 +41100,7 @@
       "source_location": "L235",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_key",
-      "community": 181,
+      "community": 477,
       "norm_label": ".key()"
     },
     {
@@ -41110,7 +41110,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_swift_symmetrickey",
-      "community": 181,
+      "community": 477,
       "norm_label": "symmetrickey"
     },
     {
@@ -41120,7 +41120,7 @@
       "source_location": "L239",
       "_origin": "ast",
       "id": "moneytrackertests_e2ecryptotests_e2ecryptotests_raw",
-      "community": 181,
+      "community": 477,
       "norm_label": ".raw()"
     },
     {
@@ -41300,7 +41300,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_e2edeadvaultkeytests",
-      "community": 99,
+      "community": 354,
       "norm_label": "e2edeadvaultkeytests.swift"
     },
     {
@@ -42501,7 +42501,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackertests_e2emigratorgenerationtests",
-      "community": 480,
+      "community": 99,
       "norm_label": "e2emigratorgenerationtests.swift"
     },
     {
@@ -42511,7 +42511,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "moneytrackertests_e2emigratorgenerationtests_e2emigratorgenerationtests",
-      "community": 480,
+      "community": 99,
       "norm_label": "e2emigratorgenerationtests"
     },
     {
@@ -42521,7 +42521,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "moneytrackertests_e2emigratorgenerationtests_interrupted",
-      "community": 480,
+      "community": 99,
       "norm_label": "interrupted"
     },
     {
@@ -42531,7 +42531,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "moneytrackertests_e2emigratorgenerationtests_e2emigratorgenerationtests_adevicethatlosesitsgenerationcannotresumeorcancel",
-      "community": 480,
+      "community": 99,
       "norm_label": ".adevicethatlosesitsgenerationcannotresumeorcancel()"
     },
     {
@@ -42541,7 +42541,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "moneytrackertests_e2emigratorgenerationtests_e2emigratorgenerationtests_generationcomparisonkeepspostgresmicroseconds",
-      "community": 480,
+      "community": 99,
       "norm_label": ".generationcomparisonkeepspostgresmicroseconds()"
     },
     {
@@ -43581,7 +43581,7 @@
       "source_location": "L127",
       "_origin": "ast",
       "id": "moneytrackertests_e2erowinteroptests_codingkeys",
-      "community": 475,
+      "community": 477,
       "norm_label": "codingkeys"
     },
     {
@@ -43591,7 +43591,7 @@
       "source_location": "L128",
       "_origin": "ast",
       "id": "moneytrackertests_e2erowinteroptests_codingkeys_keyhex",
-      "community": 475,
+      "community": 477,
       "norm_label": "keyhex"
     },
     {
@@ -43601,7 +43601,7 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "moneytrackertests_e2erowinteroptests_codingkeys_userid",
-      "community": 475,
+      "community": 477,
       "norm_label": "userid"
     },
     {
@@ -43611,7 +43611,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "moneytrackertests_e2erowinteroptests_codingkeys_cases",
-      "community": 475,
+      "community": 477,
       "norm_label": "cases"
     },
     {
@@ -43641,7 +43641,7 @@
       "source_location": "L148",
       "_origin": "ast",
       "id": "moneytrackertests_e2erowinteroptests_codingkeys_noncehex",
-      "community": 475,
+      "community": 477,
       "norm_label": "noncehex"
     },
     {
@@ -43651,7 +43651,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "moneytrackertests_e2erowinteroptests_codingkeys_plaintext",
-      "community": 475,
+      "community": 477,
       "norm_label": "plaintext"
     },
     {
@@ -43661,7 +43661,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "moneytrackertests_e2erowinteroptests_codingkeys_sealed",
-      "community": 475,
+      "community": 477,
       "norm_label": "sealed"
     },
     {
@@ -43841,7 +43841,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_swift_urlrequest",
-      "community": 322,
+      "community": 315,
       "norm_label": "urlrequest"
     },
     {
@@ -43901,7 +43901,7 @@
       "source_location": "L199",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_e2eurlprotocol",
-      "community": 322,
+      "community": 315,
       "norm_label": "e2eurlprotocol"
     },
     {
@@ -43911,7 +43911,7 @@
       "source_location": "L200",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_state",
-      "community": 322,
+      "community": 315,
       "norm_label": "state"
     },
     {
@@ -43921,7 +43921,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_swift_int",
-      "community": 322,
+      "community": 315,
       "norm_label": "int"
     },
     {
@@ -43931,7 +43931,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_swift_data",
-      "community": 322,
+      "community": 315,
       "norm_label": "data"
     },
     {
@@ -43941,7 +43941,7 @@
       "source_location": "L214",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_e2eurlprotocol_reset",
-      "community": 322,
+      "community": 315,
       "norm_label": ".reset()"
     },
     {
@@ -43961,7 +43961,7 @@
       "source_location": "L220",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_e2eurlprotocol_caninit",
-      "community": 322,
+      "community": 315,
       "norm_label": ".caninit()"
     },
     {
@@ -43971,7 +43971,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_swift_bool",
-      "community": 322,
+      "community": 315,
       "norm_label": "bool"
     },
     {
@@ -43981,7 +43981,7 @@
       "source_location": "L221",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_e2eurlprotocol_canonicalrequest",
-      "community": 322,
+      "community": 315,
       "norm_label": ".canonicalrequest()"
     },
     {
@@ -43991,7 +43991,7 @@
       "source_location": "L223",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_e2eurlprotocol_startloading",
-      "community": 322,
+      "community": 315,
       "norm_label": ".startloading()"
     },
     {
@@ -44001,7 +44001,7 @@
       "source_location": "L248",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_e2eurlprotocol_stoploading",
-      "community": 322,
+      "community": 315,
       "norm_label": ".stoploading()"
     },
     {
@@ -44011,7 +44011,7 @@
       "source_location": "L250",
       "_origin": "ast",
       "id": "moneytrackertests_e2eservertests_e2eurlprotocol_readbody",
-      "community": 322,
+      "community": 315,
       "norm_label": ".readbody()"
     },
     {
@@ -45141,7 +45141,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_recurrencepresentationtests",
-      "community": 433,
+      "community": 105,
       "norm_label": "recurrencepresentationtests"
     },
     {
@@ -45151,7 +45151,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_recurrencepresentationtests_date",
-      "community": 433,
+      "community": 105,
       "norm_label": ".date()"
     },
     {
@@ -45161,7 +45161,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_swift_int",
-      "community": 433,
+      "community": 105,
       "norm_label": "int"
     },
     {
@@ -45171,7 +45171,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_swift_date",
-      "community": 433,
+      "community": 105,
       "norm_label": "date"
     },
     {
@@ -45181,7 +45181,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_recurrencepresentationtests_resolvesoriginaldateaftercopywasmovedbackwards",
-      "community": 433,
+      "community": 105,
       "norm_label": ".resolvesoriginaldateaftercopywasmovedbackwards()"
     },
     {
@@ -45191,7 +45191,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "moneytrackertests_recurrencepresentationtests_recurrencepresentationtests_legacycopydoesnotopenserieseditor",
-      "community": 433,
+      "community": 105,
       "norm_label": ".legacycopydoesnotopenserieseditor()"
     },
     {
@@ -47202,7 +47202,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "moneytrackeruitests_e2euitests",
-      "community": 111,
+      "community": 27,
       "norm_label": "e2euitests.swift"
     },
     {
@@ -47212,7 +47212,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "moneytrackeruitests_e2euitests_e2esettingsoffuitests",
-      "community": 111,
+      "community": 27,
       "norm_label": "e2esettingsoffuitests"
     },
     {
@@ -47352,7 +47352,7 @@
       "source_location": "L173",
       "_origin": "ast",
       "id": "moneytrackeruitests_e2euitests_fixture",
-      "community": 111,
+      "community": 27,
       "norm_label": "fixture"
     },
     {
@@ -47362,7 +47362,7 @@
       "source_location": "L174",
       "_origin": "ast",
       "id": "moneytrackeruitests_e2euitests_fixture_off",
-      "community": 111,
+      "community": 27,
       "norm_label": "off"
     },
     {
@@ -47372,7 +47372,7 @@
       "source_location": "L174",
       "_origin": "ast",
       "id": "moneytrackeruitests_e2euitests_fixture_locked",
-      "community": 111,
+      "community": 27,
       "norm_label": "locked"
     },
     {
@@ -47382,7 +47382,7 @@
       "source_location": "L174",
       "_origin": "ast",
       "id": "moneytrackeruitests_e2euitests_fixture_transition",
-      "community": 111,
+      "community": 27,
       "norm_label": "transition"
     },
     {
@@ -47392,7 +47392,7 @@
       "source_location": "L174",
       "_origin": "ast",
       "id": "moneytrackeruitests_e2euitests_fixture_offline",
-      "community": 111,
+      "community": 27,
       "norm_label": "offline"
     },
     {
@@ -47402,7 +47402,7 @@
       "source_location": "L174",
       "_origin": "ast",
       "id": "moneytrackeruitests_e2euitests_fixture_interrupted",
-      "community": 111,
+      "community": 27,
       "norm_label": "interrupted"
     },
     {
@@ -47412,7 +47412,7 @@
       "source_location": "L174",
       "_origin": "ast",
       "id": "moneytrackeruitests_e2euitests_fixture_priorattempt",
-      "community": 111,
+      "community": 27,
       "norm_label": "priorattempt"
     },
     {
@@ -50240,14 +50240,14 @@
       "norm_label": "consegna.md"
     },
     {
-      "label": "CONSEGNA \u2014 2026-11-26 14:55 \u00b7 Collaudatore (Claude Code \u00b7 Sonnet)",
+      "label": "CONSEGNA \u2014 2026-11-26 15:34 \u00b7 collaudatore (Claude Code \u00b7 Sonnet)",
       "file_type": "document",
       "source_file": ".cantiere/CONSEGNA.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "cantiere_consegna_consegna_2026_11_26_14_55_collaudatore_claude_code_sonnet",
+      "id": "cantiere_consegna_consegna_2026_11_26_15_34_collaudatore_claude_code_sonnet",
       "community": 72,
-      "norm_label": "consegna \u2014 2026-11-26 14:55 \u00b7 collaudatore (claude code \u00b7 sonnet)"
+      "norm_label": "consegna \u2014 2026-11-26 15:34 \u00b7 collaudatore (claude code \u00b7 sonnet)"
     },
     {
       "label": "DECISIONI.md",
@@ -132028,28 +132028,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTrackerTests/KeywordCategoryClassifierTests.swift",
-      "source_location": "L55",
-      "weight": 1.0,
-      "source": "users_matteo_desktop_moneytracker_moneytrackertests_keywordcategoryclassifiertests_keywordcategoryclassifiertests_emptydictionaryalwaysaltro",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_keywordcategoryclassifier",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "context": "return_type",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTrackerTests/KeywordCategoryClassifierTests.swift",
-      "source_location": "L11",
-      "weight": 1.0,
-      "source": "users_matteo_desktop_moneytracker_moneytrackertests_keywordcategoryclassifiertests_keywordcategoryclassifiertests_makeclassifier",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_keywordcategoryclassifier",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Domain/KeywordCategoryClassifier.swift",
@@ -132102,6 +132080,28 @@
       "context": "return_type",
       "source": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_keywordcategoryclassifier_loadkeywords",
       "target": "string",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/KeywordCategoryClassifierTests.swift",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "users_matteo_desktop_moneytracker_moneytrackertests_keywordcategoryclassifiertests_keywordcategoryclassifiertests_emptydictionaryalwaysaltro",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_keywordcategoryclassifier_loadkeywords",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTrackerTests/KeywordCategoryClassifierTests.swift",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "users_matteo_desktop_moneytracker_moneytrackertests_keywordcategoryclassifiertests_keywordcategoryclassifiertests_makeclassifier",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_domain_keywordcategoryclassifier_keywordcategoryclassifier_loadkeywords",
       "confidence_score": 1.0
     },
     {
@@ -138365,6 +138365,50 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Models/Budget.swift",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "source": "users_matteo_desktop_moneytracker_moneytracker_models_budget_budget",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_swift",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Models/Budget.swift",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "users_matteo_desktop_moneytracker_moneytracker_models_budget_budget_init",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_swift",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Models/Transaction.swift",
+      "source_location": "L33",
+      "weight": 1.0,
+      "context": "field",
+      "source": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_swift",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "MoneyTracker/Models/Transaction.swift",
+      "source_location": "L35",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction_init",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_swift",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "INFERRED",
@@ -139314,56 +139358,12 @@
     {
       "relation": "references",
       "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Models/Budget.swift",
-      "source_location": "L17",
-      "weight": 1.0,
-      "context": "field",
-      "source": "users_matteo_desktop_moneytracker_moneytracker_models_budget_budget",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_carta",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Models/Budget.swift",
-      "source_location": "L20",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "source": "users_matteo_desktop_moneytracker_moneytracker_models_budget_budget_init",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_carta",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Models/Transaction.swift",
-      "source_location": "L33",
-      "weight": 1.0,
-      "context": "field",
-      "source": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_carta",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "MoneyTracker/Models/Transaction.swift",
-      "source_location": "L35",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "source": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transaction_init",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_account_accounttype_carta",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
       "source_file": "MoneyTracker/Models/Account.swift",
       "source_location": "L32",
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_models_account_account",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_budget_budget_init",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_budget_swift",
       "confidence_score": 1.0
     },
     {
@@ -139374,7 +139374,7 @@
       "weight": 1.0,
       "context": "field",
       "source": "users_matteo_desktop_moneytracker_moneytracker_models_account_account",
-      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype",
+      "target": "users_matteo_desktop_moneytracker_moneytracker_models_transaction_transactiontype_entrata",
       "confidence_score": 1.0
     },
     {
@@ -189139,7 +189139,7 @@
       "source_location": "L1",
       "weight": 1.0,
       "source": "cantiere_consegna",
-      "target": "cantiere_consegna_consegna_2026_11_26_14_55_collaudatore_claude_code_sonnet",
+      "target": "cantiere_consegna_consegna_2026_11_26_15_34_collaudatore_claude_code_sonnet",
       "confidence_score": 1.0
     },
     {
@@ -195304,5 +195304,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "c5a0416d9c6b54ebf0ab9e2a0f22294efb52dbe3"
+  "built_at_commit": "fe4d013bb798e8e17cfaa167f1082d0d3d8fd4f0"
 }

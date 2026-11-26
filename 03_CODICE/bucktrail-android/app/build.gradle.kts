@@ -43,7 +43,7 @@ android {
             buildConfigField("String", "SUPABASE_ANON_KEY", "\"$key\"")
         }
         release {
-            buildConfigField("boolean", "E2E_ENABLED", "false")
+            buildConfigField("boolean", "E2E_ENABLED", "true")
             buildConfigField("String", "SUPABASE_URL", "\"${supabaseValue("supabaseUrl", "url")}\"")
             buildConfigField("String", "SUPABASE_ANON_KEY", "\"${supabaseValue("supabaseKey", "anonKey")}\"")
             // R8: codice e risorse inutilizzati tolti (le regole sono in proguard-rules.pro)

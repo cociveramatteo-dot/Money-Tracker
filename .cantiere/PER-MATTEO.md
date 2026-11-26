@@ -5,6 +5,10 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### E2E · S-50p — approvare e pubblicare i testi del sito sulla Protezione avanzata
+1. 📍 Apri `.cantiere/APPROVAZIONI.md`, sezione «S-50p». ▶️ Leggi la FAQ in italiano e in inglese e il nuovo paragrafo dell'informativa privacy. ↩️ Scrivimi «approvo S-50p sito» oppure le correzioni.
+2. Solo dopo l'approvazione: 📍 Browser → dash.cloudflare.com → Workers & Pages → progetto `bucktrailapp` → «Create deployment». ▶️ Trascina la cartella `/Users/matteo/Desktop/APP/MoneyTracker/SOCIAL/landing` (tutta la cartella `landing`) e premi «Deploy». Poi apri https://bucktrailapp.com/#sicurezza, https://bucktrailapp.com/en.html#sicurezza e https://bucktrailapp.com/privacy.html e controlla che compaia la Protezione avanzata. ↩️ Scrivimi «sito ok» o mandami lo screenshot di cosa non va.
+
 ### BANCA · modello economico — cosa resta a te (tutto spiegato in `.cantiere/banca-modello-economico.md`, copia su Drive `02_RISORSE/lavorate/banca-modello-economico-2026-11-25.md`)
 1. ✅ Fatto 2026-11-25: nessun account Apple Developer ancora (si sceglie «Individual» all'iscrizione, dopo il gate del 6/12; la banca resta in coda e si chiede ad Apple prima di costruirla). Dettagli nel §10 del documento.
 2. 📍 La tua casella email. ▶️ Invia a info@enablebanking.com la mail del §9 del documento (oggetto e corpo già pronti; cambia la stima del volume se vuoi). ↩️ Incollami la risposta: con costo per conto e fattura minima rifaccio le tabelle e fissiamo i prezzi.
