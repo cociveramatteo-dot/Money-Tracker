@@ -282,3 +282,7 @@ Progetto completo: `.cantiere/progetto-banca.md`. Dopo il lancio e dopo S-50. Au
 - **Perché:** Commissione Suprema, giudice sicurezza (G1#1, ALTA): chi ruba il token o l'amministratore del database poteva cancellare la riga e far ricaricare in chiaro tutti i dati, contro il modello di minaccia §1.2. Risolve anche lo stallo iOS dopo un rollback della disattivazione interrotto (G3#1, G5#1).
 - **Scartate:** conferma con Face ID/codice del dispositivo (non protegge da nulla: l'attacco è remoto, chi conferma è l'utente); lasciare il comportamento e dichiarare il rischio in §1.3 (contraddice la promessa della funzione).
 - **Effetto UX:** chi disattiva da un dispositivo vede, sugli altri, una richiesta di conferma una volta sola. Da mostrare a Matteo in S-50o.
+
+
+## 2026-11-26 19:58 · Autorizzazione S-51 (Matteo, in chat)
+Matteo autorizza modifiche a `MoneyTracker/Sync/` e `MoneyTracker/MoneyTrackerApp.swift` SOLO per S-51 (perdita dati con archivio volatile) e S-51b (prova automatica a due dispositivi). La scelta sulla protezione file del db va registrata qui da chi esegue, con alternative scartate.
