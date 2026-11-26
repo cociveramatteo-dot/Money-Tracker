@@ -599,6 +599,156 @@ mette la sync in pausa (stato «bloccato», messaggio K43) e **non scrive**.
 - Prova automatica: `03_CODICE/bucktrail-android/scripts/test-fake-supabase-e2e.py` (solo libreria standard: avvia il server su una porta libera,
   prova ogni regola sopra con `urllib`, lo spegne). Comando: `python3 -I 03_CODICE/bucktrail-android/scripts/test-fake-supabase-e2e.py`.
 
+### 6.7 S-50q · Guardia atomica sul vault (secondo script, dopo il §6.2)
+**Problemi che chiude** (collaudo blocco 2):
+1. `mt_vault` non ha guardia. Una cancellazione o una scrittura ritardata di un'attivazione vecchia (D7, rollback, upsert in ritardo) può
+   toccare il vault di un'attivazione nuova, perché gli id delle righe (uuid delle entità) sono gli stessi a ogni attivazione.
+2. A6 (`migrating→active`) non è atomico rispetto a un rollback concorrente: un secondo dispositivo con la DEK può svuotare il vault
+   fra A5 e A6, e A6 passa lo stesso.
+
+**Soluzione:**
+- (a) colonna `key_id` in `mt_vault` e trigger `mt_vault_guard`. Le scritture dell'app (insert/update) passano solo se
+  `new.key_id` è la chiave viva (`mt_e2e.key_id`) e lo stato è `migrating`/`active`. Le cancellazioni di righe della chiave viva sono
+  vietate in `disabling` (il vault è il punto di ritorno se D5 fallisce). Le righe di chiavi morte, o senza riga `mt_e2e`, si possono
+  cancellare (D7 avviene dopo D6, quindi senza riga). Un D7 ritardato non tocca il vault nuovo perché **i client filtrano ogni DELETE
+  su `mt_vault` con `key_id=eq.<chiave>`**, e il trigger impedisce che una riga venga riscritta con la chiave vecchia.
+- (b) funzione `mt_e2e_activate`: blocca la riga `mt_e2e` (`for update`), controlla stato, `key_id` e generazione (`updated_at`),
+  conta le righe del vault per `kind` con quella chiave e passa ad `active` solo se i conteggi coincidono. Il trigger
+  `mt_e2e_state_guard` vieta il passaggio diretto `migrating→active` via PATCH, così A6 passa per forza dalla funzione. Il rollback resta
+  la DELETE condizionata già usata (`user_id`+`key_id`+`state=migrating`+`updated_at`): stesso lock di riga, vince uno solo.
+- Tutto inerte finché l'interruttore è spento (nessun client scrive `mt_e2e`/`mt_vault`). `mt_vault` oggi è vuota.
+
+```sql
+-- Bucktrail · S-50q · Guardia atomica sul vault · schema v1.1 (dopo lo script S-50n)
+-- Additivo, idempotente, reversibile (§6.4 bis). Non tocca tabelle mt_* in chiaro né policy esistenti.
+begin;
+
+-- (a) Chiave di appartenenza delle righe del vault
+alter table public.mt_vault add column if not exists key_id text;
+alter table public.mt_vault drop constraint if exists mt_vault_key_id_format;
+alter table public.mt_vault add constraint mt_vault_key_id_format check (key_id is null or key_id ~ '^[0-9a-f]{16}$');
+create index if not exists mt_vault_user_key_kind_idx on public.mt_vault (user_id, key_id, kind);
+
+create or replace function public.mt_vault_guard() returns trigger
+language plpgsql security invoker set search_path = '' as $$
+declare k record;
+begin
+  -- Solo le richieste dell'app. Cascate, delete_own_account e funzioni di sistema passano.
+  if current_user <> 'authenticated' then
+    return coalesce(new, old);
+  end if;
+  select e.state, e.key_id into k from public.mt_e2e e where e.user_id = coalesce(new.user_id, old.user_id);
+  if tg_op = 'DELETE' then
+    -- Righe della chiave viva: intoccabili durante la disattivazione (punto di ritorno se D5 fallisce).
+    if found and old.key_id is not distinct from k.key_id and k.state = 'disabling' then
+      raise exception 'bt_e2e_vault_locked' using errcode = 'P0001';
+    end if;
+    return old; -- righe di chiavi morte o senza protezione: pulizia ammessa
+  end if;
+  if not found or k.state not in ('migrating','active') or new.key_id is distinct from k.key_id then
+    raise exception 'bt_e2e_key_mismatch' using errcode = 'P0001';
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists mt_vault_guard on public.mt_vault;
+create trigger mt_vault_guard before insert or update or delete on public.mt_vault
+  for each row execute function public.mt_vault_guard();
+
+-- (b) A6 atomico: migrating -> active solo con il vault completo
+create or replace function public.mt_e2e_state_guard() returns trigger
+language plpgsql security invoker set search_path = '' as $$
+begin
+  if current_user = 'authenticated'
+     and old.state = 'migrating' and new.state = 'active'
+     and coalesce(current_setting('bt.e2e_activate', true), '') <> 'on' then
+    raise exception 'bt_e2e_use_activate' using errcode = 'P0001';
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists mt_e2e_state_guard on public.mt_e2e;
+create trigger mt_e2e_state_guard before update on public.mt_e2e
+  for each row execute function public.mt_e2e_state_guard();
+
+create or replace function public.mt_e2e_activate(
+  p_key_id text, p_from_generation timestamptz, p_to_generation timestamptz, p_counts jsonb
+) returns void
+language plpgsql security invoker set search_path = '' as $$
+declare
+  k public.mt_e2e%rowtype;
+  kinds text[] := array['account','transaction','budget','goal','rule'];
+  kd text;
+  expected bigint;
+  actual bigint;
+begin
+  select * into k from public.mt_e2e where user_id = (select auth.uid()) for update;
+  if not found or k.state <> 'migrating' or k.key_id <> p_key_id
+     or k.updated_at is distinct from p_from_generation then
+    raise exception 'bt_e2e_state_changed' using errcode = 'P0001';
+  end if;
+  foreach kd in array kinds loop
+    expected := coalesce((p_counts ->> kd)::bigint, 0);
+    select count(*) into actual from public.mt_vault v
+      where v.user_id = k.user_id and v.key_id = p_key_id and v.kind = kd;
+    if actual <> expected then
+      raise exception 'bt_e2e_counts' using errcode = 'P0001', detail = kd || ': ' || actual || ' <> ' || expected;
+    end if;
+  end loop;
+  perform set_config('bt.e2e_activate', 'on', true);
+  update public.mt_e2e set state = 'active', updated_at = p_to_generation where user_id = k.user_id;
+  perform set_config('bt.e2e_activate', '', true);
+end $$;
+
+revoke all on function public.mt_e2e_activate(text, timestamptz, timestamptz, jsonb) from public, anon;
+grant execute on function public.mt_e2e_activate(text, timestamptz, timestamptz, jsonb) to authenticated;
+
+notify pgrst, 'reload schema';
+commit;
+
+-- Verifica (deve restituire 4 righe: colonna, 2 trigger, funzione)
+select 'colonna' as tipo, column_name as nome from information_schema.columns
+  where table_schema = 'public' and table_name = 'mt_vault' and column_name = 'key_id'
+union all
+select 'trigger', trigger_name from information_schema.triggers
+  where trigger_name in ('mt_vault_guard','mt_e2e_state_guard') and event_manipulation in ('INSERT','UPDATE')
+  group by trigger_name
+union all
+select 'funzione', proname from pg_proc where proname = 'mt_e2e_activate'
+order by 1, 2;
+```
+
+**Ritorno di S-50q (§6.4 bis, solo se Matteo lo chiede):**
+```sql
+begin;
+drop function if exists public.mt_e2e_activate(text, timestamptz, timestamptz, jsonb);
+drop trigger if exists mt_e2e_state_guard on public.mt_e2e;
+drop function if exists public.mt_e2e_state_guard();
+drop trigger if exists mt_vault_guard on public.mt_vault;
+drop function if exists public.mt_vault_guard();
+drop index if exists public.mt_vault_user_key_kind_idx;
+alter table public.mt_vault drop constraint if exists mt_vault_key_id_format;
+alter table public.mt_vault drop column if exists key_id;
+notify pgrst, 'reload schema';
+commit;
+```
+Va eseguito **prima** del §6.4 se si vuole togliere tutto.
+
+**Cosa cambia nei client (S-50q, parte Codex, dopo che Matteo ha eseguito lo script):**
+| Punto | iOS e Android |
+|---|---|
+| Upsert nel vault (A4, push in modalità vault) | ogni riga porta `key_id` = chiave viva |
+| Ogni DELETE su `mt_vault` (orfani, rollback, D7, «Ricomincia») | filtro obbligatorio `key_id=eq.<chiave dell'operazione>` |
+| A6 | `POST /rest/v1/rpc/mt_e2e_activate` con `{p_key_id, p_from_generation, p_to_generation, p_counts}` (conteggi del locale verificato in A5). Errori `bt_e2e_state_changed`/`bt_e2e_counts` → come «stato cambiato» oggi (ricalcolo, nessun passo distruttivo) |
+| Nuovi messaggi da riconoscere | `bt_e2e_key_mismatch`, `bt_e2e_vault_locked`, `bt_e2e_use_activate` → stato cambiato, ricalcolo della modalità |
+| Server finto | colonna `key_id`, emulazione dei due trigger e della RPC con gli stessi messaggi; test: D7 ritardato dopo una nuova attivazione non cancella nulla; rollback fra A5 e A6 → `bt_e2e_counts`; PATCH diretta `migrating→active` → 400 |
+
+### 6.8 Istruzioni per Matteo — passo S-50q
+📍 **Dove:** browser → supabase.com → progetto Bucktrail → **SQL Editor** → **New query**.
+▶️ **Cosa:** incolla il blocco SQL del §6.7 (da `-- Bucktrail · S-50q` fino a `order by 1, 2;`) e premi **Run**.
+↩️ **Riportami:** il numero di righe in basso (devono essere **4**) oppure il testo dell'errore.
+Lo script non cambia nulla per l'app attuale: è inerte finché la Protezione avanzata è spenta.
+
 ---
 
 ## 7. Migrazione

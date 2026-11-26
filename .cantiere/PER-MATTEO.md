@@ -8,6 +8,11 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 ### PROTEZIONE AVANZATA · S-50h2 — perimetro della PATCH condizionata
 📍 In questa chat del cantiere. ▶️ Se vuoi completare il punto 3, scrivi «Autorizzo le modifiche a E2EServer.swift ed E2EGate.swift per S-50h2». ↩️ Con la risposta, Codex riprende il punto 3 e i relativi test.
 
+### PROTEZIONE AVANZATA · S-50q — secondo script SQL su Supabase (2 minuti, non cambia nulla per l'app di oggi)
+📍 Browser → supabase.com → progetto Bucktrail → menu a sinistra **SQL Editor** → **New query**.
+▶️ Apri `.cantiere/progetto-e2e-sync.md`, §6.7: copia il blocco SQL da `-- Bucktrail · S-50q` fino a `order by 1, 2;`, incollalo e premi **Run** (oppure chiedi al capocantiere di copiartelo negli appunti).
+↩️ Scrivi «S-50q fatto, 4 righe» oppure incolla il testo dell'errore.
+
 ### PROTEZIONE AVANZATA · S-50o — approvazione prima dell'accensione
 
 Dopo S-50m, apri Terminale e incolla questo comando per vedere le schermate iOS e Android:
