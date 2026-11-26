@@ -72,6 +72,16 @@ internal class FakeVaultSupabase(
         keys[owner] = JsonObject(row + ("state" to JsonPrimitive("active")) + ("updated_at" to JsonPrimitive(generation)))
     }
 
+    override suspend fun rollbackActivation(row: JsonObject, token: String) {
+        val owner = checkNotNull(row.text("user_id")).lowercase()
+        readsAndWrites += "e2eRollback:$owner"
+        if (!keys[owner].sameGeneration(row) || row.text("state") != "migrating") {
+            throw ApiException(ErrorKind.Client, 400, "bt_e2e_state_changed", "P0001")
+        }
+        keys.remove(owner)
+        records.values.removeAll { it.text("user_id").equals(owner, ignoreCase = true) && it.text("key_id") == row.text("key_id") }
+    }
+
     override suspend fun getE2e(userId: String, token: String): E2ERowLookup {
         readsAndWrites += "e2eGet:$userId"
         metadataError?.let { throw it }

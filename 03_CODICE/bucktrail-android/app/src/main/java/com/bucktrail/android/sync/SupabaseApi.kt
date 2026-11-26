@@ -226,6 +226,14 @@ class HttpSupabaseApi(
         call("POST", "/rest/v1/rpc/mt_e2e_activate", parameters.toString(), token)
     }
 
+    override suspend fun rollbackActivation(row: JsonObject, token: String) {
+        val parameters = buildJsonObject {
+            put("p_key_id", JsonPrimitive(requireNotNull(row["key_id"]?.jsonPrimitive?.contentOrNull)))
+            put("p_generation", JsonPrimitive(requireNotNull(row["updated_at"]?.jsonPrimitive?.contentOrNull)))
+        }
+        call("POST", "/rest/v1/rpc/mt_e2e_rollback", parameters.toString(), token)
+    }
+
     override suspend fun getE2e(userId: String, token: String): E2ERowLookup {
         val response = try {
             call("GET", "/rest/v1/mt_e2e?user_id=eq.${enc(userId)}&select=*", token = token)

@@ -178,4 +178,8 @@ private final class RacingServer: E2EServerAccess {
     }
 
     func delete(userId: UUID) async throws { try await remote.delete(userId: userId) }
+
+    func rollbackActivation(ifCurrent row: E2EServerRow) async throws -> Bool {
+        try await remote.rollbackActivation(ifCurrent: row)
+    }
 }

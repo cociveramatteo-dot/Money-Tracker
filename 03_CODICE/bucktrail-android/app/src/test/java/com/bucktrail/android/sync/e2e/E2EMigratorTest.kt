@@ -145,6 +145,8 @@ class E2EMigratorTest {
             assertEquals(E2EMigrator.Problem.Verification, error.problem)
             assertEquals(2, f.remote.corruptedReads)
             assertTrue(f.remote.plainDeletes.isEmpty())
+            assertTrue(f.remote.base.readsAndWrites.contains("e2eRollback:$USER"))
+            assertFalse(f.remote.base.readsAndWrites.any { it.startsWith("vaultDelete:") })
             f.expectPlain(expected)
         }
     }
@@ -154,9 +156,11 @@ class E2EMigratorTest {
         MigrationDevice(coroutineContext).use { f ->
             val expected = f.store.snap
             expectError<InterruptedMigration> { f.enable { if (it == E2EMigrator.Step.A4) throw InterruptedMigration() } }
-            f.remote.failVaultDelete = VaultKind.Account
+            f.remote.failRollback = true
             expectError<InterruptedMigration> { f.service.withE2EMigrator { it.cancelEnable() } }
             assertEquals(E2EMigrationMarker.Phase.RollingBack, f.secrets.marker()?.phase)
+            assertEquals("migrating", f.remote.key()?.text("state"))
+            assertTrue(f.remote.base.records.isNotEmpty())
             f.reopen()
             f.service.manualRefresh()
             f.service.manualRefresh()
@@ -379,6 +383,7 @@ internal class MigrationRemote(
     var failPlainDelete: String? = null
     var failVaultDelete: VaultKind? = null
     var failVaultRead = false
+    var failRollback = false
     var afterPlainRead: suspend (String) -> Unit = {}
     var duringStateChange: (String?) -> Unit = {}
 
@@ -423,6 +428,14 @@ internal class MigrationRemote(
             throw InterruptedMigration()
         }
         base.deleteVault(kind, ids, userId, token, keyId)
+    }
+
+    override suspend fun rollbackActivation(row: JsonObject, token: String) {
+        if (failRollback) {
+            failRollback = false
+            throw InterruptedMigration()
+        }
+        base.rollbackActivation(row, token)
     }
 
     override suspend fun activateE2e(row: JsonObject, generation: String, counts: Map<String, Int>, token: String) {

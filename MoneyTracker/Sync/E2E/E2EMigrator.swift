@@ -341,9 +341,8 @@ struct E2EMigrator {
     }
 
     private func rollbackEnable(_ row: E2EServerRow) async throws {
-        try await clearVault(keyId: row.keyId, whileCurrent: row)
         try validateSession()
-        guard try await server.delete(ifCurrent: row) else { throw Failure.stateChanged }
+        guard try await server.rollbackActivation(ifCurrent: row) else { throw Failure.stateChanged }
         try validateSession()
         try finish()
     }

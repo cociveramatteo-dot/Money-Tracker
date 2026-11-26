@@ -9,6 +9,7 @@ import re
 import subprocess
 import sys
 import tempfile
+from threading import Barrier
 import time
 import unittest
 from urllib.error import HTTPError
@@ -19,6 +20,7 @@ SERVER = Path(__file__).with_name("fake-supabase.py")
 E2E = "/rest/v1/mt_e2e"
 VAULT = "/rest/v1/mt_vault"
 ACTIVATE = "/rest/v1/rpc/mt_e2e_activate"
+ROLLBACK = "/rest/v1/rpc/mt_e2e_rollback"
 KEY = "0123456789abcdef"
 NEXT_KEY = "fedcba9876543210"
 START = "2026-11-26T10:00:00.123456Z"
@@ -29,6 +31,7 @@ PLAIN = [
 ]
 ACTIVE = {"code": "P0001", "message": "bt_e2e_active"}
 MIGRATING = {"code": "P0001", "message": "bt_e2e_migrating"}
+STATE_CHANGED = {"code": "P0001", "message": "bt_e2e_state_changed"}
 DUPLICATE = {"code": "23505", "message": "duplicate key value violates unique constraint"}
 UNAVAILABLE = {"message": "service unavailable"}
 
@@ -99,6 +102,11 @@ class FakeSupabaseE2ETests(unittest.TestCase):
         return self.request("POST", ACTIVATE, {
             "p_key_id": key_id, "p_from_generation": before, "p_to_generation": FINISH,
             "p_counts": counts or {},
+        }, token=token)
+
+    def rollback(self, token, *, key_id=KEY, generation=START):
+        return self.request("POST", ROLLBACK, {
+            "p_key_id": key_id, "p_generation": generation,
         }, token=token)
 
     def test_primary_keys_and_on_conflict(self):
@@ -246,7 +254,7 @@ class FakeSupabaseE2ETests(unittest.TestCase):
         self.assertEqual(self.request("DELETE", delayed, token=token), (204, None))
         self.assertEqual(self.request("GET", VAULT, token=token), (200, [row]))
 
-    def test_rollback_after_a5_leaves_counts_mismatch_at_a6(self):
+    def test_orphan_delete_after_a5_leaves_counts_mismatch_at_a6(self):
         self.start_server()
         uid, token = self.login()
         metadata = self.seed_metadata(uid, token)
@@ -258,6 +266,79 @@ class FakeSupabaseE2ETests(unittest.TestCase):
         self.assertEqual(self.request("GET", E2E, token=token), (200, [metadata]))
         self.assertEqual(self.activate(token, before=FINISH),
                          (400, {"code": "P0001", "message": "bt_e2e_state_changed"}))
+
+    def seed_activation_race(self):
+        self.start_server()
+        uid, token = self.login()
+        metadata = self.seed_metadata(uid, token)
+        row = {"id": "original", "user_id": uid, "kind": "account", "key_id": KEY, "payload": "bt1.Payload"}
+        self.assertEqual(self.request("POST", VAULT, [row], token=token), (201, None))
+        return token, metadata, row
+
+    def test_a6_wins_before_rollback(self):
+        token, metadata, row = self.seed_activation_race()
+        self.assertEqual(self.activate(token, counts={"account": 1}), (204, None))
+        self.assertEqual(self.rollback(token), (400, STATE_CHANGED))
+        self.assertEqual(self.request("GET", E2E, token=token),
+                         (200, [{**metadata, "state": "active", "updated_at": FINISH}]))
+        self.assertEqual(self.request("GET", VAULT, token=token), (200, [row]))
+
+    def test_rollback_wins_before_a6_and_preserves_other_keys_and_users(self):
+        token, metadata, _ = self.seed_activation_race()
+        uid = metadata["user_id"]
+        other_uid, other_token = self.login(second_user=True)
+        other_metadata = self.seed_metadata(other_uid, other_token)
+        other = {"id": "other", "user_id": other_uid, "kind": "goal", "key_id": KEY}
+        self.assertEqual(self.request("POST", VAULT, [other], token=other_token), (201, None))
+
+        # Simula una riga orfana di una generazione precedente.
+        orphan = {"id": "orphan", "user_id": uid, "kind": "goal", "key_id": NEXT_KEY}
+        path = E2E + f"?user_id=eq.{uid}"
+        self.assertEqual(self.request("PATCH", path, {"key_id": NEXT_KEY}, token=token), (204, None))
+        self.assertEqual(self.request("POST", VAULT, [orphan], token=token), (201, None))
+        self.assertEqual(self.request("PATCH", path, {"key_id": KEY}, token=token), (204, None))
+
+        self.assertEqual(self.rollback(token, generation=START.replace("Z", "+00:00")), (204, None))
+        self.assertEqual(self.activate(token, counts={"account": 1}), (400, STATE_CHANGED))
+        self.assertEqual(self.request("GET", E2E, token=token), (200, []))
+        self.assertEqual(self.request("GET", VAULT, token=token), (200, [orphan]))
+        self.assertEqual(self.request("GET", E2E, token=other_token), (200, [other_metadata]))
+        self.assertEqual(self.request("GET", VAULT, token=other_token), (200, [other]))
+
+    def test_concurrent_a6_and_rollback_have_one_winner(self):
+        token, metadata, row = self.seed_activation_race()
+        ready = Barrier(2, timeout=3)
+
+        def race(operation):
+            ready.wait()
+            return operation()
+
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            a6 = pool.submit(race, lambda: self.activate(token, counts={"account": 1}))
+            rollback = pool.submit(race, lambda: self.rollback(token))
+            a6_result, rollback_result = a6.result(), rollback.result()
+
+        if a6_result == (204, None):
+            self.assertEqual(rollback_result, (400, STATE_CHANGED))
+            expected_metadata = [{**metadata, "state": "active", "updated_at": FINISH}]
+            expected_vault = [row]
+        else:
+            self.assertEqual(a6_result, (400, STATE_CHANGED))
+            self.assertEqual(rollback_result, (204, None))
+            expected_metadata = []
+            expected_vault = []
+        self.assertEqual(self.request("GET", E2E, token=token), (200, expected_metadata))
+        self.assertEqual(self.request("GET", VAULT, token=token), (200, expected_vault))
+
+    def test_direct_migrating_delete_and_stale_rollback_leave_data_intact(self):
+        token, metadata, row = self.seed_activation_race()
+        path = E2E + f"?user_id=eq.{metadata['user_id']}&state=eq.migrating&key_id=eq.{KEY}"
+        self.assertEqual(self.request("DELETE", path, token=token),
+                         (400, {"code": "P0001", "message": "bt_e2e_use_rollback"}))
+        self.assertEqual(self.rollback(token, generation=FINISH), (400, STATE_CHANGED))
+        self.assertEqual(self.rollback(token, key_id=NEXT_KEY), (400, STATE_CHANGED))
+        self.assertEqual(self.request("GET", E2E, token=token), (200, [metadata]))
+        self.assertEqual(self.request("GET", VAULT, token=token), (200, [row]))
 
     def test_direct_activation_patch_cannot_bypass_rpc(self):
         self.start_server()

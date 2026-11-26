@@ -198,6 +198,8 @@ class H(BaseHTTPRequestHandler):
                 ]
             if table in PLAIN_TABLES and any(e2e_state(rows[key]) == "migrating" for key in candidates):
                 return 400, {"code": "P0001", "message": "bt_e2e_migrating"}
+            if table == "mt_e2e" and any(rows[key].get("state") == "migrating" for key in candidates):
+                return e2e_error("bt_e2e_use_rollback")
             if table == "mt_vault":
                 metadata = TABLES.get("mt_e2e", {}).get(uid, {})
                 if metadata.get("state") == "disabling" and any(
@@ -208,10 +210,6 @@ class H(BaseHTTPRequestHandler):
         return 404, {"message": "not found " + urlparse(self.path).path}
 
     def activate_e2e(self, uid, body):
-        if self.server.writes_exhausted():
-            return UNAVAILABLE
-        if os.environ.get("FAKE_NO_E2E") == "1":
-            return 404, {"code": "PGRST202", "message": "Could not find the function"}
         row = TABLES.get("mt_e2e", {}).get(uid)
         key_id = body.get("p_key_id")
         if (not row or row.get("state") != "migrating" or not key_id
@@ -231,7 +229,21 @@ class H(BaseHTTPRequestHandler):
         if any(actual[kind] != counts.get(kind, 0) for kind in E2E_KINDS):
             return e2e_error("bt_e2e_counts")
         row.update(state="active", updated_at=generation)
-        self.server.writes += 1
+        return 204, b""
+
+    def rollback_e2e(self, uid, body):
+        metadata = TABLES.get("mt_e2e", {})
+        row = metadata.get(uid)
+        key_id = body.get("p_key_id")
+        if (not row or row.get("state") != "migrating" or not key_id
+                or row.get("key_id") != key_id
+                or not same_generation(row.get("updated_at"), body.get("p_generation"))):
+            return e2e_error("bt_e2e_state_changed")
+        del metadata[uid]
+        vault = TABLES.get("mt_vault", {})
+        for record_id in [record_id for record_id, record in vault.items()
+                          if record["user_id"].lower() == uid and record.get("key_id") == key_id]:
+            del vault[record_id]
         return 204, b""
 
     def route(self, method):
@@ -267,13 +279,22 @@ class H(BaseHTTPRequestHandler):
             return self.send(200, {})
         if u.path == "/auth/v1/logout":
             return self.send(204)
-        if method == "POST" and u.path == "/rest/v1/rpc/mt_e2e_activate":
+        e2e_rpc = {
+            "/rest/v1/rpc/mt_e2e_activate": self.activate_e2e,
+            "/rest/v1/rpc/mt_e2e_rollback": self.rollback_e2e,
+        }.get(u.path)
+        if method == "POST" and e2e_rpc:
             email = self.user_email()
             if not email:
                 return self.send(401, {"message": "JWT expired"})
+            if os.environ.get("FAKE_NO_E2E") == "1":
+                return self.send(404, {"code": "PGRST202", "message": "Could not find the function"})
             body = self.body()
+            # Condivide il lock con le mutazioni REST e con l'altra transizione.
             with self.server.data_lock:
-                result = self.activate_e2e(IDS[email].lower(), body)
+                result = UNAVAILABLE if self.server.writes_exhausted() else e2e_rpc(IDS[email].lower(), body)
+                if result[0] == 204:
+                    self.server.writes += 1
             return self.send(*result)
         if u.path == "/rest/v1/rpc/delete_own_account":
             email = self.user_email()

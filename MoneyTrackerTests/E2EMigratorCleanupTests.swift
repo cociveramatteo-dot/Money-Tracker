@@ -152,6 +152,10 @@ struct E2EMigratorCleanupTests {
         func patch(_ changes: E2EServerPatch, userId: UUID) async throws { try await base.patch(changes, userId: userId) }
         func delete(userId: UUID) async throws { try await base.delete(userId: userId) }
 
+        func rollbackActivation(ifCurrent row: E2EServerRow) async throws -> Bool {
+            try await base.rollbackActivation(ifCurrent: row)
+        }
+
         func vaultIds(table: SyncTable, userId: UUID, keyId: String) async throws -> Set<UUID> {
             if let row = addOnNextVaultIds {
                 addOnNextVaultIds = nil

@@ -13,6 +13,7 @@ final class InMemoryRemote: SyncRemote, E2EServerAccess, VaultAccess {
         case insertE2E(UUID)
         case patchE2E(UUID)
         case deleteE2E(UUID)
+        case rollbackActivation(UUID)
         case vaultIds(SyncTable, UUID)
         case vaultRows(SyncTable, UUID)
         case upsertVault(Int)
@@ -103,6 +104,17 @@ final class InMemoryRemote: SyncRemote, E2EServerAccess, VaultAccess {
     func delete(userId: UUID) async throws {
         try record(.deleteE2E(userId))
         e2eRows.removeValue(forKey: userId)
+    }
+
+    func rollbackActivation(ifCurrent expected: E2EServerRow) async throws -> Bool {
+        try record(.rollbackActivation(expected.userId))
+        guard let row = e2eRows[expected.userId], row.state == .migrating, expected.state == .migrating,
+              row.keyId == expected.keyId, E2EServerRow.sameGeneration(row.updatedAt, expected.updatedAt) else {
+            return false
+        }
+        e2eRows.removeValue(forKey: row.userId)
+        records = records.filter { $0.value.userId != row.userId || $0.value.keyId != row.keyId }
+        return true
     }
 
     func vaultIds(table: SyncTable, userId: UUID, keyId: String) async throws -> Set<UUID> {

@@ -122,6 +122,11 @@ struct E2EMigratorTests {
         await #expect(throws: E2EMigrator.Failure.verificationFailed) { try await f.enable() }
         #expect(f.remote.corruptedReads == 2)
         #expect(f.remote.plainDeletes.isEmpty)
+        #expect(f.remote.base.calls.contains(.rollbackActivation(f.user)))
+        #expect(!f.remote.base.calls.contains {
+            if case .deleteVault = $0 { return true }
+            return false
+        })
         try await f.expectPlain(expected)
     }
 
@@ -133,13 +138,15 @@ struct E2EMigratorTests {
         await #expect(throws: Interrupted.self) {
             try await f.enable { if $0 == .a4 { throw Interrupted() } }
         }
-        f.remote.failVaultDelete = true
+        f.remote.failRollback = true
         await #expect(throws: Interrupted.self) {
             try await f.service.withE2EMigrator(context: f.context, authenticationReason: "") {
                 try await $0.cancelEnable()
             }
         }
         #expect(f.marker?.phase == .rollingBack)
+        #expect(f.remote.base.e2eRows[f.user]?.state == .migrating)
+        #expect(!f.remote.base.records.isEmpty)
         let restarted = f.newService()
         await restarted.pull(context: f.context)
         await restarted.pull(context: f.context)
@@ -501,7 +508,7 @@ struct E2EMigratorTests {
         var corruptPlainWhileDisabling = false
         var corruptedReads = 0
         var failDeleteTable: SyncTable?
-        var failVaultDelete = false
+        var failRollback = false
         var plainDeletes: [(table: SyncTable, state: E2EServerState?, count: Int)] = []
 
         func fetchIds(table: SyncTable, userId: UUID) async throws -> Set<UUID> {
@@ -553,11 +560,15 @@ struct E2EMigratorTests {
         func upsertVault(_ rows: [VaultRecord]) async throws { try await base.upsertVault(rows) }
 
         func deleteVault(ids: [UUID], table: SyncTable, userId: UUID, keyId: String) async throws {
-            if failVaultDelete {
-                failVaultDelete = false
+            try await base.deleteVault(ids: ids, table: table, userId: userId, keyId: keyId)
+        }
+
+        func rollbackActivation(ifCurrent row: E2EServerRow) async throws -> Bool {
+            if failRollback {
+                failRollback = false
                 throw Interrupted()
             }
-            try await base.deleteVault(ids: ids, table: table, userId: userId, keyId: keyId)
+            return try await base.rollbackActivation(ifCurrent: row)
         }
     }
 }

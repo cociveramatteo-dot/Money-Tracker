@@ -347,8 +347,7 @@ internal class E2EMigrator(
     }
 
     private suspend fun rollbackEnable(row: JsonObject) {
-        clearVault(row, keyId(row))
-        deleteRow(row)
+        request { token -> vault.rollbackActivation(row, token) }
         finish()
     }
 

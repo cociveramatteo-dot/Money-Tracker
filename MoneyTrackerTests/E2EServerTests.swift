@@ -143,6 +143,27 @@ struct E2EServerTests {
         #expect(body["p_counts"] as? [String: Int] == ["goal": 2, "rule": 0])
     }
 
+    @Test func rollbackPostsExactGenerationAndMapsTransitionErrors() async throws {
+        let fixture = try Fixture()
+        defer { fixture.session.invalidateAndCancel() }
+        let generation = "2026-11-26T10:00:00.123456+00:00"
+        let row = E2EServerRow(userId: fixture.user, state: .migrating, version: 1, kdf: "pbkdf2-sha256",
+                               kdfIterations: 600_000, salt: "test", wrappedKeyPassphrase: "bt1.test",
+                               wrappedKeyRecovery: "bt1.test", keyId: "abcdef0123456789", updatedAt: generation)
+        E2EURLProtocol.enqueue(204, "")
+        #expect(try await fixture.server.rollbackActivation(ifCurrent: row))
+        for message in ["bt_e2e_state_changed", "bt_e2e_use_rollback"] {
+            E2EURLProtocol.enqueue(400, #"{"code":"P0001","message":"\#(message)"}"#)
+            #expect(try await !fixture.server.rollbackActivation(ifCurrent: row))
+        }
+        let requests = E2EURLProtocol.requests
+        #expect(requests.count == 3)
+        #expect(requests.allSatisfy { $0.httpMethod == "POST" && $0.url?.path == "/rest/v1/rpc/mt_e2e_rollback" })
+        let data = try #require(E2EURLProtocol.rollbackBody)
+        let body = try #require(JSONSerialization.jsonObject(with: data) as? [String: String])
+        #expect(body == ["p_key_id": row.keyId, "p_generation": generation])
+    }
+
     private static func query(_ request: URLRequest) -> [String: String] {
         guard let url = request.url else { return [:] }
         let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
@@ -173,12 +194,15 @@ private final class E2EURLProtocol: URLProtocol, @unchecked Sendable {
         var requests: [URLRequest] = []
         var replies: [(Int?, String)] = []
         var activationBody: Data?
+        var rollbackBody: Data?
     }
 
     private static let state = Mutex(State())
 
     static var requests: [URLRequest] { state.withLock { $0.requests } }
     static var activationBody: Data? { state.withLock { $0.activationBody } }
+
+    static var rollbackBody: Data? { state.withLock { $0.rollbackBody } }
 
     static func reset() { state.withLock { $0 = State() } }
 
@@ -190,11 +214,14 @@ private final class E2EURLProtocol: URLProtocol, @unchecked Sendable {
     override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
 
     override func startLoading() {
-        let captureBody = request.url?.path == "/rest/v1/rpc/mt_e2e_activate"
-        let activationBody = captureBody ? Self.readBody(request) : nil
+        let path = request.url?.path
+        let isActivation = path == "/rest/v1/rpc/mt_e2e_activate"
+        let isRollback = path == "/rest/v1/rpc/mt_e2e_rollback"
+        let body = isActivation || isRollback ? Self.readBody(request) : nil
         let reply = Self.state.withLock { state -> (Int?, String)? in
             state.requests.append(request)
-            if captureBody, state.activationBody == nil { state.activationBody = activationBody }
+            if isActivation, state.activationBody == nil { state.activationBody = body }
+            if isRollback, state.rollbackBody == nil { state.rollbackBody = body }
             guard !state.replies.isEmpty else { return nil }
             return state.replies.removeFirst()
         }

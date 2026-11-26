@@ -459,6 +459,15 @@ struct E2EUITestHarness: View {
         }
 
         func delete(userId: UUID) async throws { row = nil }
+
+        func rollbackActivation(ifCurrent expected: E2EServerRow) async throws -> Bool {
+            guard let row, row.state == .migrating, expected.state == .migrating,
+                  row.userId == expected.userId, row.keyId == expected.keyId,
+                  E2EServerRow.sameGeneration(row.updatedAt, expected.updatedAt) else { return false }
+            self.row = nil
+            vault = vault.filter { $0.value.userId != row.userId || $0.value.keyId != row.keyId }
+            return true
+        }
     }
 }
 #endif

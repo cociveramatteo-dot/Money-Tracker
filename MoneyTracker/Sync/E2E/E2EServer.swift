@@ -88,6 +88,7 @@ protocol E2EServerAccess {
     func patch(_ changes: E2EServerPatch, ifCurrent row: E2EServerRow) async throws -> Bool
     func delete(ifCurrent row: E2EServerRow) async throws -> Bool
     func activate(ifCurrent row: E2EServerRow, generation: String, counts: [String: Int]) async throws -> Bool
+    func rollbackActivation(ifCurrent row: E2EServerRow) async throws -> Bool
 }
 
 extension E2EServerAccess {
@@ -124,6 +125,11 @@ struct E2EServer: E2EServerAccess {
         let p_from_generation: String
         let p_to_generation: String
         let p_counts: [String: Int]
+    }
+
+    private struct ActivationRollback: Encodable {
+        let p_key_id: String
+        let p_generation: String
     }
 
     init(client: SupabaseClient) {
@@ -203,6 +209,18 @@ struct E2EServer: E2EServerAccess {
         }
     }
 
+    func rollbackActivation(ifCurrent row: E2EServerRow) async throws -> Bool {
+        guard row.state == .migrating, let generation = row.updatedAt else { return false }
+        do {
+            try await client.rpc("mt_e2e_rollback", params: ActivationRollback(
+                p_key_id: row.keyId, p_generation: generation
+            )).execute()
+            return true
+        } catch where Self.operationStateChanged(error) {
+            return false
+        }
+    }
+
     private static func isUnavailable(_ error: any Error) -> Bool {
         if let code = (error as? PostgrestError)?.code {
             return code == "PGRST205" || code == "42P01"
@@ -218,6 +236,6 @@ struct E2EServer: E2EServerAccess {
     static func operationStateChanged(_ error: any Error) -> Bool {
         guard let error = error as? PostgrestError, error.code == "P0001" else { return false }
         return ["bt_e2e_state_changed", "bt_e2e_counts", "bt_e2e_key_mismatch",
-                "bt_e2e_vault_locked", "bt_e2e_use_activate"].contains(error.message)
+                "bt_e2e_vault_locked", "bt_e2e_use_activate", "bt_e2e_use_rollback"].contains(error.message)
     }
 }

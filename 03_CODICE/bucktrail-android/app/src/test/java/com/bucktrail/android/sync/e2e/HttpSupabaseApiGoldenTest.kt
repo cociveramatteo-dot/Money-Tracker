@@ -99,6 +99,31 @@ class HttpSupabaseApiGoldenTest {
             ), Json.parseToJsonElement(request.body))
         }
     }
+    @Test
+    fun rollbackPostsExactGenerationAndMapsTransitionErrors() = runBlocking {
+        val row = Json.parseToJsonElement(
+            """{"key_id":"abcdef0123456789","updated_at":"2026-11-26T10:00:00.123456+00:00"}""",
+        ).jsonObject
+        val messages = listOf("bt_e2e_state_changed", "bt_e2e_use_rollback")
+        val replies = listOf(204 to "") + messages.map { 400 to """{"code":"P0001","message":"$it"}""" }
+        LoopbackServer(replies).use { server ->
+            val api = server.api()
+            api.rollbackActivation(row, "fake-token")
+            for (message in messages) {
+                val error = runCatching { api.rollbackActivation(row, "fake-token") }.exceptionOrNull() as ApiException
+                assertEquals(message, error.message)
+                assertTrue(error.e2eStateChanged())
+            }
+            assertEquals(3, server.requests.size)
+            val expected = Json.parseToJsonElement(
+                """{"p_key_id":"abcdef0123456789","p_generation":"2026-11-26T10:00:00.123456+00:00"}""",
+            )
+            for (request in server.requests) {
+                assertEquals("POST /rest/v1/rpc/mt_e2e_rollback HTTP/1.1", request.line)
+                assertEquals(expected, Json.parseToJsonElement(request.body))
+            }
+        }
+    }
 }
 
 private class LoopbackServer(replies: List<Pair<Int, String>>) : AutoCloseable {
