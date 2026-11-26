@@ -12,3 +12,4 @@ Android 2026-11-23: B0–B11 completi, parità grafica e stress test fatti (comm
 Banca (S-60): progetto esecutivo pronto in `.cantiere/progetto-banca.md` (Enable Banking, piano B Salt Edge); esecuzione dopo S-50. S-60t (verifiche commerciali/legali di Matteo) si può fare subito.
 Social: calendario e pubblicazione gestiti direttamente da Matteo.
 E2E: S-50p [~] 2026-11-26 16:32: interruttori accesi in release, testi sito in attesa di ✅ e pubblicazione di Matteo. Prossimo: collaudo S-50p. S-50u non bloccante, S-50v privacy app.
+E2E 2026-11-26 17:09: S-50u e S-50w [~]. Pulizia filtrata e prova Android release R8 completate. iOS 187 unitari e 8 UI E2E verdi, due UI ai rilanci isolati. Prossimo: collaudo.
