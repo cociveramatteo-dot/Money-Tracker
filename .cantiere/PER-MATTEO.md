@@ -5,6 +5,9 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### PROTEZIONE AVANZATA · S-50h2 — perimetro della PATCH condizionata
+📍 In questa chat del cantiere. ▶️ Se vuoi completare il punto 3, scrivi «Autorizzo le modifiche a E2EServer.swift ed E2EGate.swift per S-50h2». ↩️ Con la risposta, Codex riprende il punto 3 e i relativi test.
+
 ### PROTEZIONE AVANZATA · S-50o — approvazione prima dell'accensione
 
 Dopo S-50m, apri Terminale e incolla questo comando per vedere le schermate iOS e Android:

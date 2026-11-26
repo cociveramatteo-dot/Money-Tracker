@@ -1,6 +1,5 @@
 import CryptoKit
 import Foundation
-import OSLog
 import SwiftData
 
 enum E2EVerifier {
@@ -53,14 +52,15 @@ enum E2EVerifier {
     // Compact UTF-8 JSON, object keys in lexical order, one object per line
     // prefixed with kind|lowercase-id|. Both hashes omit a trailing newline.
     static func verify(local: Snapshot, remote: Snapshot,
-                       allowingMissingRemoteTransactions: Bool = false) throws -> Receipt {
+                       allowingMissingRemoteTransactions: Bool = false,
+                       allowingRemoteSubset: Bool = false) throws -> Receipt {
         var before = [String: [String]]()
         var after = [String: [String]]()
         for table in SyncTable.allCases {
             let localRows = try normalize(local.rows(table), table: table)
             var actual = try normalize(remote.rows(table), table: table)
             // A0 can leave locally-only transactions for the full vault push.
-            let expected = allowingMissingRemoteTransactions && table == .transactions
+            let expected = allowingRemoteSubset || (allowingMissingRemoteTransactions && table == .transactions)
                 ? localRows.filter { actual[$0.key] != nil }
                 : localRows
             guard expected.count == actual.count else { throw Failure.count(table) }
@@ -85,12 +85,6 @@ enum E2EVerifier {
         }
         let expectedReceipt = receipt(before)
         let actualReceipt = receipt(after)
-        for kind in before.keys.sorted() {
-            if let lhs = expectedReceipt.byKind[kind], let rhs = actualReceipt.byKind[kind] {
-                Logger.persistence.info("E2E verification \(kind, privacy: .public): local \(lhs, privacy: .private), remote \(rhs, privacy: .private)")
-            }
-        }
-        Logger.persistence.info("E2E verification: local \(expectedReceipt.combined, privacy: .private), remote \(actualReceipt.combined, privacy: .private)")
         guard expectedReceipt == actualReceipt else { throw VaultCrypto.Failure.operationFailed }
         return expectedReceipt
     }

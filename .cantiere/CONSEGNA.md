@@ -1,12 +1,11 @@
-# CONSEGNA — collaudo blocco 3 (S-50j, S-50k, S-50l, S-50l.1)
+# CONSEGNA — S-50h2 e S-50l.2
 
-Collaudatore (Claude Code · Sonnet), 2026-11-26 00:47. Esito: tutto [x].
+Impresa (Codex · GPT-6), 2026-11-26 09:39 · ramo `redesign-sentiero`.
 
-- Flag spento: iOS `E2EFeature.isEnabled` è `false` in release, harness e fixture solo DEBUG; Android `E2E_ENABLED` è falso senza `-Pe2e`. Nei percorsi a flag spento restano modifiche volute: isolamento utente nel push/pull (`ownsPlainStore`) e cancellazione locale per istanze (S-50l.1).
-- Test rieseguiti: iOS unitari 165 verdi (33 suite); UI generali iOS 49 eseguite, 45 verdi al primo giro, 4 cadute per perdita di connessione col simulatore (testHiddenBalances, testItalian, testThresholdPresentation, SentieroPlanningUITests/testDark) verdi alla riprova; Android 311 JVM e lint verdi (rieseguiti con cleanTest). Prove UI E2E (6): fidato il log di Codex.
-- S-50l.1: il test (4 varianti) fallisce prima del fix (batch delete rifiutato su Transaction/account) e passa dopo.
-- i18n: 49 chiavi `e2e_*` uguali in 7 lingue su iOS e Android e tra le due piattaforme, placeholder coerenti.
-- Difetti: S-50l.2 (bassa) log dei digest in E2EVerifier. Estetico: titolo DE a font XL spezzato a metà parola su Android (per S-50o).
-- Prerequisiti di S-50p: S-50h2, S-50q, S-50l.2, S-50n, S-50o. Scelta di Codex sull'errore di trasporto della RPC (si conservano i dati locali): condivisa, nessuna modifica.
+- S-50h2 [!] · A7 e rollback rileggono e verificano il vault prima di cancellare in chiaro. D7 ammette solo gli ID del vault verificati contro il backup e può riprendere dopo una pulizia parziale.
+- S-50h2 punto 3 · `E2EServer.swift` filtra oggi per utente, chiave e stato. La PATCH atomica richiede anche la generazione `updated_at`. `E2EGate.swift` serve per conservarla nel marcatore e riconoscere una ripresa superata. In attesa dell'autorizzazione per entrambi i file.
+- S-50l.2 [~] · rimossi i due log di `E2EVerifier.swift`. Nessuna ricevuta di verifica nei log della suite.
+- Collaudo sul simulatore iPhone 18 Pro, iOS 27.2 · 168 unitari e 7 UI verdi (6 E2E e 1 con interruttore spento), timeout massimo 180 s per test. Tre nuove regressioni: vault vuoto dopo A6, ID comparso dopo la verifica D7, ripresa D7 con pulizia parziale. Suite stress esistente con 20.000 movimenti verde. Risultato Xcode: `/tmp/moneytracker-s50h2.wwh6S6/final.xcresult`.
+- Interruttore spento. Fuori commit: modifiche concorrenti di S-50q in `PIANO.md`, `DIARIO.md`, `PER-MATTEO.md` e `progetto-e2e-sync.md`. Grafo aggiornato localmente.
 
-➡️ Prossimo: S-50h2 → Codex (difetti blocco 2), poi S-50l.2.
+➡️ Prossimo: Matteo autorizza i due file per il punto 3, poi Codex completa S-50h2. Collaudo separato per i due task prima di S-50p.
