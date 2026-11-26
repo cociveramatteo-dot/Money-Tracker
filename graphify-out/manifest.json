@@ -370,8 +370,8 @@
     "semantic_hash": ""
   },
   ".cantiere/strumenti/bilingue.py": {
-    "mtime": 1795555910.6332073,
-    "ast_hash": "7da8021c82498eab91db1102ebea2237",
+    "mtime": 1795714227.1445851,
+    "ast_hash": "0ae877f80d1321b6c700c340226699ef",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/catalogo.py": {
@@ -515,8 +515,8 @@
     "semantic_hash": ""
   },
   ".cantiere/APPROVAZIONI.md": {
-    "mtime": 1795703900.4582164,
-    "ast_hash": "78d813dd99efa6c441a1ec8de0897db9",
+    "mtime": 1795714407.4234154,
+    "ast_hash": "daa13c6dcf0b333f538fa73f95e61db0",
     "semantic_hash": ""
   },
   ".cantiere/AVVIO.md": {
@@ -530,8 +530,8 @@
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795703662.7556856,
-    "ast_hash": "55699835c9d9d8d938cd140eb1fa4163",
+    "mtime": 1795714068.1641986,
+    "ast_hash": "689d767356a7cbc7678557bcaebda1b2",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
@@ -540,13 +540,13 @@
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795703762.9452894,
-    "ast_hash": "4269b0ec1241c7ab3dc97e143c4c739e",
+    "mtime": 1795714346.3823495,
+    "ast_hash": "822af6d9043605fbc119d98afb5f8fb4",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
-    "mtime": 1795483198.2188554,
-    "ast_hash": "ffc2ce2fe2aa8d4721de175210b0f46f",
+    "mtime": 1795714446.657829,
+    "ast_hash": "cfc2a3faf7a696f815cf88535fa547d0",
     "semantic_hash": ""
   },
   ".cantiere/PAGELLE.md": {
@@ -555,13 +555,13 @@
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795704238.972899,
-    "ast_hash": "ab9f4a801ca09949b28f4989c8edfe78",
+    "mtime": 1795713827.9158738,
+    "ast_hash": "7055cdb1dd133b877f1f9f66b28b642c",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795703674.5296495,
-    "ast_hash": "44461f9cb8019ec50dc50a4d0eb5589b",
+    "mtime": 1795714641.2471833,
+    "ast_hash": "b84c1c59cb39213fc76978d6a3ffb092",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795703843.9431329,
-    "ast_hash": "cad057d9fa5874c13ace642f50073c43",
+    "mtime": 1795714175.3285987,
+    "ast_hash": "bc51ad3ff9dd3156b4a2c64e1a792c3c",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -845,8 +845,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/en.html": {
-    "mtime": 1795703867.35936,
-    "ast_hash": "f70be0edd38579add54d074bd50031cf",
+    "mtime": 1795707552.1113415,
+    "ast_hash": "f6e6122ec1724bee76d0507ae085f7d5",
     "semantic_hash": ""
   },
   "SOCIAL/landing/fonts/OFL-Inter.txt": {
@@ -865,8 +865,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/privacy.html": {
-    "mtime": 1795703878.0865192,
-    "ast_hash": "b235648aaa54b6c9d2bb1f0622a23172",
+    "mtime": 1795714423.019481,
+    "ast_hash": "321142ee7d9064e3ac5b43b588779582",
     "semantic_hash": ""
   },
   "SOCIAL/montaggio/README.md": {
@@ -895,13 +895,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/confermato.html": {
-    "mtime": 1795555910.6333566,
-    "ast_hash": "a0701c8cfa09110a939f2a364b50e120",
+    "mtime": 1795714399.4283376,
+    "ast_hash": "2dc567ae31a9a5fcbfd902e55436ba60",
     "semantic_hash": ""
   },
   "SOCIAL/landing/confirmed.html": {
-    "mtime": 1795555910.6335027,
-    "ast_hash": "3b572c7dd080a72bc73e0e3e2335a3a4",
+    "mtime": 1795714399.436975,
+    "ast_hash": "d61cd8418c574d053e658427802dd75e",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/presentazione-v1/build.py": {
@@ -1325,8 +1325,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SupabaseApi.kt": {
-    "mtime": 1795691445.062137,
-    "ast_hash": "75e1665564afc709ac3768abed523e26",
+    "mtime": 1795707620.0116417,
+    "ast_hash": "769f3a26793be923afbb4f734d8ff613",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/SyncEngine.kt": {
@@ -1675,8 +1675,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/scripts/fake-supabase.py": {
-    "mtime": 1795686199.5663202,
-    "ast_hash": "c78f4bdbb86f0bed07f0a994d8c23fec",
+    "mtime": 1795707684.7176092,
+    "ast_hash": "328e1f071dae3c9c1c68bc958c782d72",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/scripts/ios-strings-to-android.py": {
@@ -2495,8 +2495,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Sync/E2E/VaultRemote.swift": {
-    "mtime": 1795701756.224324,
-    "ast_hash": "27f52bf1524f34d6cb50f0f9308d8e1d",
+    "mtime": 1795707684.716964,
+    "ast_hash": "f29ec0f9e22cd85fd0f241e38bda2bc1",
     "semantic_hash": ""
   },
   "MoneyTrackerTests/E2EGateTests.swift": {
@@ -2885,8 +2885,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/e2e/VaultApi.kt": {
-    "mtime": 1795701590.8528602,
-    "ast_hash": "71be93a4cfbb4876e23c58ed51a5a33b",
+    "mtime": 1795707620.0113084,
+    "ast_hash": "01c251149c5b1d70835f66b7be61da76",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/sync/e2e/VaultSupabaseApi.kt": {
@@ -2980,13 +2980,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/about.html": {
-    "mtime": 1795616329.7092211,
-    "ast_hash": "d01f804cd7cf7d9974504d124c818e18",
+    "mtime": 1795714399.4193592,
+    "ast_hash": "203e9fd153456ca68cbd34c9f82dbbbb",
     "semantic_hash": ""
   },
   "SOCIAL/landing/chi-siamo.html": {
-    "mtime": 1795616329.7091315,
-    "ast_hash": "e945f003cee3adc3e7bb16f713b24358",
+    "mtime": 1795714399.4100597,
+    "ast_hash": "3a4c77c86c3df0c90063d0c13965aadc",
     "semantic_hash": ""
   },
   "MoneyTracker/Sync/E2E/E2EController.swift": {
@@ -3122,6 +3122,26 @@
   "MoneyTracker/Sync/SyncService+E2E.swift": {
     "mtime": 1795702532.0268314,
     "ast_hash": "c4eea4e2ed88b2dc2d8e6aa117d675b7",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/ObsoleteVaultFilterTest.kt": {
+    "mtime": 1795707722.660775,
+    "ast_hash": "139fc8032bd08d91ffa4b2f2bd925e70",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/E2EObsoleteVaultFilterTests.swift": {
+    "mtime": 1795714243.9516137,
+    "ast_hash": "5794cba8461c456448416b6f09fc2b92",
+    "semantic_hash": ""
+  },
+  ".cantiere/progetto-s70-doppio-tap-simulazione.md": {
+    "mtime": 1795706714.2635093,
+    "ast_hash": "180e061bc0dde0cab0a3a0f1242f767d",
+    "semantic_hash": ""
+  },
+  "SOCIAL/landing/privacy-en.html": {
+    "mtime": 1795714423.024588,
+    "ast_hash": "f1ec75bdeb5915ed1d1976cb61a3d7f6",
     "semantic_hash": ""
   }
 }

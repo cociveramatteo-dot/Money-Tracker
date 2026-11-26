@@ -47,8 +47,8 @@
 - `SOCIAL/caroselli/presentazione-v1.md` — testo del carosello di presentazione (git)
 - Carosello di prova superato (17/11): spostato nel magazzino in `02_RISORSE/lavorate/social-prove/prova-01/` (doppione anche in `social-caroselli/` e `fuori-git/`)
 - `SOCIAL/landing/`, `SOCIAL/montaggio/` — sito landing e script di montaggio (git)
-- `.cantiere/tmp/` — appunti e screenshot di collaudo (da decidere, vedi rapporto magazziniere)
-- `99_DA_SMISTARE/parita/` — screenshot di parità iOS↔Android del 2026-11-23 (114 MB, fuori da git): da spostare da Matteo con `trasloco.sh` in `02_RISORSE/lavorate/fuori-git/parita-android-2026-11-23`
+- `.cantiere/tmp/` — solo appunti correnti (`collaudo.md`, `giudice-*.md`); i log e gli .xcresult dei collaudi S-50 sono nel magazzino in `02_RISORSE/lavorate/collaudi-s50-2026-11/` (s50l, s50m, s50q-2, s50r, e2e-ios, e2e-android, giro1/giro2 commissione) spostati il 2026-11-26. Il file `s70/` resta in `.cantiere/tmp/` quando esiste
+- `02_RISORSE/lavorate/fuori-git/parita-android-2026-11-23/` — screenshot di parità iOS↔Android del 2026-11-23 (114 MB, fuori da git, magazzino). Già spostata: `99_DA_SMISTARE/` è vuota
 
 ## Social · backup novembre 2026
 

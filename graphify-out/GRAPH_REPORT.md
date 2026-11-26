@@ -1,16 +1,16 @@
 # Graph Report - MoneyTracker  (2026-11-26)
 
 ## Corpus Check
-- 409 files · ~430,349 words
+- 412 files · ~440,326 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 5776 nodes · 12845 edges · 485 communities (272 shown, 213 thin omitted)
-- Extraction: 89% EXTRACTED · 11% INFERRED · 0% AMBIGUOUS · INFERRED: 1384 edges (avg confidence: 0.8)
+- 5825 nodes · 12925 edges · 494 communities (281 shown, 213 thin omitted)
+- Extraction: 89% EXTRACTED · 11% INFERRED · 0% AMBIGUOUS · INFERRED: 1388 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `7d6b5f09`
+- Built from commit: `b6ad88a5`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -490,19 +490,28 @@
 - TransactionsAdvancedFilterSheet
 - CodingKeys
 - Scope
+- 9. Setup e Installazione
+- E2EOperation
+- SyncStatus
 - ExportsTest
 - MoneyTrackerApp.swift
+- RecurringSeriesDetailView
 - RecoveryKeyCard
 - SupabaseConfig.swift
 - DaysRemainingPluralTests.swift
+- E2EMigratorGenerationTests.swift
+- UploadMode
+- .metadataMutationUsesExpectedGenerationAndRejectsZeroRows
+- ObsoleteVaultFilterTest
+- FontRegistrationTests
 - 1. Modello di minaccia
 
 ## God Nodes (most connected - your core abstractions)
 1. `Decimal` - 108 edges
 2. `Text` - 98 edges
-3. `Foundation` - 82 edges
+3. `Foundation` - 83 edges
 4. `ModelContext` - 78 edges
-5. `SyncTable` - 74 edges
+5. `SyncTable` - 76 edges
 6. `Row` - 63 edges
 7. `SwiftData` - 58 edges
 8. `E2EMigrator` - 56 edges
@@ -524,27 +533,27 @@
 ## Import Cycles
 - None detected.
 
-## Communities (485 total, 213 thin omitted)
+## Communities (494 total, 213 thin omitted)
 
 ### Community 0 - "CategoryManagementView & AddTransactionView"
 Cohesion: 0.10
-Nodes (34): Font, BudgetStatus, Color, DS, DSIcon, DSTransactionRow, EmptyStateView, FixedExpenseRow (+26 more)
+Nodes (34): BudgetStatus, FilterChip, Style, advanced, primary, secondary, Void, Color (+26 more)
 
 ### Community 1 - "Ricorrenze — motore backfill & Intents dirty-tracking"
-Cohesion: 0.15
-Nodes (16): CategoryStat, Charts, Identifiable, App Icon (Dark Mode, 1024x1024), App Icon (Light Mode, 1024x1024), App Icon (Tinted, 1024x1024), CategoryStat, Date (+8 more)
+Cohesion: 0.09
+Nodes (27): CategoryStat, Charts, Identifiable, App Icon (Dark Mode, 1024x1024), App Icon (Light Mode, 1024x1024), App Icon (Tinted, 1024x1024), PlanningBudgetCard, PlanningGoalCard (+19 more)
 
 ### Community 2 - "Sync/ricorrenze — file sorgente del checkpoint settembre 2026"
-Cohesion: 0.09
-Nodes (40): Row, AccountActions, AccountGroup(), AccountRow(), AccountRowContext, AccountsScreen(), ArchivedToggle(), Boolean (+32 more)
+Cohesion: 0.24
+Nodes (16): AverageTile(), androidx, BigDecimal, Boolean, Int, List, LocalDate, Modifier (+8 more)
 
 ### Community 3 - "Schema Migration V1→V2 (Decimal precision)"
-Cohesion: 0.13
-Nodes (20): Action, Changes, Delete, Edit, BigDecimal, Instant, List, RecurrenceCalculator (+12 more)
+Cohesion: 0.17
+Nodes (15): RecurringRuleEntity, Changes, BigDecimal, Instant, List, RecurrenceCalculator, RuleSnapshot, Set (+7 more)
 
 ### Community 4 - "Supabase DTOs (SBAccount/SBBudget/SBGoal/SBTransaction)"
-Cohesion: 0.17
-Nodes (31): E2EBackend, Logger, SyncRemote, applyGateEffects(), clearE2ESession(), continueWithoutE2EProtection(), downloadE2E(), e2eRemote() (+23 more)
+Cohesion: 0.18
+Nodes (30): E2EBackend, Logger, applyGateEffects(), clearE2ESession(), continueWithoutE2EProtection(), downloadE2E(), e2eRemote(), initialE2ESync() (+22 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.17
@@ -552,15 +561,15 @@ Nodes (9): NavigationStressUITests, RecurrenceFlowUITests, TransactionFlowUITest
 
 ### Community 6 - "AppIntents — Tocco posteriore/Siri (AddExpenseIntent)"
 Cohesion: 0.11
-Nodes (12): IntentResult, AccountBalanceCache, Account, PersistentIdentifier, Decimal, String, CurrencyFormattingTests, DecimalPersistenceTests (+4 more)
+Nodes (11): AccountBalanceCache, Account, PersistentIdentifier, Date, Decimal, Bool, String, CurrencyFormattingTests (+3 more)
 
 ### Community 7 - "Supabase CodingKeys (snake_case mapping)"
 Cohesion: 0.23
 Nodes (5): Instant, Int, RuleSnapshot, String, RecurrenceCalculatorTest
 
 ### Community 9 - "Community 9"
-Cohesion: 0.10
-Nodes (26): FilterChip, Style, advanced, primary, secondary, Void, haptic(), SeriesCache (+18 more)
+Cohesion: 0.09
+Nodes (26): haptic(), HapticStyle, light, medium, rigid, soft, success, SeriesCache (+18 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.12
@@ -571,8 +580,8 @@ Cohesion: 0.06
 Nodes (36): Bar, BigDecimal, List, String, YearMonth, ZoneId, Labels, Line (+28 more)
 
 ### Community 12 - "Community 12"
-Cohesion: 0.24
-Nodes (5): E2EController, E2EDeadVaultCleanupRetryTest, Boolean, E2EFlagOffTest, CoroutineScope
+Cohesion: 0.10
+Nodes (12): E2EController, E2EDeadVaultCleanupRetryTest, Boolean, E2EFlagOffTest, OldClientTest, Boolean, Collection, Int (+4 more)
 
 ### Community 15 - "Community 15"
 Cohesion: 0.20
@@ -599,8 +608,8 @@ Cohesion: 0.12
 Nodes (20): chiave(), leggi(), Lettore, main(), Pagina, Path, radice_web(), Cartella servita come "/" del sito: quella con index.html più vicina alla radice (+12 more)
 
 ### Community 30 - "Checkpoint settembre 2026 — Tocco posteriore, perdita dati, ricorrenze arretrate"
-Cohesion: 0.06
-Nodes (33): CodingKeys, accountId, amount, category, categoryIcon, colorHex, createdAt, currentAmount (+25 more)
+Cohesion: 0.05
+Nodes (36): DemoDataSeeder, CodingKeys, accountId, amount, category, categoryIcon, colorHex, createdAt (+28 more)
 
 ### Community 31 - "Community 31"
 Cohesion: 0.40
@@ -611,8 +620,8 @@ Cohesion: 0.11
 Nodes (24): accessibilita(), AXE, BASE, cliccaTutto(), confrontaScreenshot(), controllaLink(), controllaPagina(), differenze (+16 more)
 
 ### Community 35 - "RecurrenceCalculator"
-Cohesion: 0.23
-Nodes (13): Date, Failure, decodedOnMainThread, encodedOnMainThread, RecurringCollisionTests, RecurringSeriesEditorTests, Calendar, Date (+5 more)
+Cohesion: 0.22
+Nodes (12): Date, Failure, decodedOnMainThread, encodedOnMainThread, RecurringCollisionTests, RecurringSeriesEditorTests, Calendar, Date (+4 more)
 
 ### Community 36 - "Community 36"
 Cohesion: 0.10
@@ -655,8 +664,8 @@ Cohesion: 0.17
 Nodes (11): dependencies, axe-core, gremlins.js, lighthouse, pixelmatch, playwright, pngjs, description (+3 more)
 
 ### Community 48 - "Community 48"
-Cohesion: 0.14
-Nodes (20): Snapshot, SyncRow, SBAccount, SBBudget, SBGoal, SBRecurringRule, SBTransaction, Account (+12 more)
+Cohesion: 0.12
+Nodes (27): Snapshot, SyncRow, SBAccount, SBBudget, SBGoal, SBRecurringRule, SBTransaction, Account (+19 more)
 
 ### Community 50 - "Community 50"
 Cohesion: 0.38
@@ -687,8 +696,8 @@ Cohesion: 0.27
 Nodes (12): E2EGate, Boolean, Int, JsonObject, String, Locked, LockReason, Mode (+4 more)
 
 ### Community 63 - "Community 63"
-Cohesion: 0.11
-Nodes (19): NotSignedInException, Backoff, Idle, Boolean, E2EController, Flow, Int, Snapshot (+11 more)
+Cohesion: 0.15
+Nodes (11): Boolean, E2EController, Flow, Snapshot, StateFlow, String, T, Unit (+3 more)
 
 ### Community 64 - "Community 64"
 Cohesion: 0.33
@@ -703,8 +712,8 @@ Cohesion: 0.47
 Nodes (4): main(), Path, tipo_di(), trova_magazzino()
 
 ### Community 67 - "Community 67"
-Cohesion: 0.10
-Nodes (24): accountTypeCategoryProxy(), accountTypeIcon(), accountTypeRes(), categoryLabel(), AccountType, android, Int, String (+16 more)
+Cohesion: 0.06
+Nodes (47): accountTypeCategoryProxy(), accountTypeIcon(), accountTypeRes(), categoryLabel(), AccountType, android, Int, String (+39 more)
 
 ### Community 68 - "Community 68"
 Cohesion: 0.07
@@ -716,7 +725,7 @@ Nodes (17): AppIntent, AppIntents, AppShortcut, AppShortcutsProvider, DynamicOpt
 
 ### Community 70 - "AccountType"
 Cohesion: 0.10
-Nodes (22): E2EMigratorTests, Fixture, Interrupted, OldClientURLProtocol, Remote, Bool, E2EMigrationMarker, E2EMigrator (+14 more)
+Nodes (21): E2EMigratorTests, Fixture, Interrupted, OldClientURLProtocol, Remote, Bool, E2EMigrationMarker, E2EMigrator (+13 more)
 
 ### Community 71 - "Community 71"
 Cohesion: 0.33
@@ -731,7 +740,7 @@ Cohesion: 0.60
 Nodes (4): main(), Path, radice_progetto(), suggerisci()
 
 ### Community 75 - "Community 75"
-Cohesion: 0.25
+Cohesion: 0.26
 Nodes (7): Instant, Int, Set, String, RecurringOpsTest, World, Action
 
 ### Community 77 - "Community 77"
@@ -743,80 +752,80 @@ Cohesion: 0.40
 Nodes (4): Come si costruisce, Dettaglio, MAPPA DEL CANTIERE — dove sta tutto, Social · backup novembre 2026
 
 ### Community 79 - "Community 79"
-Cohesion: 0.15
-Nodes (12): ANDROID · aggiornare l'app sul tuo telefono, BANCA · modello economico — cosa resta a te (tutto spiegato in `.cantiere/banca-modello-economico.md`, copia su Drive `02_RISORSE/lavorate/banca-modello-economico-2026-11-25.md`), BANCA · S-60t — tre verifiche prima del collegamento bancario (si può fare quando vuoi, non blocca il lavoro dell'IA), Da fare, E2E · prova reale della Protezione avanzata con un account di prova (dopo S-50p, quando vuoi), E2E · S-50p — approvare e pubblicare i testi del sito sulla Protezione avanzata, Fatte, NotebookLM (bibliotecario) · 6 fonti da aggiungere (+4 more)
+Cohesion: 0.17
+Nodes (11): ANDROID · aggiornare l'app sul tuo telefono, BANCA · modello economico — cosa resta a te (tutto spiegato in `.cantiere/banca-modello-economico.md`, copia su Drive `02_RISORSE/lavorate/banca-modello-economico-2026-11-25.md`), BANCA · S-60t — tre verifiche prima del collegamento bancario (si può fare quando vuoi, non blocca il lavoro dell'IA), Da fare, E2E · prova reale della Protezione avanzata con un account di prova (dopo S-50p, quando vuoi), Fatte, NotebookLM (bibliotecario) · 6 fonti da aggiungere, PER MATTEO — le cose che aspettano te (+3 more)
 
 ### Community 82 - "Community 82"
 Cohesion: 0.50
 Nodes (3): Dettaglio tentativi, Modifiche automatiche, Report notturno MoneyTracker — 25/07/2026
 
 ### Community 85 - "Community 85"
-Cohesion: 0.17
-Nodes (11): APPROVAZIONI DEL COMMITTENTE, S-14 · confronto mese su mese · ritirate — Matteo 2026-11-16 (S-31), S-14 · formulazione percentuali italiana · ritirate — Matteo 2026-11-16 (S-31), S-30 · Categoria dall’ultima volta · ✅ traduzioni approvate da Matteo 2026-11-16, S-50p · Sito: FAQ sicurezza (IT/EN) e informativa privacy con la Protezione avanzata · ⏳ in attesa di ✅ di Matteo (operaio, 2026-11-26), S-6 · testi del riferimento · ✅ (13 traduzioni compilate dal redattore, approvate da Matteo 2026-11-16), S-7 · testi di presentazione · ✅ (idem), S-7p · plurale giorni · ✅ approvato da Matteo 2026-11-16 (+3 more)
+Cohesion: 0.14
+Nodes (13): APPROVAZIONI DEL COMMITTENTE, S-14 · confronto mese su mese · ritirate — Matteo 2026-11-16 (S-31), S-14 · formulazione percentuali italiana · ritirate — Matteo 2026-11-16 (S-31), S-30 · Categoria dall’ultima volta · ✅ traduzioni approvate da Matteo 2026-11-16, S-50p · Sito: FAQ sicurezza (IT/EN) e informativa privacy con la Protezione avanzata · ✅ Matteo 2026-11-26 18:23 (operaio, 2026-11-26), S-50v · Privacy dell'app (it/en) · ✅ Matteo 2026-11-26 18:23 (redattore, 2026-11-26), S-50y · Meta description e hreflang del sito ⏳ (redattore, 2026-11-26), S-6 · testi del riferimento · ✅ (13 traduzioni compilate dal redattore, approvate da Matteo 2026-11-16) (+5 more)
 
 ### Community 99 - "Community 99"
-Cohesion: 0.09
-Nodes (12): CryptoKit, Foundation, MoneyTracker, Network, OSLog, Security, Supabase, SwiftData (+4 more)
+Cohesion: 0.08
+Nodes (14): Auth, Combine, CryptoKit, Foundation, LocalAuthentication, MoneyTracker, Observation, OSLog (+6 more)
 
 ### Community 100 - "Community 100"
-Cohesion: 0.07
-Nodes (13): AccountEntity, AppViewModel, Boolean, com, Instant, java, List, Long (+5 more)
+Cohesion: 0.08
+Nodes (10): AppViewModel, Boolean, com, java, List, Long, StateFlow, String (+2 more)
 
 ### Community 101 - "Community 101"
 Cohesion: 0.06
 Nodes (31): Issue, concurrentActivation, failed, incorrectSecret, offline, LocalizedStringKey, E2EFeature, Bool (+23 more)
 
 ### Community 102 - "Community 102"
-Cohesion: 0.25
+Cohesion: 0.24
 Nodes (10): AddBudgetView, BudgetHistorySheet, BudgetRow, Account, Bool, Budget, Date, Set (+2 more)
 
 ### Community 104 - "Community 104"
-Cohesion: 0.09
-Nodes (20): App, DemoDataSeeder, RecurringMaterializer, Date, Int, RecurrenceCalculator, TimeZone, MoneyTrackerApp (+12 more)
+Cohesion: 0.06
+Nodes (25): AnyObject, App, FileProtectionType, RecurringMaterializer, Date, Int, RecurrenceCalculator, TimeZone (+17 more)
 
 ### Community 105 - "Community 105"
-Cohesion: 0.12
-Nodes (18): PendingAction, skip, terminateAfter, terminateHere, RecurrenceContextMenu, RecurrenceEditorView, RecurrenceSelection, Account (+10 more)
+Cohesion: 0.08
+Nodes (26): LocalizedError, EditorError, crossMonthOverride, invalidOccurrence, invalidValues, requiresMainContext, RecurrenceOperationStatus, String (+18 more)
 
 ### Community 106 - "Community 106"
-Cohesion: 0.23
-Nodes (14): EditorException, E2EVerifier, Boolean, JsonElement, JsonObject, List, Map, Set (+6 more)
+Cohesion: 0.27
+Nodes (12): E2EVerifier, Boolean, JsonElement, JsonObject, List, Map, Set, Snapshot (+4 more)
 
 ### Community 107 - "Community 107"
-Cohesion: 0.10
-Nodes (15): BudgetData, Budgeting, GoalData, BigDecimal, Collection, List, Set, String (+7 more)
+Cohesion: 0.16
+Nodes (10): Budgeting, GoalData, BigDecimal, Collection, List, Set, String, YearMonth (+2 more)
 
 ### Community 108 - "Community 108"
-Cohesion: 0.15
-Nodes (14): CategoryEditing, DeleteMessage, Boolean, Int, List, String, fold(), KeywordCategoryClassifier (+6 more)
+Cohesion: 0.06
+Nodes (30): CategoryEditing, DeleteMessage, Boolean, Int, List, String, fold(), KeywordCategoryClassifier (+22 more)
 
 ### Community 109 - "Community 109"
-Cohesion: 0.09
-Nodes (22): data, Secret, passphrase, recovery, VaultKey, Data, Int, SymmetricKey (+14 more)
+Cohesion: 0.14
+Nodes (16): data, Secret, passphrase, recovery, Data, Int, SymmetricKey, UInt32 (+8 more)
 
 ### Community 110 - "Community 110"
-Cohesion: 0.16
-Nodes (14): AnyCancellable, E2EController, Protection, active, locked, off, pending, Bool (+6 more)
+Cohesion: 0.17
+Nodes (13): AnyCancellable, E2EController, Protection, active, locked, off, pending, Bool (+5 more)
 
 ### Community 111 - "Community 111"
 Cohesion: 0.23
 Nodes (7): E2EUITests, Bool, StaticString, String, UInt, XCUIDevice, XCUIElement
 
 ### Community 112 - "TxFilter"
-Cohesion: 0.15
-Nodes (9): HttpSupabaseApi, Boolean, Int, java, JsonObject, List, Map, String (+1 more)
+Cohesion: 0.16
+Nodes (9): HttpSupabaseApi, Boolean, Int, java, JsonObject, List, Long, Map (+1 more)
 
 ### Community 113 - "Schema"
-Cohesion: 0.12
-Nodes (19): Encodable, Activation, ActivationRollback, E2EServer, E2EServerAccess, E2EServerPatch, E2EServerRow, E2EServerState (+11 more)
+Cohesion: 0.14
+Nodes (18): Error, Encodable, Activation, ActivationRollback, E2EServer, E2EServerAccess, E2EServerPatch, E2EServerRow (+10 more)
 
 ### Community 126 - "Community 126"
-Cohesion: 0.18
-Nodes (22): E2EMigrationTransportInstrumentedTest, Long, AppData, budgetColor(), BudgetCard(), BudgetContent(), BudgetHistorySheet(), budgetName() (+14 more)
+Cohesion: 0.21
+Nodes (21): Long, AppData, budgetColor(), BudgetCard(), BudgetContent(), BudgetHistorySheet(), budgetName(), GoalCard() (+13 more)
 
 ### Community 127 - "Community 127"
-Cohesion: 0.10
-Nodes (13): E2EDeadVaultKeyTest, E2EMigratorTest, expectError(), InterruptedMigration, E2EController, MigrationRows, Snapshot, SyncService (+5 more)
+Cohesion: 0.13
+Nodes (10): E2EMigratorTest, expectError(), InterruptedMigration, E2EController, MigrationRows, Snapshot, SyncService, T (+2 more)
 
 ### Community 128 - "Community 128"
 Cohesion: 0.27
@@ -827,12 +836,12 @@ Cohesion: 0.23
 Nodes (9): CGContext, CGPoint, FontRegistrationTests, UIColor, UIFont, UIGraphicsPDFRendererContext, NumberFormatter, PDFReportGenerator (+1 more)
 
 ### Community 130 - "Community 130"
-Cohesion: 0.07
-Nodes (32): Content, Card, PlanningBudgetCard, PlanningGoalCard, PlanningProgressRing, Bool, Budget, Goal (+24 more)
+Cohesion: 0.10
+Nodes (21): Content, Card, AdvancedProtectionView, E2EAction, E2EMessage, E2EPage, E2EProgress, E2ESettingsRow (+13 more)
 
 ### Community 137 - "StatisticsView.swift"
-Cohesion: 0.15
-Nodes (18): ArraySlice, keyId, SupabaseVaultAccess, KeyPath, Row, Set, String, SupabaseClient (+10 more)
+Cohesion: 0.20
+Nodes (11): ArraySlice, keyId, Row, Set, SymmetricKey, VaultRemote, E2EStressTests, E2EVaultRemoteTests (+3 more)
 
 ### Community 165 - ".invalidateAll"
 Cohesion: 0.29
@@ -860,22 +869,22 @@ Nodes (24): Progetto SOCIAL (avviato 2026-11-17), S-10 [x] (2026-11-16: Commissi
 
 ### Community 186 - "Color"
 Cohesion: 0.16
-Nodes (34): BudgetStatus(), Card(), CategoryIconBox(), dashedBorder(), defaultMinSize18(), DemoBanner(), EmptyState(), FilterChip() (+26 more)
+Nodes (33): BudgetStatus(), Card(), CategoryIconBox(), dashedBorder(), defaultMinSize18(), DemoBanner(), FilterChip(), GhostButton() (+25 more)
 
 ### Community 189 - "Action"
-Cohesion: 0.11
-Nodes (15): Auth, Combine, FileProtectionType, LocalAuthentication, AppLockGate, AppLockState, LockOverlay, Bool (+7 more)
+Cohesion: 0.10
+Nodes (15): AppLockGate, AppLockState, LockOverlay, Bool, View, Void, View, SupabaseManager (+7 more)
 
 ### Community 191 - "SupabaseManager"
 Cohesion: 0.46
 Nodes (7): fetch(), handle(), json(), secure(), SECURITY, subscribe(), UTM
 
 ### Community 192 - "ShareSheet"
-Cohesion: 0.09
-Nodes (37): AccountSaveRequest, AddAccountForm(), BigDecimal, Boolean, List, String, AddTransactionForm(), freqLabelRes() (+29 more)
+Cohesion: 0.10
+Nodes (38): SectionLabel(), AccountSaveRequest, AddAccountForm(), BigDecimal, Boolean, List, String, AddTransactionForm() (+30 more)
 
 ### Community 193 - "MaterializationError"
-Cohesion: 0.22
+Cohesion: 0.20
 Nodes (9): Boolean, Int, JsonElement, JsonObject, Long, String, SyncMapper, DateTimeFormatter (+1 more)
 
 ### Community 194 - "LoginView"
@@ -883,8 +892,8 @@ Cohesion: 0.22
 Nodes (8): attribution, button, campaign, fields, form, localPreview, msg, status
 
 ### Community 195 - "make"
-Cohesion: 0.25
-Nodes (5): HttpSupabaseApiGoldenTest, Int, String, LoopbackServer, Request
+Cohesion: 0.07
+Nodes (29): 0. Richieste di Matteo (testo vincolante), 1. Sintesi e fattibilità, 2.1 Autorizzazione (primo passo della sessione), 2.2 File, 2.3 Decisioni tecniche (motivate), 2.4 Forma del tipo puro (indicativa, Codex può adattare i nomi), 2.5 Casi limite, 2.6 Localizzazione (chiave = testo italiano, come da convenzione; aggiungere in tutti e 7 i `.lproj`, incluso `it`) (+21 more)
 
 ### Community 196 - "HapticStyle"
 Cohesion: 0.22
@@ -899,35 +908,35 @@ Cohesion: 0.18
 Nodes (10): Calcolo settimanale, Colonne dal 25/11/2026, Decisione sui format, Diario delle metriche social, Engagement rate, Post 1 · Instagram, Post 1 · TikTok, Post 2 · Instagram (+2 more)
 
 ### Community 201 - "TransactionsAdvancedFilterSheet"
-Cohesion: 0.06
-Nodes (29): LayoutRegressionTest, Bundle, MainActivity, AppLockGate(), LockOverlay(), BalanceActivity, BalanceCard(), Bundle (+21 more)
+Cohesion: 0.09
+Nodes (17): LayoutRegressionTest, Bundle, MainActivity, AppLockGate(), LockOverlay(), BalanceActivity, BalanceCard(), Bundle (+9 more)
 
 ### Community 202 - "DaysRemainingPluralTests.swift"
-Cohesion: 0.17
-Nodes (7): ClassifierTest, Boolean, LastUsedCategory, List, Long, Set, String
+Cohesion: 0.27
+Nodes (6): E2EProtectionUiTest, Boolean, Int, Long, Set, String
 
 ### Community 204 - "MemorySyncState"
 Cohesion: 0.27
 Nodes (8): Bt, BucktrailColors, c(), colors(), Boolean, Int, Long, TintColors
 
 ### Community 205 - ".dao"
-Cohesion: 0.05
-Nodes (29): E2EKeyStoreInstrumentedTest, E2EProtectionUiTest, Boolean, Int, Long, Set, String, E2EKeyStore (+21 more)
+Cohesion: 0.06
+Nodes (21): E2EKeyStoreInstrumentedTest, E2EKeyStore, E2ESecrets, ByteArray, E2EMigrationMarker, SecretKey, String, LocalDek (+13 more)
 
 ### Community 206 - ".materializeDue"
 Cohesion: 0.12
 Nodes (17): 10.3 Task, S-50a · Server finto e test del server finto (≈ 1 h), S-50b · Nucleo crittografico iOS + vettori (≈ 2 h), S-50c · Nucleo crittografico Android + vettori (≈ 1,5 h), S-50d · iOS: trasporto `SyncRemote` senza cambiare comportamento (≈ 2 h) → poi COLLAUDO BLOCCO 1, S-50e · iOS: vault, Keychain, server `mt_e2e`, gate (≈ 2 h), S-50f · Android: `VaultApi`, decoratore, Keystore, gate (≈ 2 h), S-50g · Interoperabilità delle righe iOS↔Android (≈ 1 h) (+9 more)
 
 ### Community 207 - "ProgrammedRuleCard"
-Cohesion: 0.26
-Nodes (4): E2ECryptoTests, Data, Fixture, SymmetricKey
+Cohesion: 0.16
+Nodes (6): AccountEntity, BudgetEntity, GoalEntity, AuditLogTest, List, List
 
 ### Community 208 - ".build"
-Cohesion: 0.20
-Nodes (22): PrimaryButton(), AdvancedProtectionRow(), AdvancedProtectionSheet(), clearClipboardLater(), findActivity(), Boolean, Context, E2EController (+14 more)
+Cohesion: 0.21
+Nodes (21): AdvancedProtectionRow(), AdvancedProtectionSheet(), clearClipboardLater(), findActivity(), Boolean, Context, E2EController, Int (+13 more)
 
 ### Community 209 - "FilterChip"
-Cohesion: 0.16
+Cohesion: 0.15
 Nodes (11): ApiException, FakeVaultSupabase, Boolean, ByteArray, E2EMigrationMarker, Int, JsonObject, List (+3 more)
 
 ### Community 210 - "S-44 · Sicurezza dei dati — verifica sul codice (2026-11-24)"
@@ -935,8 +944,12 @@ Cohesion: 0.33
 Nodes (5): Android, Cloud (Supabase, comune a iOS e Android), iOS, Lacune e decisione, S-44 · Sicurezza dei dati — verifica sul codice (2026-11-24)
 
 ### Community 211 - "AuditLogView"
-Cohesion: 0.16
-Nodes (15): RecurringRule, Bool, Date, String, UUID, RecurrencePresentationCache, RuleKey, Bool (+7 more)
+Cohesion: 0.13
+Nodes (16): ProgrammedRuleCard, Calendar, Date, Occurrence, Void, VirtualOccurrenceRow, RecurrencePresentationCache, RuleKey (+8 more)
+
+### Community 212 - "RecurringSeriesDetailView"
+Cohesion: 0.08
+Nodes (11): E2EDeadVaultKeyTest, Int, MigrationRemote, migrationSnapshot(), E2EStressTest, budget(), FixedAuth, goal() (+3 more)
 
 ### Community 213 - "7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»)"
 Cohesion: 0.15
@@ -955,8 +968,8 @@ Cohesion: 0.22
 Nodes (10): Result, Boolean, JsonObject, Map, String, UUID, Occurrence, occurrenceId() (+2 more)
 
 ### Community 217 - "DaysRemainingPluralTests.swift"
-Cohesion: 0.12
-Nodes (12): E2EMigrationMarker, Boolean, JsonObject, VaultSupabaseApi, E2EGateTest, Fixture, ByteArray, E2EGate (+4 more)
+Cohesion: 0.13
+Nodes (11): E2EMigrationMarker, Boolean, JsonObject, E2EGateTest, Fixture, ByteArray, E2EGate, JsonObject (+3 more)
 
 ### Community 219 - "SupabaseConfig.swift"
 Cohesion: 0.18
@@ -991,8 +1004,8 @@ Cohesion: 0.29
 Nodes (6): CommonCrypto, Failure, authenticationFailed, malformed, operationFailed, unsupportedVersion
 
 ### Community 307 - "PIANO DEI LAVORI"
-Cohesion: 0.50
-Nodes (3): PIANO DEI LAVORI, Proposte prodotto · Android e collegamento bancario, Richieste di Matteo · 2026-11-24 sera
+Cohesion: 0.40
+Nodes (4): PIANO DEI LAVORI, Proposte prodotto · Android e collegamento bancario, Richieste di Matteo · 2026-11-24 sera, S-70 · Doppio tap con categorie + simulazione «E se…?» (idee di Matteo, 2026-11-26)
 
 ### Community 309 - "README.md"
 Cohesion: 0.27
@@ -1007,24 +1020,24 @@ Cohesion: 0.15
 Nodes (8): Calendario social Bucktrail · v2 (23/11/2026), Mappa vecchi post → nuovi, Note di verifica, Nuovo elenco, Guida alle schermate di Bucktrail, Master social Bucktrail, Cosa raccogliere, Schermate dell’app
 
 ### Community 312 - "7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»)"
-Cohesion: 0.10
-Nodes (10): BucktrailDao, com, Flow, List, String, BudgetEntity, CategoryEntity, GoalEntity (+2 more)
+Cohesion: 0.12
+Nodes (7): BucktrailDao, com, Flow, List, String, CategoryEntity, seedDefaultCategories()
 
 ### Community 313 - "build.py"
 Cohesion: 0.35
 Nodes (11): calculation(), editorial(), inset(), laptop(), left(), phone(), right_phone(), save() (+3 more)
 
 ### Community 314 - "FormatterCache"
-Cohesion: 0.17
-Nodes (8): Boolean, Flow, List, LedgerState, Repository, Source, AuditLogTest, List
+Cohesion: 0.29
+Nodes (6): Boolean, Flow, List, LedgerState, Repository, Source
 
 ### Community 315 - ".resolve"
-Cohesion: 0.17
-Nodes (11): E2EServerTests, E2EURLProtocol, Fixture, State, Bool, Data, Int, String (+3 more)
+Cohesion: 0.15
+Nodes (12): E2EObsoleteVaultFilterTests, E2EServerTests, E2EURLProtocol, Fixture, State, Bool, Data, Int (+4 more)
 
 ### Community 317 - "ProgrammedRuleCard"
-Cohesion: 0.12
-Nodes (18): Any, List, LocalDate, Long, Map, String, ZoneId, migrate() (+10 more)
+Cohesion: 0.09
+Nodes (24): Any, List, LocalDate, Long, Map, String, ZoneId, migrate() (+16 more)
 
 ### Community 318 - "build.gradle.kts"
 Cohesion: 0.83
@@ -1035,8 +1048,8 @@ Cohesion: 0.50
 Nodes (3): bento, shots, steps
 
 ### Community 322 - "ModelConfiguration"
-Cohesion: 0.12
-Nodes (15): E2EMigrator, Operation, cancelEnable, changePhrase, disable, enable, restart, resume (+7 more)
+Cohesion: 0.13
+Nodes (11): ObsoleteVaultURLProtocol, Bool, URLRequest, GoldenURLProtocol, Request, Bool, Data, String (+3 more)
 
 ### Community 323 - "Proposte in ordine"
 Cohesion: 0.11
@@ -1051,8 +1064,8 @@ Cohesion: 0.25
 Nodes (8): Calendario, approvazione e consegna, Comunicazione sul lancio, Direttive social Bucktrail, Grafica e controllo prima della consegna, Prima di preparare ogni nuovo post, Regole dal 25/11/2026 (prevalgono su tutto quanto segue), Stile v2 (dal 23/11/2026, Post-5 in poi), Tre rubriche
 
 ### Community 326 - ".rule"
-Cohesion: 0.13
-Nodes (15): IDRow, PlainRemote, KeyPath, Row, Set, SupabaseClient, UUID, GoldenURLProtocol (+7 more)
+Cohesion: 0.25
+Nodes (8): IDRow, PlainRemote, KeyPath, Row, Set, SupabaseClient, UUID, SyncRemoteGoldenTests
 
 ### Community 327 - "AddAccountView"
 Cohesion: 0.27
@@ -1064,7 +1077,7 @@ Nodes (7): 11.1 Regole comuni (R1–R12) — fanno parte di ogni prompt, 11.2 Or
 
 ### Community 329 - "ShareSheet"
 Cohesion: 0.15
-Nodes (11): Int64, E2EMigrator, Bool, Data, E2EKeyStore, E2EMigrationMarker, Int, Snapshot (+3 more)
+Nodes (12): Int64, E2EMigrator, Bool, Data, E2EKeyStore, E2EMigrationMarker, Int, Snapshot (+4 more)
 
 ### Community 330 - "AccountBalanceCache"
 Cohesion: 0.35
@@ -1091,16 +1104,16 @@ Cohesion: 0.12
 Nodes (11): AppPrefs, K, Boolean, Flow, Int, List, String, PrefsState (+3 more)
 
 ### Community 336 - "HttpSupabaseApiTest"
-Cohesion: 0.12
-Nodes (7): HttpSupabaseApiTest, Int, ServerSocket, Socket, String, Recorded, Reply
+Cohesion: 0.08
+Nodes (12): HttpSupabaseApiGoldenTest, Int, String, LoopbackServer, Request, HttpSupabaseApiTest, Int, ServerSocket (+4 more)
 
 ### Community 337 - "Row"
 Cohesion: 0.34
 Nodes (5): RuleState, Instant, Int, String, RecurringMaterializerTest
 
 ### Community 338 - "FakeLocalStore"
-Cohesion: 0.09
-Nodes (20): Snapshot, Int, migrationSnapshot(), VaultSupabaseApiTest, Int, SyncEngineTest, account(), budget() (+12 more)
+Cohesion: 0.11
+Nodes (12): Snapshot, VaultSupabaseApiTest, Int, SyncEngineTest, account(), FakeLocalStore, tx(), Int (+4 more)
 
 ### Community 339 - "Statistics"
 Cohesion: 0.25
@@ -1111,8 +1124,8 @@ Cohesion: 0.13
 Nodes (19): BootReceiver, Kind, Boolean, Collection, Context, Instant, Int, java (+11 more)
 
 ### Community 341 - "RecurrenceEditorSheet"
-Cohesion: 0.22
-Nodes (22): SectionLabel(), ActionRow(), frequencyLabel(), android, androidx, com, KeyboardType, List (+14 more)
+Cohesion: 0.21
+Nodes (21): EmptyState(), Unit, ActionRow(), frequencyLabel(), android, androidx, com, KeyboardType (+13 more)
 
 ### Community 342 - "RecurringRuleEntity"
 Cohesion: 0.19
@@ -1123,32 +1136,32 @@ Cohesion: 0.10
 Nodes (9): BucktrailApplication, Boolean, String, AuditLog, AuditTracker, Entry, Flow, List (+1 more)
 
 ### Community 344 - "NotificationRules"
-Cohesion: 0.11
-Nodes (27): AuthGateway, Decoded, DeletionGuard, Done, Failed, Boolean, Collection, Int (+19 more)
+Cohesion: 0.18
+Nodes (11): Boolean, Collection, Int, Long, Map, Set, Snapshot, String (+3 more)
 
 ### Community 345 - "QuickAdd.kt"
 Cohesion: 0.22
 Nodes (12): Add, Balance, BalanceLine, BalanceSummary, Draft, Home, Kind, List (+4 more)
 
 ### Community 346 - "Snapshot"
-Cohesion: 0.32
-Nodes (8): E2EGate, E2EMigrationMarker, Resolution, Bool, E2EKeyStore, Phase, UUID, Void
+Cohesion: 0.21
+Nodes (12): E2EGate, E2EMigrationMarker, Phase, resetting, rollingBack, verified, Resolution, Bool (+4 more)
 
 ### Community 347 - "categoryLabel"
-Cohesion: 0.20
-Nodes (12): BalanceWidget, BalanceWidgetReceiver, hide(), BigDecimal, Boolean, Context, String, make() (+4 more)
+Cohesion: 0.15
+Nodes (16): AuthGateway, Decoded, DeletionGuard, Done, Failed, kotlinx, List, T (+8 more)
 
 ### Community 348 - "Content"
-Cohesion: 0.13
-Nodes (11): OldClientTest, FakeSupabase, Boolean, Collection, Int, JsonObject, List, Map (+3 more)
+Cohesion: 0.29
+Nodes (4): FakeSupabase, JsonObject, List, String
 
 ### Community 349 - "10. Piano di prova"
 Cohesion: 0.33
 Nodes (6): 10.1 Principi, 10.2 Strumenti, 10.3 Test, 10.4 Sandbox vera e banca vera (mai senza Matteo), 10.5 Comandi, 10. Piano di prova
 
 ### Community 350 - "RecurringMaterializerTests"
-Cohesion: 0.10
-Nodes (19): E2EDeadVaultCleanupRetryTests, InMemoryRemote, Bool, UUID, E2ELifecycleTests, LifecycleFixture, LifecycleURLProtocol, Request (+11 more)
+Cohesion: 0.11
+Nodes (16): E2ELifecycleTests, LifecycleFixture, LifecycleURLProtocol, Request, Bool, E2EMigrator, Int, ModelContainer (+8 more)
 
 ### Community 351 - "12. Rischi, costi, decisioni"
 Cohesion: 0.33
@@ -1163,20 +1176,20 @@ Cohesion: 0.16
 Nodes (4): Boolean, Long, String, QuickAddTest
 
 ### Community 354 - ".rule"
-Cohesion: 0.23
-Nodes (10): Device, Bool, E2EMigrationMarker, E2EMigrator, InMemoryRemote, ModelContainer, SyncService, UserDefaults (+2 more)
+Cohesion: 0.19
+Nodes (11): Device, E2EDeadVaultKeyTests, Bool, E2EMigrationMarker, E2EMigrator, InMemoryRemote, ModelContainer, SyncService (+3 more)
 
 ### Community 355 - "SyncMapperTest"
-Cohesion: 0.38
-Nodes (13): Decodable, IDRow, AES, Crockford, Envelope, Fixture, FixtureBundle, HKDFVector (+5 more)
+Cohesion: 0.23
+Nodes (4): NSCache, NSString, KeywordCategoryClassifier, KeywordCategoryClassifierTests
 
 ### Community 356 - "String"
 Cohesion: 0.33
 Nodes (8): Failed, Invalid, Boolean, Context, String, Outcome, QuickAddOps, Saved
 
 ### Community 357 - "StatisticsScreen"
-Cohesion: 0.08
-Nodes (24): Duration, vault, E2EServerLookup, absent, row, unavailable, E2EUITestHarness, Fixture (+16 more)
+Cohesion: 0.16
+Nodes (13): Duration, vault, SyncTable, accounts, budgets, goals, recurringRules, transactions (+5 more)
 
 ### Community 358 - "AccountEditingTest"
 Cohesion: 0.15
@@ -1195,8 +1208,8 @@ Cohesion: 0.39
 Nodes (5): List, String, ZoneId, RecurringSeries, RecurringSeriesDetector
 
 ### Community 362 - "SupabaseManager"
-Cohesion: 0.27
-Nodes (5): SupabaseManager, Bool, String, SupabaseClient, UUID
+Cohesion: 0.12
+Nodes (15): E2EMigrator, Operation, cancelEnable, changePhrase, disable, enable, restart, resume (+7 more)
 
 ### Community 363 - "4. Schermata per schermata"
 Cohesion: 0.12
@@ -1218,13 +1231,9 @@ Nodes (6): 8.1 Modello di minaccia, 8.2 Cosa si conserva e per quanto, 8.3 Cance
 Cohesion: 0.21
 Nodes (9): CsvExport, Any, Int, List, Map, String, ZoneId, Labels (+1 more)
 
-### Community 368 - "9. Setup e Installazione"
-Cohesion: 0.36
-Nodes (3): JsonObject, List, RowInteropTest
-
 ### Community 369 - "HomeScreen"
-Cohesion: 0.40
-Nodes (6): canonicalUuid(), UUID, JsonObject, List, String, SyncFormatException
+Cohesion: 0.35
+Nodes (7): canonicalUuid(), UUID, JsonObject, List, String, VaultSupabaseApi, SyncFormatException
 
 ### Community 370 - ".ledger"
 Cohesion: 0.10
@@ -1239,8 +1248,8 @@ Cohesion: 0.18
 Nodes (11): CodingKeys, kdf, kdfIterations, keyId, salt, state, updatedAt, userId (+3 more)
 
 ### Community 373 - "ScriptedApi"
-Cohesion: 0.07
-Nodes (30): CaseIterable, Step, a0, a1, a2, a3, a4, a5 (+22 more)
+Cohesion: 0.11
+Nodes (18): Step, a0, a1, a2, a3, a4, a5, a6 (+10 more)
 
 ### Community 374 - "PianificaView"
 Cohesion: 0.19
@@ -1260,7 +1269,7 @@ Nodes (5): HomeAccountOrder, Int, List, String, State
 
 ### Community 379 - "SessionStore"
 Cohesion: 0.10
-Nodes (9): SessionStore, KeystoreSessionStore, SecretKey, ErrorKind, fromJson(), Long, Response, Session (+1 more)
+Nodes (9): SessionStore, KeystoreSessionStore, SecretKey, ErrorKind, fromJson(), Response, Session, SupabaseApi (+1 more)
 
 ### Community 380 - "StatisticsTest"
 Cohesion: 0.18
@@ -1291,12 +1300,12 @@ Cohesion: 0.38
 Nodes (3): RecurringRuleSyncTests, Date, ModelContainer
 
 ### Community 387 - "10. Piano di lavoro"
-Cohesion: 0.33
-Nodes (4): ExportRoundTripTest, Int, List, String
+Cohesion: 0.11
+Nodes (20): CaseIterable, RecurringSeries, RecurringSeriesDetector, Bool, Date, Int, String, Transaction (+12 more)
 
 ### Community 388 - "1. Visione e Posizionamento"
-Cohesion: 0.08
-Nodes (33): SyncTable, accounts, budgets, goals, recurringRules, transactions, VaultRecord, Remote (+25 more)
+Cohesion: 0.11
+Nodes (21): Call, delete, deleteE2E, deleteVault, fetchIds, insertE2E, lookupE2E, patchE2E (+13 more)
 
 ### Community 389 - "SfIcons"
 Cohesion: 0.28
@@ -1315,16 +1324,16 @@ Cohesion: 0.36
 Nodes (5): List, Set, String, LastUsedCategory, Movement
 
 ### Community 395 - "e2e-vectors.py"
-Cohesion: 0.36
-Nodes (10): b64url(), check_nonce_calls(), crockford_format(), crockford_parse(), envelope_bytes(), hkdf(), main(), pbkdf2() (+2 more)
+Cohesion: 0.19
+Nodes (7): VaultRecord, Remote, Bool, Row, Set, String, UUID
 
 ### Community 396 - ".authenticate"
 Cohesion: 0.29
 Nodes (5): Authenticator, Boolean, Context, FragmentActivity, String
 
 ### Community 398 - ".tx"
-Cohesion: 0.05
-Nodes (53): Equatable, BalanceTrail, Entry, Point, Bool, Calendar, Date, Int (+45 more)
+Cohesion: 0.14
+Nodes (20): JSONEncoder, E2EVerifier, Failure, count, duplicateID, fields, ids, Field (+12 more)
 
 ### Community 399 - "TrailView"
 Cohesion: 0.25
@@ -1367,7 +1376,7 @@ Cohesion: 0.40
 Nodes (5): HomeProjection, List, LocalDate, ZoneId, make()
 
 ### Community 409 - "DaysRemainingPluralTests.swift"
-Cohesion: 0.22
+Cohesion: 0.21
 Nodes (9): AuditClears, Fixture, Bool, ModelContainer, String, SyncService, UserDefaults, UUID (+1 more)
 
 ### Community 410 - "Type.kt"
@@ -1387,16 +1396,16 @@ Cohesion: 0.33
 Nodes (5): Collaudo iOS 2026-11-24 (collaudatore, Claude Code · Sonnet), Difetti piccoli, Esito, S-36 — rami vecchi (nessuna cancellazione; proposta), Suggerimenti
 
 ### Community 415 - "RecurrenceCalculator"
-Cohesion: 0.21
+Cohesion: 0.19
 Nodes (8): CategoryTint, amber, blue, green, violet, String, UInt32, CategoryTintTests
 
 ### Community 416 - "RecurringSeriesEditor"
-Cohesion: 0.36
-Nodes (9): esc(), main(), parse_strings(), Converte i segnaposto iOS e fa l'escape per strings.xml. Ritorna (testo, ha_segn, slug(), specs(), to_android(), unescape() (+1 more)
+Cohesion: 0.10
+Nodes (25): Equatable, BalanceTrail, Entry, Point, Bool, Calendar, Date, Int (+17 more)
 
 ### Community 417 - ".rule"
-Cohesion: 0.11
-Nodes (28): Unit, rememberNotificationPermission(), BucktrailApp(), Boolean, LocalDate, ZoneId, Refreshable(), TransactionEditor() (+20 more)
+Cohesion: 0.07
+Nodes (55): Unit, rememberNotificationPermission(), BucktrailApp(), Boolean, LocalDate, ZoneId, Refreshable(), TransactionEditor() (+47 more)
 
 ### Community 419 - "ExportsTest"
 Cohesion: 0.24
@@ -1415,7 +1424,7 @@ Cohesion: 0.35
 Nodes (6): ProjectionMonthTests, Bool, Calendar, Date, Int, Transaction
 
 ### Community 426 - "CategoryEntity"
-Cohesion: 0.31
+Cohesion: 0.36
 Nodes (5): AuthField, LoginView, Bool, String, UIKeyboardType
 
 ### Community 430 - "RecurringOps.kt"
@@ -1423,7 +1432,7 @@ Cohesion: 0.28
 Nodes (8): toData(), Balance, BigDecimal, List, AccountData, AccountType, BigDecimal, TransactionData
 
 ### Community 431 - "Error"
-Cohesion: 0.29
+Cohesion: 0.33
 Nodes (6): CodingKeys, amount, createdAt, id, name, String
 
 ### Community 432 - "riassunto.mjs"
@@ -1431,24 +1440,24 @@ Cohesion: 0.36
 Nodes (3): BalanceTest, Boolean, String
 
 ### Community 433 - "Mode"
-Cohesion: 0.20
-Nodes (10): LockReason, needsSecret, protectionRemoved, transition, unsupported, Mode, locked, plain (+2 more)
+Cohesion: 0.18
+Nodes (15): Occurrence, RecurrenceCalculator, RecurrenceException, RecurrenceExceptionCodec, RuleSnapshot, Bool, Calendar, Date (+7 more)
 
 ### Community 434 - "AddGoalView"
-Cohesion: 0.08
-Nodes (16): AnyObject, Action, delete, edit, skipMonth, terminate, RecurringSeriesEditor, Bool (+8 more)
+Cohesion: 0.15
+Nodes (12): Action, delete, edit, skipMonth, terminate, RecurringSeriesEditor, Bool, Calendar (+4 more)
 
 ### Community 435 - "AuditLogger"
 Cohesion: 0.36
-Nodes (8): AdvancedFilterSheet(), AmountField(), DateRow(), Boolean, Int, LocalDate, Modifier, String
+Nodes (9): Row, AdvancedFilterSheet(), AmountField(), DateRow(), Boolean, Int, LocalDate, Modifier (+1 more)
 
 ### Community 436 - "TxFilter"
-Cohesion: 0.29
-Nodes (5): GenerationGuardedRemote, Row, Set, UUID, Void
+Cohesion: 0.17
+Nodes (13): E2EUITestHarness, Fixture, interrupted, locked, off, offline, priorAttempt, removed (+5 more)
 
 ### Community 438 - "RecoveryKey"
-Cohesion: 0.26
-Nodes (11): Activating, Disabling, String, Locked, Off, On, Protection, Reason (+3 more)
+Cohesion: 0.19
+Nodes (13): Action, Delete, Edit, EditorException, Problem, Scope, Selection, SkipMonth (+5 more)
 
 ### Community 439 - "ApiException"
 Cohesion: 0.25
@@ -1463,32 +1472,32 @@ Cohesion: 0.40
 Nodes (3): ISO8601DateFormatter, Bool, StrictRecurrenceAmountTests
 
 ### Community 442 - "MovementRow"
-Cohesion: 0.25
-Nodes (8): CodingKeys, activationGeneration, direction, generation, keyId, phase, startedAt, userId
+Cohesion: 0.20
+Nodes (12): BalanceWidget, BalanceWidgetReceiver, hide(), BigDecimal, Boolean, Context, String, make() (+4 more)
 
 ### Community 443 - "TransactionsSecondaryChips"
 Cohesion: 0.33
 Nodes (7): Boolean, Collection, Int, Long, Map, String, SharedPrefsSyncState
 
 ### Community 444 - "ProgrammedRuleCard"
-Cohesion: 0.32
-Nodes (6): ProgrammedRuleCard, Calendar, Date, Occurrence, Void, VirtualOccurrenceRow
+Cohesion: 0.16
+Nodes (12): BalanceTrail, Modifier, String, TrailView(), accountDotColor(), FixedTotalTile(), HomeScreen(), AccountType (+4 more)
 
 ### Community 445 - "RecurringSeriesDetailView"
-Cohesion: 0.17
-Nodes (7): CheckedContinuation, RacingServer, Bool, InMemoryRemote, Never, UUID, Void
+Cohesion: 0.12
+Nodes (11): CheckedContinuation, E2EServerLookup, absent, row, unavailable, RacingServer, Bool, InMemoryRemote (+3 more)
 
 ### Community 446 - "Date"
+Cohesion: 0.24
+Nodes (4): BucktrailDatabase, Snapshot, RoomLocalStore, RoomDatabase
+
+### Community 447 - ".format"
 Cohesion: 0.27
 Nodes (4): kotlinx, List, String, ScriptedApi
 
-### Community 447 - ".format"
-Cohesion: 0.33
-Nodes (4): Dim, Fonts, Int, Typo
-
 ### Community 448 - "Fixture"
-Cohesion: 0.10
-Nodes (21): Absent, clearDeadVaultKeys(), E2ERowLookup, e2eStateChanged(), generation(), Boolean, Int, JsonObject (+13 more)
+Cohesion: 0.18
+Nodes (17): Absent, clearDeadVaultKeys(), E2ERowLookup, e2eStateChanged(), generation(), Boolean, Int, JsonObject (+9 more)
 
 ### Community 449 - "Type.kt"
 Cohesion: 0.53
@@ -1500,39 +1509,39 @@ Nodes (5): Instant, List, RecurrenceCalculator, Plan, RecurringMaterializer
 
 ### Community 451 - "AuditLogView"
 Cohesion: 0.06
-Nodes (23): SignUpView, Bool, String, HeroCard, HomeHeroCard, BalanceTrail, Date, ProgressBar (+15 more)
+Nodes (29): Dim, Fonts, Int, Typo, Font, HeroCard, HomeHeroCard, BalanceTrail (+21 more)
 
 ### Community 452 - ".tx"
-Cohesion: 0.33
+Cohesion: 0.40
 Nodes (4): InMemoryRemote, Bool, String, UUID
 
 ### Community 453 - ".resolve"
-Cohesion: 0.44
-Nodes (5): JSONDecoder, JSONEncoder, VaultJSON, E2ERowInteropTests, Data
+Cohesion: 0.49
+Nodes (4): JSONDecoder, VaultJSON, E2ERowInteropTests, Data
 
 ### Community 454 - "4. Modelli Dati"
 Cohesion: 0.29
 Nodes (7): 4. Modelli Dati, Account, Budget, Category, FormatterCache (performance), Goal (Obiettivo di risparmio), Transaction
 
 ### Community 455 - "CodingKeys"
-Cohesion: 0.27
-Nodes (7): MigrationStage, Double, decimalFromLegacyDouble(), DecimalMigrationBuffer, MoneyTrackerMigrationPlan, UUID, SchemaMigrationPlan
+Cohesion: 0.25
+Nodes (8): MigrationStage, Double, decimalFromLegacyDouble(), DecimalMigrationBuffer, MoneyTrackerMigrationPlan, UUID, ProgressBar, SchemaMigrationPlan
 
 ### Community 456 - ".forceReset"
-Cohesion: 0.38
+Cohesion: 0.27
 Nodes (5): AddGoalView, GoalRow, Date, Goal, String
 
 ### Community 457 - ".build"
-Cohesion: 0.33
-Nodes (7): RecurringSeries, RecurringSeriesDetector, Bool, Date, Int, String, Transaction
+Cohesion: 0.26
+Nodes (11): Activating, Disabling, String, Locked, Off, On, Protection, Reason (+3 more)
 
 ### Community 458 - ".loginAndBothPushAndPullUseOnlyOriginalPlainCalls"
-Cohesion: 0.14
-Nodes (25): BarAction(), BtAlert(), DialogStatusBarEffect(), androidx, Boolean, Float, Long, Modifier (+17 more)
+Cohesion: 0.29
+Nodes (3): IntentResult, ProvidesDialog, AccountBalanceTests
 
 ### Community 459 - "Selection"
-Cohesion: 0.08
-Nodes (26): MainActor, E2EOperation, foreground, login, pull, push, refresh, runE2ESync() (+18 more)
+Cohesion: 0.12
+Nodes (21): MainActor, E2EOperation, foreground, login, pull, push, refresh, runE2ESync() (+13 more)
 
 ### Community 460 - ".dateFormatter"
 Cohesion: 0.38
@@ -1542,17 +1551,21 @@ Nodes (5): ShareSheet, Any, Context, UIActivityViewController, UIViewControllerR
 Cohesion: 0.27
 Nodes (5): Amounts, BigDecimal, Boolean, Long, String
 
+### Community 463 - "SupabaseConfig.swift"
+Cohesion: 0.31
+Nodes (7): Backoff, Idle, Int, Offline, Syncing, SyncStatus, WaitingForRetry
+
 ### Community 464 - "CodingKeys"
-Cohesion: 0.10
-Nodes (12): BucktrailDatabase, Snapshot, RoomLocalStore, IgnoredIds, Boolean, Int, Set, String (+4 more)
+Cohesion: 0.18
+Nodes (9): IgnoredIds, Boolean, Int, Set, String, SyncMerge, SyncPlan, Snapshot (+1 more)
 
 ### Community 466 - "EditorError"
-Cohesion: 0.07
-Nodes (25): Error, Ok, RecurrenceResult, MaterializationError, requiresMainContext, saveFailed, Failure, authenticationRequired (+17 more)
+Cohesion: 0.47
+Nodes (3): SignUpView, Bool, String
 
 ### Community 468 - "AdvancedFilterSheet"
-Cohesion: 0.32
-Nodes (5): E2EVaultConcurrencyTests, Row, Decoder, Encoder, UUID
+Cohesion: 0.18
+Nodes (9): E2EDeadVaultCleanupRetryTests, InMemoryRemote, Bool, UUID, E2EVaultConcurrencyTests, Row, Decoder, Encoder (+1 more)
 
 ### Community 469 - ".movement"
 Cohesion: 0.31
@@ -1563,24 +1576,44 @@ Cohesion: 0.25
 Nodes (4): E2EProtectionRemovedUITests, String, XCUIDevice, XCTestCase
 
 ### Community 472 - "LifecycleURLProtocol"
-Cohesion: 0.40
-Nodes (5): CodingKeys, id, kind, payload, userId
+Cohesion: 0.20
+Nodes (14): CodingKeys, id, kind, payload, userId, IDRow, SupabaseVaultAccess, KeyPath (+6 more)
 
 ### Community 473 - "FilterChip"
-Cohesion: 0.50
-Nodes (4): 7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»), Bug risolti (sessioni precedenti), Cosa funziona bene, Issue residue (non critiche)
+Cohesion: 0.29
+Nodes (5): GenerationGuardedRemote, Row, Set, UUID, Void
 
 ### Community 474 - "MovementRow"
-Cohesion: 0.50
-Nodes (4): Phase, resetting, rollingBack, verified
+Cohesion: 0.33
+Nodes (6): LastUsedCategory, Movement, Bool, Date, Set, String
+
+### Community 475 - "FormatterCache"
+Cohesion: 0.20
+Nodes (10): LockReason, needsSecret, protectionRemoved, transition, unsupported, Mode, locked, plain (+2 more)
+
+### Community 476 - "TransactionsAdvancedFilterSheet"
+Cohesion: 0.25
+Nodes (5): BudgetData, BudgetingTest, Boolean, Int, String
 
 ### Community 477 - "CodingKeys"
-Cohesion: 0.12
-Nodes (21): CodingKeys, cases, keyHex, nonceHex, plaintext, sealed, userId, Fixture (+13 more)
+Cohesion: 0.06
+Nodes (48): b64url(), check_nonce_calls(), crockford_format(), crockford_parse(), envelope_bytes(), hkdf(), main(), pbkdf2() (+40 more)
 
 ### Community 478 - "Scope"
-Cohesion: 0.14
-Nodes (13): LocalizedError, EditorError, crossMonthOverride, invalidOccurrence, invalidValues, requiresMainContext, RecurrenceOperationStatus, Scope (+5 more)
+Cohesion: 0.50
+Nodes (4): Scope, all, following, onlyThis
+
+### Community 479 - "9. Setup e Installazione"
+Cohesion: 0.33
+Nodes (4): ExportRoundTripTest, Int, List, String
+
+### Community 480 - "E2EOperation"
+Cohesion: 0.43
+Nodes (5): RecurringRule, Bool, Date, String, UUID
+
+### Community 481 - "SyncStatus"
+Cohesion: 0.25
+Nodes (8): CodingKeys, activationGeneration, direction, generation, keyId, phase, startedAt, userId
 
 ### Community 482 - "ExportsTest"
 Cohesion: 0.60
@@ -1590,28 +1623,40 @@ Nodes (5): SchemaV1, SchemaV2, SchemaV3, PersistentModel, VersionedSchema
 Cohesion: 0.40
 Nodes (5): 1. Visione e Posizionamento, Differenziatori chiave, L'idea centrale, Modello di business, Posizionamento in una frase
 
+### Community 484 - "RecurringSeriesDetailView"
+Cohesion: 0.33
+Nodes (6): Kind, expense, income, transfer, MovementRow, String
+
 ### Community 485 - "RecoveryKeyCard"
-Cohesion: 0.15
-Nodes (12): Kind, expense, income, transfer, MovementRow, String, HapticStyle, light (+4 more)
+Cohesion: 0.40
+Nodes (5): Failure, mismatchedID, wrongKey, wrongKind, wrongUser
+
+### Community 489 - "UploadMode"
+Cohesion: 0.50
+Nodes (4): 7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»), Bug risolti (sessioni precedenti), Cosa funziona bene, Issue residue (non critiche)
+
+### Community 492 - "FontRegistrationTests"
+Cohesion: 0.50
+Nodes (4): Failure, duplicateState, injected, wrongRowType
 
 ### Community 499 - "1. Modello di minaccia"
 Cohesion: 0.50
 Nodes (4): 1.1 Cosa protegge, 1.2 Da chi, 1.3 Cosa NON protegge (va detto all'utente e sul sito), 1. Modello di minaccia
 
 ## Knowledge Gaps
-- **958 isolated node(s):** `backup.sh script`, `esegui.sh script`, `CHROME_PATH`, `require`, `AXE` (+953 more)
+- **984 isolated node(s):** `backup.sh script`, `esegui.sh script`, `CHROME_PATH`, `require`, `AXE` (+979 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **213 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Double` connect `CodingKeys` to `CategoryManagementView & AddTransactionView`, `Ricorrenze — motore backfill & Intents dirty-tracking`, `Community 130`, `AppIntents — Tocco posteriore/Siri (AddExpenseIntent)`, `Community 9`, `Color`, `Community 63`, `AuditLogView`, `Community 69`, `.build`, `ShareSheet`, `Selection`, `.dateFormatter`, `SupabaseConfig.swift`, `.movement`, `QuickAdd.kt`, `String`, `Community 102`, `Community 107`, `Community 108`, `SchemaMigration.swift`, `PianificaView`, `Community 126`?**
-  _High betweenness centrality (0.127) - this node is a cross-community bridge._
-- **Why does `Text` connect `AccountBalanceCache` to `ShareSheet`, `.rule`, `Sync/ricorrenze — file sorgente del checkpoint settembre 2026`, `Community 67`, `CategoryManagementView & AddTransactionView`, `AuditLogView`, `Schema Migration V1→V2 (Decimal precision)`, `TransactionsAdvancedFilterSheet`, `.loginAndBothPushAndPullUseOnlyOriginalPlainCalls`, `Community 11`, `Community 9`, `Community 10`, `.build`, `AuditLogger`, `RecurrenceEditorSheet`, `Color`, `categoryLabel`, `Community 126`?**
-  _High betweenness centrality (0.121) - this node is a cross-community bridge._
-- **Why does `Decimal` connect `AppIntents — Tocco posteriore/Siri (AddExpenseIntent)` to `CategoryManagementView & AddTransactionView`, `Ricorrenze — motore backfill & Intents dirty-tracking`, `Community 130`, `.rule`, `StatisticsView.swift`, `Community 10`, `.tx`, `RecurrenceEditorView`, `RecurrenceCalculator`, `Community 48`, `README.md`, `FilterChip`, `.resolve`, `AccountType`, `CodingKeys`, `AddAccountView`, `.build`, `.invalidateAll`, `SupabaseConfig.swift`, `ProgrammedRuleCard`, `AuditLogView`, `CodingKeys`, `Option`, `Community 102`, `Community 104`, `PianificaView`?**
-  _High betweenness centrality (0.095) - this node is a cross-community bridge._
+- **Why does `Double` connect `CodingKeys` to `CategoryManagementView & AddTransactionView`, `Ricorrenze — motore backfill & Intents dirty-tracking`, `10. Piano di lavoro`, `AppIntents — Tocco posteriore/Siri (AddExpenseIntent)`, `Community 9`, `Color`, `Community 69`, `ShareSheet`, `Selection`, `.dateFormatter`, `SupabaseConfig.swift`, `.movement`, `QuickAdd.kt`, `String`, `Community 102`, `Community 107`, `Community 108`, `SchemaMigration.swift`, `PianificaView`, `Community 126`?**
+  _High betweenness centrality (0.131) - this node is a cross-community bridge._
+- **Why does `Text` connect `AccountBalanceCache` to `ShareSheet`, `.rule`, `Sync/ricorrenze — file sorgente del checkpoint settembre 2026`, `Community 67`, `CategoryManagementView & AddTransactionView`, `AuditLogView`, `Color`, `TransactionsAdvancedFilterSheet`, `Community 10`, `Community 11`, `.build`, `AuditLogger`, `RecurrenceEditorSheet`, `RecoveryKey`, `MovementRow`, `ProgrammedRuleCard`, `Community 126`?**
+  _High betweenness centrality (0.122) - this node is a cross-community bridge._
+- **Why does `Decimal` connect `AppIntents — Tocco posteriore/Siri (AddExpenseIntent)` to `CategoryManagementView & AddTransactionView`, `Ricorrenze — motore backfill & Intents dirty-tracking`, `.rule`, `10. Piano di lavoro`, `StatisticsView.swift`, `Community 10`, `.tx`, `RecurrenceEditorView`, `Checkpoint settembre 2026 — Tocco posteriore, perdita dati, ricorrenze arretrate`, `RecurringSeriesEditor`, `RecurrenceCalculator`, `Community 48`, `Mode`, `README.md`, `FilterChip`, `.resolve`, `AccountType`, `CodingKeys`, `AddAccountView`, `.invalidateAll`, `.loginAndBothPushAndPullUseOnlyOriginalPlainCalls`, `AuditLogView`, `CodingKeys`, `E2EOperation`, `Option`, `Community 102`, `PianificaView`?**
+  _High betweenness centrality (0.101) - this node is a cross-community bridge._
 - **Are the 37 inferred relationships involving `Decimal` (e.g. with `.seed()` and `.perform()`) actually correct?**
   _`Decimal` has 37 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 86 inferred relationships involving `Text` (e.g. with `.pageHeaderStacksTitleAndActionsAtLargeFont()` and `LockOverlay()`) actually correct?**
@@ -1619,4 +1664,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 28 inferred relationships involving `ModelContext` (e.g. with `.userChangeRemovesBothKindsOfMovementBeforeSync()` and `.init()`) actually correct?**
   _`ModelContext` has 28 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `backup.sh script`, `Cartella servita come "/" del sito: quella con index.html più vicina alla radice`, `(lingua dalla cartella, percorso senza cartella della lingua).` to the rest of the system?**
-  _996 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1022 weakly-connected nodes found - possible documentation gaps or missing edges._

@@ -1,65 +1,76 @@
 # CHECKPOINT — MoneyTracker
 
-**Data:** 2026-11-26 15:36 · **Tag:** `checkpoint-2026-11-26-1536` · **Ramo:** `redesign-sentiero` · **Fatto da:** capocantiere (Claude Code · Sonnet 5.5), checkpoint veloce
+**Data:** 2026-11-26 18:55 · **Tag:** `checkpoint-2026-11-26-1855` · **Ramo:** `redesign-sentiero` · **Fatto da:** capocantiere (Claude Code · Sonnet 5.5), checkpoint COMPLETO
 
 ## Siamo qui
 
-- **S-50 (Protezione avanzata):** chiusi e collaudati anche S-50r (vault iOS fuori dal main thread, c8e89c8), S-50q.4 (pulizia chiavi morte ritentata, c5a0416), S-50s (riordino sync, 39db954), S-50t (test Keystore Android 3/3 su emulatore, 5c08e82). Interruttore ancora **SPENTO** in release iOS e Android.
-- **Prossimo e unico bloccante:** **S-50p · accensione** + FAQ e privacy del sito (operaio Claude Code). Non bloccante: S-50u (lettura solo righe morte).
-- **Dopo S-50p:** Matteo fa la prova reale con un account di prova (voce in PER-MATTEO).
-- **Banca (S-60/S-61):** in attesa della risposta di Enable Banking (mail del 25/11, attesa 2–5 giorni lavorativi; sollecito dal 3/12). Professionista: prima commercialista (domande 3–4), avvocato fintech dopo la risposta di Enable Banking.
+- **S-50 (Protezione avanzata): tutto chiuso e collaudato.** S-50p interruttore ACCESO in release iOS e Android (debug spento). S-50u, S-50v, S-50w, S-50x, S-50y chiusi. Sito pubblicato su Cloudflare con i testi approvati.
+- **Resta a Matteo:** prova reale con account di prova (iPhone + Android). Non bloccanti: S-50z (script R8), S-50g2 (guardiano CORS in locale).
+- **Prossimo lavoro: S-70** (doppio tap categorie spese/entrate + simulazione «E se…?»). Progetto pronto: `.cantiere/progetto-s70-doppio-tap-simulazione.md`. Matteo ha autorizzato `Intents/`. Lavoro a Codex.
 
-## Fatto dall'ultimo checkpoint (2026-11-24 23:56)
+## Fatto dall'ultimo checkpoint (2026-11-26 15:36)
 
 | Quando | Chi (strumento · modello) | Cosa |
 |---|---|---|
-| 2026-11-25 | impresa (Codex) | S-50a…l: crittografia, vault, migrazione/rollback iOS e Android, interfaccia 7 lingue, ciclo di vita chiavi, stress (20.000 movimenti, 17 interruzioni di rete) |
-| 2026-11-25/26 | collaudatore (Claude Code · Sonnet) | collaudi dei blocchi 1, 2, 3: 165 unitari + 49 UI iOS, 311 JVM + lint Android verdi; difetti in PIANO (S-50h2, S-50q, S-50l.2) |
-| 2026-11-25 | capocantiere (Claude Code · Sonnet 5.5) | sito: email, «pulsante», Chi siamo/About; modello economico banca, mail a Enable Banking, routing email Cloudflare; regola Codex `--yolo` in tutti i cantieri |
+| 16:32 | operaio (Claude Code · Sonnet) | S-50p: interruttori accesi in release, FAQ e privacy it/en |
+| 16:37 | collaudatore (Claude Code · Sonnet) | S-50p collaudo ok |
+| 17:09 | impresa (Codex · GPT-6) | S-50u (select solo righe obsolete) e S-50w (prova APK release R8) |
+| 18:23 | Matteo | testi FAQ e privacy approvati, sito pubblicato |
+| 18:27 | collaudatore (Claude Code · Sonnet) | S-50u e S-50w collaudo ok |
+| 18:30 | collaudatore (Claude Code · Sonnet) | ecfc4f3 (S-50w) controllato: nessun segreto, nessun cleartext |
+| 18:32 | collaudatore (Claude Code · Sonnet) | checkpoint fase 1: Commissione, bilingue, guardiano, test |
+| 18:52 | capocantiere + Matteo | S-50x: email dell'account via SMTP Brevo, email di recupero di prova ricevuta |
+| 18:54 | Matteo | S-50y meta e hreflang approvati e pubblicati; privacy it/en aggiornata |
 
 ## Stato di salute
 
 | Controllo | Esito | Note |
 |---|---|---|
-| Build / test / lint | 🟢 | 15:34: iOS 186 unitari + 7 UI E2E; suite UI completa 57/57 (2 instabili ripassati) al collaudo S-50r; Android 323 JVM + lint, Keystore strumentato 3/3 |
-| Commissione Suprema | 🟢 | S-50m 10/10 (13:40); da rifare al checkpoint completo dopo S-50p |
-| Guardiano notturno | 🟡 | ultimo rapporto 24/11: 4 avvisi sul sito, niente nelle app |
-| Pagella (misurata) | 🟡 | 94/100 · Velocità 66 (LCP 3,7 s), Lingue 74 · non consegnabile: mancano i giudici |
-| Sicurezza | 🟢 | interruttori E2E spenti in release |
-| Ordine e spazio | 🟡 | `magazzino.py`: cartelle di build/cache da ignorare (invariato); collegamenti al magazzino 🟢 |
-| Grafo aggiornato | 🟢 | `graphify update .` 15:35 |
+| Build / test / lint | 🟢 | iOS 187/187 unitari (2 UI instabili, come S-50r); Android 324/324 JVM + lint; server finto 19/19 |
+| Commissione Suprema | 🟢 | 6 giudici a 10/10. Giro 1: Bug 9 (riga di reset in `E2EObsoleteVaultFilterTests`), Lingua 9 (meta description, poi S-50y) |
+| collaudo.sh | 🟡 | solo cache Gradle ignorata (ambiente, non codice) |
+| Guardiano notturno | 🔴 | falso positivo: errore CORS del beacon Cloudflare su 127.0.0.1 (8 «errori» su 4 pagine). Fix in S-50g2 |
+| Pagella (misurata) | 🟡 | 85/100. Robustezza 32 (per il falso positivo). Velocità 62 (LCP 3,9 s, noto) |
+| Bilingue | 🟢 | 100/100 (`bilingue.py`) |
+| Sicurezza | 🟢 | interruttore acceso in release, spento in debug; nessun segreto nel repo; R8 senza cleartext |
+| Ordine e spazio | 🟢 | 30 GB liberi (soglia 35). Spostati 694 MB di log collaudi S-50 nel magazzino |
+| Grafo aggiornato | 🟢 | `graphify update .` a fine checkpoint |
 
 ## Bug
 
-- Risolti: falso allarme «Lingue 64» (era lo strumento).
-- Aperti: landing, titoli che saltano un livello e LCP 3,7 s su telefono; privacy non tradotta in inglese. Nessuno nelle app.
+- Risolti: privacy dell'app solo in italiano (ora it/en, S-50v); meta description mancante sulle pagine secondarie (S-50y); Bug 9 della Commissione (riga di reset nel test).
+- Aperti: guardiano, falso positivo CORS (S-50g2). Velocità landing LCP 3,9 s su telefono (noto, nessun task assegnato: non verificato).
 
 ## Cantiere
 
-- Eliminati: `.DS_Store` (2), cartella vuota `SOCIAL/clip-social/post-3/materiale`.
-- Da confermare (Matteo): `app/build` di Android pesa decine di MB tra APK e mapping (si rigenera, non è in git); le due pagine di conferma `confermato`/`confirmed` sono la coppia it/en, non un doppione. Il worker della landing ha 2 codici di misura (il nostro e quello iniettato da Cloudflare): innocuo.
-- `.gitignore`, `.graphifyignore`, `CLAUDE.md`, `.claude/` non sono nell'elenco della radice di REGOLE-PROGETTO: restano, sono configurazione.
+- Spostati: log dei collaudi S-50 (694 MB) → `02_RISORSE/lavorate/collaudi-s50-2026-11/`.
+- Da confermare (Matteo): nessuno.
+- `docs/MoneyTracker.md`: v3.29 nel Changelog e versione in testata. Non rigenerato il PDF (lo fa il capocantiere).
 
 ## Struttura (dal grafo)
 
-- 3949 nodi (+12), 7886 archi (+20), 406 community (+12): nuove le icone vettoriali di `SfIcons.kt` e le risorse dello splash. 16 file JSON degli strumenti non producono nodi (graphify riproverà).
+- Grafo aggiornato a fine checkpoint. Nessun cambio di struttura da segnalare (numeri nodi non verificati in questa fase).
 
 ## Domani si riparte così
 
 1. Sessione nuova nella cartella → `riprendiamo`.
-2. **S-50p · accensione** interruttore + FAQ e privacy del sito → operaio Claude Code (dettagli §10.3 di `.cantiere/progetto-e2e-sync.md`).
-3. Poi checkpoint **completo** (sono 2 veloci di fila) con Commissione Suprema sul diff di S-50p.
-4. Non bloccante: S-50u (Copilot o Codex).
-5. Se arriva la risposta di Enable Banking: rifare le tabelle prezzi.
+2. **S-70a, S-70a2, S-70b** → Codex. Lancio: `codex --yolo -C /Users/matteo/Desktop/APP/MoneyTracker` e incolla questo prompt:
+   «Sei l'impresa Codex del cantiere MoneyTracker, ramo redesign-sentiero. Leggi AGENTS.md e .cantiere/REGOLE-PROGETTO.md. Poi leggi per intero .cantiere/progetto-s70-doppio-tap-simulazione.md e segui il §7 alla lettera: tre commit separati (S-70a, S-70a2, S-70b), ciascuno solo con i suoi file, mai git add -A. Primo passo: registra in .cantiere/DECISIONI.md l'autorizzazione di Matteo a toccare Intents/ per S-70a e S-70a2. Non toccare Models/, Persistence/, Domain/, Sync/, Auth/, Export/, Formatting/, notifiche, ricorrenze, project.pbxproj, test esistenti. Non fare S-70c. Chiudi il turno come AGENTS.md §4: PIANO, DIARIO, CONSEGNA, STATO nessuno.»
+3. Poi collaudatore (Claude Code) sul diff di S-70.
+4. Matteo: prova con account di prova (vedi sotto).
+5. Non bloccante: S-50z e S-50g2 → Copilot o Codex, quando c'è un buco (task in `.cantiere/PIANO.md`).
 
 ## Cose che deve fare Matteo
 
-- [ ] Leggere la risposta di Enable Banking quando arriva e riportarla al capocantiere.
-- [ ] Dopo S-50p: prova reale della Protezione avanzata con un account di prova (istruzioni in PER-MATTEO).
-- [ ] Fare le 4 domande al professionista (Banca d'Italia, GDPR/DPIA, P.IVA per vendere negli store, P.IVA per essere cliente Enable Banking): testo in `.cantiere/banca-modello-economico.md` §8.
-- [ ] Nome TikTok · riprese faceless (SC-2) · 6 fonti NotebookLM. Istruzioni in `.cantiere/PER-MATTEO.md`.
+- [ ] Prova reale della Protezione avanzata con account di prova: iPhone + Android (istruzioni in `.cantiere/PER-MATTEO.md`).
+- [ ] Risposta di Enable Banking (mail del 25/11, attesa 2–5 giorni lavorativi). Incollarla al capocantiere: si rifanno le tabelle prezzi.
+- [ ] Le 4 domande al professionista (`.cantiere/banca-modello-economico.md` §8).
+- [ ] 6 fonti NotebookLM (`.cantiere/PER-MATTEO.md`).
+- [ ] TikTok: nome e account Business; SC-2 materiale faceless (`.cantiere/PER-MATTEO.md`).
 
 ## Suggerimenti · Rischi
 
-- La landing ha due codici di misura: se non vuoi i doppioni, togliere il nostro dalle 5 pagine.
-- Velocità della landing: LCP 3,7 s su telefono; immagini da ottimizzare.
+- Guardiano 🔴 è un falso positivo: non cambia l'app. Chiuderlo con S-50g2 per non avere allarmi finti.
+- `docs/MoneyTracker.md` §6 «Protezione avanzata», riga «Stato» è ancora quella di prima (cita S-50r/s/q.4 come aperti). Da aggiornare alla prossima revisione del manuale: non l'ho toccata in questo turno.
+- Velocità della landing: LCP 3,9 s su telefono; immagini da ottimizzare.
+- Due codici di misura sulla landing (il nostro e quello di Cloudflare): innocuo, da togliere se vuoi un solo conteggio.

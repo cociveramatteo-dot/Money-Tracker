@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.28*
+*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.29*
 
 > **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
 
@@ -453,7 +453,7 @@ Cifratura end-to-end facoltativa della sync, costruita su iOS e Android (S-50). 
 - **«Protezione avanzata disattivata»:** se la protezione sparisce dal server mentre il dispositivo ha ancora la chiave, l'app non torna in chiaro da sola. Si blocca e chiede: «Continua senza protezione» (se l'utente l'ha disattivata da un altro dispositivo) oppure «Esci dall'account» (se non è stato lui). Così chi ruba il token o amministra il database non può farsi ricaricare i dati in chiaro.
 - **Eliminazione account:** la cancellazione di `mt_vault` e `mt_e2e` è garantita dal server (`on delete cascade` da `auth.users`). Al logout la chiave locale si cancella.
 - **Limiti dichiarati:** il server vede l'account (id ed email), l'id e il tipo di ogni record (quindi **quanti** conti, movimenti, budget, obiettivi e ricorrenze ci sono), la dimensione approssimativa di ogni riga, quando si sincronizza e da quale IP. Può cancellare righe o rimettere una versione precedente della stessa riga, ma non creare dati falsi leggibili. Non protegge un telefono sbloccato in mano ad altri. Una frase debole resta un rischio.
-- **Stato (26 novembre 2026):** collaudi dei blocchi superati. Restano aperti S-50r (decodifica del vault fuori dal main thread su iOS, consigliato prima dell'accensione), S-50s e S-50q.4 (non bloccanti). Poi approvazione delle schermate (S-50o) e accensione (S-50p).
+- **Stato (26 novembre 2026):** completata e collaudata (S-50a…y). Accesa nelle build di rilascio iOS e Android (in debug resta spenta, salvo `-E2EEnabled YES` / `-Pe2e=true`); provata anche su APK release R8. FAQ e informativa privacy del sito aggiornate in italiano e inglese. Resta la prova reale di Matteo con un account di prova su due dispositivi.
 
 ---
 
@@ -590,6 +590,17 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ## 10. Changelog
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
+
+### v3.29 (26 novembre 2026) — Protezione avanzata: pulizia, release verificata, email, privacy e sito (S-50u…y)
+
+- **S-50u (iOS e Android):** la pulizia delle chiavi morte legge solo le righe obsolete (`key_id` diverso dalla chiave viva). Le cancellazioni restano solo sulla chiave morta.
+- **S-50w:** prova sull'APK release minificata (R8): attivazione, sync, sblocco dopo pulizia dei dati e disattivazione verificati. Nessun traffico in chiaro nel manifest di release.
+- **S-50x (email dell'account):** conferma e recupero password inviati da Supabase tramite Brevo. Il blocco per IP sconosciuti è disattivato solo per le chiavi SMTP; l'API resta protetta.
+- **S-50v (privacy dell'app, it/en):** informativa completa in `SOCIAL/landing/privacy.html` e `privacy-en.html`: app senza account, account e sincronizzazione, Protezione avanzata, destinatari e trasferimenti, email dell'account tramite Brevo.
+- **S-50y (sito):** meta description e hreflang sulle pagine secondarie (chi-siamo/about, confermato/confirmed, privacy it/en).
+- **Sito:** testi approvati da Matteo e pubblicati su Cloudflare Pages (2026-11-26, 18:23 e 18:54).
+- **Collaudi:** iOS 187/187 unitari (2 UI instabili come in S-50r), Android 324/324 JVM + lint, server finto 19/19, bilingue 100/100.
+- **Aperti (non bloccanti):** S-50z (script per ripetere la prova R8), S-50g2 (guardiano: errore CORS del beacon Cloudflare in locale). Prova reale con account di prova: a Matteo.
 
 ### v3.28 (26 novembre 2026) — Protezione avanzata accesa (S-50p)
 

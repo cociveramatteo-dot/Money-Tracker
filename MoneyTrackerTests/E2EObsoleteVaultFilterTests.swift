@@ -7,6 +7,7 @@ import Testing
 @MainActor
 struct E2EObsoleteVaultFilterTests {
     @Test func cleanupSelectsOnlyObsoleteVaultKeys() async throws {
+        ObsoleteVaultURLProtocol.requests.withLock { $0.removeAll() }
         let config = URLSessionConfiguration.ephemeral
         config.protocolClasses = [ObsoleteVaultURLProtocol.self]
         let session = URLSession(configuration: config)

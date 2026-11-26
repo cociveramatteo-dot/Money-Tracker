@@ -108,8 +108,10 @@ def radice_web(radice: Path) -> Path:
 
 
 # Siti che nominano le versioni in lingua con file diversi (non cartelle): {versione tradotta: pagina principale}.
-# Landing Bucktrail: en.html è index.html in inglese, confirmed.html è confermato.html in inglese.
-ALIAS_COPPIE = {"en.html": "index.html", "confirmed.html": "confermato.html"}
+# Landing Bucktrail: en.html è index.html in inglese, confirmed.html è confermato.html in inglese,
+# about.html è chi-siamo.html in inglese, privacy-en.html è privacy.html in inglese.
+ALIAS_COPPIE = {"en.html": "index.html", "confirmed.html": "confermato.html",
+                "about.html": "chi-siamo.html", "privacy-en.html": "privacy.html"}
 
 
 def chiave(rel: Path) -> tuple[str, str]:

@@ -163,7 +163,8 @@ async function controllaPagina(contesto, pagina, disp, conScreenshot) {
   const p = await contesto.newPage();
   const errori = [];
   // "Failed to load resource" è già coperto dal controllo delle risposte 4xx/5xx
-  p.on("console", (m) => m.type() === "error" && !/Failed to load resource/i.test(m.text()) && errori.push(`console: ${m.text()}`));
+  // Il beacon di Cloudflare Web Analytics fallisce sempre per CORS quando il sito gira in locale (127.0.0.1): non è un errore del sito.
+  p.on("console", (m) => m.type() === "error" && !/Failed to load resource/i.test(m.text()) && !/cloudflareinsights\.com/i.test(m.text()) && errori.push(`console: ${m.text()}`));
   p.on("pageerror", (e) => errori.push(`errore JS: ${e.message}`));
   p.on("requestfailed", (r) => {
     const f = r.failure()?.errorText || "";

@@ -1,9 +1,9 @@
-# CONSEGNA — 2026-11-26 18:27 · collaudatore (Claude Code · Sonnet)
+# CONSEGNA — 2026-11-26 18:55 · segretario (Claude Haiku 5.5) per il capocantiere (Claude Code · Sonnet 5.5)
 
-- **S-50u [x]** · collaudo ok su `2c313aa`. Filtro `key_id=neq.<viva>` URL-encoded (Android `enc()`, iOS `.neq`), DELETE invariate `key_id=eq.<morta>`, nessun altro percorso di sync toccato, fake-supabase gestisce neq ed esclude chiavi nulle (come PostgREST). Due test nuovi significativi, nessun test esistente modificato.
-- **S-50w [x]** · collaudo ok. `ecfc4f3` tocca solo `.cantiere/`: nessun `app/src/release` né cleartext nel manifest di release, nessun segreto (keystore di debug pubblico), proguard invariato.
-- **Test rilanciati** · iOS unitari 187/187 (iPhone 18 Pro), Android `testDebugUnitTest` 324/324 (dopo pulizia di una cartella di cache Gradle kotlin-dsl corrotta in ~/.gradle, ambiente e non codice), fake-supabase 19/19. UI iOS non rilanciati: i 2 rossi del primo giro sono la stessa instabilità di S-50r e S-50u non tocca la UI.
-- **PIANO** · S-50x era finito fra il titolo di S-50w e le sue note: spostato sotto.
-- **File modificati fuori dal turno** · `graphify-out/` (output generato), lasciato fuori dal commit.
+**Stato:** checkpoint COMPLETO. S-50 chiuso e collaudato (p, u, v, w, x, y). Commissione Suprema 10/10 su 6 giudici. Sito pubblicato.
 
-**Prossimo** · S-50x (Brevo SMTP) con Matteo, poi decisione di pubblicazione.
+- **Prossimo lavoro:** S-70a, S-70a2, S-70b → Codex (`codex --yolo -C /Users/matteo/Desktop/APP/MoneyTracker`). Prompt in `.cantiere/CHECKPOINT.md`, sezione «Domani».
+- **Matteo:** prova reale della Protezione avanzata con account di prova (iPhone + Android).
+- **Non bloccanti:** S-50z (script R8), S-50g2 (guardiano, falso positivo CORS).
+- **File toccati da questo turno:** `.cantiere/CHECKPOINT.md`, `.cantiere/archivio/checkpoint/2026-11-26_1855.md`, `.cantiere/DIARIO.md` (riga aggiunta), `.cantiere/CONSEGNA.md`, `docs/MoneyTracker.md` (v3.29 e testata).
+- **Da fare al capocantiere:** commit (`[capocantiere] checkpoint completo`), rigenerazione del PDF, tag `checkpoint-2026-11-26-1855`.

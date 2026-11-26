@@ -89,3 +89,19 @@ File: `SOCIAL/landing/privacy.html` (riscritta, testo lista d'attesa/sito e Prot
 - **Da far rileggere a un madrelingua inglese:** «keep your devices in step», «wrapped keys», «Data controller», «lodge a complaint».
 
 | Stato | ✅ approvato da Matteo 2026-11-26 18:23 · pubblicato su Cloudflare Pages |
+
+## S-50y · Meta description e hreflang del sito · ✅ Matteo 2026-11-26 18:54 (redattore, 2026-11-26)
+File: solo `<head>` di `SOCIAL/landing/privacy.html`, `privacy-en.html`, `chi-siamo.html`, `about.html`, `confermato.html`, `confirmed.html`. Chi approva: Matteo. Nessuna pubblicazione senza ✅.
+- **privacy.html (it):** «Come Bucktrail tratta i dati personali: l’app si usa anche senza account, senza pubblicità né tracciamento. Vale anche per il sito e la lista d’attesa.»
+- **privacy-en.html (en):** «How Bucktrail handles personal data: the app also works without an account, with no ads or tracking. It also covers the website and the waitlist.»
+- **chi-siamo.html (it):** «Chi c’è dietro Bucktrail: un progetto indipendente di Matteo Cocivera, senza investitori, senza pubblicità e senza abbonamento.»
+- **about.html (en):** «Who is behind Bucktrail: an independent project by Matteo Cocivera, with no investors, no ads and no subscription.»
+- `confermato`/`confirmed` avevano già la meta description (invariata).
+- **Hreflang aggiunti** (it, en, x-default → versione italiana, come index/en): chi-siamo ↔ about (`https://bucktrailapp.com/chi-siamo`, `/about`) e confermato ↔ confirmed (`/confermato`, `/confirmed`).
+
+| Stato | ✅ approvato da Matteo 2026-11-26 18:54 · pubblicato su Cloudflare Pages |
+
+## S-50x · Privacy: email dell'account inviate tramite Brevo · ✅ Matteo 2026-11-26 18:54 (capocantiere, 2026-11-26 18:52)
+File: `SOCIAL/landing/privacy.html`, `privacy-en.html`. Tre frasi: §account «inviate da Supabase tramite Brevo, il servizio che usiamo anche per la lista d’attesa» / «sent by Supabase through Brevo…»; destinatari Supabase «…invio delle email di servizio dell’account tramite Brevo»; destinatari Brevo «…e recapita le email di servizio dell’account (conferma dell’iscrizione, recupero della password)».
+
+| Stato | ✅ approvato da Matteo 2026-11-26 18:54 · pubblicato su Cloudflare Pages |
