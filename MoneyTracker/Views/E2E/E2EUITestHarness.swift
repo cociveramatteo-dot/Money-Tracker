@@ -9,7 +9,7 @@ struct E2EUITestHarness: View {
     }
 
     private enum Fixture: String {
-        case off, locked, transition, offline, interrupted, priorAttempt
+        case off, locked, transition, offline, interrupted, priorAttempt, removed
     }
 
     private let fixture = Fixture(rawValue: UserDefaults.standard.string(forKey: "E2EFixture") ?? "") ?? .off
@@ -48,14 +48,19 @@ struct E2EUITestHarness: View {
         let service = SyncService(remote: remote, userId: user, defaults: defaults)
         let controller = E2EController(service: service, authenticateForTest: {})
         let context = container.mainContext
-        if fixture == .locked || fixture == .transition {
+        if fixture == .locked || fixture == .transition || fixture == .removed {
             let key = try E2EMigrator.makeRecoveryKey()
             let confirmation = key.split(separator: "-").last.map(String.init) ?? ""
             try await controller.run(.enable, context: context) {
                 try await $0.enable(passphrase: "correct horse battery staple", recoveryKey: key,
                                     confirmation: confirmation)
             }
-            try E2EKeyStore().remove(userId: user)
+            if fixture == .removed {
+                // Protection turned off elsewhere: no server row, this device keeps its key.
+                remote.row = nil
+            } else {
+                try E2EKeyStore().remove(userId: user)
+            }
             if fixture == .transition { remote.row?.state = .migrating }
         }
         remote.failNextInsert = fixture == .offline

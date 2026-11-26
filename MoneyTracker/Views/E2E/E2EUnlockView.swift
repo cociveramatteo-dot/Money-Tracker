@@ -131,20 +131,20 @@ struct E2EProtectionRemovedContent: View {
                 .accessibilityIdentifier("e2e_continue_unprotected")
             E2EAction("e2e_rimossa_esci", destructive: true) { confirmSignOut = true }
                 .accessibilityIdentifier("e2e_sign_out")
+                // Same confirmation as the sign-out in Settings, anchored to this button.
+                .confirmationDialog("Esci dall'account?", isPresented: $confirmSignOut, titleVisibility: .visible) {
+                    Button("Esci", role: .destructive) {
+                        run {
+                            await controller.signOut(context: context)
+                            return true
+                        }
+                    }
+                    Button("Annulla", role: .cancel) {}
+                } message: {
+                    Text("Dovrai effettuare di nuovo il login la prossima volta.")
+                }
         }
         .disabled(working || controller.isBusy)
-        // Same confirmation as the sign-out in Settings.
-        .confirmationDialog("Esci dall'account?", isPresented: $confirmSignOut, titleVisibility: .visible) {
-            Button("Esci", role: .destructive) {
-                run {
-                    await controller.signOut(context: context)
-                    return true
-                }
-            }
-            Button("Annulla", role: .cancel) {}
-        } message: {
-            Text("Dovrai effettuare di nuovo il login la prossima volta.")
-        }
         if working {
             ProgressView().tint(DS.accent)
                 .accessibilityLabel(Text("e2e_rimossa_continua"))

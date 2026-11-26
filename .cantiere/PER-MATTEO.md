@@ -7,7 +7,7 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ### PROTEZIONE AVANZATA · S-50o — approvazione prima dell'accensione
 
-Dopo S-50m, apri Terminale e incolla questo comando per vedere le schermate iOS e Android:
+S-50m è fatto (Commissione 10/10). Apri Terminale e incolla questo comando per vedere le schermate iOS e Android. Guarda soprattutto le 8 NUOVE, che iniziano con `protezione-rimossa` (4 iPhone, 4 Android, chiaro e scuro): è la schermata che compare sugli altri dispositivi quando la protezione viene spenta, e chiede se continuare senza protezione o uscire.
 
 ```zsh
 open "/Users/matteo/Desktop/APP/MoneyTracker/.cantiere/tmp/e2e-ios/screenshots/after" "/Users/matteo/Desktop/APP/MoneyTracker/.cantiere/tmp/e2e-android/screenshots"

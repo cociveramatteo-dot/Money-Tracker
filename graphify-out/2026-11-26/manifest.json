@@ -530,8 +530,8 @@
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795687287.9082077,
-    "ast_hash": "2fc8e2243274b326901e6d884324eb71",
+    "mtime": 1795690477.4832644,
+    "ast_hash": "781cbdcc1770fd5f6065c0056eba0548",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
@@ -540,8 +540,8 @@
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795687586.37827,
-    "ast_hash": "1026ca55994a28176b3a9b98d8862b3d",
+    "mtime": 1795690477.4748993,
+    "ast_hash": "6ca73f59ef444b70fa3e936684294c38",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -560,8 +560,8 @@
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795687586.377888,
-    "ast_hash": "618af0159a80d577ed279f6466f3e251",
+    "mtime": 1795689602.4371974,
+    "ast_hash": "dfb30f297ec039d58713b036dcd677aa",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795687641.9905407,
-    "ast_hash": "7181c6f8ac1941edba6dbc7ec9d87e4d",
+    "mtime": 1795690589.6343646,
+    "ast_hash": "ff9de9189417aa3cf62132792bbbfdd2",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
