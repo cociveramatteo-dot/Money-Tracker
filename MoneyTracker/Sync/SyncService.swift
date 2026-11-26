@@ -10,7 +10,7 @@ import Combine
 // Struct Codable che rispecchiano le colonne delle tabelle Supabase (snake_case).
 // Vengono costruite dai modelli SwiftData locali e decodificate dalle risposte API.
 
-struct SBRecurringRule: @MainActor SyncRow {
+nonisolated struct SBRecurringRule: SyncRow {
     let id: UUID
     let userId: UUID
     let name: String
@@ -47,6 +47,7 @@ struct SBRecurringRule: @MainActor SyncRow {
         case createdAt = "created_at"
     }
 
+    @MainActor
     init(_ rule: RecurringRule, userId: UUID) {
         self.id = rule.id
         self.userId = userId
@@ -88,6 +89,7 @@ struct SBRecurringRule: @MainActor SyncRow {
     }
 
     /// Remote fields win, except the materialization cursor which must never go backwards.
+    @MainActor
     func apply(to rule: RecurringRule) {
         if rule.name != name { rule.name = name }
         if rule.type != type { rule.type = type }
@@ -107,7 +109,7 @@ struct SBRecurringRule: @MainActor SyncRow {
     }
 }
 
-struct SBAccount: @MainActor SyncRow {
+nonisolated struct SBAccount: SyncRow {
     let id:                   UUID
     let userId:               UUID
     let name:                 String
@@ -129,6 +131,7 @@ struct SBAccount: @MainActor SyncRow {
         case isExcludedFromTotal  = "is_excluded_from_total"
     }
 
+    @MainActor
     init(_ a: Account, userId: UUID) {
         id                  = a.id
         self.userId         = userId
@@ -142,7 +145,7 @@ struct SBAccount: @MainActor SyncRow {
     }
 }
 
-struct SBTransaction: @MainActor SyncRow {
+nonisolated struct SBTransaction: SyncRow {
     let id:                 UUID
     let userId:             UUID
     let accountId:          UUID?
@@ -178,6 +181,7 @@ struct SBTransaction: @MainActor SyncRow {
         case createdAt        = "created_at"
     }
 
+    @MainActor
     init(_ t: Transaction, userId: UUID) {
         id                  = t.id
         self.userId         = userId
@@ -199,7 +203,7 @@ struct SBTransaction: @MainActor SyncRow {
     }
 }
 
-struct SBBudget: @MainActor SyncRow {
+nonisolated struct SBBudget: SyncRow {
     let id:           UUID
     let userId:       UUID
     let accountId:    UUID?
@@ -221,6 +225,7 @@ struct SBBudget: @MainActor SyncRow {
         case createdAt    = "created_at"
     }
 
+    @MainActor
     init(_ b: Budget, userId: UUID) {
         id            = b.id
         self.userId   = userId
@@ -234,7 +239,7 @@ struct SBBudget: @MainActor SyncRow {
     }
 }
 
-struct SBGoal: @MainActor SyncRow {
+nonisolated struct SBGoal: SyncRow {
     let id:            UUID
     let userId:        UUID
     let name:          String
@@ -256,6 +261,7 @@ struct SBGoal: @MainActor SyncRow {
         case createdAt     = "created_at"
     }
 
+    @MainActor
     init(_ g: Goal, userId: UUID) {
         id            = g.id
         self.userId   = userId

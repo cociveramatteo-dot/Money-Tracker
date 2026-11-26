@@ -135,8 +135,8 @@
     "semantic_hash": "8c4a572e1cf416850fe9ca8cb0f03d7a"
   },
   "MoneyTracker/Sync/SyncService.swift": {
-    "mtime": 1795694151.8101063,
-    "ast_hash": "7fdfee92420870487696f8f3ab30dcf2",
+    "mtime": 1795697034.8201983,
+    "ast_hash": "993f4f5ac3fc19a87323c2c880b4ae24",
     "semantic_hash": ""
   },
   "MoneyTrackerTests/AccountBalanceTests.swift": {
@@ -525,8 +525,8 @@
     "semantic_hash": ""
   },
   ".cantiere/CHECKPOINT.md": {
-    "mtime": 1795690613.4920905,
-    "ast_hash": "fc950a86af5cd062d62538bdc0e77f4e",
+    "mtime": 1795697072.2698426,
+    "ast_hash": "4bd55b9e9278aea4df9d1a9abf8061f7",
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
@@ -540,8 +540,8 @@
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795696669.2574718,
-    "ast_hash": "de9b8a7d4e91e2a573e4e1beaf5339e1",
+    "mtime": 1795697072.2795022,
+    "ast_hash": "0d4e8b32d2a12a3379055c872169104a",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -550,18 +550,18 @@
     "semantic_hash": ""
   },
   ".cantiere/PAGELLE.md": {
-    "mtime": 1795690597.763871,
-    "ast_hash": "c3f4237eedf5c20a6b8c2b83ec761335",
+    "mtime": 1795696818.6191628,
+    "ast_hash": "52103068b0956c4b75222a7096035678",
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795696803.5372152,
-    "ast_hash": "36b11decd49ba1eeb71dfe9ead005774",
+    "mtime": 1795697072.267508,
+    "ast_hash": "6f148482f2a06c91a50e8e92ee84f0f5",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795696803.5334804,
-    "ast_hash": "1010b0717321f2bd123710cce7d45d5e",
+    "mtime": 1795697072.2688215,
+    "ast_hash": "20eae88376d879182debfe3e56f6d0f3",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795696810.3856208,
-    "ast_hash": "bfd78fcb35933d23c0634a8f348b26a6",
+    "mtime": 1795696983.0901685,
+    "ast_hash": "b4e01eef1a415040b8c485a058fca9bf",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -2460,8 +2460,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Sync/E2E/SyncRemote.swift": {
-    "mtime": 1795615080.40778,
-    "ast_hash": "c03fdb1d1467662e0aa5f023b9112d13",
+    "mtime": 1795697034.406895,
+    "ast_hash": "b02438d3bc577b30f22a022046598b88",
     "semantic_hash": ""
   },
   "MoneyTrackerTests/Support/InMemoryRemote.swift": {
@@ -2495,8 +2495,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Sync/E2E/VaultRemote.swift": {
-    "mtime": 1795691479.8301666,
-    "ast_hash": "e9947fa3df75c688b329678266bf1235",
+    "mtime": 1795697034.411851,
+    "ast_hash": "65450a8017ded29180556df570614108",
     "semantic_hash": ""
   },
   "MoneyTrackerTests/E2EGateTests.swift": {
@@ -3102,6 +3102,11 @@
   "MoneyTrackerUITests/E2EProtectionRemovedUITests.swift": {
     "mtime": 1795695694.4258797,
     "ast_hash": "990948fb0e0c42f9d2f7cbb1971596de",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/E2EVaultConcurrencyTests.swift": {
+    "mtime": 1795697050.1801376,
+    "ast_hash": "ebaac4dd874b7797cdd8e83f3dd84df6",
     "semantic_hash": ""
   }
 }

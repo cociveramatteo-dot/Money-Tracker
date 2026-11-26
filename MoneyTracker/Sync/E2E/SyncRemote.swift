@@ -19,7 +19,7 @@ enum SyncTable: String, CaseIterable {
     }
 }
 
-protocol SyncRow: Codable {
+nonisolated protocol SyncRow: Codable, Sendable {
     var id: UUID { get }
 }
 

@@ -1,6 +1,6 @@
 # STATO DEL CANTIERE
 
-In turno: Seconda impresa (Codex · GPT-6) · 2026-11-26 13:43
+In turno: nessuno
 Ultimo checkpoint: 2026-11-26 13:42 (checkpoint-2026-11-26-1342)
 Fase: progetto SOCIAL, post 1 pubblicato il 19/11 su Instagram e TikTok, primo rilevamento registrato; post 2 F13 pubblicato su Instagram e TikTok, formato faceless. Ramo redesign-sentiero (da portare su main con l'ok di Matteo). Fix curva Home S-36 da chiudere.
 Social: direttive in `SOCIAL/direttive-social.md`; Post-3 «Guida: HOME» approvato come tema, sequenza e impostazione delle slide 2–3; data e grafica finale da confermare. Post-4–12 approvati come tema e sequenza. Intero piano fino al Post-42 approvato da Matteo con copertura dell’app. Archivio permanente locale in `SOCIAL/schermate-app/`.
@@ -11,4 +11,4 @@ SC-9: Post-3–42 in Drive. Post-23–42 esportati e verificati, 103 slide con B
 Android 2026-11-23: B0–B11 completi, parità grafica e stress test fatti (commit fino a 0ec9d96); restano collaudo, commissioni, prove su telefono vero e prova sync reale. Social: post 5–15 (v2) pronti in Drive «Da postare». Android (storico): movimenti locali con data, modifica e pianificazione, migrazione Room verificata. Prossimi flussi locali: categorie e filtri. Supabase rinviato.
 Banca (S-60): progetto esecutivo pronto in `.cantiere/progetto-banca.md` (Enable Banking, piano B Salt Edge); esecuzione dopo S-50. S-60t (verifiche commerciali/legali di Matteo) si può fare subito.
 Social: calendario e pubblicazione gestiti direttamente da Matteo.
-E2E: S-50m chiuso 2026-11-26 (Commissione Suprema 10/10 dopo 3 giri, manuale v3.27 e PDF); nuovo blocco «Protezione avanzata disattivata». Interruttori spenti. S-50o approvato da Matteo 13:40. Prossimi: S-50r (iOS vault fuori dal main thread, Codex) → S-50p (accensione). S-50s e S-50q.4 non bloccanti.
+E2E: S-50m chiuso 2026-11-26 (Commissione Suprema 10/10 dopo 3 giri, manuale v3.27 e PDF); nuovo blocco «Protezione avanzata disattivata». Interruttori spenti. S-50o approvato da Matteo 13:40. S-50r [~]: vault iOS fuori dal main actor, build e test mirati verificati. Prossimi: collaudo S-50r → S-50p (accensione). S-50s e S-50q.4 non bloccanti.

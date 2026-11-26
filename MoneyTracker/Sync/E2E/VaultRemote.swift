@@ -97,7 +97,7 @@ struct SupabaseVaultAccess: VaultAccess {
 }
 
 struct VaultRemote: SyncRemote {
-    enum Failure: Error {
+    nonisolated enum Failure: Error {
         case wrongUser, wrongKind, wrongKey, mismatchedID
     }
 
@@ -117,12 +117,22 @@ struct VaultRemote: SyncRemote {
         guard userId == owner else { throw Failure.wrongUser }
         let keyId = try VaultCrypto.keyId(dek: dek)
         let records = try await access.vaultRows(table: table, userId: owner, keyId: scopeReads ? keyId : nil)
+        let kind = table.kind
+        return try await Task.detached { [owner, dek] in
+            let rows: [Row] = try Self.decodeRows(records, owner: owner, kind: kind, keyId: keyId, dek: dek)
+            return rows
+        }.value
+    }
+
+    private nonisolated static func decodeRows<Row: SyncRow>(_ records: [VaultRecord], owner: UUID,
+                                                             kind: String, keyId: String,
+                                                             dek: SymmetricKey) throws -> [Row] {
         let decoder = VaultJSON.decoder
         return try records.map { record in
             guard record.userId == owner else { throw Failure.wrongUser }
-            guard record.kind == table.kind else { throw Failure.wrongKind }
+            guard record.kind == kind else { throw Failure.wrongKind }
             guard record.keyId == keyId else { throw Failure.wrongKey }
-            let aad = VaultCrypto.rowAAD(kind: table.kind, id: record.id, userID: owner)
+            let aad = VaultCrypto.rowAAD(kind: kind, id: record.id, userID: owner)
             let data = try VaultCrypto.open(record.payload, key: dek, aad: aad)
             let row = try decoder.decode(Row.self, from: data)
             guard row.id == record.id else { throw Failure.mismatchedID }
@@ -133,15 +143,25 @@ struct VaultRemote: SyncRemote {
     func upsert<Row: SyncRow>(_ rows: [Row], table: SyncTable, userId: UUID) async throws {
         guard userId == owner else { throw Failure.wrongUser }
         let keyId = try VaultCrypto.keyId(dek: dek)
-        let encoder = VaultJSON.encoder
+        let kind = table.kind
         for offset in stride(from: 0, to: rows.count, by: batchSize) {
             let end = min(offset + batchSize, rows.count)
-            let batch = try rows[offset..<end].map { row in
-                let aad = VaultCrypto.rowAAD(kind: table.kind, id: row.id, userID: owner)
-                return VaultRecord(id: row.id, userId: owner, kind: table.kind, keyId: keyId,
-                                   payload: try VaultCrypto.seal(encoder.encode(row), key: dek, aad: aad))
-            }
+            let slice = rows[offset..<end]
+            let batch = try await Task.detached { [owner, dek] in
+                try Self.encodeRows(slice, owner: owner, kind: kind, keyId: keyId, dek: dek)
+            }.value
             try await access.upsertVault(batch)
+        }
+    }
+
+    private nonisolated static func encodeRows<Row: SyncRow>(_ rows: ArraySlice<Row>, owner: UUID,
+                                                             kind: String, keyId: String,
+                                                             dek: SymmetricKey) throws -> [VaultRecord] {
+        let encoder = VaultJSON.encoder
+        return try rows.map { row in
+            let aad = VaultCrypto.rowAAD(kind: kind, id: row.id, userID: owner)
+            return VaultRecord(id: row.id, userId: owner, kind: kind, keyId: keyId,
+                               payload: try VaultCrypto.seal(encoder.encode(row), key: dek, aad: aad))
         }
     }
 
