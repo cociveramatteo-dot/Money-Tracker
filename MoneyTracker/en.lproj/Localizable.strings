@@ -614,3 +614,5 @@
 "e2e_usa_frase" = "Use security phrase";
 "e2e_nuova_chiave_titolo" = "Create a new recovery key?";
 "e2e_copiata" = "Copied";
+
+"Archivio non disponibile: chiudi e riapri l'app" = "Storage unavailable: close and reopen the app";

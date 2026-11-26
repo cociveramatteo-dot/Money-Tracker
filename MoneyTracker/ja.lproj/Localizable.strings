@@ -613,3 +613,5 @@
 "e2e_usa_frase" = "セキュリティフレーズを使う";
 "e2e_nuova_chiave_titolo" = "新しい復旧キーを作成しますか？";
 "e2e_copiata" = "コピーしました";
+
+"Archivio non disponibile: chiudi e riapri l'app" = "データストレージを利用できません。アプリを終了して開き直してください";

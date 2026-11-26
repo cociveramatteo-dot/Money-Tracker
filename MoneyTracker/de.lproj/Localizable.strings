@@ -613,3 +613,5 @@
 "e2e_usa_frase" = "Sicherheitsphrase verwenden";
 "e2e_nuova_chiave_titolo" = "Neuen Wiederherstellungsschlüssel erstellen?";
 "e2e_copiata" = "Kopiert";
+
+"Archivio non disponibile: chiudi e riapri l'app" = "Datenspeicher nicht verfügbar: Schließe die App und öffne sie erneut";

@@ -286,3 +286,5 @@ Progetto completo: `.cantiere/progetto-banca.md`. Dopo il lancio e dopo S-50. Au
 
 ## 2026-11-26 19:58 · Autorizzazione S-51 (Matteo, in chat)
 Matteo autorizza modifiche a `MoneyTracker/Sync/` e `MoneyTracker/MoneyTrackerApp.swift` SOLO per S-51 (perdita dati con archivio volatile) e S-51b (prova automatica a due dispositivi). La scelta sulla protezione file del db va registrata qui da chi esegue, con alternative scartate.
+
+Per il database SQLite reale e i file `-wal` e `-shm` si usa `.completeUntilFirstUserAuthentication`. I file restano protetti fino al primo sblocco dopo il riavvio. In seguito SwiftData può aprire l'archivio anche quando iOS avvia l'app a schermo bloccato. Scartata `.complete` perché un avvio a telefono bloccato dopo il primo sblocco può far fallire l'apertura dell'archivio. Scartato il ripiego silenzioso perché permette di scambiare dati effimeri per dati persistenti. Il ripiego in RAM mostra un banner fisso e blocca la sincronizzazione.

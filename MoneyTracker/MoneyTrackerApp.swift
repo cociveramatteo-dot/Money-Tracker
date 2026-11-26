@@ -79,7 +79,7 @@ struct MoneyTrackerApp: App {
             )
 
             // SEC-02: protezione crittografica del db reale
-            applyFileProtection(to: realConfig.url, level: .complete)
+            applyFileProtection(to: realConfig.url, level: .completeUntilFirstUserAuthentication)
 
             let ctx = realContainer.mainContext
             Category.seedIfNeeded(context: ctx)
@@ -222,7 +222,14 @@ struct MoneyTrackerApp: App {
             VStack(spacing: 0) {
                 // Il banner visibile è nell'overlay sopra le barre native.
                 // Il segnaposto ne riserva l'altezza, anche alle taglie di accessibilità.
-                if demoModeEnabled {
+                if Self.usingVolatileStore {
+                    volatileStoreBanner
+                        .fixedSize(horizontal: false, vertical: true)
+                        .layoutPriority(1)
+                }
+                if demoModeEnabled && Self.usingVolatileStore {
+                    demoBanner
+                } else if demoModeEnabled {
                     demoBanner.hidden()
                         .fixedSize(horizontal: false, vertical: true)
                         .layoutPriority(1)
@@ -243,8 +250,10 @@ struct MoneyTrackerApp: App {
                 // cloud non risponde, l'utente vede "in corso"/"in sospeso", mai un
                 // errore. Il retry automatico (SyncService) risolve da solo appena possibile.
                 .overlay(alignment: .top) {
-                    if demoModeEnabled { demoBanner }
-                    else { syncStatusBanner }
+                    if !Self.usingVolatileStore {
+                        if demoModeEnabled { demoBanner }
+                        else { syncStatusBanner }
+                    }
                 }
                 .animation(.spring(response: 0.4, dampingFraction: 0.75), value: syncService.status)
                 .task(id: demoModeEnabled) {
@@ -297,6 +306,20 @@ struct MoneyTrackerApp: App {
                 try RecurringMaterializer().materializeDue(context: container.mainContext)
             }
         }
+    }
+
+    private var volatileStoreBanner: some View {
+        Label {
+            Text("Archivio non disponibile: chiudi e riapri l'app")
+        } icon: {
+            Image(systemName: "exclamationmark.triangle.fill")
+        }
+        .scaledFont(size: 13, weight: .semibold)
+        .foregroundStyle(DS.plannedText)
+        .padding(.horizontal, DS.Space.m)
+        .padding(.vertical, DS.Space.s)
+        .frame(maxWidth: .infinity)
+        .background(DS.plannedSoft)
     }
 
     // MARK: - Demo banner

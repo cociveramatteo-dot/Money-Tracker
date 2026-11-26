@@ -314,6 +314,7 @@ final class SyncService: ObservableObject {
 
     let injectedRemote: (any SyncRemote)?
     private let injectedUserId: UUID?
+    private let injectedVolatileStore: Bool?
     let defaults: UserDefaults
     private let clearAuditLog: @MainActor () -> Void
     let e2eEnabled: Bool
@@ -333,6 +334,7 @@ final class SyncService: ObservableObject {
     private init() {
         injectedRemote = nil
         injectedUserId = nil
+        injectedVolatileStore = nil
         defaults = .standard
         clearAuditLog = { AuditLogger.shared.clearAll() }
         e2eEnabled = E2EFeature.isEnabled
@@ -344,9 +346,11 @@ final class SyncService: ObservableObject {
     init(remote: any SyncRemote, userId: UUID, defaults: UserDefaults,
          e2eLaunchArguments: [String]? = nil, e2eBackupDirectory: URL? = nil,
          e2eKeyStore: E2EKeyStore = E2EKeyStore(),
+         volatileStore: Bool = false,
          clearAuditLog: @escaping @MainActor () -> Void = {}) {
         injectedRemote = remote
         injectedUserId = userId
+        injectedVolatileStore = volatileStore
         self.defaults = defaults
         self.clearAuditLog = clearAuditLog
         self.e2eKeyStore = e2eKeyStore
@@ -362,7 +366,7 @@ final class SyncService: ObservableObject {
     var auth: SupabaseManager { .shared }
     var remote: any SyncRemote { injectedRemote ?? PlainRemote(client: auth.client) }
     var userId: UUID? { injectedUserId ?? auth.session?.user.id }
-    var isUsingVolatileStore: Bool { injectedRemote == nil && MoneyTrackerApp.usingVolatileStore }
+    var isUsingVolatileStore: Bool { injectedVolatileStore ?? MoneyTrackerApp.usingVolatileStore }
 
     /// The account whose data the local store currently holds.
     var lastSyncedUser: UUID? {
@@ -568,7 +572,7 @@ final class SyncService: ObservableObject {
             await runE2ESync(.refresh, context: context)
             return
         }
-        guard auth.isLoggedIn, !defaults.bool(forKey: Self.demoModeKey) else { return }
+        guard userId != nil, !defaults.bool(forKey: Self.demoModeKey) else { return }
         guard await pushResilient(context: context) else { return }
         await pull(context: context)
     }
@@ -580,6 +584,7 @@ final class SyncService: ObservableObject {
     /// • Se Supabase non ha dati → push (dati locali esistenti vanno sul cloud)
     /// • Se Supabase ha già dati  → pull (il cloud è la fonte di verità)
     func syncOnLogin(context: ModelContext) async {
+        guard !isUsingVolatileStore else { return }
         if e2eEnabled {
             await runE2ESync(.login, context: context)
             return
@@ -876,7 +881,7 @@ final class SyncService: ObservableObject {
     // MARK: - Pull (Supabase → SwiftData)
 
     func pull(context: ModelContext) async {
-        guard let userId else { return }
+        guard !isUsingVolatileStore, let userId else { return }
         if e2eEnabled {
             await runE2ESync(.pull, context: context)
             return
@@ -892,6 +897,7 @@ final class SyncService: ObservableObject {
     @discardableResult
     func download(context: ModelContext, remote: any SyncRemote, userId: UUID,
                   snapshot: PullRows? = nil, forMigration: Bool = false) async throws -> Bool {
+        guard !isUsingVolatileStore else { return false }
         // forMigration: E2E migration pull. Keeps local transactions missing from
         // the snapshot and fails (with rollback) instead of a best-effort save.
         Logger.persistence.info("SyncService: pull started")

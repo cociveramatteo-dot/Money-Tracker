@@ -616,3 +616,5 @@
 "e2e_usa_frase" = "使用安全短语";
 "e2e_nuova_chiave_titolo" = "要创建新的恢复密钥吗？";
 "e2e_copiata" = "已复制";
+
+"Archivio non disponibile: chiudi e riapri l'app" = "存储不可用：请关闭并重新打开应用";

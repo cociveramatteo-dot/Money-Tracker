@@ -185,6 +185,9 @@ extension SyncService {
             try validateSession()
             consecutiveFailures = 0
             status = .idle
+            if initialSync, !didPush, !dirtyTransactionIds.isEmpty {
+                schedulePush(context: context)
+            }
             return didPush || operation != .push
         } catch is CancellationError {
             return false
