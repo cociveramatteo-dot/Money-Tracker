@@ -229,3 +229,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-26 10:11 | capocantiere (Claude Code · Sonnet 5.5) | S-50q SQL su Supabase | Matteo ha eseguito lo script, verifica 4 righe ok | parte client a Codex |
 | 2026-11-26 10:21 | impresa (Codex · GPT-6) | S-50h2 punto 3 e S-50q client | PATCH iOS condizionata alla generazione, scope chiave e RPC A6 su iOS e Android. 172 unitari iOS, 312 Android, lint e 15 fake verdi | S-50q.1: SQL locale riproduce A6 active con vault vuoto dopo DELETE di rollback concorrente. Interruttori spenti |
 | 2026-11-26 10:37 | capocantiere (Claude Code · Sonnet 5.5) | S-50q.1 SQL | rollback atomico + lock for share nel guard del vault, §6.9; provato con 2 sessioni concorrenti (gare in entrambi gli ordini ok) | Matteo esegue, poi Codex parte client |
+| 2026-11-26 10:40 | capocantiere (Claude Code · Sonnet 5.5) | S-50q.1 SQL su Supabase | Matteo ha eseguito, verifica 3 righe ok | parte client a Codex |

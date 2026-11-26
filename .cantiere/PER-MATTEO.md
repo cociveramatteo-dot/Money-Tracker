@@ -5,11 +5,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### PROTEZIONE AVANZATA · S-50q.1 — terzo script SQL su Supabase (correzione della gara trovata da Codex)
-📍 supabase.com → progetto Bucktrail → **SQL Editor** → **New query**.
-▶️ Incolla il blocco SQL del §6.9 di `.cantiere/progetto-e2e-sync.md` (o chiedi al capocantiere di copiartelo negli appunti) e premi **Run**.
-↩️ Scrivi «S-50q.1 fatto, 3 righe» oppure incolla l'errore.
-
 ### PROTEZIONE AVANZATA · S-50o — approvazione prima dell'accensione
 
 Dopo S-50m, apri Terminale e incolla questo comando per vedere le schermate iOS e Android:
@@ -46,6 +41,8 @@ Torna nella chat del cantiere e scrivi «Approvo le schermate della Protezione a
 📍 notebooklm.google.com → notebook «MoneyTracker App». ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt` e `README.txt` di Inter e Space Grotesk) sono facoltative. ↩️ Scrivi «notebook ok».
 
 ## Fatte
+
+- 2026-11-26 10:40 · S-50q.1: terzo SQL (rollback atomico) eseguito da Matteo su Supabase, controllo 3 righe ok.
 
 - 2026-11-26 · S-50h2: Matteo ha autorizzato le modifiche a `E2EServer.swift` e `E2EGate.swift`.
 
