@@ -1,7 +1,7 @@
 # STATO DEL CANTIERE
 
 In turno: nessuno
-Ultimo checkpoint: 2026-11-26 00:50 (checkpoint-2026-11-26-0050)
+Ultimo checkpoint: 2026-11-26 11:56 (checkpoint-2026-11-26-1156)
 Fase: progetto SOCIAL, post 1 pubblicato il 19/11 su Instagram e TikTok, primo rilevamento registrato; post 2 F13 pubblicato su Instagram e TikTok, formato faceless. Ramo redesign-sentiero (da portare su main con l'ok di Matteo). Fix curva Home S-36 da chiudere.
 Social: direttive in `SOCIAL/direttive-social.md`; Post-3 «Guida: HOME» approvato come tema, sequenza e impostazione delle slide 2–3; data e grafica finale da confermare. Post-4–12 approvati come tema e sequenza. Intero piano fino al Post-42 approvato da Matteo con copertura dell’app. Archivio permanente locale in `SOCIAL/schermate-app/`.
 S-41: competenza mensile delle spese fisse singole in Home, implementata e verificata con la suite BalanceTrailTests e una prova mirata; da collaudare in UI.
@@ -11,4 +11,4 @@ SC-9: Post-3–42 in Drive. Post-23–42 esportati e verificati, 103 slide con B
 Android 2026-11-23: B0–B11 completi, parità grafica e stress test fatti (commit fino a 0ec9d96); restano collaudo, commissioni, prove su telefono vero e prova sync reale. Social: post 5–15 (v2) pronti in Drive «Da postare». Android (storico): movimenti locali con data, modifica e pianificazione, migrazione Room verificata. Prossimi flussi locali: categorie e filtri. Supabase rinviato.
 Banca (S-60): progetto esecutivo pronto in `.cantiere/progetto-banca.md` (Enable Banking, piano B Salt Edge); esecuzione dopo S-50. S-60t (verifiche commerciali/legali di Matteo) si può fare subito.
 Social: calendario e pubblicazione gestiti direttamente da Matteo.
-E2E: blocchi 1–3 collaudati. Interruttori spenti. S-50h2, S-50l.2, S-50q, S-50q.1 e S-50q.3 chiusi il 2026-11-26. S-50q.2 collaudato ok il 2026-11-26; aperto S-50q.4 (BASSA, non blocca S-50p). Prossimo: S-50m.
+E2E: tutto il lavoro tecnico S-50 chiuso e collaudato (h2, l.2, q, q.1, q.2, q.3); 3 SQL eseguiti su Supabase. Interruttori spenti. Prossimi: S-50m (Commissione Suprema) → S-50o (Matteo approva schermate) → S-50p (accensione). S-50q.4 non bloccante.
