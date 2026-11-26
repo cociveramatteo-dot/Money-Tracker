@@ -11,6 +11,7 @@ Stato solo in memoria: riavviando il server si riparte da zero. Non fa nessuna c
 """
 import json, os, sys, time, uuid
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from datetime import datetime
 from threading import Lock
 from urllib.parse import urlparse, parse_qs
 
@@ -20,6 +21,7 @@ TABLES = {}     # tabella -> {chiave primaria: riga}
 TOKENS = {}     # access token -> email
 LOG = []
 E2E_TABLES = {"mt_e2e", "mt_vault"}
+E2E_KINDS = ("account", "transaction", "budget", "goal", "rule")
 PLAIN_TABLES = {"mt_accounts", "mt_transactions", "mt_budgets", "mt_goals", "mt_recurring_rules"}
 UNAVAILABLE = 503, {"message": "service unavailable"}
 
@@ -43,6 +45,23 @@ def eq_filter(query, column):
 
 def e2e_state(row):
     return TABLES.get("mt_e2e", {}).get(row.get("user_id", "").lower(), {}).get("state")
+
+
+def e2e_error(message):
+    return 400, {"code": "P0001", "message": message}
+
+
+def timestamp(value):
+    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+
+
+def same_generation(first, second):
+    if first == second:
+        return True
+    try:
+        return timestamp(first) == timestamp(second)
+    except (AttributeError, ValueError):
+        return False
 
 
 def session(email):
@@ -88,15 +107,17 @@ class H(BaseHTTPRequestHandler):
         rows = TABLES.setdefault(table, {})
         user_filter = eq_filter(query, "user_id")
         kind_filter = eq_filter(query, "kind")
-        metadata_filters = {column: eq_filter(query, column) for column in ("key_id", "state", "updated_at")
-                            if table == "mt_e2e" and column in query}
+        columns = ("key_id", "state", "updated_at") if table == "mt_e2e" else ("key_id",) if table == "mt_vault" else ()
+        metadata_filters = {column: eq_filter(query, column) for column in columns if column in query}
         preferences = {value.strip() for value in self.headers.get("Prefer", "").split(",")}
 
         def matches(row):
             return (
                 (user_filter is None or row["user_id"].lower() == user_filter.lower())
                 and (kind_filter is None or row.get("kind") == kind_filter)
-                and all(value is not None and row.get(column) == value
+                and all(value is not None and (
+                    same_generation(row.get(column), value) if column == "updated_at" else row.get(column) == value
+                )
                         for column, value in metadata_filters.items())
             )
 
@@ -129,16 +150,27 @@ class H(BaseHTTPRequestHandler):
             incoming = body if isinstance(body, list) else [body]
             if table in PLAIN_TABLES and any(e2e_state(row) in {"migrating", "active"} for row in incoming):
                 return 400, {"code": "P0001", "message": "bt_e2e_active"}
+            if table == "mt_vault":
+                metadata = TABLES.get("mt_e2e", {}).get(uid, {})
+                if any(row.get("user_id", "").lower() != uid or not row.get("key_id")
+                       or row["key_id"] != metadata.get("key_id")
+                       or metadata.get("state") not in {"migrating", "active"} for row in incoming):
+                    return e2e_error("bt_e2e_key_mismatch")
             updates = {row[pk].lower(): row for row in incoming}
             if table == "mt_e2e":
                 duplicate = rows.keys() & updates.keys() or len(updates) != len(incoming)
                 if duplicate and "resolution=merge-duplicates" not in preferences:
                     return 409, {"code": "23505", "message": "duplicate key value violates unique constraint"}
+                if any(rows[key].get("state") == "migrating" and updates[key].get("state") == "active"
+                       for key in rows.keys() & updates.keys()):
+                    return e2e_error("bt_e2e_use_activate")
             rows.update(updates)
             return 201, b""
         if method == "PATCH" and table == "mt_e2e" and user_filter is not None:
             row = rows.get(uid)
             if row is not None and matches(row):
+                if row.get("state") == "migrating" and body.get("state") == "active":
+                    return e2e_error("bt_e2e_use_activate")
                 rows[uid] = {**row, **body, pk: row[pk]}
                 return mutation_response([rows[uid]])
             return mutation_response([])
@@ -166,8 +198,41 @@ class H(BaseHTTPRequestHandler):
                 ]
             if table in PLAIN_TABLES and any(e2e_state(rows[key]) == "migrating" for key in candidates):
                 return 400, {"code": "P0001", "message": "bt_e2e_migrating"}
+            if table == "mt_vault":
+                metadata = TABLES.get("mt_e2e", {}).get(uid, {})
+                if metadata.get("state") == "disabling" and any(
+                    rows[key].get("key_id") == metadata.get("key_id") for key in candidates
+                ):
+                    return e2e_error("bt_e2e_vault_locked")
             return mutation_response([rows.pop(key) for key in candidates])
         return 404, {"message": "not found " + urlparse(self.path).path}
+
+    def activate_e2e(self, uid, body):
+        if self.server.writes_exhausted():
+            return UNAVAILABLE
+        if os.environ.get("FAKE_NO_E2E") == "1":
+            return 404, {"code": "PGRST202", "message": "Could not find the function"}
+        row = TABLES.get("mt_e2e", {}).get(uid)
+        key_id = body.get("p_key_id")
+        if (not row or row.get("state") != "migrating" or not key_id
+                or row.get("key_id") != key_id
+                or not same_generation(row.get("updated_at"), body.get("p_from_generation"))):
+            return e2e_error("bt_e2e_state_changed")
+        generation = body.get("p_to_generation")
+        try:
+            timestamp(generation)
+        except (AttributeError, ValueError):
+            return 400, {"code": "22007", "message": "invalid generation"}
+        counts = body.get("p_counts") or {}
+        actual = dict.fromkeys(E2E_KINDS, 0)
+        for record in TABLES.get("mt_vault", {}).values():
+            if record.get("user_id", "").lower() == uid and record.get("key_id") == key_id:
+                actual[record["kind"]] += 1
+        if any(actual[kind] != counts.get(kind, 0) for kind in E2E_KINDS):
+            return e2e_error("bt_e2e_counts")
+        row.update(state="active", updated_at=generation)
+        self.server.writes += 1
+        return 204, b""
 
     def route(self, method):
         if os.environ.get("FAKE_DOWN") or self.server.writes_exhausted():
@@ -202,6 +267,14 @@ class H(BaseHTTPRequestHandler):
             return self.send(200, {})
         if u.path == "/auth/v1/logout":
             return self.send(204)
+        if method == "POST" and u.path == "/rest/v1/rpc/mt_e2e_activate":
+            email = self.user_email()
+            if not email:
+                return self.send(401, {"message": "JWT expired"})
+            body = self.body()
+            with self.server.data_lock:
+                result = self.activate_e2e(IDS[email].lower(), body)
+            return self.send(*result)
         if u.path == "/rest/v1/rpc/delete_own_account":
             email = self.user_email()
             with self.server.data_lock:

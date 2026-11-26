@@ -535,29 +535,29 @@ struct E2EMigratorTests {
         func patch(_ changes: E2EServerPatch, userId: UUID) async throws { try await base.patch(changes, userId: userId) }
         func delete(userId: UUID) async throws { try await base.delete(userId: userId) }
 
-        func vaultIds(table: SyncTable, userId: UUID) async throws -> Set<UUID> {
-            try await base.vaultIds(table: table, userId: userId)
+        func vaultIds(table: SyncTable, userId: UUID, keyId: String) async throws -> Set<UUID> {
+            try await base.vaultIds(table: table, userId: userId, keyId: keyId)
         }
 
-        func vaultRows(table: SyncTable, userId: UUID) async throws -> [VaultRecord] {
-            let rows = try await base.vaultRows(table: table, userId: userId)
+        func vaultRows(table: SyncTable, userId: UUID, keyId: String?) async throws -> [VaultRecord] {
+            let rows = try await base.vaultRows(table: table, userId: userId, keyId: keyId)
             guard corruptVault, table == .transactions, let row = rows.first else { return rows }
             corruptedReads += 1
             // Change a byte of the authentication tag, keeping the envelope valid.
             var bytes = try VaultCrypto.decodeBase64URL(row.payload.dropFirst(4))
             bytes[bytes.index(before: bytes.endIndex)] ^= 1
-            return [VaultRecord(id: row.id, userId: row.userId, kind: row.kind,
+            return [VaultRecord(id: row.id, userId: row.userId, kind: row.kind, keyId: row.keyId,
                                 payload: "bt1." + VaultCrypto.encodeBase64URL(bytes))] + rows.dropFirst()
         }
 
         func upsertVault(_ rows: [VaultRecord]) async throws { try await base.upsertVault(rows) }
 
-        func deleteVault(ids: [UUID], table: SyncTable, userId: UUID) async throws {
+        func deleteVault(ids: [UUID], table: SyncTable, userId: UUID, keyId: String) async throws {
             if failVaultDelete {
                 failVaultDelete = false
                 throw Interrupted()
             }
-            try await base.deleteVault(ids: ids, table: table, userId: userId)
+            try await base.deleteVault(ids: ids, table: table, userId: userId, keyId: keyId)
         }
     }
 }

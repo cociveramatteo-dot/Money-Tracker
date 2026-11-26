@@ -18,6 +18,11 @@ from urllib.request import ProxyHandler, Request, build_opener
 SERVER = Path(__file__).with_name("fake-supabase.py")
 E2E = "/rest/v1/mt_e2e"
 VAULT = "/rest/v1/mt_vault"
+ACTIVATE = "/rest/v1/rpc/mt_e2e_activate"
+KEY = "0123456789abcdef"
+NEXT_KEY = "fedcba9876543210"
+START = "2026-11-26T10:00:00.123456Z"
+FINISH = "2026-11-26T10:00:01.123456Z"
 PLAIN = [
     f"/rest/v1/mt_{name}"
     for name in ("accounts", "transactions", "budgets", "goals", "recurring_rules")
@@ -85,19 +90,30 @@ class FakeSupabaseE2ETests(unittest.TestCase):
         self.assertEqual(status, 200)
         return body["user"]["id"], body["access_token"]
 
+    def seed_metadata(self, uid, token, *, state="migrating", key_id=KEY):
+        row = {"user_id": uid, "state": state, "key_id": key_id, "updated_at": START}
+        self.assertEqual(self.request("POST", E2E, row, token=token), (201, None))
+        return row
+
+    def activate(self, token, *, key_id=KEY, before=START, counts=None):
+        return self.request("POST", ACTIVATE, {
+            "p_key_id": key_id, "p_from_generation": before, "p_to_generation": FINISH,
+            "p_counts": counts or {},
+        }, token=token)
+
     def test_primary_keys_and_on_conflict(self):
         self.start_server()
         uid, token = self.login()
-        row = {"user_id": uid.upper(), "state": "migrating"}
+        row = {"user_id": uid.upper(), "state": "active", "key_id": KEY}
         self.assertEqual(self.request("POST", E2E, [row], token=token), (201, None))
-        updated = {"user_id": uid, "state": "active"}
+        updated = {"user_id": uid, "state": "active", "key_id": KEY, "salt": "changed"}
         self.assertEqual(
             self.request("POST", E2E + "?on_conflict=id", updated, token=token,
                          headers={"Prefer": "resolution=merge-duplicates, return=minimal"}),
             (201, None),
         )
         self.assertEqual(self.request("GET", E2E, token=token), (200, [updated]))
-        row = {"id": "AB", "user_id": uid, "kind": "goal", "payload": "bt1.Old"}
+        row = {"id": "AB", "user_id": uid, "kind": "goal", "key_id": KEY, "payload": "bt1.Old"}
         self.assertEqual(self.request("POST", VAULT, [row], token=token), (201, None))
         row = {**row, "id": "ab", "payload": "bt1.New"}
         self.assertEqual(self.request("POST", VAULT + "?on_conflict=user_id", [row], token=token), (201, None))
@@ -107,13 +123,15 @@ class FakeSupabaseE2ETests(unittest.TestCase):
         self.start_server()
         uid, token = self.login()
         other_uid, other_token = self.login(second_user=True)
+        self.seed_metadata(uid, token, state="active")
+        self.seed_metadata(other_uid, other_token, state="active")
         rows = [
-            {"id": "B", "user_id": uid, "kind": "goal", "payload": "bt1.B"},
-            {"id": "A", "user_id": uid, "kind": "goal", "payload": "bt1.A"},
-            {"id": "C", "user_id": uid, "kind": "account", "payload": "bt1.C"},
+            {"id": "B", "user_id": uid, "kind": "goal", "key_id": KEY, "payload": "bt1.B"},
+            {"id": "A", "user_id": uid, "kind": "goal", "key_id": KEY, "payload": "bt1.A"},
+            {"id": "C", "user_id": uid, "kind": "account", "key_id": KEY, "payload": "bt1.C"},
         ]
         self.assertEqual(self.request("POST", VAULT, rows, token=token), (201, None))
-        other = {"id": "D", "user_id": other_uid, "kind": "goal", "payload": "bt1.D"}
+        other = {"id": "D", "user_id": other_uid, "kind": "goal", "key_id": KEY, "payload": "bt1.D"}
         self.assertEqual(self.request("POST", VAULT, [other], token=other_token), (201, None))
         query = f"?kind=eq.goal&user_id=eq.{uid.upper()}&select=id,payload"
         self.assertEqual(
@@ -128,21 +146,24 @@ class FakeSupabaseE2ETests(unittest.TestCase):
         self.start_server()
         uid, token = self.login()
         other_uid, other_token = self.login(second_user=True)
+        self.seed_metadata(uid, token, state="active")
+        self.seed_metadata(other_uid, other_token, state="active")
         rows = [
-            {"id": "A", "user_id": uid, "kind": "goal", "payload": "bt1.A"},
-            {"id": "B", "user_id": uid, "kind": "goal", "payload": "bt1.B"},
-            {"id": "C", "user_id": uid, "kind": "account", "payload": "bt1.C"},
+            {"id": "A", "user_id": uid, "kind": "goal", "key_id": KEY, "payload": "bt1.A"},
+            {"id": "B", "user_id": uid, "kind": "goal", "key_id": KEY, "payload": "bt1.B"},
+            {"id": "C", "user_id": uid, "kind": "account", "key_id": KEY, "payload": "bt1.C"},
         ]
-        other = {"id": "d", "user_id": other_uid, "kind": "goal", "payload": "bt1.D"}
+        other = {"id": "d", "user_id": other_uid, "kind": "goal", "key_id": KEY, "payload": "bt1.D"}
         self.assertEqual(self.request("POST", VAULT, rows, token=token), (201, None))
         self.assertEqual(self.request("POST", VAULT, [other], token=other_token), (201, None))
-        self.assertEqual(self.request("DELETE", VAULT + "?kind=eq.goal", token=token), (204, None))
+        self.assertEqual(self.request("DELETE", VAULT + f"?kind=eq.goal&key_id=eq.{KEY}", token=token), (204, None))
         remaining = {**rows[2], "id": "c"}
         self.assertEqual(self.request("GET", VAULT, token=token), (200, [remaining]))
         self.assertEqual(self.request("GET", VAULT, token=other_token), (200, [other]))
-        delete = VAULT + f"?user_id=eq.{uid}&kind=eq.account"
+        delete = VAULT + f"?user_id=eq.{uid}&kind=eq.account&key_id=eq.{KEY}"
         self.assertEqual(self.request("DELETE", delete, token=token), (204, None))
         self.assertEqual(self.request("GET", VAULT, token=token), (200, []))
+        self.assertEqual(self.request("DELETE", E2E + f"?user_id=eq.{uid}", token=token), (204, None))
         self.assertEqual(self.request("POST", PLAIN[0], [{"id": "ABC", "user_id": uid}], token=token), (201, None))
         self.assertEqual(self.request("DELETE", PLAIN[0] + "?id=in.(ABC)", token=token), (204, None))
         self.assertEqual(self.request("GET", PLAIN[0], token=token), (200, []))
@@ -167,7 +188,7 @@ class FakeSupabaseE2ETests(unittest.TestCase):
         other = {"user_id": other_uid, "state": "migrating"}
         self.assertEqual(self.request("POST", E2E, row, token=token), (201, None))
         self.assertEqual(self.request("POST", E2E, other, token=other_token), (201, None))
-        patch = {"state": "active", "wrapped_key_passphrase": "bt1.UpdatedKey"}
+        patch = {"state": "disabling", "wrapped_key_passphrase": "bt1.UpdatedKey"}
         self.assertEqual(self.request("PATCH", E2E + f"?user_id=eq.{uid.upper()}", patch, token=token), (204, None))
         self.assertEqual(self.request("GET", E2E, token=token), (200, [{**row, **patch}]))
         self.assertEqual(self.request("GET", E2E, token=other_token), (200, [other]))
@@ -181,10 +202,13 @@ class FakeSupabaseE2ETests(unittest.TestCase):
         other = {"id": "other", "user_id": other_uid}
         for path in PLAIN:
             self.assertEqual(self.request("POST", path, [existing], token=token), (201, None))
-        self.assertEqual(self.request("POST", E2E, {"user_id": uid, "state": "migrating"}, token=token), (201, None))
+        self.seed_metadata(uid, token)
         for state in ("migrating", "active", "disabling"):
-            filter_path = E2E + f"?user_id=eq.{uid}"
-            self.assertEqual(self.request("PATCH", filter_path, {"state": state}, token=token), (204, None))
+            if state == "active":
+                self.assertEqual(self.activate(token), (204, None))
+            elif state == "disabling":
+                filter_path = E2E + f"?user_id=eq.{uid}"
+                self.assertEqual(self.request("PATCH", filter_path, {"state": state}, token=token), (204, None))
             for path in PLAIN:
                 with self.subTest(state=state, table=path):
                     self.assertEqual(self.request("POST", path, [other], token=other_token), (201, None))
@@ -203,13 +227,61 @@ class FakeSupabaseE2ETests(unittest.TestCase):
         self.start_server()
         uid, token = self.login()
         original = {"id": "original", "user_id": uid}
-        vault = {**original, "kind": "account", "payload": "bt1.Payload"}
+        vault = {**original, "kind": "account", "key_id": KEY, "payload": "bt1.Payload"}
         self.assertEqual(self.request("POST", PLAIN[0], [original], token=token), (201, None))
+        self.seed_metadata(uid, token)
         self.assertEqual(self.request("POST", VAULT, [vault], token=token), (201, None))
-        self.assertEqual(self.request("POST", E2E, {"user_id": uid, "state": "migrating"}, token=token), (201, None))
         self.assertEqual(self.request("POST", "/rest/v1/rpc/delete_own_account", token=token), (204, None))
         for path in (PLAIN[0], VAULT, E2E):
             self.assertEqual(self.request("GET", path, token=token), (200, []))
+
+    def test_delayed_d7_cannot_delete_row_from_new_activation(self):
+        self.start_server()
+        uid, token = self.login()
+        self.seed_metadata(uid, token, key_id=NEXT_KEY)
+        row = {"id": "same-id", "user_id": uid, "kind": "goal", "key_id": NEXT_KEY, "payload": "bt1.New"}
+        self.assertEqual(self.request("POST", VAULT, [row], token=token), (201, None))
+        self.assertEqual(self.activate(token, key_id=NEXT_KEY, counts={"goal": 1}), (204, None))
+        delayed = VAULT + f"?id=eq.same-id&user_id=eq.{uid}&kind=eq.goal&key_id=eq.{KEY}"
+        self.assertEqual(self.request("DELETE", delayed, token=token), (204, None))
+        self.assertEqual(self.request("GET", VAULT, token=token), (200, [row]))
+
+    def test_rollback_after_a5_leaves_counts_mismatch_at_a6(self):
+        self.start_server()
+        uid, token = self.login()
+        metadata = self.seed_metadata(uid, token)
+        row = {"id": "original", "user_id": uid, "kind": "account", "key_id": KEY, "payload": "bt1.Payload"}
+        self.assertEqual(self.request("POST", VAULT, [row], token=token), (201, None))
+        self.assertEqual(self.request("DELETE", VAULT + f"?id=eq.original&key_id=eq.{KEY}", token=token), (204, None))
+        self.assertEqual(self.activate(token, counts={"account": 1}),
+                         (400, {"code": "P0001", "message": "bt_e2e_counts"}))
+        self.assertEqual(self.request("GET", E2E, token=token), (200, [metadata]))
+        self.assertEqual(self.activate(token, before=FINISH),
+                         (400, {"code": "P0001", "message": "bt_e2e_state_changed"}))
+
+    def test_direct_activation_patch_cannot_bypass_rpc(self):
+        self.start_server()
+        uid, token = self.login()
+        metadata = self.seed_metadata(uid, token)
+        path = E2E + f"?user_id=eq.{uid}&state=eq.migrating&key_id=eq.{KEY}"
+        self.assertEqual(self.request("PATCH", path, {"state": "active"}, token=token),
+                         (400, {"code": "P0001", "message": "bt_e2e_use_activate"}))
+        self.assertEqual(self.request("GET", E2E, token=token), (200, [metadata]))
+        self.assertEqual(self.activate(token, before=START.replace("Z", "+00:00")), (204, None))
+
+    def test_vault_guard_rejects_wrong_key_and_locks_live_rows_during_disable(self):
+        self.start_server()
+        uid, token = self.login()
+        self.seed_metadata(uid, token, state="active")
+        row = {"id": "row", "user_id": uid, "kind": "goal", "key_id": KEY, "payload": "bt1.Payload"}
+        self.assertEqual(self.request("POST", VAULT, [{**row, "key_id": NEXT_KEY}], token=token),
+                         (400, {"code": "P0001", "message": "bt_e2e_key_mismatch"}))
+        self.assertEqual(self.request("POST", VAULT, [row], token=token), (201, None))
+        self.assertEqual(self.request("PATCH", E2E + f"?user_id=eq.{uid}", {"state": "disabling"}, token=token), (204, None))
+        self.assertEqual(self.request("DELETE", VAULT + f"?id=eq.row&key_id=eq.{KEY}", token=token),
+                         (400, {"code": "P0001", "message": "bt_e2e_vault_locked"}))
+        self.assertEqual(self.request("GET", VAULT + f"?key_id=eq.{NEXT_KEY}", token=token), (200, []))
+        self.assertEqual(self.request("GET", VAULT + f"?key_id=eq.{KEY}", token=token), (200, [row]))
 
     def test_no_e2e_tables(self):
         self.start_server(FAKE_NO_E2E="1")
@@ -226,13 +298,12 @@ class FakeSupabaseE2ETests(unittest.TestCase):
     def test_fail_after_counts_successful_writes_only(self):
         self.start_server(FAKE_FAIL_AFTER="3")
         uid, token = self.login()
-        row = {"user_id": uid, "state": "migrating"}
-        self.assertEqual(self.request("POST", E2E, row, token=token), (201, None))
+        row = self.seed_metadata(uid, token)
         self.assertEqual(self.request("POST", E2E, row, token=token), (409, DUPLICATE))
         self.assertEqual(self.request("GET", E2E, token=token), (200, [row]))
         self.assertEqual(self.request("POST", PLAIN[0], [{"id": "a", "user_id": uid}], token=token), (400, ACTIVE))
         path = E2E + f"?user_id=eq.{uid}"
-        self.assertEqual(self.request("PATCH", path, {"state": "active"}, token=token), (204, None))
+        self.assertEqual(self.activate(token), (204, None))
         self.assertEqual(self.request("DELETE", path, token=token), (204, None))
         for method in ("GET", "POST", "PATCH", "DELETE"):
             with self.subTest(method=method):
@@ -251,8 +322,9 @@ class FakeSupabaseE2ETests(unittest.TestCase):
     def test_payload_round_trips_unchanged(self):
         self.start_server()
         uid, token = self.login()
+        self.seed_metadata(uid, token)
         payload = "bt1.AzZ_09-É" + "Aa" * 4096
-        row = {"id": "AB", "user_id": uid, "kind": "transaction", "payload": payload}
+        row = {"id": "AB", "user_id": uid, "kind": "transaction", "key_id": KEY, "payload": payload}
         self.assertEqual(self.request("POST", VAULT, [row], token=token), (201, None))
         self.assertEqual(
             self.request("GET", VAULT + "?select=id,payload", token=token),

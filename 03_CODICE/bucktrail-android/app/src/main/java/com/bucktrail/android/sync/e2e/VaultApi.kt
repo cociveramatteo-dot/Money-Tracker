@@ -1,15 +1,17 @@
 package com.bucktrail.android.sync.e2e
 
+import com.bucktrail.android.sync.ApiException
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import java.time.OffsetDateTime
 import java.util.UUID
 
-/** Superficie PostgREST delle tabelle E2E. I record del vault contengono solo id, utente, kind e involucro cifrato. */
+/** Superficie PostgREST delle tabelle E2E. I record del vault contengono solo id, utente, kind, key_id e involucro cifrato. */
 interface VaultApi {
-    suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String = "*"): List<JsonObject>
+    suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String = "*", keyId: String? = null): List<JsonObject>
     suspend fun upsertVault(rows: List<JsonObject>, token: String)
-    suspend fun deleteVault(kind: VaultKind, ids: List<String>, userId: String, token: String)
+    suspend fun deleteVault(kind: VaultKind, ids: List<String>, userId: String, token: String, keyId: String)
+    suspend fun activateE2e(row: JsonObject, generation: String, counts: Map<String, Int>, token: String)
     suspend fun getE2e(userId: String, token: String): E2ERowLookup
     suspend fun insertE2e(row: JsonObject, token: String)
     suspend fun patchE2e(userId: String, changes: JsonObject, token: String)
@@ -29,6 +31,10 @@ interface VaultApi {
         return true
     }
 }
+
+internal fun ApiException.e2eStateChanged(): Boolean = code == "P0001" && message in setOf(
+    "bt_e2e_state_changed", "bt_e2e_counts", "bt_e2e_key_mismatch", "bt_e2e_vault_locked", "bt_e2e_use_activate",
+)
 
 internal fun JsonObject.generation(): String? = text("updated_at")?.let {
     OffsetDateTime.parse(it).toInstant().toString()

@@ -415,24 +415,24 @@ struct E2EUITestHarness: View {
             for id in ids { tables[table]?.removeValue(forKey: id) }
         }
 
-        func vaultIds(table: SyncTable, userId: UUID) async throws -> Set<UUID> {
-            Set(try await vaultRows(table: table, userId: userId).map(\.id))
+        func vaultIds(table: SyncTable, userId: UUID, keyId: String) async throws -> Set<UUID> {
+            Set(try await vaultRows(table: table, userId: userId, keyId: keyId).map(\.id))
         }
 
-        func vaultRows(table: SyncTable, userId: UUID) async throws -> [VaultRecord] {
+        func vaultRows(table: SyncTable, userId: UUID, keyId: String?) async throws -> [VaultRecord] {
             if failNextVaultRead {
                 failNextVaultRead = false
                 throw URLError(.badServerResponse)
             }
-            return vault.values.filter { $0.kind == table.kind && $0.userId == userId }
+            return vault.values.filter { $0.kind == table.kind && $0.userId == userId && (keyId == nil || $0.keyId == keyId) }
         }
 
         func upsertVault(_ rows: [VaultRecord]) async throws {
             for row in rows { vault[row.id] = row }
         }
 
-        func deleteVault(ids: [UUID], table: SyncTable, userId: UUID) async throws {
-            for id in ids { vault.removeValue(forKey: id) }
+        func deleteVault(ids: [UUID], table: SyncTable, userId: UUID, keyId: String) async throws {
+            for id in ids where vault[id]?.keyId == keyId { vault.removeValue(forKey: id) }
         }
 
         func lookup(userId: UUID) async throws -> E2EServerLookup {
@@ -455,6 +455,7 @@ struct E2EUITestHarness: View {
             if let salt = changes.salt { row?.salt = salt }
             if let wrapped = changes.wrappedKeyPassphrase { row?.wrappedKeyPassphrase = wrapped }
             if let wrapped = changes.wrappedKeyRecovery { row?.wrappedKeyRecovery = wrapped }
+            if let generation = changes.updatedAt { row?.updatedAt = generation }
         }
 
         func delete(userId: UUID) async throws { row = nil }

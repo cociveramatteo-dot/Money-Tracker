@@ -220,7 +220,7 @@ struct E2EGateTests {
         let cloud = Account(name: "Cloud", type: .conto)
         let vault = VaultRemote(access: remote, dek: key, owner: user)
         try await vault.upsert([SBAccount(cloud, userId: user)], table: .accounts, userId: user)
-        let broken = VaultRecord(id: UUID(), userId: user, kind: SyncTable.goals.kind, payload: "bt1.invalid")
+        let broken = VaultRecord(id: UUID(), userId: user, kind: SyncTable.goals.kind, keyId: try VaultCrypto.keyId(dek: key), payload: "bt1.invalid")
         remote.records[broken.id] = broken
 
         await fixture.service.pull(context: fixture.context)

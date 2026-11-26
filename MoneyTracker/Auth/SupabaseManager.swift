@@ -111,16 +111,11 @@ final class SupabaseManager: ObservableObject {
             supabaseURL: SupabaseConfig.url, supabaseKey: SupabaseConfig.anonKey,
             options: SupabaseClientOptions(auth: .init(accessToken: { token }))
         )
-        try await Self.deleteRemoteAccount(client: pinned, owner: owner)
+        try await Self.deleteRemoteAccount(client: pinned)
     }
 
-    /// The caller uses a client pinned to the deleting user's token. The RPC
-    /// can invalidate that token immediately through the auth.users cascade.
-    static func deleteRemoteAccount(client: SupabaseClient, owner: UUID) async throws {
+    /// The caller pins the token. Deleting auth.users cascades to both E2E tables.
+    static func deleteRemoteAccount(client: SupabaseClient) async throws {
         try await client.rpc("delete_own_account").execute()
-        let userFilter = owner.uuidString.lowercased()
-        for table in ["mt_vault", "mt_e2e"] {
-            _ = try? await client.from(table).delete().eq("user_id", value: userFilter).execute()
-        }
     }
 }

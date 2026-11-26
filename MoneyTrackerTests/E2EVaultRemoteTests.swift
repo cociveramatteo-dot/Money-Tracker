@@ -32,6 +32,7 @@ struct E2EVaultRemoteTests {
             let record = try #require(memory.records[row.id])
             #expect(record.userId == user)
             #expect(record.kind == table.kind)
+            #expect(record.keyId == (try VaultCrypto.keyId(dek: key)))
             #expect(record.payload.hasPrefix("bt1."))
             let wire = String(decoding: try JSONEncoder().encode(record), as: UTF8.self)
             #expect(!wire.contains("Nome privato"))
@@ -73,13 +74,25 @@ struct E2EVaultRemoteTests {
         let wrongAAD = VaultCrypto.rowAAD(kind: "account", id: row.id, userID: user)
         let correctAAD = VaultCrypto.rowAAD(kind: "account", id: outerID, userID: user)
         let mismatched = try VaultCrypto.seal(plain, key: key, aad: correctAAD)
-        memory.records[outerID] = VaultRecord(id: outerID, userId: user, kind: "account", payload: mismatched)
+        memory.records[outerID] = VaultRecord(id: outerID, userId: user, kind: "account", keyId: try VaultCrypto.keyId(dek: key), payload: mismatched)
         await #expect(throws: VaultRemote.Failure.mismatchedID) {
             let _: [Row] = try await vault.select(table: .accounts, userId: user)
         }
         let relocated = try VaultCrypto.seal(plain, key: key, aad: wrongAAD)
-        memory.records[outerID] = VaultRecord(id: outerID, userId: user, kind: "account", payload: relocated)
+        memory.records[outerID] = VaultRecord(id: outerID, userId: user, kind: "account", keyId: try VaultCrypto.keyId(dek: key), payload: relocated)
         await #expect(throws: VaultCrypto.Failure.authenticationFailed) {
+            let _: [Row] = try await vault.select(table: .accounts, userId: user)
+        }
+    }
+
+    @Test func staleKeyCannotDeleteOrReadRowsOfReplacementKey() async throws {
+        let replacement = VaultRemote(access: memory, dek: SymmetricKey(size: .bits256), owner: user)
+        let row = Row(id: UUID(), name: "Nuova chiave", createdAt: .distantPast, amount: 1)
+        try await replacement.upsert([row], table: .accounts, userId: user)
+
+        try await vault.delete(ids: [row.id], table: .accounts, userId: user)
+        #expect(memory.records[row.id] != nil)
+        await #expect(throws: VaultRemote.Failure.wrongKey) {
             let _: [Row] = try await vault.select(table: .accounts, userId: user)
         }
     }

@@ -125,7 +125,7 @@ internal class E2EMigrator(
             when {
                 marker.direction == MigrationDirection.Enable -> finish()
                 marker.phase == Phase.RollingBack -> throw Failure(Problem.StateChanged)
-                marker.phase == Phase.Resetting -> completeReset()
+                marker.phase == Phase.Resetting -> completeReset(marker.keyId)
                 marker.phase == Phase.DisableCleanup -> finishDisable(marker)
                 else -> throw Failure(Problem.StateChanged)
             }
@@ -263,10 +263,14 @@ internal class E2EMigrator(
             abortEnable(row, marker)
         }
         val transport = guardWrites(encrypted(dek), row)
-        if (copyAndVerify(transport, Step.A4, Step.A5, frozen) == null) abortEnable(row, marker)
+        val verified = copyAndVerify(transport, Step.A4, Step.A5, frozen) ?: abortEnable(row, marker)
+        val generation = newGeneration(row)
+        val cleanup = marker.copy(phase = Phase.Verified, activationGeneration = generation)
         validateSession()
-        secrets.saveMarker(marker.copy(phase = Phase.Verified))
-        val active = changeState(row, "active")
+        secrets.saveMarker(cleanup)
+        request { token -> vault.activateE2e(row, generation, verified.mapKeys { it.key.wire }.mapValues { it.value.size }, token) }
+        val active = row("active")
+        if (!cleanup.owns(active)) throw Failure(Problem.StateChanged)
         step(Step.A6)
         finishEnable(active, dek)
     }
@@ -343,7 +347,7 @@ internal class E2EMigrator(
     }
 
     private suspend fun rollbackEnable(row: JsonObject) {
-        clearVault(row)
+        clearVault(row, keyId(row))
         deleteRow(row)
         finish()
     }
@@ -362,7 +366,7 @@ internal class E2EMigrator(
         verify(loadBackup(marker), remaining, allowRemoteSubset = true)
         // Delete only IDs seen in the verified remainder, not any new entries
         // returned by later ID queries. A residual row pauses cleanup.
-        clearVault(null, remaining.mapValues { (kind, rows) -> E2EVerifier.ids(rows, kind) })
+        clearVault(null, marker.keyId, remaining.mapValues { (kind, rows) -> E2EVerifier.ids(rows, kind) })
         step(Step.D7)
         completedCopy()
         finish()
@@ -370,13 +374,13 @@ internal class E2EMigrator(
 
     private suspend fun reset(row: JsonObject) {
         requirePlainEmpty(row)
-        clearVault(row)
+        clearVault(row, keyId(row))
         deleteRow(row)
-        completeReset()
+        completeReset(keyId(row))
     }
 
-    private suspend fun completeReset() {
-        clearVault(null)
+    private suspend fun completeReset(keyId: String) {
+        clearVault(null, keyId)
         val clear = guardWrites(plain, null, canDelete = false)
         if (!initialSync(engine.using(clear, userId, completeSnapshot = true))) throw Failure(Problem.StateChanged)
         finish()
@@ -426,22 +430,22 @@ internal class E2EMigrator(
         }
     }
 
-    private suspend fun clearVault(expected: JsonObject?, verified: Map<VaultKind, Set<String>>? = null) {
+    private suspend fun clearVault(expected: JsonObject?, keyId: String, verified: Map<VaultKind, Set<String>> = emptyMap()) {
         for (kind in VaultKind.entries) {
             val ids = request { token ->
                 requireCurrent(expected, token)
-                E2EVerifier.ids(vault.selectVault(kind, uid, token, "id"), kind)
+                E2EVerifier.ids(vault.selectVault(kind, uid, token, "id", keyId), kind)
             }
-            if (verified?.getValue(kind)?.containsAll(ids) == false) throw Failure(Problem.Verification)
+            if (expected == null && !verified[kind].orEmpty().containsAll(ids)) throw Failure(Problem.Verification)
             for (batch in ids.sorted().chunked(100)) {
                 request { token ->
                     requireCurrent(expected, token)
-                    vault.deleteVault(kind, batch, uid, token)
+                    vault.deleteVault(kind, batch, uid, token, keyId)
                 }
             }
             request { token ->
                 requireCurrent(expected, token)
-                if (vault.selectVault(kind, uid, token, "id").isNotEmpty()) throw Failure(Problem.Verification)
+                if (vault.selectVault(kind, uid, token, "id", keyId).isNotEmpty()) throw Failure(Problem.Verification)
             }
         }
     }
@@ -503,7 +507,7 @@ internal class E2EMigrator(
             }
         }
 
-    private fun encrypted(dek: ByteArray) = VaultSupabaseApi(plain, vault, dek, uid)
+    private fun encrypted(dek: ByteArray) = VaultSupabaseApi(plain, vault, dek, uid, scopeReads = true)
 
     private suspend fun read(client: SupabaseApi): MigrationRows = withContext(Dispatchers.Default) {
         request { token ->
@@ -673,6 +677,11 @@ internal class E2EMigrator(
 
     private suspend fun <T> request(call: suspend (String) -> T): T = auth.authed { token ->
         validateSession()
-        call(token).also { validateSession() }
+        try {
+            call(token).also { validateSession() }
+        } catch (error: ApiException) {
+            if (error.e2eStateChanged()) throw Failure(Problem.StateChanged)
+            throw error
+        }
     }
 }

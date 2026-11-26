@@ -89,8 +89,8 @@ class E2EController(
         publishStatus(userId, resolution)
 
         val transport = when (mode) {
-            E2EGate.Mode.Plain -> PlainWriteGuard(plain)
-            is E2EGate.Mode.Vault -> VaultSupabaseApi(plain, vault, mode.dek, userId)
+            E2EGate.Mode.Plain -> E2EWriteGuard(plain)
+            is E2EGate.Mode.Vault -> E2EWriteGuard(VaultSupabaseApi(plain, vault, mode.dek, userId))
             else -> null
         }
         val pending = if (resume != null && marker != null) PendingMigration(marker, resolution.row) else null
@@ -150,27 +150,13 @@ class E2EController(
         needsInitialSync = false
     }
 
-    /** After the RPC succeeds, the original token may already be revoked. */
-    internal suspend fun eraseRemoteAccountData(owner: String, token: String) {
-        check(enabled)
-        for (kind in VaultKind.entries) {
-            runCatching {
-                vault.selectVault(kind, owner, token, "id")
-                    .mapNotNull { it.text("id") }
-                    .chunked(200)
-                    .forEach { ids -> runCatching { vault.deleteVault(kind, ids, owner, token) } }
-            }
-        }
-        runCatching { vault.deleteE2e(owner, token) }
-    }
-
     internal data class PendingMigration(val marker: E2EMigrationMarker, val row: JsonObject?)
 
     internal data class Selection(
         val transport: SupabaseApi?, val needsInitialSync: Boolean, val pending: PendingMigration?,
         val completeSnapshot: Boolean,
     ) {
-        val plainWriteRejected: Boolean get() = (transport as? PlainWriteGuard)?.rejected == true
+        val writeRejected: Boolean get() = (transport as? E2EWriteGuard)?.rejected == true
     }
 
     internal suspend fun <T> migrate(
@@ -235,21 +221,25 @@ class E2EController(
         }
     }
 
-    private class PlainWriteGuard(private val plain: SupabaseApi) : SupabaseApi by plain {
+    private class E2EWriteGuard(private val plain: SupabaseApi) : SupabaseApi by plain {
         var rejected: Boolean = false
             private set
 
+        override suspend fun selectAll(table: String, userId: String, token: String, columns: String) =
+            checkRequest { plain.selectAll(table, userId, token, columns) }
+
         override suspend fun upsert(table: String, rows: List<JsonObject>, token: String) =
-            checkWrite { plain.upsert(table, rows, token) }
+            checkRequest { plain.upsert(table, rows, token) }
 
         override suspend fun deleteIn(table: String, ids: List<String>, userId: String, token: String) =
-            checkWrite { plain.deleteIn(table, ids, userId, token) }
+            checkRequest { plain.deleteIn(table, ids, userId, token) }
 
-        private inline fun checkWrite(block: () -> Unit) {
+        private inline fun <T> checkRequest(block: () -> T): T {
             try {
-                block()
+                return block()
             } catch (e: ApiException) {
-                if (e.code == "P0001" && e.message in listOf("bt_e2e_active", "bt_e2e_migrating")) {
+                if (e.e2eStateChanged() ||
+                    (e.code == "P0001" && e.message in listOf("bt_e2e_active", "bt_e2e_migrating"))) {
                     rejected = true
                 }
                 throw e

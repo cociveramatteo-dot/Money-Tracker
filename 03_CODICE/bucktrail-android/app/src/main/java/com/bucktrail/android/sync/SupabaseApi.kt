@@ -170,8 +170,9 @@ class HttpSupabaseApi(
     override suspend fun selectAll(table: String, userId: String, token: String, columns: String): List<JsonObject> =
         selectPages(table, userId, token, columns, pageSize)
 
-    override suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String): List<JsonObject> =
-        selectPages("mt_vault", userId, token, columns, minOf(pageSize, 200), "&kind=eq.${enc(kind.wire)}")
+    override suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String, keyId: String?): List<JsonObject> =
+        selectPages("mt_vault", userId, token, columns, minOf(pageSize, 200),
+            "&kind=eq.${enc(kind.wire)}" + (keyId?.let { "&key_id=eq.${enc(it)}" } ?: ""))
 
     private suspend fun selectPages(
         table: String, userId: String, token: String, columns: String, size: Int, filter: String = "",
@@ -206,13 +207,23 @@ class HttpSupabaseApi(
 
     override suspend fun upsertVault(rows: List<JsonObject>, token: String) = upsert("mt_vault", rows, token)
 
-    override suspend fun deleteVault(kind: VaultKind, ids: List<String>, userId: String, token: String) =
-        deleteRows("mt_vault", ids, userId, token, "&kind=eq.${enc(kind.wire)}")
+    override suspend fun deleteVault(kind: VaultKind, ids: List<String>, userId: String, token: String, keyId: String) =
+        deleteRows("mt_vault", ids, userId, token, "&kind=eq.${enc(kind.wire)}&key_id=eq.${enc(keyId)}")
 
     private suspend fun deleteRows(table: String, ids: List<String>, userId: String, token: String, filter: String = "") {
         ids.chunked(100).forEach { chunk ->
             call("DELETE", "/rest/v1/$table?id=in.(${chunk.joinToString(",") { enc(it) }})&user_id=eq.${enc(userId)}$filter", token = token, extra = mapOf("Prefer" to "return=minimal"))
         }
+    }
+
+    override suspend fun activateE2e(row: JsonObject, generation: String, counts: Map<String, Int>, token: String) {
+        val parameters = buildJsonObject {
+            put("p_key_id", JsonPrimitive(requireNotNull(row["key_id"]?.jsonPrimitive?.contentOrNull)))
+            put("p_from_generation", JsonPrimitive(requireNotNull(row["updated_at"]?.jsonPrimitive?.contentOrNull)))
+            put("p_to_generation", JsonPrimitive(generation))
+            put("p_counts", JsonObject(counts.mapValues { JsonPrimitive(it.value) }))
+        }
+        call("POST", "/rest/v1/rpc/mt_e2e_activate", parameters.toString(), token)
     }
 
     override suspend fun getE2e(userId: String, token: String): E2ERowLookup {

@@ -83,10 +83,12 @@ struct E2EMigrator {
         let (salt, wrapped) = try await passphraseWrap(passphrase, dek: dek)
         let recoveryWrap = try wrapRecovery(dek, bytes: recoveryBytes)
         try validateSession()
+        let generation = Self.newGeneration()
         let row = E2EServerRow(userId: userId, state: .migrating, version: 1, kdf: "pbkdf2-sha256",
                                kdfIterations: VaultCrypto.defaultIterations, salt: salt,
-                               wrappedKeyPassphrase: wrapped, wrappedKeyRecovery: recoveryWrap, keyId: keyId)
-        let marker = try begin(.enable, keyId: keyId)
+                               wrappedKeyPassphrase: wrapped, wrappedKeyRecovery: recoveryWrap,
+                               keyId: keyId, updatedAt: generation)
+        let marker = try begin(.enable, keyId: keyId, generation: generation)
         try keyStore.save(dek, userId: userId)
         try checkpoint(.a2)
 
@@ -118,7 +120,7 @@ struct E2EMigrator {
         _ = try E2EVerifier.verify(local: aligned, remote: try await read(encrypted))
         try checkpoint(.d1)
         try backup(aligned)
-        let marker = try begin(.disable, keyId: row.keyId)
+        let marker = try begin(.disable, keyId: row.keyId, generation: row.updatedAt)
         try checkpoint(.d2)
         try await setState(.disabling, from: row)
         try checkpoint(.d3)
@@ -135,16 +137,16 @@ struct E2EMigrator {
         case (.disable, nil, .rollingBack):
             throw Failure.stateChanged
         case (.disable, nil, .resetting):
-            try await clearVault(whileCurrent: nil, verifiedIDs: [:])
+            try await clearVault(keyId: marker.keyId, whileCurrent: nil, verifiedIDs: [:])
             try await initialSync(plain)
             try finish()
         case (.disable, nil, _):
             try await finishDisable(marker)
         case (.disable, .active, .resetting):
-            guard let row else { throw Failure.stateChanged }
+            guard let row, marker.owns(row) else { throw Failure.stateChanged }
             try await reset(row)
         default:
-            guard let row, row.userId == userId, row.keyId == marker.keyId else { throw Failure.stateChanged }
+            guard let row, marker.owns(row) else { throw Failure.stateChanged }
             let dek = try requireKey(row)
             switch (marker.direction, row.state, marker.phase) {
             case (.enable, .migrating, .rollingBack):
@@ -168,7 +170,7 @@ struct E2EMigrator {
     func cancelEnable() async throws {
         let row = try await requireRow(state: .migrating)
         guard let marker = Self.marker(in: defaults, userId: userId),
-              marker.direction == .enable, marker.keyId == row.keyId else { throw Failure.stateChanged }
+              marker.direction == .enable, marker.owns(row) else { throw Failure.stateChanged }
         _ = try requireKey(row)
         try save(marker, phase: .rollingBack)
         try await rollbackEnable(row)
@@ -193,7 +195,7 @@ struct E2EMigrator {
         guard try VaultCrypto.keyId(dek: dek) == row.keyId else { throw Failure.stateChanged }
         try await requireCurrent(row)
         try keyStore.save(dek, userId: userId)
-        if let marker = Self.marker(in: defaults, userId: userId), marker.keyId == row.keyId {
+        if let marker = Self.marker(in: defaults, userId: userId), marker.owns(row) {
             try await resume(marker, row: row)
         } else if row.state == .active {
             try await initialSync(encryptedRemote(dek))
@@ -206,9 +208,15 @@ struct E2EMigrator {
             } else {
                 _ = try E2EVerifier.verify(local: source, remote: local)
             }
+            try await requireCurrent(row)
             try backup(source)
-            let marker = try begin(row.state == .migrating ? .enable : .disable, keyId: row.keyId)
-            try await resume(marker, row: row)
+            let generation = Self.newGeneration(after: row.updatedAt)
+            let marker = try begin(row.state == .migrating ? .enable : .disable,
+                                   keyId: row.keyId, generation: generation)
+            try await patch(E2EServerPatch(updatedAt: generation), from: row)
+            let claimed = try await requireRow(state: row.state)
+            guard marker.owns(claimed) else { throw Failure.stateChanged }
+            try await resume(marker, row: claimed)
         }
     }
 
@@ -234,11 +242,12 @@ struct E2EMigrator {
         guard try keyStore.load(userId: userId)?.keyId != row.keyId else { throw Failure.stateChanged }
         try await authenticate()
         try await requirePlainEmpty(whileActive: row)
-        try begin(.disable, keyId: row.keyId, phase: .resetting)
+        try begin(.disable, keyId: row.keyId, phase: .resetting, generation: row.updatedAt)
         try await reset(row)
     }
 
     private func activate(row: E2EServerRow, marker: E2EMigrationMarker, dek: SymmetricKey) async throws {
+        try await requireCurrent(row)
         // Once the trigger freezes the plaintext, check for writes that won
         // the race between A0 and A3 before accepting this copy as the source.
         let frozen = try await read(plain)
@@ -251,18 +260,26 @@ struct E2EMigrator {
             throw Failure.verificationFailed
         }
         let encrypted = encryptedRemote(dek)
-        let verified = try await copyAndVerify(to: encrypted, deleteOrphans: true,
-                                               uploadStep: .a4, verifyStep: .a5, required: frozen)
-        guard verified else {
+        guard let verified = try await copyAndVerify(to: encrypted, whileCurrent: row, deleteOrphans: true,
+                                                     uploadStep: .a4, verifyStep: .a5, required: frozen) else {
             try save(marker, phase: .rollingBack)
             try await rollbackEnable(row)
             throw Failure.verificationFailed
         }
-        try save(marker, phase: .verified)
-        try await setState(.active, from: row)
+        let generation = Self.newGeneration(after: row.updatedAt)
+        var cleanup = marker
+        cleanup.activationGeneration = generation
+        try save(cleanup, phase: .verified)
+        let counts = Dictionary(uniqueKeysWithValues: SyncTable.allCases.map { ($0.kind, verified.rows($0).count) })
+        try validateSession()
+        guard try await server.activate(ifCurrent: row, generation: generation, counts: counts) else {
+            throw Failure.stateChanged
+        }
+        try validateSession()
         try checkpoint(.a6)
         var active = row
         active.state = .active
+        active.updatedAt = generation
         try await finishEnable(active, dek: dek)
     }
 
@@ -270,8 +287,8 @@ struct E2EMigrator {
         // A plaintext orphan is a failed verification. The only plaintext
         // delete path is cleanup after the vault has been verified and is active.
         try await requireCurrent(row)
-        let verified = try await copyAndVerify(to: plain, deleteOrphans: false, uploadStep: .d4, verifyStep: .d5)
-        guard verified else {
+        let verified = try await copyAndVerify(to: plain, whileCurrent: row, deleteOrphans: false, uploadStep: .d4, verifyStep: .d5)
+        guard verified != nil else {
             try await verifyRollbackCopy(marker, dek: dek)
             try save(marker, phase: .rollingBack)
             try await rollbackDisable(row, dek: dek)
@@ -284,15 +301,17 @@ struct E2EMigrator {
         try await finishDisable(marker)
     }
 
-    private func copyAndVerify(to remote: any SyncRemote, deleteOrphans: Bool,
-                               uploadStep: Step, verifyStep: Step, required: Snapshot? = nil) async throws -> Bool {
+    private func copyAndVerify(to remote: any SyncRemote, whileCurrent row: E2EServerRow, deleteOrphans: Bool,
+                               uploadStep: Step, verifyStep: Step, required: Snapshot? = nil) async throws -> Snapshot? {
+        let guarded = GenerationGuardedRemote(remote: remote, check: { try await requireCurrent(row) })
         for _ in 0..<2 {
+            try await requireCurrent(row)
             let local = try snapshot()
             if let required {
                 do { try requireSubset(required, of: local) }
                 catch is E2EVerifier.Failure { continue }
             }
-            try await push(remote, deleteOrphans, true)
+            try await push(guarded, deleteOrphans, true)
             try checkpoint(uploadStep)
             do {
                 let uploaded = try await read(remote)
@@ -309,9 +328,9 @@ struct E2EMigrator {
                 continue
             }
             try checkpoint(verifyStep)
-            return true
+            return local
         }
-        return false
+        return nil
     }
 
     private func finishEnable(_ row: E2EServerRow, dek: SymmetricKey) async throws {
@@ -322,7 +341,7 @@ struct E2EMigrator {
     }
 
     private func rollbackEnable(_ row: E2EServerRow) async throws {
-        try await clearVault(whileCurrent: row)
+        try await clearVault(keyId: row.keyId, whileCurrent: row)
         try validateSession()
         guard try await server.delete(ifCurrent: row) else { throw Failure.stateChanged }
         try validateSession()
@@ -357,13 +376,13 @@ struct E2EMigrator {
         let verifiedIDs = Dictionary(uniqueKeysWithValues: SyncTable.allCases.map { table in
             (table, Set(remaining.rows(table).map(\.id)))
         })
-        try await clearVault(whileCurrent: nil, verifiedIDs: verifiedIDs)
+        try await clearVault(keyId: marker.keyId, whileCurrent: nil, verifiedIDs: verifiedIDs)
         try checkpoint(.d7)
         try finish()
     }
 
     private func reset(_ row: E2EServerRow) async throws {
-        try await clearVault(whileCurrent: row)
+        try await clearVault(keyId: row.keyId, whileCurrent: row)
         try validateSession()
         guard try await server.delete(ifCurrent: row) else { throw Failure.stateChanged }
         try validateSession()
@@ -375,7 +394,7 @@ struct E2EMigrator {
                             coveredBy backup: Snapshot? = nil) async throws {
         guard row.state == .active,
               let marker = Self.marker(in: defaults, userId: userId),
-              marker.keyId == row.keyId,
+              marker.owns(row),
               (marker.direction == .enable && marker.phase == .verified)
                   || (marker.direction == .disable && marker.phase == .rollingBack) else { throw Failure.stateChanged }
 
@@ -420,7 +439,8 @@ struct E2EMigrator {
         try validateSession()
     }
 
-    private func clearVault(whileCurrent row: E2EServerRow?, verifiedIDs: [SyncTable: Set<UUID>] = [:]) async throws {
+    private func clearVault(keyId: String, whileCurrent row: E2EServerRow?,
+                            verifiedIDs: [SyncTable: Set<UUID>] = [:]) async throws {
         func checkState() async throws {
             if let row {
                 try await requireCurrent(row)
@@ -430,7 +450,7 @@ struct E2EMigrator {
         }
         for table in SyncTable.allCases {
             try await checkState()
-            let current = try await vault.vaultIds(table: table, userId: userId)
+            let current = try await vault.vaultIds(table: table, userId: userId, keyId: keyId)
             if row == nil, !current.isSubset(of: verifiedIDs[table, default: []]) {
                 throw Failure.verificationFailed
             }
@@ -438,10 +458,10 @@ struct E2EMigrator {
             for offset in stride(from: 0, to: ids.count, by: 100) {
                 try await checkState()
                 try await vault.deleteVault(ids: Array(ids[offset..<min(offset + 100, ids.count)]),
-                                            table: table, userId: userId)
+                                            table: table, userId: userId, keyId: keyId)
             }
             try await checkState()
-            guard try await vault.vaultIds(table: table, userId: userId).isEmpty else {
+            guard try await vault.vaultIds(table: table, userId: userId, keyId: keyId).isEmpty else {
                 throw Failure.verificationFailed
             }
         }
@@ -494,7 +514,8 @@ struct E2EMigrator {
 
     private func requireCurrent(_ expected: E2EServerRow) async throws {
         let row = try await requireRow(state: expected.state)
-        guard row.keyId == expected.keyId else { throw Failure.stateChanged }
+        guard row.keyId == expected.keyId,
+              E2EServerRow.sameGeneration(row.updatedAt, expected.updatedAt) else { throw Failure.stateChanged }
     }
 
     private func setState(_ state: E2EServerState, from row: E2EServerRow) async throws {
@@ -515,17 +536,27 @@ struct E2EMigrator {
     }
 
     private func encryptedRemote(_ dek: SymmetricKey) -> VaultRemote {
-        VaultRemote(access: vault, dek: dek, owner: userId)
+        VaultRemote(access: vault, dek: dek, owner: userId, scopeReads: true)
     }
 
     @discardableResult
     private func begin(_ direction: E2EMigrationDirection, keyId: String,
-                       phase: E2EMigrationMarker.Phase? = nil) throws -> E2EMigrationMarker {
+                       phase: E2EMigrationMarker.Phase? = nil, generation: String?) throws -> E2EMigrationMarker {
         var marker = E2EMigrationMarker(direction: direction, userId: userId, keyId: keyId,
                                         startedAt: Int64(Date().timeIntervalSince1970 * 1_000))
         marker.phase = phase
+        marker.generation = generation
         try save(marker)
         return marker
+    }
+
+    private static func newGeneration(after previous: String? = nil) -> String {
+        let base = max(Date(), E2EServerRow.generationDate(previous) ?? .distantPast)
+        let micros = Int64((base.timeIntervalSince1970 * 1_000_000).rounded())
+            + Int64.random(in: 1...999_999)
+        let seconds = Date(timeIntervalSince1970: Double(micros / 1_000_000))
+        let fraction = String(format: "%06lld", micros % 1_000_000)
+        return seconds.ISO8601Format().dropLast() + "." + fraction + "Z"
     }
 
     private func save(_ marker: E2EMigrationMarker?, phase: E2EMigrationMarker.Phase? = nil) throws {
@@ -607,5 +638,29 @@ struct E2EMigrator {
     private func wrapRecovery(_ dek: SymmetricKey, bytes: Data) throws -> String {
         let key = try VaultCrypto.recoveryKEK(bytes)
         return try VaultCrypto.wrap(dek, key: key, aad: VaultCrypto.wrapAAD(.recovery, userID: userId))
+    }
+}
+
+// Recheck ownership before individual writes in the sync engine's push.
+private struct GenerationGuardedRemote: SyncRemote {
+    let remote: any SyncRemote
+    let check: () async throws -> Void
+
+    func fetchIds(table: SyncTable, userId: UUID) async throws -> Set<UUID> {
+        try await remote.fetchIds(table: table, userId: userId)
+    }
+
+    func select<Row: SyncRow>(table: SyncTable, userId: UUID) async throws -> [Row] {
+        try await remote.select(table: table, userId: userId)
+    }
+
+    func upsert<Row: SyncRow>(_ rows: [Row], table: SyncTable, userId: UUID) async throws {
+        try await check()
+        try await remote.upsert(rows, table: table, userId: userId)
+    }
+
+    func delete(ids: [UUID], table: SyncTable, userId: UUID) async throws {
+        try await check()
+        try await remote.delete(ids: ids, table: table, userId: userId)
     }
 }

@@ -403,12 +403,12 @@ internal class MigrationRemote(
         base.deleteIn(table, ids, userId, token)
     }
 
-    override suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String): List<JsonObject> {
+    override suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String, keyId: String?): List<JsonObject> {
         if (failVaultRead && columns == "*") {
             failVaultRead = false
             throw ApiException(ErrorKind.Network, 0, "offline")
         }
-        val rows = base.selectVault(kind, userId, token, columns)
+        val rows = base.selectVault(kind, userId, token, columns, keyId)
         if (!tamperVault || columns != "*" || kind != VaultKind.Transaction || rows.isEmpty()) return rows
         corruptedReads++
         val first = rows.first()
@@ -417,12 +417,17 @@ internal class MigrationRemote(
         return listOf(JsonObject(first + ("payload" to JsonPrimitive("bt1." + VaultCrypto.encodeBase64URL(data))))) + rows.drop(1)
     }
 
-    override suspend fun deleteVault(kind: VaultKind, ids: List<String>, userId: String, token: String) {
+    override suspend fun deleteVault(kind: VaultKind, ids: List<String>, userId: String, token: String, keyId: String) {
         if (kind == failVaultDelete) {
             failVaultDelete = null
             throw InterruptedMigration()
         }
-        base.deleteVault(kind, ids, userId, token)
+        base.deleteVault(kind, ids, userId, token, keyId)
+    }
+
+    override suspend fun activateE2e(row: JsonObject, generation: String, counts: Map<String, Int>, token: String) {
+        base.activateE2e(row, generation, counts, token)
+        duringStateChange("active")
     }
 
     override suspend fun patchE2eIfCurrent(row: JsonObject, changes: JsonObject, token: String): Boolean {

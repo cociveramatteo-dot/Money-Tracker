@@ -1227,6 +1227,9 @@ final class SyncService: ObservableObject {
                                      validateSession: validateSession)
                     didPush = true
                 }
+            } catch where E2EServer.operationStateChanged(error) {
+                await refreshE2EProtection(server: server, userId: userId, validateSession: validateSession)
+                throw E2EMigrator.Failure.stateChanged
             } catch where E2EServer.blockedPlainWrite(error) {
                 try validateSession()
                 let refreshed = try await gate.resolve(userId: userId, enabled: e2eEnabled,
@@ -1325,6 +1328,7 @@ final class SyncService: ObservableObject {
                                     validateSession: validateSession, checkpoint: checkpoint, authenticate: authenticate)
         let result: Result<T, any Error>
         do { result = .success(try await action(migrator)) }
+        catch where E2EServer.operationStateChanged(error) { result = .failure(E2EMigrator.Failure.stateChanged) }
         catch { result = .failure(error) }
         try validateSession()
         if let operation = protectionOperation {
@@ -1378,7 +1382,7 @@ final class SyncService: ObservableObject {
                            context: ModelContext, userId: UUID, backend: E2EBackend,
                            validateSession: @escaping () throws -> Void) async throws -> Bool {
         guard let marker else { return false }
-        if let row = resolution.row, row.keyId != marker.keyId {
+        if let row = resolution.row, !marker.owns(row) {
             defaults.removeObject(forKey: E2EMigrationMarker.defaultsKey)
             return false
         }

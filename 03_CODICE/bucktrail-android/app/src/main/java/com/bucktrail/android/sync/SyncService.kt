@@ -135,7 +135,7 @@ class SyncService(
     private fun success() { failures = 0; state.hasPendingChanges = false; _status.value = if (online) SyncStatus.Idle else SyncStatus.Offline }
 
     private fun failed() {
-        if (e2eSelection?.plainWriteRejected == true) return // Prima si rivaluta il gate.
+        if (e2eSelection?.writeRejected == true) return // Prima si rivaluta il gate.
         failures += 1
         state.hasPendingChanges = true
         scheduleRetry()
@@ -272,14 +272,11 @@ class SyncService(
         ops.withLock {
             val owner = auth.userId ?: throw NotSignedInException()
             val controller = e2e?.takeIf { it.enabled }
-            val token = if (controller != null) auth.deleteAccountToken(owner) else {
-                auth.deleteAccount()
-                null
-            }
+            // The account RPC cascades to mt_e2e and mt_vault.
+            if (controller != null) auth.deleteAccountToken(owner) else auth.deleteAccount()
             withContext(NonCancellable) {
                 retryJob?.cancel(); debounceJob?.cancel()
                 try {
-                    if (token != null) controller?.eraseRemoteAccountData(owner, token)
                     clearAccountData(owner)
                 } finally {
                     auth.signOut(expectedUser = owner)
@@ -345,7 +342,7 @@ class SyncService(
             } else {
                 action(selected)
             }
-            if (!selection.plainWriteRejected) return
+            if (!selection.writeRejected) return
 
             val refreshed = controller.resolve(auth, userId)
             e2eSelection = refreshed
@@ -356,7 +353,7 @@ class SyncService(
                 refreshed.needsInitialSync -> {
                     restartInitialSync(engine.using(updated, userId, completeSnapshot = refreshed.completeSnapshot), controller)
                 }
-                else -> failed() // Il server continua a rifiutare il trasporto in chiaro.
+                else -> failed()
             }
         } catch (e: CancellationException) {
             throw e

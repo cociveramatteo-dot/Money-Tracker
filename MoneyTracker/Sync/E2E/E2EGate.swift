@@ -12,16 +12,26 @@ struct E2EMigrationMarker: Codable {
     let keyId: String
     let startedAt: Int64
     var phase: Phase? = nil
+    var generation: String? = nil
+    var activationGeneration: String? = nil
 
     enum Phase: String, Codable {
         case verified, rollingBack, resetting
     }
 
     enum CodingKeys: String, CodingKey {
-        case direction, phase
+        case direction, phase, generation
+        case activationGeneration = "activation_generation"
         case userId = "user_id"
         case keyId = "key_id"
         case startedAt = "started_at"
+    }
+
+    func owns(_ row: E2EServerRow) -> Bool {
+        let expected = row.state == .active && direction == .enable && phase == .verified
+            ? activationGeneration ?? generation : generation
+        return userId == row.userId && keyId == row.keyId
+            && E2EServerRow.sameGeneration(expected, row.updatedAt)
     }
 }
 
@@ -79,7 +89,7 @@ struct E2EGate {
                 try keyStore.remove(userId: userId)
             }
 
-            if let marker, marker.userId == userId, marker.keyId == row.keyId {
+            if let marker, marker.owns(row) {
                 switch (row.state, marker.direction, marker.phase) {
                 case (.active, .enable, .verified), (.active, .disable, .rollingBack):
                     if matchingKey != nil {
@@ -99,7 +109,7 @@ struct E2EGate {
             case .migrating, .disabling:
                 let direction: E2EMigrationDirection = row.state == .migrating ? .enable : .disable
                 if matchingKey != nil, let marker,
-                   marker.userId == userId, marker.direction == direction, marker.keyId == row.keyId {
+                   marker.direction == direction, marker.owns(row) {
                     return Resolution(mode: .resume(direction), row: row)
                 }
                 return Resolution(mode: .locked(.transition), row: row)

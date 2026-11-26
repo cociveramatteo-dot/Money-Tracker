@@ -34,11 +34,11 @@ class HttpSupabaseApiGoldenTest {
     fun vaultReadAndDeleteSharePaginationWithKindAndUserFilters() = runBlocking {
         LoopbackServer(listOf(200 to """[{"id":"1"},{"id":"2"}]""", 200 to """[{"id":"3"}]""", 204 to "")).use { server ->
             val api = server.api(pageSize = 2)
-            assertEquals(3, api.selectVault(VaultKind.Transaction, "owner", "fake-token", "id").size)
-            api.deleteVault(VaultKind.Transaction, listOf("1", "2"), "owner", "fake-token")
-            val url = "/rest/v1/mt_vault?select=id&user_id=eq.owner&kind=eq.transaction&order=id.asc"
+            assertEquals(3, api.selectVault(VaultKind.Transaction, "owner", "fake-token", "id", "abcd").size)
+            api.deleteVault(VaultKind.Transaction, listOf("1", "2"), "owner", "fake-token", "abcd")
+            val url = "/rest/v1/mt_vault?select=id&user_id=eq.owner&kind=eq.transaction&key_id=eq.abcd&order=id.asc"
             assertEquals(listOf("GET $url HTTP/1.1", "GET $url HTTP/1.1",
-                "DELETE /rest/v1/mt_vault?id=in.(1,2)&user_id=eq.owner&kind=eq.transaction HTTP/1.1"), server.requests.map { it.line })
+                "DELETE /rest/v1/mt_vault?id=in.(1,2)&user_id=eq.owner&kind=eq.transaction&key_id=eq.abcd HTTP/1.1"), server.requests.map { it.line })
             assertEquals(listOf("0-1", "2-3", null), server.requests.map { it.headers["range"] })
         }
     }
@@ -76,6 +76,27 @@ class HttpSupabaseApiGoldenTest {
             assertEquals(json, server.requests[1].body)
             assertFalse(server.requests[1].headers.getValue("prefer").contains("merge-duplicates"))
             assertEquals("DELETE /rest/v1/mt_e2e?user_id=eq.owner HTTP/1.1", server.requests[2].line)
+        }
+    }
+
+    @Test
+    fun activationPostsBothGenerationsAndVerifiedKindCounts() = runBlocking {
+        val row = Json.parseToJsonElement(
+            """{"key_id":"abcdef0123456789","updated_at":"2026-11-26T10:00:00.123456+00:00"}""",
+        ).jsonObject
+        val target = "2026-11-26T10:00:01.123456Z"
+        LoopbackServer(listOf(204 to "", 400 to """{"code":"P0001","message":"bt_e2e_counts"}""")).use { server ->
+            val api = server.api()
+            api.activateE2e(row, target, mapOf("goal" to 2, "rule" to 0), "fake-token")
+            val error = runCatching {
+                api.activateE2e(row, target, mapOf("goal" to 2, "rule" to 0), "fake-token")
+            }.exceptionOrNull() as ApiException
+            assertTrue(error.e2eStateChanged())
+            val request = server.requests.first()
+            assertEquals("POST /rest/v1/rpc/mt_e2e_activate HTTP/1.1", request.line)
+            assertEquals(Json.parseToJsonElement(
+                """{"p_key_id":"abcdef0123456789","p_from_generation":"2026-11-26T10:00:00.123456+00:00","p_to_generation":"$target","p_counts":{"goal":2,"rule":0}}""",
+            ), Json.parseToJsonElement(request.body))
         }
     }
 }

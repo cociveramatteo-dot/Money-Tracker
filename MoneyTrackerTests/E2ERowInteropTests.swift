@@ -47,7 +47,7 @@ struct E2ERowInteropTests {
                 let plaintext = try VaultCrypto.open(wire.sealed, key: Self.key, aad: aad)
                 #expect(plaintext == Data(wire.plaintext.utf8), "\(label)")
 
-                backend.records[sample.id] = VaultRecord(id: sample.id, userId: Self.owner, kind: table.kind, payload: wire.sealed)
+                backend.records[sample.id] = VaultRecord(id: sample.id, userId: Self.owner, kind: table.kind, keyId: try VaultCrypto.keyId(dek: Self.key), payload: wire.sealed)
                 let decoded = try await decode(table: table, via: vault)
                 var observed = try normalize(decoded)
                 for (field, value) in sample.expected where value == .null && observed[field] == nil {

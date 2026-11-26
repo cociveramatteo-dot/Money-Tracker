@@ -5,9 +5,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### PROTEZIONE AVANZATA · S-50h2 — perimetro della PATCH condizionata
-📍 In questa chat del cantiere. ▶️ Se vuoi completare il punto 3, scrivi «Autorizzo le modifiche a E2EServer.swift ed E2EGate.swift per S-50h2». ↩️ Con la risposta, Codex riprende il punto 3 e i relativi test.
-
 ### PROTEZIONE AVANZATA · S-50o — approvazione prima dell'accensione
 
 Dopo S-50m, apri Terminale e incolla questo comando per vedere le schermate iOS e Android:
@@ -44,6 +41,8 @@ Torna nella chat del cantiere e scrivi «Approvo le schermate della Protezione a
 📍 notebooklm.google.com → notebook «MoneyTracker App». ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt` e `README.txt` di Inter e Space Grotesk) sono facoltative. ↩️ Scrivi «notebook ok».
 
 ## Fatte
+
+- 2026-11-26 · S-50h2: Matteo ha autorizzato le modifiche a `E2EServer.swift` e `E2EGate.swift`.
 
 - 2026-11-26 10:11 · S-50q: secondo SQL eseguito da Matteo su Supabase, controllo finale 4 righe (colonna key_id, funzione mt_e2e_activate, trigger mt_e2e_state_guard e mt_vault_guard). Inerte finché la protezione è spenta.
 

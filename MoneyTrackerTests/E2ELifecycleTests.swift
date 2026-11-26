@@ -105,7 +105,7 @@ struct E2ELifecycleTests {
         do {
             try await f.service.deleteEncryptedAccount(context: f.context, deleteRemote: { owner in
                 #expect(owner == f.user)
-                try await SupabaseManager.deleteRemoteAccount(client: client, owner: owner)
+                try await SupabaseManager.deleteRemoteAccount(client: client)
             }, signOut: { owner in
                 #expect(owner == f.user)
                 #expect(f.secretsHaveBeenErased())
@@ -118,7 +118,6 @@ struct E2ELifecycleTests {
         let requests = LifecycleURLProtocol.requests.withLock { $0.removeValue(forKey: host) ?? [] }
         let rpc = LifecycleURLProtocol.Request(method: "POST", path: "/rest/v1/rpc/delete_own_account",
                                                ownershipFilter: nil, pinnedAuthorization: true)
-        let ownerFilter = "eq.\(f.user.uuidString.lowercased())"
         if rpcFails {
             #expect(rejected && !signedOut)
             #expect(requests == [rpc])
@@ -128,10 +127,7 @@ struct E2ELifecycleTests {
             #expect(try f.context.fetchCount(FetchDescriptor<Transaction>()) == 1)
         } else {
             #expect(!rejected && signedOut)
-            #expect(requests == [rpc, .init(method: "DELETE", path: "/rest/v1/mt_vault",
-                                            ownershipFilter: ownerFilter, pinnedAuthorization: true),
-                                     .init(method: "DELETE", path: "/rest/v1/mt_e2e",
-                                           ownershipFilter: ownerFilter, pinnedAuthorization: true)])
+            #expect(requests == [rpc])
             #expect(try f.context.fetchCount(FetchDescriptor<Transaction>()) == 0)
         }
     }

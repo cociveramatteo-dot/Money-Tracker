@@ -102,19 +102,16 @@ class E2ELifecycleTest {
     }
 
     @Test
-    fun rpcSuccessErasesLocalDataDespiteRevokedVaultToken() = runBlocking {
+    fun rpcSuccessCascadesVaultAndErasesLocalData() = runBlocking {
         Device(coroutineContext).use { device ->
             device.enable()
             device.recordMarker()
-            device.remote.rejectVaultDelete = true
             device.service.deleteAccountAndClear()
 
-            assertEquals("rpc", device.remote.erasures.first())
-            assertTrue(device.remote.erasures.any { it.startsWith("vault:") })
-            assertEquals(listOf("metadata", "logout"), device.remote.erasures.takeLast(2))
+            assertEquals(listOf("rpc", "logout"), device.remote.erasures)
             device.expectErased()
             assertNull(device.auth.userId)
-            assertTrue(device.remote.base.records.isNotEmpty()) // The server cascade handles revoked tokens.
+            assertTrue(device.remote.base.records.isEmpty())
         }
     }
 
@@ -177,7 +174,6 @@ class E2ELifecycleTest {
         SupabaseApi by base, VaultApi by base {
         val erasures = mutableListOf<String>()
         var failRpc = false
-        var rejectVaultDelete = false
 
         override suspend fun signIn(email: String, password: String) = e2eTestSession(OTHER)
 
@@ -186,26 +182,8 @@ class E2ELifecycleTest {
             assertTrue(token == "token")
             erasures += "rpc"
             if (failRpc) throw ApiException(ErrorKind.Server, 503, "fixture")
-        }
-
-        override suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String): List<JsonObject> {
-            if ("rpc" in erasures && "logout" !in erasures) {
-                assertEquals(USER, userId)
-                assertTrue(token == "token")
-                erasures += "select:${kind.wire}"
-            }
-            return base.selectVault(kind, userId, token, columns)
-        }
-
-        override suspend fun deleteVault(kind: VaultKind, ids: List<String>, userId: String, token: String) {
-            erasures += "vault:${kind.wire}"
-            if (rejectVaultDelete) throw ApiException(ErrorKind.Unauthorized, 401, "fixture")
-            base.deleteVault(kind, ids, userId, token)
-        }
-
-        override suspend fun deleteE2e(userId: String, token: String) {
-            erasures += "metadata"
-            base.deleteE2e(userId, token)
+            base.records.entries.removeAll { it.value.text("user_id") == USER }
+            base.keys.remove(USER)
         }
 
         override suspend fun signOut(accessToken: String) { erasures += "logout" }

@@ -30,7 +30,7 @@ struct E2EMigratorCleanupTests {
         defer { f.cleanup() }
         try await f.enable()
         let unexpected = VaultRecord(id: UUID(), userId: f.user, kind: SyncTable.accounts.kind,
-                                     payload: "not part of the verified vault read")
+                                     keyId: try #require(f.remote.base.e2eRows[f.user]?.keyId), payload: "not part of the verified vault read")
 
         await #expect(throws: E2EMigrator.Failure.verificationFailed) {
             try await f.disable { step in
@@ -152,22 +152,22 @@ struct E2EMigratorCleanupTests {
         func patch(_ changes: E2EServerPatch, userId: UUID) async throws { try await base.patch(changes, userId: userId) }
         func delete(userId: UUID) async throws { try await base.delete(userId: userId) }
 
-        func vaultIds(table: SyncTable, userId: UUID) async throws -> Set<UUID> {
+        func vaultIds(table: SyncTable, userId: UUID, keyId: String) async throws -> Set<UUID> {
             if let row = addOnNextVaultIds {
                 addOnNextVaultIds = nil
                 base.records[row.id] = row
             }
-            return try await base.vaultIds(table: table, userId: userId)
+            return try await base.vaultIds(table: table, userId: userId, keyId: keyId)
         }
 
-        func vaultRows(table: SyncTable, userId: UUID) async throws -> [VaultRecord] {
-            try await base.vaultRows(table: table, userId: userId)
+        func vaultRows(table: SyncTable, userId: UUID, keyId: String?) async throws -> [VaultRecord] {
+            try await base.vaultRows(table: table, userId: userId, keyId: keyId)
         }
 
         func upsertVault(_ rows: [VaultRecord]) async throws { try await base.upsertVault(rows) }
 
-        func deleteVault(ids: [UUID], table: SyncTable, userId: UUID) async throws {
-            try await base.deleteVault(ids: ids, table: table, userId: userId)
+        func deleteVault(ids: [UUID], table: SyncTable, userId: UUID, keyId: String) async throws {
+            try await base.deleteVault(ids: ids, table: table, userId: userId, keyId: keyId)
         }
     }
 }

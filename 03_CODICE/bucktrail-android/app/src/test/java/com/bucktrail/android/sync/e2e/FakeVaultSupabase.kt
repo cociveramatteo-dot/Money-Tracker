@@ -7,6 +7,7 @@ import com.bucktrail.android.sync.Session
 import com.bucktrail.android.sync.SessionStore
 import com.bucktrail.android.sync.SupabaseApi
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 
 /** Nuovo fake per la sync protetta. Riproduce il trigger su scritture e cancellazioni in chiaro. */
 internal class FakeVaultSupabase(
@@ -39,9 +40,9 @@ internal class FakeVaultSupabase(
         plain.deleteIn(table, ids, userId, token)
     }
 
-    override suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String): List<JsonObject> {
+    override suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String, keyId: String?): List<JsonObject> {
         readsAndWrites += "vaultSelect:$userId:${kind.wire}:$columns"
-        return records.values.filter { scoped(it, kind, userId) }.map {
+        return records.values.filter { scoped(it, kind, userId, keyId) }.map {
             if (columns == "id") JsonObject(it.filterKeys { key -> key == "id" }) else it
         }
     }
@@ -51,12 +52,24 @@ internal class FakeVaultSupabase(
         rows.forEach { records[checkNotNull(it.text("id")).lowercase()] = it }
     }
 
-    override suspend fun deleteVault(kind: VaultKind, ids: List<String>, userId: String, token: String) {
+    override suspend fun deleteVault(kind: VaultKind, ids: List<String>, userId: String, token: String, keyId: String) {
         readsAndWrites += "vaultDelete:$userId:${kind.wire}:${ids.size}"
         for (id in ids) {
             val key = id.lowercase()
-            if (records[key]?.let { scoped(it, kind, userId) } == true) records.remove(key)
+            if (records[key]?.let { scoped(it, kind, userId, keyId) } == true) records.remove(key)
         }
+    }
+
+    override suspend fun activateE2e(row: JsonObject, generation: String, counts: Map<String, Int>, token: String) {
+        val owner = checkNotNull(row.text("user_id")).lowercase()
+        if (!keys[owner].sameGeneration(row) || row.text("state") != "migrating") {
+            throw ApiException(ErrorKind.Client, 400, "bt_e2e_state_changed", "P0001")
+        }
+        for (kind in VaultKind.entries) {
+            val actual = records.values.count { scoped(it, kind, owner, row.text("key_id")) }
+            if (actual != (counts[kind.wire] ?: 0)) throw ApiException(ErrorKind.Client, 400, "bt_e2e_counts", "P0001")
+        }
+        keys[owner] = JsonObject(row + ("state" to JsonPrimitive("active")) + ("updated_at" to JsonPrimitive(generation)))
     }
 
     override suspend fun getE2e(userId: String, token: String): E2ERowLookup {
@@ -84,8 +97,9 @@ internal class FakeVaultSupabase(
         keys.remove(userId.lowercase())
     }
 
-    private fun scoped(row: JsonObject, kind: VaultKind, user: String): Boolean =
-        row.text("kind") == kind.wire && row.text("user_id").equals(user, ignoreCase = true)
+    private fun scoped(row: JsonObject, kind: VaultKind, user: String, keyId: String?): Boolean =
+        row.text("kind") == kind.wire && row.text("user_id").equals(user, ignoreCase = true) &&
+            (keyId == null || row.text("key_id") == keyId)
 }
 
 internal class MemoryE2ESecrets : E2ESecrets {

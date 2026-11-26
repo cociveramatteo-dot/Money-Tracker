@@ -36,13 +36,18 @@ data class E2EMigrationMarker(
     val direction: MigrationDirection, val userId: String, val keyId: String, val startedAt: Long,
     val phase: Phase? = null,
     val generation: String? = null,
+    val activationGeneration: String? = null,
 ) {
     enum class Phase(val wire: String) {
         Verified("verified"), RollingBack("rollingBack"), DisableCleanup("disableCleanup"), Resetting("resetting")
     }
 
-    internal fun owns(row: JsonObject): Boolean =
-        keyId == row.text("key_id") && (generation == null || generation == row.generation())
+    internal fun owns(row: JsonObject): Boolean {
+        val expected = if (row.text("state") == "active" && direction == MigrationDirection.Enable && phase == Phase.Verified) {
+            activationGeneration ?: generation
+        } else generation
+        return keyId == row.text("key_id") && (expected == null || expected == row.generation())
+    }
 }
 
 class E2EKeyStore(context: Context) : MigrationSecrets {
@@ -102,7 +107,7 @@ class E2EKeyStore(context: Context) : MigrationSecrets {
         val keyId = row.text("key_id") ?: return null
         val startedAt = (row["started_at"] as? JsonPrimitive)?.longOrNull ?: return null
         val phase = row.text("phase")?.let { wire -> E2EMigrationMarker.Phase.entries.firstOrNull { it.wire == wire } ?: return null }
-        return E2EMigrationMarker(direction, userId, keyId, startedAt, phase, row.text("generation"))
+        return E2EMigrationMarker(direction, userId, keyId, startedAt, phase, row.text("generation"), row.text("activation_generation"))
     }
 
     @Synchronized
@@ -114,6 +119,7 @@ class E2EKeyStore(context: Context) : MigrationSecrets {
             put("started_at", JsonPrimitive(marker.startedAt))
             marker.phase?.let { put("phase", JsonPrimitive(it.wire)) }
             marker.generation?.let { put("generation", JsonPrimitive(it)) }
+            marker.activationGeneration?.let { put("activation_generation", JsonPrimitive(it)) }
         }
         check(prefs.edit().putString(MIGRATION, json.toString()).commit())
     }

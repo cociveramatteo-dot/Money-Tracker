@@ -44,7 +44,7 @@ class VaultSupabaseApiTest {
             remote.upsert(kind.table, listOf(row), token)
             val id = checkNotNull(row.text("id")).lowercase()
             val record = server.records.getValue(id)
-            assertEquals(setOf("id", "user_id", "kind", "payload"), record.keys)
+            assertEquals(setOf("id", "user_id", "kind", "payload", "key_id"), record.keys)
             assertFalse(record.toString().contains("名義 privata"))
             assertFalse(record.toString().contains("Caffè"))
             val aad = "bucktrail/e2e/v1/row/${kind.wire}/$id/$USER".encodeToByteArray()

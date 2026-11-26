@@ -96,6 +96,7 @@ final class InMemoryRemote: SyncRemote, E2EServerAccess, VaultAccess {
         row.salt = changes.salt ?? row.salt
         row.wrappedKeyPassphrase = changes.wrappedKeyPassphrase ?? row.wrappedKeyPassphrase
         row.wrappedKeyRecovery = changes.wrappedKeyRecovery ?? row.wrappedKeyRecovery
+        row.updatedAt = changes.updatedAt ?? row.updatedAt
         e2eRows[userId] = row
     }
 
@@ -104,14 +105,14 @@ final class InMemoryRemote: SyncRemote, E2EServerAccess, VaultAccess {
         e2eRows.removeValue(forKey: userId)
     }
 
-    func vaultIds(table: SyncTable, userId: UUID) async throws -> Set<UUID> {
+    func vaultIds(table: SyncTable, userId: UUID, keyId: String) async throws -> Set<UUID> {
         try record(.vaultIds(table, userId))
-        return Set(scopedVaultRows(table: table, userId: userId).map(\.id))
+        return Set(scopedVaultRows(table: table, userId: userId, keyId: keyId).map(\.id))
     }
 
-    func vaultRows(table: SyncTable, userId: UUID) async throws -> [VaultRecord] {
+    func vaultRows(table: SyncTable, userId: UUID, keyId: String?) async throws -> [VaultRecord] {
         try record(.vaultRows(table, userId))
-        return scopedVaultRows(table: table, userId: userId)
+        return scopedVaultRows(table: table, userId: userId, keyId: keyId)
     }
 
     func upsertVault(_ rows: [VaultRecord]) async throws {
@@ -119,15 +120,15 @@ final class InMemoryRemote: SyncRemote, E2EServerAccess, VaultAccess {
         for row in rows { records[row.id] = row }
     }
 
-    func deleteVault(ids: [UUID], table: SyncTable, userId: UUID) async throws {
+    func deleteVault(ids: [UUID], table: SyncTable, userId: UUID, keyId: String) async throws {
         try record(.deleteVault(table, userId, Set(ids)))
-        for id in ids where records[id]?.userId == userId && records[id]?.kind == table.kind {
+        for id in ids where records[id]?.userId == userId && records[id]?.kind == table.kind && records[id]?.keyId == keyId {
             records.removeValue(forKey: id)
         }
     }
 
-    private func scopedVaultRows(table: SyncTable, userId: UUID) -> [VaultRecord] {
-        records.values.filter { $0.userId == userId && $0.kind == table.kind }
+    private func scopedVaultRows(table: SyncTable, userId: UUID, keyId: String?) -> [VaultRecord] {
+        records.values.filter { $0.userId == userId && $0.kind == table.kind && (keyId == nil || $0.keyId == keyId) }
     }
 
     private func record(_ call: Call) throws {

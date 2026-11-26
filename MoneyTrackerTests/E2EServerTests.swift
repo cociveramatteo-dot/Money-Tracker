@@ -93,10 +93,10 @@ struct E2EServerTests {
         E2EURLProtocol.enqueue(200, String(decoding: page, as: UTF8.self))
         E2EURLProtocol.enqueue(200, #"[{"id":"\#(ids[200].uuidString)"}]"#)
         let vault = SupabaseVaultAccess(client: fixture.client)
-        #expect(try await vault.vaultIds(table: .transactions, userId: fixture.user) == Set(ids))
+        #expect(try await vault.vaultIds(table: .transactions, userId: fixture.user, keyId: "abcdef0123456789") == Set(ids))
 
         E2EURLProtocol.enqueue(204, "")
-        try await vault.deleteVault(ids: [ids[0]], table: .transactions, userId: fixture.user)
+        try await vault.deleteVault(ids: [ids[0]], table: .transactions, userId: fixture.user, keyId: "abcdef0123456789")
         let requests = E2EURLProtocol.requests
         try #require(requests.count == 3)
         #expect(requests.map(\.httpMethod) == ["GET", "GET", "DELETE"])
@@ -105,11 +105,42 @@ struct E2EServerTests {
             #expect(request.url?.path == "/rest/v1/mt_vault")
             #expect(query["user_id"] == "eq.\(fixture.user.uuidString.lowercased())")
             #expect(query["kind"] == "eq.transaction")
+            #expect(query["key_id"] == "eq.abcdef0123456789")
         }
         #expect(Self.query(requests[0])["select"] == "id")
         #expect(Self.query(requests[0])["limit"] == "200")
         #expect(Self.query(requests[1])["id"] == "gt.\(ids[199].uuidString.lowercased())")
         #expect(Self.query(requests[2])["id"] == "in.(\(ids[0].uuidString.lowercased()))")
+    }
+
+    @Test func claimsExactGenerationAndActivatesViaRPCWithCounts() async throws {
+        let fixture = try Fixture()
+        defer { fixture.session.invalidateAndCancel() }
+        let previous = "2026-11-26T10:00:00.123456+00:00"
+        let next = "2026-11-26T10:00:01.123456Z"
+        let row = E2EServerRow(userId: fixture.user, state: .migrating, version: 1, kdf: "pbkdf2-sha256",
+                               kdfIterations: 600_000, salt: "test", wrappedKeyPassphrase: "bt1.test",
+                               wrappedKeyRecovery: "bt1.test", keyId: "abcdef0123456789", updatedAt: previous)
+        E2EURLProtocol.enqueue(200, "[]")
+        #expect(try await !fixture.server.patch(E2EServerPatch(updatedAt: next), ifCurrent: row))
+        E2EURLProtocol.enqueue(204, "")
+        #expect(try await fixture.server.activate(ifCurrent: row, generation: next, counts: ["goal": 2, "rule": 0]))
+        E2EURLProtocol.enqueue(400, #"{"code":"P0001","message":"bt_e2e_counts"}"#)
+        #expect(try await !fixture.server.activate(ifCurrent: row, generation: next, counts: ["goal": 2]))
+
+        let requests = E2EURLProtocol.requests
+        try #require(requests.count == 3)
+        #expect(requests[0].httpMethod == "PATCH")
+        #expect(Self.query(requests[0])["updated_at"] == "eq.\(previous)")
+        #expect(Self.query(requests[0])["key_id"] == "eq.\(row.keyId)")
+        #expect(Self.query(requests[0])["state"] == "eq.migrating")
+        #expect(requests.dropFirst().allSatisfy { $0.httpMethod == "POST" && $0.url?.path == "/rest/v1/rpc/mt_e2e_activate" })
+        let data = try #require(E2EURLProtocol.activationBody)
+        let body = try #require(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        #expect(body["p_from_generation"] as? String == previous)
+        #expect(body["p_to_generation"] as? String == next)
+        #expect(body["p_key_id"] as? String == row.keyId)
+        #expect(body["p_counts"] as? [String: Int] == ["goal": 2, "rule": 0])
     }
 
     private static func query(_ request: URLRequest) -> [String: String] {
@@ -141,11 +172,13 @@ private final class E2EURLProtocol: URLProtocol, @unchecked Sendable {
     private struct State {
         var requests: [URLRequest] = []
         var replies: [(Int?, String)] = []
+        var activationBody: Data?
     }
 
     private static let state = Mutex(State())
 
     static var requests: [URLRequest] { state.withLock { $0.requests } }
+    static var activationBody: Data? { state.withLock { $0.activationBody } }
 
     static func reset() { state.withLock { $0 = State() } }
 
@@ -157,8 +190,11 @@ private final class E2EURLProtocol: URLProtocol, @unchecked Sendable {
     override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
 
     override func startLoading() {
+        let captureBody = request.url?.path == "/rest/v1/rpc/mt_e2e_activate"
+        let activationBody = captureBody ? Self.readBody(request) : nil
         let reply = Self.state.withLock { state -> (Int?, String)? in
             state.requests.append(request)
+            if captureBody, state.activationBody == nil { state.activationBody = activationBody }
             guard !state.replies.isEmpty else { return nil }
             return state.replies.removeFirst()
         }
@@ -176,4 +212,19 @@ private final class E2EURLProtocol: URLProtocol, @unchecked Sendable {
     }
 
     override func stopLoading() {}
+
+    private static func readBody(_ request: URLRequest) -> Data? {
+        if let body = request.httpBody { return body }
+        guard let stream = request.httpBodyStream else { return nil }
+        stream.open()
+        defer { stream.close() }
+        var body = Data()
+        var buffer = [UInt8](repeating: 0, count: 4096)
+        while true {
+            let count = stream.read(&buffer, maxLength: buffer.count)
+            if count < 0 { return nil }
+            if count == 0 { return body }
+            body.append(contentsOf: buffer.prefix(count))
+        }
+    }
 }

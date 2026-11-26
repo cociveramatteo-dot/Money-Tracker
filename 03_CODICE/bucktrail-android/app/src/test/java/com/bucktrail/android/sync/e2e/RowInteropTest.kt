@@ -64,7 +64,8 @@ class RowInteropTest {
                 assertArrayEquals(label, nonce.hexBytes(), VaultCrypto.decodeBase64URL(sealed.removePrefix("bt1.")).copyOf(12))
                 assertEquals(label, wire.text("plaintext"), VaultCrypto.open(sealed, key, aad).decodeToString())
                 backend.records[id] = JsonObject(mapOf("id" to JsonPrimitive(id), "user_id" to JsonPrimitive(owner),
-                    "kind" to JsonPrimitive(kind.wire), "payload" to JsonPrimitive(sealed)))
+                    "kind" to JsonPrimitive(kind.wire), "key_id" to JsonPrimitive(VaultCrypto.keyId(key)),
+                    "payload" to JsonPrimitive(sealed)))
                 val row = vault.selectAll(kind.table, owner, "fake-token").single()
                 val decoded = reencodeDecoded(kind, row)
                 assertEquals(label, expected, normalize(decoded))
