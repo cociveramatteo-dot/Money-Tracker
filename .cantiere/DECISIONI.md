@@ -264,3 +264,9 @@ Progetto completo: `.cantiere/progetto-banca.md`. Dopo il lancio e dopo S-50. Au
 - **Congelamento:** nessun codice S-60/S-61 finché non arrivano le risposte di Enable Banking (mail inviata da `ciao@bucktrailapp.com`, risposta in `bucktrailapp@gmail.com`): costo `c`, minimo mensile, accettazione di una persona fisica senza P.IVA. Poi si rifanno le tabelle con i valori veri e si fissano i prezzi.
 - **Apple:** Matteo non ha ancora un account Developer; scelta Individual, app pubblicata senza funzione bancaria, chiedere ad Apple prima di costruirla (linea guida 5.1.1(ix)). Non pagare i 99 $ prima del gate social del 6/12.
 - **Dettaglio completo:** `.cantiere/banca-modello-economico.md` (tabelle per c = 0,10/0,20/0,30/0,50; domande al professionista: Banca d'Italia, GDPR/DPIA, P.IVA).
+
+## 2026-11-26 · S-50q.3 · Eliminazione account e dati cifrati
+
+- **Decisione:** l'app non cancella più «al meglio» `mt_vault`/`mt_e2e` prima di eliminare l'account (modifica di Codex in 1492143, `Auth/SupabaseManager.swift` e Android `SyncService.kt`). Resta così.
+- **Perché:** verificato da Matteo su Supabase il 2026-11-26 11:06: `delete_own_account` esegue `delete from auth.users where id = auth.uid()`, e tutte le 7 tabelle (`mt_accounts`, `mt_transactions`, `mt_budgets`, `mt_goals`, `mt_recurring_rules`, `mt_e2e`, `mt_vault`) hanno la chiave esterna verso `auth.users` con `on delete cascade`. La cancellazione è garantita dal server, in un'unica transazione: più affidabile della pulizia dal client. Rischio R9 chiuso.
+- **Alternativa scartata:** ripristinare la pulizia dal client filtrata per `key_id` (ridondante; in più richiede chiamate extra che possono fallire a metà).
