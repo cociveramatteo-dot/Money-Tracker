@@ -633,10 +633,16 @@ final class SyncService: ObservableObject {
         return true
     }
 
+    #if DEBUG
+    /// Times `clearLocalStore` had to fall back to per-instance deletion (tests only).
+    private(set) var clearLocalStoreFallbackCount = 0
+    #endif
+
     private func clearLocalStore(context: ModelContext) -> Bool {
-        // Batch deletion first. It can fail on inverse relationships (or miss
-        // unsaved inserts): then delete instances so SwiftData handles
-        // relationships and unlinked rows together.
+        // Batch deletion first, accounts before their transactions and budgets:
+        // batch-deleting a transaction cannot nullify its account inverse. If it
+        // still fails (or misses unsaved inserts), delete instances so SwiftData
+        // handles relationships and unlinked rows together.
         func isEmpty<Model: PersistentModel>(_ type: Model.Type) throws -> Bool {
             try context.fetchCount(FetchDescriptor<Model>()) == 0
         }
@@ -645,18 +651,22 @@ final class SyncService: ObservableObject {
                 context.delete(row)
             }
         }
+        struct BatchDeleteIncomplete: Error {}
         do {
             try context.transaction {
+                try context.delete(model: Account.self)
                 try context.delete(model: Transaction.self)
                 try context.delete(model: RecurringRule.self)
                 try context.delete(model: Budget.self)
                 try context.delete(model: Goal.self)
-                try context.delete(model: Account.self)
                 guard try isEmpty(Transaction.self), try isEmpty(RecurringRule.self), try isEmpty(Budget.self),
-                      try isEmpty(Goal.self), try isEmpty(Account.self) else { throw CocoaError(.coderInvalidValue) }
+                      try isEmpty(Goal.self), try isEmpty(Account.self) else { throw BatchDeleteIncomplete() }
             }
         } catch {
             context.rollback()
+            #if DEBUG
+            clearLocalStoreFallbackCount += 1
+            #endif
             do {
                 try context.transaction {
                     try deleteAll(Transaction.self)
@@ -1484,12 +1494,13 @@ final class SyncService: ObservableObject {
                            vault: any VaultAccess, userId: UUID) -> (any SyncRemote)? {
         setE2EServerSupported(resolution.serverSupported)
         publishE2EProtection(resolution, userId: userId)
-        setE2ELockReason(nil)
+        let lock: E2EGate.LockReason? = if case .locked(let reason) = resolution.mode { reason } else { nil }
+        setE2ELockReason(lock)
         e2eMigrationToResume = nil
         switch resolution.mode {
         case .plain: return plain
         case .vault(let dek): return VaultRemote(access: vault, dek: dek, owner: userId, scopeReads: true)
-        case .locked(let reason): setE2ELockReason(reason)
+        case .locked: break
         case .resume(let direction): e2eMigrationToResume = direction
         }
         return nil
@@ -1530,12 +1541,14 @@ final class SyncService: ObservableObject {
     func continueWithoutE2EProtection(context: ModelContext) async -> Bool {
         guard e2eEnabled, e2eLockReason == .protectionRemoved, !closingAccount, !isMigrating,
               let userId, lastSyncedUser == userId else { return false }
+        // Pull-before-push is armed first: even if the app stops right after the
+        // key removal, the next plain exchange never deletes remote rows.
+        defaults.set(userId.uuidString, forKey: initialSyncKey)
         do { try e2eKeyStore.remove(userId: userId) }
         catch {
             Logger.persistence.error("SyncService: E2E key removal failed")
             return false
         }
-        defaults.set(userId.uuidString, forKey: initialSyncKey)
         return await runE2ESync(.refresh, context: context)
     }
 

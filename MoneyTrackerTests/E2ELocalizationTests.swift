@@ -56,6 +56,7 @@ struct E2ELocalizationTests {
     e2e_rimossa_titolo
     e2e_rimossa_testo
     e2e_rimossa_continua
+    e2e_rimossa_esci
     e2e_usa_frase
     e2e_nuova_chiave_titolo
     e2e_copiata

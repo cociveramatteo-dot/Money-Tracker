@@ -106,6 +106,28 @@ struct E2EProtectionRemovedTests {
         #expect(try fixture.context.fetch(FetchDescriptor<Account>()).map(\.id) == [other.id])
     }
 
+    // Disable rollback marker + no row + no DEK: plain with a first exchange that
+    // pulls before pushing, so another device's plain rows are never deleted.
+    @Test func rollbackMarkerWithoutKeyPullsWithoutDeletingRemoteRows() async throws {
+        let fixture = try Fixture(remote: remote, user: user)
+        try fixture.setMarker(.disable, phase: .rollingBack)
+        let other = Account(name: "Da un altro dispositivo", type: .conto)
+        remote.seed([SBAccount(other, userId: user)], table: .accounts, userId: user)
+        fixture.context.insert(Account(name: "Locale", type: .conto))
+        try fixture.context.save()
+
+        await fixture.service.syncOnForeground(context: fixture.context)
+
+        #expect(fixture.service.e2eLockReason == nil)
+        // The first exchange is a pull: reads only, no upload and no deletion.
+        let exchange = remote.calls.filter { if case .lookupE2E = $0 { false } else { true } }
+        #expect(exchange.contains { if case .select = $0 { true } else { false } })
+        #expect(exchange.allSatisfy {
+            switch $0 { case .fetchIds, .select: true; default: false }
+        })
+        #expect(try await remote.fetchIds(table: .accounts, userId: user).contains(other.id))
+    }
+
     // Cleanup phases already deleted the row on purpose: finish them.
     @Test(arguments: [E2EMigrationMarker.Phase.verified, .resetting])
     func cleanupMarkerWithoutRowResumesDisable(phase: E2EMigrationMarker.Phase) async throws {

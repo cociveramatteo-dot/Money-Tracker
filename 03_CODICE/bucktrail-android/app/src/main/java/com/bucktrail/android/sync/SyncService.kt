@@ -275,8 +275,13 @@ class SyncService(
         ops.withLock {
             val controller = e2e?.takeIf { it.enabled } ?: return@withLock
             val userId = auth.userId ?: return@withLock
-            if (!active || !controller.acceptProtectionRemoved(userId)) return@withLock
+            if (!active) return@withLock
+            val previousSyncedUserId = state.syncedUserId
             state.syncedUserId = null
+            if (!controller.acceptProtectionRemoved(userId)) {
+                state.syncedUserId = previousSyncedUserId
+                return@withLock
+            }
             withGate { pushResilient(it) }
         }
     }

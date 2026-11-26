@@ -118,9 +118,10 @@ struct E2EProtectionRemovedContent: View {
     @Environment(\.modelContext) private var context
     @State private var working = false
     @State private var failed = false
+    @State private var confirmSignOut = false
 
     var body: some View {
-        E2EMessage("e2e_rimossa_testo")
+        E2EMessage("e2e_rimossa_testo", color: DS.plannedText)
             .accessibilityIdentifier("e2e_protection_removed")
         if failed {
             E2EMessage("e2e_errore", color: DS.danger)
@@ -128,16 +129,26 @@ struct E2EProtectionRemovedContent: View {
         Group {
             PrimaryButton(title: "e2e_rimossa_continua") { run { await controller.continueWithoutProtection(context: context) } }
                 .accessibilityIdentifier("e2e_continue_unprotected")
-            E2EAction("Esci dall'account", destructive: true) {
+            E2EAction("e2e_rimossa_esci", destructive: true) { confirmSignOut = true }
+                .accessibilityIdentifier("e2e_sign_out")
+        }
+        .disabled(working || controller.isBusy)
+        // Same confirmation as the sign-out in Settings.
+        .confirmationDialog("Esci dall'account?", isPresented: $confirmSignOut, titleVisibility: .visible) {
+            Button("Esci", role: .destructive) {
                 run {
                     await controller.signOut(context: context)
                     return true
                 }
             }
-            .accessibilityIdentifier("e2e_sign_out")
+            Button("Annulla", role: .cancel) {}
+        } message: {
+            Text("Dovrai effettuare di nuovo il login la prossima volta.")
         }
-        .disabled(working || controller.isBusy)
-        if working { ProgressView().tint(DS.accent) }
+        if working {
+            ProgressView().tint(DS.accent)
+                .accessibilityLabel(Text("e2e_rimossa_continua"))
+        }
     }
 
     private func run(_ action: @escaping () async -> Bool) {

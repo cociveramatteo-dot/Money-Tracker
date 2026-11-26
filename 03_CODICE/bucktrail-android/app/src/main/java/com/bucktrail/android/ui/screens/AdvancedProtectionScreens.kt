@@ -444,7 +444,8 @@ private fun clearClipboardLater(context: Context, key: String) {
     Handler(Looper.getMainLooper()).postDelayed({
         val clipboard = context.getSystemService(ClipboardManager::class.java) ?: return@postDelayed
         val current = runCatching { clipboard.primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.text?.toString() }.getOrNull()
-        if (current == key) runCatching { clipboard.clearPrimaryClip() }
+        // In background `primaryClip` è null (API 29+): si svuota comunque, non si può verificare il contenuto.
+        if (current == null || current == key) runCatching { clipboard.clearPrimaryClip() }
     }, CLIPBOARD_TTL_MS)
 }
 
@@ -456,12 +457,23 @@ private val Reason.message: Int
         else -> R.string.e2e_errore
     }
 
-/** La protezione avanzata è sparita dal server: continuare in chiaro o uscire dall'account. */
+/**
+ * La protezione avanzata è sparita dal server: continuare in chiaro o uscire dall'account.
+ * L'uscita chiede sempre la stessa conferma dell'uscita dalle Impostazioni (`AccountSection`).
+ */
 @Composable
 private fun ProtectionRemovedNotice(enabled: Boolean, onContinue: () -> Unit, onSignOut: () -> Unit) {
+    var confirmSignOut by remember { mutableStateOf(false) }
     Message(R.string.e2e_rimossa_testo, Modifier.testTag("e2e_removed"), color = Bt.colors.plannedText)
     PrimaryButton(stringResource(R.string.e2e_rimossa_continua), onContinue, Modifier.testTag("e2e_removed_continue"), enabled)
-    ProtectionAction(R.string.auth_esci, destructive = true, enabled = enabled, tag = "e2e_removed_sign_out", click = onSignOut)
+    ProtectionAction(R.string.e2e_rimossa_esci, destructive = true, enabled = enabled, tag = "e2e_removed_sign_out") {
+        confirmSignOut = true
+    }
+    if (confirmSignOut) BtAlert(
+        stringResource(R.string.auth_esci_titolo), stringResource(R.string.auth_esci_messaggio), stringResource(R.string.auth_esci_conferma),
+        onConfirm = { confirmSignOut = false; onSignOut() }, onDismiss = { confirmSignOut = false },
+        dismissLabel = stringResource(R.string.annulla),
+    )
 }
 
 @Composable
@@ -527,7 +539,7 @@ private fun RecoveryCard(key: String, confirmation: String?, change: (String) ->
                 clearClipboardLater(context.applicationContext, key)
             }
             copied = true
-        }, Modifier.semantics { liveRegion = LiveRegionMode.Polite }, pill = false, color = c.smoke, wrap = true)
+        }, if (copied) Modifier.semantics { liveRegion = LiveRegionMode.Polite } else Modifier, pill = false, color = c.smoke, wrap = true)
         BarAction(share, {
             val intent = Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, key) }
             context.startActivity(Intent.createChooser(intent, share))

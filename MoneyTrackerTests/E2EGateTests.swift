@@ -258,6 +258,28 @@ struct E2EGateTests {
         #expect(try keyStore.load(userId: otherUser)?.dek == otherKey)
     }
 
+    @Test func clearingFullStoreUsesBatchDeletion() async throws {
+        let fixture = try makeService()
+        let account = Account(name: "Conto", type: .conto)
+        fixture.context.insert(account)
+        fixture.context.insert(Transaction(name: "Spesa", amount: 2.5, type: .uscita, category: "Casa",
+                                           categoryIcon: "house", date: .now, account: account))
+        fixture.context.insert(Budget(category: "Casa", categoryIcon: "house", monthlyLimit: 100, month: 11, year: 2026))
+        fixture.context.insert(Goal(name: "Viaggio", targetAmount: 500))
+        fixture.context.insert(RecurringRule(name: "Affitto", amount: 100, type: "uscita", frequency: "mensile",
+                                             startDate: .now))
+        try fixture.context.save()
+
+        #expect(fixture.service.clearLocalData(context: fixture.context))
+
+        #expect(fixture.service.clearLocalStoreFallbackCount == 0)
+        #expect(try fixture.context.fetchCount(FetchDescriptor<Account>()) == 0)
+        #expect(try fixture.context.fetchCount(FetchDescriptor<Transaction>()) == 0)
+        #expect(try fixture.context.fetchCount(FetchDescriptor<Budget>()) == 0)
+        #expect(try fixture.context.fetchCount(FetchDescriptor<Goal>()) == 0)
+        #expect(try fixture.context.fetchCount(FetchDescriptor<RecurringRule>()) == 0)
+    }
+
     @Test func switchingUserClearsPreviousKeyAndKeepsIncomingKey() async throws {
         let otherUser = UUID()
         defer {

@@ -8,7 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 class E2EStringsTest {
     @Test
-    fun everyAndroidCatalogMatchesTheSame55IOSStrings() {
+    fun everyAndroidCatalogMatchesTheSame56IOSStrings() {
         val fixture = File(checkNotNull(System.getProperty("e2eVectors")))
         val ios = checkNotNull(fixture.parentFile?.parentFile?.parentFile).resolve("MoneyTracker")
         val resources = File("src/main/res")
@@ -21,7 +21,7 @@ class E2EStringsTest {
             val pairs = ios.resolve("$language.lproj/Localizable.strings").readLines().mapNotNull {
                 iosPair.matchEntire(it)?.destructured?.let { (key, value) -> key to value }
             }
-            assertEquals(language, 55, pairs.size)
+            assertEquals(language, 56, pairs.size)
             val nodes = DocumentBuilderFactory.newInstance().newDocumentBuilder()
                 .parse(resources.resolve("$folder/strings.xml")).getElementsByTagName("string")
             val android = (0 until nodes.length).mapNotNull { index ->
@@ -34,7 +34,7 @@ class E2EStringsTest {
                     key to value
                 }
             }
-            assertEquals(language, 55, android.size)
+            assertEquals(language, 56, android.size)
             assertEquals(language, pairs.toMap(), android.toMap())
         }
     }

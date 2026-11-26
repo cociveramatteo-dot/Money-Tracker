@@ -610,6 +610,7 @@
 "e2e_rimossa_titolo" = "Advanced Protection turned off";
 "e2e_rimossa_testo" = "Advanced Protection is no longer active on your account. If you turned it off from another device, you can continue: your data will sync again without end-to-end encryption. If it wasn't you, don't continue: sign out and change your password.";
 "e2e_rimossa_continua" = "Continue without protection";
+"e2e_rimossa_esci" = "Sign out";
 "e2e_usa_frase" = "Use security phrase";
 "e2e_nuova_chiave_titolo" = "Create a new recovery key?";
 "e2e_copiata" = "Copied";

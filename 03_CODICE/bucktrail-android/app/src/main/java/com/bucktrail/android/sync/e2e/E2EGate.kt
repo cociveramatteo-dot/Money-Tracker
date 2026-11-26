@@ -19,8 +19,6 @@ class E2EGate(private val vault: VaultApi, private val secrets: E2ESecrets, priv
         val serverSupported: Boolean? = true,
         val needsPlainInitialSync: Boolean = false,
         val row: JsonObject? = null,
-        /** Primo accesso in chiaro: prima il pull, mai un push che cancelli righe scritte da un altro dispositivo. */
-        val firstAccess: Boolean = false,
     )
 
     suspend fun resolve(
@@ -43,7 +41,18 @@ class E2EGate(private val vault: VaultApi, private val secrets: E2ESecrets, priv
         }
     }
 
-    /** Riga `mt_e2e` assente: la tabella del ramo è identica su iOS (`E2EGate.swift`). */
+    /**
+     * Riga `mt_e2e` assente: la tabella del ramo è identica su iOS (`E2EGate.swift`).
+     *
+     * Marcatori tolti qui dal gate: disable senza fase (D2 scritto, D3 mai arrivato, insieme alla DEK) e
+     * disable `RollingBack`. Tutti gli altri li toglie `E2EController.resolve` quando l'esito è `Plain`
+     * (enable, disable `Verified`, disable `DisableCleanup`/`Resetting` con `resumeCleanup` falso); con
+     * `resumeCleanup` vero `DisableCleanup`/`Resetting` diventano `Resume` e li chiude la ripresa della pulizia.
+     * La DEK di `ProtectionRemoved` resta finché l'utente non sceglie (`E2EController.acceptProtectionRemoved`).
+     *
+     * Ogni ritorno in chiaro dopo una DEK o un marcatore disable è un primo accesso (`needsPlainInitialSync`):
+     * prima il pull, mai un push che cancelli righe scritte in chiaro da un altro dispositivo.
+     */
     private fun resolveAbsent(owner: String, resumeCleanup: Boolean): Resolution {
         val marker = ownMarker(owner)
         val disable = marker?.takeIf { it.direction == MigrationDirection.Disable }
@@ -55,7 +64,7 @@ class E2EGate(private val vault: VaultApi, private val secrets: E2ESecrets, priv
                     // D2 scritto, D3 mai arrivato: si torna in chiaro con un primo accesso (pull prima del push).
                     secrets.remove(owner)
                     (secrets as? MigrationSecrets)?.clearMarker(owner)
-                    return Resolution(Mode.Plain, needsPlainInitialSync = true, firstAccess = true)
+                    return Resolution(Mode.Plain, needsPlainInitialSync = true)
                 }
                 E2EMigrationMarker.Phase.RollingBack -> (secrets as? MigrationSecrets)?.clearMarker(owner)
                 E2EMigrationMarker.Phase.Verified -> Unit
@@ -67,7 +76,8 @@ class E2EGate(private val vault: VaultApi, private val secrets: E2ESecrets, priv
             return Resolution(Mode.Locked(LockReason.ProtectionRemoved))
         }
         if (hadKey) secrets.remove(owner)
-        return Resolution(Mode.Plain, needsPlainInitialSync = hadKey)
+        val firstAccess = hadKey || disable != null
+        return Resolution(Mode.Plain, needsPlainInitialSync = firstAccess)
     }
 
     private fun resolveRow(row: JsonObject, owner: String, resumeCleanup: Boolean): Resolution {

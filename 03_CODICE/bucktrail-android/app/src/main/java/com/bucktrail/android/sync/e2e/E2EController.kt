@@ -102,7 +102,7 @@ class E2EController(
         val pending = if (resume != null && marker != null) PendingMigration(marker, resolution.row) else null
         return Selection(transport, needsInitialSync, pending,
             completeSnapshot = migrationConfigured && (mode is E2EGate.Mode.Vault || needsInitialSync),
-            firstAccess = resolution.firstAccess)
+            firstAccess = resolution.mode == E2EGate.Mode.Plain && resolution.needsPlainInitialSync)
     }
 
     /**

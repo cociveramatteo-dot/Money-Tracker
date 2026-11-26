@@ -155,6 +155,25 @@ class E2EGateTest {
     }
 
     @Test
+    fun rollingBackDisableWithoutKeyReturnsToPlainWithFirstAccess() = runBlocking {
+        service(coroutineContext).use { fixture ->
+            secrets.saveMarker(E2EMigrationMarker(MigrationDirection.Disable, USER, VaultCrypto.keyId(key), 7,
+                E2EMigrationMarker.Phase.RollingBack))
+            // Righe in chiaro scritte da un altro dispositivo, assenti qui: un push con pruneOrphans le cancellerebbe.
+            remote.plain.put(VaultKind.Account.table, SyncMapper.accountRow(account(A2), USER))
+            fixture.state.lastPull = 100
+            fixture.service.syncOnForeground()
+            assertNull(secrets.marker())
+            assertEquals(E2EController.Protection.Off, fixture.controller.status.value.protection)
+            assertTrue(remote.plain.calls.first().startsWith("select:"))
+            assertEquals(0, remote.plain.count("delete:"))
+            assertTrue(fixture.store.snap.accounts.any { it.id == A2 })
+            assertTrue(A2 in remote.plain.rows(VaultKind.Account.table).map { it["id"].toString().trim('"').lowercase() })
+            assertEquals(USER, fixture.state.syncedUserId)
+        }
+    }
+
+    @Test
     fun logoutSurvivesFailingKeyCleanup() = runBlocking {
         val state = MemorySyncState().apply { lastUserId = USER; syncedUserId = USER }
         val store = FakeLocalStore(Snapshot(accounts = listOf(account(A1))))
