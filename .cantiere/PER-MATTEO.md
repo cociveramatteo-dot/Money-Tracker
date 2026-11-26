@@ -5,6 +5,11 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### PROTEZIONE AVANZATA · S-50q.1 — terzo script SQL su Supabase (correzione della gara trovata da Codex)
+📍 supabase.com → progetto Bucktrail → **SQL Editor** → **New query**.
+▶️ Incolla il blocco SQL del §6.9 di `.cantiere/progetto-e2e-sync.md` (o chiedi al capocantiere di copiartelo negli appunti) e premi **Run**.
+↩️ Scrivi «S-50q.1 fatto, 3 righe» oppure incolla l'errore.
+
 ### PROTEZIONE AVANZATA · S-50o — approvazione prima dell'accensione
 
 Dopo S-50m, apri Terminale e incolla questo comando per vedere le schermate iOS e Android:

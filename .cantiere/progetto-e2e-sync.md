@@ -749,6 +749,147 @@ Va eseguito **prima** del §6.4 se si vuole togliere tutto.
 ↩️ **Riportami:** il numero di righe in basso (devono essere **4**) oppure il testo dell'errore.
 Lo script non cambia nulla per l'app attuale: è inerte finché la Protezione avanzata è spenta.
 
+### 6.9 S-50q.1 · Rollback atomico (terzo script, dopo il §6.7)
+**Difetto trovato da Codex (2026-11-26):** `mt_e2e_activate` blocca la riga `mt_e2e`, ma le DELETE sul vault non la leggevano con un lock.
+Un rollback che cancellava il vault mentre A6 era a metà poteva chiudersi dopo i conteggi, e il risultato era `active` con il vault vuoto.
+Inoltre il rollback dei client cancellava prima il vault e solo dopo la riga di stato.
+
+**Correzione:**
+1. `mt_vault_guard` legge la riga `mt_e2e` con `for share`. Ogni scrittura o cancellazione dell'app nel vault aspetta che
+   `mt_e2e_activate`/`mt_e2e_rollback` abbiano finito, e poi rilegge lo stato aggiornato.
+2. Nuova funzione `mt_e2e_rollback(p_key_id, p_generation)`: in un'unica transazione blocca la riga, controlla `migrating`, chiave e
+   generazione, cancella la riga di stato e poi le righe del vault di quella chiave.
+3. `mt_e2e_state_guard` ora vale anche sulle DELETE: da `migrating` si esce solo tramite le due funzioni (`bt_e2e_use_rollback` per
+   una DELETE diretta, `bt_e2e_use_activate` per una PATCH ad `active`).
+
+**Provato su PostgreSQL 16 (2026-11-26 10:37, due sessioni concorrenti):** rollback durante A6 → `bt_e2e_state_changed`, stato `active`, vault intatto ·
+A6 durante il rollback → `bt_e2e_state_changed`, niente riga, vault vuoto · cancellazione di un orfano durante A6 → `bt_e2e_counts` ·
+DELETE diretta in `migrating` → `bt_e2e_use_rollback` · disattivazione D6/D7 invariata · `anon` escluso · script rieseguibile.
+
+```sql
+-- Bucktrail · S-50q.1 · Rollback atomico e lock sul vault · schema v1.2 (dopo S-50q)
+-- Additivo, idempotente, reversibile (§6.4 ter). Sostituisce solo funzioni create da S-50q.
+begin;
+
+-- (1) Ogni scrittura o cancellazione dell'app nel vault prende un lock condiviso sulla riga mt_e2e:
+--     non può più chiudersi mentre mt_e2e_activate / mt_e2e_rollback tengono la riga.
+create or replace function public.mt_vault_guard() returns trigger
+language plpgsql security invoker set search_path = '' as $$
+declare k record;
+begin
+  if current_user <> 'authenticated' then
+    return coalesce(new, old);
+  end if;
+  select e.state, e.key_id into k from public.mt_e2e e
+    where e.user_id = coalesce(new.user_id, old.user_id) for share;
+  if tg_op = 'DELETE' then
+    if found and old.key_id is not distinct from k.key_id and k.state = 'disabling' then
+      raise exception 'bt_e2e_vault_locked' using errcode = 'P0001';
+    end if;
+    return old;
+  end if;
+  if not found or k.state not in ('migrating','active') or new.key_id is distinct from k.key_id then
+    raise exception 'bt_e2e_key_mismatch' using errcode = 'P0001';
+  end if;
+  return new;
+end $$;
+
+-- (2) Uscire da 'migrating' si può solo con le due funzioni: niente PATCH ad active, niente DELETE diretta.
+create or replace function public.mt_e2e_state_guard() returns trigger
+language plpgsql security invoker set search_path = '' as $$
+begin
+  if current_user = 'authenticated' and old.state = 'migrating'
+     and coalesce(current_setting('bt.e2e_transition', true), '') <> 'on' then
+    if tg_op = 'DELETE' then
+      raise exception 'bt_e2e_use_rollback' using errcode = 'P0001';
+    elsif new.state = 'active' then
+      raise exception 'bt_e2e_use_activate' using errcode = 'P0001';
+    end if;
+  end if;
+  return coalesce(new, old);
+end $$;
+
+drop trigger if exists mt_e2e_state_guard on public.mt_e2e;
+create trigger mt_e2e_state_guard before update or delete on public.mt_e2e
+  for each row execute function public.mt_e2e_state_guard();
+
+create or replace function public.mt_e2e_activate(
+  p_key_id text, p_from_generation timestamptz, p_to_generation timestamptz, p_counts jsonb
+) returns void
+language plpgsql security invoker set search_path = '' as $$
+declare
+  k public.mt_e2e%rowtype;
+  kd text;
+  expected bigint;
+  actual bigint;
+begin
+  select * into k from public.mt_e2e where user_id = (select auth.uid()) for update;
+  if not found or k.state <> 'migrating' or k.key_id <> p_key_id
+     or k.updated_at is distinct from p_from_generation then
+    raise exception 'bt_e2e_state_changed' using errcode = 'P0001';
+  end if;
+  foreach kd in array array['account','transaction','budget','goal','rule'] loop
+    expected := coalesce((p_counts ->> kd)::bigint, 0);
+    select count(*) into actual from public.mt_vault v
+      where v.user_id = k.user_id and v.key_id = p_key_id and v.kind = kd;
+    if actual <> expected then
+      raise exception 'bt_e2e_counts' using errcode = 'P0001', detail = kd || ': ' || actual || ' <> ' || expected;
+    end if;
+  end loop;
+  perform set_config('bt.e2e_transition', 'on', true);
+  update public.mt_e2e set state = 'active', updated_at = p_to_generation where user_id = k.user_id;
+  perform set_config('bt.e2e_transition', '', true);
+end $$;
+
+-- (3) Rollback dell'attivazione in un'unica transazione: riga di stato e vault insieme, o niente.
+create or replace function public.mt_e2e_rollback(p_key_id text, p_generation timestamptz) returns void
+language plpgsql security invoker set search_path = '' as $$
+declare k public.mt_e2e%rowtype;
+begin
+  select * into k from public.mt_e2e where user_id = (select auth.uid()) for update;
+  if not found or k.state <> 'migrating' or k.key_id <> p_key_id
+     or k.updated_at is distinct from p_generation then
+    raise exception 'bt_e2e_state_changed' using errcode = 'P0001';
+  end if;
+  perform set_config('bt.e2e_transition', 'on', true);
+  delete from public.mt_e2e where user_id = k.user_id;
+  perform set_config('bt.e2e_transition', '', true);
+  delete from public.mt_vault where user_id = k.user_id and key_id = p_key_id;
+end $$;
+
+revoke all on function public.mt_e2e_activate(text, timestamptz, timestamptz, jsonb) from public, anon;
+grant execute on function public.mt_e2e_activate(text, timestamptz, timestamptz, jsonb) to authenticated;
+revoke all on function public.mt_e2e_rollback(text, timestamptz) from public, anon;
+grant execute on function public.mt_e2e_rollback(text, timestamptz) to authenticated;
+
+notify pgrst, 'reload schema';
+commit;
+
+-- Verifica (deve restituire 3 righe: funzione mt_e2e_rollback, trigger mt_e2e_state_guard su DELETE, lock nel guard)
+select 'funzione' as tipo, proname as nome from pg_proc where proname = 'mt_e2e_rollback'
+union all
+select 'trigger su delete', trigger_name from information_schema.triggers
+  where trigger_name = 'mt_e2e_state_guard' and event_manipulation = 'DELETE'
+union all
+select 'lock nel vault', proname from pg_proc where proname = 'mt_vault_guard' and prosrc like '%for share%'
+order by 1, 2;
+```
+
+**Ritorno di S-50q.1 (§6.4 ter, solo se Matteo lo chiede):** rieseguire il blocco SQL del §6.7, poi `drop function if exists public.mt_e2e_rollback(text, timestamptz);`.
+
+**Cosa cambia nei client (Codex):**
+| Punto | iOS e Android |
+|---|---|
+| Rollback dell'attivazione (§7.7, K44, automatico dopo 2 verifiche fallite) | una sola chiamata `POST /rest/v1/rpc/mt_e2e_rollback` con `{p_key_id, p_generation}`, al posto di «svuota il vault, poi DELETE condizionata». **Mai** cancellare righe del vault della chiave viva con la REST durante un rollback. `bt_e2e_state_changed` → ricalcolo (A6 ha vinto: niente rollback) |
+| `mt_e2e_activate` | invariata (stessa firma) |
+| Nuovo messaggio | `bt_e2e_use_rollback` → stato cambiato, ricalcolo |
+| Server finto e test | RPC `mt_e2e_rollback`, DELETE diretta in `migrating` → 400 `bt_e2e_use_rollback`; i test di gara A6/rollback in entrambi gli ordini |
+
+### 6.10 Istruzioni per Matteo — passo S-50q.1
+📍 supabase.com → progetto Bucktrail → **SQL Editor** → **New query**.
+▶️ Incolla il blocco SQL del §6.9 e premi **Run**.
+↩️ In basso devono comparire **3 righe**: funzione `mt_e2e_rollback`, lock nel vault `mt_vault_guard`, trigger su delete `mt_e2e_state_guard`.
+
 ---
 
 ## 7. Migrazione
