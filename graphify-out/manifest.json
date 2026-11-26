@@ -515,8 +515,8 @@
     "semantic_hash": ""
   },
   ".cantiere/APPROVAZIONI.md": {
-    "mtime": 1795541502.2759287,
-    "ast_hash": "31dfacd708ca89dadc0ff08f41572b5c",
+    "mtime": 1795696803.5376854,
+    "ast_hash": "0cc11aea19a76f690e53d4ef3e2c2456",
     "semantic_hash": ""
   },
   ".cantiere/AVVIO.md": {
@@ -530,8 +530,8 @@
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795690477.4832644,
-    "ast_hash": "781cbdcc1770fd5f6065c0056eba0548",
+    "mtime": 1795696669.2622857,
+    "ast_hash": "faa44b3709462ef00bf8c253ac62d8f2",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
@@ -540,8 +540,8 @@
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795690613.4921756,
-    "ast_hash": "e9ad7a757d6c0d49d63eed7161bd8da8",
+    "mtime": 1795696669.2574718,
+    "ast_hash": "de9b8a7d4e91e2a573e4e1beaf5339e1",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -555,13 +555,13 @@
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795686038.914411,
-    "ast_hash": "d9649e741b9264954b70ddd473c2ffb9",
+    "mtime": 1795696803.5372152,
+    "ast_hash": "36b11decd49ba1eeb71dfe9ead005774",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795694940.827971,
-    "ast_hash": "512956823407db74e5fac21f62b94299",
+    "mtime": 1795696803.5334804,
+    "ast_hash": "1010b0717321f2bd123710cce7d45d5e",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795690900.9982483,
-    "ast_hash": "fc63003b51e514a33e16f8aabb9d1f48",
+    "mtime": 1795696810.3856208,
+    "ast_hash": "bfd78fcb35933d23c0634a8f348b26a6",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {

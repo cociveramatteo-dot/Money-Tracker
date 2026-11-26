@@ -5,16 +5,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
-### PROTEZIONE AVANZATA · S-50o — approvazione prima dell'accensione
-
-S-50m è fatto (Commissione 10/10). Apri Terminale e incolla questo comando per vedere le schermate iOS e Android. Guarda soprattutto le 8 NUOVE, che iniziano con `protezione-rimossa` (4 iPhone, 4 Android, chiaro e scuro): è la schermata che compare sugli altri dispositivi quando la protezione viene spenta, e chiede se continuare senza protezione o uscire.
-
-```zsh
-open "/Users/matteo/Desktop/APP/MoneyTracker/.cantiere/tmp/e2e-ios/screenshots/after" "/Users/matteo/Desktop/APP/MoneyTracker/.cantiere/tmp/e2e-android/screenshots"
-```
-
-Torna nella chat del cantiere e scrivi «Approvo le schermate della Protezione avanzata» oppure indica la schermata e cosa vuoi cambiare. La prova reale è facoltativa e richiede un account di prova da usare insieme al capocantiere.
-
 ### BANCA · modello economico — cosa resta a te (tutto spiegato in `.cantiere/banca-modello-economico.md`, copia su Drive `02_RISORSE/lavorate/banca-modello-economico-2026-11-25.md`)
 1. ✅ Fatto 2026-11-25: nessun account Apple Developer ancora (si sceglie «Individual» all'iscrizione, dopo il gate del 6/12; la banca resta in coda e si chiede ad Apple prima di costruirla). Dettagli nel §10 del documento.
 2. 📍 La tua casella email. ▶️ Invia a info@enablebanking.com la mail del §9 del documento (oggetto e corpo già pronti; cambia la stima del volume se vuoi). ↩️ Incollami la risposta: con costo per conto e fattura minima rifaccio le tabelle e fissiamo i prezzi.
@@ -41,6 +31,8 @@ Torna nella chat del cantiere e scrivi «Approvo le schermate della Protezione a
 📍 notebooklm.google.com → notebook «MoneyTracker App». ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt` e `README.txt` di Inter e Space Grotesk) sono facoltative. ↩️ Scrivi «notebook ok».
 
 ## Fatte
+
+- 2026-11-26 13:40 · S-50o: Matteo approva le schermate della Protezione avanzata (incluse le 8 nuove «protezione rimossa»).
 
 - 2026-11-26 10:40 · S-50q.1: terzo SQL (rollback atomico) eseguito da Matteo su Supabase, controllo 3 righe ok.
 
