@@ -1,5 +1,6 @@
 package com.bucktrail.android.sync.e2e
 
+import com.bucktrail.android.BuildConfig
 import com.bucktrail.android.sync.Snapshot
 import com.bucktrail.android.sync.SyncFormatException
 import com.bucktrail.android.sync.SyncMapper
@@ -63,8 +64,11 @@ internal object E2EVerifier {
         }
         val expectedReceipt = receipt(before)
         val actualReceipt = receipt(after)
-        for ((kind, hash) in expectedReceipt.byKind) log("E2E verification $kind: local $hash, remote ${actualReceipt.byKind[kind]}")
-        log("E2E verification: local ${expectedReceipt.combined}, remote ${actualReceipt.combined}")
+        // Hash del contenuto in chiaro: mai nei log di release.
+        if (BuildConfig.DEBUG) {
+            for ((kind, hash) in expectedReceipt.byKind) log("E2E verification $kind: local $hash, remote ${actualReceipt.byKind[kind]}")
+            log("E2E verification: local ${expectedReceipt.combined}, remote ${actualReceipt.combined}")
+        }
         check(expectedReceipt == actualReceipt)
         return expectedReceipt
     }

@@ -295,7 +295,9 @@ struct E2EMigrator {
             try await rollbackDisable(row, dek: dek)
             throw Failure.verificationFailed
         }
-        try validateSession()
+        // Cleanup phase before the row disappears: after a crash the gate must
+        // resume D6–D7 instead of reading this as D2 without D3.
+        try save(marker, phase: .verified)
         guard try await server.delete(ifCurrent: row) else { throw Failure.stateChanged }
         try validateSession()
         try checkpoint(.d6)

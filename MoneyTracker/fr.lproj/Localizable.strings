@@ -608,3 +608,9 @@
 "e2e_serve_rete" = "Une connexion Internet est nécessaire.";
 "e2e_motivo_biometria" = "Confirmez votre identité pour gérer la Protection avancée";
 "e2e_frase_cambiata" = "Phrase de sécurité mise à jour";
+"e2e_rimossa_titolo" = "Protection avancée désactivée";
+"e2e_rimossa_testo" = "La protection avancée n'est plus active sur votre compte. Si vous l'avez désactivée depuis un autre appareil, vous pouvez continuer : vos données seront de nouveau synchronisées sans chiffrement de bout en bout. Si ce n'était pas vous, ne continuez pas : déconnectez-vous et changez votre mot de passe.";
+"e2e_rimossa_continua" = "Continuer sans protection";
+"e2e_usa_frase" = "Utiliser la phrase de sécurité";
+"e2e_nuova_chiave_titolo" = "Créer une nouvelle clé de récupération ?";
+"e2e_copiata" = "Copiée";

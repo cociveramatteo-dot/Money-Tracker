@@ -112,7 +112,7 @@ internal class FakeVaultSupabase(
             (keyId == null || row.text("key_id") == keyId)
 }
 
-internal class MemoryE2ESecrets : E2ESecrets {
+internal class MemoryE2ESecrets : MigrationSecrets {
     private val items = mutableMapOf<String, LocalDek>()
     private var migration: E2EMigrationMarker? = null
 
@@ -134,6 +134,10 @@ internal class MemoryE2ESecrets : E2ESecrets {
 
     override fun clear(userId: String) {
         remove(userId)
+        clearMarker(userId)
+    }
+
+    override fun clearMarker(userId: String) {
         if (migration?.userId.equals(userId, ignoreCase = true)) migration = null
     }
 }

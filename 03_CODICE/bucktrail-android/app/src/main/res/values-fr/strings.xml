@@ -572,4 +572,10 @@
     <string name="e2e_serve_rete" formatted="false">Une connexion Internet est nécessaire.</string>
     <string name="e2e_motivo_biometria" formatted="false">Confirmez votre identité pour gérer la Protection avancée</string>
     <string name="e2e_frase_cambiata" formatted="false">Phrase de sécurité mise à jour</string>
+    <string name="e2e_rimossa_titolo" formatted="false">Protection avancée désactivée</string>
+    <string name="e2e_rimossa_testo" formatted="false">La protection avancée n\'est plus active sur votre compte. Si vous l\'avez désactivée depuis un autre appareil, vous pouvez continuer : vos données seront de nouveau synchronisées sans chiffrement de bout en bout. Si ce n\'était pas vous, ne continuez pas : déconnectez-vous et changez votre mot de passe.</string>
+    <string name="e2e_rimossa_continua" formatted="false">Continuer sans protection</string>
+    <string name="e2e_usa_frase" formatted="false">Utiliser la phrase de sécurité</string>
+    <string name="e2e_nuova_chiave_titolo" formatted="false">Créer une nouvelle clé de récupération ?</string>
+    <string name="e2e_copiata" formatted="false">Copiée</string>
 </resources>

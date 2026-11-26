@@ -85,13 +85,14 @@ struct E2EServerTests {
     @Test func vaultRequestsArePagedAndScopedToUserAndKind() async throws {
         let fixture = try Fixture()
         defer { fixture.session.invalidateAndCancel() }
-        let ids = (1...201).compactMap {
+        // Id-only reads use 1000-row pages; full rows (ciphertext) use 200.
+        let ids = (1...1001).compactMap {
             UUID(uuidString: String(format: "abcdef00-0000-4000-8000-%012x", $0))
         }
-        try #require(ids.count == 201)
-        let page = try JSONEncoder().encode(ids.prefix(200).map { ["id": $0] })
+        try #require(ids.count == 1001)
+        let page = try JSONEncoder().encode(ids.prefix(1000).map { ["id": $0] })
         E2EURLProtocol.enqueue(200, String(decoding: page, as: UTF8.self))
-        E2EURLProtocol.enqueue(200, #"[{"id":"\#(ids[200].uuidString)"}]"#)
+        E2EURLProtocol.enqueue(200, #"[{"id":"\#(ids[1000].uuidString)"}]"#)
         let vault = SupabaseVaultAccess(client: fixture.client)
         #expect(try await vault.vaultIds(table: .transactions, userId: fixture.user, keyId: "abcdef0123456789") == Set(ids))
 
@@ -108,9 +109,15 @@ struct E2EServerTests {
             #expect(query["key_id"] == "eq.abcdef0123456789")
         }
         #expect(Self.query(requests[0])["select"] == "id")
-        #expect(Self.query(requests[0])["limit"] == "200")
-        #expect(Self.query(requests[1])["id"] == "gt.\(ids[199].uuidString.lowercased())")
+        #expect(Self.query(requests[0])["limit"] == "1000")
+        #expect(Self.query(requests[1])["id"] == "gt.\(ids[999].uuidString.lowercased())")
         #expect(Self.query(requests[2])["id"] == "in.(\(ids[0].uuidString.lowercased()))")
+
+        E2EURLProtocol.enqueue(200, "[]")
+        #expect(try await vault.vaultRows(table: .transactions, userId: fixture.user, keyId: "abcdef0123456789").isEmpty)
+        let full = try #require(E2EURLProtocol.requests.last)
+        #expect(Self.query(full)["select"] == "*")
+        #expect(Self.query(full)["limit"] == "200")
     }
 
     @Test func claimsExactGenerationAndActivatesViaRPCWithCounts() async throws {

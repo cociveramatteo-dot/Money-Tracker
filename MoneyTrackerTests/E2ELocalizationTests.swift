@@ -53,6 +53,12 @@ struct E2ELocalizationTests {
     e2e_serve_rete
     e2e_motivo_biometria
     e2e_frase_cambiata
+    e2e_rimossa_titolo
+    e2e_rimossa_testo
+    e2e_rimossa_continua
+    e2e_usa_frase
+    e2e_nuova_chiave_titolo
+    e2e_copiata
     """.split(separator: "\n").map(String.init))
 
     @Test(arguments: ["it", "en", "de", "es", "fr", "ja", "zh-Hans"])

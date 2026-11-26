@@ -111,6 +111,16 @@ final class E2EController: ObservableObject {
         )
     }
 
+    /// `protectionRemoved`: the user confirmed that protection was turned off on purpose.
+    func continueWithoutProtection(context: ModelContext) async -> Bool {
+        await service.continueWithoutE2EProtection(context: context)
+    }
+
+    /// `protectionRemoved` when it was not the user: leave without sending anything.
+    func signOut(context: ModelContext) async {
+        await service.signOutAndClear(context: context, pushPending: false)
+    }
+
     static func issue(for error: any Error, checkingSecret: Bool = false) -> Issue? {
         if error is CancellationError { return nil }
         if let authentication = error as? LAError,

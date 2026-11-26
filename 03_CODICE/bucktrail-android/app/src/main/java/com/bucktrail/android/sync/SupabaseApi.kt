@@ -171,7 +171,8 @@ class HttpSupabaseApi(
         selectPages(table, userId, token, columns, pageSize)
 
     override suspend fun selectVault(kind: VaultKind, userId: String, token: String, columns: String, keyId: String?): List<JsonObject> =
-        selectPages("mt_vault", userId, token, columns, minOf(pageSize, 200),
+        // Le pagine piccole servono solo quando si scarica il payload cifrato (fino a 64 KB a riga).
+        selectPages("mt_vault", userId, token, columns, if (columns == "*") minOf(pageSize, 200) else pageSize,
             "&kind=eq.${enc(kind.wire)}" + (keyId?.let { "&key_id=eq.${enc(it)}" } ?: ""))
 
     private suspend fun selectPages(

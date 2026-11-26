@@ -1,12 +1,17 @@
 package com.bucktrail.android.ui.screens
 
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.os.PersistableBundle
+import android.view.WindowManager
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -28,6 +33,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -39,12 +46,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogWindowProvider
 import com.bucktrail.android.R
 import com.bucktrail.android.security.Authenticator
 import com.bucktrail.android.sync.SyncService
@@ -66,6 +80,7 @@ import com.bucktrail.android.ui.theme.Bt
 import com.bucktrail.android.ui.theme.Dim
 import com.bucktrail.android.ui.theme.Typo
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -80,7 +95,12 @@ internal fun AdvancedProtectionRow(status: E2EController.Status, open: () -> Uni
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(Dim.xs.dp)) {
             Text(stringResource(R.string.e2e_titolo), style = Typo.formOption, color = c.ink)
             val locked = status.lockReason != null
-            Text(stringResource(if (locked) R.string.e2e_pausa else R.string.e2e_sottotitolo),
+            val subtitle = when {
+                status.lockReason == E2EGate.LockReason.ProtectionRemoved -> R.string.e2e_rimossa_titolo
+                locked -> R.string.e2e_pausa
+                else -> R.string.e2e_sottotitolo
+            }
+            Text(stringResource(subtitle),
                 style = Typo.formOptionSub, color = if (locked) c.plannedText else c.smoke)
         }
         if (status.protection == Protection.On || status.protection == Protection.Off) {
@@ -98,6 +118,7 @@ private enum class ProtectionDialog { TurnOff, Rotate, Restart }
 @Composable
 internal fun AdvancedProtectionSheet(
     sync: SyncService, userId: String, status: E2EController.Status?, unlockInitially: Boolean,
+    onSignOut: () -> Unit,
     onClose: () -> Unit,
 ) {
     val c = Bt.colors
@@ -205,7 +226,26 @@ internal fun AdvancedProtectionSheet(
         run(migration, action = { it.resumeForUi(migration) }, complete = { move(ProtectionPage.Overview) })
     }
 
+    fun continueWithoutProtection() {
+        if (busy || sync.protection?.value?.busy == true) return
+        busy = true
+        issue = null
+        scope.launch {
+            try {
+                sync.continueWithoutProtection()
+                if (unlockInitially) { clearSecrets(); onClose() } else move(ProtectionPage.Overview)
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (error: Exception) {
+                issue = E2EController.issueFor(error)
+            } finally {
+                busy = false
+            }
+        }
+    }
+
     val protection = status?.protection
+    val removed = status?.lockReason == E2EGate.LockReason.ProtectionRemoved
     val waiting = busy || status?.busy == true
     val progress = when {
         !waiting -> null
@@ -217,6 +257,7 @@ internal fun AdvancedProtectionSheet(
     }
     val title = when {
         progress != null -> R.string.e2e_titolo
+        removed && page in listOf(ProtectionPage.Overview, ProtectionPage.Unlock) -> R.string.e2e_rimossa_titolo
         page == ProtectionPage.SetPhrase -> R.string.e2e_frase_titolo
         page in listOf(ProtectionPage.SaveKey, ProtectionPage.RotatedKey) -> R.string.e2e_chiave_titolo
         page == ProtectionPage.Unlock -> R.string.e2e_sblocca_titolo
@@ -238,7 +279,8 @@ internal fun AdvancedProtectionSheet(
                 val (operation, completed, total) = progress
                 Message(if (operation == MigrationDirection.Enable) R.string.e2e_in_corso else R.string.e2e_disattivazione_in_corso)
                 LinearProgressIndicator(progress = { completed.toFloat() / total }, Modifier.fillMaxWidth(), color = c.accent, trackColor = c.fog)
-                Text("$completed / $total", style = Typo.formOption, color = c.smoke, modifier = Modifier.testTag("e2e_progress"))
+                Text("$completed / $total", style = Typo.formOption, color = c.smoke,
+                    modifier = Modifier.testTag("e2e_progress").clearAndSetSemantics {})
             } else when (page) {
                 ProtectionPage.Overview -> when (protection) {
                     Protection.Off -> {
@@ -259,7 +301,9 @@ internal fun AdvancedProtectionSheet(
                         ThinDivider()
                         ProtectionAction(R.string.e2e_disattiva, destructive = true, enabled = !waiting, tag = "e2e_disable") { dialog = ProtectionDialog.TurnOff }
                     }
-                    is Protection.Locked -> {
+                    is Protection.Locked -> if (removed) {
+                        ProtectionRemovedNotice(!waiting, ::continueWithoutProtection) { clearSecrets(); onClose(); onSignOut() }
+                    } else {
                         Message(if (protection.reason == E2EGate.LockReason.Transition) R.string.e2e_altro_dispositivo else R.string.e2e_pausa, color = c.plannedText)
                         PrimaryButton(stringResource(R.string.e2e_sblocca), { move(ProtectionPage.Unlock) }, Modifier.testTag("e2e_unlock_open"), !waiting)
                     }
@@ -299,7 +343,9 @@ internal fun AdvancedProtectionSheet(
                 ProtectionPage.Updated -> Message(R.string.e2e_frase_cambiata, Modifier.testTag("e2e_phrase_updated"), color = c.accent)
                 ProtectionPage.Unlock -> {
                     val reason = status?.lockReason
-                    if (reason == null || reason == E2EGate.LockReason.Unsupported) {
+                    if (reason == E2EGate.LockReason.ProtectionRemoved) {
+                        ProtectionRemovedNotice(!waiting, ::continueWithoutProtection) { clearSecrets(); onClose(); onSignOut() }
+                    } else if (reason == null || reason == E2EGate.LockReason.Unsupported) {
                         if (issue == null) Message(R.string.e2e_errore, color = c.danger)
                     } else {
                         Message(if (reason == E2EGate.LockReason.Transition) R.string.e2e_altro_dispositivo else R.string.e2e_sblocca_testo)
@@ -318,7 +364,7 @@ internal fun AdvancedProtectionSheet(
                                     complete = { if (unlockInitially) { clearSecrets(); onClose() } else move(ProtectionPage.Overview) })
                             }
                         }, Modifier.testTag("e2e_unlock"), secret.isNotEmpty() && !waiting)
-                        ProtectionAction(if (useRecovery) R.string.e2e_frase_campo else R.string.e2e_usa_chiave,
+                        ProtectionAction(if (useRecovery) R.string.e2e_usa_frase else R.string.e2e_usa_chiave,
                             enabled = !waiting, tag = "e2e_unlock_method") {
                             val useKey = !useRecovery
                             focus.clearFocus()
@@ -353,7 +399,7 @@ internal fun AdvancedProtectionSheet(
     dialog?.let { requested ->
         val (heading, message, confirm) = when (requested) {
             ProtectionDialog.TurnOff -> Triple(R.string.e2e_disattiva_titolo, R.string.e2e_disattiva_testo, R.string.e2e_disattiva)
-            ProtectionDialog.Rotate -> Triple(R.string.e2e_nuova_chiave, R.string.e2e_nuova_chiave_nota, R.string.e2e_nuova_chiave)
+            ProtectionDialog.Rotate -> Triple(R.string.e2e_nuova_chiave_titolo, R.string.e2e_nuova_chiave_nota, R.string.e2e_nuova_chiave)
             ProtectionDialog.Restart -> Triple(R.string.e2e_ricomincia_titolo, R.string.e2e_ricomincia_testo, R.string.e2e_ricomincia)
         }
         BtAlert(stringResource(heading), stringResource(message), stringResource(confirm),
@@ -371,6 +417,37 @@ internal fun AdvancedProtectionSheet(
     }
 }
 
+private const val COPIED_LABEL_MS = 2_000L
+private const val CLIPBOARD_TTL_MS = 120_000L
+
+/** Niente screenshot né anteprima nelle app recenti finché la chiave di recupero è sullo schermo. */
+@Composable
+private fun SecureWindowEffect() {
+    val view = LocalView.current
+    val context = LocalContext.current
+    DisposableEffect(view, context) {
+        val windows = listOfNotNull((view.parent as? DialogWindowProvider)?.window, context.findActivity()?.window).distinct()
+        windows.forEach { it.addFlags(WindowManager.LayoutParams.FLAG_SECURE) }
+        onDispose { windows.forEach { it.clearFlags(WindowManager.LayoutParams.FLAG_SECURE) } }
+    }
+}
+
+private tailrec fun Context.findActivity(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.findActivity()
+    else -> null
+}
+
+/** Dopo 2 minuti toglie la chiave dagli appunti, solo se ci sono ancora quelli copiati da qui (API 28+). */
+private fun clearClipboardLater(context: Context, key: String) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) return
+    Handler(Looper.getMainLooper()).postDelayed({
+        val clipboard = context.getSystemService(ClipboardManager::class.java) ?: return@postDelayed
+        val current = runCatching { clipboard.primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.text?.toString() }.getOrNull()
+        if (current == key) runCatching { clipboard.clearPrimaryClip() }
+    }, CLIPBOARD_TTL_MS)
+}
+
 private val Reason.message: Int
     get() = when (this) {
         Reason.Secret -> R.string.e2e_errata
@@ -378,6 +455,14 @@ private val Reason.message: Int
         Reason.Network -> R.string.e2e_serve_rete
         else -> R.string.e2e_errore
     }
+
+/** La protezione avanzata è sparita dal server: continuare in chiaro o uscire dall'account. */
+@Composable
+private fun ProtectionRemovedNotice(enabled: Boolean, onContinue: () -> Unit, onSignOut: () -> Unit) {
+    Message(R.string.e2e_rimossa_testo, Modifier.testTag("e2e_removed"), color = Bt.colors.plannedText)
+    PrimaryButton(stringResource(R.string.e2e_rimossa_continua), onContinue, Modifier.testTag("e2e_removed_continue"), enabled)
+    ProtectionAction(R.string.auth_esci, destructive = true, enabled = enabled, tag = "e2e_removed_sign_out", click = onSignOut)
+}
 
 @Composable
 private fun Message(@StringRes text: Int, modifier: Modifier = Modifier, color: Color = Bt.colors.ink) {
@@ -422,19 +507,27 @@ private fun RecoveryCard(key: String, confirmation: String?, change: (String) ->
     val label = stringResource(R.string.e2e_chiave_campo)
     val share = stringResource(R.string.e2e_condividi)
     val shape = RoundedCornerShape(Dim.cardRadius.dp)
+    var copied by remember { mutableStateOf(false) }
+    SecureWindowEffect()
+    if (copied) LaunchedEffect(Unit) { delay(COPIED_LABEL_MS); copied = false }
     SelectionContainer(Modifier.fillMaxWidth().background(c.surface, shape).border(1.dp, c.filterBorder, shape)) {
         Text(key.split('-').chunked(4).joinToString("\n") { it.joinToString("-") },
-            Modifier.horizontalScroll(rememberScrollState()).padding(Dim.l.dp).testTag("e2e_recovery_key"),
+            Modifier.horizontalScroll(rememberScrollState()).padding(Dim.l.dp).testTag("e2e_recovery_key")
+                .semantics { contentDescription = key.toCharArray().joinToString(" ") },
             style = Typo.formOption.copy(fontFamily = FontFamily.Monospace), color = c.ink)
     }
     Row(horizontalArrangement = Arrangement.spacedBy(Dim.m.dp)) {
-        BarAction(stringResource(R.string.e2e_copia), {
+        BarAction(stringResource(if (copied) R.string.e2e_copiata else R.string.e2e_copia), {
             val clip = ClipData.newPlainText(label, key)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 clip.description.extras = PersistableBundle().apply { putBoolean(ClipDescription.EXTRA_IS_SENSITIVE, true) }
             }
-            context.getSystemService(ClipboardManager::class.java)?.setPrimaryClip(clip)
-        }, pill = false, color = c.smoke, wrap = true)
+            context.getSystemService(ClipboardManager::class.java)?.let { clipboard ->
+                clipboard.setPrimaryClip(clip)
+                clearClipboardLater(context.applicationContext, key)
+            }
+            copied = true
+        }, Modifier.semantics { liveRegion = LiveRegionMode.Polite }, pill = false, color = c.smoke, wrap = true)
         BarAction(share, {
             val intent = Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, key) }
             context.startActivity(Intent.createChooser(intent, share))

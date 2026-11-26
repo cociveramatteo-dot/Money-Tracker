@@ -183,3 +183,9 @@
 "e2e_serve_rete" = "Serve una connessione a Internet.";
 "e2e_motivo_biometria" = "Conferma la tua identità per gestire la Protezione avanzata";
 "e2e_frase_cambiata" = "Frase di sicurezza aggiornata";
+"e2e_rimossa_titolo" = "Protezione avanzata disattivata";
+"e2e_rimossa_testo" = "La protezione avanzata non risulta più attiva sul tuo account. Se l'hai disattivata tu da un altro dispositivo, puoi continuare: i tuoi dati torneranno a sincronizzarsi senza cifratura end-to-end. Se non sei stato tu, non continuare: esci dall'account e cambia la password.";
+"e2e_rimossa_continua" = "Continua senza protezione";
+"e2e_usa_frase" = "Usa la frase di sicurezza";
+"e2e_nuova_chiave_titolo" = "Creare una nuova chiave di recupero?";
+"e2e_copiata" = "Copiata";

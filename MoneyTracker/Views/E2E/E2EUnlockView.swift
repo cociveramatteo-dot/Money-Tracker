@@ -33,9 +33,12 @@ struct E2EUnlockView: View {
     @State private var issue: E2EController.Issue?
 
     var body: some View {
-        E2ESheet(title: "e2e_sblocca_titolo", canClose: !controller.isBusy) {
+        E2ESheet(title: controller.lockReason == .protectionRemoved ? "e2e_rimossa_titolo" : "e2e_sblocca_titolo",
+                 canClose: !controller.isBusy) {
             if controller.operation == .restart {
                 E2EProgress(direction: .disable, completed: controller.progress)
+            } else if controller.lockReason == .protectionRemoved {
+                E2EProtectionRemovedContent(controller: controller) { dismiss() }
             } else if let reason = controller.lockReason, reason != .unsupported {
                 unlockContent(reason)
             } else {
@@ -69,7 +72,7 @@ struct E2EUnlockView: View {
                 .accessibilityIdentifier("e2e_unlock")
                 .disabled(secret.isEmpty)
 
-            E2EAction(useRecoveryKey ? "e2e_frase_campo" : "e2e_usa_chiave") {
+            E2EAction(useRecoveryKey ? "e2e_usa_frase" : "e2e_usa_chiave") {
                 secret = ""
                 phrase = E2EPhrase()
                 issue = nil
@@ -104,6 +107,48 @@ struct E2EUnlockView: View {
             } catch {
                 issue = E2EController.issue(for: error, checkingSecret: operation == .unlock)
             }
+        }
+    }
+}
+
+/// `protectionRemoved`: the server row is gone while this device still holds a key.
+struct E2EProtectionRemovedContent: View {
+    @ObservedObject var controller: E2EController
+    var onContinued: () -> Void = {}
+    @Environment(\.modelContext) private var context
+    @State private var working = false
+    @State private var failed = false
+
+    var body: some View {
+        E2EMessage("e2e_rimossa_testo")
+            .accessibilityIdentifier("e2e_protection_removed")
+        if failed {
+            E2EMessage("e2e_errore", color: DS.danger)
+        }
+        Group {
+            PrimaryButton(title: "e2e_rimossa_continua") { run { await controller.continueWithoutProtection(context: context) } }
+                .accessibilityIdentifier("e2e_continue_unprotected")
+            E2EAction("Esci dall'account", destructive: true) {
+                run {
+                    await controller.signOut(context: context)
+                    return true
+                }
+            }
+            .accessibilityIdentifier("e2e_sign_out")
+        }
+        .disabled(working || controller.isBusy)
+        if working { ProgressView().tint(DS.accent) }
+    }
+
+    private func run(_ action: @escaping () async -> Bool) {
+        guard !working else { return }
+        working = true
+        failed = false
+        Task {
+            let succeeded = await action()
+            working = false
+            failed = !succeeded
+            if succeeded { onContinued() }
         }
     }
 }

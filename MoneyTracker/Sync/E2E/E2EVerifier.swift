@@ -1,5 +1,6 @@
 import CryptoKit
 import Foundation
+import OSLog
 import SwiftData
 
 enum E2EVerifier {
@@ -86,6 +87,13 @@ enum E2EVerifier {
         let expectedReceipt = receipt(before)
         let actualReceipt = receipt(after)
         guard expectedReceipt == actualReceipt else { throw VaultCrypto.Failure.operationFailed }
+        #if DEBUG
+        // Hashes of plaintext content: diagnostic only, never in release builds.
+        for kind in expectedReceipt.byKind.keys.sorted() {
+            Logger.persistence.debug("E2E receipt \(kind, privacy: .public): \(expectedReceipt.byKind[kind] ?? "", privacy: .public)")
+        }
+        Logger.persistence.debug("E2E receipt combined: \(expectedReceipt.combined, privacy: .public)")
+        #endif
         return expectedReceipt
     }
 

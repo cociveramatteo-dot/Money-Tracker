@@ -1,6 +1,7 @@
 package com.bucktrail.android.sync.e2e
 
 import com.bucktrail.android.sync.A1
+import com.bucktrail.android.sync.A2
 import com.bucktrail.android.sync.ApiException
 import com.bucktrail.android.sync.AuthManager
 import com.bucktrail.android.sync.ErrorKind
@@ -49,18 +50,128 @@ class E2EGateTest {
         assertEquals(true, empty.serverSupported)
         assertFalse(empty.needsPlainInitialSync)
 
-        secrets.save(USER, key)
         remote.available = false
+        val plainOld = gate.resolve(USER, token)
+        assertEquals(E2EGate.Mode.Plain, plainOld.mode)
+        assertEquals(false, plainOld.serverSupported)
+
+        // Server vecchio ma questo dispositivo era protetto: mai in chiaro.
+        secrets.save(USER, key)
         val unavailable = gate.resolve(USER, token)
-        assertEquals(E2EGate.Mode.Plain, unavailable.mode)
+        assertEquals(E2EGate.Mode.Locked(E2EGate.LockReason.Unsupported), unavailable.mode)
         assertEquals(false, unavailable.serverSupported)
         assertArrayEquals(key, secrets.load(USER)?.bytes)
 
+        secrets.remove(USER)
+        secrets.saveMarker(E2EMigrationMarker(MigrationDirection.Enable, USER, VaultCrypto.keyId(key), 1))
+        assertEquals(E2EGate.Mode.Locked(E2EGate.LockReason.Unsupported), gate.resolve(USER, token).mode)
+        secrets.clear(USER)
+
         remote.available = true
-        val removed = gate.resolve(USER, token)
-        assertEquals(E2EGate.Mode.Plain, removed.mode)
-        assertTrue(removed.needsPlainInitialSync)
-        assertNull(secrets.load(USER))
+        secrets.save(USER, key)
+        assertLocked(E2EGate.LockReason.ProtectionRemoved, gate.resolve(USER, token))
+        assertArrayEquals(key, secrets.load(USER)?.bytes)
+    }
+
+    @Test
+    fun absentRowWithKeyAndNoMarkerLocksWithoutUploading() = runBlocking {
+        service(coroutineContext).use { fixture ->
+            secrets.save(USER, key)
+            fixture.state.markDirty(listOf(T1), 3)
+            fixture.service.syncOnForeground()
+            assertEquals(E2EGate.LockReason.ProtectionRemoved, fixture.controller.status.value.lockReason)
+            assertEquals(E2EController.Protection.Locked(E2EGate.LockReason.ProtectionRemoved), fixture.controller.status.value.protection)
+            assertArrayEquals(key, secrets.load(USER)?.bytes)
+            assertEquals(listOf("e2eGet:$USER"), remote.readsAndWrites)
+            assertTrue(remote.plain.calls.isEmpty())
+            assertEquals(SyncStatus.Idle, fixture.service.status.value)
+            assertTrue(fixture.state.hasPendingChanges)
+        }
+    }
+
+    @Test
+    fun continueWithoutProtectionDropsKeyAndPullsBeforePushing() = runBlocking {
+        service(coroutineContext).use { fixture ->
+            secrets.save(USER, key)
+            remote.plain.put(VaultKind.Account.table, SyncMapper.accountRow(account(A2), USER))
+            fixture.state.lastPull = 100
+            fixture.service.syncOnForeground()
+            assertNotNull(secrets.load(USER))
+
+            fixture.service.continueWithoutProtection()
+            assertNull(secrets.load(USER))
+            assertNull(fixture.controller.status.value.lockReason)
+            assertEquals(E2EController.Protection.Off, fixture.controller.status.value.protection)
+            assertTrue(remote.plain.calls.first().startsWith("select:"))
+            assertEquals(0, remote.plain.count("delete:"))
+            assertEquals(0, remote.plain.count("upsert:"))
+            assertEquals(1_000L, fixture.state.lastPull)
+            assertEquals(USER, fixture.state.syncedUserId)
+            assertTrue(fixture.store.snap.accounts.any { it.id == A2 })
+            assertTrue(A2 in remote.plain.rows(VaultKind.Account.table).map { it["id"].toString().trim('"').lowercase() })
+        }
+    }
+
+    @Test
+    fun continueIsIgnoredUnlessProtectionWasRemoved() = runBlocking {
+        service(coroutineContext).use { fixture ->
+            remote.keys[USER] = row()
+            fixture.service.syncOnForeground()
+            fixture.service.continueWithoutProtection()
+            assertEquals(E2EGate.LockReason.NeedsSecret, fixture.controller.status.value.lockReason)
+            assertTrue(remote.plain.calls.isEmpty())
+        }
+    }
+
+    @Test
+    fun rollingBackDisableMarkerWithAbsentRowLocksOnceWithoutLooping() = runBlocking {
+        secrets.save(USER, key)
+        secrets.saveMarker(E2EMigrationMarker(MigrationDirection.Disable, USER, VaultCrypto.keyId(key), 7,
+            E2EMigrationMarker.Phase.RollingBack))
+        assertLocked(E2EGate.LockReason.ProtectionRemoved, gate.resolve(USER, token, resumeCleanup = true))
+        assertNull(secrets.marker())
+        assertArrayEquals(key, secrets.load(USER)?.bytes)
+        // Il secondo giro non trova più il marcatore: stesso esito, nessuna ripresa infinita.
+        assertLocked(E2EGate.LockReason.ProtectionRemoved, gate.resolve(USER, token, resumeCleanup = true))
+        assertEquals(listOf("e2eGet:$USER", "e2eGet:$USER"), remote.readsAndWrites)
+    }
+
+    @Test
+    fun interruptedDisableBeforeD3ReturnsToPlainWithFirstAccess() = runBlocking {
+        service(coroutineContext).use { fixture ->
+            secrets.save(USER, key)
+            secrets.saveMarker(E2EMigrationMarker(MigrationDirection.Disable, USER, VaultCrypto.keyId(key), 9))
+            // Righe in chiaro scritte da un altro dispositivo, assenti qui.
+            remote.plain.put(VaultKind.Account.table, SyncMapper.accountRow(account(A2), USER))
+            fixture.service.syncOnForeground()
+            assertNull(secrets.load(USER))
+            assertNull(secrets.marker())
+            assertEquals(E2EController.Protection.Off, fixture.controller.status.value.protection)
+            assertTrue(remote.plain.calls.first().startsWith("select:"))
+            assertEquals(0, remote.plain.count("delete:"))
+            assertTrue(fixture.store.snap.accounts.any { it.id == A2 })
+            assertEquals(USER, fixture.state.syncedUserId)
+        }
+    }
+
+    @Test
+    fun logoutSurvivesFailingKeyCleanup() = runBlocking {
+        val state = MemorySyncState().apply { lastUserId = USER; syncedUserId = USER }
+        val store = FakeLocalStore(Snapshot(accounts = listOf(account(A1))))
+        val scope = CoroutineScope(coroutineContext + SupervisorJob())
+        try {
+            val auth = AuthManager(remote, E2ETestSession(e2eTestSession(USER))).also { it.bootstrap() }
+            val engine = SyncEngine(remote, store, state, auth, onClear = { error("keystore") })
+            val service = SyncService(scope, auth, engine, state, store, syncEnabled = { true }, nowMillis = { 1_000 },
+                sleep = { awaitCancellation() })
+            service.signOutAndClear()
+            assertNull(auth.userId)
+            assertTrue(store.snap.isEmpty)
+            assertNull(state.lastUserId)
+            assertNull(state.syncedUserId)
+        } finally {
+            scope.cancel()
+        }
     }
 
     @Test
@@ -206,21 +317,6 @@ class E2EGateTest {
             assertNotNull(fixture.service.deleteConfirmation.value)
             assertTrue(A1 in remote.records)
             assertTrue(remote.readsAndWrites.none { it.startsWith("vaultDelete") })
-        }
-    }
-
-    @Test
-    fun disappearedRowRestartsInitialSyncEvenWithinPullCooldown() = runBlocking {
-        service(coroutineContext).use { fixture ->
-            secrets.save(USER, key)
-            fixture.state.lastPull = 100
-            assertFalse(fixture.service.shouldPull)
-            fixture.service.syncOnForeground()
-            assertNull(secrets.load(USER))
-            assertEquals(listOf("e2eGet:$USER"), remote.readsAndWrites)
-            // La sync su login esegue il pull anche senza cooldown scaduto.
-            assertEquals(1_000L, fixture.state.lastPull)
-            assertEquals(2, remote.plain.count("select:mt_accounts"))
         }
     }
 

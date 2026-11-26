@@ -39,6 +39,8 @@ internal object VaultCrypto {
     private const val hmacAlgorithm = "HmacSHA256"
     private val grapheme = Pattern.compile("\\X")
     private val random by lazy { SecureRandom() }
+    // Un Cipher per thread: getInstance costa ad ogni riga del vault; init lo riporta sempre allo stato iniziale.
+    private val gcmCipher: ThreadLocal<Cipher> = ThreadLocal.withInitial { Cipher.getInstance("AES/GCM/NoPadding") }
 
     fun rowAAD(kind: String, id: UUID, userID: UUID): ByteArray =
         "bucktrail/e2e/v1/row/${kind.lowercase(Locale.ROOT)}/$id/$userID".toByteArray()
@@ -91,7 +93,7 @@ internal object VaultCrypto {
     }
 
     private fun gcm(mode: Int, key: ByteArray, nonce: ByteArray, aad: ByteArray): Cipher =
-        Cipher.getInstance("AES/GCM/NoPadding").apply {
+        gcmCipher.get().apply {
             init(mode, SecretKeySpec(key, "AES"), GCMParameterSpec(tagByteCount * 8, nonce))
             updateAAD(aad)
         }

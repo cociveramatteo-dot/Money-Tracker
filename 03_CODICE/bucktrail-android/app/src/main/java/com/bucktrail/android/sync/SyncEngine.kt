@@ -153,21 +153,21 @@ class SyncEngine(
                 return@authed PushResult.NeedsConfirmation(deletions, baseline)
             }
             upload("mt_accounts", snap.accounts.map { SyncMapper.accountRow(it, userId) }, token)
-            if (pruneOrphans) deleteOrphans("mt_accounts", userId, snap.accounts.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_accounts"))
+            deleteOrphans("mt_accounts", userId, snap.accounts.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_accounts"), pruneOrphans)
 
             // movimenti: i «sporchi» + quelli che il cloud non ha (una marcatura persa non deve mai far cancellare un movimento al pull)
             val remoteTx = remoteIdsByTable.getValue("mt_transactions")
             val toUpload = snap.transactions.filter { allTransactions || it.id in dirtyAtStart || it.id !in remoteTx }
             upload("mt_transactions", toUpload.map { SyncMapper.transactionRow(it, userId) }, token)
             if (frozen == null) state.clearDirty(dirtyAtStart.filterKeys { id -> toUpload.any { it.id == id } })
-            if (pruneOrphans) deleteOrphans("mt_transactions", userId, snap.transactions.map { it.id }.toSet(), token, remoteTx)
+            deleteOrphans("mt_transactions", userId, snap.transactions.map { it.id }.toSet(), token, remoteTx, pruneOrphans)
 
             upload("mt_budgets", snap.budgets.map { SyncMapper.budgetRow(it, userId) }, token)
-            if (pruneOrphans) deleteOrphans("mt_budgets", userId, snap.budgets.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_budgets"))
+            deleteOrphans("mt_budgets", userId, snap.budgets.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_budgets"), pruneOrphans)
             upload("mt_goals", snap.goals.map { SyncMapper.goalRow(it, userId) }, token)
-            if (pruneOrphans) deleteOrphans("mt_goals", userId, snap.goals.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_goals"))
+            deleteOrphans("mt_goals", userId, snap.goals.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_goals"), pruneOrphans)
             upload("mt_recurring_rules", snap.rules.map { SyncMapper.ruleRow(it, userId) }, token)
-            if (pruneOrphans) deleteOrphans("mt_recurring_rules", userId, snap.rules.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_recurring_rules"))
+            deleteOrphans("mt_recurring_rules", userId, snap.rules.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_recurring_rules"), pruneOrphans)
             if (frozen == null) state.lastSyncedCount = snap.count
             PushResult.Done
         }
@@ -183,7 +183,10 @@ class SyncEngine(
         }.toSet()
 
     /** Una sola richiesta di cancellazione per i record remoti assenti in locale. */
-    private suspend fun deleteOrphans(table: String, userId: String, localIds: Set<String>, token: String, remoteIds: Set<String>) {
+    private suspend fun deleteOrphans(
+        table: String, userId: String, localIds: Set<String>, token: String, remoteIds: Set<String>, pruneOrphans: Boolean,
+    ) {
+        if (!pruneOrphans) return
         val orphans = remoteIds - localIds
         if (orphans.isNotEmpty()) api.deleteIn(table, orphans.map { it.uppercase() }, userId, token)
     }
@@ -297,8 +300,9 @@ class SyncEngine(
         try {
             store.clear()
         } finally {
-            onClear(owner)
-            if (retiredUser != null && retiredUser != owner) onClear(retiredUser)
+            // La pulizia delle chiavi non deve mai impedire quella dello stato di sync né far crashare il logout.
+            runCatching { onClear(owner) }
+            if (retiredUser != null && retiredUser != owner) runCatching { onClear(retiredUser) }
         }
         state.lastPull = 0
         state.syncedUserId = null

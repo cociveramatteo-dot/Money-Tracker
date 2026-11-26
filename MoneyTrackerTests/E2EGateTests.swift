@@ -40,18 +40,23 @@ struct E2EGateTests {
         #expect(empty.serverSupported == true)
         #expect(!empty.needsPlainInitialSync)
 
-        try keyStore.save(key, userId: user)
         remote.supportsE2E = false
         let unavailable = try await gate.resolve(userId: user, enabled: true)
         guard case .plain = unavailable.mode else { Issue.record("Expected plain mode"); return }
         #expect(unavailable.serverSupported == false)
+
+        // A device that holds a DEK (or its own marker) never falls back to plain.
+        try keyStore.save(key, userId: user)
+        try expectLocked(.unsupported, try await gate.resolve(userId: user, enabled: true))
         #expect(try keyStore.load(userId: user)?.dek == key)
+        try keyStore.remove(userId: user)
+        let marker = E2EMigrationMarker(direction: .disable, userId: user, keyId: "k", startedAt: 1)
+        try expectLocked(.unsupported, try await gate.resolve(userId: user, enabled: true, marker: marker))
+        try keyStore.save(key, userId: user)
 
         remote.supportsE2E = true
-        let removed = try await gate.resolve(userId: user, enabled: true)
-        guard case .plain = removed.mode else { Issue.record("Expected plain mode"); return }
-        #expect(removed.needsPlainInitialSync)
-        #expect(try keyStore.load(userId: user) == nil)
+        try expectLocked(.protectionRemoved, try await gate.resolve(userId: user, enabled: true))
+        #expect(try keyStore.load(userId: user)?.dek == key)
     }
 
     @Test func activeRequiresMatchingKeyAndClearsStaleKey() async throws {
@@ -184,8 +189,12 @@ struct E2EGateTests {
         remote.seed([SBAccount(cloud, userId: user)], table: .accounts, userId: user)
 
         await fixture.service.syncOnForeground(context: fixture.context)
+        // The user confirms first: nothing leaves the device before that.
+        #expect(fixture.service.e2eLockReason == .protectionRemoved)
+        #expect(remote.calls == [.lookupE2E(user)])
+        #expect(await fixture.service.continueWithoutE2EProtection(context: fixture.context))
 
-        #expect(remote.calls == [.lookupE2E(user), .fetchIds(.accounts, user)]
+        #expect(remote.calls == [.lookupE2E(user), .lookupE2E(user), .fetchIds(.accounts, user)]
             + SyncTable.allCases.map { .select($0, user) })
         #expect(try keyStore.load(userId: user) == nil)
         #expect(try fixture.context.fetch(FetchDescriptor<Account>()).map(\.name) == [cloud.name])

@@ -37,7 +37,13 @@ class TwoDevicesTest {
 
                 b.disable()
                 b.expectPlain(snapshot)
-                awaitFirstPlainPull(a)
+                // A non torna in chiaro da solo: la protezione sparita dal server la conferma l'utente.
+                a.service.syncOnForeground()
+                assertEquals(E2EGate.LockReason.ProtectionRemoved, a.controller.status.value.lockReason)
+                assertNotNull(a.secrets.load(USER))
+                val reads = a.remote.base.plain.count("select:mt_accounts")
+                a.service.continueWithoutProtection()
+                assertTrue(a.remote.base.plain.count("select:mt_accounts") >= reads + 2)
                 assertNull(a.secrets.load(USER))
                 assertEquals(E2EController.Protection.Off, a.controller.status.value.protection)
             }
@@ -210,9 +216,4 @@ class TwoDevicesTest {
         }
     }
 
-    private suspend fun awaitFirstPlainPull(device: MigrationDevice) {
-        val reads = device.remote.base.plain.count("select:mt_accounts")
-        device.service.syncOnForeground()
-        assertTrue(device.remote.base.plain.count("select:mt_accounts") >= reads + 2)
-    }
 }

@@ -571,4 +571,10 @@
     <string name="e2e_serve_rete" formatted="false">インターネット接続が必要です。</string>
     <string name="e2e_motivo_biometria" formatted="false">高度な保護を管理するため本人確認をしてください</string>
     <string name="e2e_frase_cambiata" formatted="false">セキュリティフレーズを更新しました</string>
+    <string name="e2e_rimossa_titolo" formatted="false">高度な保護がオフになりました</string>
+    <string name="e2e_rimossa_testo" formatted="false">このアカウントでは高度な保護が有効ではなくなりました。別のデバイスでご自身がオフにした場合は、続行できます。データはエンドツーエンド暗号化なしで再び同期されます。心当たりがない場合は続行せず、サインアウトしてパスワードを変更してください。</string>
+    <string name="e2e_rimossa_continua" formatted="false">保護なしで続行</string>
+    <string name="e2e_usa_frase" formatted="false">セキュリティフレーズを使う</string>
+    <string name="e2e_nuova_chiave_titolo" formatted="false">新しい復旧キーを作成しますか？</string>
+    <string name="e2e_copiata" formatted="false">コピーしました</string>
 </resources>

@@ -292,7 +292,8 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     )
     if ((protectionOpen || unlockOpen) && protectionSync != null && protectionUser != null) {
         androidx.compose.runtime.key(protectionUser) {
-            AdvancedProtectionSheet(protectionSync, protectionUser, protection, unlockInitially = unlockOpen) {
+            AdvancedProtectionSheet(protectionSync, protectionUser, protection, unlockInitially = unlockOpen,
+                onSignOut = { vm.signOut() }) {
                 protectionOpen = false
                 unlockOpen = false
             }

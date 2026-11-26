@@ -6,6 +6,7 @@ struct RecoveryKeyCard: View {
     let key: String
     var confirmation: Binding<String>?
     let onSaved: () -> Void
+    @State private var copied = false
 
     private var groups: [Substring] { key.split(separator: "-") }
 
@@ -23,6 +24,7 @@ struct RecoveryKeyCard: View {
                 .scaledFont(size: 18, weight: .semibold)
                 .foregroundStyle(DS.ink)
                 .textSelection(.enabled)
+                .speechSpellsOutCharacters()
                 .accessibilityIdentifier("e2e_recovery_key")
                 .padding(DS.Space.l)
                 .fixedSize(horizontal: true, vertical: true)
@@ -43,8 +45,7 @@ struct RecoveryKeyCard: View {
 
         E2EMessage("e2e_chiave_testo", color: DS.smoke)
         if let confirmation {
-            E2EMessage("e2e_chiave_conferma")
-            TextField("e2e_chiave_campo", text: confirmation)
+            TextField("e2e_chiave_conferma", text: confirmation)
                 .e2eField()
                 .accessibilityIdentifier("e2e_key_confirmation")
         }
@@ -55,11 +56,18 @@ struct RecoveryKeyCard: View {
 
     @ViewBuilder
     private var keyActions: some View {
-        GhostButton(title: "e2e_copia") {
+        GhostButton(title: copied ? "e2e_copiata" : "e2e_copia") {
             UIPasteboard.general.setItems(
                 [[UTType.plainText.identifier: key]],
                 options: [.localOnly: true, .expirationDate: Date().addingTimeInterval(120)]
             )
+            copied = true
+            UIAccessibility.post(notification: .announcement, argument: String(localized: "e2e_copiata"))
+        }
+        .task(id: copied) {
+            guard copied else { return }
+            try? await Task.sleep(for: .seconds(2))
+            if !Task.isCancelled { copied = false }
         }
         ShareLink(item: key) {
             Text("e2e_condividi")

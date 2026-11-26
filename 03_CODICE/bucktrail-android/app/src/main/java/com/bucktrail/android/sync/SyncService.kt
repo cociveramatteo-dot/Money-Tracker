@@ -267,6 +267,20 @@ class SyncService(
         }
     }
 
+    /**
+     * «Continua senza protezione» dopo che la protezione avanzata è sparita dal server: cancella la DEK locale e
+     * riparte con un primo accesso in chiaro (pull prima di qualsiasi push).
+     */
+    suspend fun continueWithoutProtection() {
+        ops.withLock {
+            val controller = e2e?.takeIf { it.enabled } ?: return@withLock
+            val userId = auth.userId ?: return@withLock
+            if (!active || !controller.acceptProtectionRemoved(userId)) return@withLock
+            state.syncedUserId = null
+            withGate { pushResilient(it) }
+        }
+    }
+
     /** La RPC deve riuscire prima di qualsiasi cancellazione E2E o locale. */
     suspend fun deleteAccountAndClear() {
         ops.withLock {
@@ -315,21 +329,14 @@ class SyncService(
         _status.value = SyncStatus.Syncing
         try {
             if (state.lastUserId?.let { it != userId } == true) {
-                watcher.silent = true
-                try {
-                    engine.clearLocalData()
-                    watcher.rebase(store.snapshot())
-                    state.lastUserId = userId
-                    _ignoredRows.value = 0
-                    _needsDecision.value = false
-                    _deleteConfirmation.value = null
-                } finally {
-                    watcher.silent = false
-                }
+                clearAccountData(state.lastUserId)
+                _status.value = SyncStatus.Syncing
+                state.lastUserId = userId
             }
 
             val selection = controller.resolve(auth, userId)
             e2eSelection = selection
+            if (selection.firstAccess) state.syncedUserId = null
             if (resumeMigration(controller, userId, selection)) return
             val transport = selection.transport
             if (transport == null) {
@@ -347,6 +354,7 @@ class SyncService(
 
             val refreshed = controller.resolve(auth, userId)
             e2eSelection = refreshed
+            if (refreshed.firstAccess) state.syncedUserId = null
             if (resumeMigration(controller, userId, refreshed)) return
             val updated = refreshed.transport
             when {
@@ -366,6 +374,7 @@ class SyncService(
         } catch (_: E2EVerifier.Mismatch) {
             pauseForProtection()
         } catch (_: Exception) {
+            // Non è codice morto: senza questo `failed()` vedrebbe ancora una selezione con scrittura rifiutata e salterebbe il retry.
             e2eSelection = null
             failed()
         } finally {

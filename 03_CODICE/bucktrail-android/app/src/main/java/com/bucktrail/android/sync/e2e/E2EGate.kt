@@ -5,7 +5,7 @@ import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.intOrNull
 
 class E2EGate(private val vault: VaultApi, private val secrets: E2ESecrets, private val enabled: Boolean) {
-    enum class LockReason { NeedsSecret, Transition, Unsupported }
+    enum class LockReason { NeedsSecret, Transition, Unsupported, ProtectionRemoved }
 
     sealed interface Mode {
         data object Plain : Mode
@@ -19,6 +19,8 @@ class E2EGate(private val vault: VaultApi, private val secrets: E2ESecrets, priv
         val serverSupported: Boolean? = true,
         val needsPlainInitialSync: Boolean = false,
         val row: JsonObject? = null,
+        /** Primo accesso in chiaro: prima il pull, mai un push che cancelli righe scritte da un altro dispositivo. */
+        val firstAccess: Boolean = false,
     )
 
     suspend fun resolve(
@@ -29,21 +31,43 @@ class E2EGate(private val vault: VaultApi, private val secrets: E2ESecrets, priv
         val lookup = vault.getE2e(owner, token)
         validateSession()
         return when (lookup) {
-            E2ERowLookup.Unavailable -> Resolution(Mode.Plain, serverSupported = false)
-            E2ERowLookup.Absent -> {
-                if (resumeCleanup && ownMarker(owner)?.let {
-                    it.direction == MigrationDirection.Disable &&
-                        it.phase in setOf(E2EMigrationMarker.Phase.DisableCleanup, E2EMigrationMarker.Phase.Resetting)
-                } == true) {
-                    return Resolution(Mode.Resume(MigrationDirection.Disable))
+            E2ERowLookup.Unavailable ->
+                if (secrets.load(owner) != null || ownMarker(owner) != null) {
+                    Resolution(Mode.Locked(LockReason.Unsupported), serverSupported = false)
+                } else {
+                    Resolution(Mode.Plain, serverSupported = false)
                 }
-                val hadKey = secrets.load(owner) != null
-                if (hadKey) secrets.remove(owner)
-                Resolution(Mode.Plain, needsPlainInitialSync = hadKey)
-            }
+            E2ERowLookup.Absent -> resolveAbsent(owner, resumeCleanup)
             E2ERowLookup.Malformed -> Resolution(Mode.Locked(LockReason.Unsupported))
             is E2ERowLookup.Present -> resolveRow(lookup.row, owner, resumeCleanup)
         }
+    }
+
+    /** Riga `mt_e2e` assente: la tabella del ramo è identica su iOS (`E2EGate.swift`). */
+    private fun resolveAbsent(owner: String, resumeCleanup: Boolean): Resolution {
+        val marker = ownMarker(owner)
+        val disable = marker?.takeIf { it.direction == MigrationDirection.Disable }
+        if (disable != null) {
+            when (disable.phase) {
+                E2EMigrationMarker.Phase.DisableCleanup, E2EMigrationMarker.Phase.Resetting ->
+                    if (resumeCleanup) return Resolution(Mode.Resume(MigrationDirection.Disable))
+                null -> {
+                    // D2 scritto, D3 mai arrivato: si torna in chiaro con un primo accesso (pull prima del push).
+                    secrets.remove(owner)
+                    (secrets as? MigrationSecrets)?.clearMarker(owner)
+                    return Resolution(Mode.Plain, needsPlainInitialSync = true, firstAccess = true)
+                }
+                E2EMigrationMarker.Phase.RollingBack -> (secrets as? MigrationSecrets)?.clearMarker(owner)
+                E2EMigrationMarker.Phase.Verified -> Unit
+            }
+        }
+        val hadKey = secrets.load(owner) != null
+        if (hadKey && (marker == null || disable?.phase == E2EMigrationMarker.Phase.RollingBack)) {
+            // La protezione è sparita dal server: decide l'utente, la DEK resta finché non sceglie.
+            return Resolution(Mode.Locked(LockReason.ProtectionRemoved))
+        }
+        if (hadKey) secrets.remove(owner)
+        return Resolution(Mode.Plain, needsPlainInitialSync = hadKey)
     }
 
     private fun resolveRow(row: JsonObject, owner: String, resumeCleanup: Boolean): Resolution {

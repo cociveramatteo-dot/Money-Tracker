@@ -91,7 +91,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     /** L'esito non mostra mai errori (come iOS: `try?`). */
     suspend fun resetPassword(email: String) { runCatching { auth.resetPassword(email) } }
 
-    fun signOut() = viewModelScope.launch { sync.signOutAndClear(); application.auditLog.clearAll() }
+    fun signOut() = viewModelScope.launch {
+        // Un errore durante la pulizia locale non deve far crashare l'app al logout.
+        try { sync.signOutAndClear() }
+        catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
+        catch (e: Exception) { android.util.Log.w("Bucktrail", "Pulizia al logout incompleta", e) }
+        finally { runCatching { application.auditLog.clearAll() } }
+    }
     suspend fun deleteAccount(): String? = try { sync.deleteAccountAndClear(); application.auditLog.clearAll(); null } catch (e: Exception) { e.message ?: e.toString() }
     fun resolveSyncDeleteConfirmation(delete: Boolean) = viewModelScope.launch { sync.resolveDeleteConfirmation(delete) }
     fun resolveSyncDecision(useCloud: Boolean) = viewModelScope.launch { sync.resolveDecision(useCloud) }

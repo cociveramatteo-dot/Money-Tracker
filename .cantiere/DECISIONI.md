@@ -275,3 +275,10 @@ Progetto completo: `.cantiere/progetto-banca.md`. Dopo il lancio e dopo S-50. Au
 
 - La sync legge per la chiave viva. Prima di applicare uno snapshot cifrato che può modificare i dati locali, il client verifica che la chiave sia ancora attiva: un cambio durante il pull può produrre uno snapshot parziale.
 - La riattivazione raccoglie gli ID delle chiavi obsolete dopo la verifica della nuova copia e prima di A6. Ogni DELETE filtra per utente, tipo, ID e singola chiave obsoleta. Un guasto di trasporto durante la pulizia lascia le righe per una riattivazione successiva. Un cambio di generazione interrompe l'operazione.
+
+## 2026-11-26 · S-50m · Protezione sparita dal server: il dispositivo chiede, non torna in chiaro da solo
+
+- **Cosa:** se la riga `mt_e2e` risulta assente mentre il dispositivo ha ancora la DEK e non ha un proprio marcatore di disattivazione in corso (o ha solo un rollback interrotto), il gate restituisce il nuovo blocco `protectionRemoved`: DEK intatta, niente upload. L'utente vede «Protezione avanzata disattivata» e sceglie «Continua senza protezione» (DEK cancellata, primo accesso con pull) oppure esce dall'account. Una tabella `mt_e2e` irraggiungibile (404) con DEK presente blocca in `unsupported` invece di tornare in chiaro.
+- **Perché:** Commissione Suprema, giudice sicurezza (G1#1, ALTA): chi ruba il token o l'amministratore del database poteva cancellare la riga e far ricaricare in chiaro tutti i dati, contro il modello di minaccia §1.2. Risolve anche lo stallo iOS dopo un rollback della disattivazione interrotto (G3#1, G5#1).
+- **Scartate:** conferma con Face ID/codice del dispositivo (non protegge da nulla: l'attacco è remoto, chi conferma è l'utente); lasciare il comportamento e dichiarare il rischio in §1.3 (contraddice la promessa della funzione).
+- **Effetto UX:** chi disattiva da un dispositivo vede, sugli altri, una richiesta di conferma una volta sola. Da mostrare a Matteo in S-50o.

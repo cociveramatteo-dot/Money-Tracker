@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.26*
+*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.27*
 
 > **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
 
@@ -437,6 +437,24 @@ Fino al tag `tour-v1` l'app aveva un **onboarding tour a due livelli**: una pano
 - Guardia anti-cancellazione del cloud: se il database locale è vuoto o cala in modo anomalo, la sync chiede conferma esplicita. Le righe remote non valide vengono ignorate senza bloccare il pull.
 - Verifica: 247 test JVM verdi; collaudo 🟢 del 2026-11-23 (verbale in `.cantiere/`); stress test con 10 bug corretti.
 
+### Protezione avanzata (cifratura end-to-end) — dietro interruttore, SPENTA in release
+
+Cifratura end-to-end facoltativa della sync, costruita su iOS e Android (S-50). Progetto completo: `.cantiere/progetto-e2e-sync.md`.
+
+- **Interruttore:** `E2EFeature.isEnabled = false` (iOS) e `BuildConfig.E2E_ENABLED = false` (Android). Da spento l'app non fa nessuna richiesta nuova, non mostra schermate nuove e la sync è identica a prima. Si accende solo in S-50p, dopo l'approvazione delle schermate (S-50o). Una volta pubblicato acceso non si torna indietro: per fermare nuove attivazioni c'è `allowNewActivations`.
+- **Dove si trova:** Impostazioni → sezione «Sicurezza», riga «Protezione avanzata» (nascosta in modalità demo, senza accesso o se il server non supporta la funzione). Testi con chiavi `e2e_*` identiche sulle due piattaforme, nelle 7 lingue.
+- **Crittografia (solo primitive di sistema, nessuna dipendenza nuova):** AES-256-GCM per ogni riga; una chiave dati casuale (DEK) avvolta due volte: con la **frase di sicurezza** (PBKDF2-HMAC-SHA256, 600 000 iterazioni, almeno 10 caratteri, distinta dalla password dell'account) e con la **chiave di recupero** (160 bit casuali, 32 caratteri in 8 gruppi da 4, HKDF-SHA256). Ogni riga cifrata è legata a tipo, id e utente: se il server la sposta o la altera, viene rifiutata.
+- **Chiave solo sul dispositivo:** la DEK sta nel Keychain iOS (`ThisDeviceOnly`, niente iCloud Keychain) o in Android Keystore. Frase e DEK non lasciano mai il telefono in chiaro; reset della password Supabase senza effetti sui dati.
+- **Sul server (Supabase):** tabella `mt_vault` (una riga per record: `id`, `user_id`, `kind`, `key_id`, `payload` cifrato) e `mt_e2e` (stato e chiavi avvolte). Il server conserva solo dati illeggibili. Un trigger sulle 5 tabelle `mt_*` rifiuta le scritture in chiaro quando la protezione è attiva: una versione vecchia dell'app smette di sincronizzare, ma non può sovrascrivere né rimettere in chiaro i dati.
+- **Attivazione verificata e reversibile:** sync completa e backup locale, poi copia cifrata nel vault. Prima di cancellare la copia in chiaro (che nel frattempo resta congelata), il vault si rilegge e si confronta riga per riga col dispositivo: contatori, id, campi, ricevuta SHA-256. Se la verifica fallisce due volte c'è il rollback automatico; finché lo stato è `migrating` c'è anche il pulsante «Annulla attivazione». Ogni passo riprende da dove si era interrotto.
+- **Altri dispositivi:** dopo l'accesso compare «Sblocca la sincronizzazione». Si inserisce la frase o la chiave di recupero e la DEK viene salvata sul dispositivo. Finché non si sblocca, la sync è in pausa e le modifiche locali restano in attesa senza perdersi.
+- **Gestione (con Face ID / codice del dispositivo):** cambio della frase, nuova chiave di recupero (la precedente smette di funzionare), disattivazione. La disattivazione rimette i dati in chiaro sul server, li verifica e solo dopo cancella il vault.
+- **Frase e chiave perse:** i dati sul cloud non si possono recuperare (l'avviso compare prima dell'attivazione). «Ho perso frase e chiave» → «Ricomincia da questo dispositivo» cancella i dati cifrati sul server e riparte in chiaro con i dati del telefono. È irreversibile; se il telefono è vuoto, anche il cloud resta vuoto.
+- **«Protezione avanzata disattivata»:** se la protezione sparisce dal server mentre il dispositivo ha ancora la chiave, l'app non torna in chiaro da sola. Si blocca e chiede: «Continua senza protezione» (se l'utente l'ha disattivata da un altro dispositivo) oppure «Esci dall'account» (se non è stato lui). Così chi ruba il token o amministra il database non può farsi ricaricare i dati in chiaro.
+- **Eliminazione account:** la cancellazione di `mt_vault` e `mt_e2e` è garantita dal server (`on delete cascade` da `auth.users`). Al logout la chiave locale si cancella.
+- **Limiti dichiarati:** il server vede l'account (id ed email), l'id e il tipo di ogni record (quindi **quanti** conti, movimenti, budget, obiettivi e ricorrenze ci sono), la dimensione approssimativa di ogni riga, quando si sincronizza e da quale IP. Può cancellare righe o rimettere una versione precedente della stessa riga, ma non creare dati falsi leggibili. Non protegge un telefono sbloccato in mano ad altri. Una frase debole resta un rischio.
+- **Stato (26 novembre 2026):** collaudi dei blocchi superati. Restano aperti S-50r (decodifica del vault fuori dal main thread su iOS, consigliato prima dell'accensione), S-50s e S-50q.4 (non bloccanti). Poi approvazione delle schermate (S-50o) e accensione (S-50p).
+
 ---
 
 ## 7. Audit Qualità (Score: 7.2 / 10 — audit di giugno–luglio 2026, non rieseguito dopo il redesign «Sentiero»)
@@ -572,6 +590,14 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ## 10. Changelog
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
+
+### v3.27 (25–26 novembre 2026) — Protezione avanzata (cifratura end-to-end), interruttore spento
+
+- **S-50 (Protezione avanzata, 2026-11-25/26):** cifratura end-to-end facoltativa della sync su iOS e Android (vedi §6, «Protezione avanzata»). Lavoro in S-50a…S-50l: crittografia e vettori di test condivisi, vault, migratore con verifica e rollback, interfaccia e testi nelle 7 lingue, logout, eliminazione account, cambio utente e stress test. Correzioni dei collaudi in S-50h2, S-50l.1, S-50l.2, S-50q, S-50q.1, S-50q.2 e S-50q.3: `key_id` su ogni riga del vault, A6 e rollback atomici via RPC, pull limitata alla chiave viva, eliminazione account garantita dalla cascata del server.
+- **Server Supabase:** 3 script SQL additivi applicati da Matteo: schema e trigger (S-50n, 24/11), `key_id` e RPC di A6 (S-50q, §6.7, 26/11), rollback atomico (S-50q.1, §6.9, 26/11).
+- **Commissione Suprema S-50m:** primo giro con voti da 6 a 9. Correzioni: nuovo blocco «Protezione avanzata disattivata» quando la protezione sparisce dal server, blocco `unsupported` se `mt_e2e` è irraggiungibile e c'è una chiave locale, ricevute di verifica nei log solo in debug, `FLAG_SECURE` e pulizia degli appunti dopo 120 s su Android, chiavi azzerate in memoria, accessibilità della chiave di recupero e nuove stringhe (`e2e_usa_frase`, `e2e_nuova_chiave_titolo`, `e2e_copiata`, `e2e_rimossa_*`). Rimandati S-50r e S-50s. Esito finale: [DA COMPLETARE].
+- **Interruttore spento in release** su entrambe le piattaforme: per chi usa l'app non cambia nulla.
+- Prossimi: S-50o (Matteo approva le schermate) e S-50p (accensione, FAQ e privacy del sito).
 
 ### v3.26 (24 novembre 2026) — Sicurezza dei dati, analytics della landing e rifiniture Android
 

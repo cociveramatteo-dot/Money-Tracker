@@ -573,4 +573,10 @@
     <string name="e2e_serve_rete" formatted="false">Serve una connessione a Internet.</string>
     <string name="e2e_motivo_biometria" formatted="false">Conferma la tua identità per gestire la Protezione avanzata</string>
     <string name="e2e_frase_cambiata" formatted="false">Frase di sicurezza aggiornata</string>
+    <string name="e2e_rimossa_titolo" formatted="false">Protezione avanzata disattivata</string>
+    <string name="e2e_rimossa_testo" formatted="false">La protezione avanzata non risulta più attiva sul tuo account. Se l\'hai disattivata tu da un altro dispositivo, puoi continuare: i tuoi dati torneranno a sincronizzarsi senza cifratura end-to-end. Se non sei stato tu, non continuare: esci dall\'account e cambia la password.</string>
+    <string name="e2e_rimossa_continua" formatted="false">Continua senza protezione</string>
+    <string name="e2e_usa_frase" formatted="false">Usa la frase di sicurezza</string>
+    <string name="e2e_nuova_chiave_titolo" formatted="false">Creare una nuova chiave di recupero?</string>
+    <string name="e2e_copiata" formatted="false">Copiata</string>
 </resources>

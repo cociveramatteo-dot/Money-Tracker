@@ -571,4 +571,10 @@
     <string name="e2e_serve_rete" formatted="false">需要互联网连接。</string>
     <string name="e2e_motivo_biometria" formatted="false">请验证身份以管理高级保护</string>
     <string name="e2e_frase_cambiata" formatted="false">安全短语已更新</string>
+    <string name="e2e_rimossa_titolo" formatted="false">高级保护已关闭</string>
+    <string name="e2e_rimossa_testo" formatted="false">你的账户上的高级保护已不再启用。如果是你在另一台设备上关闭的，可以继续：你的数据将重新在没有端到端加密的情况下同步。如果不是你本人操作，请不要继续：退出账户并更改密码。</string>
+    <string name="e2e_rimossa_continua" formatted="false">不加保护继续</string>
+    <string name="e2e_usa_frase" formatted="false">使用安全短语</string>
+    <string name="e2e_nuova_chiave_titolo" formatted="false">要创建新的恢复密钥吗？</string>
+    <string name="e2e_copiata" formatted="false">已复制</string>
 </resources>

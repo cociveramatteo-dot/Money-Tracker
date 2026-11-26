@@ -606,3 +606,9 @@
 "e2e_serve_rete" = "Eine Internetverbindung ist erforderlich.";
 "e2e_motivo_biometria" = "Bestätige deine Identität, um den erweiterten Schutz zu verwalten";
 "e2e_frase_cambiata" = "Sicherheitsphrase aktualisiert";
+"e2e_rimossa_titolo" = "Erweiterter Schutz deaktiviert";
+"e2e_rimossa_testo" = "Der erweiterte Schutz ist für dein Konto nicht mehr aktiv. Wenn du ihn auf einem anderen Gerät deaktiviert hast, kannst du fortfahren: Deine Daten werden wieder ohne Ende-zu-Ende-Verschlüsselung synchronisiert. Wenn du es nicht warst, fahre nicht fort: Melde dich ab und ändere dein Passwort.";
+"e2e_rimossa_continua" = "Ohne Schutz fortfahren";
+"e2e_usa_frase" = "Sicherheitsphrase verwenden";
+"e2e_nuova_chiave_titolo" = "Neuen Wiederherstellungsschlüssel erstellen?";
+"e2e_copiata" = "Kopiert";

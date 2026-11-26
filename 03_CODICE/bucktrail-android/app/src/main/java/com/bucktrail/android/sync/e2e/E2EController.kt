@@ -1,5 +1,6 @@
 package com.bucktrail.android.sync.e2e
 
+import com.bucktrail.android.BuildConfig
 import com.bucktrail.android.sync.ApiException
 import android.util.Log
 import com.bucktrail.android.sync.AuthManager
@@ -100,7 +101,20 @@ class E2EController(
         }
         val pending = if (resume != null && marker != null) PendingMigration(marker, resolution.row) else null
         return Selection(transport, needsInitialSync, pending,
-            completeSnapshot = migrationConfigured && (mode is E2EGate.Mode.Vault || needsInitialSync))
+            completeSnapshot = migrationConfigured && (mode is E2EGate.Mode.Vault || needsInitialSync),
+            firstAccess = resolution.firstAccess)
+    }
+
+    /**
+     * «Continua senza protezione» dopo `ProtectionRemoved`: cancella la DEK e prepara il primo accesso in chiaro.
+     * `false` se lo stato non è più quello mostrato all'utente (nessuna cancellazione).
+     */
+    internal fun acceptProtectionRemoved(userId: String): Boolean {
+        val current = _status.value
+        if (!enabled || current.userId != userId || current.lockReason != E2EGate.LockReason.ProtectionRemoved) return false
+        secrets.clear(userId)
+        needsInitialSync = true
+        return true
     }
 
     private fun publishStatus(userId: String, resolution: E2EGate.Resolution) {
@@ -160,6 +174,7 @@ class E2EController(
     internal data class Selection(
         val transport: SupabaseApi?, val needsInitialSync: Boolean, val pending: PendingMigration?,
         val completeSnapshot: Boolean,
+        val firstAccess: Boolean = false,
     ) {
         val writeRejected: Boolean get() = (transport as? E2EWriteGuard)?.rejected == true
         suspend fun validatePull(token: String) {
@@ -186,7 +201,7 @@ class E2EController(
                 _status.value = _status.value.copy(protection = view)
             },
             completedCopy = completedCopy,
-            log = { if (secrets is E2EKeyStore) Log.i("BucktrailE2E", it) },
+            log = { if (BuildConfig.DEBUG && secrets is E2EKeyStore) Log.i("BucktrailE2E", it) },
             checkpoint = checkpoint,
         )
         val previous = _status.value

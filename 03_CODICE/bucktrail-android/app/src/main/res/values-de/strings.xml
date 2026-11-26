@@ -572,4 +572,10 @@
     <string name="e2e_serve_rete" formatted="false">Eine Internetverbindung ist erforderlich.</string>
     <string name="e2e_motivo_biometria" formatted="false">Bestätige deine Identität, um den erweiterten Schutz zu verwalten</string>
     <string name="e2e_frase_cambiata" formatted="false">Sicherheitsphrase aktualisiert</string>
+    <string name="e2e_rimossa_titolo" formatted="false">Erweiterter Schutz deaktiviert</string>
+    <string name="e2e_rimossa_testo" formatted="false">Der erweiterte Schutz ist für dein Konto nicht mehr aktiv. Wenn du ihn auf einem anderen Gerät deaktiviert hast, kannst du fortfahren: Deine Daten werden wieder ohne Ende-zu-Ende-Verschlüsselung synchronisiert. Wenn du es nicht warst, fahre nicht fort: Melde dich ab und ändere dein Passwort.</string>
+    <string name="e2e_rimossa_continua" formatted="false">Ohne Schutz fortfahren</string>
+    <string name="e2e_usa_frase" formatted="false">Sicherheitsphrase verwenden</string>
+    <string name="e2e_nuova_chiave_titolo" formatted="false">Neuen Wiederherstellungsschlüssel erstellen?</string>
+    <string name="e2e_copiata" formatted="false">Kopiert</string>
 </resources>

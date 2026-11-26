@@ -233,11 +233,16 @@ struct E2EMigratorTests {
         try a.keyStore.save(key.dek, userId: a.user)
         let count = a.remote.base.calls.count
         await a.service.syncOnForeground(context: a.context)
+        #expect(a.service.e2eLockReason == .protectionRemoved)
+        #expect(try a.keyStore.load(userId: a.user)?.keyId == key.keyId)
+        #expect(!a.remote.base.calls.dropFirst(count).contains { if case .upsert = $0 { true } else { false } })
+        #expect(await a.service.continueWithoutE2EProtection(context: a.context))
         _ = try E2EVerifier.verify(local: expected, remote: a.snapshot())
         #expect(try a.keyStore.load(userId: a.user) == nil)
-        let calls = a.remote.base.calls.dropFirst(count)
-        #expect(calls.contains(.select(.accounts, a.user)))
-        #expect(!calls.contains { if case .upsert = $0 { true } else { false } })
+        let calls = Array(a.remote.base.calls.dropFirst(count))
+        let firstPull = try #require(calls.firstIndex(of: .select(.accounts, a.user)))
+        // Edits queued while locked may be sent later, never before the first pull.
+        #expect(!calls.prefix(firstPull).contains { if case .upsert = $0 { true } else { false } })
     }
 
     @Test func t11BlockedPlainWriteRechecksGate() async throws {

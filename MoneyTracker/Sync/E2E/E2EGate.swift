@@ -38,6 +38,9 @@ struct E2EMigrationMarker: Codable {
 struct E2EGate {
     enum LockReason: Equatable {
         case needsSecret, transition, unsupported
+        /// The server row is gone while this device still holds a DEK: the
+        /// user must confirm before the data syncs again without encryption.
+        case protectionRemoved
     }
 
     enum Mode {
@@ -69,16 +72,18 @@ struct E2EGate {
         }
         try validateSession()
 
+        let ownMarker = marker?.userId == userId ? marker : nil
         switch lookup {
         case .unavailable:
+            // A device that already holds E2E state must never fall back to plain
+            // just because the server lost (or never had) the feature.
+            let hasKey = try keyStore.load(userId: userId) != nil
+            if ownMarker != nil || hasKey {
+                return Resolution(mode: .locked(.unsupported))
+            }
             return Resolution(mode: .plain, serverSupported: false)
         case .absent:
-            if let marker, marker.userId == userId, marker.direction == .disable {
-                return Resolution(mode: .resume(.disable))
-            }
-            let hadKey = try keyStore.load(userId: userId) != nil
-            if hadKey { try keyStore.remove(userId: userId) }
-            return Resolution(mode: .plain, needsPlainInitialSync: hadKey)
+            return try resolveAbsent(userId: userId, marker: ownMarker)
         case .row(let row):
             guard row.userId == userId, row.hasSupportedParameters else {
                 return Resolution(mode: .locked(.unsupported))
@@ -115,5 +120,30 @@ struct E2EGate {
                 return Resolution(mode: .locked(.transition), row: row)
             }
         }
+    }
+
+    /// No `mt_e2e` row. The caller removes a disable marker when the mode is
+    /// plain or `protectionRemoved` (the gate has no access to the defaults).
+    private func resolveAbsent(userId: UUID, marker: E2EMigrationMarker?) throws -> Resolution {
+        if let marker, marker.direction == .disable {
+            switch marker.phase {
+            case .verified, .resetting:
+                // D5–D7 or a restart already deleted the row: finish the cleanup.
+                return Resolution(mode: .resume(.disable))
+            case nil:
+                // D2 without D3: the server never left plain mode. The first
+                // exchange pulls before pushing and never deletes remote rows.
+                try keyStore.remove(userId: userId)
+                return Resolution(mode: .plain, needsPlainInitialSync: true)
+            case .rollingBack:
+                break
+            }
+        }
+        let hasKey = try keyStore.load(userId: userId) != nil
+        if hasKey, marker == nil || marker?.direction == .disable {
+            return Resolution(mode: .locked(.protectionRemoved))
+        }
+        if hasKey { try keyStore.remove(userId: userId) }
+        return Resolution(mode: .plain, needsPlainInitialSync: hasKey || marker?.direction == .disable)
     }
 }

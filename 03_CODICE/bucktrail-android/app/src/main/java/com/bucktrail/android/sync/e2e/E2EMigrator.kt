@@ -176,13 +176,14 @@ internal class E2EMigrator(
         val salt = VaultCrypto.decodeBase64URL(checkNotNull(row.text("salt")))
         val iterations = checkNotNull(row["kdf_iterations"] as? JsonPrimitive).content.toInt()
         val kek = withContext(Dispatchers.Default) { VaultCrypto.deriveKEK(phrase, salt, iterations) }
-        val dek = unwrap(row, kek, VaultCrypto.WrapPurpose.passphrase)
+        val dek = try { unwrap(row, kek, VaultCrypto.WrapPurpose.passphrase) } finally { kek.fill(0) }
         unlock(row, dek)
     }
 
     suspend fun recover(recovery: String, newPhrase: String) {
         val row = row()
-        val dek = unwrap(row, VaultCrypto.recoveryKEK(RecoveryKey.parse(recovery)), VaultCrypto.WrapPurpose.recovery)
+        val kek = VaultCrypto.recoveryKEK(RecoveryKey.parse(recovery))
+        val dek = try { unwrap(row, kek, VaultCrypto.WrapPurpose.recovery) } finally { kek.fill(0) }
         val updated = updatePhrase(row, newPhrase, dek)
         unlock(updated, dek)
     }
@@ -652,8 +653,12 @@ internal class E2EMigrator(
         validatePhrase(phrase)
         val salt = VaultCrypto.randomBytes(VaultCrypto.saltByteCount)
         val kek = withContext(Dispatchers.Default) { VaultCrypto.deriveKEK(phrase, salt) }
-        return VaultCrypto.encodeBase64URL(salt) to
-            VaultCrypto.wrap(dek, kek, VaultCrypto.wrapAAD(VaultCrypto.WrapPurpose.passphrase, owner))
+        return try {
+            VaultCrypto.encodeBase64URL(salt) to
+                VaultCrypto.wrap(dek, kek, VaultCrypto.wrapAAD(VaultCrypto.WrapPurpose.passphrase, owner))
+        } finally {
+            kek.fill(0)
+        }
     }
 
     private suspend fun updatePhrase(row: JsonObject, phrase: String, dek: ByteArray): JsonObject {
@@ -664,8 +669,14 @@ internal class E2EMigrator(
         ))
     }
 
-    private fun recoveryWrap(dek: ByteArray, bytes: ByteArray): String =
-        VaultCrypto.wrap(dek, VaultCrypto.recoveryKEK(bytes), VaultCrypto.wrapAAD(VaultCrypto.WrapPurpose.recovery, owner))
+    private fun recoveryWrap(dek: ByteArray, bytes: ByteArray): String {
+        val kek = VaultCrypto.recoveryKEK(bytes)
+        return try {
+            VaultCrypto.wrap(dek, kek, VaultCrypto.wrapAAD(VaultCrypto.WrapPurpose.recovery, owner))
+        } finally {
+            kek.fill(0)
+        }
+    }
 
     private fun unwrap(row: JsonObject, kek: ByteArray, purpose: VaultCrypto.WrapPurpose): ByteArray {
         val envelope = checkNotNull(row.text("wrapped_key_${purpose.name}"))

@@ -12,7 +12,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.net.InetAddress
 import java.net.ServerSocket
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
 import java.security.KeyStore
+import javax.crypto.KeyGenerator
 import java.util.UUID
 import kotlin.concurrent.thread
 
@@ -46,6 +49,28 @@ class E2EKeyStoreInstrumentedTest {
         } finally {
             store.remove(owner)
             store.remove(other)
+        }
+    }
+
+    @Test
+    fun corruptedDeviceKeyIsResetWithoutCrashing() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val store = E2EKeyStore(context)
+        val owner = UUID.randomUUID().toString()
+        val key = ByteArray(32) { 37 }
+        try {
+            store.save(owner, key)
+            // Una chiave non AES sotto lo stesso alias: Cipher.init fallisce come con un Keystore corrotto.
+            KeyStore.getInstance("AndroidKeyStore").apply { load(null) }.deleteEntry("bucktrail_e2e_key")
+            KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_HMAC_SHA256, "AndroidKeyStore").apply {
+                init(KeyGenParameterSpec.Builder("bucktrail_e2e_key", KeyProperties.PURPOSE_SIGN).build())
+            }.generateKey()
+            assertNull(store.load(owner))
+            assertNull(context.getSharedPreferences("bucktrail_e2e", Context.MODE_PRIVATE).getString("dek.$owner", null))
+            store.save(owner, key)
+            assertArrayEquals(key, store.load(owner)?.bytes)
+        } finally {
+            store.remove(owner)
         }
     }
 

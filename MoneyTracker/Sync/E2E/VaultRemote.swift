@@ -65,7 +65,8 @@ struct SupabaseVaultAccess: VaultAccess {
 
     private func read<Row: Decodable>(columns: String, table: SyncTable, userId: UUID,
                                       keyId: String?, id: KeyPath<Row, UUID>) async throws -> [Row] {
-        let pageSize = 200
+        // Full rows carry the ciphertext: smaller pages keep each response light.
+        let pageSize = columns == "*" ? 200 : 1000
         var rows: [Row] = []
         var cursor: UUID?
         repeat {
