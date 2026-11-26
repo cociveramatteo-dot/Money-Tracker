@@ -18,6 +18,9 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 ### ANDROID · aggiornare l'app sul tuo telefono
 📍 Terminale, cartella `03_CODICE/bucktrail-android`, telefono collegato con Debug USB acceso. ▶️ `./gradlew installDebug` (con JAVA_HOME e ANDROID_HOME come l'altra volta). Si aggiorna sopra la versione installata, i dati restano. ↩️ Dimmi se all'apertura non vedi più l'icona e se lucchetto e icona del login ti sembrano come su iPhone.
 
+### E2E · prova reale della Protezione avanzata con un account di prova (dopo S-50p, quando vuoi)
+📍 iPhone e Android con l'app aggiornata. ▶️ Esci dal tuo account, crea un account di prova con una seconda email, aggiungi qualche conto e movimento, poi Impostazioni → Protezione avanzata → attiva. Controlla che sull'altro dispositivo, dopo l'accesso con lo stesso account, i dati compaiano uguali; poi disattiva e ricontrolla. Solo dopo valuta se attivarla sul tuo account vero. ↩️ Dimmi cosa torna e cosa no (screenshot delle differenze).
+
 ### SOCIAL · TikTok — nome e account Business
 📍 TikTok → Profilo → Modifica profilo → Nome. ▶️ Scrivi `Bucktrail · budget`. Dopo il primo post passa ad Account Business (Impostazioni e privacy → Account) e nel campo Sito web metti `https://bucktrailapp.com/?utm_source=tiktok&utm_medium=bio`; poi la bio può tornare a «link in bio». ↩️ Scrivi «tiktok ok».
 
