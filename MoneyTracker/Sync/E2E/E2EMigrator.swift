@@ -266,6 +266,7 @@ struct E2EMigrator {
             try await rollbackEnable(row)
             throw Failure.verificationFailed
         }
+        try await clearDeadVaultKeys(whileMigrating: row)
         let generation = Self.newGeneration(after: row.updatedAt)
         var cleanup = marker
         cleanup.activationGeneration = generation
@@ -438,6 +439,30 @@ struct E2EMigrator {
         try validateSession()
     }
 
+    private func clearDeadVaultKeys(whileMigrating row: E2EServerRow) async throws {
+        for table in SyncTable.allCases {
+            try await requireCurrent(row)
+            do {
+                let rows = try await vault.vaultKeyRows(table: table, userId: userId)
+                let deadKeys = Dictionary(grouping: rows) { $0.keyId }
+                for (key, records) in deadKeys {
+                    guard let key, key != row.keyId else { continue }
+                    let ids = records.map(\.id)
+                    for offset in stride(from: 0, to: ids.count, by: 100) {
+                        try await requireCurrent(row)
+                        // A delayed DELETE cannot remove a row already rewritten under a new key.
+                        try await vault.deleteVault(ids: Array(ids[offset..<min(offset + 100, ids.count)]),
+                                                    table: table, userId: userId, keyId: key)
+                    }
+                }
+            } catch where !(error is CancellationError) && (error as? Failure) != .stateChanged
+                && !E2EServer.operationStateChanged(error) {
+                try validateSession()
+                Logger.persistence.warning("E2E: obsolete vault cleanup deferred")
+            }
+        }
+    }
+
     private func clearVault(keyId: String, whileCurrent row: E2EServerRow?,
                             verifiedIDs: [SyncTable: Set<UUID>] = [:]) async throws {
         func checkState() async throws {
@@ -588,11 +613,6 @@ struct E2EMigrator {
         for old in try files.contentsOfDirectory(at: backupDirectory, includingPropertiesForKeys: nil)
             where old != url {
             try files.removeItem(at: old)
-        }
-        for table in SyncTable.allCases {
-            let ids = rows.rows(table).map { $0.id.uuidString.lowercased() }.sorted()
-            let hash = E2EVerifier.digest(Data(ids.joined(separator: "\n").utf8))
-            Logger.persistence.info("E2E backup \(table.kind, privacy: .public): \(ids.count) rows, ids \(hash, privacy: .private)")
         }
     }
 

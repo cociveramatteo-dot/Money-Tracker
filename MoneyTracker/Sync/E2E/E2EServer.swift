@@ -82,6 +82,7 @@ enum E2EServerLookup {
 @MainActor
 protocol E2EServerAccess {
     func lookup(userId: UUID) async throws -> E2EServerLookup
+    func hasActiveVaultKey(userId: UUID, keyId: String) async throws -> Bool
     func insert(_ row: E2EServerRow) async throws
     func patch(_ changes: E2EServerPatch, userId: UUID) async throws
     func delete(userId: UUID) async throws
@@ -92,6 +93,11 @@ protocol E2EServerAccess {
 }
 
 extension E2EServerAccess {
+    func hasActiveVaultKey(userId: UUID, keyId: String) async throws -> Bool {
+        guard case .row(let row) = try await lookup(userId: userId) else { return false }
+        return row.userId == userId && row.state == .active && row.keyId == keyId
+    }
+
     // In-memory transports use the same generation transition without HTTP.
     func activate(ifCurrent row: E2EServerRow, generation: String, counts: [String: Int]) async throws -> Bool {
         try await patch(E2EServerPatch(state: .active, updatedAt: generation), ifCurrent: row)
@@ -132,6 +138,14 @@ struct E2EServer: E2EServerAccess {
         let p_generation: String
     }
 
+    private struct VaultKey: Decodable {
+        let keyId: String
+
+        enum CodingKeys: String, CodingKey {
+            case keyId = "key_id"
+        }
+    }
+
     init(client: SupabaseClient) {
         var configuration = client.schema("public").configuration
         let fetch = configuration.fetch
@@ -160,6 +174,14 @@ struct E2EServer: E2EServerAccess {
         } catch where Self.isUnavailable(error) {
             return .unavailable
         }
+    }
+
+    func hasActiveVaultKey(userId: UUID, keyId: String) async throws -> Bool {
+        let rows: [VaultKey] = try await client.from("mt_e2e").select("key_id")
+            .eq("user_id", value: userId.uuidString.lowercased())
+            .eq("state", value: E2EServerState.active.rawValue)
+            .eq("key_id", value: keyId).execute().value
+        return rows.count == 1 && rows.first?.keyId == keyId
     }
 
     func insert(_ row: E2EServerRow) async throws {
@@ -234,6 +256,7 @@ struct E2EServer: E2EServerAccess {
     }
 
     static func operationStateChanged(_ error: any Error) -> Bool {
+        if case .wrongKey? = error as? VaultRemote.Failure { return true }
         guard let error = error as? PostgrestError, error.code == "P0001" else { return false }
         return ["bt_e2e_state_changed", "bt_e2e_counts", "bt_e2e_key_mismatch",
                 "bt_e2e_vault_locked", "bt_e2e_use_activate", "bt_e2e_use_rollback"].contains(error.message)

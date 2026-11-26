@@ -270,3 +270,8 @@ Progetto completo: `.cantiere/progetto-banca.md`. Dopo il lancio e dopo S-50. Au
 - **Decisione:** l'app non cancella più «al meglio» `mt_vault`/`mt_e2e` prima di eliminare l'account (modifica di Codex in 1492143, `Auth/SupabaseManager.swift` e Android `SyncService.kt`). Resta così.
 - **Perché:** verificato da Matteo su Supabase il 2026-11-26 11:06: `delete_own_account` esegue `delete from auth.users where id = auth.uid()`, e tutte le 7 tabelle (`mt_accounts`, `mt_transactions`, `mt_budgets`, `mt_goals`, `mt_recurring_rules`, `mt_e2e`, `mt_vault`) hanno la chiave esterna verso `auth.users` con `on delete cascade`. La cancellazione è garantita dal server, in un'unica transazione: più affidabile della pulizia dal client. Rischio R9 chiuso.
 - **Alternativa scartata:** ripristinare la pulizia dal client filtrata per `key_id` (ridondante; in più richiede chiamate extra che possono fallire a metà).
+
+## 2026-11-26 · S-50q.2 · Righe residue del vault dopo D7
+
+- La sync legge per la chiave viva. Prima di applicare uno snapshot cifrato che può modificare i dati locali, il client verifica che la chiave sia ancora attiva: un cambio durante il pull può produrre uno snapshot parziale.
+- La riattivazione raccoglie gli ID delle chiavi obsolete dopo la verifica della nuova copia e prima di A6. Ogni DELETE filtra per utente, tipo, ID e singola chiave obsoleta. Un guasto di trasporto durante la pulizia lascia le righe per una riattivazione successiva. Un cambio di generazione interrompe l'operazione.

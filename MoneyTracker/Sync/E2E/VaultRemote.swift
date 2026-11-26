@@ -16,12 +16,31 @@ nonisolated struct VaultRecord: Codable, Sendable {
     }
 }
 
+nonisolated struct VaultKeyRow: Decodable {
+    let id: UUID
+    let keyId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case keyId = "key_id"
+    }
+}
+
 @MainActor
 protocol VaultAccess {
     func vaultIds(table: SyncTable, userId: UUID, keyId: String) async throws -> Set<UUID>
     func vaultRows(table: SyncTable, userId: UUID, keyId: String?) async throws -> [VaultRecord]
+    func vaultKeyRows(table: SyncTable, userId: UUID) async throws -> [VaultKeyRow]
     func upsertVault(_ rows: [VaultRecord]) async throws
     func deleteVault(ids: [UUID], table: SyncTable, userId: UUID, keyId: String) async throws
+}
+
+extension VaultAccess {
+    func vaultKeyRows(table: SyncTable, userId: UUID) async throws -> [VaultKeyRow] {
+        try await vaultRows(table: table, userId: userId, keyId: nil).map {
+            VaultKeyRow(id: $0.id, keyId: $0.keyId)
+        }
+    }
 }
 
 struct SupabaseVaultAccess: VaultAccess {
@@ -38,6 +57,10 @@ struct SupabaseVaultAccess: VaultAccess {
 
     func vaultRows(table: SyncTable, userId: UUID, keyId: String?) async throws -> [VaultRecord] {
         try await read(columns: "*", table: table, userId: userId, keyId: keyId, id: \.id)
+    }
+
+    func vaultKeyRows(table: SyncTable, userId: UUID) async throws -> [VaultKeyRow] {
+        try await read(columns: "id,key_id", table: table, userId: userId, keyId: nil, id: \.id)
     }
 
     private func read<Row: Decodable>(columns: String, table: SyncTable, userId: UUID,
@@ -80,7 +103,7 @@ struct VaultRemote: SyncRemote {
     let access: any VaultAccess
     let dek: SymmetricKey
     let owner: UUID
-    // A regular pull must see a replacement key instead of treating it as an empty vault.
+    // Sync and migration scope reads. Unscoped diagnostics can still detect a mismatched row.
     var scopeReads = false
     private let batchSize = 200
 

@@ -90,7 +90,12 @@ class E2EController(
 
         val transport = when (mode) {
             E2EGate.Mode.Plain -> E2EWriteGuard(plain)
-            is E2EGate.Mode.Vault -> E2EWriteGuard(VaultSupabaseApi(plain, vault, mode.dek, userId))
+            is E2EGate.Mode.Vault -> E2EWriteGuard(VaultSupabaseApi(plain, vault, mode.dek, userId)) { token ->
+                val current = (vault.getE2e(owner, token) as? E2ERowLookup.Present)?.row
+                if (current?.text("state") != "active" || current.text("key_id") != mode.keyId) {
+                    throw ApiException(ErrorKind.Client, 400, "bt_e2e_key_mismatch", "P0001")
+                }
+            }
             else -> null
         }
         val pending = if (resume != null && marker != null) PendingMigration(marker, resolution.row) else null
@@ -157,6 +162,9 @@ class E2EController(
         val completeSnapshot: Boolean,
     ) {
         val writeRejected: Boolean get() = (transport as? E2EWriteGuard)?.rejected == true
+        suspend fun validatePull(token: String) {
+            if (completeSnapshot) (transport as? E2EWriteGuard)?.validatePull(token)
+        }
     }
 
     internal suspend fun <T> migrate(
@@ -221,7 +229,10 @@ class E2EController(
         }
     }
 
-    private class E2EWriteGuard(private val plain: SupabaseApi) : SupabaseApi by plain {
+    private class E2EWriteGuard(
+        private val plain: SupabaseApi,
+        private val validateKey: (suspend (String) -> Unit)? = null,
+    ) : SupabaseApi by plain {
         var rejected: Boolean = false
             private set
 
@@ -233,6 +244,8 @@ class E2EController(
 
         override suspend fun deleteIn(table: String, ids: List<String>, userId: String, token: String) =
             checkRequest { plain.deleteIn(table, ids, userId, token) }
+
+        suspend fun validatePull(token: String) = checkRequest { validateKey?.invoke(token) }
 
         private inline fun <T> checkRequest(block: () -> T): T {
             try {

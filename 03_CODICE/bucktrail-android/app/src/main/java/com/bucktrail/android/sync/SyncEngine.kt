@@ -86,6 +86,7 @@ class SyncEngine(
     private val chunk: Int = 500,
     private val onClear: (String?) -> Unit = {},
     private val completeSnapshot: Boolean = false,
+    private val validatePull: suspend (String) -> Unit = {},
 ) {
     /** Ponte verso `AuthManager` (nei test: finto con un token fisso). */
     interface AuthGateway {
@@ -96,6 +97,7 @@ class SyncEngine(
     /** Un trasporto per tutta l'operazione, legato alla sessione che ha risolto il gate. */
     internal fun using(
         api: SupabaseApi, owner: String, completeSnapshot: Boolean = false, batchSize: Int = chunk,
+        validatePull: suspend (String) -> Unit = {},
     ): SyncEngine {
         val scopedAuth = object : AuthGateway {
             override val userId: String? get() = auth.userId?.takeIf { it == owner }
@@ -104,7 +106,7 @@ class SyncEngine(
                 block(token).also { if (userId == null) throw NotSignedInException() }
             }
         }
-        return SyncEngine(api, store, state, scopedAuth, nowMillis, batchSize, onClear, completeSnapshot)
+        return SyncEngine(api, store, state, scopedAuth, nowMillis, batchSize, onClear, completeSnapshot, validatePull)
     }
 
     /** Il push è consentito solo dopo il primo scambio riuscito per questo utente. */
@@ -198,6 +200,8 @@ class SyncEngine(
                 val budgets = decode(api.selectAll("mt_budgets", userId, token), SyncMapper::budget)
                 val goals = decode(api.selectAll("mt_goals", userId, token), SyncMapper::goal)
                 val rules = decode(api.selectAll("mt_recurring_rules", userId, token), SyncMapper::rule)
+                // Verify the live key before a partially read snapshot can delete local rows.
+                validatePull(token)
                 Snapshot(accounts.items, tx.items, budgets.items, goals.items, rules.items) to
                     IgnoredIds(accounts.ignored, tx.ignored, budgets.ignored, goals.ignored, rules.ignored)
             }
@@ -261,8 +265,10 @@ class SyncEngine(
         }
         val remoteEmpty = try {
             auth.authed { token ->
-                if (!completeSnapshot) fetchIds("mt_accounts", userId, token).isEmpty()
+                val empty = if (!completeSnapshot) fetchIds("mt_accounts", userId, token).isEmpty()
                 else VaultKind.entries.none { fetchIds(it.table, userId, token).isNotEmpty() }
+                validatePull(token)
+                empty
             }
         } catch (e: Exception) {
             // iOS ripiega sul push; qui mai: senza sapere cosa c'è sul cloud non si scrive (il primo scambio non è ancora avvenuto)

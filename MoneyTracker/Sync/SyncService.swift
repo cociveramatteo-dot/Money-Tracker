@@ -309,7 +309,7 @@ final class SyncService: ObservableObject {
     private let defaults: UserDefaults
     private let clearAuditLog: @MainActor () -> Void
     private let e2eEnabled: Bool
-    private let e2eKeyStore = E2EKeyStore()
+    private let e2eKeyStore: E2EKeyStore
     private var e2eBackupDirectory = E2EMigrator.backupDirectory
     @Published private(set) var isMigrating = false
 
@@ -319,17 +319,20 @@ final class SyncService: ObservableObject {
         defaults = .standard
         clearAuditLog = { AuditLogger.shared.clearAll() }
         e2eEnabled = E2EFeature.isEnabled
+        e2eKeyStore = E2EKeyStore()
         startNetworkMonitoring()
     }
 
     /// Isolated service for tests, with no network monitor or live app state.
     init(remote: any SyncRemote, userId: UUID, defaults: UserDefaults,
          e2eLaunchArguments: [String]? = nil, e2eBackupDirectory: URL? = nil,
+         e2eKeyStore: E2EKeyStore = E2EKeyStore(),
          clearAuditLog: @escaping @MainActor () -> Void = {}) {
         injectedRemote = remote
         injectedUserId = userId
         self.defaults = defaults
         self.clearAuditLog = clearAuditLog
+        self.e2eKeyStore = e2eKeyStore
         self.e2eBackupDirectory = e2eBackupDirectory ?? FileManager.default.temporaryDirectory
             .appending(path: UUID().uuidString, directoryHint: .isDirectory)
         #if DEBUG
@@ -826,6 +829,13 @@ final class SyncService: ObservableObject {
         // Finish all reads before touching SwiftData: a bad vault row or a
         // stale session must not look like a remote deletion.
         let snapshot = try await PullRows(remote: remote, userId: userId)
+        if let encrypted = remote as? VaultRemote, let (server, _) = e2eBackend {
+            // With scoped reads a replacement mid-pull can otherwise look like missing rows.
+            let keyId = try VaultCrypto.keyId(dek: encrypted.dek)
+            guard try await server.hasActiveVaultKey(userId: userId, keyId: keyId) else {
+                throw VaultRemote.Failure.wrongKey
+            }
+        }
         try validateSession()
         try await download(context: context, remote: remote, userId: userId, snapshot: snapshot)
     }
@@ -1227,9 +1237,6 @@ final class SyncService: ObservableObject {
                                      validateSession: validateSession)
                     didPush = true
                 }
-            } catch where E2EServer.operationStateChanged(error) {
-                await refreshE2EProtection(server: server, userId: userId, validateSession: validateSession)
-                throw E2EMigrator.Failure.stateChanged
             } catch where E2EServer.blockedPlainWrite(error) {
                 try validateSession()
                 let refreshed = try await gate.resolve(userId: userId, enabled: e2eEnabled,
@@ -1265,6 +1272,16 @@ final class SyncService: ObservableObject {
             return pauseE2ESync()
         } catch {
             guard (try? validateSession()) != nil else { return false }
+            if E2EServer.operationStateChanged(error) {
+                let refreshed = await refreshE2EProtection(server: server, userId: userId, validateSession: validateSession)
+                guard (try? validateSession()) != nil else { return false }
+                if let refreshed {
+                    if refreshed.needsPlainInitialSync { defaults.set(userId.uuidString, forKey: initialSyncKey) }
+                    if e2eRemote(for: refreshed, plain: remote, vault: vault, userId: userId) == nil {
+                        return pauseE2ESync()
+                    }
+                }
+            }
             Logger.persistence.error("SyncService: E2E sync operation failed")
             hasPendingChanges = true
             consecutiveFailures += 1
@@ -1434,23 +1451,25 @@ final class SyncService: ObservableObject {
         e2eMigrationToResume = nil
         switch resolution.mode {
         case .plain: return plain
-        case .vault(let dek): return VaultRemote(access: vault, dek: dek, owner: userId)
+        case .vault(let dek): return VaultRemote(access: vault, dek: dek, owner: userId, scopeReads: true)
         case .locked(let reason): e2eLockReason = reason
         case .resume(let direction): e2eMigrationToResume = direction
         }
         return nil
     }
 
+    @discardableResult
     private func refreshE2EProtection(server: any E2EServerAccess, userId: UUID,
-                                      validateSession: () throws -> Void) async {
+                                      validateSession: () throws -> Void) async -> E2EGate.Resolution? {
         let gate = E2EGate(server: server, keyStore: e2eKeyStore)
         let marker = E2EMigrator.marker(in: defaults, userId: userId)
         guard (try? validateSession()) != nil,
               let resolution = try? await gate.resolve(userId: userId, enabled: e2eEnabled,
                                                        marker: marker, validateSession: validateSession),
-              (try? validateSession()) != nil else { return }
+              (try? validateSession()) != nil else { return nil }
         e2eServerSupported = resolution.serverSupported
         publishE2EProtection(resolution, userId: userId)
+        return resolution
     }
 
     private func publishE2EProtection(_ resolution: E2EGate.Resolution, userId: UUID) {

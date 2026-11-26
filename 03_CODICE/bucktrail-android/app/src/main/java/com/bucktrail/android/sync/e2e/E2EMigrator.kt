@@ -62,7 +62,6 @@ internal class E2EMigrator(
         }
         if (!engine.canPush(userId) || marker() != null || lookup() != E2ERowLookup.Absent) throw Failure(Problem.StateChanged)
 
-        requireEmptyVaultWhileOff()
         val aligned = synchronize(guardWrites(plain, null, canDelete = false), pruneOrphans = false)
         step(Step.A0)
         backup(aligned)
@@ -264,6 +263,7 @@ internal class E2EMigrator(
         }
         val transport = guardWrites(encrypted(dek), row)
         val verified = copyAndVerify(transport, Step.A4, Step.A5, frozen) ?: abortEnable(row, marker)
+        clearDeadVaultKeys(row)
         val generation = newGeneration(row)
         val cleanup = marker.copy(phase = Phase.Verified, activationGeneration = generation)
         validateSession()
@@ -420,11 +420,27 @@ internal class E2EMigrator(
         requireCurrent(active)
     }
 
-    private suspend fun requireEmptyVaultWhileOff() {
+    private suspend fun clearDeadVaultKeys(migrating: JsonObject) {
+        val liveKey = keyId(migrating)
         for (kind in VaultKind.entries) {
-            request { token ->
-                requireCurrent(null, token)
-                if (vault.selectVault(kind, uid, token, "id").isNotEmpty()) throw Failure(Problem.StateChanged)
+            requireCurrent(migrating)
+            try {
+                val rows = request { token -> vault.selectVault(kind, uid, token, "id,key_id") }
+                val deadKeys = rows.groupBy { it.text("key_id") }
+                for ((key, records) in deadKeys) {
+                    if (key == null || key == liveKey) continue
+                    val ids = records.mapNotNull { canonicalUuid(it.text("id"))?.toString() }.distinct()
+                    for (batch in ids.sorted().chunked(100)) {
+                        request { token ->
+                            requireCurrent(migrating, token)
+                            // A delayed DELETE cannot remove a row already rewritten under a new key.
+                            vault.deleteVault(kind, batch, uid, token, key)
+                        }
+                    }
+                }
+            } catch (_: ApiException) {
+                validateSession()
+                log("E2E: obsolete vault cleanup deferred")
             }
         }
     }
@@ -506,7 +522,7 @@ internal class E2EMigrator(
             }
         }
 
-    private fun encrypted(dek: ByteArray) = VaultSupabaseApi(plain, vault, dek, uid, scopeReads = true)
+    private fun encrypted(dek: ByteArray) = VaultSupabaseApi(plain, vault, dek, uid)
 
     private suspend fun read(client: SupabaseApi): MigrationRows = withContext(Dispatchers.Default) {
         request { token ->
@@ -610,10 +626,6 @@ internal class E2EMigrator(
             } finally {
                 if (tmp.exists()) tmp.delete()
             }
-        }
-        for ((kind, values) in rows) {
-            val ids = E2EVerifier.ids(values, kind).sorted()
-            log("E2E backup ${kind.wire}: ${ids.size} rows, ids ${E2EVerifier.digest(ids.joinToString("\n"))}")
         }
     }
 

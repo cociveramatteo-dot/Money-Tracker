@@ -336,7 +336,8 @@ class SyncService(
                 pauseForProtection()
                 return
             }
-            val selected = engine.using(transport, userId, completeSnapshot = selection.completeSnapshot)
+            val selected = engine.using(transport, userId, completeSnapshot = selection.completeSnapshot,
+                validatePull = selection::validatePull)
             if (selection.needsInitialSync) {
                 restartInitialSync(selected, controller)
             } else {
@@ -351,7 +352,8 @@ class SyncService(
             when {
                 updated == null -> pauseForProtection()
                 refreshed.needsInitialSync -> {
-                    restartInitialSync(engine.using(updated, userId, completeSnapshot = refreshed.completeSnapshot), controller)
+                    restartInitialSync(engine.using(updated, userId, completeSnapshot = refreshed.completeSnapshot,
+                        validatePull = refreshed::validatePull), controller)
                 }
                 else -> failed()
             }

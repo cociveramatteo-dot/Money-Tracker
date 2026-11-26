@@ -12,7 +12,6 @@ import kotlinx.serialization.json.buildJsonObject
 /** Espone al motore gli stessi JSON della sync in chiaro, ma li conserva cifrati in mt_vault. */
 class VaultSupabaseApi(
     plain: SupabaseApi, private val vault: VaultApi, dek: ByteArray, userId: String,
-    private val scopeReads: Boolean = false,
 ) : SupabaseApi by plain {
     private val owner = requireNotNull(canonicalUuid(userId))
     private val key = dek.copyOf()
@@ -22,9 +21,7 @@ class VaultSupabaseApi(
         checkOwner(userId)
         require(columns == "*" || columns == "id")
         val kind = VaultKind.forTable(table)
-        // Let a normal pull detect a replacement key instead of seeing an empty vault.
-        val filter = keyId.takeIf { scopeReads || columns == "id" }
-        return vault.selectVault(kind, owner.toString(), token, columns, filter).map { record ->
+        return vault.selectVault(kind, owner.toString(), token, columns, keyId).map { record ->
             val id = canonicalUuid(record.text("id")) ?: throw SyncFormatException("Invalid vault row ID")
             val fallback = JsonObject(mapOf("id" to JsonPrimitive(id.toString())))
             if (columns == "id") return@map fallback
