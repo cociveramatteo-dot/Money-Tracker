@@ -240,3 +240,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-26 13:42 | == CHECKPOINT (veloce) · capocantiere (Claude Code · Sonnet 5.5) | checkpoint veloce | S-50m 10/10, S-50o approvato, manuale v3.27+PDF, grafo, pagella 94 | S-50r → S-50p |
 | 2026-11-26 13:44 | capocantiere (Claude Code · Sonnet 5.5) | riprendiamo + pulizia PER-MATTEO | S-30 confermata, tolti promemoria post social e Apple | S-50r → Codex |
 | 2026-11-26 13:59 | Seconda impresa (Codex · GPT-6) | S-50r | Vault iOS: decifratura, decodifica, codifica e cifratura fuori dal main actor. Build iOS riuscita, 185 unitari e 8 UI Protezione avanzata verdi | Collaudo S-50r. Suite UI generale interrotta dopo 3 prove verdi per eseguire quelle mirate |
+| 2026-11-26 14:55 | collaudatore (Claude Code · Sonnet) | S-50r collaudo | diff c8e89c8 conforme; suite iOS completa: 185 unitari verdi, UI 55/57 al primo giro, 2 instabili verdi in 2 riesecuzioni; nessun warning di concorrenza | S-50p |
