@@ -266,7 +266,9 @@ struct E2EMigrator {
             try await rollbackEnable(row)
             throw Failure.verificationFailed
         }
-        try await clearDeadVaultKeys(whileMigrating: row)
+        try await vault.clearDeadVaultKeys(userId: userId, liveKey: row.keyId, validateSession: validateSession) {
+            try await requireCurrent(row)
+        }
         let generation = Self.newGeneration(after: row.updatedAt)
         var cleanup = marker
         cleanup.activationGeneration = generation
@@ -379,6 +381,9 @@ struct E2EMigrator {
             (table, Set(remaining.rows(table).map(\.id)))
         })
         try await clearVault(keyId: marker.keyId, whileCurrent: nil, verifiedIDs: verifiedIDs)
+        try await vault.retryDeadVaultCleanup(userId: userId, liveKey: marker.keyId, validateSession: validateSession) {
+            guard case .absent = try await lookup() else { throw Failure.stateChanged }
+        }
         try checkpoint(.d7)
         try finish()
     }
@@ -439,30 +444,6 @@ struct E2EMigrator {
             }
         }
         try validateSession()
-    }
-
-    private func clearDeadVaultKeys(whileMigrating row: E2EServerRow) async throws {
-        for table in SyncTable.allCases {
-            try await requireCurrent(row)
-            do {
-                let rows = try await vault.vaultKeyRows(table: table, userId: userId)
-                let deadKeys = Dictionary(grouping: rows) { $0.keyId }
-                for (key, records) in deadKeys {
-                    guard let key, key != row.keyId else { continue }
-                    let ids = records.map(\.id)
-                    for offset in stride(from: 0, to: ids.count, by: 100) {
-                        try await requireCurrent(row)
-                        // A delayed DELETE cannot remove a row already rewritten under a new key.
-                        try await vault.deleteVault(ids: Array(ids[offset..<min(offset + 100, ids.count)]),
-                                                    table: table, userId: userId, keyId: key)
-                    }
-                }
-            } catch where !(error is CancellationError) && (error as? Failure) != .stateChanged
-                && !E2EServer.operationStateChanged(error) {
-                try validateSession()
-                Logger.persistence.warning("E2E: obsolete vault cleanup deferred")
-            }
-        }
     }
 
     private func clearVault(keyId: String, whileCurrent row: E2EServerRow?,

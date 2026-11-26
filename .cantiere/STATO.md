@@ -1,6 +1,6 @@
 # STATO DEL CANTIERE
 
-In turno: nessuno
+In turno: impresa (Codex · GPT-6) — 2026-11-26 14:58
 Ultimo checkpoint: 2026-11-26 13:42 (checkpoint-2026-11-26-1342)
 Fase: progetto SOCIAL, post 1 pubblicato il 19/11 su Instagram e TikTok, primo rilevamento registrato; post 2 F13 pubblicato su Instagram e TikTok, formato faceless. Ramo redesign-sentiero (da portare su main con l'ok di Matteo). Fix curva Home S-36 da chiudere.
 Social: direttive in `SOCIAL/direttive-social.md`; Post-3 «Guida: HOME» approvato come tema, sequenza e impostazione delle slide 2–3; data e grafica finale da confermare. Post-4–12 approvati come tema e sequenza. Intero piano fino al Post-42 approvato da Matteo con copertura dell’app. Archivio permanente locale in `SOCIAL/schermate-app/`.

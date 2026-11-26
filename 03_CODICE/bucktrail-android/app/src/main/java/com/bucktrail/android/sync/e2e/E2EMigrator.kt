@@ -12,6 +12,7 @@ import com.bucktrail.android.sync.SyncEngine
 import com.bucktrail.android.sync.SyncFormatException
 import com.bucktrail.android.sync.SyncMapper
 import com.bucktrail.android.sync.e2e.E2EMigrationMarker.Phase
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -264,7 +265,7 @@ internal class E2EMigrator(
         }
         val transport = guardWrites(encrypted(dek), row)
         val verified = copyAndVerify(transport, Step.A4, Step.A5, frozen) ?: abortEnable(row, marker)
-        clearDeadVaultKeys(row)
+        clearDeadVaultKeys(keyId(row), row)
         val generation = newGeneration(row)
         val cleanup = marker.copy(phase = Phase.Verified, activationGeneration = generation)
         validateSession()
@@ -367,6 +368,14 @@ internal class E2EMigrator(
         // Delete only IDs seen in the verified remainder, not any new entries
         // returned by later ID queries. A residual row pauses cleanup.
         clearVault(null, marker.keyId, remaining.mapValues { (kind, rows) -> E2EVerifier.ids(rows, kind) })
+        try {
+            clearDeadVaultKeys(marker.keyId, null)
+        } catch (cancelled: CancellationException) {
+            throw cancelled
+        } catch (_: Exception) {
+            validateSession()
+            log("E2E: obsolete vault cleanup deferred")
+        }
         step(Step.D7)
         completedCopy()
         finish()
@@ -421,30 +430,11 @@ internal class E2EMigrator(
         requireCurrent(active)
     }
 
-    private suspend fun clearDeadVaultKeys(migrating: JsonObject) {
-        val liveKey = keyId(migrating)
-        for (kind in VaultKind.entries) {
-            requireCurrent(migrating)
-            try {
-                val rows = request { token -> vault.selectVault(kind, uid, token, "id,key_id") }
-                val deadKeys = rows.groupBy { it.text("key_id") }
-                for ((key, records) in deadKeys) {
-                    if (key == null || key == liveKey) continue
-                    val ids = records.mapNotNull { canonicalUuid(it.text("id"))?.toString() }.distinct()
-                    for (batch in ids.sorted().chunked(100)) {
-                        request { token ->
-                            requireCurrent(migrating, token)
-                            // A delayed DELETE cannot remove a row already rewritten under a new key.
-                            vault.deleteVault(kind, batch, uid, token, key)
-                        }
-                    }
-                }
-            } catch (_: ApiException) {
-                validateSession()
-                log("E2E: obsolete vault cleanup deferred")
-            }
+    private suspend fun clearDeadVaultKeys(liveKey: String, expected: JsonObject?) =
+        vault.clearDeadVaultKeys(uid, liveKey, ::request, { requireCurrent(expected, it) }) {
+            validateSession()
+            log("E2E: obsolete vault cleanup deferred")
         }
-    }
 
     private suspend fun clearVault(expected: JsonObject?, keyId: String, verified: Map<VaultKind, Set<String>> = emptyMap()) {
         for (kind in VaultKind.entries) {

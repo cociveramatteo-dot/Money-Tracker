@@ -89,20 +89,43 @@ class E2EController(
         }
         publishStatus(userId, resolution)
 
+        suspend fun requireActiveKey(token: String, keyId: String) {
+            validate()
+            val current = (vault.getE2e(owner, token) as? E2ERowLookup.Present)?.row
+            if (current?.text("state") != "active" || current.text("key_id") != keyId) {
+                throw ApiException(ErrorKind.Client, 400, "bt_e2e_key_mismatch", "P0001")
+            }
+            validate()
+        }
+
         val transport = when (mode) {
             E2EGate.Mode.Plain -> E2EWriteGuard(plain)
             is E2EGate.Mode.Vault -> E2EWriteGuard(VaultSupabaseApi(plain, vault, mode.dek, userId)) { token ->
-                val current = (vault.getE2e(owner, token) as? E2ERowLookup.Present)?.row
-                if (current?.text("state") != "active" || current.text("key_id") != mode.keyId) {
-                    throw ApiException(ErrorKind.Client, 400, "bt_e2e_key_mismatch", "P0001")
-                }
+                requireActiveKey(token, mode.keyId)
             }
             else -> null
         }
         val pending = if (resume != null && marker != null) PendingMigration(marker, resolution.row) else null
         return Selection(transport, needsInitialSync, pending,
             completeSnapshot = migrationConfigured && (mode is E2EGate.Mode.Vault || needsInitialSync),
-            firstAccess = resolution.mode == E2EGate.Mode.Plain && resolution.needsPlainInitialSync)
+            firstAccess = resolution.mode == E2EGate.Mode.Plain && resolution.needsPlainInitialSync,
+            afterPull = {
+                if (migrationConfigured && mode is E2EGate.Mode.Vault) {
+                    fun deferred() {
+                        validate()
+                        if (BuildConfig.DEBUG && secrets is E2EKeyStore) {
+                            Log.i("BucktrailE2E", "E2E: obsolete vault cleanup deferred")
+                        }
+                    }
+                    try {
+                        vault.clearDeadVaultKeys(owner, mode.keyId, auth::authed, { requireActiveKey(it, mode.keyId) }, ::deferred)
+                    } catch (cancelled: CancellationException) {
+                        throw cancelled
+                    } catch (_: Exception) {
+                        deferred()
+                    }
+                }
+            })
     }
 
     /**
@@ -175,6 +198,7 @@ class E2EController(
         val transport: SupabaseApi?, val needsInitialSync: Boolean, val pending: PendingMigration?,
         val completeSnapshot: Boolean,
         val firstAccess: Boolean = false,
+        val afterPull: suspend () -> Unit = {},
     ) {
         val writeRejected: Boolean get() = (transport as? E2EWriteGuard)?.rejected == true
         suspend fun validatePull(token: String) {

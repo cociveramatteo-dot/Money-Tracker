@@ -1,5 +1,6 @@
 import CryptoKit
 import Foundation
+import OSLog
 import Supabase
 
 nonisolated struct VaultRecord: Codable, Sendable {
@@ -36,6 +37,43 @@ protocol VaultAccess {
 }
 
 extension VaultAccess {
+    func clearDeadVaultKeys(userId: UUID, liveKey: String, validateSession: () throws -> Void,
+                            requireCurrent: () async throws -> Void) async throws {
+        for table in SyncTable.allCases {
+            try await requireCurrent()
+            do {
+                let rows = try await vaultKeyRows(table: table, userId: userId)
+                let deadKeys = Dictionary(grouping: rows) { $0.keyId }
+                for (key, records) in deadKeys {
+                    guard let key, key != liveKey else { continue }
+                    let ids = records.map(\.id)
+                    for offset in stride(from: 0, to: ids.count, by: 100) {
+                        try await requireCurrent()
+                        // A delayed DELETE cannot remove a row already rewritten under a new key.
+                        try await deleteVault(ids: Array(ids[offset..<min(offset + 100, ids.count)]),
+                                              table: table, userId: userId, keyId: key)
+                    }
+                }
+            } catch where !(error is CancellationError) && (error as? E2EMigrator.Failure) != .stateChanged
+                && !E2EServer.operationStateChanged(error) {
+                try validateSession()
+                Logger.persistence.warning("E2E: obsolete vault cleanup deferred")
+            }
+        }
+    }
+
+    /// Cleanup after a completed copy must not turn a transient cleanup failure into a failed sync.
+    func retryDeadVaultCleanup(userId: UUID, liveKey: String, validateSession: () throws -> Void,
+                               requireCurrent: () async throws -> Void) async throws {
+        do {
+            try await clearDeadVaultKeys(userId: userId, liveKey: liveKey, validateSession: validateSession,
+                                        requireCurrent: requireCurrent)
+        } catch where !(error is CancellationError) {
+            try validateSession()
+            Logger.persistence.warning("E2E: obsolete vault cleanup deferred")
+        }
+    }
+
     func vaultKeyRows(table: SyncTable, userId: UUID) async throws -> [VaultKeyRow] {
         try await vaultRows(table: table, userId: userId, keyId: nil).map {
             VaultKeyRow(id: $0.id, keyId: $0.keyId)

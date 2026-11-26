@@ -130,6 +130,7 @@ class SyncService(
         _ignoredRows.value = selected.lastIgnoredRows
         watcher.rebase(store.snapshot())
         _pulled.tryEmit(Unit)
+        e2eSelection?.afterPull?.invoke()
     }
 
     private fun success() { failures = 0; state.hasPendingChanges = false; _status.value = if (online) SyncStatus.Idle else SyncStatus.Offline }

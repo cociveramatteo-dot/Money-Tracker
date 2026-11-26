@@ -75,3 +75,32 @@ internal fun canonicalUuid(value: String?): UUID? {
     if (value == null || value.length != 36) return null
     return runCatching { UUID.fromString(value) }.getOrNull()?.takeIf { it.toString().equals(value, ignoreCase = true) }
 }
+
+
+internal suspend fun VaultApi.clearDeadVaultKeys(
+    userId: String,
+    liveKey: String,
+    request: suspend (suspend (String) -> Unit) -> Unit,
+    requireCurrent: suspend (String) -> Unit,
+    onDeferred: suspend () -> Unit,
+) {
+    for (kind in VaultKind.entries) {
+        request(requireCurrent)
+        try {
+            request { token ->
+                val rows = selectVault(kind, userId, token, "id,key_id")
+                for ((key, records) in rows.groupBy { it.text("key_id") }) {
+                    if (key == null || key == liveKey) continue
+                    val ids = records.mapNotNull { canonicalUuid(it.text("id"))?.toString() }.distinct()
+                    for (batch in ids.sorted().chunked(100)) {
+                        requireCurrent(token)
+                        // A delayed DELETE cannot remove a row already rewritten under a new key.
+                        deleteVault(kind, batch, userId, token, key)
+                    }
+                }
+            }
+        } catch (_: ApiException) {
+            onDeferred()
+        }
+    }
+}

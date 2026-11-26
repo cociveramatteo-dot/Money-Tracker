@@ -868,19 +868,30 @@ final class SyncService: ObservableObject {
         // Finish all reads before touching SwiftData: a bad vault row or a
         // stale session must not look like a remote deletion.
         let snapshot = try await PullRows(remote: remote, userId: userId)
-        if let encrypted = remote as? VaultRemote, let (server, _) = e2eBackend {
-            // With scoped reads a replacement mid-pull can otherwise look like missing rows.
-            let keyId = try VaultCrypto.keyId(dek: encrypted.dek)
+        guard let encrypted = remote as? VaultRemote, let (server, vault) = e2eBackend else {
+            try validateSession()
+            try await download(context: context, remote: remote, userId: userId, snapshot: snapshot)
+            return
+        }
+        let keyId = try VaultCrypto.keyId(dek: encrypted.dek)
+        func requireActiveKey() async throws {
+            try validateSession()
             guard try await server.hasActiveVaultKey(userId: userId, keyId: keyId) else {
                 throw VaultRemote.Failure.wrongKey
             }
+            try validateSession()
         }
-        try validateSession()
-        try await download(context: context, remote: remote, userId: userId, snapshot: snapshot)
+        // With scoped reads a replacement mid-pull can otherwise look like missing rows.
+        try await requireActiveKey()
+        if try await download(context: context, remote: remote, userId: userId, snapshot: snapshot) {
+            try await vault.retryDeadVaultCleanup(userId: userId, liveKey: keyId,
+                                                 validateSession: validateSession, requireCurrent: requireActiveKey)
+        }
     }
 
+    @discardableResult
     private func download(context: ModelContext, remote: any SyncRemote, userId: UUID,
-                          snapshot: PullRows? = nil, forMigration: Bool = false) async throws {
+                          snapshot: PullRows? = nil, forMigration: Bool = false) async throws -> Bool {
         // forMigration: E2E migration pull. Keeps local transactions missing from
         // the snapshot and fails (with rollback) instead of a best-effort save.
         Logger.persistence.info("SyncService: pull started")
@@ -898,7 +909,7 @@ final class SyncService: ObservableObject {
             let localAccountCount = (try? context.fetchCount(FetchDescriptor<Account>())) ?? 0
             if sbAccounts.isEmpty && localAccountCount > 0 {
                 Logger.persistence.warning("SyncService: pull skipped — remote empty, local has data")
-                return
+                return false
             }
 
             let localAccounts    = (try? context.fetch(FetchDescriptor<Account>())) ?? []
@@ -1079,6 +1090,7 @@ final class SyncService: ObservableObject {
             }
             try Self.mergeRecurringRules(sbRules, context: context)
 
+            let saved: Bool
             if forMigration {
                 do { try context.save() }
                 catch {
@@ -1086,11 +1098,13 @@ final class SyncService: ObservableObject {
                     throw error
                 }
                 AccountBalanceCache.shared.invalidateAll()
+                saved = true
             } else {
-                context.safeSave()
+                saved = context.safeSave()
             }
             defaults.set(Date(), forKey: lastPullKey)
             Logger.persistence.info("SyncService: pull complete")
+            return saved
         }
     }
 
