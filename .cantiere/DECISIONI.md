@@ -350,4 +350,4 @@ La riparazione in chiaro usa una RPC condizionale che aggiorna soltanto `account
 - D2 ok: serie senza occorrenze nel mese si gestiscono dal mese in cui compaiono (pressione lunga); serie finite non compaiono in Ricorrenti.
 - D3 sì: nel mese corrente anche i pianificati a mano stanno al loro giorno.
 - D4 ok: eliminare NextMonthSummaryTests.swift e NextMonthSummaryTest.kt; adattare solo la navigazione di DemoShowcaseUITests, RecurrenceAppearanceUITests, RecurrenceCancelAndHomeUITests (asserzioni identiche).
-- D1: in attesa.
+- D1 = a: in Ricorrenti si vedono tutte le occorrenze del mese (già avvenute, da confermare, future); la differenza è visiva. «Niente passato» = niente storico dei mesi precedenti.
