@@ -21,3 +21,4 @@ S-51g/S-51e/S-51h 2026-11-27 13:34: collaudo ok [x] (iOS 46/46 mirati, t10 3/3, 
 S-52b/c 2026-11-27 14:40: implementato [~]. Android 335 unitari verdi. Build iOS e regressione iniziale verificate. Da completare giro iOS finale e collaudo indipendente, poi SQL di S-52s a Matteo.
 S-53 2026-11-27 16:30: prova S-50 di Matteo bloccata, attivazione Protezione fallisce sul Supabase vero (0/9 e 4/9). Annullata. Prossimo: S-53a → Codex, poi S-53b Matteo, poi S-70.
 S-53a 2026-11-27 17:01: fix backup E2E (percorsi /private/var) [~], 30/30 test E2E. Prossimo: S-53b Matteo riprova da Xcode, poi collaudo, poi S-70.
+S-54/S-55/S-56 2026-11-27 18:20: implementati da impresa (Antigravity) [~] su iOS e Android (`04ed36b`, `0f12838`, `3af6702`, `25073ed`). Verifiche iOS (211/211 pre-fix UI, 9/9 mirati + E2EUITests + DemoShowcaseUITests post-fix) e Android (`assembleDebug`, `lintDebug`, `testDebugUnitTest`) verdi; screenshot iOS in `.cantiere/tmp/`. Prossimo: collaudo indipendente.

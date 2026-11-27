@@ -565,6 +565,21 @@ Sintomo: account di prova, iPhone (Release, `-E2EEnabled YES`) → Attiva → fr
   - [x] (2026-11-27 17:25, collaudo ok: fix corretto — cartella E2EBackup dedicata, nome con millisecondi; test riproduce davvero /var vs /private/var; 30/30 E2E iOS verdi; Android confronta File della stessa cartella, non colpito) (2026-11-27 17:01, capocantiere su richiesta di Matteo, Codex fuori uso) Causa: `E2EMigrator.backup()` cancellava le copie vecchie confrontando URL interi; sul telefono la cartella elencata compare come /private/var e la copia appena scritta veniva cancellata → loadBackup trova 0 file → verificationFailed dopo a3 (log diagnostici sul telefono di Matteo: «backup files 0»). Simulatore non colpito (prova live 12/12 verde). Fix: confronto per nome file. Test nuovo `activationKeepsBackupWhenFolderIsReachedThroughASymlink` (rosso prima, verde dopo); 30/30 test E2E iOS. Android: confronto sullo stesso percorso, non colpito. **S-53a · Riprodurre sul server vero con un account di prova, trovare l'errore esatto, correggere iOS (e Android se tocca), aggiungere un log `.public` dell'errore in E2EController** → Codex
   - [x] (2026-11-27, prova di Matteo ok: attivazione, sblocco Android, sync nei due sensi, chiave di recupero, disattivazione) **S-53b · Matteo rifà la prova S-50 (passi 2–6)** → Matteo, dopo S-53a
 
+### S-54 [~] Ordine dei movimenti uniforme (giorno di calendario DESC, poi createdAt DESC)
+- **A chi:** impresa (Antigravity) · commit `04ed36b` (2026-11-27)
+- **Eseguito:** iOS (`TransactionDisplayOrder.swift`, `@Query` su `DashboardView`, `TransactionsView`, `StatisticsView`, `PianificaView`, `RecurringSeriesDetailView`, ordinamento di visualizzazione su Home «Ultimi movimenti», Movimenti, dettaglio serie e PDF Statistiche) e Android (`data/Dao.kt` con `date(date / 1000, 'unixepoch', 'localtime') DESC, createdAt DESC, id`, `TransactionDisplayOrder.kt`, `HomeScreen`, `MovementsScreen`, `RecurrenceScreens`, `AppViewModel`). Nessun calcolo né modello dati toccato.
+- **Test aggiunti:** `MoneyTrackerTests/TransactionDisplayOrderTests.swift` e `TransactionDisplayOrderTest.kt` (inclusa query SQLite in memoria). Da collaudare.
+
+### S-55 [~] Occhio mostra/nascondi su tutti i campi nascosti (iOS e Android)
+- **A chi:** impresa (Antigravity) · commit `0f12838`, `25073ed` (2026-11-27)
+- **Eseguito:** iOS (`RevealableSecureField.swift` stile DS, applicato a `LoginView`, `SignUpView`, `E2EActivationFlow` frase/ripeti/cambio, `E2EUnlockView` frase e chiave di recupero; correttore/suggerimenti disabilitati quando visibile; ripristino automatico a nascosto quando l'app lascia il primo piano) e Android (`AuthScreens.kt` `AuthField` e `AdvancedProtectionScreens.kt`, reset su `Lifecycle.Event.ON_STOP`). Etichette di accessibilità `"Mostra"` / `"Nascondi"` (`mostra` / `nascondi`) in tutte e 7 le lingue (it, en, de, es, fr, ja, zh-Hans).
+- **Test aggiunti:** `MoneyTrackerTests/RevealableSecureFieldTests.swift` (`plutil -lint` ok, `E2ELocalizationTests` verdi). Da collaudare (visivo in scuro e prova comportamento su Android).
+
+### S-56 [~] Formattatore chiave di recupero (trattini ogni 4 caratteri)
+- **A chi:** impresa (Antigravity) · commit `3af6702`, `25073ed` (2026-11-27)
+- **Eseguito:** iOS (`RecoveryKeyInputFormatter.swift`, `E2EUnlockView` solo quando `useRecoveryKey == true`, `RecoveryKeyCard` conferma chiave) e Android (`RecoveryKeyInputFormatter.kt` con gestione cursore `TextFieldValue`, `AuthScreens.kt`, `AdvancedProtectionScreens.kt` solo sblocco con chiave e conferma). Maiuscole automatiche, normalizzazione incolla (spazi/trattini), cancella che supera il trattino senza bloccarsi, massimo 32 caratteri utili; mai applicato alla frase di sicurezza; `RecoveryKey.parse` non toccato.
+- **Test aggiunti:** `MoneyTrackerTests/RecoveryKeyInputFormatterTests.swift` e `RecoveryKeyInputFormatterTest.kt`. Da collaudare.
+
 ### S-70 · Doppio tap con categorie + simulazione «E se…?» (idee di Matteo, 2026-11-26)
 Progetto: `.cantiere/progetto-s70-doppio-tap-simulazione.md` (architetto, 2026-11-26). Una sessione Codex, 3 commit. Autorizzazione di Matteo a toccare `Intents/` per S-70 (2026-11-26, in chat): Codex la registra in DECISIONI.
   - [ ] **S-70a · Doppio tap spese: categoria scelta vince, suggerita e ultima usata in cima** → Codex · progetto §2

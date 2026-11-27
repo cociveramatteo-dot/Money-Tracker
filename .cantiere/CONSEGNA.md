@@ -1,100 +1,44 @@
-# CONSEGNA — S-52b/c · Movimenti scollegati dal conto
+# CONSEGNA — S-54, S-55, S-56 (iOS + Android)
 
-## Cosa abbiamo trovato
+## Cosa è stato fatto
 
-- Un upsert dello stesso ID aggiorna il conto. Nel codice storico del 29 ottobre (commit `08dedf8`), il push faceva invece un DELETE degli orfani remoti subito dopo l'upsert dei conti, prima di sincronizzare i movimenti. Una copia locale incompleta seguita da un push con i conti di nuovo presenti può quindi produrre esattamente l'effetto osservato con `ON DELETE SET NULL`. I log dell'incidente non permettono di identificare quale dispositivo o evento iniziale abbia fatto partire quel DELETE.
-- Logout e cambio utente svuotano la copia locale. Sul ramo attuale Android può fare un push prima del logout, e iOS lo fa quando ha modifiche in coda. Valgono le nuove guardie anche in questi casi. L'attivazione della Protezione avanzata rimuove le copie in chiaro solo dopo verifica del vault e comincia dalle tabelle dipendenti.
-- S-51g continua a propagare la cancellazione effettiva dell'ultimo conto. Se il server ha ancora il movimento, i client lo conservano e gli applicano il conto remoto, anche quando è vuoto. Se una risposta parziale mostra movimenti ancora collegati a un conto locale assente dall'elenco remoto, il client conserva quel conto.
+1. **S-54 · Ordine movimenti uniforme (`04ed36b`)**
+   - **Regola:** giorno di calendario dal più recente, poi `createdAt` dal più recente (l'ultimo aggiunto in cima), tie-break deterministico su `id`; nessuna modifica a `Models/`, `Domain/` o calcoli.
+   - **iOS:** nuovo helper `MoneyTracker/Views/TransactionDisplayOrder.swift` (`sortedForDisplay(calendar:)`); aggiornati i `@Query` (con `SortDescriptor(\Transaction.date, order: .reverse)` + `SortDescriptor(\Transaction.createdAt, order: .reverse)`) e l'ordinamento di visualizzazione in `DashboardView`, `TransactionsView`, `StatisticsView` (export PDF), `PianificaView` e `RecurringSeriesDetailView`.
+   - **Android:** `03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/Dao.kt` aggiornato con `ORDER BY date(date / 1000, 'unixepoch', 'localtime') DESC, createdAt DESC, id` su `transactions()` e `observeTransactions()`; nuovo helper `ui/TransactionDisplayOrder.kt` (`sortedForDisplay(zone)`) applicato a `HomeScreen`, `MovementsScreen`, `RecurrenceScreens` (`RecurringSeriesDetailSheet`) e `AppViewModel.exportPdf`.
+   - **Test:** `MoneyTrackerTests/TransactionDisplayOrderTests.swift` e `03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/ui/TransactionDisplayOrderTest.kt` (inclusa verifica SQLite in memoria della query `Dao.kt`).
 
-## Comportamento dei client
+2. **S-55 · Occhio mostra/nascondi (`0f12838`, `25073ed`)**
+   - **iOS:** nuovo componente `MoneyTracker/Views/Components/RevealableSecureField.swift` in stile `DS` (`Theme.swift`), con icona `eye` / `eye.slash` (target 44×44), disattivazione correttore e suggerimenti (`.autocorrectionDisabled(true)`, `.textInputAutocapitalization(.never)`, `.textContentType(.none)`), ripristino automatico a nascosto su `scenePhase != .active`. Applicato a `LoginView`, `SignUpView` (password e conferma), `E2EActivationFlow` (`E2EPhraseFields`: frase, ripeti, cambio) e `E2EUnlockView` (frase e chiave di recupero, con `.id(useRecoveryKey)`).
+   - **Android:** `AuthField` in `AuthScreens.kt` (con `Lifecycle.Event.ON_STOP` per nascondere in background e `KeyboardType.Text` + `autoCorrectEnabled = false` quando visibile) applicato a login, registrazione e a `SecretField`/`ProtectionPage.Unlock` in `AdvancedProtectionScreens.kt`.
+   - **Accessibilità 7 lingue (it, en, de, es, fr, ja, zh-Hans):** chiavi `"Mostra"` / `"Nascondi"` in tutti i 7 `Localizable.strings` iOS e `mostra` / `nascondi` in tutti i 7 `strings.xml` Android.
+   - **Test:** `MoneyTrackerTests/RevealableSecureFieldTests.swift`, `E2ELocalizationTests` e `plutil -lint` sui 7 `.strings`.
 
-- Il push ordinario richiede una scelta esplicita per cancellare un conto. Prima sincronizza le cancellazioni dei movimenti previste dalla base. Un riferimento ancora presente blocca il DELETE del conto.
-- Il pull iOS esclude il proprio salvataggio dall'osservazione dei cambiamenti e dal push automatico. Android usa la finestra silenziosa e riallinea il watcher. D2 appena entrato non rimanda né T1 né T2.
-- D1 può riparare il collegamento di T1 se conserva il conto locale e quel conto esiste sul server. La scrittura condizionale tocca soltanto `account_id`. D2 lo riceve al pull successivo. Un errore temporaneo lascia il collegamento locale per riprovare al pull seguente.
-- Il trigger sotto registra da quel momento le scritture esplicite del conto vuoto. I null preesistenti restano indistinguibili nel database: la riparazione richiede una copia locale collegata e un conto ancora remoto. I client sono compatibili con il vecchio schema e avviano la riparazione solo quando ricevono il nuovo marcatore. Nei dati cifrati non esiste la FK in questione.
+3. **S-56 · Formattatore chiave di recupero (`3af6702`, `25073ed`)**
+   - **Regola:** trattini automatici ogni 4 caratteri (`XXXX-XXXX-...`), maiuscole automatiche, incolla normalizzato (spazi/trattini/a capo rimossi), cancellazione che supera il trattino senza bloccarsi, massimo 32 caratteri utili. Applicato **solo** ai campi della chiave di recupero (sblocco con chiave e conferma ultimi 4 caratteri), mai alle frasi di sicurezza; `RecoveryKey.parse` intatto.
+   - **iOS:** `MoneyTracker/Views/E2E/RecoveryKeyInputFormatter.swift`, collegato via `.onChange` (per compatibilità `XCUITest.typeText`/SwiftUI) in `RevealableSecureField` (su `E2EUnlockView` quando `useRecoveryKey == true`) e `RecoveryKeyCard`.
+   - **Android:** `03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/RecoveryKeyInputFormatter.kt` (`format` e `formatSelection` su `TextFieldValue` per mantenere la posizione del cursore), collegato in `AuthField` (`recoveryKeyFormatting = true`) su `ProtectionPage.Unlock` (solo `useRecovery == true`) e `RecoveryCard`.
+   - **Test:** `MoneyTrackerTests/RecoveryKeyInputFormatterTests.swift` e `03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/ui/RecoveryKeyInputFormatterTest.kt`.
 
-## Verifiche
+## Verifiche eseguite
 
-- Android: `assembleDebug lintDebug testDebugUnitTest` completato con 335 test unitari verdi, compreso il test HTTP con il server Python. Il report di `connectedDebugAndroidTest` contiene 11 passati e 6 saltati per configurazione.
-- Server finto Python: 19/19. Lo scenario S-52 con due client riproduce il DELETE e la ricreazione con lo stesso ID. Verifica anche assenza di upsert di T1/T2, ricollegamento, saldo e S-51g. SQL eseguito solo su PostgreSQL locale con verifica FK, RLS e cancellazione completa dell'utente.
-- iOS: build Release e build Debug completate. Il primo test a due dispositivi ha fallito le tre asserzioni di recupero prima della correzione e ha passato lo scenario dopo. Il giro unitario finale e i test UI sono stati fermati su richiesta di Matteo. Le nuove varianti iOS di S-51g e della cancellazione esplicita vanno ancora confermate con il giro finale.
-- Il giro unitario finale ha riprodotto l'asserzione già incoerente con HEAD in `E2EGateTests.swift:174`: la sequenza attesa omette il `fetchIds(.accounts)` già introdotto da S-51d. Il test è rimasto invariato. I problemi di interop/golden del primo giro sono stati corretti nel codice, da riconfermare con la nuova build.
-- Per ripartire in Xcode sulla macchina del cantiere, dalla root:
-  ```sh
-  xcodebuild -scheme MoneyTracker -configuration Debug -destination 'id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' -parallel-testing-enabled NO build test
-  ```
-  Per una conferma rapida delle regressioni prima del giro completo, aggiungi `-only-testing:MoneyTrackerTests/SyncAccountLinkTests -only-testing:MoneyTrackerTests/SyncRemoteGoldenTests -only-testing:MoneyTrackerTests/E2ERowInteropTests`. Log di lavoro in `/tmp/moneytracker-s52-ios*.log`.
-- Le modifiche preesistenti in `MoneyTracker.xcscheme` e `StatisticsView.swift` sono fuori dal commit. Grafo aggiornato localmente, fuori dal commit.
+- **iOS (dopo l'ultimo edit `25073ed`):**
+  - Suite unitarie mirate (`TransactionDisplayOrderTests`, `RevealableSecureFieldTests`, `RecoveryKeyInputFormatterTests`, `E2ELocalizationTests`): **9/9 verdi**.
+  - `E2EUITests`: **6/6 verdi** in light (`it-light`) e **2/2 verdi** in dark (`testActivationValidationAndDisableConfirmation`, `testUnlockRejectsWrongPhraseAndPromptsOnce`).
+  - `DemoShowcaseUITests`: **verde** in light e dark (Home, Movimenti, Ricorrenze, Statistiche, Pianifica, Conti).
+  - *Nota:* la suite completa `MoneyTrackerTests` (**211/211 verdi**) è stata eseguita su `3af6702` prima della piccola modifica reattiva `25073ed` (che tocca solo `RevealableSecureField.swift` e `RecoveryKeyCard.swift`, coperti dai test mirati + `E2EUITests` successivi).
+- **Android (dopo l'ultima modifica Android `3af6702`):**
+  - `./gradlew testDebugUnitTest assembleDebug lintDebug`: **BUILD SUCCESSFUL**, tutti gli unit test verdi (inclusi `TransactionDisplayOrderTest` e `RecoveryKeyInputFormatterTest`), `lintDebug` verde.
+- **Screenshot in `.cantiere/tmp/` (esclusi da git):**
+  - `.cantiere/tmp/s54/ios-light/` e `.cantiere/tmp/s54/ios-dark/` (DemoShowcase light/dark).
+  - `.cantiere/tmp/s55-s56/ios-light/` e `.cantiere/tmp/s55-s56/ios-dark/` (E2E screenshots; nota: in `ios-dark/` la sheet modale E2E su iOS 27.2 è rimasta chiara sotto `XCUIDevice.shared.appearance = .dark`).
 
-## SQL per Matteo dopo il collaudo
+## Da verificare al collaudo
 
-📍 Apri il progetto Bucktrail nel dashboard Supabase, entra in **SQL Editor → New query**. ▶️ Copia il blocco qui sotto per intero e premi **Run**. ↩️ Riporta il messaggio di esito. Il blocco interrompe la transazione se la FK di partenza differisce dalla definizione verificata. La FK differibile verifica a fine transazione che non restino movimenti orfani e consente la cancellazione completa dell'utente in un'unica transazione. [Documentazione PostgreSQL](https://www.postgresql.org/docs/18/ddl-constraints.html)
-
-```sql
-begin;
-
-alter table public.mt_transactions
-  add column account_link_cleared boolean not null default false;
-
--- Conserva le colonne e le altre opzioni della FK esistente.
-do $$
-declare
-  definition text;
-begin
-  select pg_get_constraintdef(oid) into strict definition
-  from pg_constraint
-  where conrelid = 'public.mt_transactions'::regclass
-    and conname = 'mt_transactions_account_id_fkey'
-    and contype = 'f' and not condeferrable;
-
-  if definition !~ 'ON DELETE SET NULL' then
-    raise exception 'Definizione inattesa: %', definition;
-  end if;
-
-  alter table public.mt_transactions drop constraint mt_transactions_account_id_fkey;
-  execute 'alter table public.mt_transactions add constraint mt_transactions_account_id_fkey '
-    || replace(definition, 'ON DELETE SET NULL', 'ON DELETE NO ACTION')
-    || ' DEFERRABLE INITIALLY DEFERRED';
-end;
-$$;
-
-create function public.mt_track_account_link() returns trigger
-language plpgsql set search_path = ''
-as $$
-begin
-  new.account_link_cleared := new.account_id is null;
-  return new;
-end;
-$$;
-
-create trigger mt_track_account_link
-before insert or update of account_id, account_link_cleared
-on public.mt_transactions
-for each row execute function public.mt_track_account_link();
-
-create function public.mt_repair_transaction_accounts(links jsonb) returns void
-language sql security invoker set search_path = ''
-as $$
-  update public.mt_transactions as t
-     set account_id = a.id
-    from jsonb_each_text(links) as requested(transaction_id, account_id)
-    join public.mt_accounts as a
-      on a.id = requested.account_id::uuid and a.user_id = auth.uid()
-   where t.id = requested.transaction_id::uuid and t.user_id = auth.uid()
-     and not t.account_link_cleared
-     and (t.account_id is null or not exists (
-       select 1 from public.mt_accounts as existing
-       where existing.id = t.account_id and existing.user_id = t.user_id
-     ));
-$$;
-
-revoke all on function public.mt_repair_transaction_accounts(jsonb) from public, anon;
-grant execute on function public.mt_repair_transaction_accounts(jsonb) to authenticated;
-notify pgrst, 'reload schema';
-
-commit;
-```
+- Collaudo indipendente dei commit `04ed36b`, `0f12838`, `3af6702`, `25073ed` (verifica rispetto zone vietate: in `Auth/` toccate solo le viste UI `LoginView.swift` e `SignUpView.swift`, nessuna logica `Auth/` toccata).
+- Controllo visivo e interattivo (occhio mostra/nascondi, auto-hide in background, formattatore chiave) su `LoginView`/`SignUpView`, E2E dark e su emulatore Android (`connectedDebugAndroidTest` / `E2EProtectionUiTest` non eseguiti in questo turno).
+- Rilancio completo `MoneyTrackerTests` + suite UI completa iOS se richiesto prima del checkpoint.
 
 ## Prossimo turno
 
-Collaudatore indipendente su S-52b/c. Verificare dal diff e con i test per cancellazione esplicita del conto, S-51g, assenza di eco, sottostato cifrato e RPC condizionale con il server finto. Poi Matteo può applicare l'SQL dal proprio SQL Editor.
+Collaudatore su S-54, S-55 e S-56.
