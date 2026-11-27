@@ -18,6 +18,11 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 ### ANDROID · aggiornare l'app sul tuo telefono
 📍 Terminale, cartella `03_CODICE/bucktrail-android`, telefono collegato con Debug USB acceso. ▶️ Per le prove sul cloud vero NON usare il solo `./gradlew installDebug` (punta a un server finto: «Nessuna connessione»). Chiedi al capocantiere: lo installa lui con URL e chiave veri e `-Pe2e=true`. Si aggiorna sopra la versione installata, i dati restano. ↩️ Dimmi se all'apertura non vedi più l'icona e se lucchetto e icona del login ti sembrano come su iPhone.
 
+### E2E · Protezione avanzata: promemoria (2026-11-27)
+- Nella versione pubblicata (Release) la Protezione avanzata c'è SEMPRE: non c'è niente da «accendere» prima del lancio.
+- Nelle build di prova da Xcode (Debug) è nascosta apposta. 📍 Per vederla: Xcode → Product → Scheme → Edit Scheme… → Run → Arguments → «Arguments Passed On Launch» → + → `-E2EEnabled YES` → Close → ▶︎ Run (resta solo sul tuo Mac, non va in git).
+- Sul tuo account VERO non è attiva. ▶️ Quando vuoi attivarla: prima Impostazioni → Esporta dati (backup), poi Impostazioni → Protezione avanzata → Attiva, con Bucktrail chiusa su Android; salva frase e chiave di recupero fuori dal telefono. ↩️ Dimmi com'è andata.
+
 ### SOCIAL · TikTok — nome e account Business
 📍 TikTok → Profilo → Modifica profilo → Nome. ▶️ Scrivi `Bucktrail · budget`. Dopo il primo post passa ad Account Business (Impostazioni e privacy → Account) e nel campo Sito web metti `https://bucktrailapp.com/?utm_source=tiktok&utm_medium=bio`; poi la bio può tornare a «link in bio». ↩️ Scrivi «tiktok ok».
 
