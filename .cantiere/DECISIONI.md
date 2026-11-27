@@ -300,3 +300,9 @@ Scartati il registro delle cancellazioni locali, il pull prima del push, i tombs
 Il §5 del progetto prevede l'adeguamento delle aspettative che falliscono per il cambio di protocollo. Su iOS, i test del login con remoto vuoto e del client in chiaro bloccato da E2E ora attendono la lettura degli ID prima dell'upsert. Su Android, i test della guardia, del consenso tra modalità e dei batch dichiarano la base coerente con lo scenario. Le verifiche sul blocco delle scritture, sulla conferma e sulle dimensioni dei batch restano attive.
 
 I pull intermedi di migrazione mantengono la semantica precedente. Su Android il ripristino autenticato da questo dispositivo apre una nuova base dopo lo svuotamento deliberato del remoto, e il primo accesso con cloud vuoto accoda anche i movimenti creati prima del login. Gli ID remoti illeggibili sono registrati nella base Android. Se il dispositivo non ne ha mai avuto una copia, l'assenza locale non autorizza a cancellarli.
+
+## 2026-11-27 · S-51f · Isolamento della vista radice
+
+`MoneyTrackerApp.body` costruisce `RootView` sul MainActor. La closure `@Sendable` del `WindowGroup` restituisce la vista già costruita e il suo `body` compone l'interfaccia. Il coordinamento del ciclo di vita e la coda delle ricorrenze restano in `MoneyTrackerApp`, condivisi tra le finestre.
+
+I rapporti di crash mostrano che SwiftUI può invocare la closure dalla coda `AsyncRenderer`. L'estrazione di `RootView` da sola ha superato la prima prova reale, ma l'ispezione del binario Debug ha rilevato ancora `swift_task_isCurrentExecutor` nella closure. Con `@Sendable` quella verifica è assente dalla closure nel binario Debug. Spostare anche la coda delle ricorrenze nella vista avrebbe creato una coda per finestra su iPad.
