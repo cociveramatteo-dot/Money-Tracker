@@ -32,7 +32,6 @@
     <string name="andamento_12_mesi" formatted="false">12ヶ月トレンド</string>
     <string name="andamento_6_mesi" formatted="false">6ヶ月の推移</string>
     <string name="anno" formatted="false">年</string>
-    <string name="anno_lld_vs_lld">%1$d年 vs %2$d年</string>
     <string name="annuale" formatted="false">毎年</string>
     <string name="annulla" formatted="false">キャンセル</string>
     <string name="appare_in_fissi_del_mese_nella_home" formatted="false">ホームの「今月の固定項目」に表示</string>
@@ -81,7 +80,6 @@
     <string name="da_pagare" formatted="false">支払い待ち</string>
     <string name="da_ricevere" formatted="false">受取り待ち</string>
     <string name="data" formatted="false">日付</string>
-    <string name="dati_insufficienti" formatted="false">データ不足。</string>
     <string name="descrizione" formatted="false">説明</string>
     <string name="descrizione_entrata" formatted="false">収入の説明</string>
     <string name="dopo" formatted="false">後で</string>
@@ -96,7 +94,6 @@
     <string name="entrate" formatted="false">収入</string>
     <string name="entrate_fisse" formatted="false">固定収入</string>
     <string name="entrate_fisse_mensili" formatted="false">毎月の固定収入</string>
-    <string name="entrate_medie" formatted="false">平均収入</string>
     <string name="entro" formatted="false">期限</string>
     <string name="escludi_dal_totale" formatted="false">合計から除外</string>
     <string name="escluso_dal_totale" formatted="false">合計に含まず</string>
@@ -160,7 +157,6 @@
     <string name="modalita_demo" formatted="false">デモモード</string>
     <string name="massimo" formatted="false">最大</string>
     <string name="media" formatted="false">平均</string>
-    <string name="media_mensile_ultimi_12_mesi" formatted="false">月次平均 — 直近12ヶ月</string>
     <string name="mensile" formatted="false">毎月</string>
     <string name="menta" formatted="false">ミント</string>
     <string name="mese" formatted="false">月</string>
@@ -318,7 +314,6 @@
     <string name="ultimo" formatted="false">前回</string>
     <string name="uscita" formatted="false">支出</string>
     <string name="uscite" formatted="false">支出</string>
-    <string name="uscite_medie" formatted="false">平均支出</string>
     <string name="uscite_per_categoria" formatted="false">カテゴリ別支出</string>
     <string name="uscite_totali" formatted="false">支出合計</string>
     <string name="valuta" formatted="false">通貨</string>
@@ -377,7 +372,6 @@
     <string name="predefinita" formatted="false">デフォルト</string>
     <string name="rimasti" formatted="false">残り</string>
     <string name="rispetto_al_mese_precedente" formatted="false">前月比</string>
-    <string name="rispetto_al_mese_scorso" formatted="false">先月比</string>
     <string name="saldo" formatted="false">残高</string>
     <string name="volte" formatted="false">回</string>
     <string name="ultima_usata" formatted="false">· 前回使用</string>

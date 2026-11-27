@@ -32,7 +32,6 @@
     <string name="andamento_12_mesi" formatted="false">Tendencia 12 meses</string>
     <string name="andamento_6_mesi" formatted="false">Tendencia 6 meses</string>
     <string name="anno" formatted="false">Año</string>
-    <string name="anno_lld_vs_lld">%1$d vs %2$d</string>
     <string name="annuale" formatted="false">Anual</string>
     <string name="annulla" formatted="false">Cancelar</string>
     <string name="appare_in_fissi_del_mese_nella_home" formatted="false">Aparece en \'Fijos del mes\' en inicio</string>
@@ -81,7 +80,6 @@
     <string name="da_pagare" formatted="false">Por pagar</string>
     <string name="da_ricevere" formatted="false">Por recibir</string>
     <string name="data" formatted="false">Fecha</string>
-    <string name="dati_insufficienti" formatted="false">Datos insuficientes.</string>
     <string name="descrizione" formatted="false">Descripción</string>
     <string name="descrizione_entrata" formatted="false">Descripción del ingreso</string>
     <string name="dopo" formatted="false">Después</string>
@@ -96,7 +94,6 @@
     <string name="entrate" formatted="false">Ingresos</string>
     <string name="entrate_fisse" formatted="false">Ingresos fijos</string>
     <string name="entrate_fisse_mensili" formatted="false">Ingresos fijos mensuales</string>
-    <string name="entrate_medie" formatted="false">Ingresos medios</string>
     <string name="entro" formatted="false">Antes del</string>
     <string name="escludi_dal_totale" formatted="false">Excluir del total</string>
     <string name="escluso_dal_totale" formatted="false">Excluido del total</string>
@@ -160,7 +157,6 @@
     <string name="modalita_demo" formatted="false">MODO DEMO</string>
     <string name="massimo" formatted="false">Máximo</string>
     <string name="media" formatted="false">Media</string>
-    <string name="media_mensile_ultimi_12_mesi" formatted="false">Media mensual — últimos 12 meses</string>
     <string name="mensile" formatted="false">Mensual</string>
     <string name="menta" formatted="false">Menta</string>
     <string name="mese" formatted="false">Mes</string>
@@ -318,7 +314,6 @@
     <string name="ultimo" formatted="false">Último</string>
     <string name="uscita" formatted="false">Gasto</string>
     <string name="uscite" formatted="false">Gastos</string>
-    <string name="uscite_medie" formatted="false">Gastos medios</string>
     <string name="uscite_per_categoria" formatted="false">Gastos por categoría</string>
     <string name="uscite_totali" formatted="false">Gastos totales</string>
     <string name="valuta" formatted="false">Divisa</string>
@@ -377,7 +372,6 @@
     <string name="predefinita" formatted="false">predefinida</string>
     <string name="rimasti" formatted="false">restantes</string>
     <string name="rispetto_al_mese_precedente" formatted="false">vs mes anterior</string>
-    <string name="rispetto_al_mese_scorso" formatted="false">vs mes anterior</string>
     <string name="saldo" formatted="false">saldo</string>
     <string name="volte" formatted="false">veces</string>
     <string name="ultima_usata" formatted="false">· Última utilizada</string>

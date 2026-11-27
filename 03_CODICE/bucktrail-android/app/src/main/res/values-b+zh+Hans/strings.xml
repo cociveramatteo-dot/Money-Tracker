@@ -32,7 +32,6 @@
     <string name="andamento_12_mesi" formatted="false">12个月趋势</string>
     <string name="andamento_6_mesi" formatted="false">6个月趋势</string>
     <string name="anno" formatted="false">年</string>
-    <string name="anno_lld_vs_lld">%1$d vs %2$d</string>
     <string name="annuale" formatted="false">每年</string>
     <string name="annulla" formatted="false">取消</string>
     <string name="appare_in_fissi_del_mese_nella_home" formatted="false">显示在首页每月固定项目中</string>
@@ -81,7 +80,6 @@
     <string name="da_pagare" formatted="false">待支付</string>
     <string name="da_ricevere" formatted="false">待收取</string>
     <string name="data" formatted="false">日期</string>
-    <string name="dati_insufficienti" formatted="false">数据不足。</string>
     <string name="descrizione" formatted="false">描述</string>
     <string name="descrizione_entrata" formatted="false">收入描述</string>
     <string name="dopo" formatted="false">稍后</string>
@@ -96,7 +94,6 @@
     <string name="entrate" formatted="false">收入</string>
     <string name="entrate_fisse" formatted="false">固定收入</string>
     <string name="entrate_fisse_mensili" formatted="false">每月固定收入</string>
-    <string name="entrate_medie" formatted="false">平均收入</string>
     <string name="entro" formatted="false">截止</string>
     <string name="escludi_dal_totale" formatted="false">从总计中排除</string>
     <string name="escluso_dal_totale" formatted="false">不计入总额</string>
@@ -160,7 +157,6 @@
     <string name="modalita_demo" formatted="false">演示模式</string>
     <string name="massimo" formatted="false">最大</string>
     <string name="media" formatted="false">平均</string>
-    <string name="media_mensile_ultimi_12_mesi" formatted="false">月均支出 — 近12个月</string>
     <string name="mensile" formatted="false">每月</string>
     <string name="menta" formatted="false">薄荷</string>
     <string name="mese" formatted="false">月</string>
@@ -318,7 +314,6 @@
     <string name="ultimo" formatted="false">上次</string>
     <string name="uscita" formatted="false">支出</string>
     <string name="uscite" formatted="false">支出</string>
-    <string name="uscite_medie" formatted="false">平均支出</string>
     <string name="uscite_per_categoria" formatted="false">按类别支出</string>
     <string name="uscite_totali" formatted="false">总支出</string>
     <string name="valuta" formatted="false">货币</string>
@@ -377,7 +372,6 @@
     <string name="predefinita" formatted="false">默认</string>
     <string name="rimasti" formatted="false">剩余</string>
     <string name="rispetto_al_mese_precedente" formatted="false">较上月</string>
-    <string name="rispetto_al_mese_scorso" formatted="false">与上月相比</string>
     <string name="saldo" formatted="false">余额</string>
     <string name="volte" formatted="false">次</string>
     <string name="ultima_usata" formatted="false">· 上次使用</string>

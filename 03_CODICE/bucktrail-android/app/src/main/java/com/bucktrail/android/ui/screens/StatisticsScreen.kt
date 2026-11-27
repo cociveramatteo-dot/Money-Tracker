@@ -7,17 +7,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -45,12 +40,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.bucktrail.android.R
 import com.bucktrail.android.data.TransactionEntity
 import com.bucktrail.android.domain.Statistics
@@ -59,9 +52,7 @@ import com.bucktrail.android.ui.Fmt
 import com.bucktrail.android.ui.categoryLabel
 import com.bucktrail.android.ui.components.FitText
 import com.bucktrail.android.ui.components.MonthBar
-import com.bucktrail.android.ui.components.SectionLabel
 import com.bucktrail.android.ui.components.SfIcons
-import com.bucktrail.android.ui.components.ThinDivider
 import com.bucktrail.android.domain.CategoryTint
 import com.bucktrail.android.ui.theme.colors
 import com.bucktrail.android.ui.theme.Bt
@@ -79,8 +70,7 @@ class StatisticsActions(
     val onDeleteTransaction: (TransactionEntity) -> Unit = {},
 )
 
-/** Statistiche (§4.5): tile del mese, Andamento 6M/12M, Per categoria, medie e confronto anno su anno. Grafici in Canvas. */
-@OptIn(ExperimentalLayoutApi::class)
+/** Statistiche (§4.5): tile del mese, Andamento 6M/12M, Per categoria, Abitudini. Grafici in Canvas. */
 @Composable
 fun StatisticsScreen(
     data: AppData, today: LocalDate, zone: ZoneId, monthOffset: Int, onMonthOffset: (Int) -> Unit, generatingPdf: Boolean, actions: StatisticsActions,
@@ -100,13 +90,6 @@ fun StatisticsScreen(
     val totals = Statistics.totalsOf(month, byMonth)
     val categories = remember(transactions, month, zone) { Statistics.categories(transactions, month, zone) }
     val trend = remember(byMonth, month, range) { Statistics.trend(byMonth, month, range) }
-    val last12 = remember(byMonth, today) { Statistics.trend(byMonth, YearMonth.from(today), 12) }
-    val avgExp = Statistics.averageExpenses(last12)
-    val avgInc = Statistics.averageIncome(last12)
-    val prevSpent = Statistics.prevMonthSpent(byMonth, month)
-    val year = today.year
-    val curYear = Statistics.yearTotals(byMonth, year)
-    val prevYear = Statistics.yearTotals(byMonth, year - 1)
     fun money(v: BigDecimal) = Fmt.currency(v, currency)
 
     Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = (Dim.listBottomPadding + Dim.tabBarReserved).dp)) {
@@ -165,11 +148,6 @@ fun StatisticsScreen(
                 }
                 TrendChart(trend, range == 12, summary)
             }
-            ThinDivider(color = c.divider)
-            FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(stringResource(R.string.uscite_medie), style = Typo.caption, color = c.smoke)
-                Text(money(avgExp), style = Typo.caption.copy(fontFeatureSettings = "tnum"), color = c.ink)
-            }
         }
         // Per categoria
         Column(
@@ -196,37 +174,6 @@ fun StatisticsScreen(
                 }
             }
         }
-        if (prevSpent.signum() > 0) {
-            val delta = totals.expenses - prevSpent
-            val color = if (delta.signum() >= 0) c.negative else c.positive
-            Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                Icon(SfIcons.forName(if (delta.signum() >= 0) "arrow.up" else "arrow.down"), null, tint = color, modifier = Modifier.size(12.dp))
-                Text(money(delta.abs()), style = Typo.caption, color = color)
-                Text(stringResource(R.string.rispetto_al_mese_scorso), style = Typo.caption, color = color)
-            }
-        }
-        // Media mensile — ultimi 12 mesi
-        SectionLabel(stringResource(R.string.media_mensile_ultimi_12_mesi), Modifier.padding(horizontal = 20.dp).padding(top = Dim.l.dp))
-        if (avgExp.signum() == 0 && avgInc.signum() == 0) {
-            Text(stringResource(R.string.dati_insufficienti), style = Typo.secondary, color = c.smoke, modifier = Modifier.padding(horizontal = 20.dp).padding(top = 12.dp))
-        } else {
-            Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(top = 12.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                AverageTile(stringResource(R.string.uscite_medie), money(avgExp), c.negative, Modifier.weight(1f))
-                AverageTile(stringResource(R.string.entrate_medie), money(avgInc), c.positive, Modifier.weight(1f))
-            }
-        }
-        ThinDivider(Modifier.padding(top = Dim.l.dp), c.fog)
-        // Anno vs anno
-        SectionLabel(stringResource(R.string.anno_lld_vs_lld, year, year - 1), Modifier.padding(horizontal = 20.dp).padding(top = Dim.l.dp))
-        if (curYear.expenses.signum() == 0 && prevYear.expenses.signum() == 0) {
-            Text(stringResource(R.string.dati_insufficienti), style = Typo.secondary, color = c.smoke, modifier = Modifier.padding(horizontal = 20.dp).padding(top = 12.dp))
-        } else {
-            Column(Modifier.padding(top = 12.dp)) {
-                YearRow(stringResource(R.string.uscite), curYear.expenses, prevYear.expenses, year - 1, invert = true, currency)
-                ThinDivider(Modifier.padding(horizontal = 20.dp), c.fog)
-                YearRow(stringResource(R.string.entrate), curYear.income, prevYear.income, year - 1, invert = false, currency)
-            }
-        }
         Row(
             Modifier.padding(horizontal = 16.dp).padding(top = 12.dp).fillMaxWidth().heightIn(min = 44.dp)
                 .clip(RoundedCornerShape(18.dp)).background(c.surface).border(1.dp, c.fog, RoundedCornerShape(18.dp))
@@ -249,35 +196,6 @@ private fun SummaryTile(label: String, value: String, color: androidx.compose.ui
     ) {
         Text(label, style = Typo.caption, color = if (hero) c.heroSecondary else c.smoke, maxLines = 1)
         FitText(value, Typo.rowAmount, color, minScale = 0.65f)
-    }
-}
-
-@Composable
-private fun AverageTile(label: String, value: String, color: androidx.compose.ui.graphics.Color, modifier: Modifier) {
-    val c = Bt.colors
-    Column(modifier.clip(RoundedCornerShape(12.dp)).background(c.fog.copy(alpha = 0.5f)).padding(Dim.l.dp), verticalArrangement = Arrangement.spacedBy(Dim.xs.dp)) {
-        Text(label, style = Typo.caption, color = c.smoke)
-        FitText(value, Typo.rowAmount.copy(fontSize = 22.sp, fontWeight = FontWeight.SemiBold), color, minScale = 0.7f)
-    }
-}
-
-@Composable
-private fun YearRow(label: String, current: BigDecimal, prev: BigDecimal, prevYear: Int, invert: Boolean, currency: String) {
-    val c = Bt.colors
-    Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = Dim.m.dp), verticalAlignment = Alignment.CenterVertically) {
-        Text(label, style = Typo.rowName.copy(fontSize = 14.sp, fontWeight = FontWeight.Normal), color = c.smoke, modifier = Modifier.weight(1f))
-        Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(Fmt.currency(current, currency), style = Typo.rowAmount.copy(fontWeight = FontWeight.Medium), color = c.ink)
-            if (prev.signum() > 0) {
-                val delta = current - prev
-                val good = if (invert) delta.signum() < 0 else delta.signum() > 0
-                val color = if (good) c.positive else c.negative
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(2.dp)) {
-                    Icon(SfIcons.forName(if (delta.signum() >= 0) "arrow.up" else "arrow.down"), null, tint = color, modifier = Modifier.size(10.dp))
-                    Text("${if (delta.signum() >= 0) "+" else "−"}${Statistics.deltaPercent(current, prev)}% vs $prevYear", style = Typo.caption, color = color)
-                }
-            }
-        }
     }
 }
 

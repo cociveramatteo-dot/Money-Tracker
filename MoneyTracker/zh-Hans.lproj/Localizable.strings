@@ -236,7 +236,6 @@
 
 /* ── Statistics ───────────────────────────── */
 "Riepilogo"                     = "摘要";
-"rispetto al mese scorso"       = "与上月相比";
 "Andamento 6 mesi"              = "6个月趋势";
 "Uscite per categoria"          = "按类别支出";
 "Nessuna uscita questo mese."   = "本月暂无支出。";
@@ -316,9 +315,6 @@
 /* ── Tour / Onboarding ──────────────────── */
 
 /* ── Statistics (additional) ─────────────── */
-"Dati insufficienti."   = "数据不足。";
-"Uscite medie"          = "平均支出";
-"Entrate medie"         = "平均收入";
 
 /* ── Budget history ──────────────────────── */
 "Storico Budget"        = "预算历史";
@@ -336,9 +332,7 @@
 
 /* ── Statistics section labels ───────────────── */
 "Saldo atteso"                    = "预期余额";
-"Media mensile — ultimi 12 mesi"  = "月均支出 — 近12个月";
 "Andamento 12 mesi"               = "12个月趋势";
-"Anno %lld vs %lld"               = "%lld vs %lld";
 
 /* ── Demo accounts ───────────────────────────── */
 "demo.account.conto"    = "活期账户";

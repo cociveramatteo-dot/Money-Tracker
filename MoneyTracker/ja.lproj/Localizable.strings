@@ -235,7 +235,6 @@
 
 /* ── Statistics ───────────────────────────── */
 "Riepilogo"                     = "概要";
-"rispetto al mese scorso"       = "先月比";
 "Andamento 6 mesi"              = "6ヶ月の推移";
 "Uscite per categoria"          = "カテゴリ別支出";
 "Nessuna uscita questo mese."   = "今月の支出はありません。";
@@ -315,9 +314,6 @@
 /* ── Tour / Onboarding ──────────────────── */
 
 /* ── Statistics (additional) ─────────────── */
-"Dati insufficienti."   = "データ不足。";
-"Uscite medie"          = "平均支出";
-"Entrate medie"         = "平均収入";
 
 /* ── Budget history ──────────────────────── */
 "Storico Budget"        = "予算履歴";
@@ -335,9 +331,7 @@
 
 /* ── Statistics section labels ───────────────── */
 "Saldo atteso"                    = "予想残高";
-"Media mensile — ultimi 12 mesi"  = "月次平均 — 直近12ヶ月";
 "Andamento 12 mesi"               = "12ヶ月トレンド";
-"Anno %lld vs %lld"               = "%lld年 vs %lld年";
 
 /* ── Demo accounts ───────────────────────────── */
 "demo.account.conto"    = "普通預金口座";

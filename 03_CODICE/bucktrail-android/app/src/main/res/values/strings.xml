@@ -33,7 +33,6 @@
     <string name="andamento_12_mesi" formatted="false">Andamento 12 mesi</string>
     <string name="andamento_6_mesi" formatted="false">Andamento 6 mesi</string>
     <string name="anno" formatted="false">Anno</string>
-    <string name="anno_lld_vs_lld">Anno %1$d vs %2$d</string>
     <string name="annuale" formatted="false">Annuale</string>
     <string name="annulla" formatted="false">Annulla</string>
     <string name="appare_in_fissi_del_mese_nella_home" formatted="false">Appare in \'Fissi del mese\' nella home</string>
@@ -82,7 +81,6 @@
     <string name="da_pagare" formatted="false">Da pagare</string>
     <string name="da_ricevere" formatted="false">Da ricevere</string>
     <string name="data" formatted="false">Data</string>
-    <string name="dati_insufficienti" formatted="false">Dati insufficienti.</string>
     <string name="descrizione" formatted="false">Descrizione</string>
     <string name="descrizione_entrata" formatted="false">Descrizione entrata</string>
     <string name="dopo" formatted="false">Dopo</string>
@@ -97,7 +95,6 @@
     <string name="entrate" formatted="false">Entrate</string>
     <string name="entrate_fisse" formatted="false">Entrate fisse</string>
     <string name="entrate_fisse_mensili" formatted="false">Entrate fisse mensili</string>
-    <string name="entrate_medie" formatted="false">Entrate medie</string>
     <string name="entro" formatted="false">Entro</string>
     <string name="escludi_dal_totale" formatted="false">Escludi dal totale</string>
     <string name="escluso_dal_totale" formatted="false">Escluso dal totale</string>
@@ -161,7 +158,6 @@
     <string name="modalita_demo" formatted="false">MODALITÀ DEMO</string>
     <string name="massimo" formatted="false">Massimo</string>
     <string name="media" formatted="false">Media</string>
-    <string name="media_mensile_ultimi_12_mesi" formatted="false">Media mensile — ultimi 12 mesi</string>
     <string name="mensile" formatted="false">Mensile</string>
     <string name="menta" formatted="false">Menta</string>
     <string name="mese" formatted="false">Mese</string>
@@ -319,7 +315,6 @@
     <string name="ultimo" formatted="false">Ultimo</string>
     <string name="uscita" formatted="false">Uscita</string>
     <string name="uscite" formatted="false">Uscite</string>
-    <string name="uscite_medie" formatted="false">Uscite medie</string>
     <string name="uscite_per_categoria" formatted="false">Uscite per categoria</string>
     <string name="uscite_totali" formatted="false">Uscite totali</string>
     <string name="valuta" formatted="false">Valuta</string>
@@ -378,7 +373,6 @@
     <string name="predefinita" formatted="false">predefinita</string>
     <string name="rimasti" formatted="false">rimasti</string>
     <string name="rispetto_al_mese_precedente" formatted="false">rispetto al mese precedente</string>
-    <string name="rispetto_al_mese_scorso" formatted="false">rispetto al mese scorso</string>
     <string name="saldo" formatted="false">saldo</string>
     <string name="volte" formatted="false">volte</string>
     <string name="ultima_usata" formatted="false">· Ultima usata</string>

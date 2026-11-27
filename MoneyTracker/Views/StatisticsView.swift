@@ -59,50 +59,6 @@ struct StatisticsView: View {
             .reduce(Decimal(0)) { $0 + $1.amount }
     }
 
-    private func last12Stats(byMonth: [Date: [Transaction]]) -> [MonthStat] {
-        let cal = Calendar.current
-        return (0..<12).reversed().compactMap { offset -> MonthStat? in
-            guard let month = cal.date(byAdding: .month, value: -offset, to: Date()) else { return nil }
-            let key      = cal.dateInterval(of: .month, for: month)?.start ?? month
-            let ts       = byMonth[key] ?? []
-            let expenses = ts.filter { $0.transactionType == .uscita  }.reduce(Decimal(0)) { $0 + $1.amount }
-            let income   = ts.filter { $0.transactionType == .entrata }.reduce(Decimal(0)) { $0 + $1.amount }
-            return MonthStat(label: month.shortMonthFormatted, expenses: expenses.asDouble, income: income.asDouble, date: month)
-        }
-    }
-
-    // MARK: - Media mensile (ultimi 12 mesi)
-
-    private func avgMonthlyExpenses(stats: [MonthStat]) -> Double {
-        let nonZero = stats.filter { $0.expenses > 0 }
-        guard !nonZero.isEmpty else { return 0 }
-        return nonZero.reduce(0) { $0 + $1.expenses } / Double(nonZero.count)
-    }
-
-    private func avgMonthlyIncome(stats: [MonthStat]) -> Double {
-        let nonZero = stats.filter { $0.income > 0 }
-        guard !nonZero.isEmpty else { return 0 }
-        return nonZero.reduce(0) { $0 + $1.income } / Double(nonZero.count)
-    }
-
-    // MARK: - Confronto anno corrente vs anno precedente
-
-    // PERF-02: takes byMonth as parameter to avoid re-computing transactionsByMonth
-    private func yearTotals(year: Int, byMonth: [Date: [Transaction]]) -> (expenses: Decimal, income: Decimal) {
-        let cal = Calendar.current
-        var expenses = Decimal(0), income = Decimal(0)
-        for (key, ts) in byMonth {
-            guard cal.component(.year, from: key) == year else { continue }
-            for t in ts {
-                if t.transactionType == .uscita  { expenses += t.amount }
-                else                             { income  += t.amount }
-            }
-        }
-        return (expenses, income)
-    }
-
-    private var currentYear: Int { Calendar.current.component(.year, from: Date()) }
-
     // MARK: - Cached byMonth dictionary (PERF-02)
     // transactionsByMonth is O(n) over all transactions; rebuild only when the query changes.
     @State private var cachedByMonth: [Date: [Transaction]] = [:]
@@ -173,13 +129,7 @@ struct StatisticsView: View {
         let monthSpent    = monthExpenses.reduce(Decimal(0)) { $0 + $1.amount }
         let categoryData  = buildCategoryData(from: monthExpenses)
         let byMonth      = cachedByMonth           // O(1) — dict already built in rebuildByMonth()
-        let prevSpent    = prevMonthSpent(byMonth: byMonth)
         let trend        = monthlyTrend(byMonth: byMonth)
-        let l12          = last12Stats(byMonth: byMonth)
-        let avgExp       = avgMonthlyExpenses(stats: l12)
-        let avgInc       = avgMonthlyIncome(stats: l12)
-        let curYear      = yearTotals(year: currentYear,     byMonth: byMonth)
-        let prevYear     = yearTotals(year: currentYear - 1, byMonth: byMonth)
         return NavigationStack {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
@@ -271,18 +221,6 @@ struct StatisticsView: View {
                         .accessibilityElement(children: .ignore)
                         .accessibilityLabel(trendAccessibilitySummary(trend))
                     }
-                    Divider().overlay(DS.divider)
-                    ViewThatFits(in: .horizontal) {
-                        HStack {
-                            Text("Uscite medie")
-                            Spacer()
-                            Text(avgExp.currencyFormatted).foregroundStyle(DS.ink).monospacedDigit()
-                        }
-                        VStack(alignment: .leading) {
-                            Text("Uscite medie")
-                            Text(avgExp.currencyFormatted).foregroundStyle(DS.ink).monospacedDigit()
-                        }
-                    }.font(DS.Typo.caption).foregroundStyle(DS.smoke)
                 }
                 .padding(16).background(DS.surface, in: RoundedRectangle(cornerRadius: 22))
                 .padding(.horizontal, 16).padding(.top, 10)
@@ -315,98 +253,6 @@ struct StatisticsView: View {
                 .foregroundStyle(DS.ink).padding(16)
                 .background(DS.surface, in: RoundedRectangle(cornerRadius: 22))
                 .padding(.horizontal, 16).padding(.top, 10)
-
-                if prevSpent > 0 {
-                    HStack(spacing: 4) {
-                        Image(systemName: monthSpent - prevSpent >= 0 ? "arrow.up" : "arrow.down")
-                        Text(abs(monthSpent - prevSpent).currencyFormatted)
-                        Text("rispetto al mese scorso")
-                    }
-                    .font(DS.Typo.caption)
-                    .foregroundStyle(monthSpent - prevSpent >= 0 ? DS.negative : DS.positive)
-                    .padding(16)
-                }
-
-                VStack(alignment: .leading, spacing: DS.Space.m) {
-                    SectionLabel(text: "Media mensile — ultimi 12 mesi")
-                        .padding(.horizontal, DS.Layout.margin)
-                        .padding(.top, DS.Space.l)
-
-                    if avgExp == 0 && avgInc == 0 {
-                        Text("Dati insufficienti.")
-                            .font(DS.Typo.secondary)
-                            .foregroundStyle(DS.smoke)
-                            .padding(.horizontal, DS.Layout.margin)
-                    } else {
-                        HStack(spacing: 0) {
-                            // Uscite medie
-                            VStack(alignment: .leading, spacing: DS.Space.xs) {
-                                Text("Uscite medie")
-                                    .font(DS.Typo.caption)
-                                    .foregroundStyle(DS.smoke)
-                                Text(avgExp.currencyFormatted)
-                                    .scaledFont(size: 22, weight: .semibold)
-                                    .foregroundStyle(DS.negative)
-                                    .minimumScaleFactor(0.7)
-                                    .lineLimit(1)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(DS.Space.l)
-                            .background(DS.fog.opacity(0.5))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-
-                            Spacer().frame(width: DS.Space.m)
-
-                            // Entrate medie
-                            VStack(alignment: .leading, spacing: DS.Space.xs) {
-                                Text("Entrate medie")
-                                    .font(DS.Typo.caption)
-                                    .foregroundStyle(DS.smoke)
-                                Text(avgInc.currencyFormatted)
-                                    .scaledFont(size: 22, weight: .semibold)
-                                    .foregroundStyle(DS.positive)
-                                    .minimumScaleFactor(0.7)
-                                    .lineLimit(1)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(DS.Space.l)
-                            .background(DS.fog.opacity(0.5))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                        }
-                        .padding(.horizontal, DS.Layout.margin)
-                    }
-                }
-
-                ThinDivider().padding(.top, DS.Space.l)
-
-                VStack(alignment: .leading, spacing: DS.Space.m) {
-                    SectionLabel(text: "Anno \(currentYear) vs \(currentYear - 1)")
-                        .padding(.horizontal, DS.Layout.margin)
-                        .padding(.top, DS.Space.l)
-
-                    if curYear.expenses == 0 && prevYear.expenses == 0 {
-                        Text("Dati insufficienti.")
-                            .font(DS.Typo.secondary)
-                            .foregroundStyle(DS.smoke)
-                            .padding(.horizontal, DS.Layout.margin)
-                    } else {
-                        VStack(spacing: 0) {
-                            yearCompareRow(
-                                label: "Uscite",
-                                current: curYear.expenses,
-                                prev: prevYear.expenses,
-                                invertSign: true  // più spese = peggioramento
-                            )
-                            ThinDivider().padding(.horizontal, DS.Layout.margin)
-                            yearCompareRow(
-                                label: "Entrate",
-                                current: curYear.income,
-                                prev: prevYear.income,
-                                invertSign: false
-                            )
-                        }
-                    }
-                }
 
                 Button { showHabits = true } label: {
                     HStack(spacing: DS.Space.m) {
@@ -463,40 +309,6 @@ struct StatisticsView: View {
         }
         .padding(12).frame(maxWidth: .infinity, alignment: .leading)
         .background(hero ? DS.hero : DS.surface, in: RoundedRectangle(cornerRadius: 16))
-    }
-
-    // MARK: - Anno compare row helper
-
-    private func yearCompareRow(label: LocalizedStringKey, current: Decimal, prev: Decimal, invertSign: Bool) -> some View {
-        HStack {
-            Text(label)
-                .scaledFont(size: 14)
-                .foregroundStyle(DS.smoke)
-            Spacer()
-            VStack(alignment: .trailing, spacing: 2) {
-                Text(current.currencyFormatted)
-                    .scaledFont(size: 15, weight: .medium)
-                    .foregroundStyle(DS.ink)
-                if prev > 0 {
-                    let delta = current - prev
-                    let sign  = delta >= 0 ? "+" : "−"
-                    // Bug fix: always use the positive percentage; the sign prefix and
-                    // arrow icon already convey direction. Previously "-pct" produced
-                    // "↓ -30%" (double negative) when delta was negative.
-                    let pct   = abs((delta / prev).asDouble * 100)
-                    let good  = invertSign ? delta < 0 : delta > 0
-                    HStack(spacing: 2) {
-                        Image(systemName: delta >= 0 ? "arrow.up" : "arrow.down")
-                            .scaledFont(size: 9)
-                        Text("\(sign)\(String(format: "%.0f", pct))% vs \(currentYear - 1)")
-                            .font(DS.Typo.caption)
-                    }
-                    .foregroundStyle(good ? DS.positive : DS.negative)
-                }
-            }
-        }
-        .padding(.horizontal, DS.Layout.margin)
-        .padding(.vertical, DS.Space.m)
     }
 
     // MARK: - Helper

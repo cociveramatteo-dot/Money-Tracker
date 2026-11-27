@@ -235,7 +235,6 @@
 
 /* ── Statistics ───────────────────────────── */
 "Riepilogo"                     = "Resumen";
-"rispetto al mese scorso"       = "vs mes anterior";
 "Andamento 6 mesi"              = "Tendencia 6 meses";
 "Uscite per categoria"          = "Gastos por categoría";
 "Nessuna uscita questo mese."   = "Sin gastos este mes.";
@@ -315,9 +314,6 @@
 /* ── Tour / Onboarding ──────────────────── */
 
 /* ── Statistics (additional) ─────────────── */
-"Dati insufficienti."   = "Datos insuficientes.";
-"Uscite medie"          = "Gastos medios";
-"Entrate medie"         = "Ingresos medios";
 
 /* ── Budget history ──────────────────────── */
 "Storico Budget"        = "Historial de presupuesto";
@@ -335,9 +331,7 @@
 
 /* ── Statistics section labels ───────────────── */
 "Saldo atteso"                    = "Saldo esperado";
-"Media mensile — ultimi 12 mesi"  = "Media mensual — últimos 12 meses";
 "Andamento 12 mesi"               = "Tendencia 12 meses";
-"Anno %lld vs %lld"               = "%lld vs %lld";
 
 /* ── Demo accounts ───────────────────────────── */
 "demo.account.conto"    = "Cuenta corriente";
