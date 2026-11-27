@@ -580,10 +580,18 @@ Sintomo: account di prova, iPhone (Release, `-E2EEnabled YES`) → Attiva → fr
 - **Eseguito:** iOS (`RecoveryKeyInputFormatter.swift`, `E2EUnlockView` solo quando `useRecoveryKey == true`, `RecoveryKeyCard` conferma chiave) e Android (`RecoveryKeyInputFormatter.kt` con gestione cursore `TextFieldValue`, `AuthScreens.kt`, `AdvancedProtectionScreens.kt` solo sblocco con chiave e conferma). Maiuscole automatiche, normalizzazione incolla (spazi/trattini), cancella che supera il trattino senza bloccarsi, massimo 32 caratteri utili; mai applicato alla frase di sicurezza; `RecoveryKey.parse` non toccato.
 - **Test aggiunti:** `MoneyTrackerTests/RecoveryKeyInputFormatterTests.swift` e `RecoveryKeyInputFormatterTest.kt`. Da collaudare.
 
+### S-71 · Importare i dati esportati (Matteo 2026-11-27 19:05)
+Oggi l'export c'è ma non c'è dove reimportarlo. Import con scelta «sostituisci i dati dell'app» o «aggiungi a quelli esistenti» (domanda solo se l'app non è vuota). Tocca Export/, persistenza, sync e Protezione avanzata (doppioni, cancellazioni propagate al cloud): PRIMA progetto dell'architetto, poi impresa.
+  - [ ] **S-71p · Progetto import (architetto)** → architetto
+  - [ ] **S-71a · Implementazione** → Antigravity, dopo S-71p e ok di Matteo
+
 ### S-70 · Doppio tap con categorie + simulazione «E se…?» (idee di Matteo, 2026-11-26)
 Progetto: `.cantiere/progetto-s70-doppio-tap-simulazione.md` (architetto, 2026-11-26). Una sessione Codex, 3 commit. Autorizzazione di Matteo a toccare `Intents/` per S-70 (2026-11-26, in chat): Codex la registra in DECISIONI.
-  - [ ] **S-70a · Doppio tap spese: categoria scelta vince, suggerita e ultima usata in cima** → Codex · progetto §2
-  - [ ] **S-70a2 · Doppio tap entrate: parametro categoria con suggerita e ultima entrata** → Codex · progetto §2.9
-  - [ ] **S-70b · Simulazione «E se…?» dalla Home (conti esclusi selezionabili)** → Codex · progetto §3
+  - [ ] **S-70a · Doppio tap spese: categoria scelta vince, suggerita e ultima usata in cima** → Antigravity · progetto §2
+  - [ ] **S-70a2 · Doppio tap entrate: parametro categoria con suggerita e ultima entrata** → Antigravity · progetto §2.9
+  - [ ] **S-70b · Simulazione «E se…?» dalla Home** → Antigravity · progetto §3, ma la SPECIFICA DI MATTEO del 2026-11-27 19:05 (in CONSEGNA/prompt: quadratino calcolatrice in intestazione, menu conto Tutti/uno, ipotesi senza data con −/+ e interruttore, risultati oggi e fine mese «ora → con le ipotesi» + differenza, nulla salvato) vince sul progetto dove differiscono
+  - [ ] **S-70e · Conti ordinati per uso nella creazione di spesa/entrata** (Matteo 2026-11-27 19:05) → Antigravity · nel selettore conto di nuova spesa/entrata (iOS e Android) i conti vanno dal più usato al meno usato (numero di movimenti), a parità ordine attuale. Solo ordine di visualizzazione.
+  - [ ] **S-70f · Totale del mese successivo in fondo a entrate e spese fisse** (Matteo 2026-11-27 19:05) → Antigravity · in fondo alle liste di entrate e spese fisse/ricorrenti, per ogni mese mostrato, il totale del mese dopo (come il riepilogo in Home), comprese le occorrenze virtuali di ricorrenti e fisse. Usare le proiezioni che l'app già calcola, nessun calcolo nuovo sui dati.
+  - [ ] **S-70g · Errore Xcode «sortedForDisplay» in StatisticsView** (Matteo 2026-11-27 19:05) · capocantiere: build iOS da riga di comando verde per simulatore e iPhone → errore vecchio dell'indice di Xcode (Product → Clean Build Folder). Se ricompare dopo la pulizia → Antigravity.
   - [ ] **S-70c · (condizionale) Ripiego doppio tap con domanda di conferma, spese ed entrate** → Codex/Copilot · solo se S-70d prova 1 fallisce · §2.8
   - [?] **S-70d · Matteo: prova del doppio tap sul telefono (spese ed entrate, 4 controlli §2.8 ciascuno) + approvazione screenshot S-70b (D-014) prima del merge** → Matteo
