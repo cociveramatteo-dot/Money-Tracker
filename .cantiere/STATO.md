@@ -15,3 +15,4 @@ E2E: S-50 chiuso e collaudato (p, u, v, w, x, y) 2026-11-26; interruttore acceso
 E2E 2026-11-26 18:27: S-50u e S-50w collaudati [x] (iOS 187, Android 324, fake 19 verdi). Prossimo: S-50x Brevo.
 S-51/S-51d 2026-11-27 12:13: S-51, S-51c, S-51d collaudati [x] (iOS 40, Android 332). S-51f diagnosticato (AsyncRenderer SwiftUI sulla closure del WindowGroup), correzione a Codex; poi S-51b. S-51e aperto.
 S-51f e S-51b 2026-11-27 12:53: correzione e prova reale completate [~]. Su iOS 27.2 (24B8117) 12/12 verifiche su Supabase, assenza di nuovi crash e protezione finale disattivata con record preesistenti presenti. Build iOS, 40 test mirati iOS al rilancio e 332 unitari Android verdi. Prossimo: collaudo indipendente. Intermittenza del test t10 registrata in S-51h.
+S-51f/S-51b 2026-11-27 13:00: collaudo ok [x] (73/73 test mirati, avvio senza crash). Aperti S-51g, S-51h, S-51e.
