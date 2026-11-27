@@ -4,9 +4,14 @@
 
 ## Siamo qui
 
-- **S-50 (Protezione avanzata): tutto chiuso e collaudato.** S-50p interruttore ACCESO in release iOS e Android (debug spento). S-50u, S-50v, S-50w, S-50x, S-50y chiusi. Sito pubblicato su Cloudflare con i testi approvati.
-- **Resta a Matteo:** prova reale con account di prova (iPhone + Android). Non bloccanti: S-50z (script R8), S-50g2 (guardiano CORS in locale).
-- **Prossimo lavoro: S-70** (doppio tap categorie spese/entrate + simulazione «E se…?»). Progetto pronto: `.cantiere/progetto-s70-doppio-tap-simulazione.md`. Matteo ha autorizzato `Intents/`. Lavoro a Codex.
+> **Aggiornamento veloce 2026-11-27 11:27** (capocantiere, sessione lunga chiusa con /clear; nessun tag: Codex è in turno).
+
+- **S-50 NON chiuso del tutto.** Codice S-50 collaudato, ma la prova reale di Matteo (26/11 sera) ha fatto emergere due bug di sync **preesistenti** (non causati da S-50):
+  - **S-51** (iOS, archivio in RAM a telefono bloccato → movimenti mai inviati e persi): corretto da Codex (e462c34), **da collaudare**.
+  - **S-51d** (iOS e Android: ogni push cancella dal server le righe nuove create dall'altro dispositivo; copre anche S-51c, righe cancellate che ricompaiono): progetto architetto `.cantiere/progetto-s51d-sync-cancellazioni.md` (base di sync a tre vie). **Codex in turno dal 2026-11-27 11:26** con il prompt §7. Matteo ha autorizzato l'aggiornamento dei 2 test che codificavano il bug.
+  - **S-51b**: prova automatica a due dispositivi sul Supabase reale (script in `03_CODICE/bucktrail-android/scripts/`), account di prova in `~/.config/moneytracker/test-account.env` (mai in git). Prima della correzione: iOS→Android ok, Android→iOS KO.
+- **S-70 in attesa** finché S-51/S-51d non sono chiusi (Matteo: «finiamo S-50 per intero, poi S-70»).
+- `.xcscheme` modificato in locale con `-E2EEnabled YES` (prove di Matteo): NON committarlo, toglierlo a fine prove.
 
 ## Fatto dall'ultimo checkpoint (2026-11-26 15:36)
 
@@ -53,12 +58,11 @@
 
 ## Domani si riparte così
 
-1. Sessione nuova nella cartella → `riprendiamo`.
-2. **S-70a, S-70a2, S-70b** → Codex. Lancio: `codex --yolo -C /Users/matteo/Desktop/APP/MoneyTracker` e incolla questo prompt:
-   «Sei l'impresa Codex del cantiere MoneyTracker, ramo redesign-sentiero. Leggi AGENTS.md e .cantiere/REGOLE-PROGETTO.md. Poi leggi per intero .cantiere/progetto-s70-doppio-tap-simulazione.md e segui il §7 alla lettera: tre commit separati (S-70a, S-70a2, S-70b), ciascuno solo con i suoi file, mai git add -A. Primo passo: registra in .cantiere/DECISIONI.md l'autorizzazione di Matteo a toccare Intents/ per S-70a e S-70a2. Non toccare Models/, Persistence/, Domain/, Sync/, Auth/, Export/, Formatting/, notifiche, ricorrenze, project.pbxproj, test esistenti. Non fare S-70c. Chiudi il turno come AGENTS.md §4: PIANO, DIARIO, CONSEGNA, STATO nessuno.»
-3. Poi collaudatore (Claude Code) sul diff di S-70.
-4. Matteo: prova con account di prova (vedi sotto).
-5. Non bloccante: S-50z e S-50g2 → Copilot o Codex, quando c'è un buco (task in `.cantiere/PIANO.md`).
+1. Sessione nuova → «riprendiamo — codex ha finito S-51d, lancia il collaudatore».
+2. **Collaudatore** su S-51 (e462c34) + S-51b (175ccb0) + S-51d (commit di Codex): diff, test di sync iOS/Android, esito della prova a due dispositivi, e rilancio dei 2 test UI Conti falliti (verificare se instabilità: confronto fab33a5 vs e462c34).
+3. Se la prova a due dispositivi passa: **Matteo** rifà la prova sui telefoni veri (movimento creato, telefono bloccato, cavo staccato, riapertura dall'icona; poi Android→iPhone).
+4. Solo dopo: checkpoint completo, S-50 chiuso, poi **S-70** (prompt §7 di `.cantiere/progetto-s70-doppio-tap-simulazione.md`).
+5. Non urgenti: S-51e (stessa finestra in disattivazione E2E), S-50z, S-50g2 (fix pronto, arriva sul guardiano di `main` solo col merge: Matteo deve scegliere A = solo quella riga su main, B = merge completo dopo le prove).
 
 ## Cose che deve fare Matteo
 
