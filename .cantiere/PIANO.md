@@ -603,9 +603,9 @@ Progetto: `.cantiere/progetto-s70-doppio-tap-simulazione.md` (architetto, 2026-1
 
 ### S-72 · Movimenti, Ricorrenti, Abitudini, Statistiche (Matteo 2026-11-27, DECISIONI ultima voce)
 Progetto: `.cantiere/progetto-s72-movimenti-abitudini.md` (architetto, 2026-11-27). Un commit per task, iOS + Android insieme. **Ordine: b → a → d → c → e.** Domande D1–D4 per Matteo nel progetto (S-72c bloccato da D1/D2). Non toccare `Intents/` (S-70i in parallelo) né `MoneyTracker.xcscheme`.
-  - [ ] **S-72b · Occorrenze programmate come righe normali; gruppo «In arrivo · pianificati» in cima solo nei mesi futuri** → Antigravity · progetto §S-72b (D3 si parte con la proposta)
-  - [ ] **S-72a · Totali in fondo a ogni sezione di Movimenti (sostituisce S-70f)** → Antigravity · progetto §S-72a · eliminazione test S-70f solo dopo D4
-  - [ ] **S-72d · Pagina «Abitudini» da Statistiche + criterio più severo in Domain/ (autorizzato)** → Antigravity · progetto §S-72d
-  - [ ] **S-72c · «Ricorrenti» come sezione inline di Movimenti** → Antigravity · progetto §S-72c · risposte di Matteo in DECISIONI 2026-11-27 (D1 = a, D2 ok, D3 sì, D4 ok)
-  - [ ] **S-72e · Statistiche: via mese scorso, media 12 mesi, anno vs anno** → Antigravity · progetto §S-72e
+  - [~] (2026-11-27 23:54, Antigravity · `b5407e1` · iOS+Android verdi) **S-72b · Occorrenze programmate come righe normali; gruppo «In arrivo · pianificati» in cima solo nei mesi futuri** → Antigravity · progetto §S-72b (D3 si parte con la proposta)
+  - [~] (2026-11-27 23:54, Antigravity · `5c86c5a` · iOS+Android verdi) **S-72a · Totali in fondo a ogni sezione di Movimenti (sostituisce S-70f)** → Antigravity · progetto §S-72a · eliminazione test S-70f eseguita (D4)
+  - [~] (2026-11-27 23:54, Antigravity · `477e089` · iOS+Android verdi) **S-72d · Pagina «Abitudini» da Statistiche + criterio più severo in Domain/ (autorizzato)** → Antigravity · progetto §S-72d
+  - [~] (2026-11-27 23:54, Antigravity · `d57ed2a` · iOS+Android verdi) **S-72c · «Ricorrenti» come sezione inline di Movimenti** → Antigravity · progetto §S-72c · risposte di Matteo in DECISIONI 2026-11-27 (D1 = a, D2 ok, D3 sì, D4 ok)
+  - [~] (2026-11-27 23:54, Antigravity · `9343afd`, `d7ccbbf` · iOS+Android verdi, screenshot `.cantiere/tmp/s72/`) **S-72e · Statistiche: via mese scorso, media 12 mesi, anno vs anno** → Antigravity · progetto §S-72e
   - [x] (2026-11-27, risposte in DECISIONI) **S-72q · Matteo: rispondere a D1–D4 del progetto S-72** (2 minuti, sezione «Domande per Matteo») → Matteo
