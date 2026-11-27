@@ -18,9 +18,6 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 ### ANDROID · aggiornare l'app sul tuo telefono
 📍 Terminale, cartella `03_CODICE/bucktrail-android`, telefono collegato con Debug USB acceso. ▶️ Per le prove sul cloud vero NON usare il solo `./gradlew installDebug` (punta a un server finto: «Nessuna connessione»). Chiedi al capocantiere: lo installa lui con URL e chiave veri e `-Pe2e=true`. Si aggiorna sopra la versione installata, i dati restano. ↩️ Dimmi se all'apertura non vedi più l'icona e se lucchetto e icona del login ti sembrano come su iPhone.
 
-### E2E · prova reale della Protezione avanzata con un account di prova (dopo S-50p, quando vuoi)
-📍 iPhone e Android con l'app aggiornata. ▶️ Esci dal tuo account, crea un account di prova con una seconda email, aggiungi qualche conto e movimento, poi Impostazioni → Protezione avanzata → attiva. Controlla che sull'altro dispositivo, dopo l'accesso con lo stesso account, i dati compaiano uguali; poi disattiva e ricontrolla. Solo dopo valuta se attivarla sul tuo account vero. ↩️ Dimmi cosa torna e cosa no (screenshot delle differenze).
-
 ### SOCIAL · TikTok — nome e account Business
 📍 TikTok → Profilo → Modifica profilo → Nome. ▶️ Scrivi `Bucktrail · budget`. Dopo il primo post passa ad Account Business (Impostazioni e privacy → Account) e nel campo Sito web metti `https://bucktrailapp.com/?utm_source=tiktok&utm_medium=bio`; poi la bio può tornare a «link in bio». ↩️ Scrivi «tiktok ok».
 
@@ -31,6 +28,8 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 📍 notebooklm.google.com → notebook «MoneyTracker App». ▶️ «Aggiungi fonte» → «Google Drive» → `MAGAZZINO/CANTIERI/moneytracker/` → aggiungi `02_RISORSE/originali/bucktrail-redesign/BRIEF_CANTIERE.md` e `DESIGN_HANDOFF.md` (le due importanti); le 4 licenze dei font (`OFL.txt` e `README.txt` di Inter e Space Grotesk) sono facoltative. ↩️ Scrivi «notebook ok».
 
 ## Fatte
+
+- 2026-11-27 18:48 · S-50: prova reale della Protezione avanzata con account di prova su iPhone e Android, tutto ok (dopo fix S-53a). Ok anche S-54/55/56 sui telefoni.
 
 - 2026-11-27 16:12 · S-52s: SQL di protezione FK e riparazione applicato da Matteo su Supabase.
 

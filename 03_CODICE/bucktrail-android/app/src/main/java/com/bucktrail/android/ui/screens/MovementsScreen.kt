@@ -249,7 +249,7 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                         FitText(money(sum(planned), currency, hidden), Typo.rowAmount, c.plannedText, Modifier.weight(1f), minScale = 0.6f, textAlign = androidx.compose.ui.text.style.TextAlign.End)
                     }
                     GroupCard {
-                        planned.sortedByDescending { it.date }.forEachIndexed { i, t ->
+                        planned.forEachIndexed { i, t ->
                             key(t.id) {
                             if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
                             TransactionRow(t, ledger.accounts, currency, hidden, today, zone, res, compact = true,
