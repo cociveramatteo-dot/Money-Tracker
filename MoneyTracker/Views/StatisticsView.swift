@@ -3,7 +3,7 @@ import SwiftData
 import Charts
 
 struct StatisticsView: View {
-    @Query(sort: \Transaction.date, order: .reverse) private var transactions: [Transaction]
+    @Query(sort: [SortDescriptor(\Transaction.date, order: .reverse), SortDescriptor(\Transaction.createdAt, order: .reverse)]) private var transactions: [Transaction]
     @Environment(\.modelContext) private var context
     @State private var selectedMonth = Date()
     @State private var trendMonths: Int = 6   // toggle 6 / 12
@@ -134,6 +134,7 @@ struct StatisticsView: View {
         // così il Task.detached non tocca mai tipi @MainActor (Transaction/@Model).
         let snapshots = transactions
             .filter { $0.isDone && $0.date.isSameMonth(as: selectedMonth) }
+            .sortedForDisplay()
             .map { PDFTxSnapshot(
                 name:       $0.name,
                 amount:     $0.amount,

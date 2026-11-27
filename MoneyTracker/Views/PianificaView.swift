@@ -11,7 +11,7 @@ import SwiftData
 struct PianificaView: View {
 
     @Query private var budgets:      [Budget]
-    @Query(sort: \Transaction.date, order: .reverse) private var transactions: [Transaction]
+    @Query(sort: [SortDescriptor(\Transaction.date, order: .reverse), SortDescriptor(\Transaction.createdAt, order: .reverse)]) private var transactions: [Transaction]
     @Query private var goals:        [Goal]
 
     @Environment(\.modelContext) private var context

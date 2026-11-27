@@ -10,7 +10,7 @@ import SwiftData
 struct RecurringSeriesDetailView: View {
     let seriesID: String
 
-    @Query(sort: \Transaction.date, order: .reverse) private var all: [Transaction]
+    @Query(sort: [SortDescriptor(\Transaction.date, order: .reverse), SortDescriptor(\Transaction.createdAt, order: .reverse)]) private var all: [Transaction]
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
 
@@ -38,7 +38,7 @@ struct RecurringSeriesDetailView: View {
                                 .listRowSeparator(.hidden)
                         }
                         Section {
-                            ForEach(series.occurrences.reversed()) { t in
+                            ForEach(series.occurrences.sortedForDisplay()) { t in
                                 MovementRow(
                                     name: t.name,
                                     metadata: [NSLocalizedString(t.category, comment: ""), t.account?.name ?? "", t.date.dayMonthFormatted]

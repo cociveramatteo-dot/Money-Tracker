@@ -55,6 +55,7 @@ import com.bucktrail.android.domain.RecurringSeries
 import com.bucktrail.android.ui.AppViewModel
 import com.bucktrail.android.ui.Fmt
 import com.bucktrail.android.ui.categoryLabel
+import com.bucktrail.android.ui.sortedForDisplay
 import com.bucktrail.android.ui.components.BarAction
 import com.bucktrail.android.ui.components.BtAlert
 import com.bucktrail.android.ui.components.CategoryIconBox
@@ -224,7 +225,7 @@ fun RecurringSeriesDetailSheet(
         } else {
             RecurringSeriesCard(series, data.prefs.currencyCode, zone, res, Modifier.padding(horizontal = 16.dp, vertical = 12.dp))
             SectionLabel(stringResource(R.string.storico), Modifier.padding(horizontal = 20.dp, vertical = 4.dp))
-            val rows = series.occurrences.reversed().mapNotNull { o -> ledger.transactions.firstOrNull { it.id == o.id } }
+            val rows = series.occurrences.mapNotNull { o -> ledger.transactions.firstOrNull { it.id == o.id } }.sortedForDisplay(zone)
             Column(Modifier.fillMaxWidth().background(c.surface)) {
                 rows.forEachIndexed { i, t ->
                     androidx.compose.runtime.key(t.id) {

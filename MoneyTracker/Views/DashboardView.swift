@@ -5,7 +5,7 @@ struct DashboardView: View {
     @Query private var accounts: [Account]
     // fetchLimit non è un parametro init di FetchDescriptor (è una var post-init).
     // recentNormal applica .prefix(4) client-side; il dataset dashboard è comunque piccolo.
-    @Query(sort: \Transaction.date, order: .reverse) private var transactions: [Transaction]
+    @Query(sort: [SortDescriptor(\Transaction.date, order: .reverse), SortDescriptor(\Transaction.createdAt, order: .reverse)]) private var transactions: [Transaction]
     @Environment(\.modelContext) private var context
     @Environment(\.scenePhase) private var scenePhase
     @Binding var showAdd: Bool
@@ -56,7 +56,7 @@ struct DashboardView: View {
     private var totalCurrent: Decimal { includedAccounts.reduce(0) { $0 + $1.currentBalance } }
 
     private var recentNormal: [Transaction] {
-        Array(transactions.filter { !$0.isFixed && !$0.isTransfer && $0.recurringFrequency.isEmpty }.prefix(4))
+        Array(transactions.filter { !$0.isFixed && !$0.isTransfer && $0.recurringFrequency.isEmpty }.sortedForDisplay().prefix(4))
     }
 
     // Voci fisse del mese corrente, a prescindere da isDone (l'utente vuole

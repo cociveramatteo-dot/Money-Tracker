@@ -24,8 +24,9 @@ interface BucktrailDao {
     @Query("SELECT * FROM accounts") suspend fun accounts(): List<AccountEntity>
 
     // Movimenti
-    @Query("SELECT * FROM transactions") suspend fun transactions(): List<TransactionEntity>
-    @Query("SELECT * FROM transactions ORDER BY date DESC, createdAt DESC, id")
+    @Query("SELECT * FROM transactions ORDER BY date(date / 1000, 'unixepoch', 'localtime') DESC, createdAt DESC, id")
+    suspend fun transactions(): List<TransactionEntity>
+    @Query("SELECT * FROM transactions ORDER BY date(date / 1000, 'unixepoch', 'localtime') DESC, createdAt DESC, id")
     fun observeTransactions(): Flow<List<TransactionEntity>>
     @Query("SELECT * FROM transactions WHERE templateId = :templateId COLLATE NOCASE")
     suspend fun transactionsOfTemplate(templateId: String): List<TransactionEntity>

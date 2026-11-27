@@ -39,7 +39,7 @@ struct TransactionsView: View {
             .sorted { $0.date < $1.date }
     }
 
-    @Query(sort: \Transaction.date, order: .reverse) private var all: [Transaction]
+    @Query(sort: [SortDescriptor(\Transaction.date, order: .reverse), SortDescriptor(\Transaction.createdAt, order: .reverse)]) private var all: [Transaction]
     @Query(sort: \Category.sortOrder) private var categories: [Category]
     @Environment(\.modelContext) private var context
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -125,7 +125,7 @@ struct TransactionsView: View {
             if let min = minAmt, t.amount < min { return false }
             if let max = maxAmt, t.amount > max { return false }
             return true
-        }
+        }.sortedForDisplay()
     }
 
     private var recentMonths: [Date] {

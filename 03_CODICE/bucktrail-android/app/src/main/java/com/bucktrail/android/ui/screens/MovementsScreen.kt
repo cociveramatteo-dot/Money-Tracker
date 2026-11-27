@@ -59,6 +59,7 @@ import com.bucktrail.android.domain.TransactionFiltering
 import com.bucktrail.android.ui.AppData
 import com.bucktrail.android.ui.Fmt
 import com.bucktrail.android.ui.categoryLabel
+import com.bucktrail.android.ui.sortedForDisplay
 import com.bucktrail.android.ui.components.EmptyState
 import com.bucktrail.android.ui.components.RoundIconButton
 import com.bucktrail.android.ui.components.SecondaryChip
@@ -138,8 +139,8 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                 }.sortedBy { it.second.date }
         }
     }
-    val planned = remember(filtered) { filtered.filter { !it.isDone } }
-    val groups = remember(filtered, zone) { filtered.filter { it.isDone }.groupBy { it.localDate(zone) }.toSortedMap(compareByDescending { it }) }
+    val planned = remember(filtered, zone) { filtered.filter { !it.isDone }.sortedForDisplay(zone) }
+    val groups = remember(filtered, zone) { filtered.filter { it.isDone }.sortedForDisplay(zone).groupBy { it.localDate(zone) }.toSortedMap(compareByDescending { it }) }
     fun sum(list: List<TransactionEntity>) = list.filter { !it.isTransfer }.fold(BigDecimal.ZERO) { a, t -> a + Amounts.signed(t.amountValue(), t.type) }
     val ruleIds = remember(ledger.rules) { ledger.rules.map { it.id.lowercase() }.toSet() }
 

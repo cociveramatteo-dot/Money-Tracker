@@ -337,7 +337,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         runCatching {
             val ledger = repository.snapshot()
             val currency = data.value.prefs.currencyCode
-            val all = ledger.transactionData
+            val all = ledger.transactions.sortedForDisplay(zone).map { it.toData() }
             val byMonth = Statistics.byMonth(all, zone)
             val dayMonth = java.time.format.DateTimeFormatter.ofPattern("d MMM", java.util.Locale.getDefault())
             val labels = PdfReport.Labels(

@@ -53,6 +53,7 @@ import com.bucktrail.android.domain.BalanceTrail
 import com.bucktrail.android.ui.AppData
 import com.bucktrail.android.ui.Fmt
 import com.bucktrail.android.ui.categoryLabel
+import com.bucktrail.android.ui.sortedForDisplay
 import com.bucktrail.android.ui.components.Card
 import com.bucktrail.android.ui.components.EmptyState
 import com.bucktrail.android.ui.components.FitText
@@ -109,8 +110,8 @@ fun HomeScreen(
         }.fold(BigDecimal.ZERO) { a, t -> a + t.amountValue() }
         sum(Amounts.TYPE_EXPENSE) to sum(Amounts.TYPE_INCOME)
     }
-    val latest = remember(ledger.transactions) {
-        ledger.transactions.filter { !it.isFixed && !it.isTransfer && it.recurringFrequency.isEmpty() }.take(4)
+    val latest = remember(ledger.transactions, zone) {
+        ledger.transactions.filter { !it.isFixed && !it.isTransfer && it.recurringFrequency.isEmpty() }.sortedForDisplay(zone).take(4)
     }
     var collapsed by rememberSaveable { mutableStateOf(false) }
     val accountOrderDescription = stringResource(R.string.conti_in_home)
