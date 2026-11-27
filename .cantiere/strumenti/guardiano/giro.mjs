@@ -162,13 +162,22 @@ async function controllaLink(contesto, pagine) {
 async function controllaPagina(contesto, pagina, disp, conScreenshot) {
   const p = await contesto.newPage();
   const errori = [];
+  const inLocale = /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/i.test(BASE);
   // "Failed to load resource" è già coperto dal controllo delle risposte 4xx/5xx
-  // Il beacon di Cloudflare Web Analytics fallisce sempre per CORS quando il sito gira in locale (127.0.0.1): non è un errore del sito.
-  p.on("console", (m) => m.type() === "error" && !/Failed to load resource/i.test(m.text()) && !/cloudflareinsights\.com/i.test(m.text()) && errori.push(`console: ${m.text()}`));
+  // Il beacon di Cloudflare Web Analytics (/cdn-cgi/rum) fallisce sempre per CORS quando il sito gira in locale (127.0.0.1): non è un errore del sito.
+  p.on("console", (m) => {
+    if (m.type() !== "error") return;
+    const t = m.text();
+    if (/Failed to load resource/i.test(t)) return;
+    if (inLocale && /cloudflareinsights\.com/i.test(t) && /CORS/i.test(t)) return;
+    errori.push(`console: ${t}`);
+  });
   p.on("pageerror", (e) => errori.push(`errore JS: ${e.message}`));
   p.on("requestfailed", (r) => {
     const f = r.failure()?.errorText || "";
-    if (!f.includes("ERR_ABORTED")) errori.push(`richiesta fallita: ${r.url()} (${f})`);
+    if (f.includes("ERR_ABORTED")) return;
+    if (inLocale && /^https:\/\/([^/]+\.)?cloudflareinsights\.com\/cdn-cgi\/rum(\?|$)/i.test(r.url()) && f.includes("ERR_FAILED")) return;
+    errori.push(`richiesta fallita: ${r.url()} (${f})`);
   });
   p.on("response", (r) => r.status() >= 400 && stessoSito(r.url()) && errori.push(`risorsa ${r.status()}: ${r.url()}`));
   try {
