@@ -357,7 +357,8 @@ La riparazione in chiaro usa una RPC condizionale che aggiorna soltanto `account
 - **Perché:** Matteo (prova S-70d) trovava «Svago · ultima usata» per «supermercato», mai usato: etichetta ingannevole.
 - **Scartato:** tenere entrambe le righe (regola S-70a/S-70i).
 
-## 2026-11-28 · S-73 · Saldi in Conti e regola delle date — DA APPROVARE DA MATTEO (proposta architetto)
+## 2026-11-28 · S-73 · Saldi in Conti e regola delle date — APPROVATA DA MATTEO 2026-11-28 00:58 (proposta architetto)
+- **Matteo:** sì al punto 1 (il numero sbagliato è la «→» piccola); in Conti NON si toglie niente: «A conti fatti», la «→» e tutto il resto restano, devono solo essere giusti. Regola date: opzione **B**.
 **Punto 1 — Conti come la Home (bug).** La spesa fissa del 12/12 è salvata giusta (pianificata, non fatta): il saldo grande è uguale in Home e in Conti. Quello che sbaglia è il numero piccolo «→» sotto ogni conto e il totale «A conti fatti»: in Conti sommano TUTTI i pianificati di tutti i mesi, in Home solo quelli che pesano su questo mese (regola S-41). Stesso difetto su Android.
 - **Proposta:** in Conti la «→» e «A conti fatti» usano la stessa regola della Home (stesso conto, stessi numeri ovunque). Supera la riga di S-41 «La tab Conti continua a mostrare "A conti fatti", previsione complessiva».
 - **Come:** solo nelle schermate (`Views/`, Android `ui/`), nessun cambio a `Domain/`, ai dati o al saldo attuale. Nessuna migrazione. Task S-73a (iOS), S-73b (Android).
