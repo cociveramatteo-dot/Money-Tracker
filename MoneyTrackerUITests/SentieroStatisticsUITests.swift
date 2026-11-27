@@ -4,7 +4,7 @@ import XCTest
 final class SentieroStatisticsUITests: MoneyTrackerUITestCase {
     override func setUpWithError() throws { continueAfterFailure = false }
 
-    @MainActor private func capture(language: String, size: String) {
+    @MainActor private func capture(language: String, size: String, bottomSwipes: Int = 1) {
         app = XCUIApplication()
         app.launchArguments = ["--uitesting", "-AppleLanguages", "(\(language))", "-AppleLocale", language,
                                "-UIPreferredContentSizeCategoryName", size]
@@ -16,7 +16,7 @@ final class SentieroStatisticsUITests: MoneyTrackerUITestCase {
         XCTAssertTrue(app.buttons["statistics_range_12"].isSelected)
         save("S6-\(language)-\(size)-12M")
         app.buttons["statistics_range_6"].tap()
-        app.swipeUp()
+        for _ in 0..<bottomSwipes { app.swipeUp() }
         save("S6-\(language)-\(size)-bottom")
         app.terminate()
     }
@@ -29,6 +29,7 @@ final class SentieroStatisticsUITests: MoneyTrackerUITestCase {
     @MainActor func testItalian() { capture(language: "it", size: "UICTContentSizeCategoryL") }
     @MainActor func testXL() { capture(language: "it", size: "UICTContentSizeCategoryXL") }
     @MainActor func testGerman() { capture(language: "de", size: "UICTContentSizeCategoryL") }
+    @MainActor func testGermanAXXL() { capture(language: "de", size: "UICTContentSizeCategoryAccessibilityXL", bottomSwipes: 2) }
     // Run separately after setting the simulator's actual appearance to dark.
     @MainActor func testDark() { capture(language: "it", size: "UICTContentSizeCategoryL") }
 }

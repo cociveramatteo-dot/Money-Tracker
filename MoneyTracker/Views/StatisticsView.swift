@@ -5,6 +5,7 @@ import Charts
 struct StatisticsView: View {
     @Query(sort: [SortDescriptor(\Transaction.date, order: .reverse), SortDescriptor(\Transaction.createdAt, order: .reverse)]) private var transactions: [Transaction]
     @Environment(\.modelContext) private var context
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var selectedMonth = Date()
     @State private var trendMonths: Int = 6   // toggle 6 / 12
     // MARK: - Data per il mese selezionato
@@ -236,14 +237,7 @@ struct StatisticsView: View {
                     }
                     ForEach(categoryData) { cat in
                         VStack(alignment: .leading, spacing: 5) {
-                            HStack(alignment: .firstTextBaseline, spacing: 8) {
-                                DS.categoryText(cat.name).font(DS.Typo.secondary)
-                                Spacer(minLength: 4)
-                                Text(monthSpent > 0 ? String(format: "%.0f%%", (cat.amount / monthSpent).asDouble * 100) : "0%")
-                                    .font(DS.Typo.caption).foregroundStyle(DS.smoke)
-                                Text(cat.amount.currencyFormatted).font(DS.Typo.rowAmount)
-                                    .fixedSize(horizontal: true, vertical: false)
-                            }
+                            categoryRowHeader(cat, monthSpent: monthSpent)
                             GeometryReader { geo in
                                 Capsule().fill(DS.divider)
                                 Capsule().fill(CategoryTint.tint(for: cat.name).foreground)
@@ -331,6 +325,50 @@ struct StatisticsView: View {
             Text(LocalizedStringKey(label))
                 .font(DS.Typo.caption)
                 .foregroundStyle(DS.smoke)
+        }
+    }
+
+    @ViewBuilder
+    private func categoryRowHeader(_ cat: CategoryStat, monthSpent: Decimal) -> some View {
+        let percentText = monthSpent > 0 ? String(format: "%.0f%%", (cat.amount / monthSpent).asDouble * 100) : "0%"
+        let stacked = VStack(alignment: .leading, spacing: 2) {
+            DS.categoryText(cat.name)
+                .font(DS.Typo.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text(percentText)
+                    .font(DS.Typo.caption)
+                    .foregroundStyle(DS.smoke)
+                    .lineLimit(1)
+                Spacer(minLength: 4)
+                Text(cat.amount.currencyFormatted)
+                    .font(DS.Typo.rowAmount)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+            }
+        }
+        if dynamicTypeSize.isAccessibilitySize {
+            stacked
+        } else {
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    DS.categoryText(cat.name)
+                        .font(DS.Typo.secondary)
+                        .lineLimit(1)
+                        .fixedSize(horizontal: true, vertical: false)
+                    Spacer(minLength: 4)
+                    Text(percentText)
+                        .font(DS.Typo.caption)
+                        .foregroundStyle(DS.smoke)
+                        .lineLimit(1)
+                        .fixedSize(horizontal: true, vertical: false)
+                    Text(cat.amount.currencyFormatted)
+                        .font(DS.Typo.rowAmount)
+                        .lineLimit(1)
+                        .fixedSize(horizontal: true, vertical: false)
+                }
+                stacked
+            }
         }
     }
 }

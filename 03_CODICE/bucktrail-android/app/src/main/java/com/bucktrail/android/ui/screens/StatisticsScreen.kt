@@ -6,8 +6,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -35,6 +37,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -43,6 +46,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import com.bucktrail.android.R
 import com.bucktrail.android.data.TransactionEntity
@@ -160,11 +164,11 @@ fun StatisticsScreen(
             categories.forEach { cat ->
                 androidx.compose.runtime.key(cat.name) {
                     Column(Modifier.padding(vertical = 5.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text(categoryLabel(cat.name), style = Typo.secondary, color = c.ink, modifier = Modifier.weight(1f))
-                            Text("${Statistics.percentOfTotal(cat.amount, totals.expenses)}%", style = Typo.caption, color = c.smoke)
-                            Text(money(cat.amount), style = Typo.rowAmount, color = c.ink, maxLines = 1, softWrap = false)
-                        }
+                        CategoryStatHeader(
+                            name = categoryLabel(cat.name),
+                            percentText = "${Statistics.percentOfTotal(cat.amount, totals.expenses)}%",
+                            amountText = money(cat.amount),
+                        )
                         val tint = CategoryTint.tint(cat.name).colors(c.isDark).foreground
                         val share = if (top.signum() > 0) (cat.amount.toDouble() / top.toDouble()).toFloat().coerceIn(0f, 1f) else 0f
                         Box(Modifier.fillMaxWidth().height(6.dp).clip(CircleShape).background(c.divider)) {
@@ -183,6 +187,45 @@ fun StatisticsScreen(
             Icon(SfIcons.forName("arrow.triangle.2.circlepath"), null, tint = c.ink, modifier = Modifier.size(18.dp))
             Text(stringResource(R.string.abitudini), style = Typo.rowName, color = c.ink, modifier = Modifier.weight(1f))
             Icon(SfIcons.forName("chevron.right"), null, tint = c.smoke, modifier = Modifier.size(14.dp))
+        }
+    }
+}
+
+@Composable
+private fun CategoryStatHeader(name: String, percentText: String, amountText: String) {
+    val c = Bt.colors
+    val density = LocalDensity.current
+    if (density.fontScale >= 1.5f) {
+        CategoryStatHeaderStacked(name, percentText, amountText)
+        return
+    }
+    val measurer = rememberTextMeasurer()
+    BoxWithConstraints(Modifier.fillMaxWidth()) {
+        val gapPx = with(density) { (8.dp * 2).roundToPx() }
+        val nameWidth = measurer.measure(name, style = Typo.secondary, softWrap = false, maxLines = 1).size.width
+        val pctWidth = measurer.measure(percentText, style = Typo.caption, softWrap = false, maxLines = 1).size.width
+        val amountWidth = measurer.measure(amountText, style = Typo.rowAmount, softWrap = false, maxLines = 1).size.width
+        if (nameWidth + pctWidth + amountWidth + gapPx <= constraints.maxWidth) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(name, style = Typo.secondary, color = c.ink, maxLines = 1, modifier = Modifier.weight(1f))
+                Text(percentText, style = Typo.caption, color = c.smoke, maxLines = 1, softWrap = false)
+                Text(amountText, style = Typo.rowAmount, color = c.ink, maxLines = 1, softWrap = false)
+            }
+        } else {
+            CategoryStatHeaderStacked(name, percentText, amountText)
+        }
+    }
+}
+
+@Composable
+private fun CategoryStatHeaderStacked(name: String, percentText: String, amountText: String) {
+    val c = Bt.colors
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(name, style = Typo.secondary, color = c.ink)
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(percentText, style = Typo.caption, color = c.smoke, maxLines = 1, softWrap = false)
+            Spacer(Modifier.weight(1f))
+            FitText(amountText, Typo.rowAmount, c.ink, minScale = 0.6f)
         }
     }
 }

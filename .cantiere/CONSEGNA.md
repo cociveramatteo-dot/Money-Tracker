@@ -1,21 +1,27 @@
 # CONSEGNA — MoneyTracker
 
-- **Ultimo turno:** collaudatore (Claude Code · Sonnet) · **2026-11-28 00:15** · ramo `redesign-sentiero`
-- **Esito:** S-72b, S-72a, S-72d, S-72c, S-72e e S-70j → **[x] collaudo ok** in `.cantiere/PIANO.md`. Nuovo task **S-72f**.
+- **Ultimo turno:** impresa (Antigravity · Gemini 4 Hydrogen) · **2026-11-28 00:32** · ramo `redesign-sentiero`
+- **Task:** `S-72f` → segnato `[~]` in `.cantiere/PIANO.md`
 
-## Controlli
-- Zone intoccabili: Domain/ toccato solo in `RecurringSeriesDetector` (iOS + Android, soglia 3×3, esclusa «Rettifica saldo», autorizzato). Intents/ solo per S-70j. Models, Sync, Auth, Export e Formatting non toccati.
-- Test: eliminati solo `NextMonthSummaryTests.swift` e `NextMonthSummaryTest.kt` (D4). Nei test UI cambia solo la navigazione (`tf_searchTransactions`, `.firstMatch`, tolto `navigateBack()`). Gli altri test sono solo aggiunti.
-- 7 lingue: `plutil -lint` e `xmllint` ok, chiavi nuove presenti in tutte le lingue, chiavi rimosse non più usate né in iOS né in Android. Nessuna stringa nuova scritta a mano fuori dalle traduzioni.
-- Nessun `preferredColorScheme` e nessun colore non adattivo.
-- iOS: intero target `MoneyTrackerTests` **247/247** (54 suite), più `HabitsUITests` e `RecurrenceCancelAndHomeUITests` verdi. Android: `assembleDebug` e `testDebugUnitTest --rerun` **361/361**.
-- Screenshot `.cantiere/tmp/s72/` (chiaro, scuro, de-axxl): totali in fondo alle sezioni, badge non tagliato, testate su una riga. Gli screenshot «corrente-ricorrenti-top» sono scorsi in fondo (la lista mantiene lo scorrimento quando si cambia filtro), quindi la somma 1182,38 € corrisponde alle 8 righe del mese anche se ne vedi solo 2.
-- S-70j: c'è un solo intent nuovo. Le categorie seguono `sortOrder` come `AddTransactionView`, con «ultima usata» e «suggerita» in minuscolo sulla stessa riga e senza ripetizioni. `AddExpenseIntent` e `AddIncomeIntent` funzionano come prima: cambiano solo `IntentContainer`, ora non più `private`, e la nuova voce in `MoneyTrackerShortcuts`.
+## Fatto
+- **iOS (`MoneyTracker/Views/StatisticsView.swift`):** aggiunto `@Environment(\.dynamicTypeSize)` e l'helper `categoryRowHeader(_:monthSpent:)`. Con `dynamicTypeSize.isAccessibilitySize` (incluso AX-XL) tutte le righe categoria impilano il nome categoria a larghezza piena sopra la riga `percentuale` + `importo` (con `minimumScaleFactor(0.6)` sull'importo). Alle dimensioni normali usa `ViewThatFits(in: .horizontal)` tra la riga singola originale e lo stesso layout impilato in caso di nomi lunghi o importi grandi. Nessun calcolo o modello toccato.
+- **Android (`03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/StatisticsScreen.kt`):** estratti `CategoryStatHeader` e `CategoryStatHeaderStacked`. Con `LocalDensity.current.fontScale >= 1.5f` oppure quando `rememberTextMeasurer()` rileva che `nome + % + importo` non entra in `constraints.maxWidth`, il nome categoria viene impilato a larghezza piena sopra la riga `%` + `FitText(importo)`. Nessun calcolo toccato.
+- **Test UI (`MoneyTrackerUITests/SentieroStatisticsUITests.swift`):** aggiunto `testGermanAXXL()` (`de`, `UICTContentSizeCategoryAccessibilityXL`, 2 swipe verso il basso per mostrare fino ad `Abonnements` / `Sonstiges` / `Gewohnheiten`), lasciando invariati i test esistenti.
 
-## Correzione del collaudatore
-- `MoneyTracker/Intents/IntentCategoryMenu.swift:272`: `collection(...)` leggeva le categorie senza ordinamento. Il test S-70i `swiftDataCollectionHandlesSuggestedOnlyEmptyHistoryAndLongCustomName` falliva **2 volte su 2**, contrariamente al 247/247 dichiarato dall'impresa. Aggiunto `sortBy: sortOrder`, come in `AddTransactionView` e `movementChoices`. Dopo la correzione il risultato è 247/247.
+## Verifiche eseguite dopo l'ultima modifica
+- **iOS (`xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' -parallel-testing-enabled NO -only-testing:MoneyTrackerTests -only-testing:MoneyTrackerUITests/SentieroStatisticsUITests/testGermanAXXL -resultBundlePath /tmp/mt-s72f.xcresult test`):**
+  - `MoneyTrackerTests`: **247/247** passati in 54 suite Swift Testing (1 XCTest `TwoDeviceLiveSyncTests/testLiveSync` skipped perché richiede lo script a due dispositivi).
+  - `SentieroStatisticsUITests/testGermanAXXL`: **1/1** passato (`TEST SUCCEEDED`).
+- **Screenshot `de-axxl` estratti e ispezionati visivamente in `.cantiere/tmp/s72f/`:**
+  - `de-axxl-statistiche-top.png`: `Zuhause` intero sopra `47%  809,00 €`.
+  - `de-axxl-statistiche-12m.png`: vista 12M AX-XL.
+  - `de-axxl-statistiche-bottom.png`: `Geschenke`, `Bildung`, `Abonnements`, `Sonstiges` interi sopra percentuale e importo, senza spezzature a metà parola (verificati anche `Essen`, `Einkaufen`, `Transport`, `Freizeit`, `Gesundheit` nel giro precedente sullo stesso codice app).
+- **Android (`03_CODICE/bucktrail-android/gradlew -p 03_CODICE/bucktrail-android ...`):**
+  - `assembleDebug`: verde.
+  - `testDebugUnitTest --rerun`: **361/361** passati su 61 file XML (`failures=0`, `skipped=0`).
+  - `lintDebug`: verde.
 
-## Aperto
-- **S-72f**: in Statistiche ad AX-XL i nomi delle categorie si spezzano a metà parola. Il difetto c'era già prima di questo lavoro.
-- **S-70d**: prova reale di Matteo sull'iPhone (Comandi «Aggiungi movimento» e rimappatura del doppio tap).
-- `MoneyTracker.xcscheme` modificato in locale apposta e lasciato fuori dal commit.
+## Aperto / note per il collaudo
+- Nessun rendering diretto su emulatore Android eseguito in questo turno per `StatisticsScreen.kt` (verificati compilazione, `lintDebug` e 361/361 test unitari JVM).
+- `MoneyTracker.xcscheme` era già modificato in locale prima del turno: lasciato fuori dal commit come richiesto.
+- Resta la prova reale `S-70d` in carico a Matteo.
