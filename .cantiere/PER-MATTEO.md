@@ -5,6 +5,9 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### S-70d · prova del doppio tap sul telefono + approvazione delle schermate della simulazione (prima del merge su main)
+📍 Xcode con l'iPhone collegato, poi l'iPhone. ▶️ (1) Installa l'app con ▶︎ Run sull'iPhone. (2) App Comandi → il tuo comando «Aggiungi spesa» → tocca l'azione → Categoria: «Chiedi ogni volta». (3) Doppio tap sul retro e 4 controlli: «pizza» → in cima «Cibo»; seconda riga = categoria dell'ultima spesa; scegli un'altra categoria → il movimento salvato ha quella; nome nuovo → solo «Ultima usata» + tutte. (4) Stessa cosa col comando «Aggiungi entrata» («stipendio» → «Lavoro»). (5) Finder → Vai alla cartella `/Users/matteo/Desktop/APP/MoneyTracker/.cantiere/tmp/s70/` → guarda le 6 schermate. ↩️ Esito dei controlli (ok / quale fallisce) e «schermate ok» o cosa cambiare.
+
 ### BANCA · modello economico — cosa resta a te (tutto spiegato in `.cantiere/banca-modello-economico.md`, copia su Drive `02_RISORSE/lavorate/banca-modello-economico-2026-11-25.md`)
 1. ✅ Fatto 2026-11-25: nessun account Apple Developer ancora (si sceglie «Individual» all'iscrizione, dopo il gate del 6/12; la banca resta in coda e si chiede ad Apple prima di costruirla). Dettagli nel §10 del documento.
 2. 📍 La tua casella email. ▶️ Invia a info@enablebanking.com la mail del §9 del documento (oggetto e corpo già pronti; cambia la stima del volume se vuoi). ↩️ Incollami la risposta: con costo per conto e fattura minima rifaccio le tabelle e fissiamo i prezzi.
