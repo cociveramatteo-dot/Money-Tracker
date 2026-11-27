@@ -4,13 +4,15 @@
 
 ## Siamo qui
 
-> **Aggiornamento veloce 2026-11-27 13:36** (capocantiere · Claude Code · Sonnet), tag `checkpoint-2026-11-27-1336`.
+> **Aggiornamento veloce 2026-11-27 16:14** (capocantiere · Claude Code · Sonnet), tag `checkpoint-2026-11-27-1614`.
 
-- **Serie S-51 (sync) CHIUSA e collaudata:** S-51 archivio volatile (e462c34), S-51d+S-51c merge a tre vie iOS/Android (53d62d9, 9d58e4e), S-51f crash rendering iOS 27.2 con `RootView` (c0ca6b8), S-51g conto cancellato altrove (8aa349e), S-51e disattivazione E2E a tre vie (dd09649), S-51h test t10 stabile (d0f1aab). Prova reale automatica S-51b su Supabase 12/12 nelle tre fasi.
-- **Manca solo la prova di Matteo sui telefoni veri** (account di prova) per chiudere S-50. Poi S-70 → Codex.
-- Rischio accettato (CONSEGNA): se il server rispondesse per errore con zero conti, il telefono cancellerebbe in locale i conti già sincronizzati; nessuna perdita sul server, tornano al pull dopo.
-- Notato dal collaudatore sul simulatore: schermo bianco per qualche secondo al primissimo avvio dopo l'installazione. Matteo verifica sul telefono vero.
-- `.xcscheme` modificato in locale con `-E2EEnabled YES` (prove di Matteo): NON committarlo, toglierlo a fine prove.
+- **Incidente S-52 CHIUSO.** Sull'account vero di Matteo 113 movimenti avevano `account_id` null SUL SERVER (dal 29/10, conti cancellati e ricreati con lo stesso id + FK `ON DELETE SET NULL`). Diagnosi `.cantiere/diagnosi-movimenti-scollegati.md`.
+  - Riparazione: SQL generato da `prima.json` (Drive, mai nel repo) eseguito da Matteo → 113 ricollegati; export iPhone `riparato.json` identico a `prima.json`.
+  - Fix Codex `e5aaf9e` (iOS+Android: guardie sui conti, pull senza eco, ricollegamento automatico) + verifiche iOS del capocantiere (`901a272`, due test vecchi aggiornati con ok di Matteo) + collaudo 🟡 senza bloccanti (`241998f`).
+  - S-52s: Matteo ha applicato su Supabase la FK `NO ACTION DEFERRABLE INITIALLY DEFERRED` + colonna `account_link_cleared` + RPC di riparazione, DOPO aver aggiornato l'iPhone.
+- **Prossimo:** prova S-50 di Matteo con l'account di prova (aggiornare prima Android), poi S-70 → Codex.
+- `.xcscheme` modificato in locale (`-E2EEnabled YES` + Run in **Release**): NON committarlo, ripristinarlo dopo la prova S-50.
+- Una build iOS vecchia contro il server nuovo non sincronizza se prova a cancellare un conto con movimenti (errore 23503, nessuna perdita): aggiornare sempre le build.
 
 ## Fatto dall'ultimo checkpoint (2026-11-26 15:36)
 
@@ -30,12 +32,12 @@
 
 | Controllo | Esito | Note |
 |---|---|---|
-| Build / test | 🟢 | iOS 46/46 test di sync (+73/73 con ricorrenze nel collaudo S-51f); Android 334/334 con `--rerun-tasks` |
-| Prova reale Supabase | 🟢 | S-51b 12/12, protezione finale disattivata, record preesistenti presenti |
-| Pagella (misurata) | 🟡 | 85/100, invariata: robustezza 32 (falso positivo CORS del guardiano, S-50g2), velocità 62 |
-| Magazzino / spazio | 🟡 | come il 26/11: cartelle di build/cache segnalate; APK debug 24 MB proponibile al magazzino |
+| Build / test | 🟢 | iOS 202 unitari + 58/58 UI (27/11); Android 335 JVM + server finto 19/19 (Codex) |
+| Dati account vero | 🟢 | server senza_conto 13/209 (i 13 erano già senza conto), export iPhone identico al backup |
+| Pagella (misurata) | 🟡 | 85/100 invariata: robustezza 32 (falso positivo CORS, S-50g2), velocità 62 |
+| Magazzino / spazio | 🟡 | come prima: cartelle del progetto Xcode segnalate in radice (ammesse da REGOLE-PROGETTO) |
 | Grafo | 🟢 | `graphify update .` fatto |
-| Commissione Suprema | ⏳ | non fatta (checkpoint veloce): si fa al prossimo completo, prima del merge su main |
+| Commissione Suprema | ⏳ | non fatta (veloce): al prossimo completo, prima del merge su main |
 
 ## Bug
 
@@ -54,10 +56,10 @@
 
 ## Domani si riparte così
 
-1. Sessione nuova → «riprendiamo: S-51 chiusa, tocca alla mia prova reale sul telefono (S-50), poi S-70 a Codex».
-2. **Matteo** prova sui telefoni veri con l'account di prova (istruzioni in `.cantiere/PER-MATTEO.md`): movimento creato, telefono bloccato, riapertura; iPhone→Android e Android→iPhone; con e senza Protezione avanzata; occhio allo schermo bianco al primo avvio.
-3. Se va bene: **checkpoint completo** (con Commissione Suprema), S-50 chiuso, poi **S-70** → Codex (prompt §7 di `.cantiere/progetto-s70-doppio-tap-simulazione.md`).
-4. Non urgenti: S-50z, S-50g2 (Matteo sceglie A = solo quella riga su main, B = merge completo dopo le prove); i 2 test UI Conti instabili visti il 26/11 non sono stati riverificati.
+1. Sessione nuova → «riprendiamo: S-52 chiusa, tocca alla mia prova S-50 con l'account di prova su iPhone e Android (aggiornare prima Android), poi S-70 a Codex».
+2. **Matteo** aggiorna Android (comando in PER-MATTEO) e fa la prova S-50 con l'account di prova; occhio allo schermo bianco al primo avvio.
+3. Poi: ripristino `.xcscheme`, **checkpoint completo** con Commissione Suprema (questo era il 2° veloce di fila), S-70 → Codex (prompt §7 di `.cantiere/progetto-s70-doppio-tap-simulazione.md`).
+4. Non urgenti: S-50z, S-50g2.
 
 ## Cose che deve fare Matteo
 

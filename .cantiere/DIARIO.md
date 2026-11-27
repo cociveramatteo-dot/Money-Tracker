@@ -265,3 +265,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-27 15:47 | capocantiere (Claude Code · Sonnet) | verifiche iOS S-52b/c lasciate da Codex | unitari 202 verdi (2 test vecchi rotti da S-50h/S-51d aggiornati con ok di Matteo), UI 58/58 (testAccountMenus verde al rilancio) | collaudo del diff + SQL S-52s a Matteo |
 | 2026-11-27 15:58 | collaudatore (Claude Code · Sonnet) | collaudo S-52b/c + SQL S-52s | collaudo ok 🟡 senza bloccanti: guardie sui conti iOS/Android, pull senza eco, riparazione condizionale, compatibilità prima/dopo SQL, nessun dato personale | S-52s a Matteo: aggiornare prima la build iPhone, poi SQL |
 | 2026-11-27 16:12 | capocantiere (Claude Code · Sonnet) | S-52s SQL su Supabase | eseguito da Matteo, FK ora NO ACTION deferred verificata | S-52 chiusa; prossimi: prova S-50, S-70 |
+| 2026-11-27 16:14 | capocantiere (Claude Code · Sonnet) | == CHECKPOINT (veloce) | S-52 chiusa | prova S-50, S-70 |
