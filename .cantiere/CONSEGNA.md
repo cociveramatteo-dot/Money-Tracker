@@ -1,14 +1,18 @@
-# CONSEGNA — 2026-11-27 13:00 · collaudatore (Claude Code · Sonnet)
+# CONSEGNA — 2026-11-27 13:26 · impresa (Codex · GPT-6)
 
-## Collaudo c0ca6b8 (S-51f, S-51b): ok, entrambi [x]
+## Lavoro completato [~]
 
-- **S-51f:** `MoneyTracker/MoneyTrackerApp.swift` è un refactor senza cambi di comportamento. Modificatori, `onChange(scenePhase)`, `task(id: demoModeEnabled)`, `onReceive` (cambio orario, didSave), animazioni, banner dell'archivio volatile e ordine sync → ricorrenze sono invariati. `scenePhase`, `recurrenceRefreshTask` e `recurrenceSyncedUserID` restano a livello App come prima, quindi la coda delle ricorrenze è unica e serializzata anche con più finestre. `RecurrenceOperationStatus` è una classe e viene passata per riferimento. RootView viene costruita in `App.body` (MainActor); la closure `@Sendable` si limita a restituirla. Nessun nuovo force-unwrap e nessun warning sul file.
-- **Test:** build Debug, 73/73 verdi (SyncBaseline, SyncServiceFlagOff, SyncLostTransaction, E2EMigrator, RecurringRuleSync, RecurringMaterializer, RecurringSeriesEditor, RecurringCollision). In questo giro t10 è passato (S-51h resta aperto).
-- **Avvio:** iPhone 18 Pro. Senza sessione compare il login; con `--uitesting` la Home demo è normale. Nessun nuovo rapporto di crash.
-- **S-51b:** la tabella 12/12 è coerente con PIANO e DIARIO. I log dello script non sono conservati (cartella temporanea): la prova non è stata rilanciata.
+- **S-51g** · `8aa349e`. Un pull senza conti rimuove l’ultimo conto sincronizzato cancellato altrove. I conti in attesa del primo push sono preservati. I test verificano che un push successivo non resusciti il conto.
+- **S-51e** · `dd09649`. Il preflight della disattivazione usa la base a tre vie nel vault. Le regressioni verificano sia le cancellazioni note nei due sensi, sia una nuova riga remota arrivata durante la disattivazione. La riga entra nella copia locale e in quella in chiaro e viene verificata.
+- **S-51h** · ultimo commit del turno. Il test t10 annulla e attende il push debounced prima del conteggio. Le asserzioni del test sono integre.
 
-## File locali
-Lo schema Xcode e `graphify-out/` hanno modifiche locali precedenti al turno e restano fuori dal commit.
+## Verifiche
+
+- Build Debug iOS e 54 test mirati in nove suite con `-only-testing`, su iPhone 18 Pro (iOS 27.2). Tre ripetizioni consecutive di t10.
+- Android `./gradlew testDebugUnitTest assembleDebug`, con Java 17 e SDK Android impostati. 334 test verdi.
+- Prova reale `prova-due-dispositivi.py` su Supabase con simulatori isolati, 12/12. Protezione finale disattivata e record preesistenti presenti. Riassunto senza credenziali in `/tmp/moneytracker-s51-prova-due-dispositivi-2026-11-27.md`.
+- Lo schema Xcode e `graphify-out/` avevano modifiche locali precedenti al turno e sono fuori dai commit. Il grafo è stato aggiornato localmente.
 
 ## Prossimo
-S-51g (conto cancellato altrove che ricompare) → Codex; poi S-51h, S-51e.
+
+Collaudo indipendente di S-51g, S-51e e S-51h. Verificare i tre commit sul ramo redesign-sentiero e registrare l’esito in PIANO e DIARIO.

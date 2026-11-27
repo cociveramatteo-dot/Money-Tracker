@@ -228,6 +228,10 @@ struct E2EMigratorTests {
         try f.populate()
         let expected = try f.snapshot()
         try await f.enable()
+        // The activation schedules a push on the modern client. Drain it before measuring legacy traffic.
+        let pendingPush = f.service.debounceTask
+        pendingPush?.cancel()
+        await pendingPush?.value
         let callsBefore = f.remote.base.calls.count
         let config = URLSessionConfiguration.ephemeral
         config.protocolClasses = [OldClientURLProtocol.self]

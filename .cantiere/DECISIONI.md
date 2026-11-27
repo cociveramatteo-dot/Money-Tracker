@@ -306,3 +306,9 @@ I pull intermedi di migrazione mantengono la semantica precedente. Su Android il
 `MoneyTrackerApp.body` costruisce `RootView` sul MainActor. La closure `@Sendable` del `WindowGroup` restituisce la vista già costruita e il suo `body` compone l'interfaccia. Il coordinamento del ciclo di vita e la coda delle ricorrenze restano in `MoneyTrackerApp`, condivisi tra le finestre.
 
 I rapporti di crash mostrano che SwiftUI può invocare la closure dalla coda `AsyncRenderer`. L'estrazione di `RootView` da sola ha superato la prima prova reale, ma l'ispezione del binario Debug ha rilevato ancora `swift_task_isCurrentExecutor` nella closure. Con `@Sendable` quella verifica è assente dalla closure nel binario Debug. Spostare anche la coda delle ricorrenze nella vista avrebbe creato una coda per finestra su iPad.
+
+## 2026-11-27 · S-51g / S-51e / S-51h · Cancellazioni e test di sync
+
+- S-51g: con lista remota dei conti vuota il pull elimina i conti locali già noti alla base. Se tutti i conti locali sono in attesa del primo push, resta la guardia sul pull vuoto. Quando coesistono conti noti e nuovi, questi ultimi conservano movimenti e budget locali.
+- S-51e: la disattivazione usa il piano di S-51d nel preflight sul vault attivo. Il pull richiede gli ID previsti dal push e la verifica confronta l'intera copia allineata. Su iOS la ricevuta del vault è verificata anche prima di rimuovere i metadati della protezione. I percorsi di copia iniziale e le migrazioni SQL seguono le procedure esistenti.
+- S-51h: il test del client precedente annulla e attende il push debounced del servizio moderno prima di contare le richieste. Le asserzioni originali sono tutte presenti.
