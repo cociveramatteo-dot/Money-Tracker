@@ -5,8 +5,6 @@ import Testing
 
 @MainActor
 struct SyncServiceFlagOffTests {
-    // Exact order from SyncService before S-50d. Call equality also rejects any
-    // extra operations with the feature disabled.
     private let tables: [SyncTable] = [.accounts, .transactions, .budgets, .goals, .recurringRules]
 
     @Test func pushUploadsInOrderAndDeletesOnlyCurrentUsersOrphans() async throws {
@@ -35,15 +33,17 @@ struct SyncServiceFlagOffTests {
                     table: .transactions, userId: user)
         remote.seed([SBTransaction(orphan, userId: secondUser)], table: .transactions, userId: secondUser)
 
+        try SyncBaseline(user: user, tables: [SyncTable.transactions.kind: [orphan.id]]).save(to: fixture.defaults)
+
         #expect(!E2EFeature.isEnabled)
         #expect(await fixture.service.push(context: context))
         let expected: [InMemoryRemote.Call] = [
-            .upsert(.accounts, user, [account.id]), .fetchIds(.accounts, user),
-            .upsert(.transactions, user, [dirty.id]), .fetchIds(.transactions, user),
+            .fetchIds(.accounts, user), .upsert(.accounts, user, [account.id]),
+            .fetchIds(.transactions, user), .upsert(.transactions, user, [dirty.id]),
             .delete(.transactions, user, [orphan.id]),
-            .upsert(.budgets, user, [budget.id]), .fetchIds(.budgets, user),
-            .upsert(.goals, user, [goal.id]), .fetchIds(.goals, user),
-            .upsert(.recurringRules, user, [rule.id]), .fetchIds(.recurringRules, user)
+            .fetchIds(.budgets, user), .upsert(.budgets, user, [budget.id]),
+            .fetchIds(.goals, user), .upsert(.goals, user, [goal.id]),
+            .fetchIds(.recurringRules, user), .upsert(.recurringRules, user, [rule.id])
         ]
         #expect(remote.calls == expected)
         #expect(try await remote.fetchIds(table: .transactions, userId: user) == [dirty.id, unchanged.id])
@@ -115,8 +115,8 @@ struct SyncServiceFlagOffTests {
 
         await fixture.service.syncOnLogin(context: fixture.context)
 
-        #expect(fixture.remote.calls == [.fetchIds(.accounts, user), .upsert(.accounts, user, [account.id])]
-                + tables.map { .fetchIds($0, user) })
+        #expect(fixture.remote.calls == [.fetchIds(.accounts, user), .fetchIds(.accounts, user), .upsert(.accounts, user, [account.id])]
+                + tables.dropFirst().map { .fetchIds($0, user) })
     }
 
     @Test func loginAsDifferentUserClearsLocalRecordsBeforePush() async throws {

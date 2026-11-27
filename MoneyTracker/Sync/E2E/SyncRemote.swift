@@ -54,24 +54,12 @@ struct PlainRemote: SyncRemote {
 
     /// Recupera gli UUID di tutti i record di un utente in una tabella.
     func fetchIds(table: SyncTable, userId: UUID) async throws -> Set<UUID> {
-        if forMigration {
-            let rows: [IDRow] = try await readAll("id", table: table, userId: userId, id: \.id)
-            return Set(rows.map(\.id))
-        }
-        let rows: [IDRow] = try await client.from(table.rawValue)
-            .select("id")
-            .eq("user_id", value: userId.uuidString)
-            .execute()
-            .value
-        return Set(rows.map { $0.id })
+        let rows: [IDRow] = try await readAll("id", table: table, userId: userId, id: \.id)
+        return Set(rows.map(\.id))
     }
 
     func select<Row: SyncRow>(table: SyncTable, userId: UUID) async throws -> [Row] {
-        if forMigration {
-            return try await readAll("*", table: table, userId: userId, id: \.id)
-        }
-        return try await client.from(table.rawValue)
-            .select().eq("user_id", value: userId.uuidString).execute().value
+        try await readAll("*", table: table, userId: userId, id: \.id)
     }
 
     func upsert<Row: SyncRow>(_ rows: [Row], table: SyncTable, userId: UUID) async throws {

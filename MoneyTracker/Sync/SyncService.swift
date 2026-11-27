@@ -704,6 +704,7 @@ final class SyncService: ObservableObject {
             }
         }
         defaults.removeObject(forKey: lastPullKey)
+        defaults.removeObject(forKey: SyncBaseline.key)
         clearAuditLog()
         return true
     }
@@ -781,7 +782,9 @@ final class SyncService: ObservableObject {
         guard ownsPlainStore(userId: userId) else { return false }
 
         do {
-            try await upload(context: context, remote: remote, userId: userId)
+            try await upload(context: context, remote: remote, userId: userId, validateSession: {
+                guard self.userId == userId, ownsPlainStore(userId: userId) else { throw CancellationError() }
+            })
             return true
         } catch {
             Logger.persistence.error("SyncService push error: \(error.localizedDescription, privacy: .public)")
@@ -796,7 +799,7 @@ final class SyncService: ObservableObject {
 
         fileprivate var prunesOrphans: Bool {
             switch self {
-            case .incremental: true
+            case .incremental: false
             case .migrationPreflight(let pruning), .migrationCopy(let pruning): pruning
             }
         }
@@ -804,10 +807,48 @@ final class SyncService: ObservableObject {
 
     func upload(context: ModelContext, remote: any SyncRemote, userId: UUID,
                 validateSession: () throws -> Void = {}, mode: UploadMode = .incremental) async throws {
-        func prune(_ table: SyncTable, _ ids: [UUID]) async throws {
-            guard mode.prunesOrphans else { return }
-            try await deleteOrphans(remote: remote, table: table, userId: userId,
-                                    validateSession: validateSession, localIds: Set(ids))
+        func syncTable<Model, Row: SyncRow>(_ models: [Model], id: KeyPath<Model, UUID>, table: SyncTable,
+                                            makeRow: (Model, UUID) -> Row) async throws {
+            let local = Set(models.map { $0[keyPath: id] })
+            try validateSession()
+            if case .incremental = mode {
+                let remoteIds = try await remote.fetchIds(table: table, userId: userId)
+                try validateSession()
+                let baseline = SyncBaseline.load(from: defaults, user: userId)
+                let plan = SyncBaseline.plan(local: local, remote: remoteIds, base: baseline.base(for: table, local: local),
+                                             dirty: table == .transactions ? dirtyTransactionIds : [],
+                                             fullUpsert: table != .transactions)
+                let rows = models.filter { plan.upload.contains($0[keyPath: id]) }.map { makeRow($0, userId) }
+                if !rows.isEmpty {
+                    try await remote.upsert(rows, table: table, userId: userId)
+                    try validateSession()
+                }
+                if !plan.deleteRemote.isEmpty {
+                    try await remote.delete(ids: Array(plan.deleteRemote), table: table, userId: userId)
+                    try validateSession()
+                }
+                var updated = SyncBaseline.load(from: defaults, user: userId)
+                updated.recordPush(plan, table: table)
+                try updated.save(to: defaults)
+                if table == .transactions {
+                    dirtyTransactionIds.subtract(plan.upload.union(plan.deletedElsewhere))
+                }
+                return
+            }
+
+            let rows = models.filter {
+                if table != .transactions { return true }
+                if case .migrationCopy = mode { return true }
+                return dirtyTransactionIds.contains($0[keyPath: id])
+            }.map { makeRow($0, userId) }
+            if !rows.isEmpty {
+                try await remote.upsert(rows, table: table, userId: userId)
+                if table == .transactions { try validateSession() }
+            }
+            if mode.prunesOrphans {
+                try await deleteOrphans(remote: remote, table: table, userId: userId,
+                                        validateSession: validateSession, localIds: local)
+            }
         }
         Logger.persistence.info("SyncService: push started")
         do {
@@ -819,60 +860,11 @@ final class SyncService: ObservableObject {
             // Fetch must succeed before orphan deletion: a failed read is not an empty store.
             let rules = try context.fetch(FetchDescriptor<RecurringRule>())
 
-            // Accounts
-            try validateSession()
-            if !accounts.isEmpty {
-                let sb = accounts.map { SBAccount($0, userId: userId) }
-                try await remote.upsert(sb, table: .accounts, userId: userId)
-            }
-            try await prune(.accounts, accounts.map(\.id))
-
-            // Transactions — sync incrementale: carica solo le righe segnate come
-            // cambiate da recordChanges(), non l'intera tabella (vedi sezione dedicata
-            // sopra). deleteOrphans confronta comunque TUTTI gli id locali/remoti: quel
-            // confronto è già economico di suo (solo UUID, non i dati completi) e deve
-            // vedere l'intero set per rilevare correttamente le cancellazioni.
-            let dirtyIds = if case .migrationCopy = mode {
-                Set(transactions.map(\.id))
-            } else {
-                dirtyTransactionIds
-            }
-            let dirtyTransactions = dirtyIds.isEmpty ? [] : transactions.filter { dirtyIds.contains($0.id) }
-            try validateSession()
-            if !dirtyTransactions.isEmpty {
-                let sb = dirtyTransactions.map { SBTransaction($0, userId: userId) }
-                try await remote.upsert(sb, table: .transactions, userId: userId)
-                // Rimuove dal set "sporco" solo gli id appena caricati con successo — se
-                // nel frattempo ne sono arrivati altri (salvataggio concorrente), restano
-                // in coda per il prossimo push invece di andare persi.
-                try validateSession()
-                if case .incremental = mode { dirtyTransactionIds.subtract(dirtyTransactions.map(\.id)) }
-            }
-            try await prune(.transactions, transactions.map(\.id))
-
-            // Budgets
-            try validateSession()
-            if !budgets.isEmpty {
-                let sb = budgets.map { SBBudget($0, userId: userId) }
-                try await remote.upsert(sb, table: .budgets, userId: userId)
-            }
-            try await prune(.budgets, budgets.map(\.id))
-
-            // Goals
-            try validateSession()
-            if !goals.isEmpty {
-                let sb = goals.map { SBGoal($0, userId: userId) }
-                try await remote.upsert(sb, table: .goals, userId: userId)
-            }
-            try await prune(.goals, goals.map(\.id))
-
-            // Rules use a full upsert, like budgets (including watermark and exceptions).
-            try validateSession()
-            if !rules.isEmpty {
-                let sb = rules.map { SBRecurringRule($0, userId: userId) }
-                try await remote.upsert(sb, table: .recurringRules, userId: userId)
-            }
-            try await prune(.recurringRules, rules.map(\.id))
+            try await syncTable(accounts, id: \.id, table: .accounts, makeRow: SBAccount.init)
+            try await syncTable(transactions, id: \.id, table: .transactions, makeRow: SBTransaction.init)
+            try await syncTable(budgets, id: \.id, table: .budgets, makeRow: SBBudget.init)
+            try await syncTable(goals, id: \.id, table: .goals, makeRow: SBGoal.init)
+            try await syncTable(rules, id: \.id, table: .recurringRules, makeRow: SBRecurringRule.init)
 
             Logger.persistence.info("SyncService: push complete")
         }
@@ -1004,13 +996,17 @@ final class SyncService: ObservableObject {
                 }
             }
             // Non cancellare transazioni locali ancora "sporche" (create/modificate ma
-            // non ancora confermate su Supabase, es. subito dopo l'inserimento o se
+            // mai confermate su Supabase, es. subito dopo l'inserimento o se
             // markTransactionDirty è stato chiamato dall'Intent del Tocco posteriore
             // ma il push non è ancora partito/riuscito). Senza questo controllo, un
             // pull che arriva prima che quelle righe siano state caricate le tratta
             // come "cancellate su un altro dispositivo" e le elimina anche qui — pur
             // essendo state salvate correttamente e mai sincronizzate altrove.
-            let stillDirty = dirtyTransactionIds
+            let baseline = SyncBaseline.load(from: defaults, user: userId)
+            let localTxIds = Set(localTx.map(\.id))
+            let knownTxIds = baseline.base(for: .transactions, local: localTxIds) ?? []
+            let remotelyDeletedTx = localTxIds.subtracting(pulledTxIds).intersection(knownTxIds)
+            let stillDirty = dirtyTransactionIds.subtracting(remotelyDeletedTx)
             if !forMigration {
                 for local in localTx where !pulledTxIds.contains(local.id) && !stillDirty.contains(local.id) {
                     context.delete(local)
@@ -1094,7 +1090,8 @@ final class SyncService: ObservableObject {
             } else {
                 try await remote.select(table: .recurringRules, userId: userId)
             }
-            try Self.mergeRecurringRules(sbRules, context: context)
+            try Self.mergeRecurringRules(sbRules, context: context,
+                                         knownIds: forMigration ? [] : baseline.base(for: .recurringRules) ?? [])
 
             let saved: Bool
             if forMigration {
@@ -1108,6 +1105,17 @@ final class SyncService: ObservableObject {
             } else {
                 saved = context.safeSave()
             }
+            if saved, !forMigration, self.userId == userId {
+                let updated = SyncBaseline(user: userId, tables: [
+                    SyncTable.accounts.kind: pulledAccountIds,
+                    SyncTable.transactions.kind: pulledTxIds,
+                    SyncTable.budgets.kind: pulledBudgetIds,
+                    SyncTable.goals.kind: pulledGoalIds,
+                    SyncTable.recurringRules.kind: Set(sbRules.map(\.id))
+                ])
+                try updated.save(to: defaults)
+                dirtyTransactionIds.subtract(remotelyDeletedTx)
+            }
             defaults.set(Date(), forKey: lastPullKey)
             Logger.persistence.info("SyncService: pull complete")
             return saved
@@ -1115,10 +1123,13 @@ final class SyncService: ObservableObject {
     }
 
     /// Shared by the pull and in-memory tests; save remains part of the enclosing pull.
-    static func mergeRecurringRules(_ rows: [SBRecurringRule], context: ModelContext) throws {
+    static func mergeRecurringRules(_ rows: [SBRecurringRule], context: ModelContext, knownIds: Set<UUID> = []) throws {
         let locals = try context.fetch(FetchDescriptor<RecurringRule>())
         // Preserve local rules awaiting their first push, as with accounts.
-        if rows.isEmpty && !locals.isEmpty { return }
+        if rows.isEmpty {
+            for local in locals where knownIds.contains(local.id) { context.delete(local) }
+            return
+        }
         let byId = Dictionary(locals.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
         for row in rows {
             if let existing = byId[row.id] {

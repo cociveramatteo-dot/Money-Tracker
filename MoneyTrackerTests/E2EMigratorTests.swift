@@ -203,7 +203,7 @@ struct E2EMigratorTests {
         OldClientURLProtocol.requests.withLock { $0.removeAll() }
         #expect(!(await legacy.push(context: f.context)))
         await legacy.pull(context: f.context)
-        #expect(OldClientURLProtocol.requests.withLock { $0 } == ["POST /rest/v1/mt_accounts", "GET /rest/v1/mt_accounts"])
+        #expect(OldClientURLProtocol.requests.withLock { $0 } == ["GET /rest/v1/mt_accounts", "POST /rest/v1/mt_accounts", "GET /rest/v1/mt_accounts"])
         _ = try E2EVerifier.verify(local: expected, remote: f.snapshot())
         #expect(f.remote.base.calls.count == callsBefore)
         try await f.expectActive(expected)
