@@ -1,27 +1,23 @@
 # CONSEGNA — MoneyTracker
 
-- **Ultimo turno:** impresa (Antigravity · Gemini 4 Hydrogen) · **2026-11-28 00:32** · ramo `redesign-sentiero`
-- **Task:** `S-72f` → segnato `[~]` in `.cantiere/PIANO.md`
+- **Ultimo turno:** impresa (Antigravity · Gemini 4 Hydrogen) · **2026-11-28 00:43** · ramo `redesign-sentiero`
+- **Task:** `S-70k` → segnato `[~]` in `.cantiere/PIANO.md`
 
 ## Fatto
-- **iOS (`MoneyTracker/Views/StatisticsView.swift`):** aggiunto `@Environment(\.dynamicTypeSize)` e l'helper `categoryRowHeader(_:monthSpent:)`. Con `dynamicTypeSize.isAccessibilitySize` (incluso AX-XL) tutte le righe categoria impilano il nome categoria a larghezza piena sopra la riga `percentuale` + `importo` (con `minimumScaleFactor(0.6)` sull'importo). Alle dimensioni normali usa `ViewThatFits(in: .horizontal)` tra la riga singola originale e lo stesso layout impilato in caso di nomi lunghi o importi grandi. Nessun calcolo o modello toccato.
-- **Android (`03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/StatisticsScreen.kt`):** estratti `CategoryStatHeader` e `CategoryStatHeaderStacked`. Con `LocalDensity.current.fontScale >= 1.5f` oppure quando `rememberTextMeasurer()` rileva che `nome + % + importo` non entra in `constraints.maxWidth`, il nome categoria viene impilato a larghezza piena sopra la riga `%` + `FitText(importo)`. Nessun calcolo toccato.
-- **Test UI (`MoneyTrackerUITests/SentieroStatisticsUITests.swift`):** aggiunto `testGermanAXXL()` (`de`, `UICTContentSizeCategoryAccessibilityXL`, 2 swipe verso il basso per mostrare fino ad `Abonnements` / `Sonstiges` / `Gewohnheiten`), lasciando invariati i test esistenti.
+- **`MoneyTracker/Intents/IntentCategoryMenu.swift`:** aggiornato `movementChoices` per replicare esattamente `AddTransactionView.applySuggestion(for:)`:
+  - rimosso `recentOfType` / `lastUsed(type:)` dal menu di `AddMovementIntent` (`collection` per `AddExpenseIntent`/`AddIncomeIntent` resta invariata);
+  - se lo storico ha una voce con lo stesso nome → in cima solo quella categoria con `· ultima usata`;
+  - altrimenti, se il classificatore suggerisce una categoria (≠ `Altro`, > 2 caratteri) → in cima solo quella con `· suggerita`;
+  - altrimenti → nessuna etichetta in cima, tutte le categorie nell'ordine `sortOrder` dell'app senza duplicati.
+- **`MoneyTracker/Intents/AddMovementIntent.swift`:**
+  - in `IntentCategoryChoiceQuery` aggiunto `@IntentParameterDependency<AddMovementIntent>(\.$movementType, \.$name) var intent` ed estratto l'helper `choices(name:movementType:context:bundle:)`: quando Categoria è su «Chiedi ogni volta», legge `intent?.name` e `intent?.movementType` e applica la stessa regola `movementChoices`; se la descrizione non è disponibile (`intent == nil` o stringa vuota), restituisce l'elenco semplice in `sortOrder` senza etichette;
+  - mantenuto invariato il ramo `requestDisambiguation` in `perform()` quando Categoria è lasciata vuota.
+- **`MoneyTrackerTests/AddMovementIntentTests.swift`:** aggiornati i test di `movementChoices` rimuovendo `recentOfType` e aggiunti i test per (a) `pizza` in storico (`Cibo · ultima usata`), (b) `supermercato` senza storico (`Cibo · suggerita` senza `Svago · ultima usata`), (c) nome nuovo senza parole chiave (nessuna etichetta, puro `sortOrder`), 7 lingue per entrambe le etichette e `IntentCategoryChoiceQuery` con/senza descrizione.
 
 ## Verifiche eseguite dopo l'ultima modifica
-- **iOS (`xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' -parallel-testing-enabled NO -only-testing:MoneyTrackerTests -only-testing:MoneyTrackerUITests/SentieroStatisticsUITests/testGermanAXXL -resultBundlePath /tmp/mt-s72f.xcresult test`):**
-  - `MoneyTrackerTests`: **247/247** passati in 54 suite Swift Testing (1 XCTest `TwoDeviceLiveSyncTests/testLiveSync` skipped perché richiede lo script a due dispositivi).
-  - `SentieroStatisticsUITests/testGermanAXXL`: **1/1** passato (`TEST SUCCEEDED`).
-- **Screenshot `de-axxl` estratti e ispezionati visivamente in `.cantiere/tmp/s72f/`:**
-  - `de-axxl-statistiche-top.png`: `Zuhause` intero sopra `47%  809,00 €`.
-  - `de-axxl-statistiche-12m.png`: vista 12M AX-XL.
-  - `de-axxl-statistiche-bottom.png`: `Geschenke`, `Bildung`, `Abonnements`, `Sonstiges` interi sopra percentuale e importo, senza spezzature a metà parola (verificati anche `Essen`, `Einkaufen`, `Transport`, `Freizeit`, `Gesundheit` nel giro precedente sullo stesso codice app).
-- **Android (`03_CODICE/bucktrail-android/gradlew -p 03_CODICE/bucktrail-android ...`):**
-  - `assembleDebug`: verde.
-  - `testDebugUnitTest --rerun`: **361/361** passati su 61 file XML (`failures=0`, `skipped=0`).
-  - `lintDebug`: verde.
+- **iOS (`xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' -parallel-testing-enabled NO -only-testing:MoneyTrackerTests test`):**
+  - `MoneyTrackerTests`: **249/249** test Swift Testing passati in 54 suite (`TEST SUCCEEDED`), 1 XCTest (`TwoDeviceLiveSyncTests/testLiveSync`) skipped perché richiede lo script a due dispositivi.
 
 ## Aperto / note per il collaudo
-- Nessun rendering diretto su emulatore Android eseguito in questo turno per `StatisticsScreen.kt` (verificati compilazione, `lintDebug` e 361/361 test unitari JVM).
 - `MoneyTracker.xcscheme` era già modificato in locale prima del turno: lasciato fuori dal commit come richiesto.
-- Resta la prova reale `S-70d` in carico a Matteo.
+- Resta la prova reale su iPhone `S-70d` (Matteo) per verificare in Comandi sia «Chiedi ogni volta» sia «Categoria vuota», oltre all'eventuale collaudo diff.

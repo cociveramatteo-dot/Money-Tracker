@@ -62,15 +62,14 @@ struct AddMovementIntentTests {
         #expect(altroClassifier == nil)
     }
 
-    @Test func movementChoicesReplicateAppForHistoryKeywordAndDedup() throws {
+    @Test func movementChoicesMatchAppSuggestionRulesAndExcludeRecentOfType() throws {
         let itURL = try #require(Bundle.main.url(forResource: "it", withExtension: "lproj"))
         let itBundle = try #require(Bundle(url: itURL))
         let all = ["Cibo", "Svago", "Trasporti", "Altro"]
 
-        // History match ("pizza" -> "Cibo") wins as "ultima usata" even when recent overall was "Svago".
+        // (a) History match -> only that category at the top with lowercase "ultima usata", no duplicate below.
         let historyChoices = IntentCategoryMenu.movementChoices(
             all: all,
-            recentOfType: "Svago",
             nameSuggestion: .init(category: "Cibo", source: .history),
             bundle: itBundle
         )
@@ -78,28 +77,24 @@ struct AddMovementIntentTests {
         #expect(historyChoices[0].title == "Cibo · ultima usata")
         #expect(historyChoices[1].title == "Svago")
 
-        // Keyword match ("Cibo") != recentOfType ("Svago") -> "Svago · ultima usata", then "Cibo · suggerita".
-        let distinctChoices = IntentCategoryMenu.movementChoices(
+        // (b) Keyword match without history -> only "suggerita" at the top, no "ultima usata" row.
+        let keywordChoices = IntentCategoryMenu.movementChoices(
             all: all,
-            recentOfType: "Svago",
             nameSuggestion: .init(category: "Cibo", source: .keyword),
             bundle: itBundle
         )
-        #expect(distinctChoices.map(\.id) == ["Svago", "Cibo", "Trasporti", "Altro"])
-        #expect(distinctChoices[0].title == "Svago · ultima usata")
-        #expect(distinctChoices[1].title == "Cibo · suggerita")
-        #expect(distinctChoices[2].title == "Trasporti")
+        #expect(keywordChoices.map(\.id) == ["Cibo", "Svago", "Trasporti", "Altro"])
+        #expect(keywordChoices[0].title == "Cibo · suggerita")
+        #expect(keywordChoices[1].title == "Svago")
 
-        // When recentOfType == keyword match -> single deduplicated row with lowercase "ultima usata".
-        let equalChoices = IntentCategoryMenu.movementChoices(
-            all: all,
-            recentOfType: "Cibo",
-            nameSuggestion: .init(category: "Cibo", source: .keyword),
+        // (c) Neither history nor keyword -> no labels at all, pure app sortOrder.
+        let plainChoices = IntentCategoryMenu.movementChoices(
+            all: ["Svago", "Cibo", "Trasporti", "Altro"],
+            nameSuggestion: nil,
             bundle: itBundle
         )
-        #expect(equalChoices.map(\.id) == ["Cibo", "Svago", "Trasporti", "Altro"])
-        #expect(equalChoices[0].title == "Cibo · ultima usata")
-        #expect(equalChoices[1].title == "Svago")
+        #expect(plainChoices.map(\.id) == ["Svago", "Cibo", "Trasporti", "Altro"])
+        #expect(plainChoices.map(\.title) == ["Svago", "Cibo", "Trasporti", "Altro"])
     }
 
     @Test(arguments: ["it", "en", "de", "es", "fr", "ja", "zh-Hans"])
@@ -107,22 +102,30 @@ struct AddMovementIntentTests {
         let lprojURL = try #require(Bundle.main.url(forResource: language, withExtension: "lproj"))
         let langBundle = try #require(Bundle(url: lprojURL))
 
-        let choices = IntentCategoryMenu.movementChoices(
-            all: ["Cibo", "Trasporti", "Altro"],
-            recentOfType: "Cibo",
-            nameSuggestion: .init(category: "Trasporti", source: .keyword),
-            bundle: langBundle
-        )
         let food = IntentCategoryMenu.localizedCategoryName("Cibo", bundle: langBundle)
         let transport = IntentCategoryMenu.localizedCategoryName("Trasporti", bundle: langBundle)
         let lastTag = langBundle.localizedString(forKey: "ultima usata", value: "MISSING", table: nil)
         let sugTag = langBundle.localizedString(forKey: "suggerita", value: "MISSING", table: nil)
         #expect(lastTag != "MISSING")
         #expect(sugTag != "MISSING")
-        #expect(choices[0].id == "Cibo")
-        #expect(choices[0].title == "\(food) · \(lastTag)")
-        #expect(choices[1].id == "Trasporti")
-        #expect(choices[1].title == "\(transport) · \(sugTag)")
+
+        let historyChoices = IntentCategoryMenu.movementChoices(
+            all: ["Cibo", "Trasporti", "Altro"],
+            nameSuggestion: .init(category: "Cibo", source: .history),
+            bundle: langBundle
+        )
+        #expect(historyChoices[0].id == "Cibo")
+        #expect(historyChoices[0].title == "\(food) · \(lastTag)")
+        #expect(historyChoices[1].title == transport)
+
+        let keywordChoices = IntentCategoryMenu.movementChoices(
+            all: ["Cibo", "Trasporti", "Altro"],
+            nameSuggestion: .init(category: "Trasporti", source: .keyword),
+            bundle: langBundle
+        )
+        #expect(keywordChoices[0].id == "Trasporti")
+        #expect(keywordChoices[0].title == "\(transport) · \(sugTag)")
+        #expect(keywordChoices[1].title == food)
 
         let titleLoc = langBundle.localizedString(forKey: "Aggiungi movimento", value: "MISSING", table: nil)
         let catDialog = langBundle.localizedString(forKey: "In quale categoria?", value: "MISSING", table: nil)
@@ -130,19 +133,20 @@ struct AddMovementIntentTests {
         #expect(catDialog != "MISSING")
     }
 
-    @Test func movementChoicesTruncatesOnlyLongCustomNameAndPreservesRawId() throws {
+    @Test func movementChoicesAndQueryMatchAddTransactionViewRules() throws {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(
             for: Account.self, Transaction.self, Budget.self, Goal.self, Category.self, RecurringRule.self,
             configurations: config
         )
         let ctx = container.mainContext
-        let longCustom = "Spese condominiali straordinarie 2026"
-        ctx.insert(Category(name: longCustom, icon: "house.fill", isDefault: false, sortOrder: 0))
+        ctx.insert(Category(name: "Svago", icon: "gamecontroller.fill", isDefault: true, sortOrder: 0))
         ctx.insert(Category(name: "Cibo", icon: "fork.knife", isDefault: true, sortOrder: 1))
-        ctx.insert(Category(name: "Svago", icon: "gamecontroller.fill", isDefault: true, sortOrder: 2))
+        ctx.insert(Category(name: "Trasporti", icon: "car.fill", isDefault: true, sortOrder: 2))
+        ctx.insert(Category(name: "Lavoro", icon: "briefcase.fill", isDefault: true, sortOrder: 3))
+        ctx.insert(Category(name: "Altro", icon: "tray.fill", isDefault: true, sortOrder: 4))
 
-        // History has "Pizza" -> "Cibo", latest overall is "Cinema" -> "Svago".
+        // History has "Pizza" -> "Cibo", and latest overall is "Cinema" -> "Svago" + "Bonus" -> "Lavoro".
         let oldPizza = Transaction(name: "Pizza", amount: 12, type: .uscita, category: "Cibo", date: Date(), isDone: true)
         oldPizza.createdAt = Date(timeIntervalSince1970: 10)
         let latestCinema = Transaction(name: "Cinema", amount: 10, type: .uscita, category: "Svago", date: Date(), isDone: true)
@@ -157,26 +161,83 @@ struct AddMovementIntentTests {
         let itURL = try #require(Bundle.main.url(forResource: "it", withExtension: "lproj"))
         let itBundle = try #require(Bundle(url: itURL))
 
-        // "pizza" matches DB history -> "Cibo · ultima usata" in expense flow.
-        let pizzaChoices = IntentCategoryMenu.movementChoices(
-            name: "pizza",
-            type: TransactionType.uscita.rawValue,
-            context: ctx,
-            bundle: itBundle
-        )
+        // (a) "pizza" in history -> only "Cibo · ultima usata" on top, rest in sortOrder without duplicates.
+        let pizzaChoices = IntentCategoryMenu.movementChoices(name: "pizza", context: ctx, bundle: itBundle)
         #expect(pizzaChoices.first?.id == "Cibo")
         #expect(pizzaChoices.first?.title == "Cibo · ultima usata")
         #expect(pizzaChoices.filter { $0.id == "Cibo" }.count == 1)
+        #expect(pizzaChoices.filter { $0.title.contains(" · ") }.count == 1)
+        #expect(pizzaChoices[1].id == "Svago")
+        #expect(pizzaChoices[1].title == "Svago")
 
-        // Income flow uses last income ("Lavoro") as "ultima usata" when name has no history/keyword.
-        let incomeChoices = IntentCategoryMenu.movementChoices(
-            name: "Premio aziendale",
-            type: TransactionType.entrata.rawValue,
+        // (b) "supermercato" not in history -> only "Cibo · suggerita" on top (never "Svago · ultima usata").
+        let supermarketChoices = IntentCategoryMenu.movementChoices(name: "supermercato", context: ctx, bundle: itBundle)
+        #expect(supermarketChoices.first?.id == "Cibo")
+        #expect(supermarketChoices.first?.title == "Cibo · suggerita")
+        #expect(supermarketChoices.filter { $0.id == "Cibo" }.count == 1)
+        #expect(supermarketChoices.filter { $0.title.contains(" · ") }.count == 1)
+        #expect(supermarketChoices[1].id == "Svago")
+        #expect(supermarketChoices[1].title == "Svago")
+
+        // (c) New name with no history and no keyword -> no labels at all, exact sortOrder.
+        let unknownChoices = IntentCategoryMenu.movementChoices(name: "Oggetto quantico xyz", context: ctx, bundle: itBundle)
+        #expect(unknownChoices.prefix(5).map(\.id) == ["Svago", "Cibo", "Trasporti", "Lavoro", "Altro"])
+        #expect(unknownChoices.allSatisfy { !$0.title.contains(" · ") })
+
+        // Income without history/keyword also gets no labels (recent "Lavoro" is not promoted).
+        let incomeChoices = IntentCategoryMenu.movementChoices(name: "Voce sconosciuta xyz", context: ctx, bundle: itBundle)
+        #expect(incomeChoices.first?.id == "Svago")
+        #expect(incomeChoices.allSatisfy { !$0.title.contains(" · ") })
+
+        // Query helper with dependency values and missing description fallback.
+        let queryPizza = IntentCategoryChoiceQuery.choices(
+            name: "pizza",
+            movementType: .uscita,
             context: ctx,
             bundle: itBundle
         )
-        #expect(incomeChoices.first?.id == "Lavoro")
-        #expect(incomeChoices.first?.title == "Lavoro · ultima usata")
+        #expect(queryPizza.first?.id == "Cibo")
+        #expect(queryPizza.first?.displayTitle == "Cibo · ultima usata")
+
+        let querySupermarket = IntentCategoryChoiceQuery.choices(
+            name: "supermercato",
+            movementType: .uscita,
+            context: ctx,
+            bundle: itBundle
+        )
+        #expect(querySupermarket.first?.id == "Cibo")
+        #expect(querySupermarket.first?.displayTitle == "Cibo · suggerita")
+
+        let queryNoDescription = IntentCategoryChoiceQuery.choices(
+            name: nil,
+            movementType: .entrata,
+            context: ctx,
+            bundle: itBundle
+        )
+        #expect(queryNoDescription.prefix(5).map(\.id) == ["Svago", "Cibo", "Trasporti", "Lavoro", "Altro"])
+        #expect(queryNoDescription.allSatisfy { !$0.displayTitle.contains(" · ") })
+    }
+
+    @Test func querySuggestedEntitiesWithoutDependencyReturnsUnlabeledList() async throws {
+        let query = IntentCategoryChoiceQuery()
+        let entities = try await query.suggestedEntities()
+        #expect(!entities.isEmpty)
+        #expect(entities.allSatisfy { !$0.displayTitle.contains(" · ") })
+    }
+
+    @Test func movementChoicesTruncatesOnlyLongCustomNameAndPreservesRawId() throws {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(
+            for: Account.self, Transaction.self, Budget.self, Goal.self, Category.self, RecurringRule.self,
+            configurations: config
+        )
+        let ctx = container.mainContext
+        let longCustom = "Spese condominiali straordinarie 2026"
+        ctx.insert(Category(name: longCustom, icon: "house.fill", isDefault: false, sortOrder: 0))
+        ctx.insert(Category(name: "Cibo", icon: "fork.knife", isDefault: true, sortOrder: 1))
+
+        let itURL = try #require(Bundle.main.url(forResource: "it", withExtension: "lproj"))
+        let itBundle = try #require(Bundle(url: itURL))
 
         // Long custom name preserves raw ID while truncating display title with "…" only on name.
         let customTx = Transaction(name: "Caldaia condominio", amount: 250, type: .uscita, category: longCustom, date: Date(), isDone: true)
@@ -186,7 +247,6 @@ struct AddMovementIntentTests {
 
         let longChoices = IntentCategoryMenu.movementChoices(
             name: "caldaia condominio",
-            type: TransactionType.uscita.rawValue,
             context: ctx,
             bundle: itBundle
         )

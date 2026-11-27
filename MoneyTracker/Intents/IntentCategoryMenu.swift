@@ -167,25 +167,27 @@ enum IntentCategoryMenu {
         return NameSuggestion(category: classified, source: .keyword)
     }
 
-    /// Resolves top display choices with lowercase tags and no duplicates below:
-    /// - When the name matches transaction history, that category becomes the "ultima usata" row
-    ///   just like `AddTransactionView`.
-    /// - Otherwise, keeps S-70i ordering: `recentOfType` ("ultima usata") then keyword match
-    ///   ("suggerita"), collapsed into a single "ultima usata" row if both match.
+    /// Resolves top display choice matching `AddTransactionView.applySuggestion(for:)` with lowercase tags
+    /// and no duplicates below:
+    /// - History match for the same name -> single `"ultima usata"` row at the top.
+    /// - Otherwise, keyword classifier match (>2 chars, != "Altro") -> single `"suggerita"` row at the top.
+    /// - Neither -> no labeled rows at the top; all categories stay in app `sortOrder`.
     nonisolated static func movementChoices(
         all: [String],
-        recentOfType: String?,
         nameSuggestion: NameSuggestion?,
         bundle: Bundle = .main
     ) -> [CategoryChoiceDisplay] {
         let topPair: (lastUsed: String?, suggested: String?)
         switch nameSuggestion {
-        case let .some(match) where match.source == .history:
-            topPair = (lastUsed: match.category, suggested: nil)
         case let .some(match):
-            topPair = top(suggested: match.category, lastUsed: recentOfType)
+            switch match.source {
+            case .history:
+                topPair = (lastUsed: match.category, suggested: nil)
+            case .keyword:
+                topPair = (lastUsed: nil, suggested: match.category)
+            }
         case nil:
-            topPair = (lastUsed: recentOfType, suggested: nil)
+            topPair = (lastUsed: nil, suggested: nil)
         }
 
         var result: [CategoryChoiceDisplay] = []
@@ -299,11 +301,11 @@ enum IntentCategoryMenu {
         return IntentItemCollection(promptLabel: nil, usesIndexedCollation: false, sections: sections)
     }
 
-    /// Builds flat category choices for interactive selection inside `AddMovementIntent.perform()`.
+    /// Builds flat category choices for interactive selection inside `AddMovementIntent.perform()`
+    /// and `IntentCategoryChoiceQuery`.
     @MainActor
     static func movementChoices(
         name: String,
-        type: String,
         context: ModelContext?,
         bundle: Bundle = .main
     ) -> [CategoryChoiceDisplay] {
@@ -316,11 +318,9 @@ enum IntentCategoryMenu {
         let dbCats = (try? context.fetch(catDescriptor)) ?? []
         let all = allCategories(custom: dbCats.map(\.name))
         let available = Set(all)
-        let recent = lastUsed(type: type, context: context, available: available)
         let suggestion = suggestLikeApp(for: name, context: context, available: available)
         return movementChoices(
             all: all,
-            recentOfType: recent,
             nameSuggestion: suggestion,
             bundle: bundle
         )

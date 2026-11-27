@@ -55,6 +55,8 @@ struct IntentCategoryChoice: AppEntity, Hashable, Sendable {
 }
 
 struct IntentCategoryChoiceQuery: EntityQuery {
+    @IntentParameterDependency<AddMovementIntent>(\.$movementType, \.$name) var intent
+
     func entities(for identifiers: [String]) async throws -> [IntentCategoryChoice] {
         identifiers.map { id in
             IntentCategoryChoice(
@@ -65,14 +67,28 @@ struct IntentCategoryChoiceQuery: EntityQuery {
     }
 
     @MainActor
+    static func choices(
+        name: String?,
+        movementType: MovementKind?,
+        context: ModelContext?,
+        bundle: Bundle = .main
+    ) -> [IntentCategoryChoice] {
+        _ = movementType
+        let typedName = name?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        return IntentCategoryMenu.movementChoices(
+            name: typedName,
+            context: context,
+            bundle: bundle
+        ).map(IntentCategoryChoice.init(choice:))
+    }
+
+    @MainActor
     func suggestedEntities() async throws -> [IntentCategoryChoice] {
-        let context = IntentContainer.shared?.mainContext
-        let choices = IntentCategoryMenu.movementChoices(
-            name: "",
-            type: TransactionType.uscita.rawValue,
-            context: context
+        Self.choices(
+            name: intent?.name,
+            movementType: intent?.movementType,
+            context: IntentContainer.shared?.mainContext
         )
-        return choices.map(IntentCategoryChoice.init(choice:))
     }
 }
 
@@ -130,7 +146,6 @@ struct AddMovementIntent: AppIntent {
         } else {
             let choices = IntentCategoryMenu.movementChoices(
                 name: name,
-                type: movementType.transactionType.rawValue,
                 context: ctx
             ).map(IntentCategoryChoice.init(choice:))
             let selected = try await $category.requestDisambiguation(
