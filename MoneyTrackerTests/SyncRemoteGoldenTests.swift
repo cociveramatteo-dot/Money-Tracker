@@ -103,7 +103,12 @@ struct SyncRemoteGoldenTests {
                 let request = requests[offset + index]
                 #expect(request.method == "GET")
                 #expect(request.path == path)
-                #expect(request.query == [URLQueryItem(name: "select", value: columns), scope])
+                // Letture paginate da S-50h (fd985e9): ordine stabile per id, pagine da 200.
+                #expect(request.query == [
+                    URLQueryItem(name: "select", value: columns), scope,
+                    URLQueryItem(name: "order", value: "id.asc.nullslast"),
+                    URLQueryItem(name: "limit", value: "200"),
+                ])
                 #expect(request.body == nil)
             }
 

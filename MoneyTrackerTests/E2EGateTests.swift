@@ -171,7 +171,9 @@ struct E2EGateTests {
         try fixture.context.save()
         remote.transitionOnNextPlainWrite = try makeRow(state: .migrating)
         #expect(await fixture.service.pushResilient(context: fixture.context) == false)
-        #expect(remote.calls == [.lookupE2E(user), .upsert(.accounts, user, [account.id]), .lookupE2E(user)])
+        #expect(remote.calls == [
+            .lookupE2E(user), .fetchIds(.accounts, user), .upsert(.accounts, user, [account.id]), .lookupE2E(user),
+        ])
         #expect(fixture.service.e2eLockReason == .transition)
         #expect(fixture.service.status == .idle)
         #expect(fixture.defaults.bool(forKey: "syncService.hasPendingChanges"))
