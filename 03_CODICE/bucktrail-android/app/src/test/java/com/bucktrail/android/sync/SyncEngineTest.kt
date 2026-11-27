@@ -215,6 +215,23 @@ class SyncEngineTest {
         assertEquals(setOf(T1, T3), state.baseline?.tables?.get(VaultKind.Transaction.wire))
     }
 
+    @Test fun lastAccountDeletedRemotelyIsNotResurrected() = runBlocking {
+        val local = FakeLocalStore()
+        val e = engine(local)
+        api.seed(Snapshot(accounts = listOf(account(A1))))
+        assertEquals(LoginSyncResult.Pulled, e.syncOnLogin())
+        assertEquals(setOf(A1), state.baseline?.base(VaultKind.Account))
+
+        local.snap = local.snap.copy(accounts = local.snap.accounts + account(A2))
+        api.table("mt_accounts").clear()
+
+        assertEquals(PullOutcome.Done, e.pull())
+        assertEquals(listOf(A2), local.snap.accounts.map { it.id })
+        assertEquals(emptySet<String>(), state.baseline?.base(VaultKind.Account))
+        assertTrue(e.push())
+        assertEquals(setOf(A2), api.table("mt_accounts").keys)
+    }
+
     @Test fun skippedOrFailedPullPreservesTheBaselineAndClearRemovesIt() = runBlocking {
         val local = FakeLocalStore()
         api.seed(Snapshot(accounts = listOf(account(A1))))
@@ -226,6 +243,8 @@ class SyncEngineTest {
         assertEquals(PullOutcome.Failed, e.pull())
         assertEquals(baseline, state.baseline)
         api.table("mt_accounts").clear()
+        local.failApply = false
+        local.snap = Snapshot(accounts = listOf(account(A2)))
         assertEquals(PullOutcome.Skipped, e.pull())
         assertEquals(baseline, state.baseline)
         e.clearLocalData()

@@ -101,6 +101,26 @@ struct SyncBaselineTests {
         #expect(fixture.baseline.tables[SyncTable.transactions.kind] == [shared.id, dirty.id])
     }
 
+    @Test(arguments: [false, true])
+    func lastAccountDeletedRemotelyIsNotResurrected(encrypted: Bool) async throws {
+        let fixture = try await Fixture(encrypted: encrypted)
+        defer { fixture.cleanup() }
+        let id = fixture.account.id
+        await fixture.service.pull(context: fixture.context)
+        #expect(fixture.baseline.base(for: .accounts) == [id])
+
+        let pending = Account(name: "Solo locale", type: .conto)
+        fixture.context.insert(pending)
+        try fixture.context.save()
+        try await fixture.transport.delete(ids: [id], table: .accounts, userId: fixture.user)
+
+        await fixture.service.pull(context: fixture.context)
+        #expect(try fixture.context.fetch(FetchDescriptor<Account>()).map(\.id) == [pending.id])
+        #expect(fixture.baseline.base(for: .accounts) == [])
+        #expect(await fixture.service.push(context: fixture.context))
+        #expect(try await fixture.ids(.accounts) == [pending.id])
+    }
+
     @Test func clearLocalStoreRemovesBaseline() async throws {
         let fixture = try await Fixture(encrypted: false)
         defer { fixture.cleanup() }
@@ -124,9 +144,14 @@ struct SyncBaselineTests {
         #expect(await fixture.service.push(context: fixture.context))
         #expect(try await fixture.ids(.transactions).isEmpty)
 
-        try await fixture.transport.delete(ids: [fixture.account.id], table: .accounts, userId: fixture.user)
+        let accountId = fixture.account.id
+        fixture.context.delete(fixture.account)
+        fixture.context.insert(Account(name: "Solo locale", type: .conto))
+        try fixture.context.save()
+        try await fixture.transport.delete(ids: [accountId], table: .accounts, userId: fixture.user)
         await fixture.service.pull(context: fixture.context)
-        #expect(fixture.baseline.tables[SyncTable.accounts.kind] == [fixture.account.id])
+        #expect(fixture.baseline.tables[SyncTable.accounts.kind] == [accountId])
+        #expect(try fixture.context.fetchCount(FetchDescriptor<Account>()) == 1)
     }
 
     @MainActor

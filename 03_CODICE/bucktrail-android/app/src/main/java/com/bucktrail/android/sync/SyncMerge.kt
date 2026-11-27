@@ -45,17 +45,19 @@ data class SyncPlan(
 /**
  * Unione del pull (`SyncService.pull` iOS): la riga remota vince campo per campo; si aggiorna solo ciò che differisce;
  * gli assenti sul remoto si cancellano (tranne le transazioni «sporche», non ancora caricate). Funzione pura.
- * Ritorna `null` se scatta una guardia (remoto senza conti ma locale con conti: il push non è ancora avvenuto).
+ * Ritorna `null` se scatta una guardia (remoto senza conti e nessun conto locale già sincronizzato).
  */
 object SyncMerge {
     fun plan(local: Snapshot, remote: Snapshot, dirtyTransactionIds: Set<String>, ignored: IgnoredIds = IgnoredIds(),
-             knownRuleIds: Set<String> = emptySet()): SyncPlan? {
-        if (remote.accounts.isEmpty() && ignored.accounts.isEmpty() && local.accounts.isNotEmpty()) return null
+             knownRuleIds: Set<String> = emptySet(), knownAccountIds: Set<String> = emptySet()): SyncPlan? {
+        val localAccounts = local.accounts.associateBy { it.id }
+        val noRemoteAccounts = remote.accounts.isEmpty() && ignored.accounts.isEmpty()
+        if (noRemoteAccounts && localAccounts.isNotEmpty() && localAccounts.keys.none { it in knownAccountIds }) return null
 
         val remoteAccountIds = remote.accounts.map { it.id }.toSet()
-        // conti ignorati ma presenti in locale: restano (e i loro movimenti con loro); quelli sconosciuti non si possono referenziare
-        val knownAccountIds = remoteAccountIds + (ignored.accounts intersect local.accounts.map { it.id }.toSet())
-        val localAccounts = local.accounts.associateBy { it.id }
+        val pendingAccounts = if (noRemoteAccounts) localAccounts.keys - knownAccountIds else emptySet()
+        // I conti ignorati già presenti in locale restano referenziabili.
+        val retainedAccounts = remoteAccountIds + (ignored.accounts intersect localAccounts.keys) + pendingAccounts
         val accounts = remote.accounts.mapNotNull { r ->
             val existing = localAccounts[r.id]
             val merged = existing?.copy(
@@ -64,14 +66,14 @@ object SyncMerge {
             ) ?: r
             merged.takeIf { it != existing }
         }
-        val deleteAccounts = local.accounts.map { it.id }.filter { it !in remoteAccountIds && it !in ignored.accounts }
+        val deleteAccounts = localAccounts.keys.filter { it !in retainedAccounts }
 
         // il cascade del conto cancella già i suoi movimenti/budget: si evita di riscriverli
         val cascaded = deleteAccounts.toSet()
         val localTx = local.transactions.associateBy { it.id }
         val transactions = remote.transactions.mapNotNull { r ->
             val existing = localTx[r.id]
-            val accountId = r.accountId?.takeIf { it in knownAccountIds }
+            val accountId = r.accountId?.takeIf { it in retainedAccounts }
             val merged = existing?.copy(
                 name = r.name, amountCents = r.amountCents, type = r.type, category = r.category, categoryIcon = r.categoryIcon, date = r.date,
                 isDone = r.isDone, isFixed = r.isFixed, isTransfer = r.isTransfer, transferGroupId = r.transferGroupId, notes = r.notes,
@@ -81,12 +83,12 @@ object SyncMerge {
             merged.takeIf { it != existing }
         }
         val remoteTxIds = remote.transactions.map { it.id }.toSet()
-        val deleteTx = local.transactions.filter { it.id !in remoteTxIds && it.id !in ignored.transactions && it.id !in dirtyTransactionIds && it.accountId !in cascaded }.map { it.id }
+        val deleteTx = local.transactions.filter { it.id !in remoteTxIds && it.id !in ignored.transactions && it.id !in dirtyTransactionIds && it.accountId !in cascaded && it.accountId !in pendingAccounts }.map { it.id }
 
         val localBudgets = local.budgets.associateBy { it.id }
         val budgets = remote.budgets.mapNotNull { r ->
             val existing = localBudgets[r.id]
-            val accountId = r.accountId?.takeIf { it in knownAccountIds }
+            val accountId = r.accountId?.takeIf { it in retainedAccounts }
             val merged = existing?.copy(
                 category = r.category, categoryIcon = r.categoryIcon, monthlyLimitCents = r.monthlyLimitCents, month = r.month, year = r.year,
                 accountId = if (r.accountId != null) accountId else existing.accountId,
@@ -94,7 +96,7 @@ object SyncMerge {
             merged.takeIf { it != existing }
         }
         val remoteBudgetIds = remote.budgets.map { it.id }.toSet()
-        val deleteBudgets = local.budgets.filter { it.id !in remoteBudgetIds && it.id !in ignored.budgets && it.accountId !in cascaded }.map { it.id }
+        val deleteBudgets = local.budgets.filter { it.id !in remoteBudgetIds && it.id !in ignored.budgets && it.accountId !in cascaded && it.accountId !in pendingAccounts }.map { it.id }
 
         val localGoals = local.goals.associateBy { it.id }
         val goals = remote.goals.mapNotNull { r ->

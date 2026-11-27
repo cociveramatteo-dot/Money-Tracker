@@ -236,7 +236,8 @@ class SyncEngine(
                 previous?.base(VaultKind.Transaction).orEmpty()
             val dirty = state.dirty()
             val plan = SyncMerge.plan(local, remote, dirty.keys - deletedTx, ignored,
-                knownRuleIds = previous?.base(VaultKind.Rule).orEmpty()) ?: return PullOutcome.Skipped
+                knownRuleIds = previous?.base(VaultKind.Rule).orEmpty(),
+                knownAccountIds = previous?.base(VaultKind.Account).orEmpty()) ?: return PullOutcome.Skipped
             if (auth.userId != userId) return PullOutcome.Failed
             if (!plan.isEmpty) store.apply(plan)
             if (auth.userId != userId) return PullOutcome.Failed

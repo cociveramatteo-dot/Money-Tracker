@@ -901,16 +901,16 @@ final class SyncService: ObservableObject {
                 try await remote.select(table: .accounts, userId: userId)
             }
 
-            // Guard: se Supabase è vuoto ma il locale ha dati, interrompi.
-            // Significa che il push precedente non è ancora avvenuto — non cancellare
-            // dati locali validi che l'utente ha appena inserito.
-            let localAccountCount = (try? context.fetchCount(FetchDescriptor<Account>())) ?? 0
-            if sbAccounts.isEmpty && localAccountCount > 0 {
+            let baseline = SyncBaseline.load(from: defaults, user: userId)
+            let localAccounts = try context.fetch(FetchDescriptor<Account>())
+            let knownAccountIds = forMigration ? [] : baseline.base(for: .accounts) ?? []
+            // Un remoto senza conti può indicare un primo push ancora da fare.
+            if sbAccounts.isEmpty && !localAccounts.isEmpty &&
+                !localAccounts.contains(where: { knownAccountIds.contains($0.id) }) {
                 Logger.persistence.warning("SyncService: pull skipped — remote empty, local has data")
                 return false
             }
 
-            let localAccounts    = (try? context.fetch(FetchDescriptor<Account>())) ?? []
             let localAccountById = Dictionary(localAccounts.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
             var accountMap       = [UUID: Account]()
             var pulledAccountIds = Set<UUID>()
@@ -940,8 +940,8 @@ final class SyncService: ObservableObject {
                 }
                 accountMap[sb.id] = acc
             }
-            // Cancella account locali non presenti su Supabase
-            for local in localAccounts where !pulledAccountIds.contains(local.id) {
+            let pendingAccounts = sbAccounts.isEmpty ? Set(localAccounts.map(\.id)).subtracting(knownAccountIds) : []
+            for local in localAccounts where !pulledAccountIds.contains(local.id) && !pendingAccounts.contains(local.id) {
                 context.delete(local)   // cascade elimina anche le sue transaction/budget
             }
 
@@ -1002,13 +1002,13 @@ final class SyncService: ObservableObject {
             // pull che arriva prima che quelle righe siano state caricate le tratta
             // come "cancellate su un altro dispositivo" e le elimina anche qui — pur
             // essendo state salvate correttamente e mai sincronizzate altrove.
-            let baseline = SyncBaseline.load(from: defaults, user: userId)
             let localTxIds = Set(localTx.map(\.id))
             let knownTxIds = baseline.base(for: .transactions, local: localTxIds) ?? []
             let remotelyDeletedTx = localTxIds.subtracting(pulledTxIds).intersection(knownTxIds)
             let stillDirty = dirtyTransactionIds.subtracting(remotelyDeletedTx)
             if !forMigration {
                 for local in localTx where !pulledTxIds.contains(local.id) && !stillDirty.contains(local.id) {
+                    if let accountId = local.account?.id, pendingAccounts.contains(accountId) { continue }
                     context.delete(local)
                 }
             }
@@ -1046,6 +1046,7 @@ final class SyncService: ObservableObject {
                 }
             }
             for local in localBudgets where !pulledBudgetIds.contains(local.id) {
+                if let accountId = local.account?.id, pendingAccounts.contains(accountId) { continue }
                 context.delete(local)
             }
 
