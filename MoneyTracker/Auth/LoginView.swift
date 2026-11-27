@@ -83,11 +83,12 @@ struct LoginView: View {
                 Text("Password")
                     .scaledFont(size: 12, weight: .medium)
                     .foregroundStyle(DS.smoke)
-                SecureField("••••••••", text: $password)
-                    .padding(14)
-                    .background(DS.fog)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .foregroundStyle(DS.ink)
+                RevealableSecureField(
+                    placeholder: "••••••••",
+                    text: $password,
+                    style: .auth,
+                    accessibilityIdentifier: "field_loginPassword"
+                )
             }
         }
         .padding(.horizontal, DS.Layout.margin)

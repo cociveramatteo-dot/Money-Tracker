@@ -149,12 +149,18 @@ struct E2EPhraseFields: View {
 
     var body: some View {
         E2EMessage("e2e_frase_aiuto", color: DS.smoke)
-        SecureField("e2e_frase_campo", text: $phrase.value)
-            .e2eField()
-            .accessibilityIdentifier("e2e_phrase")
-        SecureField("e2e_frase_ripeti", text: $phrase.repeated)
-            .e2eField()
-            .accessibilityIdentifier("e2e_repeat")
+        RevealableSecureField(
+            placeholder: "e2e_frase_campo",
+            text: $phrase.value,
+            style: .e2e,
+            accessibilityIdentifier: "e2e_phrase"
+        )
+        RevealableSecureField(
+            placeholder: "e2e_frase_ripeti",
+            text: $phrase.repeated,
+            style: .e2e,
+            accessibilityIdentifier: "e2e_repeat"
+        )
         if let error = phrase.error {
             E2EMessage(error, color: DS.danger)
                 .accessibilityIdentifier("e2e_phrase_error")

@@ -579,4 +579,6 @@
     <string name="e2e_usa_frase" formatted="false">Usar la frase de seguridad</string>
     <string name="e2e_nuova_chiave_titolo" formatted="false">¿Crear una nueva clave de recuperación?</string>
     <string name="e2e_copiata" formatted="false">Copiada</string>
+    <string name="mostra" formatted="false">Mostrar</string>
+    <string name="nascondi" formatted="false">Ocultar</string>
 </resources>

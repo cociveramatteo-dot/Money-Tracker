@@ -349,8 +349,15 @@ internal fun AdvancedProtectionSheet(
                         if (issue == null) Message(R.string.e2e_errore, color = c.danger)
                     } else {
                         Message(if (reason == E2EGate.LockReason.Transition) R.string.e2e_altro_dispositivo else R.string.e2e_sblocca_testo)
-                        SecretField(if (useRecovery) R.string.e2e_chiave_campo else R.string.e2e_frase_campo,
-                            secret, { secret = it }, "e2e_unlock_secret")
+                        androidx.compose.runtime.key(useRecovery) {
+                            SecretField(
+                                if (useRecovery) R.string.e2e_chiave_campo else R.string.e2e_frase_campo,
+                                secret,
+                                { secret = it },
+                                "e2e_unlock_secret",
+                                keyboard = if (useRecovery) KeyboardType.Ascii else KeyboardType.Password,
+                            )
+                        }
                         if (useRecovery) {
                             SectionLabel(stringResource(R.string.e2e_frase_titolo))
                             PhraseFields(phrase, repeated, { phrase = it }, { repeated = it }, validation)
@@ -492,9 +499,9 @@ private fun PhraseFields(
 }
 
 @Composable
-private fun SecretField(@StringRes label: Int, value: String, change: (String) -> Unit, tag: String) {
+private fun SecretField(@StringRes label: Int, value: String, change: (String) -> Unit, tag: String, keyboard: KeyboardType = KeyboardType.Password) {
     val text = stringResource(label)
-    AuthField(text, "", value, change, KeyboardType.Password, secure = true, tag = tag)
+    AuthField(text, "", value, change, keyboard, secure = true, tag = tag)
 }
 
 @Composable

@@ -58,22 +58,24 @@ struct SignUpView: View {
                 Text("Password")
                     .scaledFont(size: 12, weight: .medium)
                     .foregroundStyle(DS.smoke)
-                SecureField("Minimo 6 caratteri", text: $password)
-                    .padding(14)
-                    .background(DS.fog)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .foregroundStyle(DS.ink)
+                RevealableSecureField(
+                    placeholder: "Minimo 6 caratteri",
+                    text: $password,
+                    style: .auth,
+                    accessibilityIdentifier: "field_signUpPassword"
+                )
             }
 
             VStack(alignment: .leading, spacing: DS.Space.xs) {
                 Text("Conferma password")
                     .scaledFont(size: 12, weight: .medium)
                     .foregroundStyle(DS.smoke)
-                SecureField("Ripeti la password", text: $confirmPassword)
-                    .padding(14)
-                    .background(DS.fog)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .foregroundStyle(DS.ink)
+                RevealableSecureField(
+                    placeholder: "Ripeti la password",
+                    text: $confirmPassword,
+                    style: .auth,
+                    accessibilityIdentifier: "field_signUpConfirm"
+                )
                 // Mismatch hint — compare in real time
                 if !confirmPassword.isEmpty && confirmPassword != password {
                     Text("Le password non coincidono")

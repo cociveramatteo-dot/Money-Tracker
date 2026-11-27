@@ -579,4 +579,6 @@
     <string name="e2e_usa_frase" formatted="false">Use security phrase</string>
     <string name="e2e_nuova_chiave_titolo" formatted="false">Create a new recovery key?</string>
     <string name="e2e_copiata" formatted="false">Copied</string>
+    <string name="mostra" formatted="false">Show</string>
+    <string name="nascondi" formatted="false">Hide</string>
 </resources>

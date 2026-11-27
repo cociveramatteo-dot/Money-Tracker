@@ -578,4 +578,6 @@
     <string name="e2e_usa_frase" formatted="false">セキュリティフレーズを使う</string>
     <string name="e2e_nuova_chiave_titolo" formatted="false">新しい復旧キーを作成しますか？</string>
     <string name="e2e_copiata" formatted="false">コピーしました</string>
+    <string name="mostra" formatted="false">表示</string>
+    <string name="nascondi" formatted="false">非表示</string>
 </resources>

@@ -579,4 +579,6 @@
     <string name="e2e_usa_frase" formatted="false">Sicherheitsphrase verwenden</string>
     <string name="e2e_nuova_chiave_titolo" formatted="false">Neuen Wiederherstellungsschlüssel erstellen?</string>
     <string name="e2e_copiata" formatted="false">Kopiert</string>
+    <string name="mostra" formatted="false">Anzeigen</string>
+    <string name="nascondi" formatted="false">Ausblenden</string>
 </resources>

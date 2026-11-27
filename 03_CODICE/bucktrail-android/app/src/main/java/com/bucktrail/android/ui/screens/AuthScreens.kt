@@ -24,6 +24,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,6 +48,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.bucktrail.android.R
 import com.bucktrail.android.sync.AuthMessage
 import com.bucktrail.android.sync.SignUpResult
@@ -217,21 +221,50 @@ private fun AuthErrorText(text: String) {
     Text(text, style = Typo.formOption.copy(fontSize = 13.sp), color = Bt.colors.danger, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(top = 12.dp).testTag("auth_error"))
 }
 
-/** `AuthField` iOS: etichetta 12 medium smoke, campo su `fog` raggio 10, padding 14. */
+/** `AuthField` iOS: etichetta 12 medium smoke, campo su `fog` raggio 10, padding 14 (con occhio su campi sicuri). */
 @Composable
 fun AuthField(label: String, placeholder: String, value: String, onChange: (String) -> Unit, keyboard: KeyboardType, secure: Boolean = false, tag: String = "") {
     val c = Bt.colors
+    var revealed by rememberSaveable(secure) { mutableStateOf(false) }
+    if (secure) {
+        val lifecycleOwner = LocalLifecycleOwner.current
+        DisposableEffect(lifecycleOwner) {
+            val observer = LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_STOP) revealed = false
+            }
+            lifecycleOwner.lifecycle.addObserver(observer)
+            onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+        }
+    }
+    val effectiveKeyboard = if (secure && revealed && keyboard == KeyboardType.Password) KeyboardType.Text else keyboard
+    val toggleLabel = stringResource(if (revealed) R.string.nascondi else R.string.mostra)
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(label, style = Typo.formOption.copy(fontFamily = Fonts.formMedium, fontSize = 12.sp), color = c.smoke)
         BasicTextField(
             value, onChange, singleLine = true, textStyle = Typo.formOption.copy(color = c.ink), cursorBrush = SolidColor(c.ink),
-            keyboardOptions = KeyboardOptions(keyboardType = keyboard, autoCorrectEnabled = false),
-            visualTransformation = if (secure) PasswordVisualTransformation() else VisualTransformation.None,
+            keyboardOptions = KeyboardOptions(keyboardType = effectiveKeyboard, autoCorrectEnabled = false),
+            visualTransformation = if (secure && !revealed) PasswordVisualTransformation() else VisualTransformation.None,
             modifier = Modifier.fillMaxWidth().testTag(tag),
             decorationBox = { inner ->
-                Box(Modifier.fillMaxWidth().heightIn(min = 48.dp).clip(RoundedCornerShape(10.dp)).background(c.fog).padding(14.dp), contentAlignment = Alignment.CenterStart) {
-                    if (value.isEmpty()) Text(placeholder, style = Typo.formOption, color = c.smoke.copy(alpha = 0.6f))
-                    inner()
+                Row(
+                    Modifier.fillMaxWidth().heightIn(min = 48.dp).clip(RoundedCornerShape(10.dp)).background(c.fog)
+                        .padding(start = 14.dp, end = if (secure) 4.dp else 14.dp, top = if (secure) 2.dp else 14.dp, bottom = if (secure) 2.dp else 14.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Box(Modifier.weight(1f).padding(vertical = if (secure) 12.dp else 0.dp), contentAlignment = Alignment.CenterStart) {
+                        if (value.isEmpty()) Text(placeholder, style = Typo.formOption, color = c.smoke.copy(alpha = 0.6f))
+                        inner()
+                    }
+                    if (secure) {
+                        val toggleModifier = if (tag.isNotEmpty()) Modifier.testTag("${tag}_toggle") else Modifier
+                        Box(
+                            toggleModifier.size(44.dp).clip(RoundedCornerShape(8.dp))
+                                .clickable(role = Role.Button, onClickLabel = toggleLabel) { revealed = !revealed },
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Icon(SfIcons.forName(if (revealed) "eye.slash" else "eye"), toggleLabel, tint = c.smoke, modifier = Modifier.size(18.dp))
+                        }
+                    }
                 }
             },
         )

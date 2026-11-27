@@ -57,9 +57,14 @@ struct E2EUnlockView: View {
     private func unlockContent(_ reason: E2EGate.LockReason) -> some View {
         E2EMessage(reason == .transition ? "e2e_altro_dispositivo" : "e2e_sblocca_testo")
         Group {
-            SecureField(useRecoveryKey ? "e2e_chiave_campo" : "e2e_frase_campo", text: $secret)
-                .e2eField()
-                .accessibilityIdentifier("e2e_unlock_secret")
+            RevealableSecureField(
+                placeholder: useRecoveryKey ? "e2e_chiave_campo" : "e2e_frase_campo",
+                text: $secret,
+                style: .e2e,
+                keyboardType: useRecoveryKey ? .asciiCapable : .default,
+                accessibilityIdentifier: "e2e_unlock_secret"
+            )
+            .id(useRecoveryKey)
             if useRecoveryKey {
                 SectionLabel(text: "e2e_frase_titolo")
                 E2EPhraseFields(phrase: $phrase)
