@@ -110,8 +110,8 @@
     "semantic_hash": "55b58464e072a50d044333f74a8f3bfd"
   },
   "MoneyTracker/MoneyTrackerApp.swift": {
-    "mtime": 1795642432.1308284,
-    "ast_hash": "2c039dbcdcc9f9a8e6fee94343369077",
+    "mtime": 1795719631.8744562,
+    "ast_hash": "2732fe783838e2921266d622f2ae553b",
     "semantic_hash": ""
   },
   "MoneyTracker/Persistence/Logging.swift": {
@@ -135,8 +135,8 @@
     "semantic_hash": "8c4a572e1cf416850fe9ca8cb0f03d7a"
   },
   "MoneyTracker/Sync/SyncService.swift": {
-    "mtime": 1795702532.02632,
-    "ast_hash": "d266111c9d6f1356d1b8cbe7788ae30c",
+    "mtime": 1795719631.8731647,
+    "ast_hash": "bfe10503ea58b27bfbf6040ec5d14ef7",
     "semantic_hash": ""
   },
   "MoneyTrackerTests/AccountBalanceTests.swift": {
@@ -245,7 +245,7 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/StatisticsView.swift": {
-    "mtime": 1795541502.287879,
+    "mtime": 1795719494.074329,
     "ast_hash": "a420c6670132be86345a617f65b03e19",
     "semantic_hash": ""
   },
@@ -260,8 +260,8 @@
     "semantic_hash": ""
   },
   "docs/MoneyTracker.md": {
-    "mtime": 1795703900.4538436,
-    "ast_hash": "f014f4d9c3c431afd8554fefdc2925b9",
+    "mtime": 1795715782.7483172,
+    "ast_hash": "f769affae292a9da675baccc535c02a8",
     "semantic_hash": ""
   },
   "docs/MoneyTracker.pdf": {
@@ -370,8 +370,8 @@
     "semantic_hash": ""
   },
   ".cantiere/strumenti/bilingue.py": {
-    "mtime": 1795555910.6332073,
-    "ast_hash": "7da8021c82498eab91db1102ebea2237",
+    "mtime": 1795714227.1445851,
+    "ast_hash": "0ae877f80d1321b6c700c340226699ef",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/catalogo.py": {
@@ -395,8 +395,8 @@
     "semantic_hash": ""
   },
   ".cantiere/strumenti/guardiano/giro.mjs": {
-    "mtime": 1795218702.0253396,
-    "ast_hash": "a209755e197a69a2042e0f9a1fcb6a6d",
+    "mtime": 1795715769.0958862,
+    "ast_hash": "8e76f2f6bb7e4ef8536af73f53920b52",
     "semantic_hash": ""
   },
   ".cantiere/strumenti/guardiano/installa-nel-repo.sh": {
@@ -515,8 +515,8 @@
     "semantic_hash": ""
   },
   ".cantiere/APPROVAZIONI.md": {
-    "mtime": 1795708056.7278166,
-    "ast_hash": "c00711ae5314182679e98a3805f6e878",
+    "mtime": 1795715695.5645583,
+    "ast_hash": "fd5fb068c8ffc5729b4c02f2d6641075",
     "semantic_hash": ""
   },
   ".cantiere/AVVIO.md": {
@@ -525,43 +525,43 @@
     "semantic_hash": ""
   },
   ".cantiere/CHECKPOINT.md": {
-    "mtime": 1795703762.9426148,
-    "ast_hash": "fb3fe776e7695daa559b6ab618ffde8f",
+    "mtime": 1795715759.1351113,
+    "ast_hash": "ffde4312db12104fceb34ef7d08eec06",
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795707426.3000126,
-    "ast_hash": "5e013120b2564db115de82999826ebb0",
+    "mtime": 1795715764.7835915,
+    "ast_hash": "9c230e28067044a30da6fd7fccc57dea",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
-    "mtime": 1795691335.207988,
-    "ast_hash": "96bf75867aedfe314a476f2e9f2f259f",
+    "mtime": 1795719669.900936,
+    "ast_hash": "f1e5586a16f220ad10b62c0308d2da0c",
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795707426.2999418,
-    "ast_hash": "701027fa6099f86f5a4ef9ece3bd53a3",
+    "mtime": 1795715761.1276278,
+    "ast_hash": "167d655341168d02f98423439315f533",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
-    "mtime": 1795483198.2188554,
-    "ast_hash": "ffc2ce2fe2aa8d4721de175210b0f46f",
+    "mtime": 1795714446.657829,
+    "ast_hash": "cfc2a3faf7a696f815cf88535fa547d0",
     "semantic_hash": ""
   },
   ".cantiere/PAGELLE.md": {
-    "mtime": 1795703749.75815,
-    "ast_hash": "e15ca8dc9882d443a04e02760e9237ba",
+    "mtime": 1795714649.8687513,
+    "ast_hash": "c901690002466d236960b61499c917a0",
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795704238.972899,
-    "ast_hash": "ab9f4a801ca09949b28f4989c8edfe78",
+    "mtime": 1795713827.9158738,
+    "ast_hash": "7055cdb1dd133b877f1f9f66b28b642c",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795709037.844443,
-    "ast_hash": "529fb2010d48220405cc8944d14e5051",
+    "mtime": 1795719503.2445846,
+    "ast_hash": "0d6563a3233e476e56ba24b0d5e7d75b",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795707552.589266,
-    "ast_hash": "2cbf8ded1de1d10360e828d31ae5c13d",
+    "mtime": 1795719576.5715857,
+    "ast_hash": "f47b64b11817d55b1302000ec83bec99",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -865,8 +865,8 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/privacy.html": {
-    "mtime": 1795708050.1265597,
-    "ast_hash": "0d76b2a4e2278088e972575ed654d9e5",
+    "mtime": 1795715580.9264643,
+    "ast_hash": "78b4eb0ac8e2b8c433d98f00e1503c04",
     "semantic_hash": ""
   },
   "SOCIAL/montaggio/README.md": {
@@ -895,13 +895,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/confermato.html": {
-    "mtime": 1795555910.6333566,
-    "ast_hash": "a0701c8cfa09110a939f2a364b50e120",
+    "mtime": 1795714399.4283376,
+    "ast_hash": "2dc567ae31a9a5fcbfd902e55436ba60",
     "semantic_hash": ""
   },
   "SOCIAL/landing/confirmed.html": {
-    "mtime": 1795555910.6335027,
-    "ast_hash": "3b572c7dd080a72bc73e0e3e2335a3a4",
+    "mtime": 1795714399.436975,
+    "ast_hash": "d61cd8418c574d053e658427802dd75e",
     "semantic_hash": ""
   },
   "SOCIAL/caroselli/presentazione-v1/build.py": {
@@ -1010,8 +1010,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/README.md": {
-    "mtime": 1795483198.2610524,
-    "ast_hash": "b4f90ddebf47a3896521e0c9ab0e0e00",
+    "mtime": 1795721448.0913196,
+    "ast_hash": "0d015fb18866e5e8a217fcb2b7cf21ff",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/schemas/com.bucktrail.android.BucktrailDatabase/2.json": {
@@ -2980,13 +2980,13 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/about.html": {
-    "mtime": 1795616329.7092211,
-    "ast_hash": "d01f804cd7cf7d9974504d124c818e18",
+    "mtime": 1795714399.4193592,
+    "ast_hash": "203e9fd153456ca68cbd34c9f82dbbbb",
     "semantic_hash": ""
   },
   "SOCIAL/landing/chi-siamo.html": {
-    "mtime": 1795616329.7091315,
-    "ast_hash": "e945f003cee3adc3e7bb16f713b24358",
+    "mtime": 1795714399.4100597,
+    "ast_hash": "3a4c77c86c3df0c90063d0c13965aadc",
     "semantic_hash": ""
   },
   "MoneyTracker/Sync/E2E/E2EController.swift": {
@@ -3120,8 +3120,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Sync/SyncService+E2E.swift": {
-    "mtime": 1795702532.0268314,
-    "ast_hash": "c4eea4e2ed88b2dc2d8e6aa117d675b7",
+    "mtime": 1795719631.8737526,
+    "ast_hash": "89042675c8990bec9ac558637dd8c390",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/sync/e2e/ObsoleteVaultFilterTest.kt": {
@@ -3130,8 +3130,8 @@
     "semantic_hash": ""
   },
   "MoneyTrackerTests/E2EObsoleteVaultFilterTests.swift": {
-    "mtime": 1795707645.6066089,
-    "ast_hash": "85613282f41cf02350ad12c4ae051ca0",
+    "mtime": 1795714243.9516137,
+    "ast_hash": "5794cba8461c456448416b6f09fc2b92",
     "semantic_hash": ""
   },
   ".cantiere/progetto-s70-doppio-tap-simulazione.md": {
@@ -3140,8 +3140,33 @@
     "semantic_hash": ""
   },
   "SOCIAL/landing/privacy-en.html": {
-    "mtime": 1795708050.269938,
-    "ast_hash": "3855b8d2af6e466fadd5e9242d5f1aaf",
+    "mtime": 1795715580.9266548,
+    "ast_hash": "8b40eae858494c5e0cdaee340693ceef",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/app/src/androidTest/java/com/bucktrail/android/sync/TwoDeviceLiveSyncTest.kt": {
+    "mtime": 1795721448.0907404,
+    "ast_hash": "5edd27fbeb34c01c344b16c30bdf24f3",
+    "semantic_hash": ""
+  },
+  "03_CODICE/bucktrail-android/scripts/prova-due-dispositivi.py": {
+    "mtime": 1795721473.1618981,
+    "ast_hash": "195b6e6f44af3e8370f60675025ee6c7",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/SyncLostTransactionTests.swift": {
+    "mtime": 1795719669.8879037,
+    "ast_hash": "cf6737bd3a2f7b798c015c7dfe5a031d",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/TwoDeviceLiveSyncTests.swift": {
+    "mtime": 1795721448.0903115,
+    "ast_hash": "356e5e1f433a225995ea5910bd4e4ee3",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerUITests/TwoDeviceLiveReopenUITests.swift": {
+    "mtime": 1795720163.7863872,
+    "ast_hash": "29f247a827a76a5d74172b97395edb6b",
     "semantic_hash": ""
   }
 }

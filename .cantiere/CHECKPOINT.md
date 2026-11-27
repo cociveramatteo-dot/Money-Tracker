@@ -4,13 +4,12 @@
 
 ## Siamo qui
 
-> **Aggiornamento veloce 2026-11-27 11:27** (capocantiere, sessione lunga chiusa con /clear; nessun tag: Codex è in turno).
+> **Aggiornamento veloce 2026-11-27 13:36** (capocantiere · Claude Code · Sonnet), tag `checkpoint-2026-11-27-1336`.
 
-- **S-50 NON chiuso del tutto.** Codice S-50 collaudato, ma la prova reale di Matteo (26/11 sera) ha fatto emergere due bug di sync **preesistenti** (non causati da S-50):
-  - **S-51** (iOS, archivio in RAM a telefono bloccato → movimenti mai inviati e persi): corretto da Codex (e462c34), **da collaudare**.
-  - **S-51d** (iOS e Android: ogni push cancella dal server le righe nuove create dall'altro dispositivo; copre anche S-51c, righe cancellate che ricompaiono): progetto architetto `.cantiere/progetto-s51d-sync-cancellazioni.md` (base di sync a tre vie). **Codex in turno dal 2026-11-27 11:26** con il prompt §7. Matteo ha autorizzato l'aggiornamento dei 2 test che codificavano il bug.
-  - **S-51b**: prova automatica a due dispositivi sul Supabase reale (script in `03_CODICE/bucktrail-android/scripts/`), account di prova in `~/.config/moneytracker/test-account.env` (mai in git). Prima della correzione: iOS→Android ok, Android→iOS KO.
-- **S-70 in attesa** finché S-51/S-51d non sono chiusi (Matteo: «finiamo S-50 per intero, poi S-70»).
+- **Serie S-51 (sync) CHIUSA e collaudata:** S-51 archivio volatile (e462c34), S-51d+S-51c merge a tre vie iOS/Android (53d62d9, 9d58e4e), S-51f crash rendering iOS 27.2 con `RootView` (c0ca6b8), S-51g conto cancellato altrove (8aa349e), S-51e disattivazione E2E a tre vie (dd09649), S-51h test t10 stabile (d0f1aab). Prova reale automatica S-51b su Supabase 12/12 nelle tre fasi.
+- **Manca solo la prova di Matteo sui telefoni veri** (account di prova) per chiudere S-50. Poi S-70 → Codex.
+- Rischio accettato (CONSEGNA): se il server rispondesse per errore con zero conti, il telefono cancellerebbe in locale i conti già sincronizzati; nessuna perdita sul server, tornano al pull dopo.
+- Notato dal collaudatore sul simulatore: schermo bianco per qualche secondo al primissimo avvio dopo l'installazione. Matteo verifica sul telefono vero.
 - `.xcscheme` modificato in locale con `-E2EEnabled YES` (prove di Matteo): NON committarlo, toglierlo a fine prove.
 
 ## Fatto dall'ultimo checkpoint (2026-11-26 15:36)
@@ -31,15 +30,12 @@
 
 | Controllo | Esito | Note |
 |---|---|---|
-| Build / test / lint | 🟢 | iOS 187/187 unitari (2 UI instabili, come S-50r); Android 324/324 JVM + lint; server finto 19/19 |
-| Commissione Suprema | 🟢 | 6 giudici a 10/10. Giro 1: Bug 9 (riga di reset in `E2EObsoleteVaultFilterTests`), Lingua 9 (meta description, poi S-50y) |
-| collaudo.sh | 🟡 | solo cache Gradle ignorata (ambiente, non codice) |
-| Guardiano notturno | 🔴 | falso positivo: errore CORS del beacon Cloudflare su 127.0.0.1 (8 «errori» su 4 pagine). Fix in S-50g2 |
-| Pagella (misurata) | 🟡 | 85/100. Robustezza 32 (per il falso positivo). Velocità 62 (LCP 3,9 s, noto) |
-| Bilingue | 🟢 | 100/100 (`bilingue.py`) |
-| Sicurezza | 🟢 | interruttore acceso in release, spento in debug; nessun segreto nel repo; R8 senza cleartext |
-| Ordine e spazio | 🟢 | 30 GB liberi (soglia 35). Spostati 694 MB di log collaudi S-50 nel magazzino |
-| Grafo aggiornato | 🟢 | `graphify update .` a fine checkpoint |
+| Build / test | 🟢 | iOS 46/46 test di sync (+73/73 con ricorrenze nel collaudo S-51f); Android 334/334 con `--rerun-tasks` |
+| Prova reale Supabase | 🟢 | S-51b 12/12, protezione finale disattivata, record preesistenti presenti |
+| Pagella (misurata) | 🟡 | 85/100, invariata: robustezza 32 (falso positivo CORS del guardiano, S-50g2), velocità 62 |
+| Magazzino / spazio | 🟡 | come il 26/11: cartelle di build/cache segnalate; APK debug 24 MB proponibile al magazzino |
+| Grafo | 🟢 | `graphify update .` fatto |
+| Commissione Suprema | ⏳ | non fatta (checkpoint veloce): si fa al prossimo completo, prima del merge su main |
 
 ## Bug
 
@@ -58,11 +54,10 @@
 
 ## Domani si riparte così
 
-1. Sessione nuova → «riprendiamo — codex ha finito S-51d, lancia il collaudatore».
-2. **Collaudatore** su S-51 (e462c34) + S-51b (175ccb0) + S-51d (commit di Codex): diff, test di sync iOS/Android, esito della prova a due dispositivi, e rilancio dei 2 test UI Conti falliti (verificare se instabilità: confronto fab33a5 vs e462c34).
-3. Se la prova a due dispositivi passa: **Matteo** rifà la prova sui telefoni veri (movimento creato, telefono bloccato, cavo staccato, riapertura dall'icona; poi Android→iPhone).
-4. Solo dopo: checkpoint completo, S-50 chiuso, poi **S-70** (prompt §7 di `.cantiere/progetto-s70-doppio-tap-simulazione.md`).
-5. Non urgenti: S-51e (stessa finestra in disattivazione E2E), S-50z, S-50g2 (fix pronto, arriva sul guardiano di `main` solo col merge: Matteo deve scegliere A = solo quella riga su main, B = merge completo dopo le prove).
+1. Sessione nuova → «riprendiamo: S-51 chiusa, tocca alla mia prova reale sul telefono (S-50), poi S-70 a Codex».
+2. **Matteo** prova sui telefoni veri con l'account di prova (istruzioni in `.cantiere/PER-MATTEO.md`): movimento creato, telefono bloccato, riapertura; iPhone→Android e Android→iPhone; con e senza Protezione avanzata; occhio allo schermo bianco al primo avvio.
+3. Se va bene: **checkpoint completo** (con Commissione Suprema), S-50 chiuso, poi **S-70** → Codex (prompt §7 di `.cantiere/progetto-s70-doppio-tap-simulazione.md`).
+4. Non urgenti: S-50z, S-50g2 (Matteo sceglie A = solo quella riga su main, B = merge completo dopo le prove); i 2 test UI Conti instabili visti il 26/11 non sono stati riverificati.
 
 ## Cose che deve fare Matteo
 
