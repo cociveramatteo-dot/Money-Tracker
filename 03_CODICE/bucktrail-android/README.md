@@ -36,6 +36,16 @@ python3 scripts/fake-supabase.py 54321
 
 Utenti di prova (password `password1`): `demo@test.it`, `unconfirmed@test.it` (email non confermata), `limit@test.it` (troppi tentativi). Senza le due opzioni, il build Debug usa un indirizzo fittizio.
 
+## Prova release Android minificata (R8, S-50w / S-50z)
+
+Dalla cartella `03_CODICE/bucktrail-android`, su Mac con Java 17, Android SDK, Build Tools e immagine `system-images;android-36;default;arm64-v8a`:
+
+```zsh
+python3 scripts/prova-release-r8.py
+```
+
+Avvia `scripts/fake-supabase.py` su una porta libera, costruisce `assembleRelease` su una copia temporanea verso `http://10.0.2.2:<porta>`, firma col keystore di debug, avvia un AVD temporaneo e verifica attivazione, seconda spesa nel vault (`bt1.`), sblocco dopo `pm clear` e disattivazione con PIN senza crash nel logcat.
+
 ## Prova S-51b su Supabase reale
 
 Dalla radice di MoneyTracker, sul Mac con Xcode, iPhone 18 Pro, Java 17, SDK Android e immagine `system-images;android-36;default;arm64-v8a`.
