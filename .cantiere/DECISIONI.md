@@ -325,3 +325,10 @@ La riparazione in chiaro usa una RPC condizionale che aggiorna soltanto `account
 - Cosa: `SyncRemoteGoldenTests` ora attende le letture paginate (order/limit, da S-50h `fd985e9`); `E2EGateTests:174` attende il `fetchIds(.accounts)` introdotto da S-51d.
 - Perché: fallivano già prima di S-52 (verificato sul commit 2635388); il codice è giusto, i test erano indietro.
 - Alternative scartate: lasciarli rossi.
+
+
+## 2026-11-27 · S-70 · Autorizzazione Intents/ e gestione D-014
+- **Chi decide:** Matteo (2026-11-26 in chat, riconfermato 2026-11-27).
+- **Cosa:** autorizzata la modifica di `MoneyTracker/Intents/AddExpenseIntent.swift` (spese ed entrate) e l'aggiunta di `MoneyTracker/Intents/IntentCategoryMenu.swift`, esclusivamente per S-70a e S-70a2.
+- **D-014 per S-70b:** specifica visiva nel progetto `.cantiere/progetto-s70-doppio-tap-simulazione.md` §3 + specifica di Matteo del 2026-11-27 19:05 + screenshot in `.cantiere/tmp/`; approvazione di Matteo prima del merge su `main` (S-70d).
+- **Dettagli tecnici confermati:** «ultima usata» calcolata su `createdAt` decrescente per tipo (`uscita` / `entrata`, `isDone == true`, `!isTransfer`, non ricorrente, categoria ancora esistente); «suggerita» identica ad `AddTransactionView` (`LastUsedCategory.suggest` poi `KeywordCategoryClassifier` con >2 caratteri e ≠ `"Altro"`), solo se categoria disponibile; parametro opzionale `categoryName` aggiunto ad `AddIncomeIntent`; nella simulazione «E se…?» i conti esclusi dal totale sono selezionabili singolarmente nel menu (dopo gli inclusi, con `currentBalance`/`futureBalance`), «Tutti» resta il totale della Home (esclusi fuori) e i conti archiviati restano esclusi.

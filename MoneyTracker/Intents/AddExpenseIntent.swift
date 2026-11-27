@@ -46,8 +46,8 @@ struct AddExpenseIntent: AppIntent {
     var accountName: String?
 
     // categoryName: optional, shown in parameterSummary so the user can pre-set it
-    // in the Shortcuts editor. In perform(), CategoryClassifier runs first; the
-    // explicit category overrides only when provided AND the classifier has no match.
+    // in the Shortcuts editor. In perform(), explicit user choice always wins;
+    // otherwise history/classifier suggestion applies, falling back to "Altro".
     @Parameter(title: "Categoria", description: "Lascia vuoto per auto-detect", optionsProvider: CategoryOptionsProvider())
     var categoryName: String?
 
@@ -76,21 +76,14 @@ struct AddExpenseIntent: AppIntent {
         let accounts = try ctx.fetch(FetchDescriptor<Account>())
         let account  = accounts.first { $0.name == accountName } ?? accounts.first
 
+        let dbCats = try ctx.fetch(FetchDescriptor<Category>())
+        let available = Set(IntentCategoryMenu.allCategories(custom: dbCats.map(\.name)))
         // ── Smart category logic ──
-        // 1. Classifier has priority when it finds a specific match (not "Altro")
-        // 2. Explicit user-provided category overrides the "Altro" fallback
-        // 3. If neither matches, default to "Altro" — never block with a throw
-        let detected = KeywordCategoryClassifier.shared.classify(name)
-        let catName: String
-        if detected != "Altro" && !detected.isEmpty {
-            catName = detected
-        } else if let provided = categoryName, !provided.isEmpty {
-            catName = provided
-        } else {
-            catName = "Altro"
-        }
-
-        let dbCats  = try ctx.fetch(FetchDescriptor<Category>())
+        // 1. Explicit user-provided category always wins
+        // 2. Otherwise suggest from history (same-name last used) or classifier
+        // 3. Fall back to "Altro" — never block with a throw
+        let suggested = IntentCategoryMenu.suggested(for: name, context: ctx, available: available)
+        let catName = IntentCategoryMenu.resolve(chosen: categoryName, suggested: suggested, fallback: "Altro")
         let catIcon = dbCats.first { $0.name == catName }?.icon
                    ?? DS.categoryIcon(for: catName)
 
@@ -248,15 +241,15 @@ struct AccountOptionsProvider: DynamicOptionsProvider {
 // MARK: - Category Options Provider
 
 struct CategoryOptionsProvider: DynamicOptionsProvider {
-    func results() async throws -> [String] {
-        guard let container = IntentContainer.shared else { return [] }
-        let ctx = container.mainContext
-        let dbCats = (try? ctx.fetch(FetchDescriptor<Category>())) ?? []
-        let defaults = ["Cibo", "Trasporti", "Svago", "Shopping", "Salute",
-                        "Casa", "Abbonamenti", "Lavoro", "Istruzione", "Viaggi", "Regali", "Altro"]
-        let custom = dbCats.map { $0.name }
-        // Custom categories first, then any built-in not already present
-        return custom + defaults.filter { !custom.contains($0) }
+    @IntentParameterDependency<AddExpenseIntent>(\.$name) var intent
+
+    func results() async throws -> IntentItemCollection<String> {
+        let typed = intent?.name ?? ""
+        return IntentCategoryMenu.collection(
+            name: typed,
+            type: TransactionType.uscita.rawValue,
+            context: IntentContainer.shared?.mainContext
+        )
     }
 }
 
