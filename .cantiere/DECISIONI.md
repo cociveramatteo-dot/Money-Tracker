@@ -345,3 +345,9 @@ La riparazione in chiaro usa una RPC condizionale che aggiorna soltanto `account
 - **Cosa:** progetto `.cantiere/progetto-s72-movimenti-abitudini.md`. Totali di sezione calcolati da una funzione pura sulle righe che la lista mostra (effettuati, pianificati, virtuali; trasferimenti esclusi da Uscite/Entrate, contati una volta per `transferGroupId` in «Trasferito»), blocco senza titolo. Logica nuova in file di `Views/` (iOS) e `ui/` (Android), non in Domain/. Unica modifica a Domain/: `RecurringSeriesDetector` (iOS e Android), autorizzata da Matteo. Android `domain/Statistics.kt` non si tocca: `prevMonthSpent`/`deltaPercent` servono al PDF, medie e totali annui restano coperti dai test e il confronto annuale potrebbe tornare. iOS `prevMonthSpent` resta per il PDF. In Ricorrenti la ricerca resta dentro il mese scelto. Filtro di sezione Android locale alla schermata, `TransactionFiltering` invariato.
 - **Perché:** totali sempre uguali alla lista, zero test esistenti toccati oltre a quelli delle funzioni tolte da Matteo, nessuna zona intoccabile oltre l'autorizzazione.
 - **Alternative scartate:** riusare `nextMonthTotals` di S-70f (calcola un altro mese e ignora ricerca e importi); aggiungere `Recurring` a `TransactionFiltering.TypeFilter` (tocca domain e i suoi test); rimuovere le funzioni morte di `Statistics.kt` (obbliga a cambiare `StatisticsTest`).
+
+## 2026-11-27 · Risposte di Matteo al progetto S-72
+- D2 ok: serie senza occorrenze nel mese si gestiscono dal mese in cui compaiono (pressione lunga); serie finite non compaiono in Ricorrenti.
+- D3 sì: nel mese corrente anche i pianificati a mano stanno al loro giorno.
+- D4 ok: eliminare NextMonthSummaryTests.swift e NextMonthSummaryTest.kt; adattare solo la navigazione di DemoShowcaseUITests, RecurrenceAppearanceUITests, RecurrenceCancelAndHomeUITests (asserzioni identiche).
+- D1: in attesa.
