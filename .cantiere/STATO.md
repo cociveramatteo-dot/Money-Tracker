@@ -13,4 +13,4 @@ Banca (S-60): progetto esecutivo pronto in `.cantiere/progetto-banca.md` (Enable
 Social: calendario e pubblicazione gestiti direttamente da Matteo.
 E2E: S-50 chiuso e collaudato (p, u, v, w, x, y) 2026-11-26; interruttore acceso in release iOS e Android. Resta la prova reale di Matteo con account di prova. Prossimo: S-70 → Codex.
 E2E 2026-11-26 18:27: S-50u e S-50w collaudati [x] (iOS 187, Android 324, fake 19 verdi). Prossimo: S-50x Brevo.
-S-51/S-51d 2026-11-27 11:51: S-51, S-51d e S-51c [~]. iOS 40 test mirati, Android 332 unitari verdi. S-51b [!] per crash SwiftUI nel simulatore iOS 27.2 (S-51f), protezione del conto di prova disattivata e record preesistenti confermati. Prossimo collaudatore su S-51 e S-51d.
+S-51/S-51d 2026-11-27 12:13: S-51, S-51c, S-51d collaudati [x] (iOS 40, Android 332). S-51f diagnosticato (AsyncRenderer SwiftUI sulla closure del WindowGroup), correzione a Codex; poi S-51b. S-51e aperto.
