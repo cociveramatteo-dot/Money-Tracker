@@ -275,6 +275,82 @@ fun RecurringPage(
     }
 }
 
+/** Pagina «Abitudini» (da Statistiche): serie rilevate con almeno 3 occorrenze in 3 mesi diversi. */
+@Composable
+fun HabitsPage(
+    data: com.bucktrail.android.ui.AppData,
+    today: LocalDate,
+    zone: ZoneId,
+    onEditTransaction: (com.bucktrail.android.data.TransactionEntity) -> Unit,
+    onDeleteTransaction: (com.bucktrail.android.data.TransactionEntity) -> Unit,
+    onBack: () -> Unit,
+) {
+    val c = Bt.colors
+    val res = LocalContext.current.resources
+    val ledger = data.ledger
+    val currency = data.prefs.currencyCode
+    var query by remember { mutableStateOf("") }
+    var category by remember { mutableStateOf("") }
+    var selectedSeries by remember { mutableStateOf<String?>(null) }
+    val detected = remember(ledger.transactions, zone) {
+        com.bucktrail.android.domain.RecurringSeriesDetector.detect(ledger.transactionData, zone)
+    }
+    val trimmed = query.trim()
+    val series = detected.filter {
+        (trimmed.isEmpty() || it.name.contains(trimmed, ignoreCase = true)) &&
+            (category.isEmpty() || it.category == category)
+    }
+
+    androidx.activity.compose.BackHandler(onBack = onBack)
+    Column(Modifier.fillMaxWidth().background(c.paper)) {
+        Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 16.dp).heightIn(min = 52.dp), verticalAlignment = Alignment.CenterVertically) {
+            Box(Modifier.size(48.dp).clickable(role = Role.Button, onClick = onBack).testTag("btn_backHabits"), contentAlignment = Alignment.Center) {
+                Box(Modifier.size(44.dp).clip(androidx.compose.foundation.shape.CircleShape).background(c.surface).border(1.dp, c.fog, androidx.compose.foundation.shape.CircleShape), contentAlignment = Alignment.Center) {
+                    Icon(SfIcons.forName("chevron.left"), stringResource(R.string.statistiche), tint = c.ink, modifier = Modifier.size(24.dp))
+                }
+            }
+            Text(stringResource(R.string.abitudini), style = Typo.rowName.copy(fontWeight = FontWeight.SemiBold), color = c.ink, modifier = Modifier.weight(1f), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+            Box(Modifier.size(44.dp))
+        }
+        Row(
+            Modifier.padding(horizontal = 20.dp).padding(top = 8.dp, bottom = 4.dp).fillMaxWidth().heightIn(min = 46.dp).clip(RoundedCornerShape(16.dp)).background(c.surface)
+                .border(1.dp, c.fog, RoundedCornerShape(16.dp)).padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Icon(SfIcons.forName("magnifyingglass"), null, tint = c.smoke, modifier = Modifier.size(18.dp))
+            Box(Modifier.weight(1f)) {
+                if (query.isEmpty()) Text(stringResource(R.string.cerca_per_nome), style = Typo.secondary.copy(fontSize = androidx.compose.ui.unit.TextUnit(15f, androidx.compose.ui.unit.TextUnitType.Sp)), color = c.smoke)
+                BasicTextField(
+                    query, { query = it }, singleLine = true,
+                    textStyle = Typo.rowName.copy(color = c.ink, fontWeight = FontWeight.Normal),
+                    cursorBrush = SolidColor(c.accent),
+                    modifier = Modifier.fillMaxWidth().testTag("tf_habitsSearch"),
+                )
+            }
+        }
+        if (ledger.categories.isNotEmpty()) Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            com.bucktrail.android.ui.components.FilterChip(stringResource(R.string.tutte_le_categorie), category.isEmpty(), { category = "" }, secondary = true)
+            ledger.categories.forEach { cat ->
+                com.bucktrail.android.ui.components.FilterChip(categoryLabel(cat.name), category == cat.name, { category = if (category == cat.name) "" else cat.name }, secondary = true)
+            }
+        }
+        if (detected.isEmpty()) {
+            EmptyState(SfIcons.forName("arrow.triangle.2.circlepath"), stringResource(R.string.nessuna_abitudine), stringResource(R.string.abitudini_vuoto))
+        } else if (series.isEmpty()) {
+            EmptyState(SfIcons.forName("magnifyingglass"), stringResource(R.string.nessun_risultato), stringResource(R.string.nessun_movimento_corrisponde_alla_ricerc))
+        } else Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(top = 12.dp, bottom = 120.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            series.forEach { s ->
+                androidx.compose.runtime.key(s.id) {
+                    RecurringSeriesCard(s, currency, zone, res, Modifier.clickable { selectedSeries = s.id }.testTag("habitCard_${s.name}"))
+                }
+            }
+        }
+    }
+    selectedSeries?.let { id ->
+        RecurringSeriesDetailSheet(detected.firstOrNull { it.id == id }, data, today, zone, onEditTransaction, onDeleteTransaction) { selectedSeries = null }
+    }
+}
+
 /** Editor di una serie (`RecurrenceEditorView`): ambito, campi, «Salta mese», «Termina…», «Elimina». */
 @Composable
 fun RecurrenceEditorSheet(

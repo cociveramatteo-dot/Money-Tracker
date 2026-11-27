@@ -637,3 +637,6 @@
 "Trasferito" = "Transferred";
 "Uscite programmate" = "Scheduled expenses";
 "Entrate programmate" = "Scheduled income";
+"Abitudini" = "Habits";
+"Nessuna abitudine" = "No habits yet";
+"I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "Transactions repeated at least 3 times in 3 different months will appear here.";

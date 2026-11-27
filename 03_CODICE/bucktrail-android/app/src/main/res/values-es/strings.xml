@@ -597,4 +597,7 @@
     <string name="trasferito" formatted="false">Transferido</string>
     <string name="uscite_programmate" formatted="false">Gastos programados</string>
     <string name="entrate_programmate" formatted="false">Ingresos programados</string>
+    <string name="abitudini" formatted="false">Hábitos</string>
+    <string name="nessuna_abitudine" formatted="false">Sin hábitos</string>
+    <string name="abitudini_vuoto" formatted="false">Los movimientos que se repiten al menos 3 veces en 3 meses distintos aparecerán aquí.</string>
 </resources>

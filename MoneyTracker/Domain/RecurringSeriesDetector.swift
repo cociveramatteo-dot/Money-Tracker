@@ -29,12 +29,14 @@ struct RecurringSeries: Identifiable, Equatable {
 // MARK: - RecurringSeriesDetector
 
 enum RecurringSeriesDetector {
+    private static let adjustmentCategory = "Rettifica saldo"
 
-    /// Rileva le serie ricorrenti tra le transazioni fornite. Esclude i
-    /// trasferimenti (non hanno una categoria significativa) e le transazioni
-    /// non ancora confermate (isDone == false, non sono "successe" davvero).
+    /// Rileva le abitudini tra le transazioni fornite: almeno 3 occorrenze effettuate
+    /// in almeno 3 mesi diversi, escludendo trasferimenti e rettifiche saldo.
     static func detect(from transactions: [Transaction]) -> [RecurringSeries] {
-        let candidates = transactions.filter { $0.isDone && !$0.isTransfer }
+        let candidates = transactions.filter {
+            $0.isDone && !$0.isTransfer && $0.category != adjustmentCategory
+        }
 
         var order: [String] = []
         var buckets: [String: [Transaction]] = [:]
@@ -46,12 +48,12 @@ enum RecurringSeriesDetector {
 
         var series: [RecurringSeries] = []
         for key in order {
-            guard let items = buckets[key], items.count >= 2 else { continue }
+            guard let items = buckets[key], items.count >= 3 else { continue }
             let sorted = items.sorted { $0.date < $1.date }
             guard let mostRecent = sorted.last, let earliest = sorted.first else { continue }
 
             let distinctMonths = Set(sorted.map { monthKey($0.date) })
-            guard distinctMonths.count >= 2 else { continue }
+            guard distinctMonths.count >= 3 else { continue }
 
             let count = sorted.count
             let totalAmount = sorted.reduce(Decimal(0)) { $0 + $1.amount }

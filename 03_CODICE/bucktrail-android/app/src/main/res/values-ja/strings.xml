@@ -596,4 +596,7 @@
     <string name="trasferito" formatted="false">振替額</string>
     <string name="uscite_programmate" formatted="false">予定の支出</string>
     <string name="entrate_programmate" formatted="false">予定の収入</string>
+    <string name="abitudini" formatted="false">習慣</string>
+    <string name="nessuna_abitudine" formatted="false">習慣はまだありません</string>
+    <string name="abitudini_vuoto" formatted="false">3か月以上にわたり3回以上繰り返された取引がここに表示されます。</string>
 </resources>

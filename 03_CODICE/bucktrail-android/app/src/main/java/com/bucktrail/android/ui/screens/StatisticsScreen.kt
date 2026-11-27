@@ -29,6 +29,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -51,6 +52,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bucktrail.android.R
+import com.bucktrail.android.data.TransactionEntity
 import com.bucktrail.android.domain.Statistics
 import com.bucktrail.android.ui.AppData
 import com.bucktrail.android.ui.Fmt
@@ -70,7 +72,12 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.ZoneId
 
-class StatisticsActions(val onSettings: () -> Unit, val onPdf: () -> Unit)
+class StatisticsActions(
+    val onSettings: () -> Unit,
+    val onPdf: () -> Unit,
+    val onEditTransaction: (TransactionEntity) -> Unit = {},
+    val onDeleteTransaction: (TransactionEntity) -> Unit = {},
+)
 
 /** Statistiche (§4.5): tile del mese, Andamento 6M/12M, Per categoria, medie e confronto anno su anno. Grafici in Canvas. */
 @OptIn(ExperimentalLayoutApi::class)
@@ -83,6 +90,11 @@ fun StatisticsScreen(
     val locale = java.util.Locale.getDefault()
     val month = YearMonth.from(today).plusMonths(monthOffset.toLong())
     var range by rememberSaveable { mutableIntStateOf(6) }
+    var showHabits by rememberSaveable { mutableStateOf(false) }
+    if (showHabits) {
+        HabitsPage(data, today, zone, actions.onEditTransaction, actions.onDeleteTransaction) { showHabits = false }
+        return
+    }
     val transactions = data.ledger.transactionData
     val byMonth = remember(transactions, zone) { Statistics.byMonth(transactions, zone) }
     val totals = Statistics.totalsOf(month, byMonth)
@@ -214,6 +226,16 @@ fun StatisticsScreen(
                 ThinDivider(Modifier.padding(horizontal = 20.dp), c.fog)
                 YearRow(stringResource(R.string.entrate), curYear.income, prevYear.income, year - 1, invert = false, currency)
             }
+        }
+        Row(
+            Modifier.padding(horizontal = 16.dp).padding(top = 12.dp).fillMaxWidth().heightIn(min = 44.dp)
+                .clip(RoundedCornerShape(18.dp)).background(c.surface).border(1.dp, c.fog, RoundedCornerShape(18.dp))
+                .clickable(role = Role.Button) { showHabits = true }.padding(horizontal = 16.dp, vertical = 14.dp).testTag("btn_openHabits"),
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Icon(SfIcons.forName("arrow.triangle.2.circlepath"), null, tint = c.ink, modifier = Modifier.size(18.dp))
+            Text(stringResource(R.string.abitudini), style = Typo.rowName, color = c.ink, modifier = Modifier.weight(1f))
+            Icon(SfIcons.forName("chevron.right"), null, tint = c.smoke, modifier = Modifier.size(14.dp))
         }
     }
 }

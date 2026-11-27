@@ -598,4 +598,7 @@
     <string name="trasferito" formatted="false">Trasferito</string>
     <string name="uscite_programmate" formatted="false">Uscite programmate</string>
     <string name="entrate_programmate" formatted="false">Entrate programmate</string>
+    <string name="abitudini" formatted="false">Abitudini</string>
+    <string name="nessuna_abitudine" formatted="false">Nessuna abitudine</string>
+    <string name="abitudini_vuoto" formatted="false">I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui.</string>
 </resources>

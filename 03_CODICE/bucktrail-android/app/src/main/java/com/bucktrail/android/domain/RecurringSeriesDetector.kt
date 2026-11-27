@@ -13,20 +13,20 @@ data class RecurringSeries(
     val average: BigDecimal, val lastAmount: BigDecimal, val occurrences: List<TransactionData>,
 )
 
-/** Serie rilevate per nome+categoria+tipo (`RecurringSeriesDetector.swift`). */
+/** Abitudini rilevate per nome+categoria+tipo (almeno 3 occorrenze in 3 mesi diversi, esclusi trasferimenti e rettifiche saldo). */
 object RecurringSeriesDetector {
     fun detect(transactions: List<TransactionData>, zone: ZoneId): List<RecurringSeries> {
         val buckets = LinkedHashMap<String, MutableList<TransactionData>>()
         for (t in transactions) {
-            if (!t.isDone || t.isTransfer) continue
+            if (!t.isDone || t.isTransfer || t.category == Categories.ADJUSTMENT) continue
             buckets.getOrPut("${t.name.trim().lowercase()}|${t.category}|${t.type}") { ArrayList() }.add(t)
         }
         val result = ArrayList<RecurringSeries>()
         for ((key, items) in buckets) {
-            if (items.size < 2) continue
+            if (items.size < 3) continue
             val sorted = items.sortedBy { it.date }
             val months = sorted.map { YearMonth.from(it.date.atZone(zone)) }.toSet()
-            if (months.size < 2) continue
+            if (months.size < 3) continue
             val total = sorted.fold(BigDecimal.ZERO) { a, t -> a + t.amount }
             val last = sorted.last()
             val explicit = sorted.firstOrNull { it.recurringFrequency.isNotEmpty() }?.recurringFrequency

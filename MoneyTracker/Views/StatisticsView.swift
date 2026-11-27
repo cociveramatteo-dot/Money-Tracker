@@ -125,6 +125,7 @@ struct StatisticsView: View {
     @State private var isGeneratingPDF: Bool  = false
     @State private var showShareSheet: Bool   = false
     @State private var showSettings: Bool     = false
+    @State private var showHabits: Bool       = false
 
     private func generatePDF() {
         guard !isGeneratingPDF else { return }
@@ -407,6 +408,32 @@ struct StatisticsView: View {
                     }
                 }
 
+                Button { showHabits = true } label: {
+                    HStack(spacing: DS.Space.m) {
+                        Image(systemName: "arrow.triangle.2.circlepath")
+                            .scaledFont(size: 16)
+                            .foregroundStyle(DS.ink)
+                            .accessibilityHidden(true)
+                        Text("Abitudini")
+                            .font(DS.Typo.rowName)
+                            .foregroundStyle(DS.ink)
+                        Spacer(minLength: DS.Space.s)
+                        Image(systemName: "chevron.right")
+                            .scaledFont(size: 13, weight: .semibold)
+                            .foregroundStyle(DS.smoke)
+                            .accessibilityHidden(true)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 14)
+                    .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                    .background(DS.surface, in: RoundedRectangle(cornerRadius: 18))
+                    .overlay(RoundedRectangle(cornerRadius: 18).strokeBorder(DS.fog))
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal, 16)
+                .padding(.top, 10)
+                .accessibilityIdentifier("btn_openHabits")
+
                 Spacer(minLength: 100)
             }
         }
@@ -424,6 +451,7 @@ struct StatisticsView: View {
         // PERF-02: rebuild the byMonth dictionary only when the transaction list changes
         .onAppear { rebuildByMonth() }
         .onChange(of: transactions) { _, _ in rebuildByMonth() }
+        .navigationDestination(isPresented: $showHabits) { HabitsView() }
         } // NavigationStack
     }
 

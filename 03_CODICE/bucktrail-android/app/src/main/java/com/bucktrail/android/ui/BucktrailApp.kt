@@ -183,14 +183,19 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
             )
             Tab.Statistics -> StatisticsScreen(
                 data, today, zone, statsMonth, { statsMonth = it }, generatingPdf,
-                StatisticsActions(onSettings = { settingsOpen = true }, onPdf = {
-                    scope.launch {
-                        generatingPdf = true
-                        val file = vm.exportPdf(YearMonth.from(today).plusMonths(statsMonth.toLong()))
-                        generatingPdf = false
-                        if (file != null) ShareFiles.share(context, file, "application/pdf")
-                    }
-                }),
+                StatisticsActions(
+                    onSettings = { settingsOpen = true },
+                    onPdf = {
+                        scope.launch {
+                            generatingPdf = true
+                            val file = vm.exportPdf(YearMonth.from(today).plusMonths(statsMonth.toLong()))
+                            generatingPdf = false
+                            if (file != null) ShareFiles.share(context, file, "application/pdf")
+                        }
+                    },
+                    onEditTransaction = edit,
+                    onDeleteTransaction = requestDelete,
+                ),
             )
             Tab.Plan -> PlanScreen(
                 data, today, zone, planSegment, { planSegment = it }, planMonth, { planMonth = it },

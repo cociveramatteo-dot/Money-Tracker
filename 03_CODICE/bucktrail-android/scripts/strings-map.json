@@ -391,6 +391,9 @@
  "Trasferito": "trasferito",
  "Uscite programmate": "uscite_programmate",
  "Entrate programmate": "entrate_programmate",
+ "Abitudini": "abitudini",
+ "Nessuna abitudine": "nessuna_abitudine",
+ "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui.": "abitudini_vuoto",
  "💰 Saldo totale: %@": "saldo_totale",
  "💸 %.2f€ per %@ — salvato!": "s_2f_per_salvato_9b5fb3"
 }

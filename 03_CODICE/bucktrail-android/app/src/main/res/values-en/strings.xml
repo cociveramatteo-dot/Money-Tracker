@@ -597,4 +597,7 @@
     <string name="trasferito" formatted="false">Transferred</string>
     <string name="uscite_programmate" formatted="false">Scheduled expenses</string>
     <string name="entrate_programmate" formatted="false">Scheduled income</string>
+    <string name="abitudini" formatted="false">Habits</string>
+    <string name="nessuna_abitudine" formatted="false">No habits yet</string>
+    <string name="abitudini_vuoto" formatted="false">Transactions repeated at least 3 times in 3 different months will appear here.</string>
 </resources>

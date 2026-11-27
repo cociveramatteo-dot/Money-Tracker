@@ -639,3 +639,6 @@
 "Trasferito" = "已转账";
 "Uscite programmate" = "计划支出";
 "Entrate programmate" = "计划收入";
+"Abitudini" = "习惯";
+"Nessuna abitudine" = "暂无习惯";
+"I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "在 3 个不同月份中重复至少 3 次的交易将显示在这里。";

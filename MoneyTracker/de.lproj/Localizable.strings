@@ -636,3 +636,6 @@
 "Trasferito" = "Übertragen";
 "Uscite programmate" = "Geplante Ausgaben";
 "Entrate programmate" = "Geplante Einnahmen";
+"Abitudini" = "Gewohnheiten";
+"Nessuna abitudine" = "Noch keine Gewohnheiten";
+"I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "Buchungen, die sich mindestens 3-mal in 3 verschiedenen Monaten wiederholen, erscheinen hier.";

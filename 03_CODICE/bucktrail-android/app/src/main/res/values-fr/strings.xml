@@ -597,4 +597,7 @@
     <string name="trasferito" formatted="false">Transféré</string>
     <string name="uscite_programmate" formatted="false">Dépenses programmées</string>
     <string name="entrate_programmate" formatted="false">Revenus programmés</string>
+    <string name="abitudini" formatted="false">Habitudes</string>
+    <string name="nessuna_abitudine" formatted="false">Aucune habitude</string>
+    <string name="abitudini_vuoto" formatted="false">Les opérations répétées au moins 3 fois sur 3 mois différents apparaîtront ici.</string>
 </resources>

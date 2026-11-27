@@ -636,3 +636,6 @@
 "Trasferito" = "振替額";
 "Uscite programmate" = "予定の支出";
 "Entrate programmate" = "予定の収入";
+"Abitudini" = "習慣";
+"Nessuna abitudine" = "習慣はまだありません";
+"I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "3か月以上にわたり3回以上繰り返された取引がここに表示されます。";

@@ -596,4 +596,7 @@
     <string name="trasferito" formatted="false">已转账</string>
     <string name="uscite_programmate" formatted="false">计划支出</string>
     <string name="entrate_programmate" formatted="false">计划收入</string>
+    <string name="abitudini" formatted="false">习惯</string>
+    <string name="nessuna_abitudine" formatted="false">暂无习惯</string>
+    <string name="abitudini_vuoto" formatted="false">在 3 个不同月份中重复至少 3 次的交易将显示在这里。</string>
 </resources>

@@ -597,4 +597,7 @@
     <string name="trasferito" formatted="false">Übertragen</string>
     <string name="uscite_programmate" formatted="false">Geplante Ausgaben</string>
     <string name="entrate_programmate" formatted="false">Geplante Einnahmen</string>
+    <string name="abitudini" formatted="false">Gewohnheiten</string>
+    <string name="nessuna_abitudine" formatted="false">Noch keine Gewohnheiten</string>
+    <string name="abitudini_vuoto" formatted="false">Buchungen, die sich mindestens 3-mal in 3 verschiedenen Monaten wiederholen, erscheinen hier.</string>
 </resources>
