@@ -18,7 +18,6 @@ struct RevealableSecureField: View {
     var formatter: ((_ newValue: String, _ previous: String) -> String)? = nil
 
     @State private var isRevealed = false
-    @State private var formatterPulse = false
     @FocusState private var isFocused: Bool
     @Environment(\.scenePhase) private var scenePhase
 
@@ -26,37 +25,17 @@ struct RevealableSecureField: View {
         phase != .active
     }
 
-    private var fieldBinding: Binding<String> {
-        Binding(
-            get: {
-                _ = formatterPulse
-                return text
-            },
-            set: { incoming in
-                guard let formatter else {
-                    text = incoming
-                    return
-                }
-                let formatted = formatter(incoming, text)
-                if formatted == text && incoming != text {
-                    formatterPulse.toggle()
-                }
-                text = formatted
-            }
-        )
-    }
-
     var body: some View {
         HStack(spacing: DS.Space.s) {
             Group {
                 if isRevealed {
-                    TextField(placeholder, text: fieldBinding)
+                    TextField(placeholder, text: $text)
                         .keyboardType(keyboardType)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled(true)
                         .textContentType(.none)
                 } else {
-                    SecureField(placeholder, text: fieldBinding)
+                    SecureField(placeholder, text: $text)
                         .keyboardType(keyboardType)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled(true)
@@ -97,6 +76,13 @@ struct RevealableSecureField: View {
             }
         }
         .privacySensitive()
+        .onChange(of: text) { oldValue, newValue in
+            guard let formatter else { return }
+            let formatted = formatter(newValue, oldValue)
+            if formatted != newValue {
+                text = formatted
+            }
+        }
         .onChange(of: scenePhase) { _, phase in
             if Self.shouldHide(on: phase) {
                 isRevealed = false

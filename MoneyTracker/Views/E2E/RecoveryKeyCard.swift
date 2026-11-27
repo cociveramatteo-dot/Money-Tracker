@@ -7,7 +7,6 @@ struct RecoveryKeyCard: View {
     var confirmation: Binding<String>?
     let onSaved: () -> Void
     @State private var copied = false
-    @State private var confirmationPulse = false
 
     private var groups: [Substring] { key.split(separator: "-") }
 
@@ -46,23 +45,16 @@ struct RecoveryKeyCard: View {
 
         E2EMessage("e2e_chiave_testo", color: DS.smoke)
         if let confirmation {
-            let formattedConfirmation = Binding<String>(
-                get: {
-                    _ = confirmationPulse
-                    return confirmation.wrappedValue
-                },
-                set: { incoming in
-                    let formatted = RecoveryKeyInputFormatter.format(incoming, previous: confirmation.wrappedValue)
-                    if formatted == confirmation.wrappedValue && incoming != confirmation.wrappedValue {
-                        confirmationPulse.toggle()
-                    }
-                    confirmation.wrappedValue = formatted
-                }
-            )
-            TextField("e2e_chiave_conferma", text: formattedConfirmation)
+            TextField("e2e_chiave_conferma", text: confirmation)
                 .e2eField()
                 .keyboardType(.asciiCapable)
                 .accessibilityIdentifier("e2e_key_confirmation")
+                .onChange(of: confirmation.wrappedValue) { oldValue, newValue in
+                    let formatted = RecoveryKeyInputFormatter.format(newValue, previous: oldValue)
+                    if formatted != newValue {
+                        confirmation.wrappedValue = formatted
+                    }
+                }
         }
         PrimaryButton(title: "e2e_chiave_salvata", action: onSaved)
             .disabled(confirmation != nil && !matchesLastGroup)
