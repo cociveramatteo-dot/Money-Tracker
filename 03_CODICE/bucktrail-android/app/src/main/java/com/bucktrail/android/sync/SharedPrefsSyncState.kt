@@ -32,6 +32,13 @@ class SharedPrefsSyncState(context: Context) : SyncStateStore {
         get() = prefs.getBoolean("pending", false)
         set(v) { prefs.edit().putBoolean("pending", v).apply() }
 
+    override fun accountDeletions(user: String): Set<String> =
+        prefs.getStringSet("accountDeletions." + user.lowercase(), emptySet()).orEmpty().toSet()
+
+    override fun setAccountDeletions(user: String, ids: Set<String>) {
+        prefs.edit().putStringSet("accountDeletions." + user.lowercase(), ids).apply()
+    }
+
     override var baseline: SyncBaseline?
         get() {
             val text = prefs.getString("baseline", null) ?: return null

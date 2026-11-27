@@ -557,7 +557,8 @@ Modello di task:
 Diagnosi: `.cantiere/diagnosi-movimenti-scollegati.md` (architetto, 2026-11-27). Dati di riferimento: `prima.json` in Drive (MAI nel repository). Divieti per Matteo nel file.
   - [x] (2026-11-27 14:12, Matteo) **S-52v · Matteo: query di sola lettura su Supabase**: senza_conto 126, righe_cifrate 0, FK `mt_transactions_account_id_fkey` ON DELETE SET NULL (pista: conti cancellati e ricreati con lo stesso id il 29/10)
   - [~] (2026-11-27 14:12, capocantiere) **S-52a · riparazione.sql generato in Drive ed eseguito da Matteo**: server senza_conto 13/209; export iPhone `riparato.json` identico a prima.json (unica differenza 1 isDone della ricorrenza icloud)
-  - [ ] **S-52b/c · Niente eco del pull verso il server + pull che ricollega un null remoto + test col server finto** → Codex · dopo la riparazione
+  - [~] **S-52b/c · Protezione dei conti, niente eco e riparazione dei collegamenti persi** · Implementato iOS/Android, con scenari a/b/c e propagazione S-51g a due dispositivi. SQL predisposto in CONSEGNA. Collaudo indipendente da fare.
+  - [?] **S-52s · Applicare la protezione della FK e abilitare la riparazione su Supabase** → Matteo dopo il collaudo S-52b/c. Procedura e SQL in CONSEGNA.
 
 ### S-70 · Doppio tap con categorie + simulazione «E se…?» (idee di Matteo, 2026-11-26)
 Progetto: `.cantiere/progetto-s70-doppio-tap-simulazione.md` (architetto, 2026-11-26). Una sessione Codex, 3 commit. Autorizzazione di Matteo a toccare `Intents/` per S-70 (2026-11-26, in chat): Codex la registra in DECISIONI.

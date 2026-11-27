@@ -311,19 +311,28 @@ private struct RootView: View {
         // con debounce 1.5s. Così i dati arrivano su Supabase subito dopo l'inserimento.
         // Ignorato in demo mode (demoContainer ha il suo context separato).
         .onReceive(
-            NotificationCenter.default.publisher(for: ModelContext.didSave)
+            NotificationCenter.default.publisher(for: ModelContext.didSave, object: realContainer.mainContext)
+                .compactMap { notification -> (notification: Notification, shouldPush: Bool)? in
+                    guard Thread.isMainThread else { return nil }
+                    let shouldPush: Bool? = MainActor.assumeIsolated {
+                        let context = realContainer.mainContext
+                        guard !demoModeEnabled, auth.isLoggedIn else { return nil }
+                        let sync = SyncService.shared
+                        let shouldPush = sync.shouldObserveSave(notification, context: context)
+                        if shouldPush { sync.recordChanges(from: notification, context: context) }
+                        return shouldPush
+                    }
+                    guard let shouldPush else { return nil }
+                    return (notification, shouldPush)
+                }
                 .receive(on: RunLoop.main)
-        ) { notification in
-            guard !demoModeEnabled, auth.isLoggedIn else { return }
-            guard let ctx = notification.object as? ModelContext,
-                  ctx === realContainer.mainContext else { return }
-            // Registra QUALI transazioni sono cambiate in questo salvataggio, prima di
-            // schedulare il push — permette a push() di caricare solo le righe toccate
-            // invece dell'intera tabella (PROP-01, vedi SyncService.recordChanges).
-            SyncService.shared.recordChanges(from: notification, context: ctx)
-            SyncService.shared.schedulePush(context: realContainer.mainContext)
+        ) { save in
+            guard !demoModeEnabled, auth.isLoggedIn,
+                  let context = save.notification.object as? ModelContext,
+                  context === realContainer.mainContext else { return }
+            if save.shouldPush { SyncService.shared.schedulePush(context: context) }
             // Registro immutabile di ogni creazione/modifica/cancellazione (PROP-02).
-            AuditLogger.shared.record(from: notification, context: ctx)
+            AuditLogger.shared.record(from: save.notification, context: context)
         }
     }
 

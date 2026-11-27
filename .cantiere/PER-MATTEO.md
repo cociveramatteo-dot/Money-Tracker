@@ -5,6 +5,9 @@ in "Fatte" con la data. `riprendiamo` e il checkpoint te le ricordano, in ordine
 
 ## Da fare
 
+### S-52 · abilitare la riparazione automatica dei collegamenti su Supabase
+📍 Dashboard Supabase, progetto Bucktrail → **SQL Editor → New query**. ▶️ Dopo il collaudo S-52b/c, copia il blocco «SQL per Matteo dopo il collaudo» di `.cantiere/CONSEGNA.md` e premi **Run**. ↩️ Incollami l'esito di Supabase.
+
 ### BANCA · modello economico — cosa resta a te (tutto spiegato in `.cantiere/banca-modello-economico.md`, copia su Drive `02_RISORSE/lavorate/banca-modello-economico-2026-11-25.md`)
 1. ✅ Fatto 2026-11-25: nessun account Apple Developer ancora (si sceglie «Individual» all'iscrizione, dopo il gate del 6/12; la banca resta in coda e si chiede ad Apple prima di costruirla). Dettagli nel §10 del documento.
 2. 📍 La tua casella email. ▶️ Invia a info@enablebanking.com la mail del §9 del documento (oggetto e corpo già pronti; cambia la stima del volume se vuoi). ↩️ Incollami la risposta: con costo per conto e fattura minima rifaccio le tabelle e fissiamo i prezzi.

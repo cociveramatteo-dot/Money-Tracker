@@ -189,8 +189,7 @@ struct AccountsView: View {
                                         }.accessibilityIdentifier("account_restore")
                                         Divider()
                                         Button(role: .destructive) {
-                                            context.delete(acc)
-                                            context.safeSave()
+                                            SyncService.shared.deleteLedgerAccount(acc, context: context)
                                         } label: {
                                             Label("Elimina definitivamente", systemImage: "trash")
                                         }
@@ -230,8 +229,7 @@ struct AccountsView: View {
                 if let acc = accountToDelete {
                     let txCount = acc.transactions.count
                     Button("Elimina\(txCount > 0 ? " (\(txCount) moviment\(txCount == 1 ? "o" : "i"))" : "")", role: .destructive) {
-                        context.delete(acc)
-                        context.safeSave()
+                        SyncService.shared.deleteLedgerAccount(acc, context: context)
                         accountToDelete = nil
                     }
                     .accessibilityIdentifier("btn_confirmDeleteAccount")

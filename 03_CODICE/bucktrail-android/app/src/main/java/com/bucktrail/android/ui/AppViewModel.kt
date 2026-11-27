@@ -254,7 +254,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     /** Elimina conto + movimenti + budget del conto (cascata Room) e le preferenze legate. */
     fun deleteAccount(account: AccountEntity) = viewModelScope.launch {
-        repository.dao.delete(account)
+        sync.deleteLedgerAccount(account.id) { repository.dao.delete(account) }
         prefs.removeBalanceThreshold(account.id)
         val saved = data.value.prefs.homeAccountIds
         if (account.id in saved) prefs.setHomeAccounts(saved - account.id)

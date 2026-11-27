@@ -49,7 +49,9 @@ data class SyncPlan(
  */
 object SyncMerge {
     fun plan(local: Snapshot, remote: Snapshot, dirtyTransactionIds: Set<String>, ignored: IgnoredIds = IgnoredIds(),
-             knownRuleIds: Set<String> = emptySet(), knownAccountIds: Set<String> = emptySet()): SyncPlan? {
+             knownRuleIds: Set<String> = emptySet(), knownAccountIds: Set<String> = emptySet(),
+             clearedLinks: Set<String> = emptySet(), encrypted: Boolean = false,
+             preserveDirtyChanges: Boolean = false): SyncPlan? {
         val localAccounts = local.accounts.associateBy { it.id }
         val noRemoteAccounts = remote.accounts.isEmpty() && ignored.accounts.isEmpty()
         if (noRemoteAccounts && localAccounts.isNotEmpty() && localAccounts.keys.none { it in knownAccountIds }) return null
@@ -57,7 +59,8 @@ object SyncMerge {
         val remoteAccountIds = remote.accounts.map { it.id }.toSet()
         val pendingAccounts = if (noRemoteAccounts) localAccounts.keys - knownAccountIds else emptySet()
         // I conti ignorati già presenti in locale restano referenziabili.
-        val retainedAccounts = remoteAccountIds + (ignored.accounts intersect localAccounts.keys) + pendingAccounts
+        val stillReferenced = remote.transactions.mapNotNull { it.accountId }.toSet() intersect localAccounts.keys
+        val retainedAccounts = remoteAccountIds + (ignored.accounts intersect localAccounts.keys) + pendingAccounts + stillReferenced
         val accounts = remote.accounts.mapNotNull { r ->
             val existing = localAccounts[r.id]
             val merged = existing?.copy(
@@ -68,19 +71,28 @@ object SyncMerge {
         }
         val deleteAccounts = localAccounts.keys.filter { it !in retainedAccounts }
 
-        // il cascade del conto cancella già i suoi movimenti/budget: si evita di riscriverli
+        // Il cascade locale non deve far sparire i movimenti ancora presenti sul server.
         val cascaded = deleteAccounts.toSet()
         val localTx = local.transactions.associateBy { it.id }
+        val warned = remote.transactions.count { it.accountId != null && it.accountId !in retainedAccounts }
+        if (warned > 0) java.util.logging.Logger.getLogger(SyncMerge::class.java.name)
+            .warning("$warned downloaded transactions reference a missing account")
         val transactions = remote.transactions.mapNotNull { r ->
             val existing = localTx[r.id]
+            if (existing != null && preserveDirtyChanges && r.id in dirtyTransactionIds) {
+                return@mapNotNull existing.takeIf { it.accountId in cascaded }?.copy(accountId = null)
+            }
             val accountId = r.accountId?.takeIf { it in retainedAccounts }
             val merged = existing?.copy(
                 name = r.name, amountCents = r.amountCents, type = r.type, category = r.category, categoryIcon = r.categoryIcon, date = r.date,
                 isDone = r.isDone, isFixed = r.isFixed, isTransfer = r.isTransfer, transferGroupId = r.transferGroupId, notes = r.notes,
                 recurringFrequency = r.recurringFrequency, templateId = r.templateId,
-                accountId = if (r.accountId != null && accountId != existing.accountId) accountId else existing.accountId,
+                accountId = when {
+                    accountId != null || r.id in clearedLinks || encrypted -> accountId
+                    else -> existing.accountId?.takeIf { it in retainedAccounts }
+                },
             ) ?: r.copy(accountId = accountId)
-            merged.takeIf { it != existing }
+            merged.takeIf { it != existing || existing.accountId in cascaded }
         }
         val remoteTxIds = remote.transactions.map { it.id }.toSet()
         val deleteTx = local.transactions.filter { it.id !in remoteTxIds && it.id !in ignored.transactions && it.id !in dirtyTransactionIds && it.accountId !in cascaded && it.accountId !in pendingAccounts }.map { it.id }
@@ -127,6 +139,11 @@ object SyncMerge {
             it !in remoteRuleIds && it !in ignored.rules && (!keepAllRules || it in knownRuleIds)
         }
 
-        return SyncPlan(accounts, deleteAccounts, transactions, deleteTx, budgets, deleteBudgets, goals, deleteGoals, rules, deleteRules)
+        val dirtyOrIgnoredChildren = local.transactions.filter {
+            it.id !in remoteTxIds && it.accountId in cascaded &&
+                (it.id in dirtyTransactionIds || it.id in ignored.transactions)
+        }.map { it.copy(accountId = null) }
+        return SyncPlan(accounts, deleteAccounts, transactions + dirtyOrIgnoredChildren, deleteTx,
+            budgets, deleteBudgets, goals, deleteGoals, rules, deleteRules)
     }
 }

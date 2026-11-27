@@ -255,6 +255,15 @@ class SyncService(
         if (state.hasPendingChanges && syncEnabled()) { retryJob?.cancel(); scope.launch { ops.withLock { withGate { pushResilient(it) } } } }
     }
 
+    internal suspend fun deleteLedgerAccount(id: String, delete: suspend () -> Unit) = ops.withLock {
+        delete()
+        auth.userId?.takeIf { active && it == state.lastUserId }?.let { owner ->
+            state.setAccountDeletions(owner, state.accountDeletions(owner) + id)
+            schedulePush()
+        }
+        Unit
+    }
+
     /** Esci: prova il push, poi chiude la sessione e isola i dati locali. */
     suspend fun signOutAndClear() {
         ops.withLock {

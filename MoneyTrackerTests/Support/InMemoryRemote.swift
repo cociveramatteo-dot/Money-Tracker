@@ -9,6 +9,7 @@ final class InMemoryRemote: SyncRemote, E2EServerAccess, VaultAccess {
         case select(SyncTable, UUID)
         case upsert(SyncTable, UUID, Set<UUID>)
         case delete(SyncTable, UUID, Set<UUID>)
+        case repairLinks(UUID, Set<UUID>)
         case lookupE2E(UUID)
         case insertE2E(UUID)
         case patchE2E(UUID)
@@ -63,7 +64,15 @@ final class InMemoryRemote: SyncRemote, E2EServerAccess, VaultAccess {
         if state == .migrating || state == .active {
             throw PostgrestError(code: "P0001", message: "bt_e2e_active")
         }
-        seed(rows, table: table, userId: userId)
+        if table == .transactions, let transactions = rows as? [SBTransaction] {
+            seed(transactions.map { transaction in
+                var row = transaction
+                row.accountLinkCleared = row.accountId == nil
+                return row
+            }, table: table, userId: userId)
+        } else {
+            seed(rows, table: table, userId: userId)
+        }
     }
 
     func delete(ids: [UUID], table: SyncTable, userId: UUID) async throws {
@@ -73,6 +82,27 @@ final class InMemoryRemote: SyncRemote, E2EServerAccess, VaultAccess {
         }
         for id in ids {
             tables[table]?[userId]?.removeValue(forKey: id)
+        }
+        if table == .accounts {
+            let deleted = Set(ids)
+            let transactions = tables[.transactions]?[userId] ?? [:]
+            for (id, row) in transactions {
+                guard var row = row as? SBTransaction, let account = row.accountId, deleted.contains(account) else { continue }
+                row.accountId = nil
+                row.accountLinkCleared = false
+                tables[.transactions]?[userId]?[id] = row
+            }
+        }
+    }
+
+    func repairAccountLinks(_ links: [UUID: UUID], userId: UUID) async throws {
+        try record(.repairLinks(userId, Set(links.keys)))
+        for (id, accountId) in links {
+            guard var row = tables[.transactions]?[userId]?[id] as? SBTransaction,
+                  row.accountId == nil, row.accountLinkCleared == false,
+                  tables[.accounts]?[userId]?[accountId] != nil else { continue }
+            row.accountId = accountId
+            tables[.transactions]?[userId]?[id] = row
         }
     }
 

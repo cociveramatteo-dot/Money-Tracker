@@ -53,6 +53,7 @@ interface SupabaseApi {
     suspend fun selectAll(table: String, userId: String, token: String, columns: String = "*"): List<JsonObject>
     suspend fun upsert(table: String, rows: List<JsonObject>, token: String)
     suspend fun deleteIn(table: String, ids: List<String>, userId: String, token: String)
+    suspend fun repairAccountLinks(links: Map<String, String>, token: String) {}
     suspend fun rpc(function: String, token: String)
 }
 
@@ -209,6 +210,15 @@ class HttpSupabaseApi(
 
     override suspend fun deleteIn(table: String, ids: List<String>, userId: String, token: String) =
         deleteRows(table, ids, userId, token)
+
+    override suspend fun repairAccountLinks(links: Map<String, String>, token: String) {
+        links.entries.chunked(200).forEach { batch ->
+            val parameters = buildJsonObject {
+                put("links", JsonObject(batch.associate { (id, account) -> id to JsonPrimitive(account) }))
+            }
+            call("POST", "/rest/v1/rpc/mt_repair_transaction_accounts", parameters.toString(), token)
+        }
+    }
 
     override suspend fun upsertVault(rows: List<JsonObject>, token: String) = upsert("mt_vault", rows, token)
 

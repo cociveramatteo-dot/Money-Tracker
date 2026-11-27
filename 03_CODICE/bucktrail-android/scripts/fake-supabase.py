@@ -170,6 +170,10 @@ class H(BaseHTTPRequestHandler):
                 if any(rows[key].get("state") == "migrating" and updates[key].get("state") == "active"
                        for key in rows.keys() & updates.keys()):
                     return e2e_error("bt_e2e_use_activate")
+            if table == "mt_transactions":
+                for row in updates.values():
+                    if "account_id" in row:
+                        row["account_link_cleared"] = row["account_id"] is None
             rows.update(updates)
             return 201, b""
         if method == "PATCH" and table == "mt_e2e" and user_filter is not None:
@@ -212,8 +216,28 @@ class H(BaseHTTPRequestHandler):
                     rows[key].get("key_id") == metadata.get("key_id") for key in candidates
                 ):
                     return e2e_error("bt_e2e_vault_locked")
+            if table == "mt_accounts":
+                for row in TABLES.get("mt_transactions", {}).values():
+                    if (row.get("account_id") or "").lower() in candidates:
+                        row["account_id"] = None
+                        row["account_link_cleared"] = False
             return mutation_response([rows.pop(key) for key in candidates])
         return 404, {"message": "not found " + urlparse(self.path).path}
+
+    def repair_account_links(self, uid, body):
+        if e2e_state({"user_id": uid}) in {"migrating", "active"}:
+            return e2e_error("bt_e2e_active")
+        transactions = TABLES.get("mt_transactions", {})
+        accounts = TABLES.get("mt_accounts", {})
+        for transaction_id, account_id in body.get("links", {}).items():
+            row = transactions.get(transaction_id.lower())
+            account = accounts.get(account_id.lower())
+            if (row and row["user_id"].lower() == uid and row.get("account_link_cleared") is False
+                    and (row.get("account_id") or "").lower() not in accounts
+                    and account and account["user_id"].lower() == uid):
+                row["account_id"] = account["id"]
+                row["account_link_cleared"] = False
+        return 204, b""
 
     def activate_e2e(self, uid, body):
         row = TABLES.get("mt_e2e", {}).get(uid)
@@ -288,12 +312,13 @@ class H(BaseHTTPRequestHandler):
         e2e_rpc = {
             "/rest/v1/rpc/mt_e2e_activate": self.activate_e2e,
             "/rest/v1/rpc/mt_e2e_rollback": self.rollback_e2e,
+            "/rest/v1/rpc/mt_repair_transaction_accounts": self.repair_account_links,
         }.get(u.path)
         if method == "POST" and e2e_rpc:
             email = self.user_email()
             if not email:
                 return self.send(401, {"message": "JWT expired"})
-            if os.environ.get("FAKE_NO_E2E") == "1":
+            if os.environ.get("FAKE_NO_E2E") == "1" and u.path.startswith("/rest/v1/rpc/mt_e2e_"):
                 return self.send(404, {"code": "PGRST202", "message": "Could not find the function"})
             body = self.body()
             # Condivide il lock con le mutazioni REST e con l'altra transizione.

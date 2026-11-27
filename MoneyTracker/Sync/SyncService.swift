@@ -148,7 +148,8 @@ nonisolated struct SBAccount: SyncRow {
 nonisolated struct SBTransaction: SyncRow {
     let id:                 UUID
     let userId:             UUID
-    let accountId:          UUID?
+    var accountId:          UUID?
+    var accountLinkCleared: Bool?
     let name:               String
     let amount:             Decimal
     let type:               String
@@ -168,6 +169,7 @@ nonisolated struct SBTransaction: SyncRow {
         case id
         case userId           = "user_id"
         case accountId        = "account_id"
+        case accountLinkCleared = "account_link_cleared"
         case name, amount, type, category
         case categoryIcon     = "category_icon"
         case date
@@ -179,6 +181,35 @@ nonisolated struct SBTransaction: SyncRow {
         case recurringFrequency = "recurring_frequency"
         case templateId       = "template_id"
         case createdAt        = "created_at"
+    }
+
+    func encode(to encoder: Encoder) throws {
+        try encode(to: encoder, explicitNullAccount: false)
+    }
+
+    func encode(to encoder: Encoder, explicitNullAccount: Bool) throws {
+        var values = encoder.container(keyedBy: CodingKeys.self)
+        try values.encode(id, forKey: .id)
+        try values.encode(userId, forKey: .userId)
+        if explicitNullAccount {
+            try values.encode(accountId, forKey: .accountId)
+        } else {
+            try values.encodeIfPresent(accountId, forKey: .accountId)
+        }
+        try values.encode(name, forKey: .name)
+        try values.encode(amount, forKey: .amount)
+        try values.encode(type, forKey: .type)
+        try values.encode(category, forKey: .category)
+        try values.encode(categoryIcon, forKey: .categoryIcon)
+        try values.encode(date, forKey: .date)
+        try values.encode(isDone, forKey: .isDone)
+        try values.encode(isFixed, forKey: .isFixed)
+        try values.encode(isTransfer, forKey: .isTransfer)
+        try values.encode(transferGroupId, forKey: .transferGroupId)
+        try values.encode(notes, forKey: .notes)
+        try values.encode(recurringFrequency, forKey: .recurringFrequency)
+        try values.encode(templateId, forKey: .templateId)
+        try values.encode(createdAt, forKey: .createdAt)
     }
 
     @MainActor
@@ -518,7 +549,15 @@ final class SyncService: ObservableObject {
     /// modificate e le aggiunge all'elenco "da sincronizzare". Le cancellazioni non
     /// servono qui: sono già gestite correttamente e in modo efficiente da
     /// `deleteOrphans` (confronto dei soli ID, non dei dati completi).
+    // Checked at notification delivery, before Combine defers processing to the main run loop.
+    private var isApplyingRemoteSave = false
+
+    func shouldObserveSave(_ notification: Notification, context: ModelContext) -> Bool {
+        (notification.object as? ModelContext) === context && !isApplyingRemoteSave
+    }
+
     func recordChanges(from notification: Notification, context: ModelContext) {
+        guard shouldObserveSave(notification, context: context) else { return }
         let inserted = (notification.userInfo?[ModelContext.NotificationKey.insertedIdentifiers.rawValue] as? [PersistentIdentifier]) ?? []
         let updated  = (notification.userInfo?[ModelContext.NotificationKey.updatedIdentifiers.rawValue]  as? [PersistentIdentifier]) ?? []
         let changed  = inserted + updated
@@ -661,6 +700,9 @@ final class SyncService: ObservableObject {
     #endif
 
     func clearLocalStore(context: ModelContext) -> Bool {
+        isApplyingRemoteSave = true
+        defer { isApplyingRemoteSave = false }
+        if let owner = lastSyncedUser { setAccountDeletions([], userId: owner) }
         // Batch deletion first, accounts before their transactions and budgets:
         // batch-deleting a transaction cannot nullify its account inverse. If it
         // still fails (or misses unsaved inserts), delete instances so SwiftData
@@ -732,6 +774,24 @@ final class SyncService: ObservableObject {
         await signOut(owner)
         closingAccount = false
         if let current = userId, current != owner { await syncOnLogin(context: context) }
+    }
+
+    private func accountDeletions(userId: UUID) -> Set<UUID> {
+        let ids = defaults.stringArray(forKey: "syncService.accountDeletions." + userId.uuidString) ?? []
+        return Set(ids.compactMap(UUID.init(uuidString:)))
+    }
+
+    private func setAccountDeletions(_ ids: Set<UUID>, userId: UUID) {
+        defaults.set(ids.map(\.uuidString), forKey: "syncService.accountDeletions." + userId.uuidString)
+    }
+
+    func deleteLedgerAccount(_ account: Account, context: ModelContext) {
+        let id = account.id
+        context.delete(account)
+        guard context.safeSave(), !defaults.bool(forKey: Self.demoModeKey),
+              let userId, lastSyncedUser == userId else { return }
+        setAccountDeletions(accountDeletions(userId: userId).union([id]), userId: userId)
+        schedulePush(context: context)
     }
 
     func deleteAccount(context: ModelContext) async throws {
@@ -808,6 +868,9 @@ final class SyncService: ObservableObject {
 
     func upload(context: ModelContext, remote: any SyncRemote, userId: UUID,
                 validateSession: () throws -> Void = {}, mode: UploadMode = .incremental) async throws {
+        var deferredAccounts = Set<UUID>()
+        var protectedTransactions = Set<UUID>()
+
         func syncTable<Model, Row: SyncRow>(_ models: [Model], id: KeyPath<Model, UUID>, table: SyncTable,
                                             makeRow: (Model, UUID) -> Row) async throws {
             let local = Set(models.map { $0[keyPath: id] })
@@ -828,12 +891,29 @@ final class SyncService: ObservableObject {
                     try await remote.upsert(rows, table: table, userId: userId)
                     try validateSession()
                 }
-                if !plan.deleteRemote.isEmpty {
-                    try await remote.delete(ids: Array(plan.deleteRemote), table: table, userId: userId)
+                var toDelete = plan.deleteRemote
+                if table == .accounts, !toDelete.isEmpty {
+                    let protected = toDelete.subtracting(accountDeletions(userId: userId))
+                    if !protected.isEmpty {
+                        let rows: [SBTransaction] = try await remote.select(table: .transactions, userId: userId)
+                        try validateSession()
+                        protectedTransactions = Set(rows.compactMap { row in
+                            guard let id = row.accountId, protected.contains(id) else { return nil }
+                            return row.id
+                        })
+                    }
+                    deferredAccounts = toDelete.subtracting(protected)
+                    toDelete = []
+                }
+                if table == .transactions { toDelete.subtract(protectedTransactions) }
+                if !toDelete.isEmpty {
+                    try await remote.delete(ids: Array(toDelete), table: table, userId: userId)
                     try validateSession()
                 }
                 var updated = SyncBaseline.load(from: defaults, user: userId)
-                updated.recordPush(plan, table: table)
+                updated.recordPush(.init(upload: plan.upload, deleteRemote: toDelete,
+                                         deletedElsewhere: plan.deletedElsewhere,
+                                         newBase: plan.newBase.union(plan.deleteRemote.subtracting(toDelete))), table: table)
                 try updated.save(to: defaults)
                 // Migration still has to verify the snapshot. An edit during that push must stay dirty if it fails.
                 if table == .transactions, case .incremental = mode {
@@ -852,8 +932,15 @@ final class SyncService: ObservableObject {
                 if table == .transactions { try validateSession() }
             }
             if case .migrationCopy(pruningOrphans: true) = mode {
-                try await deleteOrphans(remote: remote, table: table, userId: userId,
-                                        validateSession: validateSession, localIds: local)
+                let remoteIds = try await remote.fetchIds(table: table, userId: userId)
+                try validateSession()
+                let orphans = remoteIds.subtracting(local)
+                if table == .accounts {
+                    deferredAccounts = orphans
+                } else if !orphans.isEmpty {
+                    try await remote.delete(ids: Array(orphans), table: table, userId: userId)
+                    try validateSession()
+                }
             }
         }
         Logger.persistence.info("SyncService: push started")
@@ -872,6 +959,24 @@ final class SyncService: ObservableObject {
             try await syncTable(goals, id: \.id, table: .goals, makeRow: SBGoal.init)
             try await syncTable(rules, id: \.id, table: .recurringRules, makeRow: SBRecurringRule.init)
 
+            if !deferredAccounts.isEmpty {
+                let rows: [SBTransaction] = try await remote.select(table: .transactions, userId: userId)
+                try validateSession()
+                let deletable = deferredAccounts.subtracting(rows.compactMap(\.accountId))
+                if !deletable.isEmpty {
+                    try await remote.delete(ids: Array(deletable), table: .accounts, userId: userId)
+                    try validateSession()
+                    if mode.usesBaseline {
+                        var updated = SyncBaseline.load(from: defaults, user: userId)
+                        updated.tables[SyncTable.accounts.kind]?.subtract(deletable)
+                        try updated.save(to: defaults)
+                        setAccountDeletions(accountDeletions(userId: userId).subtracting(deletable), userId: userId)
+                    }
+                }
+                if case .migrationCopy(pruningOrphans: true) = mode, deletable != deferredAccounts {
+                    throw AccountSyncError.stillReferenced
+                }
+            }
             Logger.persistence.info("SyncService: push complete")
         }
     }
@@ -910,15 +1015,39 @@ final class SyncService: ObservableObject {
             }
 
             let baseline = SyncBaseline.load(from: defaults, user: userId)
-            let localAccounts = try context.fetch(FetchDescriptor<Account>())
+            let accountsBeforeRead = try context.fetch(FetchDescriptor<Account>())
             let knownAccountIds = usesBaseline ? baseline.base(for: .accounts) ?? [] : []
             // Un remoto senza conti può indicare un primo push ancora da fare.
-            if sbAccounts.isEmpty && !localAccounts.isEmpty &&
-                !localAccounts.contains(where: { knownAccountIds.contains($0.id) }) {
+            if sbAccounts.isEmpty && !accountsBeforeRead.isEmpty &&
+                !accountsBeforeRead.contains(where: { knownAccountIds.contains($0.id) }) {
                 Logger.persistence.warning("SyncService: pull skipped — remote empty, local has data")
                 return false
             }
 
+            let sbTx: [SBTransaction] = if let snapshot {
+                snapshot.transactions
+            } else {
+                try await remote.select(table: .transactions, userId: userId)
+            }
+            let sbBudgets: [SBBudget] = if let snapshot {
+                snapshot.budgets
+            } else {
+                try await remote.select(table: .budgets, userId: userId)
+            }
+            let sbGoals: [SBGoal] = if let snapshot {
+                snapshot.goals
+            } else {
+                try await remote.select(table: .goals, userId: userId)
+            }
+            let sbRules: [SBRecurringRule] = if let snapshot {
+                snapshot.rules
+            } else {
+                try await remote.select(table: .recurringRules, userId: userId)
+            }
+            guard self.userId == userId, !Task.isCancelled else { return false }
+            // Commit pending user edits before tagging the pull's own save.
+            if context.hasChanges, !context.safeSave() { return false }
+            let localAccounts = try context.fetch(FetchDescriptor<Account>())
             let localAccountById = Dictionary(localAccounts.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
             var accountMap       = [UUID: Account]()
             var pulledAccountIds = Set<UUID>()
@@ -949,24 +1078,32 @@ final class SyncService: ObservableObject {
                 accountMap[sb.id] = acc
             }
             let pendingAccounts = sbAccounts.isEmpty ? Set(localAccounts.map(\.id)).subtracting(knownAccountIds) : []
-            for local in localAccounts where !pulledAccountIds.contains(local.id) && !pendingAccounts.contains(local.id) {
-                context.delete(local)   // cascade elimina anche le sue transaction/budget
+            // A transaction still pointing to an absent account is evidence of an incomplete view.
+            let referencedAccounts = Set(sbTx.compactMap(\.accountId))
+            let retainedAccounts = pendingAccounts.union(referencedAccounts)
+            for local in localAccounts where retainedAccounts.contains(local.id) {
+                accountMap[local.id] = local
             }
+            let deletedAccounts = localAccounts.filter { accountMap[$0.id] == nil }
+            let deletedAccountIds = Set(deletedAccounts.map(\.id))
 
             // ── 2. TRANSACTIONS ────────────────────────────────────────────
-            let sbTx: [SBTransaction] = if let snapshot {
-                snapshot.transactions
-            } else {
-                try await remote.select(table: .transactions, userId: userId)
-            }
 
-            let localTx    = (try? context.fetch(FetchDescriptor<Transaction>())) ?? []
+            let localTx    = try context.fetch(FetchDescriptor<Transaction>())
             let localTxMap = Dictionary(localTx.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
             var pulledTxIds = Set<UUID>()
+            var linksToRepair = [UUID: UUID]()
+            let dirty = dirtyTransactionIds
+            let encrypted = remote is VaultRemote
+            let brokenReferences = sbTx.count { $0.accountId != nil && $0.accountId.flatMap { accountMap[$0] } == nil }
+            if brokenReferences > 0 {
+                Logger.persistence.warning("SyncService: \(brokenReferences) downloaded transactions reference a missing account")
+            }
 
             for sb in sbTx {
                 pulledTxIds.insert(sb.id)
                 if let existing = localTxMap[sb.id] {
+                    if dirty.contains(sb.id), !forMigration { continue }
                     if existing.name               != sb.name               { existing.name               = sb.name }
                     if existing.amount             != sb.amount             { existing.amount             = sb.amount }
                     if existing.type               != sb.type               { existing.type               = sb.type }
@@ -980,7 +1117,14 @@ final class SyncService: ObservableObject {
                     if existing.notes              != sb.notes              { existing.notes              = sb.notes }
                     if existing.recurringFrequency != sb.recurringFrequency { existing.recurringFrequency = sb.recurringFrequency }
                     if existing.templateId         != sb.templateId         { existing.templateId         = sb.templateId }
-                    if let accId = sb.accountId, existing.account?.id != accId { existing.account = accountMap[accId] }
+                    if let account = sb.accountId.flatMap({ accountMap[$0] }) {
+                        if existing.account?.id != account.id { existing.account = account }
+                    } else if sb.accountLinkCleared == true || (encrypted && !forMigration) {
+                        if existing.account != nil { existing.account = nil }
+                    } else if !forMigration, sb.accountLinkCleared == false,
+                              let accountId = existing.account?.id, pulledAccountIds.contains(accountId) {
+                        linksToRepair[sb.id] = accountId
+                    }
                 } else {
                     let t = Transaction(
                         name:               sb.name,
@@ -1022,12 +1166,12 @@ final class SyncService: ObservableObject {
                 }
             }
 
-            // ── 3. BUDGETS ─────────────────────────────────────────────────
-            let sbBudgets: [SBBudget] = if let snapshot {
-                snapshot.budgets
-            } else {
-                try await remote.select(table: .budgets, userId: userId)
+            for local in localTx where pulledTxIds.contains(local.id) || stillDirty.contains(local.id) {
+                if let id = local.account?.id, deletedAccountIds.contains(id) { local.account = nil }
             }
+            for account in deletedAccounts { context.delete(account) }
+
+            // ── 3. BUDGETS ─────────────────────────────────────────────────
 
             let localBudgets    = (try? context.fetch(FetchDescriptor<Budget>())) ?? []
             let localBudgetMap  = Dictionary(localBudgets.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
@@ -1060,11 +1204,6 @@ final class SyncService: ObservableObject {
             }
 
             // ── 4. GOALS ───────────────────────────────────────────────────
-            let sbGoals: [SBGoal] = if let snapshot {
-                snapshot.goals
-            } else {
-                try await remote.select(table: .goals, userId: userId)
-            }
 
             let localGoals    = (try? context.fetch(FetchDescriptor<Goal>())) ?? []
             let localGoalMap  = Dictionary(localGoals.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
@@ -1095,29 +1234,28 @@ final class SyncService: ObservableObject {
                 context.delete(local)
             }
 
-            let sbRules: [SBRecurringRule] = if let snapshot {
-                snapshot.rules
-            } else {
-                try await remote.select(table: .recurringRules, userId: userId)
-            }
             try Self.mergeRecurringRules(sbRules, context: context,
                                          knownIds: usesBaseline ? baseline.base(for: .recurringRules) ?? [] : [])
 
             let saved: Bool
-            if forMigration {
-                do { try context.save() }
-                catch {
-                    context.rollback()
-                    throw error
+            do {
+                isApplyingRemoteSave = true
+                defer { isApplyingRemoteSave = false }
+                if forMigration {
+                    do { try context.save() }
+                    catch {
+                        context.rollback()
+                        throw error
+                    }
+                    AccountBalanceCache.shared.invalidateAll()
+                    saved = true
+                } else {
+                    saved = context.safeSave()
                 }
-                AccountBalanceCache.shared.invalidateAll()
-                saved = true
-            } else {
-                saved = context.safeSave()
             }
             if saved, usesBaseline, self.userId == userId {
                 let updated = SyncBaseline(user: userId, tables: [
-                    SyncTable.accounts.kind: pulledAccountIds,
+                    SyncTable.accounts.kind: pulledAccountIds.union(referencedAccounts.intersection(localAccountById.keys)),
                     SyncTable.transactions.kind: pulledTxIds,
                     SyncTable.budgets.kind: pulledBudgetIds,
                     SyncTable.goals.kind: pulledGoalIds,
@@ -1125,8 +1263,17 @@ final class SyncService: ObservableObject {
                 ])
                 try updated.save(to: defaults)
                 dirtyTransactionIds.subtract(remotelyDeletedTx)
+                setAccountDeletions([], userId: userId)
             }
             defaults.set(Date(), forKey: lastPullKey)
+            if saved, self.userId == userId, !linksToRepair.isEmpty {
+                Logger.persistence.warning("SyncService: repairing \(linksToRepair.count) transaction account links")
+                do {
+                    try await remote.repairAccountLinks(linksToRepair, userId: userId)
+                } catch {
+                    Logger.persistence.warning("SyncService: account links will be retried on the next pull")
+                }
+            }
             Logger.persistence.info("SyncService: pull complete")
             return saved
         }
@@ -1155,20 +1302,4 @@ final class SyncService: ObservableObject {
         for local in locals where !remoteIds.contains(local.id) { context.delete(local) }
     }
 
-    // MARK: - Helpers
-
-    /// Elimina da Supabase i record che esistono in remoto ma non localmente.
-    /// Una sola richiesta batch (non una per riga): con N record orfani, il pattern
-    /// precedente faceva N round-trip di rete sequenziali (classico N+1) — qui è O(1)
-    /// indipendentemente da quanti record vanno cancellati.
-    private func deleteOrphans(remote: any SyncRemote, table: SyncTable, userId: UUID,
-                               validateSession: () throws -> Void, localIds: Set<UUID>) async throws {
-        guard !isUsingVolatileStore else { return }
-        try validateSession()
-        let remoteIds = try await remote.fetchIds(table: table, userId: userId)
-        try validateSession()
-        let orphans   = remoteIds.subtracting(localIds)
-        guard !orphans.isEmpty else { return }
-        try await remote.delete(ids: Array(orphans), table: table, userId: userId)
-    }
 }

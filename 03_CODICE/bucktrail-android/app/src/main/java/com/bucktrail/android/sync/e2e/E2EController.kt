@@ -287,6 +287,9 @@ class E2EController(
         override suspend fun deleteIn(table: String, ids: List<String>, userId: String, token: String) =
             checkRequest { plain.deleteIn(table, ids, userId, token) }
 
+        override suspend fun repairAccountLinks(links: Map<String, String>, token: String) =
+            checkRequest { plain.repairAccountLinks(links, token) }
+
         suspend fun validatePull(token: String) = checkRequest { validateKey?.invoke(token) }
 
         private inline fun <T> checkRequest(block: () -> T): T {

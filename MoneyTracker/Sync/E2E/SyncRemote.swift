@@ -23,12 +23,23 @@ nonisolated protocol SyncRow: Codable, Sendable {
     var id: UUID { get }
 }
 
+enum AccountSyncError: LocalizedError {
+    case stillReferenced
+
+    var errorDescription: String? { "A transaction still refers to an account selected for deletion." }
+}
+
 @MainActor
 protocol SyncRemote {
     func fetchIds(table: SyncTable, userId: UUID) async throws -> Set<UUID>
     func select<Row: SyncRow>(table: SyncTable, userId: UUID) async throws -> [Row]
     func upsert<Row: SyncRow>(_ rows: [Row], table: SyncTable, userId: UUID) async throws
     func delete(ids: [UUID], table: SyncTable, userId: UUID) async throws
+    func repairAccountLinks(_ links: [UUID: UUID], userId: UUID) async throws
+}
+
+extension SyncRemote {
+    func repairAccountLinks(_ links: [UUID: UUID], userId: UUID) async throws {}
 }
 
 struct PlainRemote: SyncRemote {
@@ -62,15 +73,40 @@ struct PlainRemote: SyncRemote {
         try await readAll("*", table: table, userId: userId, id: \.id)
     }
 
+    private nonisolated struct TransactionWrite: Encodable, Sendable {
+        let row: SBTransaction
+
+        func encode(to encoder: Encoder) throws {
+            try row.encode(to: encoder, explicitNullAccount: true)
+        }
+    }
+
     func upsert<Row: SyncRow>(_ rows: [Row], table: SyncTable, userId: UUID) async throws {
-        if forMigration {
-            for offset in stride(from: 0, to: rows.count, by: 200) {
-                try Task.checkCancellation()
-                try await client.from(table.rawValue).upsert(Array(rows[offset..<min(offset + 200, rows.count)]))
-                    .execute()
+        func send<Payload: Encodable & Sendable>(_ rows: [Payload]) async throws {
+            if forMigration {
+                for offset in stride(from: 0, to: rows.count, by: 200) {
+                    try Task.checkCancellation()
+                    try await client.from(table.rawValue).upsert(Array(rows[offset..<min(offset + 200, rows.count)]))
+                        .execute()
+                }
+            } else {
+                try await client.from(table.rawValue).upsert(rows).execute()
             }
+        }
+
+        // PostgREST needs an explicit JSON null to unlink an existing transaction.
+        if table == .transactions, let transactions = rows as? [SBTransaction] {
+            try await send(transactions.map { TransactionWrite(row: $0) })
         } else {
-            try await client.from(table.rawValue).upsert(rows).execute()
+            try await send(rows)
+        }
+    }
+
+    func repairAccountLinks(_ links: [UUID: UUID], userId: UUID) async throws {
+        let entries = links.map { ($0.key.uuidString, $0.value.uuidString) }
+        for offset in stride(from: 0, to: entries.count, by: 200) {
+            let batch = Dictionary(uniqueKeysWithValues: entries[offset..<min(offset + 200, entries.count)])
+            try await client.rpc("mt_repair_transaction_accounts", params: ["links": batch]).execute()
         }
     }
 
