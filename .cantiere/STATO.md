@@ -20,3 +20,4 @@ S-51g/S-51e/S-51h 2026-11-27 13:26: implementati [~]. Build Debug iOS e Android,
 S-51g/S-51e/S-51h 2026-11-27 13:34: collaudo ok [x] (iOS 46/46 mirati, t10 3/3, Android 334/334). S-51 chiuso. Prossimo: S-70 → Codex.
 S-52b/c 2026-11-27 14:40: implementato [~]. Android 335 unitari verdi. Build iOS e regressione iniziale verificate. Da completare giro iOS finale e collaudo indipendente, poi SQL di S-52s a Matteo.
 S-53 2026-11-27 16:30: prova S-50 di Matteo bloccata, attivazione Protezione fallisce sul Supabase vero (0/9 e 4/9). Annullata. Prossimo: S-53a → Codex, poi S-53b Matteo, poi S-70.
+S-53a 2026-11-27 17:01: fix backup E2E (percorsi /private/var) [~], 30/30 test E2E. Prossimo: S-53b Matteo riprova da Xcode, poi collaudo, poi S-70.

@@ -135,6 +135,27 @@ struct E2EStressTests {
         #expect(onlyWinnerHasKey)
         #expect(f.remote.e2eRows[f.user]?.state == .active)
     }
+
+    /// S-53: on a device the backup folder can be listed through another path
+    /// (/var vs /private/var). The fresh backup must survive the cleanup of old ones.
+    @Test func activationKeepsBackupWhenFolderIsReachedThroughASymlink() async throws {
+        let f = try LifecycleFixture()
+        let real = f.root.appending(path: "real", directoryHint: .isDirectory)
+        let link = f.root.appending(path: "link", directoryHint: .isDirectory)
+        try FileManager.default.createDirectory(at: real, withIntermediateDirectories: true)
+        try FileManager.default.createSymbolicLink(at: link, withDestinationURL: real)
+        let snapshot = try E2EVerifier.Snapshot(context: f.context, userId: f.user)
+        let keyStore = E2EKeyStore(service: UUID().uuidString)
+        defer { try? keyStore.remove(userId: f.user) }
+        let migrator = E2EMigrator(userId: f.user, defaults: f.defaults, keyStore: keyStore, server: f.remote,
+                                   vault: f.remote, plain: f.remote,
+                                   backupDirectory: link.appending(path: "E2EBackup", directoryHint: .isDirectory),
+                                   checkpoint: { _ in }, validateSession: {}, authenticate: {},
+                                   snapshot: { snapshot }, push: { _, _ in }, pull: { _, _ in }, initialSync: { _ in })
+        let last = try #require(f.recovery.split(separator: "-").last.map(String.init))
+        try await migrator.enable(passphrase: LifecycleFixture.phrase, recoveryKey: f.recovery, confirmation: last)
+        #expect(f.remote.e2eRows[f.user]?.state == .active)
+    }
 }
 
 @MainActor

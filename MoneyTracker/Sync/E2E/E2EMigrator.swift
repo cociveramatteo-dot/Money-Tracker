@@ -605,7 +605,7 @@ struct E2EMigrator {
         try directory.setResourceValues(values)
         try VaultJSON.encoder.encode(rows).write(to: url, options: [.atomic, .completeFileProtection])
         for old in try files.contentsOfDirectory(at: backupDirectory, includingPropertiesForKeys: nil)
-            where old != url {
+            where old.lastPathComponent != url.lastPathComponent {
             try files.removeItem(at: old)
         }
     }

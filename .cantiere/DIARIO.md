@@ -267,3 +267,4 @@ I checkpoint hanno una riga che inizia con `== CHECKPOINT`.
 | 2026-11-27 16:12 | capocantiere (Claude Code · Sonnet) | S-52s SQL su Supabase | eseguito da Matteo, FK ora NO ACTION deferred verificata | S-52 chiusa; prossimi: prova S-50, S-70 |
 | 2026-11-27 16:14 | capocantiere (Claude Code · Sonnet) | == CHECKPOINT (veloce) | S-52 chiusa | prova S-50, S-70 |
 | 2026-11-27 16:30 | capocantiere (Claude Code · Sonnet) | prova S-50 di Matteo | Android reinstallato puntato al Supabase vero (+e2e); attivazione Protezione su iPhone fallisce 0/9 e 4/9, aperto S-53 per Codex; PER-MATTEO corretto | S-53a Codex, poi S-53b Matteo |
+| 2026-11-27 17:01 | capocantiere (Claude Code · Sonnet) | S-53a (Codex fuori uso) | trovata con log diagnostici sul telefono la causa: backup E2E cancellato per confronto di percorsi /var vs /private/var; fix + test, 30/30 E2E iOS | S-53b prova di Matteo, poi collaudatore |
