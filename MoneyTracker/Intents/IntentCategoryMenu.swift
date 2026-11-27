@@ -2,12 +2,21 @@ import AppIntents
 import Foundation
 import SwiftData
 
-/// Pure category ordering and resolution helpers for App Intents (S-70a / S-70a2).
+/// Pure category ordering and resolution helpers for App Intents (S-70a / S-70a2 / S-70i).
 enum IntentCategoryMenu {
     nonisolated static let defaultCategories = [
         "Cibo", "Trasporti", "Svago", "Shopping", "Salute",
         "Casa", "Abbonamenti", "Lavoro", "Istruzione", "Viaggi", "Regali", "Altro",
     ]
+
+    private nonisolated static let localizableDefaultCategories: Set<String> = [
+        "Cibo", "Trasporti", "Svago", "Shopping", "Salute", "Casa",
+        "Abbonamenti", "Lavoro", "Istruzione", "Viaggi", "Regali",
+        "Risparmio", "Giroconto", "Altro", "Rettifica saldo",
+    ]
+
+    nonisolated static let maxRowTitleLength = 34
+    nonisolated static let titleSeparator = " · "
 
     struct Movement: Sendable {
         let category: String
@@ -38,10 +47,65 @@ enum IntentCategoryMenu {
         return latest.category
     }
 
-    /// Deduplicates the top suggestions so identical values only appear once (under Suggested).
-    nonisolated static func top(suggested: String?, lastUsed: String?) -> (suggested: String?, lastUsed: String?) {
-        let dedupLast = (lastUsed != nil && lastUsed == suggested) ? nil : lastUsed
-        return (suggested, dedupLast)
+    /// Deduplicates the top entries in display order: last-used first, then suggested.
+    /// When both match, keeps only last-used so a single row is shown.
+    nonisolated static func top(suggested: String?, lastUsed: String?) -> (lastUsed: String?, suggested: String?) {
+        let dedupSuggested = (suggested != nil && suggested == lastUsed) ? nil : suggested
+        return (lastUsed, dedupSuggested)
+    }
+
+    /// Filters out categories already shown at the top so the list below has no duplicates.
+    nonisolated static func remainingCategories(
+        all: [String],
+        excluding top: (lastUsed: String?, suggested: String?)
+    ) -> [String] {
+        let excluded = Set([top.lastUsed, top.suggested].compactMap { $0 })
+        return all.filter { !excluded.contains($0) }
+    }
+
+    /// Localizes built-in category names while leaving user-defined custom names untouched.
+    nonisolated static func localizedCategoryName(_ name: String, bundle: Bundle = .main) -> String {
+        guard localizableDefaultCategories.contains(name) else { return name }
+        return bundle.localizedString(forKey: name, value: name, table: nil)
+    }
+
+    /// Formats a picker row title on a single line (`"Category · Tag"`).
+    /// If the combined text exceeds `maxLength`, truncates only the category name with "…"
+    /// so the tag remains complete.
+    nonisolated static func formattedTitle(
+        categoryDisplayName: String,
+        tag: String?,
+        maxLength: Int = maxRowTitleLength
+    ) -> String {
+        guard let tag, !tag.isEmpty else { return categoryDisplayName }
+        let full = "\(categoryDisplayName)\(titleSeparator)\(tag)"
+        guard full.count > maxLength else { return full }
+        let budget = maxLength - titleSeparator.count - tag.count
+        let shortName: String
+        if budget >= 2 {
+            var prefix = String(categoryDisplayName.prefix(budget - 1))
+            while prefix.last?.isWhitespace == true, prefix.count > 1 {
+                prefix.removeLast()
+            }
+            shortName = "\(prefix)…"
+        } else if let first = categoryDisplayName.first {
+            shortName = "\(first)…"
+        } else {
+            return tag
+        }
+        return "\(shortName)\(titleSeparator)\(tag)"
+    }
+
+    /// Builds an IntentItem whose stored value is always the raw `category` name.
+    nonisolated static func item(
+        for category: String,
+        tagKey: String? = nil,
+        bundle: Bundle = .main
+    ) -> IntentItem<String> {
+        let displayName = localizedCategoryName(category, bundle: bundle)
+        let tag = tagKey.map { bundle.localizedString(forKey: $0, value: $0, table: nil) }
+        let titleText = formattedTitle(categoryDisplayName: displayName, tag: tag)
+        return IntentItem(category, title: LocalizedStringResource("\(titleText)"))
     }
 
     /// Explicit user choice always wins over automatic suggestion; fallback applies when both are absent.
@@ -106,9 +170,15 @@ enum IntentCategoryMenu {
 
     /// Builds the sectioned IntentItemCollection shown by Shortcuts category pickers.
     @MainActor
-    static func collection(name: String, type: String, context: ModelContext?) -> IntentItemCollection<String> {
+    static func collection(
+        name: String,
+        type: String,
+        context: ModelContext?,
+        bundle: Bundle = .main
+    ) -> IntentItemCollection<String> {
         guard let context else {
-            let section = IntentItemSection(LocalizedStringResource("Tutte le categorie"), items: defaultCategories)
+            let items = defaultCategories.map { item(for: $0, bundle: bundle) }
+            let section = IntentItemSection(LocalizedStringResource("Tutte le categorie"), items: items)
             return IntentItemCollection(promptLabel: nil, usesIndexedCollation: false, sections: [section])
         }
         let dbCats = (try? context.fetch(FetchDescriptor<Category>())) ?? []
@@ -118,14 +188,26 @@ enum IntentCategoryMenu {
             suggested: suggested(for: name, context: context, available: available),
             lastUsed: lastUsed(type: type, context: context, available: available)
         )
+        var topItems: [IntentItem<String>] = []
+        if let last = topPair.lastUsed {
+            topItems.append(item(for: last, tagKey: "Ultima usata", bundle: bundle))
+        }
+        if let sug = topPair.suggested {
+            topItems.append(item(for: sug, tagKey: "Suggerita", bundle: bundle))
+        }
+        let remaining = remainingCategories(all: all, excluding: topPair)
         var sections: [IntentItemSection<String>] = []
-        if let s = topPair.suggested {
-            sections.append(IntentItemSection(LocalizedStringResource("Suggerita"), items: [s]))
+        if !topItems.isEmpty {
+            sections.append(IntentItemSection(items: topItems))
         }
-        if let l = topPair.lastUsed {
-            sections.append(IntentItemSection(LocalizedStringResource("Ultima usata"), items: [l]))
+        if !remaining.isEmpty {
+            sections.append(
+                IntentItemSection(
+                    LocalizedStringResource("Tutte le categorie"),
+                    items: remaining.map { item(for: $0, bundle: bundle) }
+                )
+            )
         }
-        sections.append(IntentItemSection(LocalizedStringResource("Tutte le categorie"), items: all))
         return IntentItemCollection(promptLabel: nil, usesIndexedCollation: false, sections: sections)
     }
 }
