@@ -15,8 +15,10 @@ struct RevealableSecureField: View {
     var keyboardType: UIKeyboardType = .default
     var submitLabel: SubmitLabel = .done
     var accessibilityIdentifier: String? = nil
+    var formatter: ((_ newValue: String, _ previous: String) -> String)? = nil
 
     @State private var isRevealed = false
+    @State private var formatterPulse = false
     @FocusState private var isFocused: Bool
     @Environment(\.scenePhase) private var scenePhase
 
@@ -24,17 +26,37 @@ struct RevealableSecureField: View {
         phase != .active
     }
 
+    private var fieldBinding: Binding<String> {
+        Binding(
+            get: {
+                _ = formatterPulse
+                return text
+            },
+            set: { incoming in
+                guard let formatter else {
+                    text = incoming
+                    return
+                }
+                let formatted = formatter(incoming, text)
+                if formatted == text && incoming != text {
+                    formatterPulse.toggle()
+                }
+                text = formatted
+            }
+        )
+    }
+
     var body: some View {
         HStack(spacing: DS.Space.s) {
             Group {
                 if isRevealed {
-                    TextField(placeholder, text: $text)
+                    TextField(placeholder, text: fieldBinding)
                         .keyboardType(keyboardType)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled(true)
                         .textContentType(.none)
                 } else {
-                    SecureField(placeholder, text: $text)
+                    SecureField(placeholder, text: fieldBinding)
                         .keyboardType(keyboardType)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled(true)

@@ -40,8 +40,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -54,6 +56,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.bucktrail.android.R
 import com.bucktrail.android.sync.AuthMessage
 import com.bucktrail.android.sync.SignUpResult
+import com.bucktrail.android.ui.RecoveryKeyInputFormatter
 import com.bucktrail.android.ui.components.BtAlert
 import com.bucktrail.android.ui.components.DialogStatusBarEffect
 import com.bucktrail.android.ui.components.SfIcons
@@ -223,7 +226,16 @@ private fun AuthErrorText(text: String) {
 
 /** `AuthField` iOS: etichetta 12 medium smoke, campo su `fog` raggio 10, padding 14 (con occhio su campi sicuri). */
 @Composable
-fun AuthField(label: String, placeholder: String, value: String, onChange: (String) -> Unit, keyboard: KeyboardType, secure: Boolean = false, tag: String = "") {
+fun AuthField(
+    label: String,
+    placeholder: String,
+    value: String,
+    onChange: (String) -> Unit,
+    keyboard: KeyboardType,
+    secure: Boolean = false,
+    tag: String = "",
+    recoveryKeyFormatting: Boolean = false,
+) {
     val c = Bt.colors
     var revealed by rememberSaveable(secure) { mutableStateOf(false) }
     if (secure) {
@@ -238,36 +250,64 @@ fun AuthField(label: String, placeholder: String, value: String, onChange: (Stri
     }
     val effectiveKeyboard = if (secure && revealed && keyboard == KeyboardType.Password) KeyboardType.Text else keyboard
     val toggleLabel = stringResource(if (revealed) R.string.nascondi else R.string.mostra)
+    val textStyle = Typo.formOption.copy(color = c.ink)
+    val keyboardOpts = KeyboardOptions(keyboardType = effectiveKeyboard, autoCorrectEnabled = false)
+    val visual = if (secure && !revealed) PasswordVisualTransformation() else VisualTransformation.None
+    val decoration: @Composable (@Composable () -> Unit) -> Unit = { inner ->
+        Row(
+            Modifier.fillMaxWidth().heightIn(min = 48.dp).clip(RoundedCornerShape(10.dp)).background(c.fog)
+                .padding(start = 14.dp, end = if (secure) 4.dp else 14.dp, top = if (secure) 2.dp else 14.dp, bottom = if (secure) 2.dp else 14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Box(Modifier.weight(1f).padding(vertical = if (secure) 12.dp else 0.dp), contentAlignment = Alignment.CenterStart) {
+                if (value.isEmpty()) Text(placeholder, style = Typo.formOption, color = c.smoke.copy(alpha = 0.6f))
+                inner()
+            }
+            if (secure) {
+                val toggleModifier = if (tag.isNotEmpty()) Modifier.testTag("${tag}_toggle") else Modifier
+                Box(
+                    toggleModifier.size(44.dp).clip(RoundedCornerShape(8.dp))
+                        .clickable(role = Role.Button, onClickLabel = toggleLabel) { revealed = !revealed },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(SfIcons.forName(if (revealed) "eye.slash" else "eye"), toggleLabel, tint = c.smoke, modifier = Modifier.size(18.dp))
+                }
+            }
+        }
+    }
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(label, style = Typo.formOption.copy(fontFamily = Fonts.formMedium, fontSize = 12.sp), color = c.smoke)
-        BasicTextField(
-            value, onChange, singleLine = true, textStyle = Typo.formOption.copy(color = c.ink), cursorBrush = SolidColor(c.ink),
-            keyboardOptions = KeyboardOptions(keyboardType = effectiveKeyboard, autoCorrectEnabled = false),
-            visualTransformation = if (secure && !revealed) PasswordVisualTransformation() else VisualTransformation.None,
-            modifier = Modifier.fillMaxWidth().testTag(tag),
-            decorationBox = { inner ->
-                Row(
-                    Modifier.fillMaxWidth().heightIn(min = 48.dp).clip(RoundedCornerShape(10.dp)).background(c.fog)
-                        .padding(start = 14.dp, end = if (secure) 4.dp else 14.dp, top = if (secure) 2.dp else 14.dp, bottom = if (secure) 2.dp else 14.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Box(Modifier.weight(1f).padding(vertical = if (secure) 12.dp else 0.dp), contentAlignment = Alignment.CenterStart) {
-                        if (value.isEmpty()) Text(placeholder, style = Typo.formOption, color = c.smoke.copy(alpha = 0.6f))
-                        inner()
-                    }
-                    if (secure) {
-                        val toggleModifier = if (tag.isNotEmpty()) Modifier.testTag("${tag}_toggle") else Modifier
-                        Box(
-                            toggleModifier.size(44.dp).clip(RoundedCornerShape(8.dp))
-                                .clickable(role = Role.Button, onClickLabel = toggleLabel) { revealed = !revealed },
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            Icon(SfIcons.forName(if (revealed) "eye.slash" else "eye"), toggleLabel, tint = c.smoke, modifier = Modifier.size(18.dp))
-                        }
-                    }
-                }
-            },
-        )
+        if (recoveryKeyFormatting) {
+            var tfv by remember { mutableStateOf(TextFieldValue(value, TextRange(value.length))) }
+            if (tfv.text != value) tfv = TextFieldValue(value, TextRange(value.length))
+            BasicTextField(
+                value = tfv,
+                onValueChange = { incoming ->
+                    val next = RecoveryKeyInputFormatter.formatSelection(incoming, tfv)
+                    tfv = next
+                    if (next.text != value) onChange(next.text)
+                },
+                singleLine = true,
+                textStyle = textStyle,
+                cursorBrush = SolidColor(c.ink),
+                keyboardOptions = keyboardOpts,
+                visualTransformation = visual,
+                modifier = Modifier.fillMaxWidth().testTag(tag),
+                decorationBox = decoration,
+            )
+        } else {
+            BasicTextField(
+                value = value,
+                onValueChange = onChange,
+                singleLine = true,
+                textStyle = textStyle,
+                cursorBrush = SolidColor(c.ink),
+                keyboardOptions = keyboardOpts,
+                visualTransformation = visual,
+                modifier = Modifier.fillMaxWidth().testTag(tag),
+                decorationBox = decoration,
+            )
+        }
     }
 }
 

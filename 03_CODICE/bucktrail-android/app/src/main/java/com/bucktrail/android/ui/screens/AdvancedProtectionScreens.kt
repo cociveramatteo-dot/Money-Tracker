@@ -356,6 +356,7 @@ internal fun AdvancedProtectionSheet(
                                 { secret = it },
                                 "e2e_unlock_secret",
                                 keyboard = if (useRecovery) KeyboardType.Ascii else KeyboardType.Password,
+                                recoveryKeyFormatting = useRecovery,
                             )
                         }
                         if (useRecovery) {
@@ -499,9 +500,16 @@ private fun PhraseFields(
 }
 
 @Composable
-private fun SecretField(@StringRes label: Int, value: String, change: (String) -> Unit, tag: String, keyboard: KeyboardType = KeyboardType.Password) {
+private fun SecretField(
+    @StringRes label: Int,
+    value: String,
+    change: (String) -> Unit,
+    tag: String,
+    keyboard: KeyboardType = KeyboardType.Password,
+    recoveryKeyFormatting: Boolean = false,
+) {
     val text = stringResource(label)
-    AuthField(text, "", value, change, keyboard, secure = true, tag = tag)
+    AuthField(text, "", value, change, keyboard, secure = true, tag = tag, recoveryKeyFormatting = recoveryKeyFormatting)
 }
 
 @Composable
@@ -555,7 +563,7 @@ private fun RecoveryCard(key: String, confirmation: String?, change: (String) ->
     Message(R.string.e2e_chiave_testo, color = c.smoke)
     if (confirmation != null) {
         AuthField(stringResource(R.string.e2e_chiave_conferma), "", confirmation, change, KeyboardType.Ascii,
-            tag = "e2e_key_confirmation")
+            tag = "e2e_key_confirmation", recoveryKeyFormatting = true)
     }
     PrimaryButton(stringResource(R.string.e2e_chiave_salvata), { focus.clearFocus(); saved() }, Modifier.testTag("e2e_key_saved"),
         enabled && (confirmation == null || key.substringAfterLast('-').equals(confirmation, ignoreCase = true)))

@@ -62,7 +62,8 @@ struct E2EUnlockView: View {
                 text: $secret,
                 style: .e2e,
                 keyboardType: useRecoveryKey ? .asciiCapable : .default,
-                accessibilityIdentifier: "e2e_unlock_secret"
+                accessibilityIdentifier: "e2e_unlock_secret",
+                formatter: useRecoveryKey ? { RecoveryKeyInputFormatter.format($0, previous: $1) } : nil
             )
             .id(useRecoveryKey)
             if useRecoveryKey {
