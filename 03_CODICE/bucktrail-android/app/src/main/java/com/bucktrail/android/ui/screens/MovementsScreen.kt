@@ -50,6 +50,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.bucktrail.android.R
 import com.bucktrail.android.data.RecurringOps
+import com.bucktrail.android.data.RecurringRuleEntity
 import com.bucktrail.android.data.TransactionEntity
 import com.bucktrail.android.data.toSnapshot
 import com.bucktrail.android.domain.Occurrence
@@ -285,6 +286,45 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                 if (query.isNotBlank()) EmptyState(SfIcons.forName("magnifyingglass"), stringResource(R.string.nessun_risultato), stringResource(R.string.nessun_movimento_corrisponde_alla_ricerc))
                 else EmptyState(SfIcons.forName("tray"), stringResource(R.string.nessun_movimento), stringResource(R.string.i_movimenti_di_questo_periodo_apparirann))
             }
+            if ((type == TypeFilter.Fixed || type == TypeFilter.Income) && !prefs.txFilterUseDates && query.isBlank()) {
+                item("nextMonthSummary") {
+                    val nextMonth = remember(month) { month.plusMonths(1) }
+                    val summary = remember(ledger.transactions, ledger.rules, nextMonth, today, category, zone) {
+                        computeNextMonthSummary(ledger.transactions, ledger.rules, nextMonth, today, category, zone)
+                    }
+                    Column(Modifier.fillMaxWidth().padding(top = 4.dp).testTag("movements.nextMonthSummary"), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(
+                            "${stringResource(R.string.mese_successivo)} · ${Fmt.monthYear(nextMonth, locale)}",
+                            style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold),
+                            color = c.smoke,
+                            modifier = Modifier.padding(horizontal = 4.dp),
+                        )
+                        if (type == TypeFilter.Fixed) {
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                FixedTotalTile(
+                                    stringResource(R.string.spese_fisse),
+                                    money(summary.fixedExpenses, currency, hidden),
+                                    c.negative.takeUnless { hidden } ?: c.ink,
+                                    Modifier.weight(1f),
+                                )
+                                FixedTotalTile(
+                                    stringResource(R.string.entrate_fisse),
+                                    money(summary.fixedIncome, currency, hidden),
+                                    c.positive.takeUnless { hidden } ?: c.ink,
+                                    Modifier.weight(1f),
+                                )
+                            }
+                        } else {
+                            FixedTotalTile(
+                                stringResource(R.string.entrate),
+                                money(summary.income, currency, hidden),
+                                c.positive.takeUnless { hidden } ?: c.ink,
+                                Modifier.fillMaxWidth(),
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -302,3 +342,56 @@ private fun GroupCard(content: @Composable () -> Unit) {
 
 private fun Modifier.androidxClick(onClick: () -> Unit): Modifier =
     this.then(Modifier.clickable(role = Role.Button, onClick = onClick))
+
+/** Totali del mese successivo per i chip «Fisse» ed «Entrate» (include occorrenze virtuali deduplicate). */
+internal data class NextMonthSummary(
+    val fixedExpenses: BigDecimal,
+    val fixedIncome: BigDecimal,
+    val income: BigDecimal,
+)
+
+internal fun computeNextMonthSummary(
+    transactions: List<TransactionEntity>,
+    rules: List<RecurringRuleEntity>,
+    nextMonth: YearMonth,
+    today: LocalDate,
+    category: String?,
+    zone: ZoneId,
+): NextMonthSummary {
+    val realIds = transactions.mapTo(HashSet()) { it.id }
+    var fixedExpenses = BigDecimal.ZERO
+    var fixedIncome = BigDecimal.ZERO
+    var income = BigDecimal.ZERO
+
+    for (t in transactions) {
+        if (t.isTransfer || YearMonth.from(t.localDate(zone)) != nextMonth) continue
+        if (category != null && t.category != category) continue
+        val amount = t.amountValue()
+        if (t.type == Amounts.TYPE_INCOME) {
+            income += amount
+            if (t.isFixed) fixedIncome += amount
+        } else if (t.isFixed) {
+            fixedExpenses += amount
+        }
+    }
+
+    if (nextMonth.isAfter(YearMonth.from(today)) && rules.isNotEmpty()) {
+        val calc = RecurrenceCalculator(zone)
+        val start = nextMonth.atDay(1).atTime(0, 0).atZone(zone).toInstant()
+        val end = nextMonth.plusMonths(1).atDay(1).atTime(0, 0).atZone(zone).toInstant()
+        for (rule in rules) {
+            for (occ in calc.occurrences(rule.toSnapshot(), start, end)) {
+                if (occ.id.toString() in realIds) continue
+                if (category != null && occ.category != category) continue
+                if (occ.type == Amounts.TYPE_INCOME) {
+                    income += occ.amount
+                    if (occ.isFixed) fixedIncome += occ.amount
+                } else if (occ.isFixed) {
+                    fixedExpenses += occ.amount
+                }
+            }
+        }
+    }
+
+    return NextMonthSummary(fixedExpenses = fixedExpenses, fixedIncome = fixedIncome, income = income)
+}

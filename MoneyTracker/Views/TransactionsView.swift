@@ -15,6 +15,8 @@ struct TransactionsView: View {
     @State private var recurrenceSelection: RecurrenceSelection?
 
     @State private var occurrenceCache = RecurrencePresentationCache()
+    @State private var nextMonthOccurrenceCache = RecurrencePresentationCache()
+    @AppStorage("hideBalance") private var hideBalance: Bool = false
 
     private var virtualOccurrences: [Occurrence] {
         let calendar = Calendar(identifier: .gregorian)
@@ -136,6 +138,110 @@ struct TransactionsView: View {
         }
     }
 
+    private var nextMonthTarget: Date {
+        Calendar.current.date(byAdding: .month, value: 1, to: selectedMonth) ?? selectedMonth
+    }
+
+    private var shouldShowNextMonthSummary: Bool {
+        (selectedType == .fisse || selectedType == .entrate)
+            && !filterUseCustomDates
+            && hubSearchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    struct NextMonthTotals: Equatable {
+        let fixedExpenses: Decimal
+        let fixedIncome: Decimal
+        let income: Decimal
+    }
+
+    static func nextMonthTotals(
+        transactions: [Transaction],
+        virtualOccurrences: [Occurrence],
+        nextMonth: Date,
+        selectedCategory: String
+    ) -> NextMonthTotals {
+        let realIDs = Set(transactions.map(\.id))
+        var fixedExpenses = Decimal.zero
+        var fixedIncome = Decimal.zero
+        var income = Decimal.zero
+
+        for t in transactions where !t.isTransfer && t.date.isSameMonth(as: nextMonth) {
+            guard selectedCategory.isEmpty || t.category == selectedCategory else { continue }
+            if t.transactionType == .entrata {
+                income += t.amount
+                if t.isFixed { fixedIncome += t.amount }
+            } else if t.isFixed {
+                fixedExpenses += t.amount
+            }
+        }
+
+        for occ in virtualOccurrences where !realIDs.contains(occ.id) {
+            guard selectedCategory.isEmpty || occ.category == selectedCategory else { continue }
+            if occ.type == TransactionType.entrata.rawValue {
+                income += occ.amount
+                if occ.isFixed { fixedIncome += occ.amount }
+            } else if occ.isFixed {
+                fixedExpenses += occ.amount
+            }
+        }
+
+        return NextMonthTotals(fixedExpenses: fixedExpenses, fixedIncome: fixedIncome, income: income)
+    }
+
+    private func currentNextMonthTotals() -> NextMonthTotals {
+        let target = nextMonthTarget
+        let calendar = Calendar(identifier: .gregorian)
+        let virtual: [Occurrence]
+        if let monthInterval = calendar.dateInterval(of: .month, for: target),
+           let current = calendar.dateInterval(of: .month, for: Date()),
+           monthInterval.start > current.start {
+            virtual = nextMonthOccurrenceCache.occurrences(rules: rules, in: monthInterval)
+        } else {
+            virtual = []
+        }
+        return Self.nextMonthTotals(
+            transactions: all,
+            virtualOccurrences: virtual,
+            nextMonth: target,
+            selectedCategory: selectedCat
+        )
+    }
+
+    @ViewBuilder
+    private var nextMonthSummaryBlock: some View {
+        let summary = currentNextMonthTotals()
+        VStack(alignment: .leading, spacing: DS.Space.s) {
+            Text(verbatim: "\(String(localized: "Mese successivo")) · \(nextMonthTarget.monthYearFormatted)")
+                .font(DS.Typo.secondary)
+                .fontWeight(.semibold)
+                .foregroundStyle(DS.smoke)
+            if selectedType == .fisse {
+                HStack(spacing: DS.Space.m) {
+                    FixedTotalTile(
+                        title: "Spese fisse",
+                        amount: summary.fixedExpenses,
+                        color: DS.negative,
+                        hidden: hideBalance
+                    )
+                    FixedTotalTile(
+                        title: "Entrate fisse",
+                        amount: summary.fixedIncome,
+                        color: DS.positive,
+                        hidden: hideBalance
+                    )
+                }
+            } else if selectedType == .entrate {
+                FixedTotalTile(
+                    title: "Entrate",
+                    amount: summary.income,
+                    color: DS.positive,
+                    hidden: hideBalance
+                )
+            }
+        }
+        .accessibilityIdentifier("tx_nextMonthSummary")
+    }
+
     // "Ricorrenti" è all-time (ignora il mese) e usa il rilevamento automatico
     // invece del filtro per tipo/mese di `filtered(for:)`.
     private func recurringSeries(matchingCategory: String) -> [RecurringSeries] {
@@ -245,6 +351,11 @@ struct TransactionsView: View {
                         title: hubSearchQuery.isEmpty ? "Nessun movimento" : "Nessun risultato",
                         subtitle: hubSearchQuery.isEmpty ? "I movimenti di questo periodo appariranno qui." : "Nessun movimento corrisponde alla ricerca."
                     )
+                    if shouldShowNextMonthSummary {
+                        nextMonthSummaryBlock
+                            .padding(.horizontal, 16)
+                            .padding(.top, DS.Space.m)
+                    }
                     Spacer()
                 } else {
                     movementList(currentList, virtual: virtual)
@@ -374,6 +485,14 @@ struct TransactionsView: View {
                     groupHeader(dayTitle(group.value, fallback: group.key), transactions: group.value)
                 }
                 .listSectionSeparator(.hidden)
+            }
+            if shouldShowNextMonthSummary {
+                Section {
+                    nextMonthSummaryBlock
+                        .listRowInsets(EdgeInsets(top: DS.Space.s, leading: 0, bottom: 0, trailing: 0))
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                }
             }
             Section {
                 Color.clear.frame(height: 100)
