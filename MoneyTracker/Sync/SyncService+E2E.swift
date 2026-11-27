@@ -291,17 +291,16 @@ extension SyncService {
                            backupDirectory: e2eBackupDirectory, checkpoint: checkpoint,
                            validateSession: validateSession, authenticate: authenticate,
                            snapshot: { try PullRows(context: context, userId: userId) },
-                           push: { remote, deleteOrphans, allTransactions in
+                           push: { remote, mode in
                                self.hasPendingChanges = true
-                               let mode: UploadMode = allTransactions
-                                   ? .migrationCopy(pruningOrphans: deleteOrphans)
-                                   : .migrationPreflight(pruningOrphans: deleteOrphans)
                                try await self.upload(context: context, remote: remote, userId: userId,
                                                      validateSession: validateSession, mode: mode)
-                           }, pull: { rows in
+                           }, pull: { rows, reconcile in
                                try validateSession()
-                               try await self.download(context: context, remote: plain, userId: userId,
-                                                       snapshot: rows, forMigration: true)
+                               let saved = try await self.download(context: context, remote: plain, userId: userId,
+                                                                   snapshot: rows, forMigration: true,
+                                                                   reconcileMigration: reconcile)
+                               if reconcile && !saved { throw E2EMigrator.Failure.verificationFailed }
                            }, initialSync: { remote in
                                self.defaults.set(userId.uuidString, forKey: self.initialSyncKey)
                                let pushed = try await self.initialE2ESync(context: context, remote: remote,

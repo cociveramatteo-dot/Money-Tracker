@@ -108,7 +108,7 @@ struct E2EStressTests {
             E2EMigrator(userId: f.user, defaults: defaults, keyStore: keyStore, server: server, vault: f.remote,
                         plain: f.remote, backupDirectory: f.root.appending(path: directory),
                         checkpoint: { _ in }, validateSession: {}, authenticate: {},
-                        snapshot: { snapshot }, push: { _, _, _ in }, pull: { _ in }, initialSync: { _ in })
+                        snapshot: { snapshot }, push: { _, _ in }, pull: { _, _ in }, initialSync: { _ in })
         }
         let a = device(aKey, f.defaults, "first")
         let b = device(bKey, secondDefaults, "second")

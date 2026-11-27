@@ -187,6 +187,41 @@ struct E2EMigratorTests {
         #expect(try await f.remote.fetchIds(table: .goals, userId: f.user).contains(orphan.id))
     }
 
+    @Test func disableReconcilesKnownDeletionsAndCopiesNewVaultRow() async throws {
+        let f = try Fixture()
+        defer { f.cleanup() }
+        try f.populate()
+        let localDeletion = Goal(name: "Cancellato qui", targetAmount: 8)
+        f.context.insert(localDeletion)
+        try f.context.save()
+        let remoteDeletion = try #require(f.snapshot().goals.first { $0.id != localDeletion.id })
+        let localDeletionID = localDeletion.id
+        try await f.enable()
+        await f.service.pull(context: f.context)
+        f.context.delete(localDeletion)
+        try f.context.save()
+        let key = try #require(try f.keyStore.load(userId: f.user))
+        let encrypted = VaultRemote(access: f.remote, dek: key.dek, owner: f.user)
+        try await encrypted.delete(ids: [remoteDeletion.id], table: .goals, userId: f.user)
+
+        let other = SBGoal(Goal(name: "Altro dispositivo", targetAmount: 20), userId: f.user)
+        f.remote.beforeVaultIds = { table in
+            guard table == .goals else { return }
+            f.remote.beforeVaultIds = nil
+            try await encrypted.upsert([other], table: .goals, userId: f.user)
+        }
+
+        try await f.disable()
+
+        let local = try f.snapshot()
+        let remote = try await f.readPlain()
+        #expect(local.goals.map(\.id) == [other.id])
+        #expect(!remote.goals.contains { $0.id == localDeletionID || $0.id == remoteDeletion.id })
+        _ = try E2EVerifier.verify(local: local, remote: remote)
+        #expect(f.remote.base.e2eRows[f.user] == nil)
+        #expect(f.remote.base.records.isEmpty)
+    }
+
     @Test func t10OldClientPushIsBlockedAndEmptyPullKeepsLocalData() async throws {
         let f = try Fixture()
         defer { f.cleanup() }
@@ -514,6 +549,7 @@ struct E2EMigratorTests {
         var corruptedReads = 0
         var failDeleteTable: SyncTable?
         var failRollback = false
+        var beforeVaultIds: ((SyncTable) async throws -> Void)?
         var plainDeletes: [(table: SyncTable, state: E2EServerState?, count: Int)] = []
 
         func fetchIds(table: SyncTable, userId: UUID) async throws -> Set<UUID> {
@@ -548,7 +584,8 @@ struct E2EMigratorTests {
         func delete(userId: UUID) async throws { try await base.delete(userId: userId) }
 
         func vaultIds(table: SyncTable, userId: UUID, keyId: String) async throws -> Set<UUID> {
-            try await base.vaultIds(table: table, userId: userId, keyId: keyId)
+            try await beforeVaultIds?(table)
+            return try await base.vaultIds(table: table, userId: userId, keyId: keyId)
         }
 
         func vaultRows(table: SyncTable, userId: UUID, keyId: String?) async throws -> [VaultRecord] {

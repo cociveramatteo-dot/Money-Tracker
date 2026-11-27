@@ -211,7 +211,7 @@ class E2EController(
 
     internal suspend fun <T> migrate(
         auth: AuthManager, userId: String, engine: SyncEngine, store: LocalStore,
-        initialSync: suspend (SyncEngine) -> Boolean, pull: suspend (SyncEngine) -> Boolean,
+        initialSync: suspend (SyncEngine) -> Boolean, pull: suspend (SyncEngine, Boolean) -> Boolean,
         completedCopy: () -> Unit,
         checkpoint: suspend (E2EMigrator.Step) -> Unit = {},
         refreshOnSuccess: Boolean = true,

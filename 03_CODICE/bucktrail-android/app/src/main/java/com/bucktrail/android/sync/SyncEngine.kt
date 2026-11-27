@@ -80,7 +80,7 @@ sealed interface LoginSyncResult {
 /**
  * Cuore del sync (`SyncService` iOS §5.3): push, pull, primo scambio al login. Puro rispetto ad Android
  * (testato con un `SupabaseApi` finto). Regole di sicurezza: nessun push prima di un pull riuscito; il pull
- * non cancella nulla se il remoto è vuoto ma il locale no; tutto il locale si applica in una sola transazione.
+ * preserva i conti mai sincronizzati se il remoto è vuoto; tutto il locale si applica in una sola transazione.
  */
 class SyncEngine(
     private val api: SupabaseApi, private val store: LocalStore, private val state: SyncStateStore,
@@ -130,13 +130,17 @@ class SyncEngine(
     /** Usa una copia immutabile e conserva le marcature che serviranno dopo il cambio di modalità. */
     internal suspend fun pushMigration(
         snapshot: Snapshot, allTransactions: Boolean, pruneOrphans: Boolean, allowDestructive: Boolean,
+        reconcile: Boolean,
     ): PushResult = pushInternal(
-        auth.userId ?: throw NotSignedInException(), allowDestructive, snapshot, allTransactions, pruneOrphans,
+        auth.userId ?: throw NotSignedInException(), allowDestructive, snapshot, allTransactions, pruneOrphans, reconcile,
     )
+
+    internal fun migrationBaseline(userId: String): SyncBaseline? =
+        state.baseline?.takeIf { it.user == userId.lowercase() }
 
     private suspend fun pushInternal(
         userId: String, allowDestructive: Boolean, frozen: Snapshot? = null, allTransactions: Boolean = false,
-        pruneOrphans: Boolean = true,
+        pruneOrphans: Boolean = false, reconcile: Boolean = false,
     ): PushResult {
         // prima le marcature, poi la lettura: una modifica arrivata dopo resta in coda (la sua marcatura cambia)
         val dirtyAtStart = state.dirty()
@@ -146,10 +150,12 @@ class SyncEngine(
             // Valuta tutte le cancellazioni prima di qualsiasi scrittura, per la conferma.
             val remoteIds = VaultKind.entries.associateWith { fetchIds(it.table, userId, token) }
             var baseline = state.baseline?.takeIf { it.user == userId.lowercase() } ?: SyncBaseline(userId.lowercase())
-            val plans = if (frozen == null) VaultKind.entries.associateWith { kind ->
+            val plans = if (frozen == null || reconcile) VaultKind.entries.associateWith { kind ->
                 val local = localIds.getValue(kind)
-                SyncBaseline.plan(local, remoteIds.getValue(kind), baseline.base(kind, local),
-                    dirty = dirtyAtStart.keys, fullUpsert = kind != VaultKind.Transaction)
+                val remote = remoteIds.getValue(kind)
+                val base = baseline.base(kind, local)
+                val dirty = if (reconcile && base == null) dirtyAtStart.keys + (local - remote) else dirtyAtStart.keys
+                SyncBaseline.plan(local, remote, base, dirty = dirty, fullUpsert = kind != VaultKind.Transaction)
             } else null
             val deletions = plans?.values?.sumOf { it.deleteRemote.size }
                 ?: if (pruneOrphans) VaultKind.entries.sumOf { (remoteIds.getValue(it) - localIds.getValue(it)).size } else 0
@@ -208,7 +214,7 @@ class SyncEngine(
     )
 
     /** Scarica tutto, calcola le modifiche e le applica in un'unica transazione. */
-    suspend fun pull(forMigration: Boolean = false): PullOutcome {
+    suspend fun pull(forMigration: Boolean = false, reconcileMigration: Boolean = false): PullOutcome {
         val userId = auth.userId ?: return PullOutcome.Failed
         return try {
             val (remote, ignored) = auth.authed { token ->
@@ -230,7 +236,8 @@ class SyncEngine(
                 VaultKind.Account to ignored.accounts, VaultKind.Transaction to ignored.transactions,
                 VaultKind.Budget to ignored.budgets, VaultKind.Goal to ignored.goals, VaultKind.Rule to ignored.rules,
             ).mapValues { (_, ids) -> ids.filterNot { it.startsWith("?") }.toSet() }
-            val previous = state.baseline?.takeIf { !forMigration && it.user == userId.lowercase() }
+            val usesBaseline = !forMigration || reconcileMigration
+            val previous = if (usesBaseline) migrationBaseline(userId) else null
             val remoteTransactions = remoteIds.getValue(VaultKind.Transaction) + ignored.transactions
             val deletedTx = (localIds.getValue(VaultKind.Transaction) - remoteTransactions) intersect
                 previous?.base(VaultKind.Transaction).orEmpty()
@@ -241,7 +248,7 @@ class SyncEngine(
             if (auth.userId != userId) return PullOutcome.Failed
             if (!plan.isEmpty) store.apply(plan)
             if (auth.userId != userId) return PullOutcome.Failed
-            if (!forMigration) {
+            if (usesBaseline) {
                 val known = remoteIds.map { (kind, ids) -> kind.wire to (ids + ignoredIds.getValue(kind)) }.toMap()
                 val unseenIgnored = ignoredIds.map { (kind, ids) -> kind.wire to (ids - localIds.getValue(kind)) }
                     .filter { (_, ids) -> ids.isNotEmpty() }.toMap()

@@ -794,13 +794,14 @@ final class SyncService: ObservableObject {
 
     enum UploadMode {
         case incremental
-        case migrationPreflight(pruningOrphans: Bool)
+        case migrationPreflight
+        case migrationReconcile
         case migrationCopy(pruningOrphans: Bool)
 
-        fileprivate var prunesOrphans: Bool {
+        fileprivate var usesBaseline: Bool {
             switch self {
-            case .incremental: false
-            case .migrationPreflight(let pruning), .migrationCopy(let pruning): pruning
+            case .incremental, .migrationReconcile: true
+            case .migrationPreflight, .migrationCopy: false
             }
         }
     }
@@ -811,13 +812,17 @@ final class SyncService: ObservableObject {
                                             makeRow: (Model, UUID) -> Row) async throws {
             let local = Set(models.map { $0[keyPath: id] })
             try validateSession()
-            if case .incremental = mode {
+            if mode.usesBaseline {
                 let remoteIds = try await remote.fetchIds(table: table, userId: userId)
                 try validateSession()
                 let baseline = SyncBaseline.load(from: defaults, user: userId)
-                let plan = SyncBaseline.plan(local: local, remote: remoteIds, base: baseline.base(for: table, local: local),
-                                             dirty: table == .transactions ? dirtyTransactionIds : [],
-                                             fullUpsert: table != .transactions)
+                let base = baseline.base(for: table, local: local)
+                var dirty = table == .transactions ? dirtyTransactionIds : []
+                if case .migrationReconcile = mode, base == nil {
+                    dirty.formUnion(local.subtracting(remoteIds))
+                }
+                let plan = SyncBaseline.plan(local: local, remote: remoteIds, base: base,
+                                             dirty: dirty, fullUpsert: table != .transactions)
                 let rows = models.filter { plan.upload.contains($0[keyPath: id]) }.map { makeRow($0, userId) }
                 if !rows.isEmpty {
                     try await remote.upsert(rows, table: table, userId: userId)
@@ -830,7 +835,8 @@ final class SyncService: ObservableObject {
                 var updated = SyncBaseline.load(from: defaults, user: userId)
                 updated.recordPush(plan, table: table)
                 try updated.save(to: defaults)
-                if table == .transactions {
+                // Migration still has to verify the snapshot. An edit during that push must stay dirty if it fails.
+                if table == .transactions, case .incremental = mode {
                     dirtyTransactionIds.subtract(plan.upload.union(plan.deletedElsewhere))
                 }
                 return
@@ -845,7 +851,7 @@ final class SyncService: ObservableObject {
                 try await remote.upsert(rows, table: table, userId: userId)
                 if table == .transactions { try validateSession() }
             }
-            if mode.prunesOrphans {
+            if case .migrationCopy(pruningOrphans: true) = mode {
                 try await deleteOrphans(remote: remote, table: table, userId: userId,
                                         validateSession: validateSession, localIds: local)
             }
@@ -888,10 +894,12 @@ final class SyncService: ObservableObject {
 
     @discardableResult
     func download(context: ModelContext, remote: any SyncRemote, userId: UUID,
-                  snapshot: PullRows? = nil, forMigration: Bool = false) async throws -> Bool {
+                  snapshot: PullRows? = nil, forMigration: Bool = false,
+                  reconcileMigration: Bool = false) async throws -> Bool {
         guard !isUsingVolatileStore else { return false }
         // forMigration: E2E migration pull. Keeps local transactions missing from
         // the snapshot and fails (with rollback) instead of a best-effort save.
+        let usesBaseline = !forMigration || reconcileMigration
         Logger.persistence.info("SyncService: pull started")
         do {
             // ── 1. ACCOUNTS ────────────────────────────────────────────────
@@ -903,7 +911,7 @@ final class SyncService: ObservableObject {
 
             let baseline = SyncBaseline.load(from: defaults, user: userId)
             let localAccounts = try context.fetch(FetchDescriptor<Account>())
-            let knownAccountIds = forMigration ? [] : baseline.base(for: .accounts) ?? []
+            let knownAccountIds = usesBaseline ? baseline.base(for: .accounts) ?? [] : []
             // Un remoto senza conti può indicare un primo push ancora da fare.
             if sbAccounts.isEmpty && !localAccounts.isEmpty &&
                 !localAccounts.contains(where: { knownAccountIds.contains($0.id) }) {
@@ -1006,8 +1014,9 @@ final class SyncService: ObservableObject {
             let knownTxIds = baseline.base(for: .transactions, local: localTxIds) ?? []
             let remotelyDeletedTx = localTxIds.subtracting(pulledTxIds).intersection(knownTxIds)
             let stillDirty = dirtyTransactionIds.subtracting(remotelyDeletedTx)
-            if !forMigration {
+            if usesBaseline {
                 for local in localTx where !pulledTxIds.contains(local.id) && !stillDirty.contains(local.id) {
+                    if reconcileMigration && !remotelyDeletedTx.contains(local.id) { continue }
                     if let accountId = local.account?.id, pendingAccounts.contains(accountId) { continue }
                     context.delete(local)
                 }
@@ -1092,7 +1101,7 @@ final class SyncService: ObservableObject {
                 try await remote.select(table: .recurringRules, userId: userId)
             }
             try Self.mergeRecurringRules(sbRules, context: context,
-                                         knownIds: forMigration ? [] : baseline.base(for: .recurringRules) ?? [])
+                                         knownIds: usesBaseline ? baseline.base(for: .recurringRules) ?? [] : [])
 
             let saved: Bool
             if forMigration {
@@ -1106,7 +1115,7 @@ final class SyncService: ObservableObject {
             } else {
                 saved = context.safeSave()
             }
-            if saved, !forMigration, self.userId == userId {
+            if saved, usesBaseline, self.userId == userId {
                 let updated = SyncBaseline(user: userId, tables: [
                     SyncTable.accounts.kind: pulledAccountIds,
                     SyncTable.transactions.kind: pulledTxIds,

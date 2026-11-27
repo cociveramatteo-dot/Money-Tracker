@@ -41,7 +41,7 @@ internal class E2EMigrator(
     private val directory: File,
     private val validateRow: (JsonObject, String) -> Boolean,
     private val initialSync: suspend (SyncEngine) -> Boolean,
-    private val pull: suspend (SyncEngine) -> Boolean,
+    private val pull: suspend (SyncEngine, Boolean) -> Boolean,
     private val progress: (Step) -> Unit,
     private val completedCopy: () -> Unit,
     private val log: (String) -> Unit,
@@ -63,7 +63,7 @@ internal class E2EMigrator(
         }
         if (!engine.canPush(userId) || marker() != null || lookup() != E2ERowLookup.Absent) throw Failure(Problem.StateChanged)
 
-        val aligned = synchronize(guardWrites(plain, null, canDelete = false), pruneOrphans = false)
+        val aligned = synchronize(guardWrites(plain, null, canDelete = false), reconcile = false)
         step(Step.A0)
         backup(aligned)
         step(Step.A1)
@@ -104,7 +104,7 @@ internal class E2EMigrator(
         step(Step.D0)
         requirePlainEmpty(active)
         val encrypted = guardWrites(encrypted(dek), active)
-        val aligned = synchronize(encrypted, pruneOrphans = true)
+        val aligned = synchronize(encrypted, reconcile = true)
         val copy = E2EVerifier.rows(aligned, uid)
         verify(copy, read(encrypted))
         step(Step.D1)
@@ -456,35 +456,46 @@ internal class E2EMigrator(
         }
     }
 
-    private suspend fun synchronize(client: SupabaseApi, pruneOrphans: Boolean): Snapshot {
+    private suspend fun synchronize(client: SupabaseApi, reconcile: Boolean): Snapshot {
         val initial = store.snapshot()
-        push(client, initial, allTransactions = false, pruneOrphans = pruneOrphans, allowDestructive = false)
+        push(client, initial, allTransactions = false, pruneOrphans = false, allowDestructive = false, reconcile = reconcile)
         val remote = read(client)
         verify(remote, remote)
         val local = E2EVerifier.rows(initial, uid)
         verify(local, E2EVerifier.rows(store.snapshot(), uid))
-        requireSubset(remote, local)
-        requireSubset(local, remote)
-        applyPull(client, remote)
+        if (reconcile) {
+            val baseline = engine.migrationBaseline(userId) ?: throw Failure(Problem.Verification)
+            for (kind in VaultKind.entries) {
+                val expected = baseline.tables[kind.wire] ?: throw Failure(Problem.Verification)
+                if (!E2EVerifier.ids(remote.getValue(kind), kind).containsAll(expected)) {
+                    throw E2EVerifier.Mismatch(kind, "ids")
+                }
+            }
+        } else {
+            requireSubset(remote, local)
+            requireSubset(local, remote)
+        }
+        applyPull(client, remote, reconcile)
         return store.snapshot()
     }
 
-    private suspend fun applyPull(client: SupabaseApi, rows: MigrationRows) {
+    private suspend fun applyPull(client: SupabaseApi, rows: MigrationRows, reconcile: Boolean = false) {
         val cached = object : SupabaseApi by client {
             override suspend fun selectAll(table: String, userId: String, token: String, columns: String): List<JsonObject> {
                 validateSession()
                 return rows.getValue(VaultKind.forTable(table))
             }
         }
-        if (!pull(engine.using(cached, userId, completeSnapshot = true))) throw Failure(Problem.Verification)
+        if (!pull(engine.using(cached, userId, completeSnapshot = true), reconcile)) throw Failure(Problem.Verification)
     }
 
     private suspend fun push(
         client: SupabaseApi, snapshot: Snapshot, allTransactions: Boolean, pruneOrphans: Boolean, allowDestructive: Boolean,
+        reconcile: Boolean = false,
     ) {
         val result = withContext(Dispatchers.Default) {
             engine.using(client, userId, completeSnapshot = true, batchSize = 200)
-                .pushMigration(snapshot, allTransactions, pruneOrphans, allowDestructive)
+                .pushMigration(snapshot, allTransactions, pruneOrphans, allowDestructive, reconcile)
         }
         if (result != PushResult.Done) throw Failure(Problem.Verification)
         validateSession()

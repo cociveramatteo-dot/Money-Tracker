@@ -430,11 +430,11 @@ class SyncService(
                     }
                     initialSync(it, fresh = true)
                 },
-                pull = { selected ->
+                pull = { selected, reconcile ->
                     // Suppress echo only during the actual Room merge.
                     watcher.silent = true
                     try {
-                        val applied = selected.pull(forMigration = true) == PullOutcome.Done && selected.lastIgnoredRows == 0
+                        val applied = selected.pull(forMigration = true, reconcileMigration = reconcile) == PullOutcome.Done && selected.lastIgnoredRows == 0
                         if (applied) watcher.rebase(store.snapshot())
                         applied
                     } finally {

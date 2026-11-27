@@ -97,6 +97,31 @@ class E2EMigratorTest {
     }
 
     @Test
+    fun disableReconcilesKnownDeletionsAndCopiesNewVaultRow() = runBlocking {
+        MigrationDevice(coroutineContext).use { f ->
+            val original = f.store.snap
+            val deletedHere = goal(UUID.randomUUID().toString())
+            val createdElsewhere = goal(UUID.randomUUID().toString())
+            f.store.snap = original.copy(goals = original.goals + deletedHere)
+            f.enable()
+            f.service.manualRefresh()
+            f.store.snap = original
+            val key = checkNotNull(f.secrets.load(USER))
+            val encrypted = VaultSupabaseApi(f.remote, f.remote, key.bytes, USER)
+            encrypted.deleteIn(VaultKind.Goal.table, original.goals.map { it.id }, USER, "token")
+
+            f.disable { step ->
+                if (step == E2EMigrator.Step.D0) {
+                    encrypted.upsert(VaultKind.Goal.table, listOf(SyncMapper.goalRow(createdElsewhere, USER)), "token")
+                }
+            }
+
+            assertEquals(listOf(createdElsewhere.id), f.store.snap.goals.map { it.id })
+            f.expectPlain(original.copy(goals = listOf(createdElsewhere)))
+        }
+    }
+
+    @Test
     fun t8ResumesHalfwayThroughPlainCleanupAndVaultCleanup() = runBlocking {
         MigrationDevice(coroutineContext).use { f ->
             val expected = f.store.snap

@@ -35,8 +35,8 @@ struct E2EMigrator {
     let validateSession: () throws -> Void
     let authenticate: () async throws -> Void
     let snapshot: () throws -> Snapshot
-    let push: (any SyncRemote, _ deleteOrphans: Bool, _ allTransactions: Bool) async throws -> Void
-    let pull: (Snapshot) async throws -> Void
+    let push: (any SyncRemote, SyncService.UploadMode) async throws -> Void
+    let pull: (Snapshot, _ reconcile: Bool) async throws -> Void
     let initialSync: (any SyncRemote) async throws -> Void
 
     static var backupDirectory: URL {
@@ -73,7 +73,7 @@ struct E2EMigrator {
         guard case .absent = try await lookup() else { throw Failure.stateChanged }
         guard Self.marker(in: defaults, userId: userId) == nil else { throw Failure.stateChanged }
 
-        let aligned = try await synchronize(plain, deleteOrphans: false)
+        let aligned = try await synchronize(plain, reconcile: false)
         try checkpoint(.a0)
         try backup(aligned)
         try checkpoint(.a1)
@@ -115,8 +115,8 @@ struct E2EMigrator {
         try validateSession()
         try checkpoint(.d0)
         try await requirePlainEmpty(whileActive: row)
-        let encrypted = encryptedRemote(dek)
-        let aligned = try await synchronize(encrypted, deleteOrphans: true)
+        let encrypted = GenerationGuardedRemote(remote: encryptedRemote(dek), check: { try await requireCurrent(row) })
+        let aligned = try await synchronize(encrypted, reconcile: true)
         _ = try E2EVerifier.verify(local: aligned, remote: try await read(encrypted))
         try checkpoint(.d1)
         try backup(aligned)
@@ -203,7 +203,7 @@ struct E2EMigrator {
             let source = try await read(row.state == .migrating ? plain : encryptedRemote(dek))
             let local = try snapshot()
             if SyncTable.allCases.allSatisfy({ local.rows($0).isEmpty }) {
-                try await pull(source)
+                try await pull(source, false)
                 _ = try E2EVerifier.verify(local: source, remote: snapshot())
             } else {
                 _ = try E2EVerifier.verify(local: source, remote: local)
@@ -290,6 +290,7 @@ struct E2EMigrator {
         // A plaintext orphan is a failed verification. The only plaintext
         // delete path is cleanup after the vault has been verified and is active.
         try await requireCurrent(row)
+        try await verifyRollbackCopy(marker, dek: dek)
         let verified = try await copyAndVerify(to: plain, whileCurrent: row, deleteOrphans: false, uploadStep: .d4, verifyStep: .d5)
         guard verified != nil else {
             try await verifyRollbackCopy(marker, dek: dek)
@@ -297,6 +298,7 @@ struct E2EMigrator {
             try await rollbackDisable(row, dek: dek)
             throw Failure.verificationFailed
         }
+        try await verifyRollbackCopy(marker, dek: dek)
         // Cleanup phase before the row disappears: after a crash the gate must
         // resume D6–D7 instead of reading this as D2 without D3.
         try save(marker, phase: .verified)
@@ -316,7 +318,7 @@ struct E2EMigrator {
                 do { try requireSubset(required, of: local) }
                 catch is E2EVerifier.Failure { continue }
             }
-            try await push(guarded, deleteOrphans, true)
+            try await push(guarded, .migrationCopy(pruningOrphans: deleteOrphans))
             try checkpoint(uploadStep)
             do {
                 let uploaded = try await read(remote)
@@ -475,16 +477,25 @@ struct E2EMigrator {
         try validateSession()
     }
 
-    private func synchronize(_ remote: any SyncRemote, deleteOrphans: Bool) async throws -> Snapshot {
+    private func synchronize(_ remote: any SyncRemote, reconcile: Bool) async throws -> Snapshot {
         let before = try snapshot()
-        try await push(remote, deleteOrphans, false)
+        try await push(remote, reconcile ? .migrationReconcile : .migrationPreflight)
         let remoteRows = try await read(remote)
-        let current = try snapshot()
-        _ = try E2EVerifier.verify(local: before, remote: current)
-        try requireSubset(remoteRows, of: current)
-        let uploadedKinds = deleteOrphans ? SyncTable.allCases : SyncTable.allCases.filter { $0 != .transactions }
-        try requireSubset(current, of: remoteRows, tables: uploadedKinds)
-        try await pull(remoteRows)
+        _ = try E2EVerifier.verify(local: before, remote: snapshot())
+        if reconcile {
+            // Each successful push records exactly the IDs that must still be visible.
+            let baseline = SyncBaseline.load(from: defaults, user: userId)
+            for table in SyncTable.allCases {
+                guard let expected = baseline.tables[table.kind],
+                      expected.isSubset(of: Set(remoteRows.rows(table).map(\.id))) else {
+                    throw E2EVerifier.Failure.ids(table)
+                }
+            }
+        } else {
+            try requireSubset(remoteRows, of: before)
+            try requireSubset(before, of: remoteRows, tables: SyncTable.allCases.filter { $0 != .transactions })
+        }
+        try await pull(remoteRows, reconcile)
         return try snapshot()
     }
 
