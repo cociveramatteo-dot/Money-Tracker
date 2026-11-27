@@ -1,31 +1,31 @@
-# CONSEGNA — 2026-11-26 20:50 · impresa (Codex · GPT-6)
+# CONSEGNA — 2026-11-27 11:51 · impresa (Codex · GPT-6)
 
-## Fatto
+## S-51d e S-51c [~]
 
-- **S-51 [~]** · Per il database reale, WAL e SHM usano `.completeUntilFirstUserAuthentication`. Il ripiego in RAM blocca la sincronizzazione e mostra un avviso fisso nelle sette lingue. Dopo il primo download E2E, eventuali movimenti locali ancora da caricare fanno partire un push. Rimosso il file diagnostico non tracciato `ReproLostTransactionTests.swift`. Commit `e462c34`.
-- **S-51b [!]** · Consegnati lo [script ripetibile](../03_CODICE/bucktrail-android/scripts/prova-due-dispositivi.py), il [README](../03_CODICE/bucktrail-android/README.md) e i test. Il giro su Supabase reale ha riprodotto S-51d. L’aggiornamento iOS ha eliminato il movimento B dopo che Android lo aveva inviato e il test ne aveva confermato l’ID sul server. La riapertura ha ritrovato A una sola volta nell’archivio SwiftData e B assente.
+- iOS `53d62d9` e Android `9d58e4e` salvano gli ID sincronizzati per utente e tabella. Un nuovo record remoto sopravvive al push, una cancellazione locale già nota si propaga e una cancellazione remota vince anche su una modifica locale non inviata.
+- Gli ID cancellati altrove restano in attesa del pull che li rimuove anche in locale. Il test dei due push consecutivi copre questa finestra. In iOS le letture in chiaro usano la paginazione per confrontare istantanee complete.
+- Android chiede conferma solo per le cancellazioni di record noti. Il pull ricorda anche gli ID illeggibili. Se non ne ha mai avuta una copia locale, il dispositivo li preserva. Il primo accesso con remoto vuoto e il ripristino autenticato dal dispositivo continuano a trasferire i movimenti locali.
 
-| Fase | iOS → Android (A) | Android → iOS (B) | Riapertura iOS (A e B) |
-| --- | --- | --- | --- |
-| Protezione disattivata | OK | KO · iOS elimina B dal server | KO · B assente |
-| Protezione attiva | OK | KO · iOS elimina B dal vault | KO · B assente |
-| Dopo la disattivazione | OK | KO · iOS elimina B dal server | KO · B assente |
+## Test
 
-Attivazione su iOS, sblocco su Android e disattivazione su iOS OK. La lettura finale di Supabase ha confermato Protezione avanzata disattivata e presenza di tutti gli ID preesistenti nelle cinque tabelle. I simulatori temporanei sono stati rimossi.
+- **iOS** · 40 test verdi in `SyncBaselineTests`, `SyncServiceFlagOffTests`, `SyncLostTransactionTests`, `E2EMigratorTests` e `RecurringRuleSyncTests`, selezionati con `xcodebuild -only-testing`. I nuovi test usano sia il trasporto in chiaro sia il vault in memoria. La suite UI completa è rimasta fuori dalla selezione.
+- **Android** · 332 test verdi con `./gradlew testDebugUnitTest`, nessun test saltato.
+- I due test esistenti indicati da Matteo ora preparano una base con l’orfano noto. Come previsto dal §5 del progetto, sono stati aggiornati anche i test che fallivano per lo stesso cambio di protocollo. In iOS, l’ordine delle chiamate nel login e nel test del client in chiaro bloccato da E2E. In Android, le basi delle fixture per batch, guardia cancellazioni e consenso tra modalità. Gli assert su isolamento utente, conferma, blocco delle scritture e batch sono rimasti attivi.
 
-## Verifiche e limiti
+## S-51b [!] · Supabase reale
 
-- S-51 ha superato i cinque casi di regressione con notifica SwiftData reale. Build iOS riuscita e 190 test Swift Testing verdi sul comando completo. Al primo giro il runner UI è scaduto in attesa dell’accessibilità. Al secondo giro il comando seriale è stato fermato dopo due errori dei test Conti, uno sul focus della tastiera e uno sulla chiusura dell’app.
-- Android ha superato 324 test unitari e `lintDebug`. Build e installazione Debug della prova reale riuscite. La prova usa l’archivio SwiftData osservato dall’app iOS e l’app Android strumentata. Il test salta l’autenticazione locale del dispositivo durante la migrazione del simulatore. Il primo giro, svolto con un contesto SwiftData separato, non aveva inviato A. Il secondo giro, con il contesto dell’app, ha completato tutti e tre gli invii di A e riprodotto la perdita di B.
-- Durante la riapertura, la query XCUITest ha contato più elementi di accessibilità per A mentre SwiftData contava un solo record. La versione consegnata verifica la visibilità con XCUITest e l’unicità con SwiftData. La build finale dei due target di test è riuscita. I tre esiti KO della riapertura sono confermati dall’assenza di B in SwiftData.
-- La protezione file dopo riavvio e primo sblocco resta da verificare su un iPhone fisico. `graphify update .` riuscito.
+Due esecuzioni di `prova-due-dispositivi.py` hanno avviato entrambi i dispositivi virtuali e compilato le app. Il test iOS `TwoDeviceLiveSyncTests/testLiveSync()` è terminato con `EXC_BREAKPOINT` in entrambe. Lo stack indica `_dispatch_assert_queue_fail` nella closure di `MoneyTrackerApp.body`, chiamata da `LazyView.body` durante il rendering asincrono su iOS 27.2. Il runner si è fermato nella prima fase e il caso è registrato come S-51f.
 
-## File toccati
+| Fase | iOS → Android | Android → iOS | Riapertura iOS |
+|---|---|---|---|
+| Prima dell’attivazione | Non verificato | Non verificato | Non avviata |
+| Con Protezione avanzata | Non avviato | Non avviato | Non avviata |
+| Dopo la disattivazione | Non avviato | Non avviato | Non avviata |
 
-- `MoneyTracker/MoneyTrackerApp.swift`, `MoneyTracker/Sync/SyncService.swift`, `MoneyTracker/Sync/SyncService+E2E.swift`, sette `Localizable.strings` e `MoneyTrackerTests/SyncLostTransactionTests.swift`.
-- `MoneyTrackerTests/TwoDeviceLiveSyncTests.swift`, `MoneyTrackerUITests/TwoDeviceLiveReopenUITests.swift`, `TwoDeviceLiveSyncTest.kt`, `prova-due-dispositivi.py` e `03_CODICE/bucktrail-android/README.md`.
-- `.cantiere/DECISIONI.md`, `PIANO.md`, `DIARIO.md`, `STATO.md` e questa consegna. Modifiche locali escluse dai commit del turno: `MoneyTracker.xcodeproj/xcshareddata/xcschemes/MoneyTracker.xcscheme` e `graphify-out/`.
+A fine prova Supabase ha confermato, in entrambi i tentativi, Protezione avanzata disattivata e tutti gli ID preesistenti presenti. Sono stati usati il simulatore iPhone 18 Pro e l’emulatore Android temporanei dello script.
 
-## Prossimo
+## Stato del cantiere
 
-S-51d all’architetto per definire la correzione. Ripetere S-51b dopo il fix. S-51 resta da collaudare.
+Aggiornato il grafo con `graphify update .`. Lo schema Xcode e `graphify-out/` erano già modificati a inizio turno e sono rimasti fuori dai commit del lavoro. S-51e resta aperto per la potatura durante la disattivazione E2E.
+
+**Prossimo** · Collaudatore su S-51 (`e462c34`) e S-51d (`53d62d9`, `9d58e4e`). Leggere il diff, verificare il comportamento durante push consecutivi e riesaminare la prova reale bloccata da S-51f. La prova resta da completare su un simulatore funzionante.

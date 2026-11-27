@@ -288,3 +288,15 @@ Progetto completo: `.cantiere/progetto-banca.md`. Dopo il lancio e dopo S-50. Au
 Matteo autorizza modifiche a `MoneyTracker/Sync/` e `MoneyTracker/MoneyTrackerApp.swift` SOLO per S-51 (perdita dati con archivio volatile) e S-51b (prova automatica a due dispositivi). La scelta sulla protezione file del db va registrata qui da chi esegue, con alternative scartate.
 
 Per il database SQLite reale e i file `-wal` e `-shm` si usa `.completeUntilFirstUserAuthentication`. I file restano protetti fino al primo sblocco dopo il riavvio. In seguito SwiftData può aprire l'archivio anche quando iOS avvia l'app a schermo bloccato. Scartata `.complete` perché un avvio a telefono bloccato dopo il primo sblocco può far fallire l'apertura dell'archivio. Scartato il ripiego silenzioso perché permette di scambiare dati effimeri per dati persistenti. Il ripiego in RAM mostra un banner fisso e blocca la sincronizzazione.
+
+
+## 2026-11-27 · S-51d · Cancellazioni nella sincronizzazione
+Matteo autorizza in chat, per S-51/S-51d, modifiche a `MoneyTracker/Sync/`, alla sync Android e ai due test esistenti che codificano il bug, `SyncServiceFlagOffTests.pushUploadsInOrderAndDeletesOnlyCurrentUsersOrphans` e `SyncEngineTest.pushUploadsDirtyAndMissingAndDeletesOrphansWithOneRequestEach`. Gli orfani cancellabili diventano esplicitamente noti alla base di sync.
+
+La sync cancella sul server solo gli ID della base assenti in locale e non ricarica gli ID della base assenti sul server. La base dell'ultimo scambio riuscito è per utente e per tabella, in UserDefaults e SharedPreferences. Un campo JSON opzionale conserva gli ID già cancellati altrove fino al pull che li rimuove anche in locale: serve quando due push si susseguono o quando il pull viene ritardato. La base di push continua a contenere solo le righe condivise o appena caricate. In iOS, le letture in chiaro usano la paginazione già disponibile per evitare che il limite di risposta Supabase faccia risultare assenti righe ancora presenti.
+
+Scartati il registro delle cancellazioni locali, il pull prima del push, i tombstone SQL e la rinuncia a propagare le cancellazioni. I percorsi di push delle migrazioni E2E sono invariati. Il rischio residuo è in S-51e.
+
+Il §5 del progetto prevede l'adeguamento delle aspettative che falliscono per il cambio di protocollo. Su iOS, i test del login con remoto vuoto e del client in chiaro bloccato da E2E ora attendono la lettura degli ID prima dell'upsert. Su Android, i test della guardia, del consenso tra modalità e dei batch dichiarano la base coerente con lo scenario. Le verifiche sul blocco delle scritture, sulla conferma e sulle dimensioni dei batch restano attive.
+
+I pull intermedi di migrazione mantengono la semantica precedente. Su Android il ripristino autenticato da questo dispositivo apre una nuova base dopo lo svuotamento deliberato del remoto, e il primo accesso con cloud vuoto accoda anche i movimenti creati prima del login. Gli ID remoti illeggibili sono registrati nella base Android. Se il dispositivo non ne ha mai avuto una copia, l'assenza locale non autorizza a cancellarli.
