@@ -19,3 +19,4 @@ S-51f/S-51b 2026-11-27 13:00: collaudo ok [x] (73/73 test mirati, avvio senza cr
 S-51g/S-51e/S-51h 2026-11-27 13:26: implementati [~]. Build Debug iOS e Android, 54 test mirati iOS, 334 unitari Android e tre ripetizioni di t10 verdi. Prova Supabase 12/12, protezione finale disattivata e record preesistenti presenti. Prossimo: collaudo indipendente.
 S-51g/S-51e/S-51h 2026-11-27 13:34: collaudo ok [x] (iOS 46/46 mirati, t10 3/3, Android 334/334). S-51 chiuso. Prossimo: S-70 → Codex.
 S-52b/c 2026-11-27 14:40: implementato [~]. Android 335 unitari verdi. Build iOS e regressione iniziale verificate. Da completare giro iOS finale e collaudo indipendente, poi SQL di S-52s a Matteo.
+S-53 2026-11-27 16:30: prova S-50 di Matteo bloccata, attivazione Protezione fallisce sul Supabase vero (0/9 e 4/9). Annullata. Prossimo: S-53a → Codex, poi S-53b Matteo, poi S-70.
