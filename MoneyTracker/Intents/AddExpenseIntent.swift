@@ -128,8 +128,11 @@ struct AddIncomeIntent: AppIntent {
     @Parameter(title: "Conto", description: "Su quale conto?", optionsProvider: AccountOptionsProvider())
     var accountName: String?
 
+    @Parameter(title: "Categoria", description: "Lascia vuoto per la scelta automatica", optionsProvider: IncomeCategoryOptionsProvider())
+    var categoryName: String?
+
     static var parameterSummary: some ParameterSummary {
-        Summary("Aggiungi entrata di \(\.$amount)€: \(\.$name)")
+        Summary("Aggiungi entrata di \(\.$amount)€: \(\.$name) — \(\.$categoryName)")
     }
 
     @MainActor
@@ -153,15 +156,10 @@ struct AddIncomeIntent: AppIntent {
         let account  = accounts.first { $0.name == accountName } ?? accounts.first
 
         let categories = (try? ctx.fetch(FetchDescriptor<Category>())) ?? []
-        let suggestedName = KeywordCategoryClassifier.shared.classify(name)
-        let incCatName: String
-        if suggestedName != "Altro" && !suggestedName.isEmpty {
-            incCatName = suggestedName
-        } else {
-            incCatName = categories.first { $0.name == "Lavoro" }?.name
-                      ?? categories.first?.name
-                      ?? "Lavoro"
-        }
+        let available = Set(IntentCategoryMenu.allCategories(custom: categories.map(\.name)))
+        let suggestedName = IntentCategoryMenu.suggested(for: name, context: ctx, available: available)
+        let fallback = IntentCategoryMenu.incomeFallback(categories: categories.map(\.name))
+        let incCatName = IntentCategoryMenu.resolve(chosen: categoryName, suggested: suggestedName, fallback: fallback)
         let incCatIcon = categories.first { $0.name == incCatName }?.icon
                       ?? DS.categoryIcon(for: incCatName)
         let tx = Transaction(
@@ -248,6 +246,19 @@ struct CategoryOptionsProvider: DynamicOptionsProvider {
         return IntentCategoryMenu.collection(
             name: typed,
             type: TransactionType.uscita.rawValue,
+            context: IntentContainer.shared?.mainContext
+        )
+    }
+}
+
+struct IncomeCategoryOptionsProvider: DynamicOptionsProvider {
+    @IntentParameterDependency<AddIncomeIntent>(\.$name) var intent
+
+    func results() async throws -> IntentItemCollection<String> {
+        let typed = intent?.name ?? ""
+        return IntentCategoryMenu.collection(
+            name: typed,
+            type: TransactionType.entrata.rawValue,
             context: IntentContainer.shared?.mainContext
         )
     }

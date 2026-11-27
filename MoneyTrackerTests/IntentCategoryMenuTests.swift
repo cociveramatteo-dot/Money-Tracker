@@ -117,4 +117,50 @@ struct IntentCategoryMenuTests {
         let nilCol = IntentCategoryMenu.collection(name: "pizza", type: TransactionType.uscita.rawValue, context: nil)
         #expect(nilCol.sections.count == 1)
     }
+
+    @Test func incomeLastUsedFallbackAndChoiceOverride() {
+        let available: Set<String> = ["Cibo", "Lavoro", "Regali"]
+        let history = [
+            movement(category: "Cibo", type: TransactionType.uscita.rawValue, createdAt: 30),
+            movement(category: "Regali", type: TransactionType.entrata.rawValue, createdAt: 20),
+        ]
+        #expect(IntentCategoryMenu.lastUsed(history: history, type: TransactionType.entrata.rawValue, available: available) == "Regali")
+        #expect(IntentCategoryMenu.lastUsed(history: history, type: TransactionType.uscita.rawValue, available: available) == "Cibo")
+
+        #expect(IntentCategoryMenu.incomeFallback(categories: ["Cibo", "Lavoro"]) == "Lavoro")
+        #expect(IntentCategoryMenu.incomeFallback(categories: ["Cibo"]) == "Cibo")
+        #expect(IntentCategoryMenu.incomeFallback(categories: []) == "Lavoro")
+
+        let fallback = IntentCategoryMenu.incomeFallback(categories: ["Cibo", "Lavoro"])
+        #expect(IntentCategoryMenu.resolve(chosen: nil, suggested: nil, fallback: fallback) == "Lavoro")
+        #expect(IntentCategoryMenu.resolve(chosen: "  ", suggested: nil, fallback: fallback) == "Lavoro")
+        #expect(IntentCategoryMenu.resolve(chosen: "Regali", suggested: "Lavoro", fallback: fallback) == "Regali")
+    }
+
+    @Test func swiftDataIncomeCollectionUsesLatestIncomeOnly() throws {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: Account.self, Transaction.self, Budget.self, Goal.self, Category.self, RecurringRule.self, configurations: config)
+        let ctx = container.mainContext
+        ctx.insert(Category(name: "Cibo", icon: "fork.knife", isDefault: true, sortOrder: 0))
+        ctx.insert(Category(name: "Lavoro", icon: "briefcase.fill", isDefault: true, sortOrder: 1))
+        ctx.insert(Category(name: "Regali", icon: "gift.fill", isDefault: true, sortOrder: 2))
+
+        let expense = Transaction(name: "Pizza", amount: 15, type: .uscita, category: "Cibo", date: Date(), isDone: true)
+        expense.createdAt = Date(timeIntervalSince1970: 50)
+        let income = Transaction(name: "Compleanno", amount: 100, type: .entrata, category: "Regali", date: Date(), isDone: true)
+        income.createdAt = Date(timeIntervalSince1970: 10)
+        ctx.insert(expense)
+        ctx.insert(income)
+        try ctx.save()
+
+        let col = IntentCategoryMenu.collection(name: "stampante", type: TransactionType.entrata.rawValue, context: ctx)
+        #expect(col.sections.count == 3)
+        #expect(col.sections[0].items.map(\.value) == ["Lavoro"])
+        #expect(col.sections[1].items.map(\.value) == ["Regali"])
+
+        // Without "Stipendio" in Category table, "stipendio" yields no suggestion, only lastUsed.
+        let noMatchCol = IntentCategoryMenu.collection(name: "stipendio", type: TransactionType.entrata.rawValue, context: ctx)
+        #expect(noMatchCol.sections.count == 2)
+        #expect(noMatchCol.sections[0].items.map(\.value) == ["Regali"])
+    }
 }
