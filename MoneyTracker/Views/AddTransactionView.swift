@@ -24,6 +24,7 @@ struct AddTransactionView: View {
     @State private var showCatPicker:        Bool        = false
     @State private var suggestedCat:         String      = ""
     @State private var suggestionFromHistory = false
+    @State private var accountUsageCounts:   [UUID: Int] = [:]
     /// true = l'utente ha scelto la categoria manualmente dal picker in questa sessione.
     /// Quando è true, il cambio del nome NON sovrascrive la categoria.
     @State private var categoryManuallyOverridden: Bool = false
@@ -40,7 +41,20 @@ struct AddTransactionView: View {
         ("Annuale",     "annuale"),
     ]
 
-    private var activeAccounts: [Account] { accounts.filter { !$0.isArchived } }
+    private var activeAccounts: [Account] {
+        Self.orderByUsage(accounts.filter { !$0.isArchived }, counts: accountUsageCounts)
+    }
+
+    static func orderByUsage(_ accounts: [Account], counts: [UUID: Int]) -> [Account] {
+        accounts.enumerated()
+            .sorted { lhs, rhs in
+                let leftCount = counts[lhs.element.id, default: 0]
+                let rightCount = counts[rhs.element.id, default: 0]
+                if leftCount != rightCount { return leftCount > rightCount }
+                return lhs.offset < rhs.offset
+            }
+            .map(\.element)
+    }
 
     private var isSaveDisabled: Bool {
         let v = Decimal.parseAmount(amount) ?? 0
@@ -276,6 +290,15 @@ struct AddTransactionView: View {
     // MARK: - Load / Save
 
     private func load() {
+        let allTxs = (try? context.fetch(FetchDescriptor<Transaction>())) ?? []
+        var counts: [UUID: Int] = [:]
+        for tx in allTxs {
+            if let accountID = tx.account?.id {
+                counts[accountID, default: 0] += 1
+            }
+        }
+        accountUsageCounts = counts
+
         guard let t = editing else {
             name                     = ""
             amount                   = ""

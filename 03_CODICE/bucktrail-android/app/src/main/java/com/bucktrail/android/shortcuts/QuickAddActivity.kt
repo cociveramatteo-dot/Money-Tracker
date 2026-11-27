@@ -42,6 +42,7 @@ import com.bucktrail.android.domain.Amounts
 import com.bucktrail.android.domain.QuickAdd
 import com.bucktrail.android.ui.components.BarAction
 import com.bucktrail.android.ui.forms.TextChip
+import com.bucktrail.android.ui.forms.sortAccountsByUsage
 import com.bucktrail.android.ui.screens.AuthField
 import com.bucktrail.android.ui.theme.Bt
 import com.bucktrail.android.ui.theme.BucktrailTheme
@@ -73,7 +74,11 @@ private fun QuickAddCard(kind: QuickAdd.Kind, link: QuickAdd.Link.Add?, onClose:
     var category by remember { mutableStateOf(link?.category) }
     var error by remember { mutableStateOf<Int?>(null) }
     var busy by remember { mutableStateOf(false) }
-    val accounts by produceState<List<String>?>(null) { value = app.database.dao().accounts().filter { !it.isArchived }.sortedBy { it.createdAt }.map { it.name } }
+    val accounts by produceState<List<String>?>(null) {
+        val dao = app.database.dao()
+        val active = dao.accounts().filter { !it.isArchived }.sortedBy { it.createdAt }
+        value = sortAccountsByUsage(active, dao.transactions()).map { it.name }
+    }
     val categories by produceState(emptyList<String>()) { value = app.database.dao().categories().sortedBy { it.sortOrder }.map { it.name } }
     val expense = kind == QuickAdd.Kind.Expense
 

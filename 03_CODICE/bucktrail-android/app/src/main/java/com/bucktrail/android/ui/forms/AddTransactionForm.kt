@@ -70,7 +70,7 @@ fun AddTransactionForm(
     val c = Bt.colors
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val active = accounts.filter { !it.isArchived }
+    val active = remember(accounts, history) { sortAccountsByUsage(accounts.filter { !it.isArchived }, history) }
     val originalDate = existing?.let { java.time.Instant.ofEpochMilli(it.date).atZone(zone).toLocalDate() }
 
     var income by rememberSaveable { mutableStateOf(existing?.type == Amounts.TYPE_INCOME) }
@@ -236,4 +236,12 @@ fun AddTransactionForm(
 
 private fun freqLabelRes(f: String) = when (f) {
     "settimanale" -> R.string.settimanale; "mensile" -> R.string.mensile; "annuale" -> R.string.annuale; else -> R.string.nessuna
+}
+
+internal fun sortAccountsByUsage(
+    accounts: List<AccountEntity>,
+    history: List<TransactionEntity>,
+): List<AccountEntity> {
+    val counts = history.mapNotNull { it.accountId }.groupingBy { it }.eachCount()
+    return accounts.sortedByDescending { counts[it.id] ?: 0 }
 }
