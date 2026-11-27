@@ -269,7 +269,7 @@ enum IntentCategoryMenu {
             let section = IntentItemSection(LocalizedStringResource("Tutte le categorie"), items: items)
             return IntentItemCollection(promptLabel: nil, usesIndexedCollation: false, sections: [section])
         }
-        let dbCats = (try? context.fetch(FetchDescriptor<Category>())) ?? []
+        let dbCats = (try? context.fetch(FetchDescriptor<Category>(sortBy: [SortDescriptor(\Category.sortOrder)]))) ?? []
         let all = allCategories(custom: dbCats.map(\.name))
         let available = Set(all)
         let topPair = top(
