@@ -335,7 +335,7 @@ La riparazione in chiaro usa una RPC condizionale che aggiorna soltanto `account
 
 ## 2026-11-27 · Movimenti, Ricorrenti, Abitudini, Statistiche (Matteo, in chat)
 - Totali in fondo a ogni sezione di Movimenti, per qualsiasi mese, calcolati su ciò che la lista mostra (filtri compresi). Blocchi: Tutti = Uscite|Entrate; Fisse = Spese fisse|Entrate fisse; Uscite = Uscite; Entrate = Entrate; Trasf. = Trasferito; Ricorrenti = Uscite|Entrate programmate. Niente scritta «Mese successivo» (sostituisce S-70f).
-- Occorrenze delle serie programmate come righe normali non effettuate (stesse dimensioni, angoli smussati), raggruppate in un gruppo tipo «In arrivo · pianificati» con totale a destra, in cima.
+- Occorrenze delle serie programmate come righe normali non effettuate (stesse dimensioni, angoli smussati), raggruppate in un gruppo tipo «In arrivo · pianificati» con totale a destra, in cima, SOLO nei mesi futuri; nel mese corrente restano in mezzo agli altri in ordine di data (Matteo, risposta B).
 - Il filtro «Ricorrenti» diventa una sezione come le altre (niente pagina separata): solo serie programmate del mese, niente passato. Modifica/elimina serie restano.
 - La vecchia pagina dei movimenti che si ripetono diventa «Abitudini», tasto in fondo a Statistiche. Criterio più severo: esclusi trasferimenti e rettifiche saldo, almeno 3 volte in 3 mesi diversi. Matteo autorizza la modifica in Domain/ per questo.
 - Statistiche: tolti «↑/↓ rispetto al mese scorso», «Media mensile · ultimi 12 mesi», «2026 vs 2025» (il confronto annuale forse tornerà, da rivedere). Eccezione voluta al «solo visivo».
