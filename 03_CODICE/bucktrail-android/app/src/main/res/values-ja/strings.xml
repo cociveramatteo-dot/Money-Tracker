@@ -580,4 +580,18 @@
     <string name="e2e_copiata" formatted="false">コピーしました</string>
     <string name="mostra" formatted="false">表示</string>
     <string name="nascondi" formatted="false">非表示</string>
+    <string name="simulazione" formatted="false">シミュレーション</string>
+    <string name="e_se" formatted="false">もしも…？</string>
+    <string name="aggiungi_ipotesi" formatted="false">仮定を追加</string>
+    <string name="nome_es_cena" formatted="false">名前（例：夕食）</string>
+    <string name="nessuna_ipotesi_aggiungine_una" formatted="false">仮定はまだありません。追加してください</string>
+    <string name="saldo_di_oggi" formatted="false">今日の残高</string>
+    <string name="ora" formatted="false">現在</string>
+    <string name="con_le_ipotesi" formatted="false">仮定込み</string>
+    <string name="differenza_totale" formatted="false">差額合計</string>
+    <string name="le_ipotesi_non_vengono_salvate" formatted="false">仮定は保存されません</string>
+    <string name="includi_nel_calcolo" formatted="false">計算に含める</string>
+    <string name="spesa" formatted="false">支出</string>
+    <string name="esclusi_dal_totale" formatted="false">合計から除外</string>
+    <string name="ipotesi_senza_nome" formatted="false">名前のない仮定</string>
 </resources>

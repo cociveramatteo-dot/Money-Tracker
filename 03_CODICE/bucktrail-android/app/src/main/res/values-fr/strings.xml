@@ -581,4 +581,18 @@
     <string name="e2e_copiata" formatted="false">Copiée</string>
     <string name="mostra" formatted="false">Afficher</string>
     <string name="nascondi" formatted="false">Masquer</string>
+    <string name="simulazione" formatted="false">Simulation</string>
+    <string name="e_se" formatted="false">Et si… ?</string>
+    <string name="aggiungi_ipotesi" formatted="false">Ajouter une hypothèse</string>
+    <string name="nome_es_cena" formatted="false">Nom (ex. dîner)</string>
+    <string name="nessuna_ipotesi_aggiungine_una" formatted="false">Aucune hypothèse : ajoutez-en une</string>
+    <string name="saldo_di_oggi" formatted="false">Solde du jour</string>
+    <string name="ora" formatted="false">Maintenant</string>
+    <string name="con_le_ipotesi" formatted="false">Avec hypothèses</string>
+    <string name="differenza_totale" formatted="false">Écart total</string>
+    <string name="le_ipotesi_non_vengono_salvate" formatted="false">Les hypothèses ne sont pas enregistrées</string>
+    <string name="includi_nel_calcolo" formatted="false">Inclure dans le calcul</string>
+    <string name="spesa" formatted="false">Dépense</string>
+    <string name="esclusi_dal_totale" formatted="false">Exclus du total</string>
+    <string name="ipotesi_senza_nome" formatted="false">Hypothèse sans nom</string>
 </resources>

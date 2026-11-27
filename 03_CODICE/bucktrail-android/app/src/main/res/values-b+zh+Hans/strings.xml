@@ -580,4 +580,18 @@
     <string name="e2e_copiata" formatted="false">已复制</string>
     <string name="mostra" formatted="false">显示</string>
     <string name="nascondi" formatted="false">隐藏</string>
+    <string name="simulazione" formatted="false">模拟</string>
+    <string name="e_se" formatted="false">如果…？</string>
+    <string name="aggiungi_ipotesi" formatted="false">添加假设</string>
+    <string name="nome_es_cena" formatted="false">名称（例如：晚餐）</string>
+    <string name="nessuna_ipotesi_aggiungine_una" formatted="false">暂无假设：添加一个</string>
+    <string name="saldo_di_oggi" formatted="false">今日余额</string>
+    <string name="ora" formatted="false">现在</string>
+    <string name="con_le_ipotesi" formatted="false">含假设</string>
+    <string name="differenza_totale" formatted="false">总差额</string>
+    <string name="le_ipotesi_non_vengono_salvate" formatted="false">假设不会被保存</string>
+    <string name="includi_nel_calcolo" formatted="false">计入计算</string>
+    <string name="spesa" formatted="false">支出</string>
+    <string name="esclusi_dal_totale" formatted="false">不计入总额</string>
+    <string name="ipotesi_senza_nome" formatted="false">未命名假设</string>
 </resources>

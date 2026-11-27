@@ -582,4 +582,18 @@
     <string name="e2e_copiata" formatted="false">Copiata</string>
     <string name="mostra" formatted="false">Mostra</string>
     <string name="nascondi" formatted="false">Nascondi</string>
+    <string name="simulazione" formatted="false">Simulazione</string>
+    <string name="e_se" formatted="false">E se…?</string>
+    <string name="aggiungi_ipotesi" formatted="false">Aggiungi ipotesi</string>
+    <string name="nome_es_cena" formatted="false">Nome (es. cena)</string>
+    <string name="nessuna_ipotesi_aggiungine_una" formatted="false">Nessuna ipotesi: aggiungine una</string>
+    <string name="saldo_di_oggi" formatted="false">Saldo di oggi</string>
+    <string name="ora" formatted="false">Ora</string>
+    <string name="con_le_ipotesi" formatted="false">Con le ipotesi</string>
+    <string name="differenza_totale" formatted="false">Differenza totale</string>
+    <string name="le_ipotesi_non_vengono_salvate" formatted="false">Le ipotesi non vengono salvate</string>
+    <string name="includi_nel_calcolo" formatted="false">Includi nel calcolo</string>
+    <string name="spesa" formatted="false">Spesa</string>
+    <string name="esclusi_dal_totale" formatted="false">Esclusi dal totale</string>
+    <string name="ipotesi_senza_nome" formatted="false">Ipotesi senza nome</string>
 </resources>

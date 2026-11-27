@@ -623,3 +623,17 @@
 "Suggerita" = "推荐";
 "Ultima usata" = "最近使用";
 "Lascia vuoto per la scelta automatica" = "留空以自动选择";
+"Simulazione" = "模拟";
+"E se…?" = "如果…？";
+"Aggiungi ipotesi" = "添加假设";
+"Nome (es. cena)" = "名称（例如：晚餐）";
+"Nessuna ipotesi: aggiungine una" = "暂无假设：添加一个";
+"Saldo di oggi" = "今日余额";
+"Ora" = "现在";
+"Con le ipotesi" = "含假设";
+"Differenza totale" = "总差额";
+"Le ipotesi non vengono salvate" = "假设不会被保存";
+"Includi nel calcolo" = "计入计算";
+"Spesa" = "支出";
+"Esclusi dal totale" = "不计入总额";
+"Ipotesi senza nome" = "未命名假设";

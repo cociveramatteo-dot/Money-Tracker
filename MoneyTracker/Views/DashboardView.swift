@@ -18,6 +18,7 @@ struct DashboardView: View {
     @AppStorage("showFixedIncomeTotal")    private var showFixedIncomeTotal:   Bool = true
 
     @State private var showSettings          = false
+    @State private var showWhatIf            = false
     @State private var showRecentMovements   = true
     @State private var showAccountOrder      = false
     @State private var editingTransaction: Transaction? = nil
@@ -25,6 +26,7 @@ struct DashboardView: View {
     @State private var trail: BalanceTrail? = nil
     @State private var recentListHeight: CGFloat?
     @ScaledMetric(relativeTo: .body) private var estimatedRowHeight: CGFloat = 66
+    @ScaledMetric(relativeTo: .body) private var headerIconSize: CGFloat = 18
 
     private struct TrailInput: Equatable {
         let currentBalance: Decimal
@@ -184,6 +186,7 @@ struct DashboardView: View {
                 refreshProjectionDay()
             }
             .sheet(isPresented: $showSettings)     { SettingsView() }
+            .sheet(isPresented: $showWhatIf)       { WhatIfView(baselines: whatIfBaselines(plannedByAccount: projection.plannedByAccount)) }
             .sheet(item: $editingTransaction)       { AddTransactionView(editing: $0) }
             .sheet(isPresented: $showAccountOrder)  {
                 HomeAccountOrderSheet(
@@ -200,27 +203,58 @@ struct DashboardView: View {
         HStack(alignment: .center) {
             VStack(alignment: .leading, spacing: 2) {
                 Text(Date(), format: .dateTime.weekday(.wide).day().month(.wide))
-                    .font(DS.Typo.secondary).foregroundStyle(DS.smoke)
+                    .font(DS.Typo.secondary).foregroundStyle(DS.smoke).lineLimit(1)
                 Text("Bucktrail").font(DS.Typo.wordmark).tracking(-0.5).foregroundStyle(DS.ink)
+                    .lineLimit(1).minimumScaleFactor(0.65)
             }
             Spacer(minLength: DS.Space.s)
             HStack(spacing: DS.Space.s) {
+                headerButton(symbol: "plus.forwardslash.minus", label: "Simulazione") { showWhatIf = true }
+                    .accessibilityIdentifier("home.whatIfButton")
                 headerButton(symbol: hideBalance ? "eye.slash" : "eye",
                              label: hideBalance ? "Mostra importi" : "Oscura importi") {
                     withAnimation(.easeInOut(duration: 0.2)) { hideBalance.toggle() }
                 }
                 headerButton(symbol: "gearshape", label: "Impostazioni") { showSettings = true }
             }
+            .fixedSize()
         }
         .padding(.horizontal, DS.Layout.margin)
         .padding(.top, DS.Space.s)
         .padding(.bottom, DS.Space.m)
     }
 
+    private func whatIfBaselines(plannedByAccount: [PersistentIdentifier: Decimal]) -> [WhatIfBaseline] {
+        let allBaseline = WhatIfBaseline(
+            id: "all", name: nil,
+            today: totalCurrent, endOfMonth: trail?.expectedBalance ?? totalCurrent
+        )
+        let included = includedAccounts
+            .sorted { $0.currentBalance > $1.currentBalance }
+            .map { acc in
+                let today = acc.currentBalance
+                return WhatIfBaseline(
+                    id: acc.id.uuidString, name: acc.name,
+                    today: today, endOfMonth: today + plannedByAccount[acc.persistentModelID, default: 0]
+                )
+            }
+        let excluded = accounts
+            .filter { !$0.isArchived && $0.isExcludedFromTotal }
+            .sorted { $0.currentBalance > $1.currentBalance }
+            .map { acc in
+                WhatIfBaseline(
+                    id: acc.id.uuidString, name: acc.name,
+                    today: acc.currentBalance, endOfMonth: acc.futureBalance,
+                    isExcludedFromTotal: true
+                )
+            }
+        return [allBaseline] + included + excluded
+    }
+
     private func headerButton(symbol: String, label: LocalizedStringKey, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: symbol)
-                .scaledFont(size: 18)
+                .font(.system(size: min(headerIconSize, 22)))
                 .foregroundStyle(DS.ink)
                 .frame(width: 44, height: 44)
                 .background(DS.surface, in: RoundedRectangle(cornerRadius: 14))

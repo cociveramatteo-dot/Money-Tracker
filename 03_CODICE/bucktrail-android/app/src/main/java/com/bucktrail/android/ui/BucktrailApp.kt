@@ -102,6 +102,7 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
     var editor by rememberSaveable { mutableStateOf<String?>(null) }
     var settingsOpen by rememberSaveable { mutableStateOf(false) }
     var homeOrderOpen by rememberSaveable { mutableStateOf(false) }
+    var whatIfOpen by rememberSaveable { mutableStateOf(false) }
     var categoriesOpen by rememberSaveable { mutableStateOf(false) }
     var pendingTransferDelete by remember { mutableStateOf<TransactionEntity?>(null) }
     var fabMenu by remember { mutableStateOf(false) }
@@ -175,7 +176,8 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
         when (tab) {
             Tab.Home -> HomeScreen(data, today, zone, { vm.setHideBalance(!data.prefs.hideBalance) }, edit, requestDelete,
                 onSeeAllMovements = { tab = Tab.Movements }, onManageAccounts = { tab = Tab.Accounts },
-                onOpenSettings = { settingsOpen = true }, onOpenAccountOrder = { homeOrderOpen = true })
+                onOpenSettings = { settingsOpen = true }, onOpenAccountOrder = { homeOrderOpen = true },
+                onOpenWhatIf = { whatIfOpen = true })
             Tab.Movements -> MovementsScreen(
                 data, today, zone, MovementActions(edit, requestDelete, toggleDone, vm::setTxFilters, { settingsOpen = true }, openRecurrence, { recurrence = it }), { searching = it },
             )
@@ -321,6 +323,21 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
         HomeAccountOrderSheet(
             ledger.accounts.filter { it.id in balances }.sortedByDescending { balances[it.id] }, data.prefs.homeAccountIds,
             onSave = vm::setHomeAccounts, onClose = { homeOrderOpen = false },
+        )
+    }
+    if (whatIfOpen) {
+        val baselines = remember(ledger.accounts, ledger.transactions, today, zone) {
+            val txs = ledger.transactionData
+            val accs = ledger.accountData
+            val proj = com.bucktrail.android.domain.HomeProjection.make(accs, txs, today, zone)
+            val balances = Balance.included(accs).associate { it.id to Balance.current(it, txs) }
+            WhatIfScenario.baselines(ledger.accounts, ledger.transactions, proj, balances)
+        }
+        com.bucktrail.android.ui.screens.WhatIfSheet(
+            baselines = baselines,
+            currency = data.prefs.currencyCode,
+            hidden = data.prefs.hideBalance,
+            onClose = { whatIfOpen = false },
         )
     }
     if (categoriesOpen) CategoryManagementSheet(

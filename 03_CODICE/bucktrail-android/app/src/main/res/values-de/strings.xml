@@ -581,4 +581,18 @@
     <string name="e2e_copiata" formatted="false">Kopiert</string>
     <string name="mostra" formatted="false">Anzeigen</string>
     <string name="nascondi" formatted="false">Ausblenden</string>
+    <string name="simulazione" formatted="false">Simulation</string>
+    <string name="e_se" formatted="false">Was wäre, wenn…?</string>
+    <string name="aggiungi_ipotesi" formatted="false">Annahme hinzufügen</string>
+    <string name="nome_es_cena" formatted="false">Name (z. B. Abendessen)</string>
+    <string name="nessuna_ipotesi_aggiungine_una" formatted="false">Noch keine Annahmen: füge eine hinzu</string>
+    <string name="saldo_di_oggi" formatted="false">Kontostand heute</string>
+    <string name="ora" formatted="false">Jetzt</string>
+    <string name="con_le_ipotesi" formatted="false">Mit Annahmen</string>
+    <string name="differenza_totale" formatted="false">Differenz gesamt</string>
+    <string name="le_ipotesi_non_vengono_salvate" formatted="false">Annahmen werden nicht gespeichert</string>
+    <string name="includi_nel_calcolo" formatted="false">In Berechnung einbeziehen</string>
+    <string name="spesa" formatted="false">Ausgabe</string>
+    <string name="esclusi_dal_totale" formatted="false">Nicht im Gesamtbetrag</string>
+    <string name="ipotesi_senza_nome" formatted="false">Unbenannte Annahme</string>
 </resources>

@@ -581,4 +581,18 @@
     <string name="e2e_copiata" formatted="false">Copied</string>
     <string name="mostra" formatted="false">Show</string>
     <string name="nascondi" formatted="false">Hide</string>
+    <string name="simulazione" formatted="false">Simulation</string>
+    <string name="e_se" formatted="false">What if…?</string>
+    <string name="aggiungi_ipotesi" formatted="false">Add scenario</string>
+    <string name="nome_es_cena" formatted="false">Name (e.g. dinner)</string>
+    <string name="nessuna_ipotesi_aggiungine_una" formatted="false">No scenarios yet: add one</string>
+    <string name="saldo_di_oggi" formatted="false">Today\'s balance</string>
+    <string name="ora" formatted="false">Now</string>
+    <string name="con_le_ipotesi" formatted="false">With scenarios</string>
+    <string name="differenza_totale" formatted="false">Total difference</string>
+    <string name="le_ipotesi_non_vengono_salvate" formatted="false">Scenarios are not saved</string>
+    <string name="includi_nel_calcolo" formatted="false">Include in calculation</string>
+    <string name="spesa" formatted="false">Expense</string>
+    <string name="esclusi_dal_totale" formatted="false">Excluded from total</string>
+    <string name="ipotesi_senza_nome" formatted="false">Unnamed scenario</string>
 </resources>

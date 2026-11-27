@@ -621,3 +621,17 @@
 "Suggerita" = "Suggested";
 "Ultima usata" = "Last used";
 "Lascia vuoto per la scelta automatica" = "Leave empty for automatic choice";
+"Simulazione" = "Simulation";
+"E se…?" = "What if…?";
+"Aggiungi ipotesi" = "Add scenario";
+"Nome (es. cena)" = "Name (e.g. dinner)";
+"Nessuna ipotesi: aggiungine una" = "No scenarios yet: add one";
+"Saldo di oggi" = "Today's balance";
+"Ora" = "Now";
+"Con le ipotesi" = "With scenarios";
+"Differenza totale" = "Total difference";
+"Le ipotesi non vengono salvate" = "Scenarios are not saved";
+"Includi nel calcolo" = "Include in calculation";
+"Spesa" = "Expense";
+"Esclusi dal totale" = "Excluded from total";
+"Ipotesi senza nome" = "Unnamed scenario";

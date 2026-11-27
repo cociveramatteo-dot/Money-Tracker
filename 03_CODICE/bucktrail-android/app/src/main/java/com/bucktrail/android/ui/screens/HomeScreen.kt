@@ -80,6 +80,7 @@ fun HomeScreen(
     data: AppData, today: LocalDate, zone: ZoneId,
     onToggleHide: () -> Unit, onEdit: (TransactionEntity) -> Unit, onDelete: (TransactionEntity) -> Unit,
     onSeeAllMovements: () -> Unit, onManageAccounts: () -> Unit, onOpenSettings: () -> Unit, onOpenAccountOrder: () -> Unit,
+    onOpenWhatIf: () -> Unit = {},
 ) {
     val c = Bt.colors
     val ledger = data.ledger
@@ -125,9 +126,13 @@ fun HomeScreen(
         ) {
             Column(Modifier.weight(1f)) {
                 Text(Fmt.headerDate(today, locale).replaceFirstChar { it.titlecase(locale) }, style = Typo.secondary, color = c.smoke, maxLines = 1)
-                Text(stringResource(R.string.app_name), style = Typo.wordmark, color = c.ink)
+                FitText(stringResource(R.string.app_name), Typo.wordmark, c.ink, minScale = 0.6f)
             }
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                RoundIconButton(
+                    SfIcons.forName("plus.forwardslash.minus"),
+                    stringResource(R.string.simulazione), onOpenWhatIf, Modifier.testTag("home.whatIfButton"),
+                )
                 RoundIconButton(
                     SfIcons.forName(if (hidden) "eye.slash" else "eye"),
                     stringResource(if (hidden) R.string.mostra_importi else R.string.oscura_importi), onToggleHide,

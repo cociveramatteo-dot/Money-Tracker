@@ -142,7 +142,7 @@ object SfIcons {
             "chart.bar" to Icons.Outlined.BarChart, "eye" to Icons.Outlined.Visibility, "eye.slash" to Icons.Outlined.VisibilityOff,
             "gearshape" to Icons.Outlined.Settings, "magnifyingglass" to Icons.Outlined.Search,
             "line.3.horizontal.decrease" to Icons.Outlined.FilterList, "slider.horizontal.3" to Icons.Outlined.Tune,
-            "plus" to Icons.Outlined.Add, "xmark" to Icons.Outlined.Close, "checkmark" to Icons.Outlined.Check,
+            "plus" to Icons.Outlined.Add, "minus" to Icons.Outlined.Remove, "plus.forwardslash.minus" to Icons.Outlined.Calculate, "xmark" to Icons.Outlined.Close, "checkmark" to Icons.Outlined.Check,
             "checkmark.circle.fill" to Icons.Filled.CheckCircle, "clock" to Icons.Outlined.Schedule,
             "repeat" to Icons.Outlined.Repeat, "trash" to Icons.Outlined.Delete, "pencil" to Icons.Outlined.Edit,
             "archivebox" to Icons.Outlined.Archive, "arrow.uturn.left" to Icons.AutoMirrored.Outlined.Undo,
