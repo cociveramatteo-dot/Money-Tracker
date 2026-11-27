@@ -1,44 +1,38 @@
-# CONSEGNA — S-54, S-55, S-56 (iOS + Android)
+# CONSEGNA — S-50g2 e S-50z (Guardiano + Script release R8 Android)
 
 ## Cosa è stato fatto
 
-1. **S-54 · Ordine movimenti uniforme (`04ed36b`)**
-   - **Regola:** giorno di calendario dal più recente, poi `createdAt` dal più recente (l'ultimo aggiunto in cima), tie-break deterministico su `id`; nessuna modifica a `Models/`, `Domain/` o calcoli.
-   - **iOS:** nuovo helper `MoneyTracker/Views/TransactionDisplayOrder.swift` (`sortedForDisplay(calendar:)`); aggiornati i `@Query` (con `SortDescriptor(\Transaction.date, order: .reverse)` + `SortDescriptor(\Transaction.createdAt, order: .reverse)`) e l'ordinamento di visualizzazione in `DashboardView`, `TransactionsView`, `StatisticsView` (export PDF), `PianificaView` e `RecurringSeriesDetailView`.
-   - **Android:** `03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/data/Dao.kt` aggiornato con `ORDER BY date(date / 1000, 'unixepoch', 'localtime') DESC, createdAt DESC, id` su `transactions()` e `observeTransactions()`; nuovo helper `ui/TransactionDisplayOrder.kt` (`sortedForDisplay(zone)`) applicato a `HomeScreen`, `MovementsScreen`, `RecurrenceScreens` (`RecurringSeriesDetailSheet`) e `AppViewModel.exportPdf`.
-   - **Test:** `MoneyTrackerTests/TransactionDisplayOrderTests.swift` e `03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/ui/TransactionDisplayOrderTest.kt` (inclusa verifica SQLite in memoria della query `Dao.kt`).
+1. **S-50g2 · Guardiano: ignorare il CORS locale del beacon Cloudflare Insights (`8c0b06e`)**
+   - **Problema trovato:** il filtro aggiunto il 2026-11-26 in `.cantiere/strumenti/guardiano/giro.mjs` filtrava solo `p.on("console", ...)`, lasciando attivo `p.on("requestfailed", ...)` su `https://cloudflareinsights.com/cdn-cgi/rum` (`net::ERR_FAILED`), che continuava a far fallire il guardiano in rosso (`🔴`, 56 errori / 7 `errore-console`).
+   - **Modifica minima in `.cantiere/strumenti/guardiano/giro.mjs`:**
+     - Calcolato `inLocale = /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/i.test(BASE)`.
+     - In `p.on("console", ...)`: ignora i messaggi `cloudflareinsights.com` solo quando `inLocale` è vero e il testo contiene `CORS`.
+     - In `p.on("requestfailed", ...)`: ignora `https://[*.]cloudflareinsights.com/cdn-cgi/rum` con `ERR_FAILED` solo quando `inLocale` è vero.
+     - Nessun merge su `main` effettuato (serve l'ok di Matteo).
 
-2. **S-55 · Occhio mostra/nascondi (`0f12838`, `25073ed`)**
-   - **iOS:** nuovo componente `MoneyTracker/Views/Components/RevealableSecureField.swift` in stile `DS` (`Theme.swift`), con icona `eye` / `eye.slash` (target 44×44), disattivazione correttore e suggerimenti (`.autocorrectionDisabled(true)`, `.textInputAutocapitalization(.never)`, `.textContentType(.none)`), ripristino automatico a nascosto su `scenePhase != .active`. Applicato a `LoginView`, `SignUpView` (password e conferma), `E2EActivationFlow` (`E2EPhraseFields`: frase, ripeti, cambio) e `E2EUnlockView` (frase e chiave di recupero, con `.id(useRecoveryKey)`).
-   - **Android:** `AuthField` in `AuthScreens.kt` (con `Lifecycle.Event.ON_STOP` per nascondere in background e `KeyboardType.Text` + `autoCorrectEnabled = false` quando visibile) applicato a login, registrazione e a `SecretField`/`ProtectionPage.Unlock` in `AdvancedProtectionScreens.kt`.
-   - **Accessibilità 7 lingue (it, en, de, es, fr, ja, zh-Hans):** chiavi `"Mostra"` / `"Nascondi"` in tutti i 7 `Localizable.strings` iOS e `mostra` / `nascondi` in tutti i 7 `strings.xml` Android.
-   - **Test:** `MoneyTrackerTests/RevealableSecureFieldTests.swift`, `E2ELocalizationTests` e `plutil -lint` sui 7 `.strings`.
-
-3. **S-56 · Formattatore chiave di recupero (`3af6702`, `25073ed`)**
-   - **Regola:** trattini automatici ogni 4 caratteri (`XXXX-XXXX-...`), maiuscole automatiche, incolla normalizzato (spazi/trattini/a capo rimossi), cancellazione che supera il trattino senza bloccarsi, massimo 32 caratteri utili. Applicato **solo** ai campi della chiave di recupero (sblocco con chiave e conferma ultimi 4 caratteri), mai alle frasi di sicurezza; `RecoveryKey.parse` intatto.
-   - **iOS:** `MoneyTracker/Views/E2E/RecoveryKeyInputFormatter.swift`, collegato via `.onChange` (per compatibilità `XCUITest.typeText`/SwiftUI) in `RevealableSecureField` (su `E2EUnlockView` quando `useRecoveryKey == true`) e `RecoveryKeyCard`.
-   - **Android:** `03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/RecoveryKeyInputFormatter.kt` (`format` e `formatSelection` su `TextFieldValue` per mantenere la posizione del cursore), collegato in `AuthField` (`recoveryKeyFormatting = true`) su `ProtectionPage.Unlock` (solo `useRecovery == true`) e `RecoveryCard`.
-   - **Test:** `MoneyTrackerTests/RecoveryKeyInputFormatterTests.swift` e `03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/ui/RecoveryKeyInputFormatterTest.kt`.
+2. **S-50z · Script ripetibile per la prova E2E release Android R8 (`d0dd4e3`)**
+   - Creato `03_CODICE/bucktrail-android/scripts/prova-release-r8.py` (eseguibile, stile `prova-due-dispositivi.py` / `test-fake-supabase-e2e.py`, zero chiavi vere e zero puntamenti al Supabase reale).
+   - Lo script:
+     1. avvia `scripts/fake-supabase.py` su porta libera con `FAKE_LATENCY=0.05` (log HTTP salvato nella cartella temporanea);
+     2. copia `03_CODICE/bucktrail-android` in una directory temporanea (lasciando intatto `app/src/main` e senza lasciare `app/src/release` nel repo), abilita HTTP verso `10.0.2.2` solo nella copia temporanea, esegue `./gradlew assembleRelease -PsupabaseUrl=http://10.0.2.2:<porta> -PsupabaseKey=chiave-finta`, verifica la presenza di `mapping.txt` (R8) e firma/verifica l'APK con `~/.android/debug.keystore`;
+     3. crea e avvia un AVD temporaneo isolato (`Bucktrail_S50z`, `system-images;android-36;default;arm64-v8a`), installa l'APK e imposta il PIN di sistema `2468`;
+     4. esegue il flusso E2E completo di S-50w: login `demo@test.it`, creazione conto e prima spesa in chiaro, attivazione Protezione avanzata (`mt_e2e_activate` 204, vault `bt1.`), seconda spesa cifrata (`2` movimenti `bt1.`, tabelle in chiaro vuote, `GET` di pulizia `key_id=neq.`), `pm clear` + rilancio e sblocco (frase errata rifiutata, corretta accettata, entrambe le spese presenti), disattivazione con PIN `2468` (ripristino in chiaro, `mt_e2e`/`mt_vault` vuote) e controllo `logcat` (zero crash di `com.bucktrail.android`);
+     5. nel blocco `finally` chiude sempre emulatore (`adb emu kill` + terminate/kill), server finto e directory temporanea.
+   - Aggiunte le istruzioni d'uso in `03_CODICE/bucktrail-android/README.md`.
 
 ## Verifiche eseguite
 
-- **iOS (dopo l'ultimo edit `25073ed`):**
-  - Suite unitarie mirate (`TransactionDisplayOrderTests`, `RevealableSecureFieldTests`, `RecoveryKeyInputFormatterTests`, `E2ELocalizationTests`): **9/9 verdi**.
-  - `E2EUITests`: **6/6 verdi** in light (`it-light`) e **2/2 verdi** in dark (`testActivationValidationAndDisableConfirmation`, `testUnlockRejectsWrongPhraseAndPromptsOnce`).
-  - `DemoShowcaseUITests`: **verde** in light e dark (Home, Movimenti, Ricorrenze, Statistiche, Pianifica, Conti).
-  - *Nota:* la suite completa `MoneyTrackerTests` (**211/211 verdi**) è stata eseguita su `3af6702` prima della piccola modifica reattiva `25073ed` (che tocca solo `RevealableSecureField.swift` e `RecoveryKeyCard.swift`, coperti dai test mirati + `E2EUITests` successivi).
-- **Android (dopo l'ultima modifica Android `3af6702`):**
-  - `./gradlew testDebugUnitTest assembleDebug lintDebug`: **BUILD SUCCESSFUL**, tutti gli unit test verdi (inclusi `TransactionDisplayOrderTest` e `RecoveryKeyInputFormatterTest`), `lintDebug` verde.
-- **Screenshot in `.cantiere/tmp/` (esclusi da git):**
-  - `.cantiere/tmp/s54/ios-light/` e `.cantiere/tmp/s54/ios-dark/` (DemoShowcase light/dark).
-  - `.cantiere/tmp/s55-s56/ios-light/` e `.cantiere/tmp/s55-s56/ios-dark/` (E2E screenshots; nota: in `ios-dark/` la sheet modale E2E su iOS 27.2 è rimasta chiara sotto `XCUIDevice.shared.appearance = .dark`).
-
-## Da verificare al collaudo
-
-- Collaudo indipendente dei commit `04ed36b`, `0f12838`, `3af6702`, `25073ed` (verifica rispetto zone vietate: in `Auth/` toccate solo le viste UI `LoginView.swift` e `SignUpView.swift`, nessuna logica `Auth/` toccata).
-- Controllo visivo e interattivo (occhio mostra/nascondi, auto-hide in background, formattatore chiave) su `LoginView`/`SignUpView`, E2E dark e su emulatore Android (`connectedDebugAndroidTest` / `E2EProtectionUiTest` non eseguiti in questo turno).
-- Rilancio completo `MoneyTrackerTests` + suite UI completa iOS se richiesto prima del checkpoint.
+- **S-50g2 (numeri prima e dopo in locale su `SOCIAL/landing`):**
+  - *Baseline storico (`.cantiere/guardiano/ULTIMO.md`, 2026-11-26, senza filtri):* 4 pagine × 8 dispositivi · **64 errori**, 8 avvisi · 13 problemi distinti (**`errore-console` ×8**, `accessibilita` ×3, `link-dubbio` ×1, `link-irraggiungibile` ×1) · semaforo `🔴`.
+  - *Prima della correzione di oggi (2026-11-27 19:00:34, solo filtro `console`):* 7 pagine × 8 dispositivi · **56 errori**, 7 avvisi · 11 problemi distinti (**`errore-console` ×7** per `richiesta fallita: https://cloudflareinsights.com/cdn-cgi/rum (net::ERR_FAILED)`, `accessibilita` ×3, `link-irraggiungibile` ×1) · semaforo `🔴`.
+  - *Dopo la correzione (`8c0b06e`, 2026-11-27 19:06:30, comando `GUARDIANO_PRECEDENTE=/tmp/guardiano-prec bash .cantiere/strumenti/guardiano/esegui.sh`):* 7 pagine × 8 dispositivi · 57 link · 159 clic · monkey 20 giri · **0 errori**, 7 avvisi · 4 problemi distinti (`accessibilita` ×3 `heading-order`, `link-irraggiungibile` ×1 YouTube `Header overflow`) · **0 `errore-console`** · semaforo `🟡` (nota macOS: `esegui.sh:62` salta Lighthouse locale per bash 3.2 `PRESET[@]: unbound variable`, non toccato).
+  - *Verifica errore console finto su copia temporanea (`console.error("S50G2_TEST_CONSOLE_ERROR")` in `index.html`, `--monkey 0`):* 7 pagine × 8 dispositivi · **16 errori**, 7 avvisi · 6 problemi distinti (**`errore-console` ×2** su `/` e `/index.html`) · `riassunto.mjs` exit code `1` · semaforo `🔴`.
+- **S-50z (`python3 03_CODICE/bucktrail-android/scripts/prova-release-r8.py` su `d0dd4e3`):**
+  - Eseguito per intero end-to-end: exit code `0`, output finale `PROVA R8 S-50z VERDE` (tutti i 6 controlli `OK`, 0 crash in `logcat`, zero residui su `adb devices` o `/tmp/bucktrail-r8-*`).
+- **Zone vietate e stato locale:**
+  - Nessuna modifica a codice iOS o `03_CODICE/bucktrail-android/app/src/main/`.
+  - `MoneyTracker.xcodeproj/xcshareddata/xcschemes/MoneyTracker.xcscheme` era già modificato in locale prima del turno (non toccato né committato, come da `CHECKPOINT.md`).
 
 ## Prossimo turno
 
-Collaudatore su S-54, S-55 e S-56.
+Collaudatore su S-50g2 (`8c0b06e`) e S-50z (`d0dd4e3`).
