@@ -1,5 +1,6 @@
 package com.bucktrail.android.sync
 
+import com.bucktrail.android.sync.e2e.VaultKind
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
@@ -16,6 +17,12 @@ class SyncGuardsTest {
     private fun engine(local: FakeLocalStore) = SyncEngine(api, local, state, auth, nowMillis = { 1_000L })
     private fun ids(n: Int) = (1..n).map { "bbbbbbbb-0000-4000-8000-%012d".format(it) }
 
+    private fun rememberSyncedTransactions(vararg ids: String) {
+        state.baseline = SyncBaseline(USER, mapOf(
+            VaultKind.Account.wire to setOf(A1), VaultKind.Transaction.wire to ids.toSet(),
+        ))
+    }
+
     @Test fun guardMath() {
         assertFalse(DeletionGuard.requiresConfirmation(deletions = 0, localCount = 0, baseline = 500))
         assertTrue("DB vuoto con cose da cancellare", DeletionGuard.requiresConfirmation(1, 0, 3))
@@ -25,6 +32,7 @@ class SyncGuardsTest {
     }
 
     @Test fun emptyLocalDatabaseNeverWipesTheCloudWithoutConfirmation() = runBlocking {
+        rememberSyncedTransactions(T1, T2)
         api.seed(Snapshot(accounts = listOf(account(A1)), transactions = listOf(tx(T1, A1), tx(T2, A1))))
         val local = FakeLocalStore(Snapshot())
         val e = engine(local)
@@ -40,6 +48,7 @@ class SyncGuardsTest {
 
     @Test fun anomalousDropComparedToTheLastSyncedStateNeedsConfirmation() = runBlocking {
         val many = ids(40)
+        rememberSyncedTransactions(*many.toTypedArray())
         api.seed(Snapshot(accounts = listOf(account(A1)), transactions = many.map { tx(it, A1) }))
         state.lastSyncedCount = 41
         val local = FakeLocalStore(Snapshot(accounts = listOf(account(A1)), transactions = many.take(10).map { tx(it, A1) }))
@@ -50,6 +59,7 @@ class SyncGuardsTest {
 
     @Test fun normalDeletionsAndAPushWithNothingToDeleteAreNotBlocked() = runBlocking {
         val many = ids(40)
+        rememberSyncedTransactions(*many.toTypedArray())
         api.seed(Snapshot(accounts = listOf(account(A1)), transactions = many.map { tx(it, A1) }))
         state.lastSyncedCount = 41
         val local = FakeLocalStore(Snapshot(accounts = listOf(account(A1)), transactions = many.take(30).map { tx(it, A1) }))
@@ -63,6 +73,7 @@ class SyncGuardsTest {
     }
 
     @Test fun serviceStyleLoginWithResumedSessionAsksInsteadOfWipingTheCloud() = runBlocking {
+        rememberSyncedTransactions(T1)
         api.seed(Snapshot(accounts = listOf(account(A1)), transactions = listOf(tx(T1, A1))))
         val r = engine(FakeLocalStore(Snapshot())).syncOnLogin()
         assertTrue(r is LoginSyncResult.NeedsDeleteConfirmation)

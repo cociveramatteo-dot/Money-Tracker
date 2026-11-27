@@ -422,12 +422,19 @@ class SyncService(
         _status.value = SyncStatus.Syncing
         try {
             return controller.migrate(auth, userId, engine, store,
-                initialSync = { initialSync(it, fresh = true) },
+                initialSync = {
+                    if (controller.isRestartingFromDevice(userId)) {
+                        // The authenticated restart deliberately emptied the remote store.
+                        state.baseline = null
+                        state.syncedUserId = null
+                    }
+                    initialSync(it, fresh = true)
+                },
                 pull = { selected ->
                     // Suppress echo only during the actual Room merge.
                     watcher.silent = true
                     try {
-                        val applied = selected.pull() == PullOutcome.Done && selected.lastIgnoredRows == 0
+                        val applied = selected.pull(forMigration = true) == PullOutcome.Done && selected.lastIgnoredRows == 0
                         if (applied) watcher.rebase(store.snapshot())
                         applied
                     } finally {

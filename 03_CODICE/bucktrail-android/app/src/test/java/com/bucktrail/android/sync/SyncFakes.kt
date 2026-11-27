@@ -84,12 +84,13 @@ class MemorySyncState : SyncStateStore {
     override var syncedUserId: String? = null
     override var lastPull: Long = 0
     override var lastSyncedCount: Int = -1
+    override var baseline: SyncBaseline? = null
     override var hasPendingChanges: Boolean = false
     private var dirty = mapOf<String, Long>()
     override fun dirty() = dirty
     override fun markDirty(ids: Collection<String>, stamp: Long) { dirty = dirty + ids.associateWith { stamp } }
     override fun clearDirty(uploaded: Map<String, Long>) { dirty = dirty.filter { (id, st) -> uploaded[id] != st } }
-    override fun reset() { dirty = emptyMap() }
+    override fun reset() { dirty = emptyMap(); baseline = null }
 }
 
 class FixedAuth(override var userId: String? = USER) : SyncEngine.AuthGateway {

@@ -175,6 +175,9 @@ class E2EController(
     internal fun hasPendingMigration(userId: String): Boolean =
         migrationConfigured && secrets.marker()?.userId.equals(userId, ignoreCase = true)
 
+    internal fun isRestartingFromDevice(userId: String): Boolean =
+        secrets.marker()?.let { it.userId.equals(userId, ignoreCase = true) && it.phase == E2EMigrationMarker.Phase.Resetting } == true
+
     internal fun initialSyncCompleted() {
         needsInitialSync = false
     }

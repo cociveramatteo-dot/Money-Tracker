@@ -48,7 +48,8 @@ data class SyncPlan(
  * Ritorna `null` se scatta una guardia (remoto senza conti ma locale con conti: il push non è ancora avvenuto).
  */
 object SyncMerge {
-    fun plan(local: Snapshot, remote: Snapshot, dirtyTransactionIds: Set<String>, ignored: IgnoredIds = IgnoredIds()): SyncPlan? {
+    fun plan(local: Snapshot, remote: Snapshot, dirtyTransactionIds: Set<String>, ignored: IgnoredIds = IgnoredIds(),
+             knownRuleIds: Set<String> = emptySet()): SyncPlan? {
         if (remote.accounts.isEmpty() && ignored.accounts.isEmpty() && local.accounts.isNotEmpty()) return null
 
         val remoteAccountIds = remote.accounts.map { it.id }.toSet()
@@ -106,7 +107,7 @@ object SyncMerge {
         val remoteGoalIds = remote.goals.map { it.id }.toSet()
         val deleteGoals = local.goals.map { it.id }.filter { it !in remoteGoalIds && it !in ignored.goals }
 
-        // Regole: se il remoto è vuoto e il locale no, restano (in attesa del primo push). Il cursore non torna mai indietro.
+        // Con un remoto vuoto restano le regole in attesa del primo push. Il cursore non torna mai indietro.
         val keepAllRules = remote.rules.isEmpty() && local.rules.isNotEmpty()
         val localRules = local.rules.associateBy { it.id }
         val rules = if (keepAllRules) emptyList() else remote.rules.mapNotNull { r ->
@@ -120,7 +121,9 @@ object SyncMerge {
             merged.takeIf { it != existing }
         }
         val remoteRuleIds = remote.rules.map { it.id }.toSet()
-        val deleteRules = if (keepAllRules) emptyList() else local.rules.map { it.id }.filter { it !in remoteRuleIds && it !in ignored.rules }
+        val deleteRules = local.rules.map { it.id }.filter {
+            it !in remoteRuleIds && it !in ignored.rules && (!keepAllRules || it in knownRuleIds)
+        }
 
         return SyncPlan(accounts, deleteAccounts, transactions, deleteTx, budgets, deleteBudgets, goals, deleteGoals, rules, deleteRules)
     }

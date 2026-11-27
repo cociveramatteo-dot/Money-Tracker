@@ -8,6 +8,7 @@ import com.bucktrail.android.sync.ErrorKind
 import com.bucktrail.android.sync.FakeLocalStore
 import com.bucktrail.android.sync.MemorySyncState
 import com.bucktrail.android.sync.Snapshot
+import com.bucktrail.android.sync.SyncBaseline
 import com.bucktrail.android.sync.SyncEngine
 import com.bucktrail.android.sync.SyncMapper
 import com.bucktrail.android.sync.SyncService
@@ -323,6 +324,7 @@ class E2EGateTest {
     fun deletionConsentFromPlainModeDoesNotApplyToNewVault() = runBlocking {
         service(coroutineContext).use { fixture ->
             fixture.store.snap = Snapshot()
+            fixture.state.baseline = SyncBaseline(USER, mapOf(VaultKind.Account.wire to setOf(A1)))
             remote.plain.put(VaultKind.Account.table, SyncMapper.accountRow(account(A1), USER))
             fixture.service.pushOnBackground()
             assertNotNull(fixture.service.deleteConfirmation.value)

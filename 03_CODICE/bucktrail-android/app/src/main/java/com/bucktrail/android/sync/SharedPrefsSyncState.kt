@@ -2,9 +2,11 @@ package com.bucktrail.android.sync
 
 import android.content.Context
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.longOrNull
@@ -29,6 +31,36 @@ class SharedPrefsSyncState(context: Context) : SyncStateStore {
     override var hasPendingChanges: Boolean
         get() = prefs.getBoolean("pending", false)
         set(v) { prefs.edit().putBoolean("pending", v).apply() }
+
+    override var baseline: SyncBaseline?
+        get() {
+            val text = prefs.getString("baseline", null) ?: return null
+            return runCatching {
+                val json = Json.parseToJsonElement(text).jsonObject
+                fun readTables(name: String) = json[name]?.jsonObject.orEmpty().mapValues { (_, ids) ->
+                    ids.jsonArray.map { it.jsonPrimitive.content.lowercase() }.toSet()
+                }
+                SyncBaseline(json.getValue("user").jsonPrimitive.content.lowercase(), readTables("tables"),
+                    readTables("deletedElsewhere"), readTables("ignoredWithoutLocal"))
+            }.getOrNull()
+        }
+        set(value) {
+            val editor = prefs.edit()
+            if (value == null) {
+                editor.remove("baseline").apply()
+                return
+            }
+            fun writeTables(tables: Map<String, Set<String>>) = JsonObject(tables.mapValues { (_, ids) ->
+                JsonArray(ids.map { JsonPrimitive(it.lowercase()) })
+            })
+            val json = buildJsonObject {
+                put("user", JsonPrimitive(value.user.lowercase()))
+                put("tables", writeTables(value.tables))
+                if (value.deletedElsewhere.isNotEmpty()) put("deletedElsewhere", writeTables(value.deletedElsewhere))
+                if (value.ignoredWithoutLocal.isNotEmpty()) put("ignoredWithoutLocal", writeTables(value.ignoredWithoutLocal))
+            }
+            editor.putString("baseline", json.toString()).apply()
+        }
 
     override fun dirty(): Map<String, Long> = synchronized(lock) {
         val text = prefs.getString("dirty", null) ?: return emptyMap()

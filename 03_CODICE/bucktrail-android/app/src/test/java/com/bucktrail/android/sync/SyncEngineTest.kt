@@ -1,6 +1,9 @@
 package com.bucktrail.android.sync
 
+import com.bucktrail.android.sync.e2e.VaultKind
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonPrimitive
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -141,6 +144,7 @@ class SyncEngineTest {
         state.syncedUserId = USER
         // cloud: T1 (vecchio), T2 e uno in più "X" cancellato in locale
         val x = "bbbbbbbb-0000-4000-8000-0000000000ff"
+        state.baseline = SyncBaseline(USER, mapOf(VaultKind.Transaction.wire to setOf(T1, T2, x)))
         api.seed(Snapshot(accounts = listOf(account(A1)), transactions = listOf(tx(T1, A1, 1_00), tx(T2, A1, 2_00), tx(x, A1, 3_00))))
         val local = FakeLocalStore(Snapshot(accounts = listOf(account(A1)), transactions = listOf(tx(T1, A1, 9_99), tx(T2, A1, 2_00), tx(T3, A1, 7_00))))
         state.markDirty(listOf(T1), 5)
@@ -153,6 +157,94 @@ class SyncEngineTest {
         assertEquals(listOf("BBBBBBBB-0000-4000-8000-0000000000FF"), api.deleted.first { it.first == "mt_transactions" }.second)
         assertTrue(state.dirty().isEmpty())
         assertEquals("T2 non toccato: solo T1 e T3", "upsert:mt_transactions:2", api.calls.first { it.startsWith("upsert:mt_transactions") })
+    }
+
+    @Test fun newRemoteTransactionAndBudgetSurvivePushAndArriveOnPull() = runBlocking {
+        val local = FakeLocalStore()
+        val e = engine(local)
+        api.seed(Snapshot(accounts = listOf(account(A1))))
+        assertEquals(LoginSyncResult.Pulled, e.syncOnLogin())
+        val remoteBudget = full.budgets.single()
+        api.seed(Snapshot(transactions = listOf(tx(T1, A1)), budgets = listOf(remoteBudget)))
+
+        assertTrue(e.push())
+        assertEquals(0, api.count("delete:"))
+        assertEquals(PullOutcome.Done, e.pull())
+        assertEquals(listOf(T1), local.snap.transactions.map { it.id })
+        assertEquals(listOf(remoteBudget), local.snap.budgets)
+    }
+
+    @Test fun localDeletionAfterPullReachesTheServer() = runBlocking {
+        val local = FakeLocalStore()
+        val e = engine(local)
+        api.seed(Snapshot(accounts = listOf(account(A1)), transactions = listOf(tx(T1, A1))))
+        assertEquals(LoginSyncResult.Pulled, e.syncOnLogin())
+        local.snap = local.snap.copy(transactions = emptyList())
+
+        assertTrue(e.push())
+        assertTrue(api.rows("mt_transactions").isEmpty())
+        assertEquals(emptySet<String>(), state.baseline?.tables?.get(VaultKind.Transaction.wire))
+    }
+
+    @Test fun remoteDeletionWinsAcrossRepeatedPushes() = runBlocking {
+        val local = FakeLocalStore()
+        api.seed(Snapshot(accounts = listOf(account(A1)), transactions = listOf(tx(T1, A1))))
+        assertEquals(LoginSyncResult.Pulled, engine(local).syncOnLogin())
+        api.table("mt_transactions").remove(T1)
+        state.markDirty(listOf(T1), 5)
+
+        assertTrue(engine(local).push())
+        assertTrue(engine(local).push())
+        assertTrue(api.rows("mt_transactions").isEmpty())
+        assertTrue(state.dirty().isEmpty())
+        assertEquals(PullOutcome.Done, engine(local).pull())
+        assertTrue(local.snap.transactions.isEmpty())
+        assertTrue(state.baseline?.deletedElsewhere.orEmpty().isEmpty())
+    }
+
+    @Test fun firstPushLeavesUnknownRemoteRowsAndRecordsOnlySharedOrUploadedIds() = runBlocking {
+        state.syncedUserId = USER
+        state.baseline = SyncBaseline("different-user", mapOf(VaultKind.Transaction.wire to setOf(T2)))
+        api.seed(Snapshot(accounts = listOf(account(A1)), transactions = listOf(tx(T1, A1), tx(T2, A1))))
+        val local = FakeLocalStore(Snapshot(accounts = listOf(account(A1)), transactions = listOf(tx(T1, A1), tx(T3, A1))))
+        state.markDirty(listOf(T3), 5)
+
+        assertTrue(engine(local).push())
+        assertEquals(0, api.count("delete:"))
+        assertEquals(USER, state.baseline?.user)
+        assertEquals(setOf(T1, T3), state.baseline?.tables?.get(VaultKind.Transaction.wire))
+    }
+
+    @Test fun skippedOrFailedPullPreservesTheBaselineAndClearRemovesIt() = runBlocking {
+        val local = FakeLocalStore()
+        api.seed(Snapshot(accounts = listOf(account(A1))))
+        val e = engine(local)
+        assertEquals(LoginSyncResult.Pulled, e.syncOnLogin())
+        val baseline = state.baseline
+        api.seed(Snapshot(transactions = listOf(tx(T1, A1))))
+        local.failApply = true
+        assertEquals(PullOutcome.Failed, e.pull())
+        assertEquals(baseline, state.baseline)
+        api.table("mt_accounts").clear()
+        assertEquals(PullOutcome.Skipped, e.pull())
+        assertEquals(baseline, state.baseline)
+        e.clearLocalData()
+        assertNull(state.baseline)
+    }
+
+    @Test fun ignoredRemoteIdWithoutLocalCopyIsRememberedButNeverDeleted() = runBlocking {
+        val local = FakeLocalStore()
+        val e = engine(local)
+        api.seed(Snapshot(accounts = listOf(account(A1))))
+        val row = SyncMapper.transactionRow(tx(T1, A1), USER)
+        api.put("mt_transactions", JsonObject(row + ("amount" to JsonPrimitive("100000000000000000000"))))
+        assertEquals(LoginSyncResult.Pulled, e.syncOnLogin())
+        assertTrue(local.snap.transactions.isEmpty())
+        assertEquals(setOf(T1), state.baseline?.tables?.get(VaultKind.Transaction.wire))
+
+        assertTrue(e.push())
+        assertEquals(0, api.count("delete:"))
+        assertEquals(1, api.rows("mt_transactions").size)
     }
 
     @Test fun editAfterTheSnapshotStaysDirtyForTheNextPush() = runBlocking {
@@ -182,6 +274,7 @@ class SyncEngineTest {
 
     @Test fun largeUploadsAreChunked() = runBlocking {
         state.syncedUserId = USER
+        state.baseline = SyncBaseline(USER, mapOf(VaultKind.Transaction.wire to emptySet()))
         val many = (1..7).map { tx("bbbbbbbb-0000-4000-8000-00000000010$it", A1) }
         val local = FakeLocalStore(Snapshot(accounts = listOf(account(A1)), transactions = many))
         assertTrue(engine(local, chunk = 3).push())

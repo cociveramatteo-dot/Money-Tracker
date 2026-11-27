@@ -6,6 +6,7 @@ import com.bucktrail.android.data.GoalEntity
 import com.bucktrail.android.data.RecurringRuleEntity
 import com.bucktrail.android.data.TransactionEntity
 import com.bucktrail.android.sync.e2e.VaultKind
+import kotlinx.serialization.json.JsonObject
 
 /** Stato di sync persistito (UserDefaults iOS: `syncService.*`). */
 interface SyncStateStore {
@@ -20,6 +21,7 @@ interface SyncStateStore {
     var hasPendingChanges: Boolean
     /** Record sincronizzati all'ultimo scambio riuscito (push o pull): base della guardia «calo anomalo». -1 = sconosciuto. */
     var lastSyncedCount: Int
+    var baseline: SyncBaseline?
     /** Movimenti creati/modificati non ancora caricati: id -> istante della marcatura. */
     fun dirty(): Map<String, Long>
     fun markDirty(ids: Collection<String>, stamp: Long)
@@ -139,35 +141,50 @@ class SyncEngine(
         // prima le marcature, poi la lettura: una modifica arrivata dopo resta in coda (la sua marcatura cambia)
         val dirtyAtStart = state.dirty()
         val snap = frozen ?: store.snapshot()
-        val tables = listOf(
-            "mt_accounts" to snap.accounts.map { it.id }.toSet(), "mt_transactions" to snap.transactions.map { it.id }.toSet(),
-            "mt_budgets" to snap.budgets.map { it.id }.toSet(), "mt_goals" to snap.goals.map { it.id }.toSet(),
-            "mt_recurring_rules" to snap.rules.map { it.id }.toSet(),
-        )
+        val localIds = snap.idsByKind()
         return auth.authed<PushResult> { token ->
-            // guardia: prima di scrivere o cancellare qualsiasi cosa si sa quanto verrebbe cancellato dal cloud
-            val remoteIdsByTable = tables.associate { (t, _) -> t to fetchIds(t, userId, token) }
-            val deletions = if (pruneOrphans) tables.sumOf { (t, local) -> (remoteIdsByTable.getValue(t) - local).size } else 0
-            val baseline = state.lastSyncedCount.takeIf { it >= 0 } ?: remoteIdsByTable.values.sumOf { it.size }
-            if (!allowDestructive && DeletionGuard.requiresConfirmation(deletions, snap.count, baseline)) {
-                return@authed PushResult.NeedsConfirmation(deletions, baseline)
+            // Valuta tutte le cancellazioni prima di qualsiasi scrittura, per la conferma.
+            val remoteIds = VaultKind.entries.associateWith { fetchIds(it.table, userId, token) }
+            var baseline = state.baseline?.takeIf { it.user == userId.lowercase() } ?: SyncBaseline(userId.lowercase())
+            val plans = if (frozen == null) VaultKind.entries.associateWith { kind ->
+                val local = localIds.getValue(kind)
+                SyncBaseline.plan(local, remoteIds.getValue(kind), baseline.base(kind, local),
+                    dirty = dirtyAtStart.keys, fullUpsert = kind != VaultKind.Transaction)
+            } else null
+            val deletions = plans?.values?.sumOf { it.deleteRemote.size }
+                ?: if (pruneOrphans) VaultKind.entries.sumOf { (remoteIds.getValue(it) - localIds.getValue(it)).size } else 0
+            val count = state.lastSyncedCount.takeIf { it >= 0 } ?: remoteIds.values.sumOf { it.size }
+            if (!allowDestructive && DeletionGuard.requiresConfirmation(deletions, snap.count, count)) {
+                return@authed PushResult.NeedsConfirmation(deletions, count)
             }
-            upload("mt_accounts", snap.accounts.map { SyncMapper.accountRow(it, userId) }, token)
-            deleteOrphans("mt_accounts", userId, snap.accounts.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_accounts"), pruneOrphans)
 
-            // movimenti: i «sporchi» + quelli che il cloud non ha (una marcatura persa non deve mai far cancellare un movimento al pull)
-            val remoteTx = remoteIdsByTable.getValue("mt_transactions")
-            val toUpload = snap.transactions.filter { allTransactions || it.id in dirtyAtStart || it.id !in remoteTx }
-            upload("mt_transactions", toUpload.map { SyncMapper.transactionRow(it, userId) }, token)
-            if (frozen == null) state.clearDirty(dirtyAtStart.filterKeys { id -> toUpload.any { it.id == id } })
-            deleteOrphans("mt_transactions", userId, snap.transactions.map { it.id }.toSet(), token, remoteTx, pruneOrphans)
+            suspend fun <T> syncTable(kind: VaultKind, rows: List<T>, id: (T) -> String, row: (T, String) -> JsonObject) {
+                val remote = remoteIds.getValue(kind)
+                val plan = plans?.getValue(kind)
+                val selected = rows.filter {
+                    val key = id(it)
+                    if (plan != null) key in plan.upload
+                    else kind != VaultKind.Transaction || allTransactions || key in dirtyAtStart || key !in remote
+                }
+                upload(kind.table, selected.map { row(it, userId) }, token)
+                val toDelete = plan?.deleteRemote ?: if (pruneOrphans) remote - localIds.getValue(kind) else emptySet()
+                if (toDelete.isNotEmpty()) api.deleteIn(kind.table, toDelete.map { it.uppercase() }, userId, token)
+                if (plan != null) {
+                    if (auth.userId != userId) throw NotSignedInException()
+                    baseline = baseline.recordPush(kind, plan)
+                    state.baseline = baseline
+                    if (kind == VaultKind.Transaction) {
+                        val completed = plan.upload + plan.deletedElsewhere
+                        state.clearDirty(dirtyAtStart.filterKeys { it in completed })
+                    }
+                }
+            }
 
-            upload("mt_budgets", snap.budgets.map { SyncMapper.budgetRow(it, userId) }, token)
-            deleteOrphans("mt_budgets", userId, snap.budgets.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_budgets"), pruneOrphans)
-            upload("mt_goals", snap.goals.map { SyncMapper.goalRow(it, userId) }, token)
-            deleteOrphans("mt_goals", userId, snap.goals.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_goals"), pruneOrphans)
-            upload("mt_recurring_rules", snap.rules.map { SyncMapper.ruleRow(it, userId) }, token)
-            deleteOrphans("mt_recurring_rules", userId, snap.rules.map { it.id }.toSet(), token, remoteIdsByTable.getValue("mt_recurring_rules"), pruneOrphans)
+            syncTable(VaultKind.Account, snap.accounts, AccountEntity::id, SyncMapper::accountRow)
+            syncTable(VaultKind.Transaction, snap.transactions, TransactionEntity::id, SyncMapper::transactionRow)
+            syncTable(VaultKind.Budget, snap.budgets, BudgetEntity::id, SyncMapper::budgetRow)
+            syncTable(VaultKind.Goal, snap.goals, GoalEntity::id, SyncMapper::goalRow)
+            syncTable(VaultKind.Rule, snap.rules, RecurringRuleEntity::id, SyncMapper::ruleRow)
             if (frozen == null) state.lastSyncedCount = snap.count
             PushResult.Done
         }
@@ -182,23 +199,20 @@ class SyncEngine(
             (o["id"] as? kotlinx.serialization.json.JsonPrimitive)?.content?.lowercase() ?: throw SyncFormatException("id mancante")
         }.toSet()
 
-    /** Una sola richiesta di cancellazione per i record remoti assenti in locale. */
-    private suspend fun deleteOrphans(
-        table: String, userId: String, localIds: Set<String>, token: String, remoteIds: Set<String>, pruneOrphans: Boolean,
-    ) {
-        if (!pruneOrphans) return
-        val orphans = remoteIds - localIds
-        if (orphans.isNotEmpty()) api.deleteIn(table, orphans.map { it.uppercase() }, userId, token)
-    }
+    private fun Snapshot.idsByKind() = mapOf(
+        VaultKind.Account to accounts.map { it.id }.toSet(),
+        VaultKind.Transaction to transactions.map { it.id }.toSet(),
+        VaultKind.Budget to budgets.map { it.id }.toSet(),
+        VaultKind.Goal to goals.map { it.id }.toSet(),
+        VaultKind.Rule to rules.map { it.id }.toSet(),
+    )
 
     /** Scarica tutto, calcola le modifiche e le applica in un'unica transazione. */
-    suspend fun pull(): PullOutcome {
+    suspend fun pull(forMigration: Boolean = false): PullOutcome {
         val userId = auth.userId ?: return PullOutcome.Failed
         return try {
             val (remote, ignored) = auth.authed { token ->
                 val accounts = decode(api.selectAll("mt_accounts", userId, token), SyncMapper::account)
-                // remoto senza conti: le altre tabelle non contano (la guardia del merge impedisce di cancellare il locale)
-                if (!completeSnapshot && accounts.items.isEmpty() && accounts.ignored.isEmpty()) return@authed Snapshot() to IgnoredIds()
                 val tx = decode(api.selectAll("mt_transactions", userId, token), SyncMapper::transaction)
                 val budgets = decode(api.selectAll("mt_budgets", userId, token), SyncMapper::budget)
                 val goals = decode(api.selectAll("mt_goals", userId, token), SyncMapper::goal)
@@ -210,8 +224,29 @@ class SyncEngine(
             }
             // il locale si legge DOPO le richieste: nessuna finestra in cui una modifica nuova sembri «assente sul remoto»
             val local = store.snapshot()
-            val plan = SyncMerge.plan(local, remote, state.dirty().keys, ignored) ?: return PullOutcome.Skipped
+            val localIds = local.idsByKind()
+            val remoteIds = remote.idsByKind()
+            val ignoredIds = mapOf(
+                VaultKind.Account to ignored.accounts, VaultKind.Transaction to ignored.transactions,
+                VaultKind.Budget to ignored.budgets, VaultKind.Goal to ignored.goals, VaultKind.Rule to ignored.rules,
+            ).mapValues { (_, ids) -> ids.filterNot { it.startsWith("?") }.toSet() }
+            val previous = state.baseline?.takeIf { !forMigration && it.user == userId.lowercase() }
+            val remoteTransactions = remoteIds.getValue(VaultKind.Transaction) + ignored.transactions
+            val deletedTx = (localIds.getValue(VaultKind.Transaction) - remoteTransactions) intersect
+                previous?.base(VaultKind.Transaction).orEmpty()
+            val dirty = state.dirty()
+            val plan = SyncMerge.plan(local, remote, dirty.keys - deletedTx, ignored,
+                knownRuleIds = previous?.base(VaultKind.Rule).orEmpty()) ?: return PullOutcome.Skipped
+            if (auth.userId != userId) return PullOutcome.Failed
             if (!plan.isEmpty) store.apply(plan)
+            if (auth.userId != userId) return PullOutcome.Failed
+            if (!forMigration) {
+                val known = remoteIds.map { (kind, ids) -> kind.wire to (ids + ignoredIds.getValue(kind)) }.toMap()
+                val unseenIgnored = ignoredIds.map { (kind, ids) -> kind.wire to (ids - localIds.getValue(kind)) }
+                    .filter { (_, ids) -> ids.isNotEmpty() }.toMap()
+                state.baseline = SyncBaseline(userId.lowercase(), known, ignoredWithoutLocal = unseenIgnored)
+                if (deletedTx.isNotEmpty()) state.clearDirty(dirty.filterKeys { it in deletedTx })
+            }
             lastIgnoredRows = ignored.count
             state.lastSyncedCount = if (plan.isEmpty) local.count else store.snapshot().count
             state.lastPull = nowMillis()
@@ -253,6 +288,7 @@ class SyncEngine(
             runCatching { store.clear() }.onFailure { return LoginSyncResult.Failed }
             state.syncedUserId = null
             state.lastSyncedCount = -1
+            state.baseline = null
             state.clearDirty(state.dirty())
             state.hasPendingChanges = false
         }
@@ -279,7 +315,11 @@ class SyncEngine(
         }
         val local = store.snapshot()
         if (remoteEmpty) {
-            // nuovo utente o primo dispositivo: i dati locali vanno sul cloud
+            // I movimenti creati prima del primo accesso non erano osservati dal dirty tracking.
+            if (!canPush(userId) && state.baseline?.user != userId.lowercase()) {
+                val unmarked = local.transactions.map { it.id } - state.dirty().keys
+                if (unmarked.isNotEmpty()) state.markDirty(unmarked, nowMillis())
+            }
             state.lastUserId = userId
             state.syncedUserId = userId
             return if (push()) LoginSyncResult.Pushed else { state.syncedUserId = null; LoginSyncResult.Failed }
@@ -308,6 +348,7 @@ class SyncEngine(
         state.syncedUserId = null
         state.lastUserId = null
         state.lastSyncedCount = -1
+        state.baseline = null
         state.clearDirty(state.dirty())
         state.hasPendingChanges = false
     }
