@@ -351,3 +351,8 @@ La riparazione in chiaro usa una RPC condizionale che aggiorna soltanto `account
 - D3 sì: nel mese corrente anche i pianificati a mano stanno al loro giorno.
 - D4 ok: eliminare NextMonthSummaryTests.swift e NextMonthSummaryTest.kt; adattare solo la navigazione di DemoShowcaseUITests, RecurrenceAppearanceUITests, RecurrenceCancelAndHomeUITests (asserzioni identiche).
 - D1 = a: in Ricorrenti si vedono tutte le occorrenze del mese (già avvenute, da confermare, future); la differenza è visiva. «Niente passato» = niente storico dei mesi precedenti.
+
+## 2026-11-28 00:35 · S-70k: nel comando «ultima usata» = solo storico stesso nome (come l'app)
+- **Cosa:** il comando «Aggiungi movimento» propone le categorie con la stessa regola di AddTransactionView; tolta la riga «categoria dell'ultima spesa in assoluto».
+- **Perché:** Matteo (prova S-70d) trovava «Svago · ultima usata» per «supermercato», mai usato: etichetta ingannevole.
+- **Scartato:** tenere entrambe le righe (regola S-70a/S-70i).
