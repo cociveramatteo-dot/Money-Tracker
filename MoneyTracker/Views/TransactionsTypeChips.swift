@@ -3,19 +3,14 @@ import SwiftUI
 struct TransactionsTypeChips: View {
     let typeChipHeight: CGFloat
     @Binding var selectedType: TxFilter
-    @Binding var navPath: [TxFilter]
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 6) {
                 ForEach([TxFilter.tutti, .fisse, .trasf, .uscite, .entrate, .ricorrenti], id: \.self) { f in
                     Button {
-                        if f == .ricorrenti {
-                            navPath.append(.ricorrenti)
-                        } else {
-                            withAnimation(.easeInOut(duration: 0.15)) {
-                                selectedType = f
-                            }
+                        withAnimation(.easeInOut(duration: 0.15)) {
+                            selectedType = f
                         }
                     } label: {
                         Text(LocalizedStringKey(f.rawValue))

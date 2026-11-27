@@ -39,7 +39,9 @@ struct TransactionsView: View {
             .filter { occ in
                 !realIDs.contains(occ.id) && (selectedCat.isEmpty || occ.category == selectedCat)
                     && (query.isEmpty || occ.name.localizedCaseInsensitiveContains(query))
-                    && (selectedType == .tutti || selectedType == .fisse && occ.isFixed
+                    && (selectedType == .tutti
+                        || selectedType == .ricorrenti
+                        || selectedType == .fisse && occ.isFixed
                         || selectedType == .uscite && occ.type == TransactionType.uscita.rawValue
                         || selectedType == .entrate && occ.type == TransactionType.entrata.rawValue)
                     && (minAmt.map { occ.amount >= $0 } ?? true)
@@ -62,13 +64,9 @@ struct TransactionsView: View {
     @State private var selectedMonth            = Date()
     @State private var selectedCat              = ""
     @State private var hubSearchQuery           = ""
-    @State private var sectionSearch            = ""
-    @State private var recurringCategory        = ""
     @State private var editing: Transaction?    = nil
     @State private var showSettings             = false
     @State private var showAdvancedFilter       = false
-    @State private var selectedSeries: RecurringSeries? = nil
-    @State private var navPath: [TxFilter]      = []
     @FocusState private var searchFocused: Bool
     // Pending transfer delete — shows confirmationDialog before removing both legs.
     @State private var transferToDelete: Transaction? = nil
@@ -112,6 +110,21 @@ struct TransactionsView: View {
         let minAmt = Decimal.parseAmount(filterMinAmount)
         let maxAmt = Decimal.parseAmount(filterMaxAmount)
         let query  = hubSearchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+        if f == .ricorrenti {
+            let ruleIDs = Set(rules.map { $0.id.uuidString })
+            return RecurringSectionFilter.filterTransactions(
+                all,
+                ruleIDs: ruleIDs,
+                selectedMonth: selectedMonth,
+                query: query,
+                selectedCategory: selectedCat,
+                minAmount: minAmt,
+                maxAmount: maxAmt,
+                useCustomDates: filterUseCustomDates,
+                fromDate: filterFromDate,
+                toDate: filterToDate
+            ).sortedForDisplay()
+        }
         return all.filter { t in
             if filterUseCustomDates {
                 let from = Calendar.current.startOfDay(for: filterFromDate)
@@ -124,7 +137,7 @@ struct TransactionsView: View {
             switch f {
             case .tutti:      break
             case .fisse:      if !t.isFixed    { return false }
-            case .ricorrenti: return false   // non passa da qui, vedi recurringSeries(matchingCategory:)
+            case .ricorrenti: break
             case .trasf:      if !t.isTransfer { return false }
             // Una gamba di trasferimento ha comunque type .uscita/.entrata (serve a far
             // quadrare i due conti), ma non è una spesa/entrata reale — va in Trasf., non qui.
@@ -146,43 +159,10 @@ struct TransactionsView: View {
         }
     }
 
-    // "Ricorrenti" è all-time (ignora il mese) e usa il rilevamento automatico
-    // invece del filtro per tipo/mese di `filtered(for:)`.
-    private func recurringSeries(matchingCategory: String) -> [RecurringSeries] {
-        let detected = detectedSeries()
-        let bySearch = sectionSearch.isEmpty
-            ? detected
-            : detected.filter { $0.name.localizedCaseInsensitiveContains(sectionSearch) }
-        return matchingCategory.isEmpty ? bySearch : bySearch.filter { $0.category == matchingCategory }
-    }
-
-    /// Il rilevamento ordina e raggruppa tutti i movimenti: si rifà solo se cambia qualcosa che legge.
-    private final class SeriesCache {
-        var fingerprint: Int?
-        var value: [RecurringSeries] = []
-    }
-    @State private var seriesCache = SeriesCache()
-
-    private func detectedSeries() -> [RecurringSeries] {
-        var hasher = Hasher()
-        for t in all {
-            hasher.combine(t.id); hasher.combine(t.name); hasher.combine(t.category)
-            hasher.combine(t.type); hasher.combine(t.date); hasher.combine(t.amount)
-            hasher.combine(t.isDone); hasher.combine(t.isTransfer); hasher.combine(t.recurringFrequency)
-            hasher.combine(t.categoryIcon)
-        }
-        let fingerprint = hasher.finalize()
-        if seriesCache.fingerprint != fingerprint {
-            seriesCache.value = RecurringSeriesDetector.detect(from: all)
-            seriesCache.fingerprint = fingerprint
-        }
-        return seriesCache.value
-    }
-
     // MARK: - Body
 
     var body: some View {
-        NavigationStack(path: $navPath) {
+        NavigationStack {
             VStack(spacing: 0) {
                 HStack(spacing: DS.Space.m) {
                     Text("Movimenti")
@@ -239,10 +219,15 @@ struct TransactionsView: View {
                 let currentList = filtered(for: selectedType)
                 let virtual = virtualOccurrences
                 if currentList.isEmpty && virtual.isEmpty {
+                    let queryEmpty = hubSearchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                     EmptyStateView(
-                        icon: hubSearchQuery.isEmpty ? "tray" : "magnifyingglass",
-                        title: hubSearchQuery.isEmpty ? "Nessun movimento" : "Nessun risultato",
-                        subtitle: hubSearchQuery.isEmpty ? "I movimenti di questo periodo appariranno qui." : "Nessun movimento corrisponde alla ricerca."
+                        icon: queryEmpty ? "tray" : "magnifyingglass",
+                        title: queryEmpty ? "Nessun movimento" : "Nessun risultato",
+                        subtitle: !queryEmpty
+                            ? "Nessun movimento corrisponde alla ricerca."
+                            : selectedType == .ricorrenti
+                                ? "Nessuna serie programmata in questo mese."
+                                : "I movimenti di questo periodo appariranno qui."
                     )
                     Spacer()
                 } else {
@@ -254,14 +239,9 @@ struct TransactionsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(.hidden, for: .navigationBar)
             .onChange(of: hubSearchQuery) { _, v in
-                isSearchActive?.wrappedValue = navPath.isEmpty && (!v.isEmpty || searchFocused)
+                isSearchActive?.wrappedValue = !v.isEmpty || searchFocused
             }
-            .onChange(of: searchFocused)  { _, f in isSearchActive?.wrappedValue = navPath.isEmpty && (f || !hubSearchQuery.isEmpty) }
-            .onChange(of: navPath) { _, path in
-                if !path.isEmpty { searchFocused = false }
-                isSearchActive?.wrappedValue = path.isEmpty && (!hubSearchQuery.isEmpty || searchFocused)
-            }
-            .navigationDestination(for: TxFilter.self) { f in subListContent(for: f) }
+            .onChange(of: searchFocused)  { _, f in isSearchActive?.wrappedValue = f || !hubSearchQuery.isEmpty }
             .sheet(item: $editing) { AddTransactionView(editing: $0) }
             .sheet(item: $recurrenceSelection) { RecurrenceEditorView(selection: $0) }
             .sheet(item: $transferEditing) { AddTransferView(editing: $0) }
@@ -269,7 +249,6 @@ struct TransactionsView: View {
             .tint(DS.ink)
             .themedNavBar()
             .sheet(isPresented: $showSettings) { SettingsView() }
-            .sheet(item: $selectedSeries) { s in RecurringSeriesDetailView(seriesID: s.id) }
             .transferDeleteConfirmation(pending: $transferToDelete, onConfirm: deleteTransactionOrPair)
         }
     }
@@ -283,7 +262,7 @@ struct TransactionsView: View {
     // MARK: - Presentation
 
     private var typeChips: some View {
-        TransactionsTypeChips(typeChipHeight: typeChipHeight, selectedType: $selectedType, navPath: $navPath)
+        TransactionsTypeChips(typeChipHeight: typeChipHeight, selectedType: $selectedType)
     }
 
     private var secondaryChips: some View {
@@ -407,7 +386,7 @@ struct TransactionsView: View {
 
     @ViewBuilder
     private func virtualCell(_ occ: Occurrence) -> some View {
-        MovementRow(
+        let row = MovementRow(
             name: occ.name,
             metadata: [NSLocalizedString(occ.isFixed ? "Fissa" : occ.category, comment: ""), occ.date.dayMonthFormatted]
                 .filter { !$0.isEmpty }.joined(separator: " · "),
@@ -421,80 +400,27 @@ struct TransactionsView: View {
         )
         .padding(.horizontal, 14)
         .contentShape(Rectangle())
-        .accessibilityIdentifier("virtualRow_\(occ.id.uuidString)")
-        .accessibilityValue(Text("Pianificato"))
-        .onTapGesture {
-            if let rule = rules.first(where: { $0.id == occ.ruleId }) {
-                recurrenceSelection = RecurrenceSelection(rule: rule, occurrence: occ)
-            }
-        }
-    }
 
-    // MARK: - Sezione Ricorrenti (l'unica che resta pagina a sé)
-
-    @ViewBuilder
-    private func subListContent(for f: TxFilter) -> some View {
-        if f == .ricorrenti {
-            VStack(spacing: 0) {
-                searchField($sectionSearch, identifier: "tf_sectionSearch")
-                    .padding(.horizontal, DS.Layout.margin)
-                    .padding(.top, DS.Space.s)
-                    .padding(.bottom, DS.Space.xs)
-
-                if !categories.isEmpty {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: DS.Space.s) {
-                            FilterChip(title: Text(String(localized: "Tutte le categorie")), isActive: recurringCategory.isEmpty, style: .secondary) {
-                                recurringCategory = ""
-                            }
-                            ForEach(categories) { cat in
-                                filterChip(cat.name, active: recurringCategory == cat.name) {
-                                    recurringCategory = (recurringCategory == cat.name ? "" : cat.name)
-                                }
-                            }
-                        }
-                        .padding(.horizontal, DS.Layout.margin)
-                        .padding(.vertical, DS.Space.s)
-                    }
+        if selectedType == .ricorrenti {
+            Button {
+                if let rule = rules.first(where: { $0.id == occ.ruleId }) {
+                    recurrenceSelection = RecurrenceSelection(rule: rule, occurrence: occ)
                 }
-
-                let series = recurringSeries(matchingCategory: recurringCategory)
-                if series.isEmpty && rules.isEmpty {
-                    EmptyStateView(
-                        icon: "arrow.triangle.2.circlepath",
-                        title: "Nessuna serie ricorrente",
-                        subtitle: "I pagamenti che si ripetono per almeno 2 mesi appariranno qui."
-                    )
-                    Spacer()
-                } else {
-                    ScrollView {
-                        LazyVStack(spacing: DS.Space.m) {
-                            SectionLabel(text: "Serie programmate")
-                            ForEach(rules.filter { (recurringCategory.isEmpty || $0.category == recurringCategory) && (sectionSearch.isEmpty || $0.name.localizedCaseInsensitiveContains(sectionSearch)) }) { rule in
-                                ProgrammedRuleCard(rule: rule) { recurrenceSelection = $0 }
-                            }
-                            ForEach(series) { s in
-                                RecurringSeriesCard(series: s)
-                                    .contentShape(Rectangle())
-                                    .onTapGesture { selectedSeries = s }
-                            }
-                            Color.clear.frame(height: 100)
-                        }
-                        .padding(.horizontal, DS.Layout.margin)
-                        .padding(.top, DS.Space.m)
-                    }
-                    .scrollIndicators(.hidden)
-                }
+            } label: {
+                row
             }
-            .background(DS.paper)
-            .toolbar(.visible, for: .navigationBar)
-            .navigationTitle(Text(LocalizedStringKey(f.rawValue)))
-            .navigationBarTitleDisplayMode(.inline)
-            .onDisappear { sectionSearch = ""; recurringCategory = "" }
-            .transferDeleteConfirmation(pending: $transferToDelete, onConfirm: deleteTransactionOrPair)
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("editRecurrence_\(occ.name)")
+            .accessibilityValue(Text("Pianificato"))
         } else {
-            // Fallback difensivo nel caso improbabile di navigazione
-            movementList(filtered(for: f), virtual: virtualOccurrences)
+            row
+                .accessibilityIdentifier("virtualRow_\(occ.id.uuidString)")
+                .accessibilityValue(Text("Pianificato"))
+                .onTapGesture {
+                    if let rule = rules.first(where: { $0.id == occ.ruleId }) {
+                        recurrenceSelection = RecurrenceSelection(rule: rule, occurrence: occ)
+                    }
+                }
         }
     }
 
@@ -514,7 +440,7 @@ struct TransactionsView: View {
 
     @ViewBuilder
     private func transactionCell(_ t: Transaction, ruleIDs: Set<String>) -> some View {
-        MovementRow(
+        let row = MovementRow(
             name: t.name,
             metadata: (t.isDone
                 ? [NSLocalizedString(t.category, comment: ""), t.account?.name ?? ""]
@@ -530,17 +456,34 @@ struct TransactionsView: View {
         )
         .padding(.horizontal, 14)
         .contentShape(Rectangle())
-        .accessibilityIdentifier("txRow_\(t.id.uuidString)")
-        .accessibilityValue(Text(t.isDone ? "Fatto" : "Pianificato"))
-        .onTapGesture {
-            // I trasferimenti sono 2 transazioni collegate (transferGroupId): l'editor
-            // generico modificherebbe solo una delle due gambe, disallineando i saldi
-            // dei due conti coinvolti — per questo usano AddTransferView (che aggiorna
-            // entrambe le gambe) invece dell'editor generico.
-            if t.isTransfer {
-                transferEditing = t
+
+        Group {
+            if selectedType == .ricorrenti {
+                Button {
+                    if let selection = RecurrenceSelection.resolve(t, rules: rules) {
+                        recurrenceSelection = selection
+                    }
+                } label: {
+                    row
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("editRecurrence_\(t.name)")
+                .accessibilityValue(Text(t.isDone ? "Fatto" : "Pianificato"))
             } else {
-                editing = t
+                row
+                    .accessibilityIdentifier("txRow_\(t.id.uuidString)")
+                    .accessibilityValue(Text(t.isDone ? "Fatto" : "Pianificato"))
+                    .onTapGesture {
+                        // I trasferimenti sono 2 transazioni collegate (transferGroupId): l'editor
+                        // generico modificherebbe solo una delle due gambe, disallineando i saldi
+                        // dei due conti coinvolti — per questo usano AddTransferView (che aggiorna
+                        // entrambe le gambe) invece dell'editor generico.
+                        if t.isTransfer {
+                            transferEditing = t
+                        } else {
+                            editing = t
+                        }
+                    }
             }
         }
         // long press → elimina, + interrompi ricorrenza da qualunque occorrenza della serie
@@ -556,7 +499,7 @@ struct TransactionsView: View {
         }
     }
 
-    // MARK: - Riga con swipe actions (riusata da tutte le sezioni non-Ricorrenti)
+    // MARK: - Riga con swipe actions (riusata da tutte le sezioni)
 
     @ViewBuilder
     private func swipeableRow(_ t: Transaction, ruleIDs: Set<String>, isFirst: Bool, isLast: Bool) -> some View {
@@ -610,10 +553,6 @@ struct TransactionsView: View {
     }
 
     // MARK: - Helpers
-
-    private func filterChip(_ label: String, active: Bool, action: @escaping () -> Void) -> some View {
-        FilterChip(title: DS.categoryText(label), isActive: active, style: .secondary, action: action)
-    }
 
     private func toggleTransferOrFixed(_ t: Transaction) {
         let newValue = !t.isDone

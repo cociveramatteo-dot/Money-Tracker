@@ -40,7 +40,6 @@
     <string name="apri_shortcut" formatted="false">Open Shortcuts</string>
     <string name="archivia" formatted="false">Archive</string>
     <string name="archiviati" formatted="false">Archived</string>
-    <string name="attiva" formatted="false">Active</string>
     <string name="attiva_modalita_demo" formatted="false">Enable demo mode</string>
     <string name="autunno" formatted="false">Autumn</string>
     <string name="avanti" formatted="false">Next</string>
@@ -120,7 +119,6 @@
     <string name="gia_risparmiato" formatted="false">Already saved</string>
     <string name="home" formatted="false">Home</string>
     <string name="i_movimenti_di_questo_periodo_apparirann" formatted="false">Transactions from this period will appear here.</string>
-    <string name="i_pagamenti_che_si_ripetono_per_almeno_2" formatted="false">Payments that repeat for at least 2 months will appear here.</string>
     <string name="i_tuoi_dati_reali_restano_intatti_e_priv" formatted="false">Your real data remains intact and private</string>
     <string name="i_valori_della_ricorrenza_non_sono_valid" formatted="false">The recurrence values are invalid.</string>
     <string name="icona" formatted="false">Icon</string>
@@ -197,7 +195,6 @@
     <string name="nessuna" formatted="false">None</string>
     <string name="nessuna_categoria_personalizzata_premi_p" formatted="false">No custom categories.\nTap + to add one.</string>
     <string name="nessuna_scadenza" formatted="false">No deadline</string>
-    <string name="nessuna_serie_ricorrente" formatted="false">No recurring series</string>
     <string name="nessuna_spesa_pianificata" formatted="false">No planned expenses</string>
     <string name="nessuna_spesa_questo_mese" formatted="false">No expenses this month.</string>
     <string name="nessuna_uscita_questo_mese" formatted="false">No expenses this month.</string>
@@ -236,7 +233,6 @@
     <string name="progresso_complessivo" formatted="false">Overall progress</string>
     <string name="progresso_totale" formatted="false">Total progress</string>
     <string name="promemoria_il_1_di_ogni_mese_per_generar" formatted="false">Reminder on the 1st of every month to generate the PDF report</string>
-    <string name="prossima_occorrenza" formatted="false">Next occurrence</string>
     <string name="quale_categoria_per_questa_spesa" formatted="false">What category for this expense?</string>
     <string name="quale_conto_hai_usato" formatted="false">Which account did you use?</string>
     <string name="quanto_hai_ricevuto" formatted="false">How much did you receive?</string>
@@ -277,7 +273,6 @@
     <string name="segna_come_pianificato" formatted="false">Mark as planned</string>
     <string name="seleziona_almeno_una_categoria_o_un_cont" formatted="false">Select at least one category or account.</string>
     <string name="serie_eliminata" formatted="false">Series deleted</string>
-    <string name="serie_programmate" formatted="false">Scheduled series</string>
     <string name="settimana" formatted="false">Week</string>
     <string name="settimanale" formatted="false">Weekly</string>
     <string name="sforato" formatted="false">Exceeded</string>
@@ -303,8 +298,6 @@
     <string name="tema" formatted="false">Theme</string>
     <string name="termina_da_qui" formatted="false">End from here</string>
     <string name="termina_dopo_questa" formatted="false">End after this occurrence</string>
-    <string name="termina_il" formatted="false">Ends on</string>
-    <string name="terminata" formatted="false">Ended</string>
     <string name="tipo" formatted="false">Type</string>
     <string name="tocca_per_segnare_come_da_pagare" formatted="false">Tap to mark as to pay</string>
     <string name="tocca_per_segnare_come_pagata" formatted="false">Tap to mark as paid</string>
@@ -600,4 +593,5 @@
     <string name="abitudini" formatted="false">Habits</string>
     <string name="nessuna_abitudine" formatted="false">No habits yet</string>
     <string name="abitudini_vuoto" formatted="false">Transactions repeated at least 3 times in 3 different months will appear here.</string>
+    <string name="nessuna_serie_programmata_mese" formatted="false">No scheduled series this month.</string>
 </resources>

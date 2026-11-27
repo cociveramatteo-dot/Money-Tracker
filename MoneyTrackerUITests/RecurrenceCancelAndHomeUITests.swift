@@ -5,8 +5,8 @@ final class RecurrenceCancelAndHomeUITests: MoneyTrackerUITestCase {
     func testCancelProgrammedSeriesDeletion() {
         goToTab("Movimenti")
         openTransactionsSection("Ricorrenti")
-        enterTransactionField("tf_sectionSearch", text: "Bolletta Enel\n")
-        let bill = app.buttons["editRecurrence_Bolletta Enel"]
+        enterTransactionField("tf_searchTransactions", text: "Bolletta Enel\n")
+        let bill = app.buttons["editRecurrence_Bolletta Enel"].firstMatch
         XCTAssertTrue(bill.waitForExistence(timeout: 5))
         bill.tap()
 

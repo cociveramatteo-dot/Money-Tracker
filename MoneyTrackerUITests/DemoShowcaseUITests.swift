@@ -23,8 +23,8 @@ final class DemoShowcaseUITests: MoneyTrackerUITestCase {
         capture("S26-ricorrenze")
         // Rules have no fixed display order. Full-screen swipes can skip the
         // bill's action between the fixed header and floating tab bar.
-        enterTransactionField("tf_sectionSearch", text: "Bolletta Enel\n")
-        let bill = app.buttons["editRecurrence_Bolletta Enel"]
+        enterTransactionField("tf_searchTransactions", text: "Bolletta Enel\n")
+        let bill = app.buttons["editRecurrence_Bolletta Enel"].firstMatch
         XCTAssertTrue(XCTWaiter.wait(for: [XCTNSPredicateExpectation(
             predicate: NSPredicate(format: "hittable == true"), object: bill)], timeout: 5) == .completed,
             "Prossima occorrenza di Bolletta Enel non raggiungibile dopo la ricerca")

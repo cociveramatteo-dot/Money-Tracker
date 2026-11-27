@@ -40,7 +40,6 @@
     <string name="apri_shortcut" formatted="false">Kurzbefehle öffnen</string>
     <string name="archivia" formatted="false">Archivieren</string>
     <string name="archiviati" formatted="false">Archiviert</string>
-    <string name="attiva" formatted="false">Aktiv</string>
     <string name="attiva_modalita_demo" formatted="false">Demo-Modus aktivieren</string>
     <string name="autunno" formatted="false">Herbst</string>
     <string name="avanti" formatted="false">Weiter</string>
@@ -120,7 +119,6 @@
     <string name="gia_risparmiato" formatted="false">Bereits gespart</string>
     <string name="home" formatted="false">Startseite</string>
     <string name="i_movimenti_di_questo_periodo_apparirann" formatted="false">Buchungen aus diesem Zeitraum erscheinen hier.</string>
-    <string name="i_pagamenti_che_si_ripetono_per_almeno_2" formatted="false">Zahlungen, die sich mindestens 2 Monate lang wiederholen, erscheinen hier.</string>
     <string name="i_tuoi_dati_reali_restano_intatti_e_priv" formatted="false">Deine echten Daten bleiben unberührt und privat</string>
     <string name="i_valori_della_ricorrenza_non_sono_valid" formatted="false">Die Werte der Wiederholung sind ungültig.</string>
     <string name="icona" formatted="false">Symbol</string>
@@ -197,7 +195,6 @@
     <string name="nessuna" formatted="false">Keine</string>
     <string name="nessuna_categoria_personalizzata_premi_p" formatted="false">Keine benutzerdefinierten Kategorien.\nTippe + um eine hinzuzufügen.</string>
     <string name="nessuna_scadenza" formatted="false">Keine Frist</string>
-    <string name="nessuna_serie_ricorrente" formatted="false">Keine wiederkehrende Reihe</string>
     <string name="nessuna_spesa_pianificata" formatted="false">Keine geplanten Ausgaben</string>
     <string name="nessuna_spesa_questo_mese" formatted="false">Keine Ausgaben diesen Monat.</string>
     <string name="nessuna_uscita_questo_mese" formatted="false">Keine Ausgaben diesen Monat.</string>
@@ -236,7 +233,6 @@
     <string name="progresso_complessivo" formatted="false">Gesamtfortschritt</string>
     <string name="progresso_totale" formatted="false">Gesamtfortschritt</string>
     <string name="promemoria_il_1_di_ogni_mese_per_generar" formatted="false">Erinnerung am 1. jeden Monats zur Erstellung des PDF-Berichts</string>
-    <string name="prossima_occorrenza" formatted="false">Nächster Termin</string>
     <string name="quale_categoria_per_questa_spesa" formatted="false">Welche Kategorie für diese Ausgabe?</string>
     <string name="quale_conto_hai_usato" formatted="false">Welches Konto hast du verwendet?</string>
     <string name="quanto_hai_ricevuto" formatted="false">Wie viel hast du erhalten?</string>
@@ -277,7 +273,6 @@
     <string name="segna_come_pianificato" formatted="false">Als geplant markieren</string>
     <string name="seleziona_almeno_una_categoria_o_un_cont" formatted="false">Wähle mindestens eine Kategorie oder ein Konto.</string>
     <string name="serie_eliminata" formatted="false">Reihe gelöscht</string>
-    <string name="serie_programmate" formatted="false">Geplante Reihen</string>
     <string name="settimana" formatted="false">Woche</string>
     <string name="settimanale" formatted="false">Wöchentlich</string>
     <string name="sforato" formatted="false">Überschritten</string>
@@ -303,8 +298,6 @@
     <string name="tema" formatted="false">Design</string>
     <string name="termina_da_qui" formatted="false">Ab hier beenden</string>
     <string name="termina_dopo_questa" formatted="false">Nach diesem Termin beenden</string>
-    <string name="termina_il" formatted="false">Endet am</string>
-    <string name="terminata" formatted="false">Beendet</string>
     <string name="tipo" formatted="false">Typ</string>
     <string name="tocca_per_segnare_come_da_pagare" formatted="false">Tippen um als zu zahlen zu markieren</string>
     <string name="tocca_per_segnare_come_pagata" formatted="false">Tippen um als bezahlt zu markieren</string>
@@ -600,4 +593,5 @@
     <string name="abitudini" formatted="false">Gewohnheiten</string>
     <string name="nessuna_abitudine" formatted="false">Noch keine Gewohnheiten</string>
     <string name="abitudini_vuoto" formatted="false">Buchungen, die sich mindestens 3-mal in 3 verschiedenen Monaten wiederholen, erscheinen hier.</string>
+    <string name="nessuna_serie_programmata_mese" formatted="false">Keine geplanten Serien in diesem Monat.</string>
 </resources>

@@ -97,8 +97,6 @@
 "volte"            = "次";
 "dal"              = "自";
 "Storico"          = "历史记录";
-"Nessuna serie ricorrente" = "暂无定期项目";
-"I pagamenti che si ripetono per almeno 2 mesi appariranno qui." = "至少连续2个月重复的付款将显示在此处。";
 "Serie eliminata"  = "系列已删除";
 "Tutte le occorrenze di questo pagamento ricorrente sono state cancellate." = "此定期付款的所有项目均已删除。";
 
@@ -453,11 +451,6 @@
 "Salta mese" = "跳过本月";
 "Termina da qui" = "从本次起结束";
 "Eliminare le occorrenze selezionate?" = "删除所选项目？";
-"Serie programmate" = "已计划的系列";
-"Terminata" = "已结束";
-"Termina il" = "结束日期";
-"Attiva" = "有效";
-"Prossima occorrenza" = "下次计划";
 "Nessuno" = "无";
 "Le ricorrenze richiedono il contesto principale." = "重复计划需要主上下文。";
 "L’occorrenza non appartiene alla serie." = "本次项目不属于此系列。";
@@ -642,3 +635,4 @@
 "Abitudini" = "习惯";
 "Nessuna abitudine" = "暂无习惯";
 "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "在 3 个不同月份中重复至少 3 次的交易将显示在这里。";
+"Nessuna serie programmata in questo mese." = "本月没有计划的系列。";

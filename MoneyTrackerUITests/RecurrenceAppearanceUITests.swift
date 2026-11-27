@@ -18,7 +18,6 @@ final class RecurrenceAppearanceUITests: MoneyTrackerUITestCase {
         next.tap()
         XCTAssertTrue(app.buttons["recurrence_scope"].waitForExistence(timeout: 5))
         app.buttons[language == "de" ? "Abbrechen" : "Annulla"].tap()
-        navigateBack()
         app.buttons["btn_monthPicker"].tap()
         app.buttons[language == "de" ? "Nächster Monat" : "Mese successivo"].tap()
         saveCapture("S18-\(language)-\(style)-\(size)-virtual")

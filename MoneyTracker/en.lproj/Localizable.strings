@@ -97,8 +97,6 @@
 "volte"            = "times";
 "dal"              = "since";
 "Storico"          = "History";
-"Nessuna serie ricorrente" = "No recurring series";
-"I pagamenti che si ripetono per almeno 2 mesi appariranno qui." = "Payments that repeat for at least 2 months will appear here.";
 "Serie eliminata"  = "Series deleted";
 "Tutte le occorrenze di questo pagamento ricorrente sono state cancellate." = "All occurrences of this recurring payment have been deleted.";
 
@@ -451,11 +449,6 @@
 "Salta mese" = "Skip month";
 "Termina da qui" = "End from here";
 "Eliminare le occorrenze selezionate?" = "Delete the selected occurrences?";
-"Serie programmate" = "Scheduled series";
-"Terminata" = "Ended";
-"Termina il" = "Ends on";
-"Attiva" = "Active";
-"Prossima occorrenza" = "Next occurrence";
 "Nessuno" = "None";
 "Le ricorrenze richiedono il contesto principale." = "Recurrences require the main context.";
 "L’occorrenza non appartiene alla serie." = "The occurrence does not belong to this series.";
@@ -640,3 +633,4 @@
 "Abitudini" = "Habits";
 "Nessuna abitudine" = "No habits yet";
 "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "Transactions repeated at least 3 times in 3 different months will appear here.";
+"Nessuna serie programmata in questo mese." = "No scheduled series this month.";

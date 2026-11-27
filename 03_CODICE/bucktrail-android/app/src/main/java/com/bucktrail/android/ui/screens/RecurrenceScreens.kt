@@ -91,70 +91,6 @@ private fun frequencyLabel(frequency: String): String = stringResource(
     when (frequency) { "mensile" -> R.string.mensile; "annuale" -> R.string.annuale; "settimanale" -> R.string.settimanale; else -> R.string.irregolare },
 )
 
-/** Avvio di una serie programmata: occorrenza di partenza per la scheda (prossima, o la prima se la serie è finita). */
-private fun nextSelection(rule: RecurringRuleEntity, today: LocalDate, zone: ZoneId): RecurringOps.Selection? {
-    val calc = RecurrenceCalculator(zone)
-    val snap = rule.toSnapshot()
-    val start = today.atStartOfDay(zone).toInstant()
-    val end = calc.addMonths(maxOf(start, snap.startDate), 24)
-    calc.occurrences(snap, start, end).firstOrNull()?.let { return RecurringOps.Selection(rule, it) }
-    val base = snap.copy(exceptions = emptyMap(), endDate = null)
-    return calc.occurrences(base, snap.startDate, snap.startDate.plusSeconds(86_400)).firstOrNull()?.let { RecurringOps.Selection(rule, it) }
-}
-
-/** Serie programmata (`ProgrammedRuleCard`): icona, nome, importo, cadenza, stato, «Prossima occorrenza» o «Modifica». */
-@Composable
-fun ProgrammedRuleCard(rule: RecurringRuleEntity, currency: String, today: LocalDate, zone: ZoneId, res: android.content.res.Resources, onSelect: (RecurringOps.Selection) -> Unit) {
-    val c = Bt.colors
-    val tint = CategoryTint.tint(rule.category).colors(c.isDark)
-    val next = remember(rule, today, zone) { nextSelection(rule, today, zone) }
-    val actual = remember(rule, today, zone) {
-        val snap = rule.toSnapshot(); val calc = RecurrenceCalculator(zone)
-        val start = today.atStartOfDay(zone).toInstant()
-        calc.occurrences(snap, start, calc.addMonths(maxOf(start, snap.startDate), 24)).firstOrNull()
-    }
-    val ended = rule.endDate?.let { Instant.ofEpochMilli(it).atZone(zone).toLocalDate().isBefore(today) } == true
-    Column(
-        Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp)).background(c.surface).border(1.dp, c.fog, RoundedCornerShape(18.dp)).padding(16.dp).testTag("ruleCard_${rule.name}"),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.Top) {
-            Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(tint.background), contentAlignment = Alignment.Center) {
-                Icon(SfIcons.forName(rule.categoryIcon.ifEmpty { "circle.dotted" }), null, tint = tint.foreground, modifier = Modifier.size(19.dp))
-            }
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.Top) {
-                    Text(rule.name, style = Typo.rowName, color = c.ink, modifier = Modifier.weight(1f))
-                    Text(Fmt.currency(Amounts.fromCents(rule.amountCents), currency), style = Typo.rowAmount, color = c.plannedText, maxLines = 1, softWrap = false)
-                }
-                Text(frequencyLabel(rule.frequency), style = Typo.caption, color = c.smoke)
-                val end = rule.endDate?.let { Instant.ofEpochMilli(it).atZone(zone).toLocalDate() }
-                if (end != null) {
-                    Text(stringResource(if (ended) R.string.terminata else R.string.termina_il), style = Typo.caption, color = c.smoke)
-                    Text(Fmt.dayMonth(end, LocalDate.MAX, res), style = Typo.caption, color = c.smoke)
-                } else Text(stringResource(R.string.attiva), style = Typo.caption, color = c.smoke)
-            }
-        }
-        Box(Modifier.fillMaxWidth().height(1.dp).background(c.divider))
-        if (actual != null && next != null) {
-            Row(
-                Modifier.fillMaxWidth().heightIn(min = 44.dp).clickable(role = Role.Button) { onSelect(next) }.testTag("editRecurrence_${rule.name}"),
-                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Text(
-                    stringResource(R.string.prossima_occorrenza) + " · " + Fmt.dayMonth(actual.date.atZone(zone).toLocalDate(), LocalDate.MAX, res),
-                    style = Typo.secondary, color = c.plannedText, modifier = Modifier.weight(1f),
-                )
-                Icon(SfIcons.forName("chevron.right"), null, tint = c.plannedText, modifier = Modifier.size(14.dp))
-            }
-        } else if (next != null) {
-            Box(Modifier.fillMaxWidth().heightIn(min = 44.dp).clickable(role = Role.Button) { onSelect(next) }, contentAlignment = Alignment.CenterStart) {
-                Text(stringResource(R.string.modifica), style = Typo.secondary, color = c.accent)
-            }
-        }
-    }
-}
-
 /** Serie rilevata (`RecurringSeriesCard`): conteggio, totale, proiezioni. */
 @Composable
 fun RecurringSeriesCard(series: RecurringSeries, currency: String, zone: ZoneId, res: android.content.res.Resources, modifier: Modifier = Modifier) {
@@ -213,65 +149,6 @@ fun RecurringSeriesDetailSheet(
                 }
             }
         }
-    }
-}
-
-/** Pagina «Ricorrenti» (§4.2): ricerca, categorie, serie programmate e serie rilevate. */
-@Composable
-fun RecurringPage(
-    data: com.bucktrail.android.ui.AppData, today: LocalDate, zone: ZoneId, onSelectRule: (RecurringOps.Selection) -> Unit,
-    onEditTransaction: (com.bucktrail.android.data.TransactionEntity) -> Unit, onDeleteTransaction: (com.bucktrail.android.data.TransactionEntity) -> Unit, onBack: () -> Unit,
-) {
-    val c = Bt.colors
-    val res = LocalContext.current.resources
-    val ledger = data.ledger
-    val currency = data.prefs.currencyCode
-    var query by remember { mutableStateOf("") }
-    var category by remember { mutableStateOf("") }
-    var selectedSeries by remember { mutableStateOf<String?>(null) }
-    val detected = remember(ledger.transactions, zone) { com.bucktrail.android.domain.RecurringSeriesDetector.detect(ledger.transactionData, zone) }
-    val series = detected.filter { (query.isEmpty() || it.name.contains(query, ignoreCase = true)) && (category.isEmpty() || it.category == category) }
-    val rules = ledger.rules.filter { (category.isEmpty() || it.category == category) && (query.isEmpty() || it.name.contains(query, ignoreCase = true)) }
-
-    androidx.activity.compose.BackHandler(onBack = onBack)
-    Column(Modifier.fillMaxWidth().background(c.paper)) {
-        Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 16.dp).heightIn(min = 52.dp), verticalAlignment = Alignment.CenterVertically) {
-            Box(Modifier.size(48.dp).clickable(role = Role.Button, onClick = onBack).testTag("btn_backRecurring"), contentAlignment = Alignment.Center) {
-                Box(Modifier.size(44.dp).clip(androidx.compose.foundation.shape.CircleShape).background(c.surface).border(1.dp, c.fog, androidx.compose.foundation.shape.CircleShape), contentAlignment = Alignment.Center) {
-                    Icon(SfIcons.forName("chevron.left"), stringResource(R.string.movimenti), tint = c.ink, modifier = Modifier.size(24.dp))
-                }
-            }
-            Text(stringResource(R.string.ricorrenti), style = Typo.rowName.copy(fontWeight = FontWeight.SemiBold), color = c.ink, modifier = Modifier.weight(1f), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
-            Box(Modifier.size(44.dp))
-        }
-        Row(
-            Modifier.padding(horizontal = 20.dp).padding(top = 8.dp, bottom = 4.dp).fillMaxWidth().heightIn(min = 46.dp).clip(RoundedCornerShape(16.dp)).background(c.surface)
-                .border(1.dp, c.fog, RoundedCornerShape(16.dp)).padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            Icon(SfIcons.forName("magnifyingglass"), null, tint = c.smoke, modifier = Modifier.size(18.dp))
-            Box(Modifier.weight(1f)) {
-                if (query.isEmpty()) Text(stringResource(R.string.cerca_per_nome), style = Typo.secondary.copy(fontSize = androidx.compose.ui.unit.TextUnit(15f, androidx.compose.ui.unit.TextUnitType.Sp)), color = c.smoke)
-                BasicTextField(query, { query = it }, singleLine = true, textStyle = Typo.rowName.copy(color = c.ink, fontWeight = FontWeight.Normal),
-                    cursorBrush = SolidColor(c.accent), modifier = Modifier.fillMaxWidth().testTag("tf_sectionSearch"))
-            }
-        }
-        if (ledger.categories.isNotEmpty()) Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            com.bucktrail.android.ui.components.FilterChip(stringResource(R.string.tutte_le_categorie), category.isEmpty(), { category = "" }, secondary = true)
-            ledger.categories.forEach { cat ->
-                com.bucktrail.android.ui.components.FilterChip(categoryLabel(cat.name), category == cat.name, { category = if (category == cat.name) "" else cat.name }, secondary = true)
-            }
-        }
-        if (detected.isEmpty() && ledger.rules.isEmpty()) {
-            EmptyState(SfIcons.forName("arrow.triangle.2.circlepath"), stringResource(R.string.nessuna_serie_ricorrente), stringResource(R.string.i_pagamenti_che_si_ripetono_per_almeno_2))
-        } else Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(top = 12.dp, bottom = 120.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) { SectionLabel(stringResource(R.string.serie_programmate)) }
-            rules.forEach { r -> androidx.compose.runtime.key(r.id) { ProgrammedRuleCard(r, currency, today, zone, res, onSelectRule) } }
-            series.forEach { s -> androidx.compose.runtime.key(s.id) { RecurringSeriesCard(s, currency, zone, res, Modifier.clickable { selectedSeries = s.id }.testTag("seriesCard_${s.name}")) } }
-        }
-    }
-    selectedSeries?.let { id ->
-        RecurringSeriesDetailSheet(detected.firstOrNull { it.id == id }, data, today, zone, onEditTransaction, onDeleteTransaction) { selectedSeries = null }
     }
 }
 

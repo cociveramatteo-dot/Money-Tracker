@@ -40,7 +40,6 @@
     <string name="apri_shortcut" formatted="false">Abrir Atajos</string>
     <string name="archivia" formatted="false">Archivar</string>
     <string name="archiviati" formatted="false">Archivados</string>
-    <string name="attiva" formatted="false">Activa</string>
     <string name="attiva_modalita_demo" formatted="false">Activar modo demo</string>
     <string name="autunno" formatted="false">Otoño</string>
     <string name="avanti" formatted="false">Siguiente</string>
@@ -120,7 +119,6 @@
     <string name="gia_risparmiato" formatted="false">Ya ahorrado</string>
     <string name="home" formatted="false">Inicio</string>
     <string name="i_movimenti_di_questo_periodo_apparirann" formatted="false">Los movimientos de este período aparecerán aquí.</string>
-    <string name="i_pagamenti_che_si_ripetono_per_almeno_2" formatted="false">Los pagos que se repiten durante al menos 2 meses aparecerán aquí.</string>
     <string name="i_tuoi_dati_reali_restano_intatti_e_priv" formatted="false">Tus datos reales permanecen intactos y privados</string>
     <string name="i_valori_della_ricorrenza_non_sono_valid" formatted="false">Los valores de la recurrencia no son válidos.</string>
     <string name="icona" formatted="false">Icono</string>
@@ -197,7 +195,6 @@
     <string name="nessuna" formatted="false">Ninguna</string>
     <string name="nessuna_categoria_personalizzata_premi_p" formatted="false">Sin categorías personalizadas.\nPulsa + para añadir una.</string>
     <string name="nessuna_scadenza" formatted="false">Sin fecha límite</string>
-    <string name="nessuna_serie_ricorrente" formatted="false">Sin series recurrentes</string>
     <string name="nessuna_spesa_pianificata" formatted="false">Sin gastos planificados</string>
     <string name="nessuna_spesa_questo_mese" formatted="false">Sin gastos este mes.</string>
     <string name="nessuna_uscita_questo_mese" formatted="false">Sin gastos este mes.</string>
@@ -236,7 +233,6 @@
     <string name="progresso_complessivo" formatted="false">Progreso total</string>
     <string name="progresso_totale" formatted="false">Progreso total</string>
     <string name="promemoria_il_1_di_ogni_mese_per_generar" formatted="false">Recordatorio el 1 de cada mes para generar el informe PDF</string>
-    <string name="prossima_occorrenza" formatted="false">Próxima ocurrencia</string>
     <string name="quale_categoria_per_questa_spesa" formatted="false">¿Qué categoría para este gasto?</string>
     <string name="quale_conto_hai_usato" formatted="false">¿Qué cuenta usaste?</string>
     <string name="quanto_hai_ricevuto" formatted="false">¿Cuánto recibiste?</string>
@@ -277,7 +273,6 @@
     <string name="segna_come_pianificato" formatted="false">Marcar como planificado</string>
     <string name="seleziona_almeno_una_categoria_o_un_cont" formatted="false">Selecciona al menos una categoría o una cuenta.</string>
     <string name="serie_eliminata" formatted="false">Serie eliminada</string>
-    <string name="serie_programmate" formatted="false">Series programadas</string>
     <string name="settimana" formatted="false">Semana</string>
     <string name="settimanale" formatted="false">Semanal</string>
     <string name="sforato" formatted="false">Superado</string>
@@ -303,8 +298,6 @@
     <string name="tema" formatted="false">Tema</string>
     <string name="termina_da_qui" formatted="false">Terminar desde aquí</string>
     <string name="termina_dopo_questa" formatted="false">Terminar después de esta</string>
-    <string name="termina_il" formatted="false">Termina el</string>
-    <string name="terminata" formatted="false">Terminada</string>
     <string name="tipo" formatted="false">Tipo</string>
     <string name="tocca_per_segnare_come_da_pagare" formatted="false">Toca para marcar como a pagar</string>
     <string name="tocca_per_segnare_come_pagata" formatted="false">Toca para marcar como pagado</string>
@@ -600,4 +593,5 @@
     <string name="abitudini" formatted="false">Hábitos</string>
     <string name="nessuna_abitudine" formatted="false">Sin hábitos</string>
     <string name="abitudini_vuoto" formatted="false">Los movimientos que se repiten al menos 3 veces en 3 meses distintos aparecerán aquí.</string>
+    <string name="nessuna_serie_programmata_mese" formatted="false">No hay series programadas este mes.</string>
 </resources>

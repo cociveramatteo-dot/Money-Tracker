@@ -97,8 +97,6 @@
 "volte"            = "veces";
 "dal"              = "desde";
 "Storico"          = "Historial";
-"Nessuna serie ricorrente" = "Sin series recurrentes";
-"I pagamenti che si ripetono per almeno 2 mesi appariranno qui." = "Los pagos que se repiten durante al menos 2 meses aparecerán aquí.";
 "Serie eliminata"  = "Serie eliminada";
 "Tutte le occorrenze di questo pagamento ricorrente sono state cancellate." = "Se han eliminado todas las repeticiones de este pago recurrente.";
 
@@ -450,11 +448,6 @@
 "Salta mese" = "Omitir mes";
 "Termina da qui" = "Terminar desde aquí";
 "Eliminare le occorrenze selezionate?" = "¿Eliminar las ocurrencias seleccionadas?";
-"Serie programmate" = "Series programadas";
-"Terminata" = "Terminada";
-"Termina il" = "Termina el";
-"Attiva" = "Activa";
-"Prossima occorrenza" = "Próxima ocurrencia";
 "Nessuno" = "Ninguna";
 "Le ricorrenze richiedono il contesto principale." = "Las recurrencias requieren el contexto principal.";
 "L’occorrenza non appartiene alla serie." = "La ocurrencia no pertenece a esta serie.";
@@ -639,3 +632,4 @@
 "Abitudini" = "Hábitos";
 "Nessuna abitudine" = "Sin hábitos";
 "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "Los movimientos que se repiten al menos 3 veces en 3 meses distintos aparecerán aquí.";
+"Nessuna serie programmata in questo mese." = "No hay series programadas este mes.";

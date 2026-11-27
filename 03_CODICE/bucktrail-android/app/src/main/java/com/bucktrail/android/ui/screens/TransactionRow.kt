@@ -43,6 +43,7 @@ fun TransactionRow(
     today: LocalDate, zone: ZoneId, res: android.content.res.Resources, recurring: Boolean = false, compact: Boolean = false,
     onEdit: (TransactionEntity) -> Unit, onDelete: (TransactionEntity) -> Unit, onToggleDone: ((TransactionEntity) -> Unit)? = null,
     onRecurrence: ((TransactionEntity) -> Unit)? = null, deleteOpensEditor: Boolean = false, homeMeta: Boolean = false,
+    tagOverride: String? = null,
 ) {
     val c = Bt.colors
     var menu by remember { mutableStateOf(false) }
@@ -64,7 +65,7 @@ fun TransactionRow(
             else SwipeAction(stringResource(R.string.pianificato), SfIcons.forName("clock"), c.smoke, c.surface)
         } else null,
         onToggle = { onToggleDone?.invoke(t) },
-        modifier = Modifier.testTag("txRow_${t.id}"),
+        modifier = Modifier.testTag(tagOverride ?: "txRow_${t.id}"),
     ) {
         Box {
             MovementRow(

@@ -72,11 +72,6 @@
 "Salta mese" = "Salta mese";
 "Termina da qui" = "Termina da qui";
 "Eliminare le occorrenze selezionate?" = "Eliminare le occorrenze selezionate?";
-"Serie programmate" = "Serie programmate";
-"Terminata" = "Terminata";
-"Termina il" = "Termina il";
-"Attiva" = "Attiva";
-"Prossima occorrenza" = "Prossima occorrenza";
 "Nessuno" = "Nessuno";
 "Tipo" = "Tipo";
 "Le ricorrenze richiedono il contesto principale." = "Le ricorrenze richiedono il contesto principale.";
@@ -217,3 +212,4 @@
 "Abitudini" = "Abitudini";
 "Nessuna abitudine" = "Nessuna abitudine";
 "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui.";
+"Nessuna serie programmata in questo mese." = "Nessuna serie programmata in questo mese.";

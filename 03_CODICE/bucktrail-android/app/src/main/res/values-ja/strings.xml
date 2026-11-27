@@ -40,7 +40,6 @@
     <string name="apri_shortcut" formatted="false">ショートカットを開く</string>
     <string name="archivia" formatted="false">アーカイブ</string>
     <string name="archiviati" formatted="false">アーカイブ済み</string>
-    <string name="attiva" formatted="false">有効</string>
     <string name="attiva_modalita_demo" formatted="false">デモモードを有効にする</string>
     <string name="autunno" formatted="false">オータム</string>
     <string name="avanti" formatted="false">次へ</string>
@@ -120,7 +119,6 @@
     <string name="gia_risparmiato" formatted="false">既に貯蓄済み</string>
     <string name="home" formatted="false">ホーム</string>
     <string name="i_movimenti_di_questo_periodo_apparirann" formatted="false">この期間の取引がここに表示されます。</string>
-    <string name="i_pagamenti_che_si_ripetono_per_almeno_2" formatted="false">2か月以上繰り返される支払いがここに表示されます。</string>
     <string name="i_tuoi_dati_reali_restano_intatti_e_priv" formatted="false">実データはそのまま安全に保たれます</string>
     <string name="i_valori_della_ricorrenza_non_sono_valid" formatted="false">繰り返しの値が無効です。</string>
     <string name="icona" formatted="false">アイコン</string>
@@ -197,7 +195,6 @@
     <string name="nessuna" formatted="false">なし</string>
     <string name="nessuna_categoria_personalizzata_premi_p" formatted="false">カスタムカテゴリがありません。\n+ をタップして追加してください。</string>
     <string name="nessuna_scadenza" formatted="false">期限なし</string>
-    <string name="nessuna_serie_ricorrente" formatted="false">定期的な支払いはありません</string>
     <string name="nessuna_spesa_pianificata" formatted="false">予定支出なし</string>
     <string name="nessuna_spesa_questo_mese" formatted="false">今月の支出はありません。</string>
     <string name="nessuna_uscita_questo_mese" formatted="false">今月の支出はありません。</string>
@@ -236,7 +233,6 @@
     <string name="progresso_complessivo" formatted="false">全体の進捗</string>
     <string name="progresso_totale" formatted="false">全体の進捗</string>
     <string name="promemoria_il_1_di_ogni_mese_per_generar" formatted="false">毎月1日にPDFレポート作成のリマインダー</string>
-    <string name="prossima_occorrenza" formatted="false">次回</string>
     <string name="quale_categoria_per_questa_spesa" formatted="false">この支出のカテゴリは何ですか？</string>
     <string name="quale_conto_hai_usato" formatted="false">どのアカウントを使いましたか？</string>
     <string name="quanto_hai_ricevuto" formatted="false">いくら受け取りましたか？</string>
@@ -277,7 +273,6 @@
     <string name="segna_come_pianificato" formatted="false">予定としてマーク</string>
     <string name="seleziona_almeno_una_categoria_o_un_cont" formatted="false">カテゴリまたは口座を少なくとも1つ選択してください。</string>
     <string name="serie_eliminata" formatted="false">シリーズが削除されました</string>
-    <string name="serie_programmate" formatted="false">予定のシリーズ</string>
     <string name="settimana" formatted="false">週</string>
     <string name="settimanale" formatted="false">毎週</string>
     <string name="sforato" formatted="false">超過</string>
@@ -303,8 +298,6 @@
     <string name="tema" formatted="false">テーマ</string>
     <string name="termina_da_qui" formatted="false">この回から終了</string>
     <string name="termina_dopo_questa" formatted="false">この回の後に終了</string>
-    <string name="termina_il" formatted="false">終了日</string>
-    <string name="terminata" formatted="false">終了済み</string>
     <string name="tipo" formatted="false">種類</string>
     <string name="tocca_per_segnare_come_da_pagare" formatted="false">タップして支払い予定としてマーク</string>
     <string name="tocca_per_segnare_come_pagata" formatted="false">タップして支払い済としてマーク</string>
@@ -599,4 +592,5 @@
     <string name="abitudini" formatted="false">習慣</string>
     <string name="nessuna_abitudine" formatted="false">習慣はまだありません</string>
     <string name="abitudini_vuoto" formatted="false">3か月以上にわたり3回以上繰り返された取引がここに表示されます。</string>
+    <string name="nessuna_serie_programmata_mese" formatted="false">今月の予定シリーズはありません。</string>
 </resources>

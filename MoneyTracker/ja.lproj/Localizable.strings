@@ -97,8 +97,6 @@
 "volte"            = "回";
 "dal"              = "から";
 "Storico"          = "履歴";
-"Nessuna serie ricorrente" = "定期的な支払いはありません";
-"I pagamenti che si ripetono per almeno 2 mesi appariranno qui." = "2か月以上繰り返される支払いがここに表示されます。";
 "Serie eliminata"  = "シリーズが削除されました";
 "Tutte le occorrenze di questo pagamento ricorrente sono state cancellate." = "この定期支払いのすべての履歴が削除されました。";
 
@@ -450,11 +448,6 @@
 "Salta mese" = "この月をスキップ";
 "Termina da qui" = "この回から終了";
 "Eliminare le occorrenze selezionate?" = "選択した回を削除しますか？";
-"Serie programmate" = "予定のシリーズ";
-"Terminata" = "終了済み";
-"Termina il" = "終了日";
-"Attiva" = "有効";
-"Prossima occorrenza" = "次回";
 "Nessuno" = "なし";
 "Le ricorrenze richiedono il contesto principale." = "繰り返しにはメインコンテキストが必要です。";
 "L’occorrenza non appartiene alla serie." = "この回はこのシリーズに属していません。";
@@ -639,3 +632,4 @@
 "Abitudini" = "習慣";
 "Nessuna abitudine" = "習慣はまだありません";
 "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "3か月以上にわたり3回以上繰り返された取引がここに表示されます。";
+"Nessuna serie programmata in questo mese." = "今月の予定シリーズはありません。";

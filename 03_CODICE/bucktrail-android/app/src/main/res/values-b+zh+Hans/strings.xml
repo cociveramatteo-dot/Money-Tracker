@@ -40,7 +40,6 @@
     <string name="apri_shortcut" formatted="false">打开快捷指令</string>
     <string name="archivia" formatted="false">归档</string>
     <string name="archiviati" formatted="false">已归档</string>
-    <string name="attiva" formatted="false">有效</string>
     <string name="attiva_modalita_demo" formatted="false">启用演示模式</string>
     <string name="autunno" formatted="false">秋天</string>
     <string name="avanti" formatted="false">下一步</string>
@@ -120,7 +119,6 @@
     <string name="gia_risparmiato" formatted="false">已储蓄</string>
     <string name="home" formatted="false">首页</string>
     <string name="i_movimenti_di_questo_periodo_apparirann" formatted="false">此期间的交易将显示在这里。</string>
-    <string name="i_pagamenti_che_si_ripetono_per_almeno_2" formatted="false">至少连续2个月重复的付款将显示在此处。</string>
     <string name="i_tuoi_dati_reali_restano_intatti_e_priv" formatted="false">您的真实数据保持完整且私密</string>
     <string name="i_valori_della_ricorrenza_non_sono_valid" formatted="false">重复计划的值无效。</string>
     <string name="icona" formatted="false">图标</string>
@@ -197,7 +195,6 @@
     <string name="nessuna" formatted="false">无</string>
     <string name="nessuna_categoria_personalizzata_premi_p" formatted="false">暂无自定义类别。\n点击 + 添加。</string>
     <string name="nessuna_scadenza" formatted="false">无截止日期</string>
-    <string name="nessuna_serie_ricorrente" formatted="false">暂无定期项目</string>
     <string name="nessuna_spesa_pianificata" formatted="false">无计划支出</string>
     <string name="nessuna_spesa_questo_mese" formatted="false">本月暂无支出。</string>
     <string name="nessuna_uscita_questo_mese" formatted="false">本月暂无支出。</string>
@@ -236,7 +233,6 @@
     <string name="progresso_complessivo" formatted="false">总体进度</string>
     <string name="progresso_totale" formatted="false">总进度</string>
     <string name="promemoria_il_1_di_ogni_mese_per_generar" formatted="false">每月1日生成PDF报告的提醒</string>
-    <string name="prossima_occorrenza" formatted="false">下次计划</string>
     <string name="quale_categoria_per_questa_spesa" formatted="false">这笔支出属于哪个类别？</string>
     <string name="quale_conto_hai_usato" formatted="false">使用了哪个账户？</string>
     <string name="quanto_hai_ricevuto" formatted="false">收到了多少？</string>
@@ -277,7 +273,6 @@
     <string name="segna_come_pianificato" formatted="false">标为计划中</string>
     <string name="seleziona_almeno_una_categoria_o_un_cont" formatted="false">请至少选择一个类别或账户。</string>
     <string name="serie_eliminata" formatted="false">系列已删除</string>
-    <string name="serie_programmate" formatted="false">已计划的系列</string>
     <string name="settimana" formatted="false">周</string>
     <string name="settimanale" formatted="false">每周</string>
     <string name="sforato" formatted="false">已超支</string>
@@ -303,8 +298,6 @@
     <string name="tema" formatted="false">主题</string>
     <string name="termina_da_qui" formatted="false">从本次起结束</string>
     <string name="termina_dopo_questa" formatted="false">本次之后结束</string>
-    <string name="termina_il" formatted="false">结束日期</string>
-    <string name="terminata" formatted="false">已结束</string>
     <string name="tipo" formatted="false">类型</string>
     <string name="tocca_per_segnare_come_da_pagare" formatted="false">点击标记为待支付</string>
     <string name="tocca_per_segnare_come_pagata" formatted="false">点击标记为已支付</string>
@@ -599,4 +592,5 @@
     <string name="abitudini" formatted="false">习惯</string>
     <string name="nessuna_abitudine" formatted="false">暂无习惯</string>
     <string name="abitudini_vuoto" formatted="false">在 3 个不同月份中重复至少 3 次的交易将显示在这里。</string>
+    <string name="nessuna_serie_programmata_mese" formatted="false">本月没有计划的系列。</string>
 </resources>
