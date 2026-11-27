@@ -53,15 +53,19 @@ import com.bucktrail.android.data.RecurringOps
 import com.bucktrail.android.data.RecurringRuleEntity
 import com.bucktrail.android.data.TransactionEntity
 import com.bucktrail.android.data.toSnapshot
+import com.bucktrail.android.domain.Amounts
+import com.bucktrail.android.domain.KeywordCategoryClassifier
 import com.bucktrail.android.domain.Occurrence
 import com.bucktrail.android.domain.RecurrenceCalculator
-import com.bucktrail.android.domain.Amounts
 import com.bucktrail.android.domain.TransactionFiltering
 import com.bucktrail.android.ui.AppData
 import com.bucktrail.android.ui.Fmt
+import com.bucktrail.android.ui.MovementItem
+import com.bucktrail.android.ui.MovementListLayout
 import com.bucktrail.android.ui.categoryLabel
-import com.bucktrail.android.ui.sortedForDisplay
 import com.bucktrail.android.ui.components.EmptyState
+import com.bucktrail.android.ui.components.MovementKind
+import com.bucktrail.android.ui.components.MovementRow
 import com.bucktrail.android.ui.components.RoundIconButton
 import com.bucktrail.android.ui.components.SecondaryChip
 import com.bucktrail.android.ui.components.SfIcons
@@ -125,24 +129,35 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
         )
         TransactionFiltering.filter(ledger.transactions, criteria, zone) { it.filterRow() }
     }
-    // Occorrenze virtuali (solo mesi successivi al corrente): escluse da totali, saldi e filtri importo
-    val virtual = remember(ledger.rules, ledger.transactions, month, today, zone, category, query, type) {
-        if (!month.isAfter(YearMonth.from(today)) || ledger.rules.isEmpty()) emptyList() else {
+    val isFutureMonth = month.isAfter(YearMonth.from(today))
+    // Occorrenze virtuali (solo mesi successivi al corrente), allineate a tutti i filtri delle righe reali.
+    val virtual = remember(ledger.rules, ledger.transactions, month, today, zone, category, query, type, prefs.txFilterMin, prefs.txFilterMax, prefs.txFilterUseDates, fromDay, toDay) {
+        if (!isFutureMonth || ledger.rules.isEmpty()) emptyList() else {
             val calc = RecurrenceCalculator(zone)
             val start = month.atDay(1).atTime(0, 0).atZone(zone).toInstant()
             val end = month.plusMonths(1).atDay(1).atTime(0, 0).atZone(zone).toInstant()
             val realIds = ledger.transactions.map { it.id }.toSet()
+            val q = KeywordCategoryClassifier.fold(query.trim())
+            val minAmt = prefs.txFilterMin.trim().takeIf { it.isNotEmpty() }?.let { Amounts.parse(it) }
+            val maxAmt = prefs.txFilterMax.trim().takeIf { it.isNotEmpty() }?.let { Amounts.parse(it) }
+            val fromDate = LocalDate.ofEpochDay(fromDay)
+            val toDate = LocalDate.ofEpochDay(toDay)
             ledger.rules.flatMap { r -> calc.occurrences(r.toSnapshot(), start, end).map { r to it } }
                 .filter { (_, o) ->
+                    val oDay = o.date.atZone(zone).toLocalDate()
                     o.id.toString() !in realIds && (category == null || o.category == category) &&
-                        (query.isBlank() || o.name.contains(query.trim(), ignoreCase = true)) &&
-                        (type == TypeFilter.All || type == TypeFilter.Fixed && o.isFixed || type == TypeFilter.Expense && o.type == Amounts.TYPE_EXPENSE || type == TypeFilter.Income && o.type == Amounts.TYPE_INCOME)
+                        (q.isEmpty() || KeywordCategoryClassifier.fold(o.name).contains(q)) &&
+                        (type == TypeFilter.All || type == TypeFilter.Fixed && o.isFixed || type == TypeFilter.Expense && o.type == Amounts.TYPE_EXPENSE || type == TypeFilter.Income && o.type == Amounts.TYPE_INCOME) &&
+                        (minAmt == null || o.amount >= minAmt) &&
+                        (maxAmt == null || o.amount <= maxAmt) &&
+                        (!prefs.txFilterUseDates || (oDay >= fromDate && oDay <= toDate))
                 }.sortedBy { it.second.date }
         }
     }
-    val planned = remember(filtered, zone) { filtered.filter { !it.isDone }.sortedForDisplay(zone) }
-    val groups = remember(filtered, zone) { filtered.filter { it.isDone }.sortedForDisplay(zone).groupBy { it.localDate(zone) }.toSortedMap(compareByDescending { it }) }
-    fun sum(list: List<TransactionEntity>) = list.filter { !it.isTransfer }.fold(BigDecimal.ZERO) { a, t -> a + Amounts.signed(t.amountValue(), t.type) }
+    val layout = remember(filtered, virtual, isFutureMonth, zone) {
+        MovementListLayout.make(filtered, virtual, isFutureMonth, zone)
+    }
+    fun sumItems(list: List<MovementItem>) = list.fold(BigDecimal.ZERO) { a, item -> a + item.signedAmount }
     val ruleIds = remember(ledger.rules) { ledger.rules.map { it.id.lowercase() }.toSet() }
 
     if (showRecurring) {
@@ -230,59 +245,62 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
             Modifier.weight(1f), contentPadding = PaddingValues(start = Dim.cardMargin.dp, end = Dim.cardMargin.dp, bottom = (Dim.listBottomPadding + Dim.tabBarReserved).dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            if (virtual.isNotEmpty()) item("virtual") {
-                Column {
-                    Text(stringResource(R.string.serie_programmate), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke, modifier = Modifier.padding(horizontal = 4.dp, vertical = 6.dp))
-                    GroupCard {
-                        virtual.forEachIndexed { i, (r, o) ->
-                            key(o.id) {
-                                if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
-                                VirtualOccurrenceRow(o, currency, zone, res) { actions.onSelectRule(RecurringOps.Selection(r, o)) }
-                            }
-                        }
-                    }
-                }
-            }
-            if (planned.isNotEmpty()) item("planned") {
+            if (layout.planned.isNotEmpty()) item("planned") {
                 Column {
                     Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
                         Text(stringResource(R.string.in_arrivo_pianificati), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.plannedText, modifier = Modifier.weight(1f).padding(end = 8.dp))
-                        FitText(money(sum(planned), currency, hidden), Typo.rowAmount, c.plannedText, Modifier.weight(1f), minScale = 0.6f, textAlign = androidx.compose.ui.text.style.TextAlign.End)
+                        FitText(money(sumItems(layout.planned), currency, hidden), Typo.rowAmount, c.plannedText, Modifier.weight(1f), minScale = 0.6f, textAlign = androidx.compose.ui.text.style.TextAlign.End)
                     }
                     GroupCard {
-                        planned.forEachIndexed { i, t ->
-                            key(t.id) {
-                            if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
-                            TransactionRow(t, ledger.accounts, currency, hidden, today, zone, res, compact = true,
-                                recurring = t.templateId.lowercase() in ruleIds, onEdit = actions.onEdit, onDelete = seriesDelete, onToggleDone = actions.onToggleDone,
-                                onRecurrence = actions.onRecurrence, deleteOpensEditor = t.templateId.lowercase() in ruleIds)
-                            }
-                        }
-                    }
-                }
-            }
-            groups.forEach { (day, rows) ->
-                item(day.toString()) {
-                    Column {
-                        Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                            Text(Fmt.dayMonth(day, today, res, locale), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke, modifier = Modifier.weight(1f).padding(end = 8.dp))
-                            val total = sum(rows)
-                            FitText(money(total, currency, hidden), Typo.rowAmount, c.smoke, Modifier.weight(1f), minScale = 0.6f, textAlign = androidx.compose.ui.text.style.TextAlign.End)
-                        }
-                        GroupCard {
-                            rows.forEachIndexed { i, t ->
-                                key(t.id) {
+                        layout.planned.forEachIndexed { i, item ->
+                            key(item.id) {
                                 if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
-                                TransactionRow(t, ledger.accounts, currency, hidden, today, zone, res, compact = true,
-                                    recurring = t.templateId.lowercase() in ruleIds, onEdit = actions.onEdit, onDelete = seriesDelete, onToggleDone = actions.onToggleDone,
-                                onRecurrence = actions.onRecurrence, deleteOpensEditor = t.templateId.lowercase() in ruleIds)
+                                when (item) {
+                                    is MovementItem.Real -> TransactionRow(
+                                        item.tx, ledger.accounts, currency, hidden, today, zone, res, compact = true,
+                                        recurring = item.tx.templateId.lowercase() in ruleIds, onEdit = actions.onEdit, onDelete = seriesDelete,
+                                        onToggleDone = actions.onToggleDone, onRecurrence = actions.onRecurrence,
+                                        deleteOpensEditor = item.tx.templateId.lowercase() in ruleIds,
+                                    )
+                                    is MovementItem.Virtual -> VirtualMovementRow(
+                                        item.occurrence, currency, hidden, today, zone, res,
+                                    ) { actions.onSelectRule(RecurringOps.Selection(item.rule, item.occurrence)) }
                                 }
                             }
                         }
                     }
                 }
             }
-            if (planned.isEmpty() && groups.isEmpty() && virtual.isEmpty()) item("empty") {
+            layout.days.forEach { (day, rows) ->
+                item(day.toString()) {
+                    Column {
+                        Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+                            Text(Fmt.dayMonth(day, today, res, locale), style = Typo.secondary.copy(fontWeight = FontWeight.SemiBold), color = c.smoke, modifier = Modifier.weight(1f).padding(end = 8.dp))
+                            val total = sumItems(rows)
+                            FitText(money(total, currency, hidden), Typo.rowAmount, c.smoke, Modifier.weight(1f), minScale = 0.6f, textAlign = androidx.compose.ui.text.style.TextAlign.End)
+                        }
+                        GroupCard {
+                            rows.forEachIndexed { i, item ->
+                                key(item.id) {
+                                    if (i > 0) ThinDivider(Modifier.padding(start = 14.dp), c.divider)
+                                    when (item) {
+                                        is MovementItem.Real -> TransactionRow(
+                                            item.tx, ledger.accounts, currency, hidden, today, zone, res, compact = true,
+                                            recurring = item.tx.templateId.lowercase() in ruleIds, onEdit = actions.onEdit, onDelete = seriesDelete,
+                                            onToggleDone = actions.onToggleDone, onRecurrence = actions.onRecurrence,
+                                            deleteOpensEditor = item.tx.templateId.lowercase() in ruleIds,
+                                        )
+                                        is MovementItem.Virtual -> VirtualMovementRow(
+                                            item.occurrence, currency, hidden, today, zone, res,
+                                        ) { actions.onSelectRule(RecurringOps.Selection(item.rule, item.occurrence)) }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (layout.planned.isEmpty() && layout.days.isEmpty()) item("empty") {
                 if (query.isNotBlank()) EmptyState(SfIcons.forName("magnifyingglass"), stringResource(R.string.nessun_risultato), stringResource(R.string.nessun_movimento_corrisponde_alla_ricerc))
                 else EmptyState(SfIcons.forName("tray"), stringResource(R.string.nessun_movimento), stringResource(R.string.i_movimenti_di_questo_periodo_apparirann))
             }
@@ -332,6 +350,36 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
         prefs.txFilterMin, prefs.txFilterMax, prefs.txFilterUseDates, LocalDate.ofEpochDay(fromDay), LocalDate.ofEpochDay(toDay), currency, advancedCount,
         onChange = actions.onSetFilters, onFromChange = { fromDay = it.toEpochDay(); if (toDay < fromDay) toDay = fromDay },
         onToChange = { toDay = it.toEpochDay(); if (toDay < fromDay) fromDay = toDay }, onClose = { showFilters = false },
+    )
+}
+
+@Composable
+private fun VirtualMovementRow(
+    o: Occurrence,
+    currency: String,
+    hidden: Boolean,
+    today: LocalDate,
+    zone: ZoneId,
+    res: android.content.res.Resources,
+    onSelect: () -> Unit,
+) {
+    val category = categoryLabel(o.category, res)
+    val date = o.date.atZone(zone).toLocalDate()
+    val meta = "${if (o.isFixed) res.getString(R.string.fissa) else category} · ${Fmt.dayMonth(date, today, res)}"
+    MovementRow(
+        title = o.name,
+        meta = meta,
+        amount = money(o.amount, currency, hidden),
+        kind = if (o.type == Amounts.TYPE_INCOME) MovementKind.Income else MovementKind.Expense,
+        categoryName = o.category,
+        categoryIcon = o.categoryIcon,
+        planned = true,
+        recurring = true,
+        compact = true,
+        onClick = onSelect,
+        modifier = Modifier.testTag("virtualRow_${o.id}").semantics {
+            contentDescription = "${o.name}, " + res.getString(R.string.pianificato)
+        },
     )
 }
 

@@ -155,28 +155,6 @@ fun ProgrammedRuleCard(rule: RecurringRuleEntity, currency: String, today: Local
     }
 }
 
-/** Occorrenza virtuale di un mese futuro: tratteggiata, esclusa dai totali. */
-@Composable
-fun VirtualOccurrenceRow(o: Occurrence, currency: String, zone: ZoneId, res: android.content.res.Resources, onSelect: () -> Unit) {
-    val c = Bt.colors
-    Row(
-        Modifier.fillMaxWidth().heightIn(min = 44.dp).clickable(role = Role.Button, onClick = onSelect).padding(horizontal = 14.dp, vertical = 8.dp).testTag("virtual_${o.name}"),
-        horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.Top,
-    ) {
-        Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).dashedBorder(c.planned, 12.dp), contentAlignment = Alignment.Center) {
-            Icon(SfIcons.forName(o.categoryIcon.ifEmpty { "circle.dotted" }), null, tint = c.plannedText, modifier = Modifier.size(19.dp))
-        }
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text(o.name, style = Typo.rowName, color = c.ink, modifier = Modifier.weight(1f))
-                Text(Fmt.currency(o.amount, currency), style = Typo.rowAmount, color = c.plannedText, maxLines = 1, softWrap = false)
-            }
-            Text(Fmt.dayMonth(o.date.atZone(zone).toLocalDate(), LocalDate.MAX, res), style = Typo.caption, color = c.smoke)
-            Text(stringResource(R.string.virtuale_esclusa_dai_totali), style = Typo.caption, color = c.smoke)
-        }
-    }
-}
-
 /** Serie rilevata (`RecurringSeriesCard`): conteggio, totale, proiezioni. */
 @Composable
 fun RecurringSeriesCard(series: RecurringSeries, currency: String, zone: ZoneId, res: android.content.res.Resources, modifier: Modifier = Modifier) {

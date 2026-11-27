@@ -18,11 +18,19 @@ struct TransactionsView: View {
     @State private var nextMonthOccurrenceCache = RecurrencePresentationCache()
     @AppStorage("hideBalance") private var hideBalance: Bool = false
 
-    private var virtualOccurrences: [Occurrence] {
+    private var isFutureMonth: Bool {
         let calendar = Calendar(identifier: .gregorian)
         guard let month = calendar.dateInterval(of: .month, for: selectedMonth),
-              let current = calendar.dateInterval(of: .month, for: Date()), month.start > current.start else { return [] }
+              let current = calendar.dateInterval(of: .month, for: Date()) else { return false }
+        return month.start > current.start
+    }
+
+    private var virtualOccurrences: [Occurrence] {
+        let calendar = Calendar(identifier: .gregorian)
+        guard isFutureMonth,
+              let month = calendar.dateInterval(of: .month, for: selectedMonth) else { return [] }
         let realIDs = Set(all.map(\.id))
+        let query = hubSearchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
         // Stessi filtri avanzati delle righe reali: importo minimo/massimo e periodo personalizzato.
         let minAmt = Decimal.parseAmount(filterMinAmount)
         let maxAmt = Decimal.parseAmount(filterMaxAmount)
@@ -31,9 +39,10 @@ struct TransactionsView: View {
         return occurrenceCache.occurrences(rules: rules, in: month)
             .filter { occ in
                 !realIDs.contains(occ.id) && (selectedCat.isEmpty || occ.category == selectedCat)
-                    && (hubSearchQuery.isEmpty || occ.name.localizedCaseInsensitiveContains(hubSearchQuery))
+                    && (query.isEmpty || occ.name.localizedCaseInsensitiveContains(query))
                     && (selectedType == .tutti || selectedType == .fisse && occ.isFixed
-                        || selectedType == .uscite && occ.type == "uscita" || selectedType == .entrate && occ.type == "entrata")
+                        || selectedType == .uscite && occ.type == TransactionType.uscita.rawValue
+                        || selectedType == .entrate && occ.type == TransactionType.entrata.rawValue)
                     && (minAmt.map { occ.amount >= $0 } ?? true)
                     && (maxAmt.map { occ.amount <= $0 } ?? true)
                     && (!filterUseCustomDates || (occ.date >= from && occ.date < to))
@@ -275,17 +284,6 @@ struct TransactionsView: View {
         return seriesCache.value
     }
 
-    private func grouped(from snapshot: [Transaction]) -> [(key: String, value: [Transaction])] {
-        var dict: [String: [Transaction]] = [:]
-        var order: [String] = []
-        for t in snapshot {
-            let k = t.date.dayMonthFormatted
-            if dict[k] == nil { order.append(k) }
-            dict[k, default: []].append(t)
-        }
-        return order.compactMap { key in dict[key].map { (key: key, value: $0) } }
-    }
-
     // MARK: - Body
 
     var body: some View {
@@ -424,22 +422,20 @@ struct TransactionsView: View {
         }
     }
 
-    private func dayTitle(_ transactions: [Transaction], fallback: String) -> String {
-        guard let date = transactions.first?.date else { return fallback }
-        if Calendar.current.isDateInToday(date) { return NSLocalizedString("Oggi", comment: "") }
-        if Calendar.current.isDateInYesterday(date) { return NSLocalizedString("Ieri", comment: "") }
-        return fallback
+    private func dayTitle(_ day: Date) -> String {
+        if Calendar.current.isDateInToday(day) { return NSLocalizedString("Oggi", comment: "") }
+        if Calendar.current.isDateInYesterday(day) { return NSLocalizedString("Ieri", comment: "") }
+        return day.dayMonthFormatted
     }
 
-    private func groupHeader(_ title: String, transactions: [Transaction], planned: Bool = false) -> some View {
+    private func groupHeader(_ title: String, items: [MovementListItem], planned: Bool = false) -> some View {
         HStack {
             Text(title)
                 .font(DS.Typo.secondary)
                 .fontWeight(.semibold)
                 .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
             Spacer(minLength: DS.Space.s)
-            // Display-only subtotal; transfers do not represent income or expense.
-            Text(transactions.filter { !$0.isTransfer }.reduce(Decimal.zero) { $0 + $1.signedAmount }.currencyFormatted)
+            Text(items.reduce(Decimal.zero) { $0 + $1.signedAmount }.currencyFormatted)
                 .font(DS.Typo.rowAmount)
                 .lineLimit(1)
                 .fixedSize(horizontal: true, vertical: false)
@@ -451,38 +447,26 @@ struct TransactionsView: View {
     }
 
     private func movementList(_ snapshot: [Transaction], virtual: [Occurrence]) -> some View {
-        let planned = snapshot.filter { !$0.isDone }
-        let completed = snapshot.filter { $0.isDone }
+        let layout = MovementListLayout.make(real: snapshot, virtual: virtual, isFutureMonth: isFutureMonth)
         let ruleIDs = Set(rules.map { $0.id.uuidString })
         return List {
-            if !virtual.isEmpty {
-                Section("Serie programmate") {
-                    ForEach(virtual) { occurrence in
-                        VirtualOccurrenceRow(occurrence: occurrence) {
-                            if let rule = rules.first(where: { $0.id == occurrence.ruleId }) {
-                                recurrenceSelection = RecurrenceSelection(rule: rule, occurrence: occurrence)
-                            }
-                        }
-                    }
-                }
-            }
-            if !planned.isEmpty {
+            if !layout.planned.isEmpty {
                 Section {
-                    ForEach(planned) { t in
-                        swipeableRow(t, ruleIDs: ruleIDs, isFirst: t.id == planned.first?.id, isLast: t.id == planned.last?.id)
+                    ForEach(layout.planned) { item in
+                        listItemRow(item, ruleIDs: ruleIDs, isFirst: item.id == layout.planned.first?.id, isLast: item.id == layout.planned.last?.id)
                     }
                 } header: {
-                    groupHeader(NSLocalizedString("In arrivo · pianificati", comment: ""), transactions: planned, planned: true)
+                    groupHeader(NSLocalizedString("In arrivo · pianificati", comment: ""), items: layout.planned, planned: true)
                 }
                 .listSectionSeparator(.hidden)
             }
-            ForEach(grouped(from: completed), id: \.key) { group in
+            ForEach(layout.days, id: \.day) { group in
                 Section {
-                    ForEach(group.value) { t in
-                        swipeableRow(t, ruleIDs: ruleIDs, isFirst: t.id == group.value.first?.id, isLast: t.id == group.value.last?.id)
+                    ForEach(group.items) { item in
+                        listItemRow(item, ruleIDs: ruleIDs, isFirst: item.id == group.items.first?.id, isLast: item.id == group.items.last?.id)
                     }
                 } header: {
-                    groupHeader(dayTitle(group.value, fallback: group.key), transactions: group.value)
+                    groupHeader(dayTitle(group.day), items: group.items)
                 }
                 .listSectionSeparator(.hidden)
             }
@@ -506,6 +490,52 @@ struct TransactionsView: View {
         .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
         .refreshable { await SyncService.shared.manualRefresh(context: context) }
+    }
+
+    @ViewBuilder
+    private func listItemRow(_ item: MovementListItem, ruleIDs: Set<String>, isFirst: Bool, isLast: Bool) -> some View {
+        switch item {
+        case .real(let t):
+            swipeableRow(t, ruleIDs: ruleIDs, isFirst: isFirst, isLast: isLast)
+        case .virtual(let occ):
+            virtualCell(occ)
+                .alignmentGuide(.listRowSeparatorLeading) { _ in 14 }
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(
+                    UnevenRoundedRectangle(
+                        topLeadingRadius: isFirst ? 18 : 0,
+                        bottomLeadingRadius: isLast ? 18 : 0,
+                        bottomTrailingRadius: isLast ? 18 : 0,
+                        topTrailingRadius: isFirst ? 18 : 0
+                    ).fill(DS.surface)
+                )
+                .listRowSeparatorTint(DS.divider)
+        }
+    }
+
+    @ViewBuilder
+    private func virtualCell(_ occ: Occurrence) -> some View {
+        MovementRow(
+            name: occ.name,
+            metadata: [NSLocalizedString(occ.isFixed ? "Fissa" : occ.category, comment: ""), occ.date.dayMonthFormatted]
+                .filter { !$0.isEmpty }.joined(separator: " · "),
+            amount: occ.amount.currencyFormatted,
+            categoryName: occ.category,
+            categorySymbol: occ.categoryIcon.isEmpty ? DS.categoryIcon(for: occ.category) : occ.categoryIcon,
+            kind: TransactionType(rawValue: occ.type) == .entrata ? .income : .expense,
+            isPlanned: true,
+            compact: true,
+            isRecurring: true
+        )
+        .padding(.horizontal, 14)
+        .contentShape(Rectangle())
+        .accessibilityIdentifier("virtualRow_\(occ.id.uuidString)")
+        .accessibilityValue(Text("Pianificato"))
+        .onTapGesture {
+            if let rule = rules.first(where: { $0.id == occ.ruleId }) {
+                recurrenceSelection = RecurrenceSelection(rule: rule, occurrence: occ)
+            }
+        }
     }
 
     // MARK: - Sezione Ricorrenti (l'unica che resta pagina a sé)
