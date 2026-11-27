@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.29*
+*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.30*
 
 > **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
 
@@ -590,6 +590,17 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ## 10. Changelog
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
+
+### v3.30 (27 novembre 2026) — Sync più robusta, Protezione avanzata sul telefono vero, campi segreti e ordine dei movimenti (S-51…S-56, S-50z, S-50g2)
+
+- **S-51 (iOS):** niente più perdita di movimenti quando l'app si apre a telefono bloccato (archivio con protezione `completeUntilFirstUserAuthentication`, nessuna sync su archivio volatile); corretti un crash all'avvio su iOS 27.2 e un'intermittenza di test. Prova automatica a due dispositivi sul server vero 12/12.
+- **S-52 (iOS, Android, server):** movimenti scollegati dal conto sull'account vero riparati (113 ricollegati); guardie sui conti, pull senza eco e ricollegamento automatico; sul server FK `NO ACTION DEFERRABLE` e colonna `account_link_cleared`.
+- **S-53 (iOS):** l'attivazione della Protezione avanzata falliva sul telefono vero perché la copia di sicurezza appena scritta veniva cancellata (percorsi `/var` e `/private/var`): ora le copie si riconoscono dal nome del file. Prova reale di Matteo su iPhone e Android ok; **S-50 chiuso**.
+- **S-54 (iOS e Android):** stesso ordine dei movimenti ovunque: giorno più recente prima e, nello stesso giorno, l'ultimo aggiunto in cima.
+- **S-55 (iOS e Android):** occhio mostra/nascondi su password, frase di sicurezza e chiave di recupero; il campo torna nascosto in background; etichette in 7 lingue.
+- **S-56 (iOS e Android):** trattini automatici ogni 4 caratteri e maiuscole solo nei campi della chiave di recupero.
+- **S-50z / S-50g2:** script ripetibile per la prova della release Android minificata (solo server finto); il guardiano ignora in locale il solo beacon Cloudflare Insights.
+- **Collaudi:** iOS 211 unitari, Android 343 JVM + lint; Commissione Suprema 6×10/10.
 
 ### v3.29 (26 novembre 2026) — Protezione avanzata: pulizia, release verificata, email, privacy e sito (S-50u…y)
 

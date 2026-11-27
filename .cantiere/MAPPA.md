@@ -49,6 +49,7 @@
 - `SOCIAL/landing/`, `SOCIAL/montaggio/` — sito landing e script di montaggio (git)
 - `.cantiere/tmp/` — solo appunti correnti (`collaudo.md`, `giudice-*.md`); i log e gli .xcresult dei collaudi S-50 sono nel magazzino in `02_RISORSE/lavorate/collaudi-s50-2026-11/` (s50l, s50m, s50q-2, s50r, e2e-ios, e2e-android, giro1/giro2 commissione) spostati il 2026-11-26. Il file `s70/` resta in `.cantiere/tmp/` quando esiste
 - `02_RISORSE/lavorate/fuori-git/parita-android-2026-11-23/` — screenshot di parità iOS↔Android del 2026-11-23 (114 MB, fuori da git, magazzino). Già spostata: `99_DA_SMISTARE/` è vuota
+- `02_RISORSE/lavorate/screenshot-app-iphone/` — doppione di `screenshot-app/` (stessi 13 file): da decidere se eliminarlo (non cancellato). Doppioni del manuale in `social-manuale-versioni/` e `non-committati-2026-11-18/`: stesso caso
 
 ## Social · backup novembre 2026
 

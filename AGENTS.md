@@ -22,8 +22,8 @@
 | **Direttore dei lavori** | Matteo | decide, assegna, approva: ultima parola |
 | **Capocantiere** | Claude Code (Sonnet) | coordina, smista, controlla, checkpoint. Non esegue lavori lunghi |
 | **Architetto** | subagente `architetto` (Opus) | piani, scelte tecniche, bug difficili. Si chiama poco |
-| **Impresa principale** | **Antigravity** — ⏸ **NON DISPONIBILE fino al 2026-11-20** (Matteo, 2026-11-14): non assegnargli né proporgli nulla, i suoi lavori vanno a Codex; poi torna principale (Gemini: Flash col piano gratuito, modelli più forti con AI Pro) | implementazione, grafica, CSS, refactor, test nel browser, Lighthouse |
-| **Seconda impresa** | **Codex** (si lancia sempre `codex --yolo -C <cartella-del-cantiere>`) | logica JS, script, contenuti; riserva quando Antigravity è senza quota (abbonamento fino al 9/12 circa); **fino al 2026-11-20 fa anche le mansioni di Antigravity** |
+| **Impresa principale** | **Antigravity** (piano AI Pro dal 2026-11-27; si lancia con `agy` nella cartella del cantiere) | implementazione, grafica, CSS, refactor, test nel browser, Lighthouse |
+| **Seconda impresa** | **Codex** (si lancia sempre `codex --yolo -C <cartella-del-cantiere>`) | logica JS, script, contenuti; riserva quando Antigravity è senza quota (abbonamento fino al 9/12 circa; fuori uso il 2026-11-27) |
 | **Terza impresa** | **GitHub Copilot** (CLI `copilot`, Copilot Fusion: sceglie il modello da solo) | task piccoli e medi già descritti, correzioni del guardiano, logica JS; 200 crediti al mese (~1,5 per task piccolo) |
 | **Operaio** | subagente `operaio` (Sonnet) | riserva: task piccoli o urgenti dentro Claude Code |
 | **Redattore** | subagente `redattore` (Sonnet) o Gemini | testi, traduzioni, SEO, messaggi al cliente |

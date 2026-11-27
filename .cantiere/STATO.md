@@ -1,7 +1,7 @@
 # STATO DEL CANTIERE
 
 In turno: nessuno
-Ultimo checkpoint: 2026-11-27 16:14 (checkpoint-2026-11-27-1614, veloce)
+Ultimo checkpoint: 2026-11-27 20:37 (checkpoint-2026-11-27-2037, completo)
 Fase: progetto SOCIAL, post 1 pubblicato il 19/11 su Instagram e TikTok, primo rilevamento registrato; post 2 F13 pubblicato su Instagram e TikTok, formato faceless. Ramo redesign-sentiero (da portare su main con l'ok di Matteo). Fix curva Home S-36 da chiudere.
 Social: direttive in `SOCIAL/direttive-social.md`; Post-3 «Guida: HOME» approvato come tema, sequenza e impostazione delle slide 2–3; data e grafica finale da confermare. Post-4–12 approvati come tema e sequenza. Intero piano fino al Post-42 approvato da Matteo con copertura dell’app. Archivio permanente locale in `SOCIAL/schermate-app/`.
 S-41: competenza mensile delle spese fisse singole in Home, implementata e verificata con la suite BalanceTrailTests e una prova mirata; da collaudare in UI.
@@ -23,3 +23,4 @@ S-53 2026-11-27 16:30: prova S-50 di Matteo bloccata, attivazione Protezione fal
 S-53a 2026-11-27 17:01: fix backup E2E (percorsi /private/var) [~], 30/30 test E2E. Prossimo: S-53b Matteo riprova da Xcode, poi collaudo, poi S-70.
 S-54/S-55/S-56 2026-11-27 18:20: implementati da impresa (Antigravity) [~] su iOS e Android (`04ed36b`, `0f12838`, `3af6702`, `25073ed`). Verifiche iOS (211/211 pre-fix UI, 9/9 mirati + E2EUITests + DemoShowcaseUITests post-fix) e Android (`assembleDebug`, `lintDebug`, `testDebugUnitTest`) verdi; screenshot iOS in `.cantiere/tmp/`. Prossimo: collaudo indipendente.
 S-50g2 e S-50z 2026-11-27 20:20: completati da impresa (Antigravity) [~] (`8c0b06e`, `d0dd4e3`). S-50g2: filtro locale su `console` + `requestfailed` in `giro.mjs` (0 errori sul giro reale, 16 errori su console finto iniettato). S-50z: `prova-release-r8.py` eseguito per intero verde (`PROVA R8 S-50z VERDE`). Prossimo: collaudo indipendente.
+Checkpoint 2026-11-27 20:37 completo: S-50 chiuso, S-52/53/54/55/56/50z/50g2 chiusi. Prossimo: S-70a/a2/b/e/f → Antigravity. S-71 import → architetto dopo.

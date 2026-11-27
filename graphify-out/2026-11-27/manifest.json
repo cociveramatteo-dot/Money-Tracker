@@ -110,8 +110,8 @@
     "semantic_hash": "55b58464e072a50d044333f74a8f3bfd"
   },
   "MoneyTracker/MoneyTrackerApp.swift": {
-    "mtime": 1795786190.5936353,
-    "ast_hash": "56c19ceb665fcb91e423b96b127a2efe",
+    "mtime": 1795786269.410624,
+    "ast_hash": "92239a44d84f4326d01bdc01125cf894",
     "semantic_hash": ""
   },
   "MoneyTracker/Persistence/Logging.swift": {
@@ -245,8 +245,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/StatisticsView.swift": {
-    "mtime": 1795784706.957105,
-    "ast_hash": "804b1962ef01a1bfe44c8733dafa3b5e",
+    "mtime": 1795786918.7304983,
+    "ast_hash": "a420c6670132be86345a617f65b03e19",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/Theme.swift": {
@@ -530,18 +530,18 @@
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795786092.0611684,
-    "ast_hash": "0471bae5b7e4649bbdc07e3e53e956aa",
+    "mtime": 1795786829.5330265,
+    "ast_hash": "67159a3067a7c2ee47616cc8fc7a24a0",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
-    "mtime": 1795785863.0121255,
-    "ast_hash": "3e39959196ad0f04de540721b3266b5d",
+    "mtime": 1795790867.2297413,
+    "ast_hash": "df8e1e88d17ec287e7908584522b613f",
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795785134.2565289,
-    "ast_hash": "467adee1f311bdb9c7e436abe8862938",
+    "mtime": 1795792346.5527346,
+    "ast_hash": "c9f9b74afb0eddd08ed7b478631f3a3e",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -560,8 +560,8 @@
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795785134.2544372,
-    "ast_hash": "65f5186fe542849433cd00bd70add26f",
+    "mtime": 1795792346.5516028,
+    "ast_hash": "282fa0204483499c4c1753a39f01ddfc",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795785205.469936,
-    "ast_hash": "2bd32a7f0f3abe94705fc9822cf1c486",
+    "mtime": 1795792387.5927193,
+    "ast_hash": "2bec42a692cb105f9e359b25ba800357",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -2470,8 +2470,8 @@
     "semantic_hash": ""
   },
   "MoneyTrackerTests/SyncRemoteGoldenTests.swift": {
-    "mtime": 1795599051.280089,
-    "ast_hash": "5637e566d6092a4aab3936ccaddd782c",
+    "mtime": 1795787480.6354601,
+    "ast_hash": "329e0146db80b256e17e180443bcea40",
     "semantic_hash": ""
   },
   "MoneyTrackerTests/SyncServiceFlagOffTests.swift": {
@@ -2500,8 +2500,8 @@
     "semantic_hash": ""
   },
   "MoneyTrackerTests/E2EGateTests.swift": {
-    "mtime": 1795693485.1936214,
-    "ast_hash": "2f44f259d2849720889c7840241d0b7c",
+    "mtime": 1795787480.4446836,
+    "ast_hash": "dae263fbbbe7019b84e121d510e00aeb",
     "semantic_hash": ""
   },
   "MoneyTrackerTests/E2EServerTests.swift": {

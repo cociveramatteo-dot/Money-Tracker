@@ -30,7 +30,8 @@ PACKAGE = "com.bucktrail.android"
 ACTIVITY = f"{PACKAGE}/.MainActivity"
 FAKE_KEY = "chiave-finta"
 EMAIL = "demo@test.it"
-PASSWORD = "password1"
+# Credenziale dell'utente finto di fake-supabase.py (server solo locale, nessun account vero)
+FAKE_PASSWORD = "password1"
 PIN = "2468"
 PHRASE = "correct horse battery staple"
 WRONG_PHRASE = "wrong security phrase test"
@@ -149,7 +150,7 @@ class FakeApi:
         status, body = self._request(
             "POST",
             "/auth/v1/token?grant_type=password",
-            {"email": EMAIL, "password": PASSWORD},
+            {"email": EMAIL, "password": FAKE_PASSWORD},
             auth=False,
         )
         if status != 200 or not body or "access_token" not in body:
@@ -590,7 +591,7 @@ def sign_in(ui, *, verify_email=True):
     ui.tap(("Sign in or create an account", "Accedi o crea un account"), "Accedi o crea un account", scroll=True)
     ui.wait_for(lambda n: UiDriver._text(n) in {"Sign in", "Accedi"}, "Schermata login")
     ui.enter_edit_text(0, EMAIL, "Email")
-    ui.enter_edit_text(1, PASSWORD, "Password")
+    ui.enter_edit_text(1, FAKE_PASSWORD, "Password")
     ui.hide_keyboard_if_open()
     ui.tap(("Sign in", "Accedi"), "Pulsante accedi")
     ui.wait_gone(lambda n: UiDriver._text(n) in {"Sign in", "Accedi"}, "Chiusura login", timeout=35)
