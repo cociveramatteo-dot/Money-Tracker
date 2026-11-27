@@ -135,8 +135,11 @@ struct StatisticsView: View {
             VStack(alignment: .leading, spacing: 0) {
 
                 HStack {
-                    Text("Statistiche").font(DS.Typo.screenTitle)
+                    Text("Statistiche")
+                        .font(DS.Typo.screenTitle)
                         .tracking(DS.Typo.screenTitleTracking)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.65)
                     Spacer()
                     Button { haptic(.soft); generatePDF() } label: {
                         HStack(spacing: 6) {
