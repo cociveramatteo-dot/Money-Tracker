@@ -1,7 +1,7 @@
 # Collegamento bancario: modello economico e decisioni (S-60 / S-61)
 
 > Scritto il 2026-11-25 dal capocantiere (Claude Code · Sonnet 5.5) dopo la conversazione con Matteo. Integra `.cantiere/progetto-banca.md` (§12.2 Costi) e NON lo sostituisce.
-> **Stato: nessuna cifra definitiva.** Il costo vero per conto (`c`) e la fattura minima mensile di Enable Banking NON sono noti: arrivano con la risposta alla mail (§9). Nessun codice scritto per S-60/S-61.
+> **Stato (2026-11-27): arrivata l'offerta di Enable Banking (§4, «Risposta»): canone 900–1.500 €/mese, troppo alto. In attesa di risposta a una controproposta e del preventivo Salt Edge.** Nessun codice scritto per S-60/S-61.
 
 ## 1. Sintesi in dieci righe
 1. L'app resta **4,99 € una volta sola**, senza pubblicità e senza abbonamento. Il collegamento bancario è **facoltativo e separato**.
@@ -42,6 +42,15 @@ Verificato il 2026-11-25 su `enablebanking.com/docs/faq/` e `/knowledge-base`:
 - Il preventivo si chiede con il modulo «Get a Quote» (volumi previsti al 1°, 12° e 24° mese) o per email.
 - **Non dichiarato:** se sandbox e modalità ristretta (propri conti) siano gratuite in produzione; il progetto lo dava per «gratis», va confermato. I Termini dicono che l'uso in produzione per un'app commerciale richiede un accordo a parte.
 - **Ignoti:** prezzo per conto (`c`), importo e contenuto della fattura minima mensile, se accettano una persona fisica senza P.IVA.
+
+### Risposta di Enable Banking (2026-11-27, offerta «Startup», PDF in Download di Matteo)
+- **Canone di licenza mensile, conti inclusi:** 1° anno 900 €/mese (1.800 conti), 2° anno 1.200 € (2.400), dal 3° 1.500 € (3.000). Listino pieno 1.500 €/mese. Conti oltre gli inclusi: 0,50 € (0–5.000), 0,30 € (5.001–50.000), 0,20 € (oltre).
+- Si paga solo dal go-live; sandbox e produzione con i propri conti **gratis**. Si opera sotto la loro licenza AISP.
+- **Si fattura ogni conto condiviso** (accessibile col consenso e letto una volta), anche se poi non lo si usa. Molte banche grandi condividono tutti i conti senza scelta → i livelli «2 / 6 banche» vanno ripensati in conti o con un tetto.
+- Consenso 180 giorni; senza utente presente max 4 letture al giorno; storico lungo solo nella prima ora dopo il consenso, poi spesso 90 giorni.
+- **Senza risposta:** persona senza P.IVA, Banca d'Italia, ruolo GDPR/DPA, copertura Revolut/PayPal/Trade Republic/Fineco/N26/Hype, elenco sessioni.
+- **Conti (capocantiere):** solo il canone del 1° anno = 10.800 €. Pareggio sul solo canone: ≈ 520 abbonati a 2,49 €/mese (netto 1,73 €) o ≈ 215 a 5,99 € (netto 4,17 €); dal 3° anno ≈ 870 / 360. Con «qualche centinaio di conti» il costo vero è ≈ 3 € per conto al mese. **Così non sta in piedi.**
+- **Prossimi passi (2026-11-27):** risposta a Enable Banking chiedendo un pay-as-you-go senza canone + domande aperte; richiesta preventivo a Salt Edge (modulo saltedge.com/contact_sales o sales@saltedge.com). Collegamento bancario fermo finché un'offerta non regge.
 
 ### Le quattro banche di Matteo (UniCredit, PayPal, Revolut, Trade Republic)
 | Conto | Cosa risulta (changelog di Enable Banking) | Certezza |
