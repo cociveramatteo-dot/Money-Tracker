@@ -634,3 +634,6 @@
 "Spesa" = "Expense";
 "Esclusi dal totale" = "Excluded from total";
 "Ipotesi senza nome" = "Unnamed scenario";
+"Trasferito" = "Transferred";
+"Uscite programmate" = "Scheduled expenses";
+"Entrate programmate" = "Scheduled income";

@@ -633,3 +633,6 @@
 "Spesa" = "支出";
 "Esclusi dal totale" = "合計から除外";
 "Ipotesi senza nome" = "名前のない仮定";
+"Trasferito" = "振替額";
+"Uscite programmate" = "予定の支出";
+"Entrate programmate" = "予定の収入";

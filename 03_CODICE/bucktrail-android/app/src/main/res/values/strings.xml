@@ -595,4 +595,7 @@
     <string name="spesa" formatted="false">Spesa</string>
     <string name="esclusi_dal_totale" formatted="false">Esclusi dal totale</string>
     <string name="ipotesi_senza_nome" formatted="false">Ipotesi senza nome</string>
+    <string name="trasferito" formatted="false">Trasferito</string>
+    <string name="uscite_programmate" formatted="false">Uscite programmate</string>
+    <string name="entrate_programmate" formatted="false">Entrate programmate</string>
 </resources>

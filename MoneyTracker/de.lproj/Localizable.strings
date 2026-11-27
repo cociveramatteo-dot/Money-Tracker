@@ -633,3 +633,6 @@
 "Spesa" = "Ausgabe";
 "Esclusi dal totale" = "Nicht im Gesamtbetrag";
 "Ipotesi senza nome" = "Unbenannte Annahme";
+"Trasferito" = "Übertragen";
+"Uscite programmate" = "Geplante Ausgaben";
+"Entrate programmate" = "Geplante Einnahmen";

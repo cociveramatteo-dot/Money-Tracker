@@ -593,4 +593,7 @@
     <string name="spesa" formatted="false">支出</string>
     <string name="esclusi_dal_totale" formatted="false">不计入总额</string>
     <string name="ipotesi_senza_nome" formatted="false">未命名假设</string>
+    <string name="trasferito" formatted="false">已转账</string>
+    <string name="uscite_programmate" formatted="false">计划支出</string>
+    <string name="entrate_programmate" formatted="false">计划收入</string>
 </resources>

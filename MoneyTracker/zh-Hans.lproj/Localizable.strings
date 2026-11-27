@@ -636,3 +636,6 @@
 "Spesa" = "支出";
 "Esclusi dal totale" = "不计入总额";
 "Ipotesi senza nome" = "未命名假设";
+"Trasferito" = "已转账";
+"Uscite programmate" = "计划支出";
+"Entrate programmate" = "计划收入";

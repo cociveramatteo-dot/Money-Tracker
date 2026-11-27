@@ -593,4 +593,7 @@
     <string name="spesa" formatted="false">支出</string>
     <string name="esclusi_dal_totale" formatted="false">合計から除外</string>
     <string name="ipotesi_senza_nome" formatted="false">名前のない仮定</string>
+    <string name="trasferito" formatted="false">振替額</string>
+    <string name="uscite_programmate" formatted="false">予定の支出</string>
+    <string name="entrate_programmate" formatted="false">予定の収入</string>
 </resources>

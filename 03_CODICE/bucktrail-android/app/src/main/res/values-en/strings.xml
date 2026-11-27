@@ -594,4 +594,7 @@
     <string name="spesa" formatted="false">Expense</string>
     <string name="esclusi_dal_totale" formatted="false">Excluded from total</string>
     <string name="ipotesi_senza_nome" formatted="false">Unnamed scenario</string>
+    <string name="trasferito" formatted="false">Transferred</string>
+    <string name="uscite_programmate" formatted="false">Scheduled expenses</string>
+    <string name="entrate_programmate" formatted="false">Scheduled income</string>
 </resources>

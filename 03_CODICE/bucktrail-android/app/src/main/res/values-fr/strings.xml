@@ -594,4 +594,7 @@
     <string name="spesa" formatted="false">Dépense</string>
     <string name="esclusi_dal_totale" formatted="false">Exclus du total</string>
     <string name="ipotesi_senza_nome" formatted="false">Hypothèse sans nom</string>
+    <string name="trasferito" formatted="false">Transféré</string>
+    <string name="uscite_programmate" formatted="false">Dépenses programmées</string>
+    <string name="entrate_programmate" formatted="false">Revenus programmés</string>
 </resources>

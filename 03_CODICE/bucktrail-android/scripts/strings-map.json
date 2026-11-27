@@ -388,6 +388,9 @@
  "· Ultima usata": "ultima_usata",
  "· suggerita": "suggerita",
  "💰 +%.2f€ %@ — salvato!": "s_2f_salvato_424b7d",
+ "Trasferito": "trasferito",
+ "Uscite programmate": "uscite_programmate",
+ "Entrate programmate": "entrate_programmate",
  "💰 Saldo totale: %@": "saldo_totale",
  "💸 %.2f€ per %@ — salvato!": "s_2f_per_salvato_9b5fb3"
 }

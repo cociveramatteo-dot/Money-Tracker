@@ -594,4 +594,7 @@
     <string name="spesa" formatted="false">Ausgabe</string>
     <string name="esclusi_dal_totale" formatted="false">Nicht im Gesamtbetrag</string>
     <string name="ipotesi_senza_nome" formatted="false">Unbenannte Annahme</string>
+    <string name="trasferito" formatted="false">Übertragen</string>
+    <string name="uscite_programmate" formatted="false">Geplante Ausgaben</string>
+    <string name="entrate_programmate" formatted="false">Geplante Einnahmen</string>
 </resources>
