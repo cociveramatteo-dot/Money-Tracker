@@ -17,3 +17,4 @@ S-51/S-51d 2026-11-27 12:13: S-51, S-51c, S-51d collaudati [x] (iOS 40, Android 
 S-51f e S-51b 2026-11-27 12:53: correzione e prova reale completate [~]. Su iOS 27.2 (24B8117) 12/12 verifiche su Supabase, assenza di nuovi crash e protezione finale disattivata con record preesistenti presenti. Build iOS, 40 test mirati iOS al rilancio e 332 unitari Android verdi. Prossimo: collaudo indipendente. Intermittenza del test t10 registrata in S-51h.
 S-51f/S-51b 2026-11-27 13:00: collaudo ok [x] (73/73 test mirati, avvio senza crash). Aperti S-51g, S-51h, S-51e.
 S-51g/S-51e/S-51h 2026-11-27 13:26: implementati [~]. Build Debug iOS e Android, 54 test mirati iOS, 334 unitari Android e tre ripetizioni di t10 verdi. Prova Supabase 12/12, protezione finale disattivata e record preesistenti presenti. Prossimo: collaudo indipendente.
+S-51g/S-51e/S-51h 2026-11-27 13:34: collaudo ok [x] (iOS 46/46 mirati, t10 3/3, Android 334/334). S-51 chiuso. Prossimo: S-70 → Codex.
