@@ -10,7 +10,7 @@ import Foundation
 // SEC-01: replaced try! with try? so a corrupted/migrating store surfaces as a
 // user-visible error dialog instead of a hard crash in the Shortcuts extension.
 
-private enum IntentContainer {
+enum IntentContainer {
     static let shared: ModelContainer? = {
         // Stesso schema versionato dell'app principale (Persistence/SchemaMigration.swift):
         // l'extension Shortcuts apre lo stesso store e deve poter applicare la stessa
@@ -268,6 +268,16 @@ struct IncomeCategoryOptionsProvider: DynamicOptionsProvider {
 
 struct MoneyTrackerShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
+        AppShortcut(
+            intent: AddMovementIntent(),
+            phrases: [
+                "Aggiungi movimento su \(.applicationName)",
+                "Nuovo movimento \(.applicationName)",
+                "Registra movimento su \(.applicationName)"
+            ],
+            shortTitle: "Aggiungi movimento",
+            systemImageName: "arrow.up.arrow.down.circle.fill"
+        )
         AppShortcut(
             intent: AddExpenseIntent(),
             phrases: [

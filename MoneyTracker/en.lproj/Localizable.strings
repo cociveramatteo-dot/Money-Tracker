@@ -628,3 +628,13 @@
 "Nessuna abitudine" = "No habits yet";
 "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "Transactions repeated at least 3 times in 3 different months will appear here.";
 "Nessuna serie programmata in questo mese." = "No scheduled series this month.";
+"ultima usata" = "last used";
+"suggerita" = "suggested";
+"Aggiungi movimento" = "Add Transaction";
+"Aggiunge rapidamente un movimento al Money Tracker" = "Quickly adds a transaction to Money Tracker";
+"Uscita o entrata?" = "Expense or income?";
+"Importo del movimento" = "Transaction amount";
+"Descrizione del movimento" = "Transaction description";
+"Lascia vuoto per scegliere dopo aver inserito tipo e nome" = "Leave empty to choose after entering type and name";
+"In quale categoria?" = "Which category?";
+"Inserisci una descrizione per il movimento" = "Enter a description for the transaction";

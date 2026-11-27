@@ -627,3 +627,13 @@
 "Nessuna abitudine" = "Sin hábitos";
 "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "Los movimientos que se repiten al menos 3 veces en 3 meses distintos aparecerán aquí.";
 "Nessuna serie programmata in questo mese." = "No hay series programadas este mes.";
+"ultima usata" = "última usada";
+"suggerita" = "sugerida";
+"Aggiungi movimento" = "Añadir movimiento";
+"Aggiunge rapidamente un movimento al Money Tracker" = "Añade rápidamente un movimiento a Money Tracker";
+"Uscita o entrata?" = "¿Gasto o ingreso?";
+"Importo del movimento" = "Importe del movimiento";
+"Descrizione del movimento" = "Descripción del movimiento";
+"Lascia vuoto per scegliere dopo aver inserito tipo e nome" = "Déjalo vacío para elegir tras introducir tipo y nombre";
+"In quale categoria?" = "¿En qué categoría?";
+"Inserisci una descrizione per il movimento" = "Introduce una descripción para el movimiento";

@@ -627,3 +627,13 @@
 "Nessuna abitudine" = "習慣はまだありません";
 "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "3か月以上にわたり3回以上繰り返された取引がここに表示されます。";
 "Nessuna serie programmata in questo mese." = "今月の予定シリーズはありません。";
+"ultima usata" = "最近使用";
+"suggerita" = "おすすめ";
+"Aggiungi movimento" = "取引を追加";
+"Aggiunge rapidamente un movimento al Money Tracker" = "Money Tracker に取引を素早く追加します";
+"Uscita o entrata?" = "支出または収入？";
+"Importo del movimento" = "取引の金額";
+"Descrizione del movimento" = "取引の説明";
+"Lascia vuoto per scegliere dopo aver inserito tipo e nome" = "種類と名前の入力後に選ぶ場合は空欄にしてください";
+"In quale categoria?" = "どのカテゴリですか？";
+"Inserisci una descrizione per il movimento" = "取引の説明を入力してください";

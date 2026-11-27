@@ -630,3 +630,13 @@
 "Nessuna abitudine" = "暂无习惯";
 "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "在 3 个不同月份中重复至少 3 次的交易将显示在这里。";
 "Nessuna serie programmata in questo mese." = "本月没有计划的系列。";
+"ultima usata" = "最近使用";
+"suggerita" = "推荐";
+"Aggiungi movimento" = "添加交易";
+"Aggiunge rapidamente un movimento al Money Tracker" = "快速向 Money Tracker 添加一笔交易";
+"Uscita o entrata?" = "支出还是收入？";
+"Importo del movimento" = "交易金额";
+"Descrizione del movimento" = "交易描述";
+"Lascia vuoto per scegliere dopo aver inserito tipo e nome" = "留空以在输入类型和名称后选择";
+"In quale categoria?" = "选择哪个类别？";
+"Inserisci una descrizione per il movimento" = "请输入交易描述";

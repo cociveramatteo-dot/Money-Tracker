@@ -124,10 +124,99 @@ enum IntentCategoryMenu {
         categories.first { $0 == "Lavoro" } ?? categories.first ?? "Lavoro"
     }
 
+    nonisolated enum NameSuggestionSource: Equatable, Sendable {
+        case history   // same-name history match ("ultima usata" in AddTransactionView)
+        case keyword   // keyword classifier match ("suggerita" in AddTransactionView)
+    }
+
+    nonisolated struct NameSuggestion: Equatable, Sendable {
+        let category: String
+        let source: NameSuggestionSource
+    }
+
+    nonisolated struct CategoryChoiceDisplay: Equatable, Sendable {
+        let id: String
+        let title: String
+    }
+
+    nonisolated static let lowercaseLastUsedTagKey = "ultima usata"
+    nonisolated static let lowercaseSuggestedTagKey = "suggerita"
+
+    /// Mirrors `AddTransactionView.applySuggestion(for:)` so Shortcuts and the in-app form
+    /// produce the exact same suggested category and tag ("ultima usata" vs "suggerita").
+    nonisolated static func suggestLikeApp(
+        for name: String,
+        history: [LastUsedCategory.Movement],
+        available: Set<String>,
+        classify: (String) -> String = { KeywordCategoryClassifier.shared.classify($0) }
+    ) -> NameSuggestion? {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+        if let previous = LastUsedCategory.suggest(
+            for: name,
+            history: history,
+            availableCategories: available
+        ) {
+            return NameSuggestion(category: previous, source: .history)
+        }
+        guard trimmed.count > 2 else { return nil }
+        let classified = classify(trimmed)
+        guard !classified.isEmpty, classified != "Altro", available.contains(classified) else {
+            return nil
+        }
+        return NameSuggestion(category: classified, source: .keyword)
+    }
+
+    /// Resolves top display choices with lowercase tags and no duplicates below:
+    /// - When the name matches transaction history, that category becomes the "ultima usata" row
+    ///   just like `AddTransactionView`.
+    /// - Otherwise, keeps S-70i ordering: `recentOfType` ("ultima usata") then keyword match
+    ///   ("suggerita"), collapsed into a single "ultima usata" row if both match.
+    nonisolated static func movementChoices(
+        all: [String],
+        recentOfType: String?,
+        nameSuggestion: NameSuggestion?,
+        bundle: Bundle = .main
+    ) -> [CategoryChoiceDisplay] {
+        let topPair: (lastUsed: String?, suggested: String?)
+        switch nameSuggestion {
+        case let .some(match) where match.source == .history:
+            topPair = (lastUsed: match.category, suggested: nil)
+        case let .some(match):
+            topPair = top(suggested: match.category, lastUsed: recentOfType)
+        case nil:
+            topPair = (lastUsed: recentOfType, suggested: nil)
+        }
+
+        var result: [CategoryChoiceDisplay] = []
+        if let last = topPair.lastUsed {
+            let tag = bundle.localizedString(forKey: lowercaseLastUsedTagKey, value: lowercaseLastUsedTagKey, table: nil)
+            let title = formattedTitle(
+                categoryDisplayName: localizedCategoryName(last, bundle: bundle),
+                tag: tag
+            )
+            result.append(CategoryChoiceDisplay(id: last, title: title))
+        }
+        if let sug = topPair.suggested {
+            let tag = bundle.localizedString(forKey: lowercaseSuggestedTagKey, value: lowercaseSuggestedTagKey, table: nil)
+            let title = formattedTitle(
+                categoryDisplayName: localizedCategoryName(sug, bundle: bundle),
+                tag: tag
+            )
+            result.append(CategoryChoiceDisplay(id: sug, title: title))
+        }
+
+        let remaining = remainingCategories(all: all, excluding: topPair)
+        result.append(contentsOf: remaining.map {
+            CategoryChoiceDisplay(id: $0, title: localizedCategoryName($0, bundle: bundle))
+        })
+        return result
+    }
+
     /// Suggests a category using the same priority as AddTransactionView: exact normalized
     /// history match first, then KeywordCategoryClassifier for descriptions > 2 chars.
     @MainActor
-    static func suggested(for name: String, context: ModelContext, available: Set<String>) -> String? {
+    static func suggestLikeApp(for name: String, context: ModelContext, available: Set<String>) -> NameSuggestion? {
         let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return nil }
         let firstWord = trimmed.split(whereSeparator: \.isWhitespace).first.map(String.init) ?? trimmed
@@ -136,20 +225,19 @@ enum IntentCategoryMenu {
             sortBy: [SortDescriptor(\Transaction.createdAt)]
         )
         let history = (try? context.fetch(descriptor)) ?? []
-        if let previous = LastUsedCategory.suggest(
+        return suggestLikeApp(
             for: name,
             history: history.map {
                 .init(name: $0.name, category: $0.category, createdAt: $0.createdAt,
                       isDone: $0.isDone, isTransfer: $0.isTransfer)
             },
-            availableCategories: available
-        ) {
-            return previous
-        }
-        guard trimmed.count > 2 else { return nil }
-        let classified = KeywordCategoryClassifier.shared.classify(trimmed)
-        guard !classified.isEmpty, classified != "Altro", available.contains(classified) else { return nil }
-        return classified
+            available: available
+        )
+    }
+
+    @MainActor
+    static func suggested(for name: String, context: ModelContext, available: Set<String>) -> String? {
+        suggestLikeApp(for: name, context: context, available: available)?.category
     }
 
     /// Fetches the single most recently entered transaction for `type` (fetchLimit = 1).
@@ -209,5 +297,32 @@ enum IntentCategoryMenu {
             )
         }
         return IntentItemCollection(promptLabel: nil, usesIndexedCollation: false, sections: sections)
+    }
+
+    /// Builds flat category choices for interactive selection inside `AddMovementIntent.perform()`.
+    @MainActor
+    static func movementChoices(
+        name: String,
+        type: String,
+        context: ModelContext?,
+        bundle: Bundle = .main
+    ) -> [CategoryChoiceDisplay] {
+        guard let context else {
+            return defaultCategories.map {
+                CategoryChoiceDisplay(id: $0, title: localizedCategoryName($0, bundle: bundle))
+            }
+        }
+        let catDescriptor = FetchDescriptor<Category>(sortBy: [SortDescriptor(\Category.sortOrder)])
+        let dbCats = (try? context.fetch(catDescriptor)) ?? []
+        let all = allCategories(custom: dbCats.map(\.name))
+        let available = Set(all)
+        let recent = lastUsed(type: type, context: context, available: available)
+        let suggestion = suggestLikeApp(for: name, context: context, available: available)
+        return movementChoices(
+            all: all,
+            recentOfType: recent,
+            nameSuggestion: suggestion,
+            bundle: bundle
+        )
     }
 }

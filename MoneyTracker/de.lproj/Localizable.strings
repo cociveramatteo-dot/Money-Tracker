@@ -627,3 +627,13 @@
 "Nessuna abitudine" = "Noch keine Gewohnheiten";
 "I movimenti che si ripetono almeno 3 volte in 3 mesi diversi appariranno qui." = "Buchungen, die sich mindestens 3-mal in 3 verschiedenen Monaten wiederholen, erscheinen hier.";
 "Nessuna serie programmata in questo mese." = "Keine geplanten Serien in diesem Monat.";
+"ultima usata" = "zuletzt verwendet";
+"suggerita" = "vorgeschlagen";
+"Aggiungi movimento" = "Bewegung hinzufügen";
+"Aggiunge rapidamente un movimento al Money Tracker" = "Fügt schnell eine Bewegung zu Money Tracker hinzu";
+"Uscita o entrata?" = "Ausgabe oder Einnahme?";
+"Importo del movimento" = "Betrag der Bewegung";
+"Descrizione del movimento" = "Beschreibung der Bewegung";
+"Lascia vuoto per scegliere dopo aver inserito tipo e nome" = "Leer lassen, um nach Eingabe von Typ und Name zu wählen";
+"In quale categoria?" = "Welche Kategorie?";
+"Inserisci una descrizione per il movimento" = "Gib eine Beschreibung für die Bewegung ein";
