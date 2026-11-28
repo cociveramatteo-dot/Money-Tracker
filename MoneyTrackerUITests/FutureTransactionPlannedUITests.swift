@@ -163,4 +163,51 @@ final class FutureTransactionPlannedUITests: MoneyTrackerUITestCase {
 
         XCTAssertEqual(expectedText.label, expectedBeforeNextMonth, "La spesa non fissa del mese prossimo non deve cambiare il saldo atteso di questo mese")
     }
+
+    @MainActor
+    func testEditingDoneFixedExpenseKeepsItDone() throws {
+        goToTab("Movimenti")
+        openTransactionsSection("Tutti")
+        clearTransactionFilters()
+
+        let name = uniqueName("FissaFattaS73e")
+        tapFAB(menuItem: "fabMenu_addTransaction")
+        enterTransactionField("tf_amount", text: "33")
+        enterTransactionField("tf_name", text: name)
+
+        let fixedSwitch = app.switches["toggle_isFixed"]
+        for _ in 0..<4 {
+            if fixedSwitch.isHittable { break }
+            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.35))
+                .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.15)))
+        }
+        XCTAssertTrue(fixedSwitch.waitForExistence(timeout: 5))
+        fixedSwitch.tap()
+
+        let doneSwitch = app.switches["toggle_isDone"]
+        XCTAssertTrue(doneSwitch.waitForExistence(timeout: 3))
+        if (doneSwitch.value as? String) != "1" {
+            doneSwitch.tap()
+        }
+        XCTAssertEqual(doneSwitch.value as? String, "1")
+        scrollAndSave()
+
+        let row = transactionRow(named: name)
+        XCTAssertTrue(row.waitForExistence(timeout: 5), "Spesa fissa creata non trovata")
+        XCTAssertEqual(row.value as? String, "Fatto")
+
+        // Riapri in modifica e salva senza toccare nulla: deve restare "Fatto" (S-73e)
+        row.tap()
+        let editFixed = app.switches["toggle_isFixed"]
+        XCTAssertTrue(editFixed.waitForExistence(timeout: 5))
+        let editDone = app.switches["toggle_isDone"]
+        XCTAssertTrue(editDone.waitForExistence(timeout: 3))
+        XCTAssertEqual(editFixed.value as? String, "1")
+        XCTAssertEqual(editDone.value as? String, "1", "Aprendo una fissa già effettuata il toggle deve restare acceso")
+        scrollAndSave()
+
+        let updatedRow = transactionRow(named: name)
+        XCTAssertTrue(updatedRow.waitForExistence(timeout: 5))
+        XCTAssertEqual(updatedRow.value as? String, "Fatto", "Dopo il salvataggio senza modifiche la fissa deve restare Fatto")
+    }
 }
