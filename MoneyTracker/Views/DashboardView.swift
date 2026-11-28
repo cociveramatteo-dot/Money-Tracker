@@ -128,7 +128,7 @@ struct DashboardView: View {
 
         for transaction in transactions {
             guard let accountID = transaction.account?.persistentModelID, ids.contains(accountID) else { continue }
-            guard Self.countsInProjection(transaction, projectionDay: projectionDay, calendar: calendar) else { continue }
+            guard ProjectionRules.countsInProjection(transaction, projectionDay: projectionDay, calendar: calendar) else { continue }
 
             let amount = transaction.signedAmount
             entries.append(.init(date: transaction.date, signedAmount: amount, isDone: transaction.isDone))
@@ -140,14 +140,9 @@ struct DashboardView: View {
         return (TrailInput(currentBalance: totalCurrent, day: projectionDay, entries: entries), plannedByAccount)
     }
 
-    /// Un movimento singolo pianificato (non ricorrente, non trasferimento, fisso o no, uscita o entrata)
-    /// pesa sulla previsione solo nel mese della sua data (S-41 / S-73c).
-    /// Tutto il resto — fatti, trasferimenti, serie ricorrenti — conta sempre.
+    /// Regola definita in `ProjectionRules.countsInProjection` (mantenuta qui solo per compatibilità dei test esistenti).
     static func countsInProjection(_ transaction: Transaction, projectionDay: Date, calendar: Calendar = .current) -> Bool {
-        let isSingleOneOff = !transaction.isTransfer
-            && transaction.templateId.isEmpty && transaction.recurringFrequency.isEmpty
-        guard !transaction.isDone && isSingleOneOff else { return true }
-        return calendar.isDate(transaction.date, equalTo: projectionDay, toGranularity: .month)
+        ProjectionRules.countsInProjection(transaction, projectionDay: projectionDay, calendar: calendar)
     }
 
     private func refreshProjectionDay() {

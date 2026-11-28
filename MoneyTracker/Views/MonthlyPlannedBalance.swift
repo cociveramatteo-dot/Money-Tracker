@@ -1,12 +1,12 @@
 import Foundation
 import SwiftData
 
-/// Previsione di fine mese per conto, allineata alla regola `DashboardView.countsInProjection`.
+/// Previsione di fine mese per conto, allineata alla regola `ProjectionRules.countsInProjection`.
 enum MonthlyPlannedBalance {
     static func plannedDelta(for account: Account, day: Date, calendar: Calendar = .current) -> Decimal {
         account.transactions.reduce(Decimal(0)) { sum, transaction in
             guard !transaction.isDone,
-                  DashboardView.countsInProjection(transaction, projectionDay: day, calendar: calendar)
+                  ProjectionRules.countsInProjection(transaction, projectionDay: day, calendar: calendar)
             else { return sum }
             return sum + transaction.signedAmount
         }
