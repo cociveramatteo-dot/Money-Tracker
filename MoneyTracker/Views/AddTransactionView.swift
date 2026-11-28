@@ -309,15 +309,21 @@ struct AddTransactionView: View {
 
     // MARK: - Load / Save
 
-    private func load() {
-        let allTxs = (try? context.fetch(FetchDescriptor<Transaction>())) ?? []
+    static func fetchAccountUsageCounts(for accounts: [Account], context: ModelContext) -> [UUID: Int] {
         var counts: [UUID: Int] = [:]
-        for tx in allTxs {
-            if let accountID = tx.account?.id {
-                counts[accountID, default: 0] += 1
-            }
+        counts.reserveCapacity(accounts.count)
+        for acc in accounts where !acc.isArchived {
+            let accountID = acc.id
+            let descriptor = FetchDescriptor<Transaction>(
+                predicate: #Predicate { $0.account?.id == accountID }
+            )
+            counts[accountID] = (try? context.fetchCount(descriptor)) ?? 0
         }
-        accountUsageCounts = counts
+        return counts
+    }
+
+    private func load() {
+        accountUsageCounts = Self.fetchAccountUsageCounts(for: accounts, context: context)
 
         guard let t = editing else {
             name                     = ""

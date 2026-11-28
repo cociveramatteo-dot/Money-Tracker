@@ -303,7 +303,7 @@ private fun HypothesisRow(
             contentAlignment = Alignment.CenterEnd,
         ) {
             if (item.amountText.isEmpty()) {
-                Text("0,00", style = Typo.rowAmount, color = c.smoke.copy(alpha = 0.55f), textAlign = TextAlign.End)
+                Text("0", style = Typo.rowAmount, color = c.smoke.copy(alpha = 0.55f), textAlign = TextAlign.End)
             }
             BasicTextField(
                 value = item.amountText,

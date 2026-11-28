@@ -236,7 +236,7 @@ struct WhatIfView: View {
     }
 
     private func amountField(index: Int, item: Binding<WhatIfHypothesis>, invalid: Bool, isOn: Bool) -> some View {
-        TextField("0,00", text: item.amountText)
+        TextField("0", text: item.amountText)
             .font(DS.Typo.rowAmount)
             .foregroundStyle(isOn ? DS.ink : DS.smoke)
             .multilineTextAlignment(.trailing)
