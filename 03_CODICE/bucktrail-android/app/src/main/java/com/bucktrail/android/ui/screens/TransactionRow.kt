@@ -55,7 +55,7 @@ fun TransactionRow(
     val meta = if (homeMeta) listOf(category, account, Fmt.dayMonth(date, today, res)).filter { it.isNotEmpty() }.joinToString(" · ")
     else if (planned) "${if (t.isFixed) res.getString(R.string.fissa) else category} · ${Fmt.dayMonth(date, today, res)}"
     else listOf(category, account).filter { it.isNotEmpty() }.joinToString(" · ")
-    val canToggle = onToggleDone != null && SwipeRules.canToggleDone(t.isFixed, t.isDone)
+    val canToggle = onToggleDone != null && SwipeRules.canToggleDone(t.isFixed, t.isDone, date > today)
     val needsConfirm = (t.isTransfer && t.transferGroupId.isNotEmpty()) || deleteOpensEditor
     SwipeableRow(
         deleteAction = SwipeAction(stringResource(R.string.elimina), SfIcons.forName("trash"), c.danger, c.onAccent),

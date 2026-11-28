@@ -167,8 +167,8 @@ fun AddTransactionForm(
             OptionRow(stringResource(if (income) R.string.entrata_fissa else R.string.spesa_fissa), stringResource(R.string.appare_in_fissi_del_mese_nella_home), Modifier.testTag("toggle_isFixed")) {
                 FormSwitch(fixed, { fixed = it; done = if (it) false else date <= today }, stringResource(if (income) R.string.entrata_fissa else R.string.spesa_fissa))
             }
-            // iOS: «Già effettuato» compare solo per le voci fisse
-            if (fixed) OptionRow(stringResource(R.string.gia_effettuato), stringResource(R.string.togli_la_spunta_se_e_pianificata_ma_non), Modifier.testTag("toggle_isDone")) {
+            // «Già effettuato» compare per le voci fisse o con data futura (S-73d)
+            if (fixed || date > today) OptionRow(stringResource(R.string.gia_effettuato), stringResource(R.string.togli_la_spunta_se_e_pianificata_ma_non), Modifier.testTag("toggle_isDone")) {
                 FormSwitch(done, { done = it }, stringResource(R.string.gia_effettuato))
             }
             if (existing == null) Box {

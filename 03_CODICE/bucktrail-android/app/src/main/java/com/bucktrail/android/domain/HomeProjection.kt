@@ -12,9 +12,8 @@ import java.time.ZoneId
 data class HomeProjection(val total: BigDecimal, val trail: BalanceTrail, val plannedByAccount: Map<String?, BigDecimal>) {
     companion object {
         fun countsInMonth(t: TransactionData, month: YearMonth, zone: ZoneId): Boolean {
-            val isOneOffFixedExpense = t.isFixed && t.type == Amounts.TYPE_EXPENSE &&
-                !t.isTransfer && t.templateId.isEmpty() && t.recurringFrequency.isEmpty()
-            if (t.isDone || !isOneOffFixedExpense) return true
+            val isSingleOneOff = !t.isTransfer && t.templateId.isEmpty() && t.recurringFrequency.isEmpty()
+            if (t.isDone || !isSingleOneOff) return true
             return YearMonth.from(t.date.atZone(zone)) == month
         }
 
