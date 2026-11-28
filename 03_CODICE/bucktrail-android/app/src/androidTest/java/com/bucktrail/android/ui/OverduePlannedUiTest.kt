@@ -1,6 +1,7 @@
 package com.bucktrail.android.ui
 
 import android.graphics.Bitmap
+import androidx.compose.ui.test.assertContentDescriptionEquals
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -23,11 +24,11 @@ import org.junit.runner.RunWith
 import java.io.File
 import java.time.LocalDate
 import java.time.ZoneId
-import java.util.UUID
 
 /**
- * S-73f: movimento pianificato scaduto (mese passato non confermato) compare in «Da confermare»
- * su Home e Movimenti; la conferma rapida lo rimuove e cattura gli screenshot.
+ * S-73f/S-73g: movimento pianificato scaduto (mese passato non confermato) compare in «Da confermare»
+ * su Home e Movimenti con pulsante compatto solo icona, data visibile su una riga e icona categoria;
+ * la conferma rapida lo rimuove e cattura gli screenshot.
  */
 @RunWith(AndroidJUnit4::class)
 class OverduePlannedUiTest {
@@ -40,8 +41,8 @@ class OverduePlannedUiTest {
         val zone = ZoneId.systemDefault()
         val overdueDate = LocalDate.now(zone).minusMonths(1).withDayOfMonth(15)
             .atStartOfDay(zone).toInstant().toEpochMilli()
-        val txName = "Visita medica"
-        val txId = "overdue-ui-s73f"
+        val txName = "Hotel Roma 2 notti"
+        val txId = "overdue-ui-s73g"
 
         runBlocking {
             app.prefs.setNotifications(false)
@@ -57,8 +58,8 @@ class OverduePlannedUiTest {
                         name = txName,
                         amountCents = 4500L,
                         type = Amounts.TYPE_EXPENSE,
-                        category = "Salute",
-                        categoryIcon = "heart.fill",
+                        category = "Viaggi",
+                        categoryIcon = "airplane",
                         date = overdueDate,
                         isDone = false,
                         isFixed = true,
@@ -68,9 +69,11 @@ class OverduePlannedUiTest {
         }
 
         val confirmTag = "btn_confirmOverdue_$txName"
+        val confirmDesc = rule.activity.getString(R.string.conferma)
         rule.waitUntil(timeoutMillis = 10_000) {
             rule.onAllNodes(hasTestTag(confirmTag)).fetchSemanticsNodes().isNotEmpty()
         }
+        rule.onNodeWithTag(confirmTag).assertContentDescriptionEquals(confirmDesc)
         rule.onNodeWithTag(confirmTag).performScrollTo()
         rule.onNodeWithText(app.getString(R.string.demo_tx_supermercato)).performScrollTo()
         capture("home")
@@ -79,6 +82,7 @@ class OverduePlannedUiTest {
         rule.waitUntil(timeoutMillis = 10_000) {
             rule.onAllNodes(hasTestTag(confirmTag)).fetchSemanticsNodes().isNotEmpty()
         }
+        rule.onNodeWithTag(confirmTag).assertContentDescriptionEquals(confirmDesc)
         capture("movimenti")
 
         rule.onNodeWithTag(confirmTag).performClick()
@@ -90,8 +94,8 @@ class OverduePlannedUiTest {
     }
 
     private fun capture(screen: String) {
-        val label = InstrumentationRegistry.getArguments().getString("s73fMode") ?: return
-        val dir = File(app.cacheDir, "s73f").apply { mkdirs() }
+        val label = InstrumentationRegistry.getArguments().getString("s73gMode") ?: return
+        val dir = File(app.cacheDir, "s73g").apply { mkdirs() }
         instrumentation.waitForIdleSync()
         rule.waitForIdle()
         val bitmap = checkNotNull(instrumentation.uiAutomation.takeScreenshot())

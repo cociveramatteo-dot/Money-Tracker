@@ -1,19 +1,25 @@
 # CONSEGNA — MoneyTracker
 
-- **Ultimo turno:** collaudatore (Claude Code · Sonnet) · **2026-11-28 03:12** · ramo `redesign-sentiero`
-- **Task:** collaudo S-70h (`3014da4`), S-73f (`9b23a16`), S-52a
+- **Ultimo turno:** impresa (Antigravity · Gemini 4 Hydrogen) · **2026-11-28 10:24** · ramo `redesign-sentiero`
+- **Task:** `S-73g` (rifinitura grafica card «Da confermare», iOS + Android)
 
-## Esito
-- **S-70h → [x]**: `fetchAccountUsageCounts` fa un `fetchCount` per conto non archiviato invece di caricare tutte le transazioni; risultati uguali a prima per i conti mostrati nel picker (archiviati già esclusi da `activeAccounts`, conti senza movimenti → 0, gambe dei trasferimenti contate sul proprio conto come prima). Segnaposto «0» su iOS e Android.
-- **S-73f → resta [~]**: collaudo tecnico ok. Manca solo l'ok grafico di Matteo sugli screenshot `.cantiere/tmp/s73f/` (lo registra il capocantiere). `countsInProjection` e i calcoli Home/Conti non sono cambiati; zone intoccabili non toccate; 7 lingue presenti; token DS adattivi.
-- **S-52a → [x]**: criterio (d) della diagnosi (`senza_conto` = 13) registrato, export iPhone coerente.
+## Fatto
+1. **Pulsante «Conferma» solo icona ✓** (`MoneyTracker/Views/OverduePlannedMovements.swift`, `03_CODICE/bucktrail-android/.../OverduePlannedMovements.kt`): cerchio ambra `DS.plannedSoft`/`plannedText` (`32pt`/`32dp`) con spunta `checkmark`, area di tocco `≥44pt`/`48dp`, `accessibilityLabel`/`contentDescription` localizzata «Conferma» nelle 7 lingue (chiave esistente `"Conferma"` / `R.string.conferma`).
+2. **Riga secondaria su una riga con data sempre visibile** (`MovementRow.swift`, `Basics.kt`, `OverduePlannedMovements.swift/.kt`): rimosso il conto dalla riga secondaria (come Movimenti) e separato il suffisso data (`metadataTail`/`metaTail`) non troncabile, così su iOS e Android mostra `Fissa · 15 ott` / `Fixkosten · 15 Okt.` su 1 sola riga senza tagliare la data.
+3. **Card identica in Home e Movimenti iOS, allineata ad Android** (`OverduePlannedMovements.swift`, `DashboardView.swift`, `TransactionsView.swift`): introdotto `OverduePlannedSection` (Home) e `OverduePlannedCardBackground` / `OverdueCardBorderShape` (Movimenti `List` con swipe intatti), entrambi con `DS.surface` e bordo ambra `DS.planned.opacity(0.35)`.
+4. **Icona categoria**: `resolvedCategorySymbol` / `resolvedCategoryIcon` usa l'icona della categoria del movimento, lasciando `circle.dotted` solo se manca la categoria.
+5. **Conti archiviati esclusi**: `OverduePlannedMovements.isOverdue` esclude i movimenti di conti archiviati su iOS (`!(t.account?.isArchived ?? false)`) e Android (`archivedAccountIds` da `HomeScreen.kt` e `MovementsScreen.kt`), coperti da nuovi test in `OverduePlannedMovementsTests.swift` e `OverduePlannedMovementsTest.kt`.
+6. **Giapponese**: aggiornato `未確認` → `確認待ち` in `MoneyTracker/ja.lproj/Localizable.strings` e `03_CODICE/bucktrail-android/app/src/main/res/values-ja/strings.xml`.
 
-## Test rieseguiti
-- iOS: MoneyTrackerTests 257/257 (1 skip live), OverduePlannedUITests 1/1, FutureTransactionPlannedUITests 2/2 (iPhone 18 Pro, iOS 27.2)
-- Android: assembleDebug, lintDebug, testDebugUnitTest 367/367 (rieseguiti con `--rerun`)
+## Verifiche eseguite dopo l'ultima modifica
+- **iOS unit test:** `MoneyTrackerTests` intero target (`-only-testing:MoneyTrackerTests`) → **258/258** test in 57 suite verdi (+ 1 XCTest `TwoDeviceLiveSyncTests` skipped).
+- **iOS UI test:** `OverduePlannedUITests` (`Hotel Roma 2 notti`, categoria `Viaggi`) → **2/2** verdi in light (`testOverduePlannedWarningAndQuickConfirm` it-L + `testOverduePlannedGermanXL` de-XL) e **1/1** verde in dark (`testOverduePlannedWarningAndQuickConfirm`).
+- **Android:** `./gradlew assembleDebug lintDebug testDebugUnitTest` → **368/368** test unitari verdi (0 falliti, 0 skip); `OverduePlannedUiTest` → **1/1** light e **1/1** dark verdi su emulatore `Bucktrail_API_36`.
+- **Screenshot** in `.cantiere/tmp/s73g/`: `ios-home-light.png`, `ios-home-dark.png`, `ios-movimenti-light.png`, `ios-movimenti-dark.png`, `ios-home-de-xl-light.png`, `ios-movimenti-de-xl-light.png`, `android-home-light.png`, `android-home-dark.png`, `android-movimenti-light.png`, `android-movimenti-dark.png`.
 
 ## Fuori dal commit
-- `MoneyTracker.xcodeproj/xcshareddata/xcschemes/MoneyTracker.xcscheme` modificato, non mio: lasciato fuori.
+- `MoneyTracker.xcodeproj/xcshareddata/xcschemes/MoneyTracker.xcscheme` (modificato preesistente, lasciato fuori come richiesto).
+- `.cantiere/tmp/s73g/` (escluso da `.gitignore`, come `.cantiere/tmp/s73f/`).
 
 ## Prossimo
-- Matteo guarda gli screenshot S-73f e dà l'ok grafico → capocantiere segna [x] → checkpoint.
+- Matteo esamina gli screenshot in `.cantiere/tmp/s73g/` + collaudatore verifica il diff `S-73g` (chiudendo `[x]` sia `S-73g` che `S-73f`), poi checkpoint completo.

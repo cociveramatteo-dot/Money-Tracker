@@ -407,46 +407,21 @@ struct DashboardView: View {
         }
     }
 
-    // MARK: - Da confermare (S-73f)
+    // MARK: - Da confermare (S-73f/S-73g)
 
     @ViewBuilder
     private func daConfermareSection(_ items: [Transaction]) -> some View {
-        if !items.isEmpty {
-            VStack(alignment: .leading, spacing: DS.Space.m) {
-                OverduePlannedHeader(count: items.count) { goToTab(1) }
-                    .padding(.horizontal, DS.Layout.margin)
-                    .padding(.top, DS.Space.l)
-
-                VStack(spacing: 0) {
-                    ForEach(Array(items.enumerated()), id: \.element.persistentModelID) { index, t in
-                        if index > 0 {
-                            ThinDivider().padding(.leading, 64)
-                        }
-                        OverduePlannedRow(
-                            transaction: t,
-                            formattedAmount: money(t.amount),
-                            showAccount: true,
-                            compact: false,
-                            onEdit: { editingTransaction = t },
-                            onConfirm: {
-                                haptic(.soft)
-                                t.isDone = true
-                                context.safeSave()
-                            }
-                        )
-                        .padding(.horizontal, DS.Space.l)
-                    }
-                }
-                .background(DS.surface, in: RoundedRectangle(cornerRadius: 20))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .strokeBorder(DS.planned.opacity(0.35), lineWidth: 1)
-                )
-                .padding(.horizontal, 16)
+        OverduePlannedSection(
+            items: items,
+            formattedAmount: { money($0.amount) },
+            onSeeAll: { goToTab(1) },
+            onEdit: { editingTransaction = $0 },
+            onConfirm: { t in
+                haptic(.soft)
+                t.isDone = true
+                context.safeSave()
             }
-            .accessibilityElement(children: .contain)
-            .accessibilityIdentifier("home_overdueSection")
-        }
+        )
     }
 
     // MARK: - Ultimi Movimenti

@@ -1,17 +1,26 @@
 import XCTest
 
-/// S-73f: movimento pianificato di un mese passato non confermato compare in «Da confermare»
-/// su Home e Movimenti; la conferma fa sparire l'avviso e aggiorna il saldo attuale.
+/// S-73f/S-73g: movimento pianificato di un mese passato non confermato compare in «Da confermare»
+/// su Home e Movimenti; pulsante compatto solo icona con accessibilityLabel localizzato, icona categoria,
+/// riga secondaria su 1 riga con data sempre visibile; conferma rapida aggiorna il saldo attuale.
 final class OverduePlannedUITests: MoneyTrackerUITestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
         app = XCUIApplication()
-        app.launchArguments = ["--uitesting", "-AppleLanguages", "(it)", "-AppleLocale", "it"]
+    }
+
+    private func launch(language: String = "it", locale: String = "it", size: String = "UICTContentSizeCategoryL") {
+        app.launchArguments = [
+            "--uitesting",
+            "-AppleLanguages", "(\(language))",
+            "-AppleLocale", locale,
+            "-UIPreferredContentSizeCategoryName", size,
+        ]
         app.launch()
     }
 
     @MainActor
-    private func pickPreviousMonthDay(_ day: Int = 15) {
+    private func pickPreviousMonthDay(_ day: Int = 15, localeIdentifier: String = "it_IT") {
         let picker = app.datePickers["picker_date"]
         for _ in 0..<4 {
             if picker.isHittable { break }
@@ -21,7 +30,12 @@ final class OverduePlannedUITests: MoneyTrackerUITestCase {
         XCTAssertTrue(picker.waitForExistence(timeout: 5))
         picker.tap()
 
-        let prevCandidates = ["DatePicker.PreviousMonth", "Mostra il mese precedente", "Mese precedente", "Precedente", "Indietro", "Previous Month"]
+        let prevCandidates = [
+            "DatePicker.PreviousMonth",
+            "Mostra il mese precedente", "Mese precedente", "Precedente", "Indietro",
+            "Vorheriger Monat", "Vorherigen Monat anzeigen",
+            "Previous Month",
+        ]
         let prevBtn = app.buttons.matching(
             NSPredicate(format: "identifier IN %@ OR label IN %@", prevCandidates, prevCandidates)
         ).firstMatch
@@ -35,8 +49,8 @@ final class OverduePlannedUITests: MoneyTrackerUITestCase {
         let targetDate = cal.date(from: comps)!
 
         let fmt = DateFormatter()
-        fmt.locale = Locale(identifier: "it_IT")
-        fmt.dateFormat = "d MMMM"
+        fmt.locale = Locale(identifier: localeIdentifier)
+        fmt.setLocalizedDateFormatFromTemplate("dMMMM")
         let dayMonthLabel = fmt.string(from: targetDate)
 
         let dayBtn = app.buttons.matching(
@@ -54,24 +68,17 @@ final class OverduePlannedUITests: MoneyTrackerUITestCase {
     }
 
     @MainActor
-    private func saveShot(_ name: String) {
-        let att = XCTAttachment(screenshot: app.screenshot())
-        att.name = name
-        att.lifetime = .keepAlways
-        add(att)
-    }
-
-    @MainActor
-    func testOverduePlannedWarningAndQuickConfirm() throws {
-        let actualText = app.staticTexts["home_actualBalance"]
-        XCTAssertTrue(actualText.waitForExistence(timeout: 5))
-        let initialActual = actualText.label
-
-        // Crea una spesa fissa pianificata nel mese scorso (resta !isDone)
-        let overdueName = uniqueName("ScadutaS73f")
+    private func createOverdueFixedExpense(name: String, amount: String = "45", categoryKey: String = "Viaggi", localeIdentifier: String = "it_IT") {
         tapFAB(menuItem: "fabMenu_addTransaction")
-        enterTransactionField("tf_amount", text: "45")
-        enterTransactionField("tf_name", text: overdueName)
+        enterTransactionField("tf_amount", text: amount)
+        enterTransactionField("tf_name", text: name)
+
+        let catBtn = app.buttons["btn_categoryPicker"]
+        XCTAssertTrue(catBtn.waitForExistence(timeout: 5))
+        catBtn.tap()
+        let catRow = app.buttons["categoryRow_\(categoryKey)"]
+        XCTAssertTrue(catRow.waitForExistence(timeout: 5), "Categoria \(categoryKey) non trovata")
+        catRow.tap()
 
         let fixedSwitch = app.switches["toggle_isFixed"]
         for _ in 0..<4 {
@@ -92,7 +99,7 @@ final class OverduePlannedUITests: MoneyTrackerUITestCase {
             doneSwitch.tap()
         }
 
-        pickPreviousMonthDay(15)
+        pickPreviousMonthDay(15, localeIdentifier: localeIdentifier)
 
         let save = app.buttons["btn_saveTransaction"]
         for _ in 0..<5 {
@@ -100,6 +107,26 @@ final class OverduePlannedUITests: MoneyTrackerUITestCase {
             app.swipeUp()
         }
         saveTransactionForm()
+    }
+
+    @MainActor
+    private func saveShot(_ name: String) {
+        let att = XCTAttachment(screenshot: app.screenshot())
+        att.name = name
+        att.lifetime = .keepAlways
+        add(att)
+    }
+
+    @MainActor
+    func testOverduePlannedWarningAndQuickConfirm() throws {
+        launch(language: "it", locale: "it", size: "UICTContentSizeCategoryL")
+
+        let actualText = app.staticTexts["home_actualBalance"]
+        XCTAssertTrue(actualText.waitForExistence(timeout: 5))
+        let initialActual = actualText.label
+
+        let overdueName = "Hotel Roma 2 notti"
+        createOverdueFixedExpense(name: overdueName, amount: "45", categoryKey: "Viaggi", localeIdentifier: "it_IT")
 
         // 1) In Home compare la sezione «Da confermare» e il saldo attuale resta invariato
         XCTAssertEqual(actualText.label, initialActual)
@@ -115,15 +142,19 @@ final class OverduePlannedUITests: MoneyTrackerUITestCase {
             app.swipeUp()
         }
         XCTAssertTrue(confirmHome.waitForExistence(timeout: 5), "Pulsante Conferma non trovato in Home")
+        XCTAssertEqual(confirmHome.label, "Conferma")
+        XCTAssertGreaterThanOrEqual(confirmHome.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(confirmHome.frame.height, 44)
         app.swipeUp()
         saveShot("ios-home-overdue")
 
-        // 2) In Movimenti compare in cima la sezione «Da confermare»
+        // 2) In Movimenti compare in cima la sezione «Da confermare» con bordo ambra
         goToTab("Movimenti")
         openTransactionsSection("Tutti")
         clearTransactionFilters()
         let confirmMov = app.buttons["btn_confirmOverdue_\(overdueName)"]
         XCTAssertTrue(confirmMov.waitForExistence(timeout: 5), "Segnalazione Da confermare non visibile in Movimenti")
+        XCTAssertEqual(confirmMov.label, "Conferma")
         saveShot("ios-movimenti-overdue")
 
         // 3) Conferma rapida: l'avviso sparisce e il saldo attuale in Home scala
@@ -137,5 +168,39 @@ final class OverduePlannedUITests: MoneyTrackerUITestCase {
         XCTAssertTrue(XCTWaiter.wait(for: [XCTNSPredicateExpectation(
             predicate: NSPredicate(format: "label != %@", initialActual), object: actualText)], timeout: 5) == .completed,
             "Dopo la conferma il saldo attuale deve scalare")
+    }
+
+    @MainActor
+    func testOverduePlannedGermanXL() throws {
+        launch(language: "de", locale: "de_DE", size: "UICTContentSizeCategoryXL")
+
+        let actualText = app.staticTexts["home_actualBalance"]
+        XCTAssertTrue(actualText.waitForExistence(timeout: 5))
+
+        let overdueName = "Hotel Roma 2 notti"
+        createOverdueFixedExpense(name: overdueName, amount: "195", categoryKey: "Viaggi", localeIdentifier: "de_DE")
+
+        let homeSection = app.otherElements["home_overdueSection"]
+        for _ in 0..<4 {
+            if homeSection.exists && homeSection.isHittable { break }
+            app.swipeUp()
+        }
+        XCTAssertTrue(homeSection.waitForExistence(timeout: 5), "Sezione Zu bestätigen non visibile in Home")
+        let confirmHome = app.buttons["btn_confirmOverdue_\(overdueName)"]
+        for _ in 0..<3 {
+            if confirmHome.exists && confirmHome.isHittable { break }
+            app.swipeUp()
+        }
+        XCTAssertTrue(confirmHome.waitForExistence(timeout: 5))
+        XCTAssertEqual(confirmHome.label, "Bestätigen")
+        app.swipeUp()
+        saveShot("ios-home-overdue-de-xl")
+
+        goToTab("Movimenti")
+        openTransactionsSection("Tutti")
+        let confirmMov = app.buttons["btn_confirmOverdue_\(overdueName)"]
+        XCTAssertTrue(confirmMov.waitForExistence(timeout: 5))
+        XCTAssertEqual(confirmMov.label, "Bestätigen")
+        saveShot("ios-movimenti-overdue-de-xl")
     }
 }

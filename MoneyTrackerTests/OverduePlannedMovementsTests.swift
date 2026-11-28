@@ -55,4 +55,38 @@ struct OverduePlannedMovementsTests {
         )
         #expect(remaining.map(\.name) == ["Assicurazione ott"])
     }
+
+    @Test("Esclude i movimenti dei conti archiviati e risolve l'icona di categoria")
+    func excludesArchivedAccountsAndResolvesCategoryIcon() throws {
+        let schema = Schema(versionedSchema: SchemaV3.self)
+        let container = try ModelContainer(
+            for: schema,
+            configurations: ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        )
+        let ctx = container.mainContext
+
+        let active = Account(name: "Conto", type: .conto, initialBalance: 500)
+        let archived = Account(name: "Vecchio", type: .conto, initialBalance: 100)
+        archived.isArchived = true
+        ctx.insert(active)
+        ctx.insert(archived)
+
+        let nov28 = date(28, month: 11)
+        let onActive = Transaction(name: "Hotel Roma 2 notti", amount: 195, type: .uscita, category: "Viaggi", categoryIcon: "circle.dotted", date: date(15, month: 10), isDone: false, account: active)
+        let onArchived = Transaction(name: "Vecchia bolletta", amount: 60, type: .uscita, category: "Casa", categoryIcon: "house.fill", date: date(12, month: 10), isDone: false, account: archived)
+        let noAccount = Transaction(name: "Senza conto", amount: 25, type: .uscita, category: "", categoryIcon: "", date: date(10, month: 10), isDone: false, account: nil)
+
+        ctx.insert(onActive)
+        ctx.insert(onArchived)
+        ctx.insert(noAccount)
+        try ctx.save()
+
+        let overdue = OverduePlannedMovements.list(from: [onActive, onArchived, noAccount], relativeTo: nov28, calendar: calendar)
+        #expect(Set(overdue.map { $0.name }) == ["Hotel Roma 2 notti", "Senza conto"])
+
+        // Con categoria nota ma categoryIcon di default "circle.dotted" -> usa icona della categoria ("airplane")
+        #expect(OverduePlannedMovements.resolvedCategorySymbol(for: onActive) == "airplane")
+        // Solo se manca la categoria usa il cerchio tratteggiato generico
+        #expect(OverduePlannedMovements.resolvedCategorySymbol(for: noAccount) == "circle.dotted")
+    }
 }

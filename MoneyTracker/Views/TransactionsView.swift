@@ -406,7 +406,6 @@ struct TransactionsView: View {
         OverduePlannedRow(
             transaction: t,
             formattedAmount: hideBalance ? "••••" : t.amount.currencyFormatted,
-            showAccount: false,
             compact: true,
             onEdit: { editing = t },
             onConfirm: {
@@ -419,14 +418,7 @@ struct TransactionsView: View {
         .padding(.horizontal, 14)
         .alignmentGuide(.listRowSeparatorLeading) { _ in 14 }
         .listRowInsets(EdgeInsets())
-        .listRowBackground(
-            UnevenRoundedRectangle(
-                topLeadingRadius: isFirst ? 18 : 0,
-                bottomLeadingRadius: isLast ? 18 : 0,
-                bottomTrailingRadius: isLast ? 18 : 0,
-                topTrailingRadius: isFirst ? 18 : 0
-            ).fill(DS.surface)
-        )
+        .listRowBackground(OverduePlannedCardBackground(isFirst: isFirst, isLast: isLast))
         .listRowSeparatorTint(DS.divider)
         .swipeActions(edge: .leading, allowsFullSwipe: true) {
             Button {

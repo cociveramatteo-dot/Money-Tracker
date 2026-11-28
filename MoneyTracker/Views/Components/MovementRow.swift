@@ -6,6 +6,9 @@ struct MovementRow: View {
     let name: String
     /// Testo già localizzato e formattato dalla vista chiamante.
     let metadata: String
+    /// Suffisso opzionale (es. " · 15 ott") che non viene mai troncato quando `metadata` è lungo.
+    var metadataTail: String? = nil
+    var singleLineMetadata = false
     /// Importo già formattato, senza segno.
     let amount: String
     let categoryName: String
@@ -37,7 +40,7 @@ struct MovementRow: View {
             if dynamicTypeSize.isAccessibilitySize {
                 VStack(alignment: .leading, spacing: DS.Space.s) {
                     movementTitle
-                    Text(metadata).font(DS.Typo.caption).foregroundStyle(DS.smoke)
+                    Text(metadata + (metadataTail ?? "")).font(DS.Typo.caption).foregroundStyle(DS.smoke)
                     Text(signedAmount).font(DS.Typo.rowAmount).foregroundStyle(amountColor)
                         .lineLimit(1)
                         .minimumScaleFactor(0.6)
@@ -85,7 +88,23 @@ struct MovementRow: View {
             VStack(alignment: .leading, spacing: DS.Space.xs) {
                 movementTitle
                     .lineLimit(1)
-                Text(metadata).font(DS.Typo.caption).foregroundStyle(DS.smoke)
+                if let metadataTail, !metadataTail.isEmpty {
+                    HStack(spacing: 0) {
+                        Text(metadata)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                        Text(metadataTail)
+                            .lineLimit(1)
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
+                    .font(DS.Typo.caption)
+                    .foregroundStyle(DS.smoke)
+                } else {
+                    Text(metadata)
+                        .font(DS.Typo.caption)
+                        .foregroundStyle(DS.smoke)
+                        .lineLimit(singleLineMetadata ? 1 : nil)
+                }
             }
             Spacer(minLength: DS.Space.s)
             Text(signedAmount).font(DS.Typo.rowAmount).foregroundStyle(amountColor)

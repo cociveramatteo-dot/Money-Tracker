@@ -159,11 +159,12 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
     val layout = remember(filtered, virtual, isFutureMonth, zone) {
         MovementListLayout.make(filtered, virtual, isFutureMonth, zone)
     }
-    val overdue = remember(ledger.transactions, ruleIds, query, section, monthOffset, category, prefs.txFilterMin, prefs.txFilterMax, prefs.txFilterUseDates, today, zone) {
+    val overdue = remember(ledger.transactions, ledger.accounts, ruleIds, query, section, monthOffset, category, prefs.txFilterMin, prefs.txFilterMax, prefs.txFilterUseDates, today, zone) {
         if (monthOffset != 0 || query.isNotBlank() || prefs.txFilterUseDates) emptyList()
         else {
+            val archivedIds = ledger.accounts.filter { it.isArchived }.map { it.id }.toSet()
             val base = com.bucktrail.android.ui.OverduePlannedMovements.matchingSection(
-                com.bucktrail.android.ui.OverduePlannedMovements.list(ledger.transactions, today, zone),
+                com.bucktrail.android.ui.OverduePlannedMovements.list(ledger.transactions, today, zone, archivedIds),
                 section,
                 ruleIds,
             )
@@ -284,7 +285,6 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
             if (overdue.isNotEmpty()) item("overdue") {
                 com.bucktrail.android.ui.OverduePlannedSection(
                     items = overdue,
-                    accounts = ledger.accounts,
                     currency = currency,
                     hidden = hidden,
                     today = today,
@@ -292,7 +292,6 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                     res = res,
                     ruleIds = ruleIds,
                     compactHeader = true,
-                    showAccount = false,
                     onEdit = rowTap,
                     onConfirm = actions.onToggleDone,
                     onDelete = seriesDelete,

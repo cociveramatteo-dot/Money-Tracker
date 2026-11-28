@@ -46,4 +46,22 @@ class OverduePlannedMovementsTest {
         assertEquals(listOf("t2"), OverduePlannedMovements.matchingSection(overdue, MovementSection.Fixed, emptySet()).map { it.id })
         assertEquals(emptyList<String>(), OverduePlannedMovements.matchingSection(overdue, MovementSection.Transfer, emptySet()).map { it.id })
     }
+
+    @Test
+    fun excludesArchivedAccountsAndResolvesCategoryIcon() {
+        val nov28 = LocalDate.of(2026, 11, 28)
+        val onActive = TransactionEntity("t1", "acc-active", "Hotel Roma 2 notti", amountCents = 195_00, type = Amounts.TYPE_EXPENSE, category = "Viaggi", categoryIcon = "circle.dotted", date = millis(15, 10), isDone = false)
+        val onArchived = TransactionEntity("t2", "acc-archived", "Vecchia bolletta", amountCents = 60_00, type = Amounts.TYPE_EXPENSE, category = "Casa", categoryIcon = "house.fill", date = millis(12, 10), isDone = false)
+        val noAccount = TransactionEntity("t3", null, "Senza conto", amountCents = 25_00, type = Amounts.TYPE_EXPENSE, category = "", categoryIcon = "", date = millis(10, 10), isDone = false)
+
+        val overdue = OverduePlannedMovements.list(
+            transactions = listOf(onActive, onArchived, noAccount),
+            today = nov28,
+            zone = zone,
+            archivedAccountIds = setOf("acc-archived"),
+        )
+        assertEquals(listOf("t1", "t3"), overdue.map { it.id })
+        assertEquals("airplane", OverduePlannedMovements.resolvedCategoryIcon(onActive))
+        assertEquals("circle.dotted", OverduePlannedMovements.resolvedCategoryIcon(noAccount))
+    }
 }

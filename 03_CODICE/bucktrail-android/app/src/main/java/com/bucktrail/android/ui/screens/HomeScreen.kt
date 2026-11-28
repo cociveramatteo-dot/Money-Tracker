@@ -115,8 +115,9 @@ fun HomeScreen(
     val latest = remember(ledger.transactions, zone) {
         ledger.transactions.filter { !it.isFixed && !it.isTransfer && it.recurringFrequency.isEmpty() }.sortedForDisplay(zone).take(4)
     }
-    val overdue = remember(ledger.transactions, today, zone) {
-        com.bucktrail.android.ui.OverduePlannedMovements.list(ledger.transactions, today, zone)
+    val overdue = remember(ledger.transactions, ledger.accounts, today, zone) {
+        val archivedIds = ledger.accounts.filter { it.isArchived }.map { it.id }.toSet()
+        com.bucktrail.android.ui.OverduePlannedMovements.list(ledger.transactions, today, zone, archivedIds)
     }
     val ruleIds = remember(ledger.rules) { ledger.rules.map { it.id.lowercase() }.toSet() }
     var collapsed by rememberSaveable { mutableStateOf(false) }
@@ -226,7 +227,6 @@ fun HomeScreen(
             Box(Modifier.padding(horizontal = Dim.cardMargin.dp)) {
                 com.bucktrail.android.ui.OverduePlannedSection(
                     items = overdue,
-                    accounts = ledger.accounts,
                     currency = currency,
                     hidden = hidden,
                     today = today,
@@ -234,7 +234,6 @@ fun HomeScreen(
                     res = res,
                     ruleIds = ruleIds,
                     compactHeader = false,
-                    showAccount = true,
                     onSeeAll = onSeeAllMovements,
                     onEdit = onEdit,
                     onConfirm = onToggleDone,

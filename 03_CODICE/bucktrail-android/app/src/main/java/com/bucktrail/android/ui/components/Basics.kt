@@ -310,6 +310,7 @@ enum class MovementKind { Expense, Income, Transfer }
 fun MovementRow(
     title: String, meta: String, amount: String, kind: MovementKind, categoryName: String, categoryIcon: String,
     modifier: Modifier = Modifier, planned: Boolean = false, recurring: Boolean = false, compact: Boolean = false,
+    metaTail: String? = null, horizontalPadding: Dp = 14.dp,
     onClick: (() -> Unit)? = null, onLongClick: (() -> Unit)? = null,
 ) {
     val c = Bt.colors
@@ -320,7 +321,7 @@ fun MovementRow(
         Row(
             modifier.fillMaxWidth()
                 .then(if (onClick != null || onLongClick != null) Modifier.combinedClickable(onClick = { onClick?.invoke() }, onLongClick = onLongClick) else Modifier)
-                .padding(horizontal = 14.dp, vertical = if (compact) 10.dp else Dim.rowVPad.dp),
+                .padding(horizontal = horizontalPadding, vertical = if (compact) 10.dp else Dim.rowVPad.dp),
             verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             CategoryIconBox(categoryIcon, categoryName, planned = planned, transfer = kind == MovementKind.Transfer)
@@ -329,7 +330,7 @@ fun MovementRow(
                     Text(title, style = Typo.rowName, color = c.ink)
                     if (recurring) Icon(SfIcons.forName("repeat"), null, tint = c.smoke, modifier = Modifier.size(12.dp))
                 }
-                Text(meta, style = Typo.caption, color = c.smoke)
+                Text(meta + (metaTail ?: ""), style = Typo.caption, color = c.smoke)
                 FitText(sign + amount, Typo.rowAmount, color, Modifier.fillMaxWidth(), minScale = 0.6f, textAlign = TextAlign.End)
             }
         }
@@ -338,7 +339,7 @@ fun MovementRow(
     Row(
         modifier.fillMaxWidth()
             .then(if (onClick != null || onLongClick != null) Modifier.combinedClickable(onClick = { onClick?.invoke() }, onLongClick = onLongClick) else Modifier)
-            .padding(horizontal = 14.dp, vertical = if (compact) 10.dp else Dim.rowVPad.dp),
+            .padding(horizontal = horizontalPadding, vertical = if (compact) 10.dp else Dim.rowVPad.dp),
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         CategoryIconBox(categoryIcon, categoryName, planned = planned, transfer = kind == MovementKind.Transfer)
@@ -347,7 +348,14 @@ fun MovementRow(
                 Text(title, style = Typo.rowName, color = c.ink, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
                 if (recurring) Icon(SfIcons.forName("repeat"), null, tint = c.smoke, modifier = Modifier.size(12.dp))
             }
-            Text(meta, style = Typo.caption, color = c.smoke, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            if (!metaTail.isNullOrEmpty()) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(meta, style = Typo.caption, color = c.smoke, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
+                    Text(metaTail, style = Typo.caption, color = c.smoke, maxLines = 1, softWrap = false)
+                }
+            } else {
+                Text(meta, style = Typo.caption, color = c.smoke, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            }
         }
         Text(sign + amount, style = Typo.rowAmount, color = color, maxLines = 1, softWrap = false)
     }

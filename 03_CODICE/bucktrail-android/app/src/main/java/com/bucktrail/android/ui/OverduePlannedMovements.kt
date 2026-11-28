@@ -32,10 +32,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.bucktrail.android.R
-import com.bucktrail.android.data.AccountEntity
 import com.bucktrail.android.data.TransactionEntity
 import com.bucktrail.android.data.toData
 import com.bucktrail.android.domain.Amounts
+import com.bucktrail.android.domain.Categories
 import com.bucktrail.android.domain.TransactionData
 import com.bucktrail.android.ui.components.MovementKind
 import com.bucktrail.android.ui.components.MovementRow
@@ -46,21 +46,31 @@ import com.bucktrail.android.ui.components.ThinDivider
 import com.bucktrail.android.ui.screens.amountValue
 import com.bucktrail.android.ui.screens.localDate
 import com.bucktrail.android.ui.theme.Bt
-import com.bucktrail.android.ui.theme.Dim
 import com.bucktrail.android.ui.theme.Typo
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.ZoneId
 
-/** Movimenti pianificati scaduti (di mesi passati e non ancora confermati) — S-73f. */
+/** Movimenti pianificati scaduti (di mesi passati e non ancora confermati) — S-73f/S-73g. */
 object OverduePlannedMovements {
-    fun isOverdue(t: TransactionData, today: LocalDate, zone: ZoneId): Boolean {
+    fun isOverdue(
+        t: TransactionData,
+        today: LocalDate,
+        zone: ZoneId,
+        archivedAccountIds: Set<String> = emptySet(),
+    ): Boolean {
         if (t.isDone || t.isTransfer) return false
+        if (t.accountId != null && t.accountId in archivedAccountIds) return false
         return YearMonth.from(t.date.atZone(zone)).isBefore(YearMonth.from(today))
     }
 
-    fun list(transactions: List<TransactionEntity>, today: LocalDate, zone: ZoneId): List<TransactionEntity> =
-        transactions.filter { isOverdue(it.toData(), today, zone) }.sortedForDisplay(zone)
+    fun list(
+        transactions: List<TransactionEntity>,
+        today: LocalDate,
+        zone: ZoneId,
+        archivedAccountIds: Set<String> = emptySet(),
+    ): List<TransactionEntity> =
+        transactions.filter { isOverdue(it.toData(), today, zone, archivedAccountIds) }.sortedForDisplay(zone)
 
     fun matchingSection(
         items: List<TransactionEntity>,
@@ -74,6 +84,10 @@ object OverduePlannedMovements {
         MovementSection.Expense -> items.filter { it.type == Amounts.TYPE_EXPENSE }
         MovementSection.Income -> items.filter { it.type == Amounts.TYPE_INCOME }
     }
+
+    fun resolvedCategoryIcon(t: TransactionEntity): String =
+        t.categoryIcon.takeIf { it.isNotEmpty() && it != Categories.UNKNOWN_ICON }
+            ?: Categories.iconFor(t.category)
 }
 
 @Composable
@@ -123,7 +137,6 @@ fun OverduePlannedHeader(
 @Composable
 fun OverduePlannedSection(
     items: List<TransactionEntity>,
-    accounts: List<AccountEntity>,
     currency: String,
     hidden: Boolean,
     today: LocalDate,
@@ -131,7 +144,6 @@ fun OverduePlannedSection(
     res: android.content.res.Resources,
     ruleIds: Set<String> = emptySet(),
     compactHeader: Boolean = false,
-    showAccount: Boolean = true,
     onSeeAll: (() -> Unit)? = null,
     onEdit: (TransactionEntity) -> Unit,
     onConfirm: (TransactionEntity) -> Unit,
@@ -141,6 +153,7 @@ fun OverduePlannedSection(
     val c = Bt.colors
     val radius = if (compactHeader) 18.dp else 20.dp
     val largeFont = LocalDensity.current.fontScale >= 1.6f
+    val confirmLabel = stringResource(R.string.conferma)
 
     Column(verticalArrangement = Arrangement.spacedBy(if (compactHeader) 6.dp else 8.dp)) {
         OverduePlannedHeader(count = items.size, compactHeader = compactHeader, onSeeAll = onSeeAll)
@@ -155,72 +168,72 @@ fun OverduePlannedSection(
                 key("overdue_${t.id}") {
                     if (index > 0) ThinDivider(Modifier.padding(start = if (compactHeader) 14.dp else 64.dp), c.divider)
                     val category = categoryLabel(t.category, res)
-                    val account = if (showAccount) accounts.firstOrNull { it.id == t.accountId }?.name.orEmpty() else ""
                     val date = t.localDate(zone)
-                    val meta = listOf(
-                        if (t.isFixed) res.getString(R.string.fissa) else category,
-                        account,
-                        Fmt.dayMonth(date, today, res),
-                    ).filter { it.isNotEmpty() }.joinToString(" · ")
+                    val meta = if (t.isFixed) res.getString(R.string.fissa) else category
+                    val metaTail = " · ${Fmt.dayMonth(date, today, res)}"
                     val amountText = if (hidden) Fmt.HIDDEN else Fmt.currency(t.amountValue(), currency)
                     val kind = if (t.type == Amounts.TYPE_INCOME) MovementKind.Income else MovementKind.Expense
                     val recurring = t.templateId.lowercase() in ruleIds
+                    val categoryIcon = OverduePlannedMovements.resolvedCategoryIcon(t)
 
-                    val confirmPill: @Composable () -> Unit = {
-                        Row(
+                    val confirmButton: @Composable () -> Unit = {
+                        Box(
                             Modifier
-                                .heightIn(min = 44.dp)
+                                .size(48.dp)
                                 .clip(CircleShape)
-                                .clickable(role = Role.Button) { onConfirm(t) }
-                                .padding(vertical = 8.dp)
-                                .clip(CircleShape)
-                                .background(c.plannedSoft)
-                                .padding(horizontal = 10.dp, vertical = 6.dp)
+                                .clickable(role = Role.Button, onClickLabel = confirmLabel) { onConfirm(t) }
                                 .testTag("btn_confirmOverdue_${t.name}"),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                            contentAlignment = Alignment.Center,
                         ) {
-                            Icon(SfIcons.forName("checkmark.circle.fill"), null, tint = c.plannedText, modifier = Modifier.size(14.dp))
-                            Text(
-                                stringResource(R.string.conferma),
-                                style = Typo.caption.copy(fontWeight = FontWeight.SemiBold),
-                                color = c.plannedText,
-                                maxLines = 1,
-                            )
+                            Box(
+                                Modifier
+                                    .size(32.dp)
+                                    .clip(CircleShape)
+                                    .background(c.plannedSoft),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Icon(
+                                    SfIcons.forName("checkmark"),
+                                    contentDescription = confirmLabel,
+                                    tint = c.plannedText,
+                                    modifier = Modifier.size(16.dp),
+                                )
+                            }
                         }
                     }
 
                     SwipeableRow(
                         deleteAction = SwipeAction(stringResource(R.string.elimina), SfIcons.forName("trash"), c.danger, c.onAccent),
                         onDelete = { onDelete(t); true },
-                        toggleAction = SwipeAction(stringResource(R.string.conferma), SfIcons.forName("checkmark.circle.fill"), c.accent, c.onAccent),
+                        toggleAction = SwipeAction(confirmLabel, SfIcons.forName("checkmark.circle.fill"), c.accent, c.onAccent),
                         onToggle = { onConfirm(t) },
                     ) {
                         if (largeFont) {
                             Column(Modifier.fillMaxWidth().padding(end = 14.dp)) {
                                 MovementRow(
-                                    title = t.name, meta = meta, amount = amountText, kind = kind,
-                                    categoryName = t.category, categoryIcon = t.categoryIcon,
+                                    title = t.name, meta = meta, metaTail = metaTail, amount = amountText, kind = kind,
+                                    categoryName = t.category, categoryIcon = categoryIcon,
                                     planned = true, recurring = recurring, compact = compactHeader,
                                     onClick = { onEdit(t) },
                                 )
-                                FlowRow(Modifier.padding(start = 16.dp, bottom = 8.dp)) { confirmPill() }
+                                FlowRow(Modifier.padding(start = 6.dp, bottom = 6.dp)) { confirmButton() }
                             }
                         } else {
                             Row(
-                                Modifier.fillMaxWidth().padding(end = 12.dp),
+                                Modifier.fillMaxWidth().padding(start = 14.dp, end = 6.dp),
                                 verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                horizontalArrangement = Arrangement.spacedBy(2.dp),
                             ) {
                                 Box(Modifier.weight(1f)) {
                                     MovementRow(
-                                        title = t.name, meta = meta, amount = amountText, kind = kind,
-                                        categoryName = t.category, categoryIcon = t.categoryIcon,
+                                        title = t.name, meta = meta, metaTail = metaTail, amount = amountText, kind = kind,
+                                        categoryName = t.category, categoryIcon = categoryIcon,
                                         planned = true, recurring = recurring, compact = compactHeader,
+                                        horizontalPadding = 0.dp,
                                         onClick = { onEdit(t) },
                                     )
                                 }
-                                confirmPill()
+                                confirmButton()
                             }
                         }
                     }
