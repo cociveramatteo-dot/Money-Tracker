@@ -81,6 +81,7 @@ fun AddTransactionForm(
     var dateEpochDay by rememberSaveable { mutableStateOf((originalDate ?: today).toEpochDay()) }
     var fixed by rememberSaveable { mutableStateOf(existing?.isFixed ?: false) }
     var done by rememberSaveable { mutableStateOf(existing?.isDone ?: true) }
+    val wasPlannedOnOpen = rememberSaveable(existing?.id) { existing?.isDone == false }
     var chosenCategory by rememberSaveable { mutableStateOf(existing?.category) }
     var suggested by rememberSaveable { mutableStateOf<String?>(null) }
     var suggestedFromHistory by rememberSaveable { mutableStateOf(false) }
@@ -167,8 +168,8 @@ fun AddTransactionForm(
             OptionRow(stringResource(if (income) R.string.entrata_fissa else R.string.spesa_fissa), stringResource(R.string.appare_in_fissi_del_mese_nella_home), Modifier.testTag("toggle_isFixed")) {
                 FormSwitch(fixed, { fixed = it; done = if (it) false else date <= today }, stringResource(if (income) R.string.entrata_fissa else R.string.spesa_fissa))
             }
-            // «Già effettuato» compare per le voci fisse o con data futura (S-73d)
-            if (fixed || date > today) OptionRow(stringResource(R.string.gia_effettuato), stringResource(R.string.togli_la_spunta_se_e_pianificata_ma_non), Modifier.testTag("toggle_isDone")) {
+            // «Già effettuato» compare per le voci fisse, con data futura o se era pianificata all'apertura (S-73i)
+            if (shouldShowDoneToggle(fixed, date, today, wasPlannedOnOpen)) OptionRow(stringResource(R.string.gia_effettuato), stringResource(R.string.togli_la_spunta_se_e_pianificata_ma_non), Modifier.testTag("toggle_isDone")) {
                 FormSwitch(done, { done = it }, stringResource(R.string.gia_effettuato))
             }
             if (existing == null) Box {
@@ -237,6 +238,13 @@ fun AddTransactionForm(
 private fun freqLabelRes(f: String) = when (f) {
     "settimanale" -> R.string.settimanale; "mensile" -> R.string.mensile; "annuale" -> R.string.annuale; else -> R.string.nessuna
 }
+
+internal fun shouldShowDoneToggle(
+    fixed: Boolean,
+    date: LocalDate,
+    today: LocalDate,
+    wasPlannedOnOpen: Boolean,
+): Boolean = fixed || date > today || wasPlannedOnOpen
 
 internal fun sortAccountsByUsage(
     accounts: List<AccountEntity>,

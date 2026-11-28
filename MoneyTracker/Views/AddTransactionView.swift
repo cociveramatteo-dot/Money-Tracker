@@ -18,6 +18,7 @@ struct AddTransactionView: View {
     @State private var selectedAccount: Account?    = nil
     @State private var date:            Date        = Date()
     @State private var isDone:               Bool        = true
+    @State private var wasPlannedOnOpen:     Bool        = false
     @State private var isFixed:              Bool        = false
     @State private var recurringFrequency:   String      = ""
     @State private var notes:                String      = ""
@@ -62,6 +63,16 @@ struct AddTransactionView: View {
 
     static func defaultDone(isFixed: Bool, date: Date, relativeTo today: Date = Date(), calendar: Calendar = .current) -> Bool {
         !isFixed && !isFutureDate(date, relativeTo: today, calendar: calendar)
+    }
+
+    static func shouldShowDoneToggle(
+        isFixed: Bool,
+        date: Date,
+        wasPlannedOnOpen: Bool,
+        relativeTo today: Date = Date(),
+        calendar: Calendar = .current
+    ) -> Bool {
+        isFixed || isFutureDate(date, relativeTo: today, calendar: calendar) || wasPlannedOnOpen
     }
 
     private var isSaveDisabled: Bool {
@@ -201,8 +212,8 @@ struct AddTransactionView: View {
                                 .accessibilityIdentifier("toggle_isFixed")
                         }
 
-                        // "Già effettuato" appare per le voci fisse o con data futura
-                        if isFixed || Self.isFutureDate(date) {
+                        // "Già effettuato" appare per le voci fisse, con data futura o se era pianificata all'apertura (S-73i)
+                        if Self.shouldShowDoneToggle(isFixed: isFixed, date: date, wasPlannedOnOpen: wasPlannedOnOpen) {
                             ThinDivider()
                             HStack {
                                 VStack(alignment: .leading, spacing: 2) {
@@ -332,6 +343,7 @@ struct AddTransactionView: View {
             selectedCat              = nil
             date                     = Date()
             isDone                   = true
+            wasPlannedOnOpen         = false
             isFixed                  = false
             recurringFrequency       = ""
             notes                    = ""
@@ -348,6 +360,7 @@ struct AddTransactionView: View {
         selectedAccount = t.account
         date            = t.date
         isDone          = t.isDone
+        wasPlannedOnOpen = !t.isDone
         isFixed             = t.isFixed
         recurringFrequency  = t.recurringFrequency
         notes               = t.notes
