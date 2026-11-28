@@ -27,8 +27,8 @@
   iOS `xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,name=iPhone 18 Pro' build test` (oppure la
   suite `MoneyTrackerTests` + gli UI test indicati nel task);
   Android `./gradlew assembleDebug lintDebug testDebugUnitTest` in `03_CODICE/bucktrail-android`. Poi `graphify update .`.
-- **Screenshot** in `.cantiere/tmp/s72/<task>/`: iOS in modalità demo, chiaro, scuro, tedesco con Dynamic Type AX-XL,
-  oscura importi acceso; Android chiaro e scuro. Servono per l'approvazione grafica di Matteo (D-014, `APPROVAZIONI.md`) prima del merge.
+- **Screenshot** (in origine in `.cantiere/tmp/s72/<task>/`: iOS in modalità demo, chiaro, scuro, tedesco con Dynamic Type AX-XL,
+  oscura importi acceso; Android chiaro e scuro). Gli screenshot temporanei sono stati eliminati il 2026-11-28 (cartella rimossa): per l'approvazione grafica di Matteo (D-014, `APPROVAZIONI.md`) si rigenerano dai test o dal simulatore.
 
 ---
 

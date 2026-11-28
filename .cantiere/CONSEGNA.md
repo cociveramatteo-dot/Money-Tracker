@@ -1,30 +1,24 @@
 # CONSEGNA — MoneyTracker
 
-- **Ultimo turno:** impresa (Antigravity · Gemini 4 Hydrogen) · **2026-11-28 11:19** · ramo `redesign-sentiero`
-- **Task:** `S-73i` + 2 proposte della Commissione Suprema 2026-11-28 (pulizia `countsInProjection`, cache prestazioni iOS)
+- **Ultimo turno:** capocantiere (Claude Code · Sonnet) · **2026-11-28 12:06** · ramo `redesign-sentiero` · checkpoint COMPLETO
+- **Task:** checkpoint completo (Commissione giro 2 10/10 su tutto, S-73a..i chiusi, S-70h e S-52a chiusi)
 
 ## Fatto
-1. **`S-73i` — Interruttore «Già effettuato» per pianificati scaduti (`368d824`):**
-   - **iOS** (`MoneyTracker/Views/AddTransactionView.swift`): aggiunto `@State private var wasPlannedOnOpen = false`, valorizzato in `load()` (`!t.isDone` in modifica, `false` in creazione, senza toccare `isDone`), ed estratto `shouldShowDoneToggle(isFixed:date:wasPlannedOnOpen:...)` usato al posto di `isFixed || Self.isFutureDate(date)`.
-   - **Android** (`03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/forms/AddTransactionForm.kt`): aggiunto `val wasPlannedOnOpen = rememberSaveable(existing?.id) { existing?.isDone == false }` e `shouldShowDoneToggle(fixed, date, today, wasPlannedOnOpen)`.
-   - **Test nuovi:** `MoneyTrackerTests/AddTransactionDoneToggleTests.swift`, `MoneyTrackerUITests/OverduePlannedFormUITests.swift`, `03_CODICE/bucktrail-android/app/src/test/java/com/bucktrail/android/ui/forms/AddTransactionFormDoneToggleTest.kt`.
-2. **Pulizia — Regola previsione in helper neutro (`d86d015`):**
-   - Spostata la logica `countsInProjection` in `MoneyTracker/Views/ProjectionRules.swift` (`enum ProjectionRules`, fuori da `Domain/`).
-   - Aggiornati i chiamanti in `MoneyTracker/Views/MonthlyPlannedBalance.swift` e `MoneyTracker/Views/DashboardView.swift` (lasciata in `DashboardView` solo una delega di una riga per non toccare il test esistente `ProjectionMonthTests.swift`).
-   - Aggiunto `MoneyTrackerTests/ProjectionRulesTests.swift`.
-3. **Prestazioni iOS — Memorizzazione previsioni e «Da confermare»:**
-   - `MoneyTracker/Views/MonthlyPlannedBalance.swift` (`MonthlyPlannedBalance.Cache`) + `MoneyTracker/Views/AccountsView.swift`: memorizzato `expectedByID` per fingerprint su `projectionDay`, `accounts`, `currentBalance` e `transactions`.
-   - `MoneyTracker/Views/OverduePlannedMovements.swift` (`ListCache` e `FilteredCache`) + `MoneyTracker/Views/DashboardView.swift` + `MoneyTracker/Views/TransactionsView.swift`: memorizzata la scansione `overduePlanned` (e i relativi filtri in Movimenti, con `projectionDay` aggiornato su `scenePhase`/mezzanotte).
-   - Aggiunto `MoneyTrackerTests/ProjectionAndOverdueCacheTests.swift`.
+1. **Sentiero completo e collaudato:** S-73a..g e S-73i `[x]`, S-70h `[x]`, S-52a `[x]`. Restano `[ ]` in coda bassa priorità: S-73h (icona, Copilot) e S-73j (2 test cache, Copilot).
+2. **Documento master:** `docs/MoneyTracker.md` v3.31 (Changelog v3.31, Home «Da confermare» e regola previsione, Movimenti, form e Conti, roadmap S-80 come «progettato»). PDF rigenerato alle 12:07 (34 pagine).
+3. **Checkpoint:** `.cantiere/CHECKPOINT.md` riscritto (80 righe) e copiato in `.cantiere/archivio/checkpoint/2026-11-28_1206.md`.
+4. **PIANO:** coerente. S-73 `[x]` con i sotto-task chiusi, tranne h e j.
 
-## Verifiche eseguite dopo l'ultima modifica
-- **iOS unit test:** intero target `MoneyTrackerTests` → **265/265** test in 60 suite verdi (+ 1 XCTest `TwoDeviceLiveSyncTests` skipped).
-- **iOS UI test:** `FutureTransactionPlannedUITests` (**2/2**), `OverduePlannedFormUITests` (**1/1**), `OverduePlannedUITests` (**2/2**) → **5/5** verdi (`** TEST SUCCEEDED **`).
-- **Android:** `./gradlew assembleDebug lintDebug testDebugUnitTest` → **370/370** test unitari in 65 suite verdi (0 falliti, 0 skip).
-- **Zone intoccabili rispettate:** `Domain/`, `Models/`, `Sync/`, `Auth/`, `Intents/`, `Export/`, `Formatting/` e test esistenti non modificati.
+## Verifiche eseguite
+- Commissione Suprema giro 2: 10/10/10/10/10/10 (collaudatore, 12:05).
+- Test: iOS 265/265 unitari + 1 live skip, UI 5/5. Android 370/370, lint verde (riportati dal collaudo e dai DIARIO, non rieseguiti dal capocantiere).
+- Pagella misurata 84/100. Guardiano 🔴 solo per CORS del sito in locale.
+- Commit: NON fatto (sigilla il capocantiere). Tag `checkpoint-2026-11-28-1206` da creare.
 
 ## Fuori dal commit (lasciato intenzionalmente)
-- `.cantiere/STATO.md` (checkpoint in corso, non modificato), `.cantiere/MAPPA.md`, `.cantiere/progetto-s72-movimenti-abitudini.md`, `MoneyTracker.xcodeproj/xcshareddata/xcschemes/MoneyTracker.xcscheme`.
+- `.cantiere/STATO.md` (In turno non toccata), `.cantiere/MAPPA.md`, `.cantiere/PAGELLE.md`, `.cantiere/progetto-s72-movimenti-abitudini.md`, `MoneyTracker.xcodeproj/xcshareddata/xcschemes/MoneyTracker.xcscheme`, grafo `graphify-out/` (non aggiornato in questo turno), `.cantiere/archivio/pagelle/2026-11-28_1205_misurata.md`.
 
 ## Prossimo
-- Ripresa del **CHECKPOINT** in corso da parte del capocantiere (Claude Code · Sonnet), con verifica Commissione Suprema / chiusura `S-73i`.
+- Matteo: merge di `redesign-sentiero` su `main` (sì o no).
+- Poi S-73h e S-73j → Copilot (prompt in CHECKPOINT «Domani si riparte così»).
+- Poi S-80m (mockup) oppure S-71p (progetto import).

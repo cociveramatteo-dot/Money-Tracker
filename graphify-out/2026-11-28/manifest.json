@@ -245,8 +245,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Views/StatisticsView.swift": {
-    "mtime": 1795819639.5000916,
-    "ast_hash": "ffcf2218af6fceb0193a6b05b7cc57b6",
+    "mtime": 1795821652.3542676,
+    "ast_hash": "5d2176f3e9cdc6eedfa28f924c501460",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/Theme.swift": {
@@ -530,18 +530,18 @@
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795820104.9703338,
-    "ast_hash": "22d71b5af0bc229ddfecb6336b423d4d",
+    "mtime": 1795823615.7440555,
+    "ast_hash": "20d7a276bffe000e93324a576bf2e0e7",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
-    "mtime": 1795815825.9720113,
-    "ast_hash": "da44c90dcf0659c9f770a15297c27539",
+    "mtime": 1795823925.767368,
+    "ast_hash": "2b58b0b6a053d4442f01415b4996d6b7",
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795820105.7591343,
-    "ast_hash": "3bdf54e68df984e6cbf893bea4e5e126",
+    "mtime": 1795823925.7709682,
+    "ast_hash": "42d125036ad5b52463723f1068b3b20e",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -555,13 +555,13 @@
     "semantic_hash": ""
   },
   ".cantiere/PER-MATTEO.md": {
-    "mtime": 1795812239.4615428,
-    "ast_hash": "8990a3065eb507a41ee463df726fa37f",
+    "mtime": 1795823925.7678506,
+    "ast_hash": "a2d2845093e4980fa4a747047a289e58",
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795820104.204267,
-    "ast_hash": "09a2afca5b69ae2219f3132ff271263f",
+    "mtime": 1795823925.7662551,
+    "ast_hash": "58e30e44969d9b5c74925bbe5a79dcb8",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795820130.0519774,
-    "ast_hash": "ec63ef2c881b435e87618905c0f260c5",
+    "mtime": 1795823980.6087363,
+    "ast_hash": "fb6cf7522c79534104392818c816575e",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -730,8 +730,8 @@
     "semantic_hash": ""
   },
   "MoneyTrackerUITests/SentieroStatisticsUITests.swift": {
-    "mtime": 1794860913.3290515,
-    "ast_hash": "c880e1fb51d70639c92913a46f603fe9",
+    "mtime": 1795822058.7308643,
+    "ast_hash": "9a8be3dfd7372906c4d94b0396f4f926",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/Components/PlanningCards.swift": {
@@ -1470,8 +1470,8 @@
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/StatisticsScreen.kt": {
-    "mtime": 1795818181.0034013,
-    "ast_hash": "334dbf4deaf2c481e4df2a80ec927668",
+    "mtime": 1795821663.0971293,
+    "ast_hash": "516f857204d27a213d9046d02b155a42",
     "semantic_hash": ""
   },
   "03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/screens/TransactionRow.kt": {
@@ -3315,8 +3315,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Intents/IntentCategoryMenu.swift": {
-    "mtime": 1795820516.0939004,
-    "ast_hash": "1f5001a7f75055633b492bc99532fd02",
+    "mtime": 1795822785.890827,
+    "ast_hash": "3b957229b7dd2ee1e808a330bb1d2116",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/HabitsView.swift": {
@@ -3400,13 +3400,13 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Intents/AddMovementIntent.swift": {
-    "mtime": 1795820436.6852562,
-    "ast_hash": "aca19359480a72eb66d43722604089a7",
+    "mtime": 1795822709.0305905,
+    "ast_hash": "3c24aeafa89b51745faab7adc56855eb",
     "semantic_hash": ""
   },
   "MoneyTrackerTests/AddMovementIntentTests.swift": {
-    "mtime": 1795820566.0242615,
-    "ast_hash": "70b2c994940d2ff0f8353059104041fa",
+    "mtime": 1795822908.467649,
+    "ast_hash": "06a51f80d50cc1af19b23d65a49a231a",
     "semantic_hash": ""
   }
 }

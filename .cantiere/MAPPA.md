@@ -45,6 +45,7 @@
 - `SOCIAL/clip-social/post-N/_lavoro/` — HTML e PNG di lavorazione del post 1 (fuori da git)
 - `SOCIAL/caroselli/presentazione-v1/build.py` — genera le slide del carosello da `materiale/` a `pronto/` (`python3 SOCIAL/caroselli/presentazione-v1/build.py`)
 - `SOCIAL/caroselli/presentazione-v1.md` — testo del carosello di presentazione (git)
+- `.cantiere/progetto-split-rimborsi.md` — progetto S-80 «Spese divise e crediti da recuperare» (iOS + Android): approvato come idea da Matteo il 2026-11-28, parcheggiato dopo il redesign «Sentiero», da approvare con S-80q prima del codice (git)
 - Carosello di prova superato (17/11): spostato nel magazzino in `02_RISORSE/lavorate/social-prove/prova-01/` (doppione anche in `social-caroselli/` e `fuori-git/`)
 - `SOCIAL/landing/`, `SOCIAL/montaggio/` — sito landing e script di montaggio (git)
 - `.cantiere/tmp/` — solo appunti correnti (`collaudo.md`, `giudice-*.md`); i log e gli .xcresult dei collaudi S-50 sono nel magazzino in `02_RISORSE/lavorate/collaudi-s50-2026-11/` (s50l, s50m, s50q-2, s50r, e2e-ios, e2e-android, giro1/giro2 commissione) spostati il 2026-11-26. Il file `s70/` resta in `.cantiere/tmp/` quando esiste

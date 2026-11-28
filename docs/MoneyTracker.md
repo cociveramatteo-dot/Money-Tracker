@@ -1,6 +1,6 @@
 # MoneyTracker — Documento Completo
 
-*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.30*
+*App iOS finanza personale per il mercato italiano · Aggiornato: novembre 2026 · Versione 3.31*
 
 > **Nome visualizzato:** l'app compare sotto l'icona come **"Bucktrail"** (`INFOPLIST_KEY_CFBundleDisplayName`). Il nome tecnico del progetto — cartella, target Xcode, bundle identifier (`com.matteo.moneytracker.MoneyTracker`) — resta `MoneyTracker` e non cambia: questo documento e il codice continuano a riferirsi al progetto con quel nome.
 
@@ -309,6 +309,8 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 - **Fissi del mese** — mini-card affiancate "Spese fisse"/"Entrate fisse": somma di tutte le transazioni `isFixed` del mese corrente (pagate o da pagare, `isDone` ignorato). Ciascuna mostrabile/nascondibile indipendentemente da Impostazioni → Home (`@AppStorage("showFixedExpensesTotal")`/`("showFixedIncomeTotal")`); rispetta "Nascondi saldo" (`hideBalance`)
 - **Ultimi movimenti** — collassabile, con link «Vedi tutti» verso il tab Movimenti. Ultime 4 transazioni non fisse (`MovementRow`). Swipe sinistra = Elimina, tap o menu contestuale = Modifica
 - **Cache della proiezione** — la curva del saldo e la proiezione Home sono in cache e si ricalcolano solo quando cambiano i dati (correzione della Commissione del 2026-11-24)
+- **Da confermare** (S-73f/g) — sezione ambra per i movimenti pianificati con data già passata e non confermati. Solo segnalazione: conferma con un tocco (✓) o swipe, il saldo scala nel giorno della data originale. I movimenti di conti archiviati non compaiono. Sezione nascosta se vuota; i calcoli non cambiano
+- **Regola della previsione** (S-41, S-73c) — un movimento singolo non ricorrente e non trasferimento, se non ancora effettuato, pesa sulla previsione solo nel mese della sua data. Fatti, trasferimenti e serie ricorrenti contano sempre (`ProjectionRules.swift`)
 - Il tema non si sceglie: l'app segue il sistema (chiaro/scuro)
 
 ### Movimenti (TransactionsView)
@@ -317,6 +319,7 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 - **Chip tipo:** Tutti · Fisse · Trasf. · Uscite · Entrate (stessa pagina) + **Ricorrenti**, che apre una pagina a sé
 - **Zona sotto i chip:** menu **Mese ▾** (questo mese, precedente, successivo, ±6 mesi), menu **Categoria ▾** e, se attivi, chip verde dei filtri avanzati con ✕ per rimuoverli. Filtri combinabili
 - **Filtri avanzati** persistiti via `@AppStorage` (importo min/max, periodo personalizzato con le sue date, che sostituisce il filtro mese). Valgono anche per le occorrenze virtuali «Serie programmate» dei mesi futuri (S-38)
+- **Da confermare** (S-73f/g): stessa sezione ambra della Home, in cima alla lista, solo nel mese corrente senza ricerca né date personalizzate
 - **Lista:** movimenti pianificati in cima nella sezione «In arrivo · pianificati», poi card giornaliere (più recenti in cima) con subtotale del giorno solo visivo (trasferimenti esclusi), righe `MovementRow`
 - **Swipe destra:** "Conferma"/"Pianificato" per i movimenti fissi o non ancora effettuati (trasferimenti inclusi); la modifica si apre dal tap sulla riga
 - **Swipe sinistra:** Elimina (singola o entrambe le gambe del trasferimento via `transferGroupId`, con conferma)
@@ -326,6 +329,8 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 - Campi: nome (con categorizzazione automatica on-device), importo, tipo (uscita/entrata), categoria, conto, data
 - Toggle "Già effettuato" (isDone), Toggle "Spesa fissa" (isFixed)
 - Attivando "Spesa fissa" disattiva automaticamente "Già effettuato"
+- Data futura ⇒ movimento pianificato in automatico, su iOS e Android (S-73c/d). In modifica, una fissa «già effettuata» resta fatta (S-73e)
+- Un movimento pianificato con data passata mostra «Già effettuato» in modifica, per confermarlo dal form (S-73i). Non cambia i calcoli
 - Categorizzazione automatica: prima la categoria dell’ultimo movimento effettuato con nome esattamente uguale (ignorando maiuscole, accenti e spazi in eccesso), poi keyword matching on-device senza rete. La cronologia esclude pianificati e trasferimenti; l’ordine usa `createdAt` (inserimento, anche per movimenti retrodatati). Se la categoria dell’ultimo movimento è stata eliminata si passa alle parole chiave, senza recuperare scelte precedenti. Nessuna nuova tabella o sync.
 - La categoria dalla cronologia è preselezionata e indicata da «Ultima usata»; l’utente può sovrascriverla manualmente e il nuovo movimento salvato guiderà il prossimo inserimento. In modifica il movimento stesso è escluso dalla ricerca.
 - Keyboard navigation: importo → nome → `.done` (auto-save)
@@ -340,6 +345,7 @@ Grafico a barre crescenti in stile minimale (`DS.ink` su light, `DS.paper`-inver
 
 ### Conti (AccountsView)
 
+- **Saldi futuri** (S-73a/b): la «→» sotto ogni conto e «A conti fatti» usano la stessa regola della Home (vedi Home, «Regola della previsione»). Cambia solo il numero; conti esclusi e archiviati restano come prima
 - Lista: prima conti inclusi nel totale, poi esclusi (badge "escluso")
 - **Swipe:** destra = Modifica, sinistra = Elimina (con haptic)
 - **Context menu** (long press): Modifica / Escludi-Includi / Archivia / Elimina
@@ -521,6 +527,7 @@ Cifratura end-to-end facoltativa della sync, costruita su iOS e Android (S-50). 
 | Ricorrenze automatiche | ✅ Implementato |
 | Apple Watch App (watchOS target + WatchConnectivity) | ☐ |
 | Face ID / Touch ID blocco app | ✅ Implementato (AppLockGate) |
+| Spese divise e crediti da recuperare (S-80) | 🗓️ Progettato (`.cantiere/progetto-split-rimborsi.md`), non ancora implementato: dopo Sentiero, ramo `feature-split` |
 
 ### Livello 3 — Feature WOW (differenziazione totale)
 
@@ -590,6 +597,19 @@ Investimenti automatici (Directa/Fineco API), Crypto wallet tracker, FIRE Calcul
 ## 10. Changelog
 
 > Nota: le versioni 3.1 e successive sono state assegnate retroattivamente il 2026-11-17, una per blocco di lavoro coerente, in ordine crescente nel tempo.
+
+### v3.31 (28 novembre 2026) — Conti allineati alla Home, data futura = pianificato, «Da confermare» (S-73a…i, S-70h)
+
+- **S-73a/b (iOS e Android):** in Conti la «→» sotto ogni conto e «A conti fatti» usano la stessa regola della Home. Nessun conto o movimento cambia posizione; cambia solo il numero.
+- **S-73c/d (iOS e Android):** data futura ⇒ movimento pianificato in automatico (scelta B di Matteo). Su Android lo swipe per confermare copre anche i futuri già fatti.
+- **S-73e (iOS):** modificare una fissa «già effettuata» non la riporta più a pianificata.
+- **S-73f/g (iOS e Android):** nuova sezione ambra «Da confermare» in Home e Movimenti per i pianificati con data passata e non confermati. Conferma con ✓ (44pt/48dp) o swipe; esclusi i conti archiviati; testi in 7 lingue. Approvata da Matteo sugli screenshot.
+- **S-73i (iOS e Android):** in modifica, un movimento pianificato con data passata mostra «Già effettuato», così si può confermare dal form.
+- **Cache (iOS):** previsioni per conto e lista «Da confermare» memorizzate per impronta; logica della previsione spostata in `ProjectionRules.swift` (fuori dalle View).
+- **S-70h (iOS e Android):** segnaposto «0» nella simulazione «E se…?»; il conteggio dei movimenti per conto nel form è più leggero.
+- **S-52a:** movimenti senza conto sul server: 13 su 209 dopo la riparazione, come da criterio.
+- **Collaudi:** Commissione Suprema giro 2 con 6×10/10. iOS 265/265 test unitari + 5/5 UI; Android 370/370.
+- **Da fare:** S-73h (icona coerente, bassa priorità) e S-73j (due test di cache, bassa priorità).
 
 ### v3.30 (27 novembre 2026) — Sync più robusta, Protezione avanzata sul telefono vero, campi segreti e ordine dei movimenti (S-51…S-56, S-50z, S-50g2)
 
