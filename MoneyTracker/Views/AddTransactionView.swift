@@ -56,6 +56,14 @@ struct AddTransactionView: View {
             .map(\.element)
     }
 
+    static func isFutureDate(_ date: Date, relativeTo today: Date = Date(), calendar: Calendar = .current) -> Bool {
+        calendar.startOfDay(for: date) > calendar.startOfDay(for: today)
+    }
+
+    static func defaultDone(isFixed: Bool, date: Date, relativeTo today: Date = Date(), calendar: Calendar = .current) -> Bool {
+        !isFixed && !isFutureDate(date, relativeTo: today, calendar: calendar)
+    }
+
     private var isSaveDisabled: Bool {
         let v = Decimal.parseAmount(amount) ?? 0
         return name.isEmpty || v <= 0 || v > 1_000_000_000
@@ -181,17 +189,20 @@ struct AddTransactionView: View {
                                     .foregroundStyle(DS.smoke)
                             }
                             Spacer()
-                            Toggle("", isOn: $isFixed)
+                            Toggle("", isOn: Binding(
+                                get: { isFixed },
+                                set: { newValue in
+                                    isFixed = newValue
+                                    isDone = Self.defaultDone(isFixed: newValue, date: date)
+                                }
+                            ))
                                 .tint(DS.ink)
                                 .labelsHidden()
-                                .onChange(of: isFixed) { _, v in
-                                    if v { isDone = false } else { isDone = true }
-                                }
                                 .accessibilityIdentifier("toggle_isFixed")
                         }
 
-                        // "Già effettuato" appare solo per le voci fisse
-                        if isFixed {
+                        // "Già effettuato" appare per le voci fisse o con data futura
+                        if isFixed || Self.isFutureDate(date) {
                             ThinDivider()
                             HStack {
                                 VStack(alignment: .leading, spacing: 2) {
@@ -240,9 +251,18 @@ struct AddTransactionView: View {
                                 .scaledFont(size: 15)
                                 .foregroundStyle(DS.smoke)
                             Spacer()
-                            DatePicker("", selection: $date, displayedComponents: [.date])
+                            DatePicker("", selection: Binding(
+                                get: { date },
+                                set: { newDate in
+                                    date = newDate
+                                    if !isFixed {
+                                        isDone = !Self.isFutureDate(newDate)
+                                    }
+                                }
+                            ), displayedComponents: [.date])
                                 .labelsHidden()
                                 .tint(DS.ink)
+                                .accessibilityIdentifier("picker_date")
                         }
                         ThinDivider()
                     }

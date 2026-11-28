@@ -15,6 +15,7 @@ struct HomeHeroCard: View {
             Text("Saldo attuale").font(DS.Typo.secondary).foregroundStyle(DS.heroSecondary)
             amount.font(DS.Typo.heroAmount).tracking(DS.Typo.heroAmountTracking)
                 .foregroundStyle(DS.heroText).lineLimit(1).minimumScaleFactor(0.6)
+                .accessibilityIdentifier("home_actualBalance")
             TrailView(trail: trail, monthStart: monthStart, monthEnd: monthEnd)
                 .padding(.top, DS.Space.m)
             if let expectedAmount {
@@ -25,6 +26,7 @@ struct HomeHeroCard: View {
                         Text("Saldo atteso a fine mese").font(DS.Typo.caption).foregroundStyle(DS.heroSecondary)
                         expectedAmount.font(DS.Typo.sectionTitle).foregroundStyle(DS.heroPlanned)
                             .lineLimit(1).minimumScaleFactor(0.7)
+                            .accessibilityIdentifier("home_expectedBalance")
                     }
                     Spacer(minLength: DS.Space.s)
                     if let plannedSummary {

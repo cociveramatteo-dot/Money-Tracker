@@ -520,7 +520,7 @@ struct TransactionsView: View {
             )
             .listRowSeparatorTint(DS.divider)
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                if t.isFixed || !t.isDone {
+                if t.isFixed || !t.isDone || AddTransactionView.isFutureDate(t.date) {
                     Button {
                         haptic(.soft)
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {

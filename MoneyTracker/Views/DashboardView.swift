@@ -140,12 +140,13 @@ struct DashboardView: View {
         return (TrailInput(currentBalance: totalCurrent, day: projectionDay, entries: entries), plannedByAccount)
     }
 
-    /// Una spesa fissa singola pianificata (senza ricorrenza) pesa sulla previsione solo nel mese della sua data (S-41).
-    /// Tutto il resto — fatti, entrate, trasferimenti, serie ricorrenti, spese non fisse — conta sempre.
+    /// Un movimento singolo pianificato (non ricorrente, non trasferimento, fisso o no, uscita o entrata)
+    /// pesa sulla previsione solo nel mese della sua data (S-41 / S-73c).
+    /// Tutto il resto — fatti, trasferimenti, serie ricorrenti — conta sempre.
     static func countsInProjection(_ transaction: Transaction, projectionDay: Date, calendar: Calendar = .current) -> Bool {
-        let isOneOffFixedExpense = transaction.isFixed && transaction.transactionType == .uscita
-            && !transaction.isTransfer && transaction.templateId.isEmpty && transaction.recurringFrequency.isEmpty
-        guard !transaction.isDone && isOneOffFixedExpense else { return true }
+        let isSingleOneOff = !transaction.isTransfer
+            && transaction.templateId.isEmpty && transaction.recurringFrequency.isEmpty
+        guard !transaction.isDone && isSingleOneOff else { return true }
         return calendar.isDate(transaction.date, equalTo: projectionDay, toGranularity: .month)
     }
 
