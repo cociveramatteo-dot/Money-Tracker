@@ -1,12 +1,12 @@
 # CHECKPOINT — MoneyTracker
 
-**Data:** 2026-11-27 20:37 · **Tag:** `checkpoint-2026-11-27-2037` · **Ramo:** `redesign-sentiero` · **Fatto da:** segretario (Claude Code · Haiku 5.5) su dati del capocantiere, checkpoint COMPLETO (fase 6)
+**Data:** 2026-11-28 00:59 · **Tag:** `checkpoint-2026-11-28-0059` · **Ramo:** `redesign-sentiero` · **Fatto da:** capocantiere (Claude Code · Sonnet), checkpoint VELOCE (ultimo completo: 2026-11-27 20:37)
 
 ## Siamo qui
 
-- S-50 (Protezione avanzata) chiuso dopo la prova reale di Matteo su iPhone e Android. Chiusi anche S-52, S-53, S-54, S-55, S-56, S-50g2, S-50z (collaudi ok).
-- Test verdi: iOS 211 (46 suite), Android 343. Commissione Suprema 6×10/10. Il file `MoneyTracker.xcscheme` resta modificato in locale: non si committa.
-- Prossimo: S-70a, a2, b, e, f → Antigravity. S-70g chiudibile. S-71 (import) solo dopo, con ok di Matteo, all'architetto. Merge su `main` solo con ok di Matteo.
+- Chiusi dopo il checkpoint del 27/11: S-70a/a2/b/e/f/i/j/k e S-70d (doppio tap «Aggiungi movimento» ok sull'iPhone con Categoria vuota; «Chiedi ogni volta» non supportato, Matteo rinuncia), S-72b/a/d/c/e (collaudo ok), S-72f (ok Matteo).
+- S-73 (Conti: la «→» e «A conti fatti» contano le pianificate di tutti i mesi): diagnosi architetto `d148ace`, approvata da Matteo con opzione B per le date (data futura ⇒ pianificata su iOS, come Android). Vincolo: in Conti non si toglie niente, i numeri diventano solo giusti.
+- Test: iOS 249/249 (54 suite), Android 361/361. `MoneyTracker.xcscheme` modificato in locale: non si committa.
 
 ## Fatto dall'ultimo checkpoint (16:14)
 
@@ -25,14 +25,13 @@
 
 | Controllo | Esito | Note |
 |---|---|---|
-| Build / test | 🟢 | iOS 211 test (46 suite). Android 343. Attenzione: con `-only-testing` su singole `@Suite` Swift Testing risultano 0 test ma «SUCCEEDED»: lanciare tutto il target `MoneyTrackerTests` |
-| Guardiano notturno | 🔴 | giro 27/11 10:45: beacon cloudflareinsights ×8 + 3 avvisi heading-order. Falso positivo. Il filtro S-50g2 va online col push di questo checkpoint: atteso 🟢/🟡 dal prossimo giro (non verificato) |
-| Pagella (misurata) | 🟡 | 85/100, non consegnabile. Robustezza 34 (guardiano). Velocità 56 (LCP landing 4,2 s su telefono) |
-| Commissione Suprema | 🟢 | 6 giudici a 10/10 (fase 1) |
-| Bilingue | 🟢 | 4 coppie, 0 errori |
-| Sicurezza | 🟡 | `collaudo.sh`: solo `.gradle/executionHistory.bin` 19,6 MB (cache non tracciata). Nessuna chiave reale nel codice |
-| Ordine e spazio | 🟡 | disco 22 GB liberi (soglia 35 GB). Pulizia proposta: vedi Cantiere |
-| Grafo | 🟢 | `graphify update .` ok. Avviso: 18 file json senza nodi (non verificato se rilevante) |
+| Build / test | 🟢 | iOS 249/249 (S-70k), Android 361/361 (S-72f). Con `-only-testing` su singole `@Suite` risultano 0 test: lanciare tutto il target |
+| Guardiano notturno | 🔴 | ultimo rapporto 27/11 10:45 (beacon cloudflare, falso positivo); non riscaricato in questo veloce |
+| Pagella (misurata) | 🟡 | 85/100, non consegnabile (robustezza 34, velocità 56) |
+| Magazzino | 🟡 | `magazzino.py`: «c'è da sistemare» (cartelle `04_CONSEGNE/`, swiftpm configuration); collegamenti 🟢 |
+| Spazio | 🟡 | 21 GB liberi (soglia 35) |
+| Grafo | 🟢 | `graphify update .` ok |
+| Biblioteca | 🟡 | 2 fonti da aggiungere al notebook (licenze font OFL, poco utili) |
 
 ## Bug
 
@@ -53,9 +52,9 @@
 ## Domani si riparte così
 
 1. Sessione nuova nella cartella del cantiere → «riprendiamo».
-2. Primo lavoro: S-70a, S-70a2, S-70b, S-70e, S-70f → Antigravity. Prompt: «Cantiere /Users/matteo/Desktop/APP/MoneyTracker, ramo redesign-sentiero. Leggi AGENTS.md e .cantiere/PIANO.md e fai SOLO i task S-70a, S-70a2, S-70b, S-70e, S-70f. Per S-70b vale la specifica di Matteo del 2026-11-27 19:05 scritta nel PIANO. Verifica: build e test iOS e Android verdi, screenshot in .cantiere/tmp/. Alla fine segna [~] nel PIANO, scrivi CONSEGNA e una riga in DIARIO, committa solo i tuoi file con "[impresa] … (S-70)". Non toccare MoneyTracker.xcscheme.»
-3. Dopo il punto 2: Matteo prova il doppio tap sul telefono (S-70d), poi collaudatore.
-4. Capocantiere: commit e push del checkpoint; chiudere S-70g se Matteo conferma.
+2. S-73a, b, c, d, e → Antigravity (`agy`). Prompt: «Cantiere /Users/matteo/Desktop/APP/MoneyTracker, ramo redesign-sentiero. Leggi AGENTS.md e .cantiere/PIANO.md e fai SOLO S-73a, S-73b, S-73c, S-73d, S-73e, in quest'ordine (diagnosi e specifiche nel PIANO, sezione S-73; decisione approvata da Matteo in DECISIONI 2026-11-28 S-73: opzione B). Vincolo di Matteo: in Conti non si toglie e non si sposta niente, «A conti fatti», la «→» sotto ogni conto e tutto il resto restano dove sono, cambia solo il numero, che diventa uguale alla regola della Home. Domain/ e AccountBalanceCache non si toccano, salvo quanto scritto esplicitamente nel PIANO. Un commit per task, iOS e Android. Verifica: tutto il target MoneyTrackerTests verde (non usare -only-testing su singole @Suite), Android assembleDebug lintDebug testDebugUnitTest verdi, test nuovi come da PIANO, screenshot di Conti chiaro e scuro in .cantiere/tmp/s73/. Alla fine segna [~] nel PIANO, scrivi CONSEGNA e una riga in DIARIO, committa solo i tuoi file con "[impresa] … (S-73x)". Non toccare MoneyTracker.xcscheme.»
+3. Poi collaudatore su S-73 (tocca i saldi: collaudo vero) e prova di Matteo in Conti.
+4. Il prossimo checkpoint deve essere COMPLETO (con Commissione Suprema e documento master).
 
 ## Cose che deve fare Matteo
 

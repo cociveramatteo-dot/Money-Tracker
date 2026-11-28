@@ -185,8 +185,8 @@
     "semantic_hash": "7f25ca0b134fa8ad53ac0e900f733b6e"
   },
   "MoneyTracker/Intents/AddExpenseIntent.swift": {
-    "mtime": 1795809178.0485718,
-    "ast_hash": "b13b031bdf1730d57f9c4e00cea91f06",
+    "mtime": 1795820435.8599098,
+    "ast_hash": "9af9ee5b66d327198512bfd082cb8390",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/AccountsView.swift": {
@@ -530,8 +530,8 @@
     "semantic_hash": ""
   },
   ".cantiere/CONSEGNA.md": {
-    "mtime": 1795815539.6639917,
-    "ast_hash": "0ccd0be6de90f9dfb60bb8d17b0db26f",
+    "mtime": 1795820104.9703338,
+    "ast_hash": "22d71b5af0bc229ddfecb6336b423d4d",
     "semantic_hash": ""
   },
   ".cantiere/DECISIONI.md": {
@@ -540,8 +540,8 @@
     "semantic_hash": ""
   },
   ".cantiere/DIARIO.md": {
-    "mtime": 1795815540.3745093,
-    "ast_hash": "0d4d670570cd1b2f18f16d70c47fe8c7",
+    "mtime": 1795820105.7591343,
+    "ast_hash": "3bdf54e68df984e6cbf893bea4e5e126",
     "semantic_hash": ""
   },
   ".cantiere/MAPPA.md": {
@@ -560,8 +560,8 @@
     "semantic_hash": ""
   },
   ".cantiere/PIANO.md": {
-    "mtime": 1795816327.0920439,
-    "ast_hash": "a362cd7bfe93280733ec857cb61bf0ec",
+    "mtime": 1795820104.204267,
+    "ast_hash": "09a2afca5b69ae2219f3132ff271263f",
     "semantic_hash": ""
   },
   ".cantiere/SCAFFALE.md": {
@@ -575,8 +575,8 @@
     "semantic_hash": ""
   },
   ".cantiere/STATO.md": {
-    "mtime": 1795815894.795761,
-    "ast_hash": "1ea8aadece1245a3fc6343d3b8a59b70",
+    "mtime": 1795820130.0519774,
+    "ast_hash": "ec63ef2c881b435e87618905c0f260c5",
     "semantic_hash": ""
   },
   ".cantiere/bibliotecario/FONTI.md": {
@@ -3315,8 +3315,8 @@
     "semantic_hash": ""
   },
   "MoneyTracker/Intents/IntentCategoryMenu.swift": {
-    "mtime": 1795815317.666389,
-    "ast_hash": "1ea0da5ef94adc04ff5b784108050779",
+    "mtime": 1795820516.0939004,
+    "ast_hash": "1f5001a7f75055633b492bc99532fd02",
     "semantic_hash": ""
   },
   "MoneyTracker/Views/HabitsView.swift": {
@@ -3397,6 +3397,16 @@
   ".cantiere/progetto-s72-movimenti-abitudini.md": {
     "mtime": 1795815508.4539516,
     "ast_hash": "d6da69a16ba3139c8042336beab9f1ad",
+    "semantic_hash": ""
+  },
+  "MoneyTracker/Intents/AddMovementIntent.swift": {
+    "mtime": 1795820436.6852562,
+    "ast_hash": "aca19359480a72eb66d43722604089a7",
+    "semantic_hash": ""
+  },
+  "MoneyTrackerTests/AddMovementIntentTests.swift": {
+    "mtime": 1795820566.0242615,
+    "ast_hash": "70b2c994940d2ff0f8353059104041fa",
     "semantic_hash": ""
   }
 }
