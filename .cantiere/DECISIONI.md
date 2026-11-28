@@ -379,3 +379,8 @@ La riparazione in chiaro usa una RPC condizionale che aggiorna soltanto `account
 - **Zone intoccabili toccate (da autorizzare con S-80q):** `Models/` (solo file nuovi), `Persistence/SchemaMigration.swift` (solo V4), `Sync/`, `Export/PDFReportGenerator.swift`, `Domain/NotificationManager.swift`. Non si toccano `Transaction`, `Account`, `AccountBalanceCache`, `BalanceTrail`, ricorrenze, Auth, Intents.
 - **Domande a Matteo (§2.3):** Q1 quota anche nei totali di Movimenti e «Fisse del mese» (consigliato sì); Q2 eccedenza = entrata (consigliato sì); Q3 promemoria spento, 7/14/30 giorni; Q4 mockup S-80m prima del codice (D-014).
 - **Stato:** ✅ approvata da Matteo il 2026-11-28 in chat: «tutto come consigliato» → Q1 sì, Q2 sì, Q3 promemoria spento di serie con 7/14/30 giorni, Q4 mockup S-80m approvati prima del codice; zone §8 autorizzate. **Non si parte ora:** esecuzione dopo Sentiero, ramo `feature-split`, solo su via libera di Matteo.
+
+## 2026-11-28 12:18 · Merge di redesign-sentiero su main
+- **Cosa:** Matteo approva in chat («porta tutto su main») il merge di `redesign-sentiero` su `main` dopo il checkpoint completo (Commissione 10/10, S-73a..j chiusi).
+- **Come:** fast-forward (main non aveva commit propri), push su origin.
+- **Dopo:** i nuovi lavori partono da `main` su rami dedicati (es. `feature-split` per S-80).
