@@ -58,6 +58,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.semantics.Role
+import java.time.LocalDate
+import java.time.ZoneId
 import androidx.compose.ui.text.style.TextOverflow
 import com.bucktrail.android.domain.AccountEditing
 import com.bucktrail.android.ui.components.BtAlert
@@ -75,19 +77,24 @@ class AccountActions(
 
 /** Conti (§4.7): hero «Patrimonio totale / A conti fatti», gruppi Liquidità e Risparmio e investimenti, archiviati. */
 @Composable
-fun AccountsScreen(data: AppData, actions: AccountActions) {
+fun AccountsScreen(
+    data: AppData,
+    actions: AccountActions,
+    today: LocalDate = LocalDate.now(),
+    zone: ZoneId = ZoneId.systemDefault(),
+) {
     val c = Bt.colors
     val ledger = data.ledger
     val hidden = data.prefs.hideBalance
     val currency = data.prefs.currencyCode
-    val calc = remember(ledger.accounts, ledger.transactions) {
+    val calc = remember(ledger.accounts, ledger.transactions, today, zone) {
         val txs = ledger.transactionData
         val accounts = ledger.accountData
         object {
             val total = Balance.total(accounts, txs)
-            val future = Balance.totalFuture(accounts, txs)
+            val future = Balance.totalExpectedInMonth(accounts, txs, today, zone)
             val current = accounts.associate { it.id to Balance.current(it, txs) }
-            val futureBy = accounts.associate { it.id to Balance.future(it, txs) }
+            val futureBy = accounts.associate { it.id to Balance.expectedInMonth(it, txs, today, zone) }
             val txCount = ledger.transactions.groupingBy { it.accountId }.eachCount()
         }
     }

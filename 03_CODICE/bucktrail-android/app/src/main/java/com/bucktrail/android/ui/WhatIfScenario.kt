@@ -71,6 +71,8 @@ object WhatIfScenario {
         transactions: List<TransactionEntity>,
         projection: HomeProjection,
         balances: Map<String, BigDecimal>,
+        today: java.time.LocalDate = java.time.LocalDate.now(),
+        zone: java.time.ZoneId = java.time.ZoneId.systemDefault(),
     ): List<WhatIfBaseline> {
         val all = WhatIfBaseline(
             id = "all",
@@ -94,12 +96,12 @@ object WhatIfScenario {
         val excluded = active.filter { it.isExcludedFromTotal }
             .map { acc ->
                 val data = acc.toData()
-                val today = Balance.current(data, txData)
+                val todayBalance = Balance.current(data, txData)
                 WhatIfBaseline(
                     id = acc.id,
                     name = acc.name,
-                    today = today,
-                    endOfMonth = Balance.future(data, txData),
+                    today = todayBalance,
+                    endOfMonth = Balance.expectedInMonth(data, txData, today, zone),
                     isExcludedFromTotal = true,
                 )
             }

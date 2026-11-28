@@ -208,6 +208,8 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
                     onArchive = { a, v -> vm.setAccountArchived(a, v) }, onExclude = { a, v -> vm.setAccountExcluded(a, v) },
                     onSettings = { settingsOpen = true },
                 ),
+                today = today,
+                zone = zone,
             )
         }
         }
@@ -336,7 +338,7 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
             val accs = ledger.accountData
             val proj = com.bucktrail.android.domain.HomeProjection.make(accs, txs, today, zone)
             val balances = Balance.included(accs).associate { it.id to Balance.current(it, txs) }
-            WhatIfScenario.baselines(ledger.accounts, ledger.transactions, proj, balances)
+            WhatIfScenario.baselines(ledger.accounts, ledger.transactions, proj, balances, today, zone)
         }
         com.bucktrail.android.ui.screens.WhatIfSheet(
             baselines = baselines,
