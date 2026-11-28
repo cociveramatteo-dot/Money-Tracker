@@ -587,4 +587,5 @@
     <string name="nessuna_abitudine" formatted="false">暂无习惯</string>
     <string name="abitudini_vuoto" formatted="false">在 3 个不同月份中重复至少 3 次的交易将显示在这里。</string>
     <string name="nessuna_serie_programmata_mese" formatted="false">本月没有计划的系列。</string>
+    <string name="da_confermare" formatted="false">待确认</string>
 </resources>

@@ -159,6 +159,23 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
     val layout = remember(filtered, virtual, isFutureMonth, zone) {
         MovementListLayout.make(filtered, virtual, isFutureMonth, zone)
     }
+    val overdue = remember(ledger.transactions, ruleIds, query, section, monthOffset, category, prefs.txFilterMin, prefs.txFilterMax, prefs.txFilterUseDates, today, zone) {
+        if (monthOffset != 0 || query.isNotBlank() || prefs.txFilterUseDates) emptyList()
+        else {
+            val base = com.bucktrail.android.ui.OverduePlannedMovements.matchingSection(
+                com.bucktrail.android.ui.OverduePlannedMovements.list(ledger.transactions, today, zone),
+                section,
+                ruleIds,
+            )
+            val minCents = com.bucktrail.android.domain.Amounts.parse(prefs.txFilterMin)?.let { com.bucktrail.android.domain.Amounts.toCents(it) }
+            val maxCents = com.bucktrail.android.domain.Amounts.parse(prefs.txFilterMax)?.let { com.bucktrail.android.domain.Amounts.toCents(it) }
+            base.filter { t ->
+                (category == null || t.category == category) &&
+                    (minCents == null || t.amountCents >= minCents) &&
+                    (maxCents == null || t.amountCents <= maxCents)
+            }
+        }
+    }
     val totals = remember(filtered, virtual) {
         MovementSectionTotals.compute(filtered, virtual.map { it.second })
     }
@@ -264,6 +281,23 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
             Modifier.weight(1f), contentPadding = PaddingValues(start = Dim.cardMargin.dp, end = Dim.cardMargin.dp, bottom = (Dim.listBottomPadding + Dim.tabBarReserved).dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
+            if (overdue.isNotEmpty()) item("overdue") {
+                com.bucktrail.android.ui.OverduePlannedSection(
+                    items = overdue,
+                    accounts = ledger.accounts,
+                    currency = currency,
+                    hidden = hidden,
+                    today = today,
+                    zone = zone,
+                    res = res,
+                    ruleIds = ruleIds,
+                    compactHeader = true,
+                    showAccount = false,
+                    onEdit = rowTap,
+                    onConfirm = actions.onToggleDone,
+                    onDelete = seriesDelete,
+                )
+            }
             if (layout.planned.isNotEmpty()) item("planned") {
                 Column {
                     Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -323,7 +357,7 @@ fun MovementsScreen(data: AppData, today: LocalDate, zone: ZoneId, actions: Move
                     }
                 }
             }
-            if (layout.planned.isEmpty() && layout.days.isEmpty()) item("empty") {
+            if (overdue.isEmpty() && layout.planned.isEmpty() && layout.days.isEmpty()) item("empty") {
                 if (query.isNotBlank()) EmptyState(SfIcons.forName("magnifyingglass"), stringResource(R.string.nessun_risultato), stringResource(R.string.nessun_movimento_corrisponde_alla_ricerc))
                 else if (isRecurringSection) EmptyState(SfIcons.forName("tray"), stringResource(R.string.nessun_movimento), stringResource(R.string.nessuna_serie_programmata_mese))
                 else EmptyState(SfIcons.forName("tray"), stringResource(R.string.nessun_movimento), stringResource(R.string.i_movimenti_di_questo_periodo_apparirann))

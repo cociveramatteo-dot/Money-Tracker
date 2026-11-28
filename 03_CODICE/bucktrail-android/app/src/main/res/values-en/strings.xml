@@ -588,4 +588,5 @@
     <string name="nessuna_abitudine" formatted="false">No habits yet</string>
     <string name="abitudini_vuoto" formatted="false">Transactions repeated at least 3 times in 3 different months will appear here.</string>
     <string name="nessuna_serie_programmata_mese" formatted="false">No scheduled series this month.</string>
+    <string name="da_confermare" formatted="false">To confirm</string>
 </resources>

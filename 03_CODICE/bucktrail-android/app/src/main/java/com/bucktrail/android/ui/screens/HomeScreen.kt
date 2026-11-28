@@ -81,6 +81,7 @@ fun HomeScreen(
     onToggleHide: () -> Unit, onEdit: (TransactionEntity) -> Unit, onDelete: (TransactionEntity) -> Unit,
     onSeeAllMovements: () -> Unit, onManageAccounts: () -> Unit, onOpenSettings: () -> Unit, onOpenAccountOrder: () -> Unit,
     onOpenWhatIf: () -> Unit = {},
+    onToggleDone: (TransactionEntity) -> Unit = {},
 ) {
     val c = Bt.colors
     val ledger = data.ledger
@@ -114,6 +115,10 @@ fun HomeScreen(
     val latest = remember(ledger.transactions, zone) {
         ledger.transactions.filter { !it.isFixed && !it.isTransfer && it.recurringFrequency.isEmpty() }.sortedForDisplay(zone).take(4)
     }
+    val overdue = remember(ledger.transactions, today, zone) {
+        com.bucktrail.android.ui.OverduePlannedMovements.list(ledger.transactions, today, zone)
+    }
+    val ruleIds = remember(ledger.rules) { ledger.rules.map { it.id.lowercase() }.toSet() }
     var collapsed by rememberSaveable { mutableStateOf(false) }
     val accountOrderDescription = stringResource(R.string.conti_in_home)
     val hiddenText = Fmt.HIDDEN_HOME
@@ -213,6 +218,28 @@ fun HomeScreen(
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 if (data.prefs.showFixedExpensesTotal) FixedTotalTile(stringResource(R.string.spese_fisse), money(fixed.first, currency, hidden), c.negative.takeUnless { hidden } ?: c.ink, Modifier.weight(1f))
                 if (data.prefs.showFixedIncomeTotal) FixedTotalTile(stringResource(R.string.entrate_fisse), money(fixed.second, currency, hidden), c.positive.takeUnless { hidden } ?: c.ink, Modifier.weight(1f))
+            }
+        }
+
+        // Da confermare (S-73f)
+        if (overdue.isNotEmpty()) {
+            Box(Modifier.padding(horizontal = Dim.cardMargin.dp)) {
+                com.bucktrail.android.ui.OverduePlannedSection(
+                    items = overdue,
+                    accounts = ledger.accounts,
+                    currency = currency,
+                    hidden = hidden,
+                    today = today,
+                    zone = zone,
+                    res = res,
+                    ruleIds = ruleIds,
+                    compactHeader = false,
+                    showAccount = true,
+                    onSeeAll = onSeeAllMovements,
+                    onEdit = onEdit,
+                    onConfirm = onToggleDone,
+                    onDelete = onDelete,
+                )
             }
         }
 

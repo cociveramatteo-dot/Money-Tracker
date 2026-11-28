@@ -222,7 +222,8 @@ struct TransactionsView: View {
 
                 let currentList = filtered(for: selectedType)
                 let virtual = virtualOccurrences
-                if currentList.isEmpty && virtual.isEmpty {
+                let overdue = overduePlanned
+                if currentList.isEmpty && virtual.isEmpty && overdue.isEmpty {
                     let queryEmpty = hubSearchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                     EmptyStateView(
                         icon: queryEmpty ? "tray" : "magnifyingglass",
@@ -235,7 +236,7 @@ struct TransactionsView: View {
                     )
                     Spacer()
                 } else {
-                    movementList(currentList, virtual: virtual)
+                    movementList(currentList, virtual: virtual, overdue: overdue)
                 }
             }
             .background(DS.paper)
@@ -319,11 +320,44 @@ struct TransactionsView: View {
         .listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: 6, trailing: 4))
     }
 
-    private func movementList(_ snapshot: [Transaction], virtual: [Occurrence]) -> some View {
+    private var overduePlanned: [Transaction] {
+        let cal = Calendar.current
+        guard cal.isDate(selectedMonth, equalTo: Date(), toGranularity: .month),
+              hubSearchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              !filterUseCustomDates else { return [] }
+        let ruleIDs = Set(rules.map { $0.id.uuidString })
+        let minAmt = Decimal.parseAmount(filterMinAmount)
+        let maxAmt = Decimal.parseAmount(filterMaxAmount)
+        let base = OverduePlannedMovements.matchingFilter(
+            OverduePlannedMovements.list(from: all, relativeTo: Date(), calendar: cal),
+            filter: selectedType,
+            ruleIDs: ruleIDs
+        )
+        return base.filter { t in
+            (selectedCat.isEmpty || t.category == selectedCat)
+                && (minAmt.map { t.amount >= $0 } ?? true)
+                && (maxAmt.map { t.amount <= $0 } ?? true)
+        }
+    }
+
+    private func movementList(_ snapshot: [Transaction], virtual: [Occurrence], overdue: [Transaction]) -> some View {
         let layout = MovementListLayout.make(real: snapshot, virtual: virtual, isFutureMonth: isFutureMonth)
         let totals = MovementSectionTotals.compute(real: snapshot, virtual: virtual)
         let ruleIDs = Set(rules.map { $0.id.uuidString })
         return List {
+            if !overdue.isEmpty {
+                Section {
+                    ForEach(overdue) { t in
+                        overdueRow(t, isFirst: t.id == overdue.first?.id, isLast: t.id == overdue.last?.id)
+                    }
+                } header: {
+                    OverduePlannedHeader(count: overdue.count, isCompactHeader: true)
+                        .textCase(nil)
+                        .padding(.top, DS.Space.s)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 4, bottom: 6, trailing: 4))
+                }
+                .listSectionSeparator(.hidden)
+            }
             if !layout.planned.isEmpty {
                 Section {
                     ForEach(layout.planned) { item in
@@ -365,6 +399,56 @@ struct TransactionsView: View {
         .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
         .refreshable { await SyncService.shared.manualRefresh(context: context) }
+    }
+
+    @ViewBuilder
+    private func overdueRow(_ t: Transaction, isFirst: Bool, isLast: Bool) -> some View {
+        OverduePlannedRow(
+            transaction: t,
+            formattedAmount: hideBalance ? "••••" : t.amount.currencyFormatted,
+            showAccount: false,
+            compact: true,
+            onEdit: { editing = t },
+            onConfirm: {
+                haptic(.soft)
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {
+                    toggleTransferOrFixed(t)
+                }
+            }
+        )
+        .padding(.horizontal, 14)
+        .alignmentGuide(.listRowSeparatorLeading) { _ in 14 }
+        .listRowInsets(EdgeInsets())
+        .listRowBackground(
+            UnevenRoundedRectangle(
+                topLeadingRadius: isFirst ? 18 : 0,
+                bottomLeadingRadius: isLast ? 18 : 0,
+                bottomTrailingRadius: isLast ? 18 : 0,
+                topTrailingRadius: isFirst ? 18 : 0
+            ).fill(DS.surface)
+        )
+        .listRowSeparatorTint(DS.divider)
+        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+            Button {
+                haptic(.soft)
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {
+                    toggleTransferOrFixed(t)
+                }
+            } label: {
+                Label("Conferma", systemImage: "checkmark.circle.fill")
+            }
+            .tint(DS.accent)
+        }
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            Button(role: t.templateId.isEmpty ? .destructive : nil) {
+                haptic(.medium)
+                deleteTransactionOrPair(t)
+            } label: {
+                Label("Elimina", systemImage: "trash")
+            }
+            .tint(.red)
+            .accessibilityIdentifier("btn_deleteTransaction")
+        }
     }
 
     @ViewBuilder

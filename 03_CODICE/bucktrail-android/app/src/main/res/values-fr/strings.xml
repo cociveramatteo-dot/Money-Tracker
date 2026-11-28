@@ -588,4 +588,5 @@
     <string name="nessuna_abitudine" formatted="false">Aucune habitude</string>
     <string name="abitudini_vuoto" formatted="false">Les opérations répétées au moins 3 fois sur 3 mois différents apparaîtront ici.</string>
     <string name="nessuna_serie_programmata_mese" formatted="false">Aucune série programmée ce mois-ci.</string>
+    <string name="da_confermare" formatted="false">À confirmer</string>
 </resources>

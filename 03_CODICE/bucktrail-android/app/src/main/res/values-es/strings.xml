@@ -588,4 +588,5 @@
     <string name="nessuna_abitudine" formatted="false">Sin hábitos</string>
     <string name="abitudini_vuoto" formatted="false">Los movimientos que se repiten al menos 3 veces en 3 meses distintos aparecerán aquí.</string>
     <string name="nessuna_serie_programmata_mese" formatted="false">No hay series programadas este mes.</string>
+    <string name="da_confermare" formatted="false">Por confirmar</string>
 </resources>

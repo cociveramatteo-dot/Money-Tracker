@@ -157,6 +157,7 @@ struct DashboardView: View {
     // MARK: - Body
     var body: some View {
         let projection = monthlyProjection()
+        let overduePlanned = OverduePlannedMovements.list(from: transactions, relativeTo: projectionDay)
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
@@ -164,6 +165,7 @@ struct DashboardView: View {
                     saldoHeroSection
                     contiSection(plannedByAccount: projection.plannedByAccount)
                     fisseDelMeseSection
+                    daConfermareSection(overduePlanned)
                     ultimiMovimentiSection
                     // Lascia scorrere anche l’ultimo importo sopra il pulsante + flottante.
                     Color.clear.frame(height: 72)
@@ -402,6 +404,48 @@ struct DashboardView: View {
                 }
             }
             .padding(.horizontal, DS.Layout.margin)
+        }
+    }
+
+    // MARK: - Da confermare (S-73f)
+
+    @ViewBuilder
+    private func daConfermareSection(_ items: [Transaction]) -> some View {
+        if !items.isEmpty {
+            VStack(alignment: .leading, spacing: DS.Space.m) {
+                OverduePlannedHeader(count: items.count) { goToTab(1) }
+                    .padding(.horizontal, DS.Layout.margin)
+                    .padding(.top, DS.Space.l)
+
+                VStack(spacing: 0) {
+                    ForEach(Array(items.enumerated()), id: \.element.persistentModelID) { index, t in
+                        if index > 0 {
+                            ThinDivider().padding(.leading, 64)
+                        }
+                        OverduePlannedRow(
+                            transaction: t,
+                            formattedAmount: money(t.amount),
+                            showAccount: true,
+                            compact: false,
+                            onEdit: { editingTransaction = t },
+                            onConfirm: {
+                                haptic(.soft)
+                                t.isDone = true
+                                context.safeSave()
+                            }
+                        )
+                        .padding(.horizontal, DS.Space.l)
+                    }
+                }
+                .background(DS.surface, in: RoundedRectangle(cornerRadius: 20))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .strokeBorder(DS.planned.opacity(0.35), lineWidth: 1)
+                )
+                .padding(.horizontal, 16)
+            }
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("home_overdueSection")
         }
     }
 

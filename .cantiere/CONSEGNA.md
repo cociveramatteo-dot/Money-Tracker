@@ -1,27 +1,38 @@
 # CONSEGNA — MoneyTracker
 
-- **Ultimo turno:** impresa (Antigravity · Gemini 4 Hydrogen) · **2026-11-28 02:03** · ramo `redesign-sentiero`
-- **Task:** `S-73a`, `S-73b`, `S-73c`, `S-73d`, `S-73e` → segnati `[~]` in `.cantiere/PIANO.md` (un commit per task: `1afbe71`, `64005ac`, `1806a3d`, `90e76a3`, più il commit `S-73e`)
+- **Ultimo turno:** impresa (Antigravity · Gemini 4 Hydrogen) · **2026-11-28 03:04** · ramo `redesign-sentiero`
+- **Task:** `S-70h`, `S-73f` → entrambi segnati `[~]` in `.cantiere/PIANO.md` (un commit per task: `3014da4` per `S-70h`, commit `S-73f` in questo turno)
 
 ## Fatto
-- **S-73a (`1afbe71`, iOS):** aggiunto `MoneyTracker/Views/MonthlyPlannedBalance.swift` (`expected(for:day:calendar:)`, `expectedByAccountID(for:day:calendar:)`) allineato a `DashboardView.countsInProjection`; `AccountsView.swift` calcola i valori attesi una volta nel `body` e aggiorna `projectionDay` su `scenePhase` active / `.NSCalendarDayChanged` / `significantTimeChangeNotification` mantenendo intatti «A conti fatti», «→» e tutta la grafica; `DashboardView.swift` (`whatIfBaselines` conti esclusi) usa `MonthlyPlannedBalance.expected`. `Domain/` e `AccountBalanceCache` non toccati. Nuovi test in `MoneyTrackerTests/MonthlyPlannedBalanceTests.swift`.
-- **S-73b (`64005ac`, Android):** estratto `HomeProjection.countsInMonth(t, month, zone)` e aggiunto `Balance.expectedInMonth` / `Balance.totalExpectedInMonth` (lasciando intatti `Balance.current`/`future`); `AccountsScreen.kt`, `WhatIfScenario.kt` (conti esclusi) e `BucktrailApp.kt` usano `today` e `zone` con la regola della Home. Nuovi test JVM in `app/src/test/java/com/bucktrail/android/domain/AccountsExpectedMonthTest.kt`.
-- **S-73c (`1806a3d`, iOS):** in `AddTransactionView.swift` aggiunti `isFutureDate` e `defaultDone`, `DatePicker` con `Binding` imposta `isDone = !isFutureDate` per i non fissi (solo su modifica utente, non su `load()`), «Già effettuato» visibile anche per i non fissi con data futura; `TransactionsView.swift` abilita lo swipe `Pianificato`/`Conferma` anche per movimenti fatti con data futura; `DashboardView.countsInProjection` esteso a tutti i singoli pianificati (`!isDone && !isTransfer && templateId.isEmpty && recurringFrequency.isEmpty`). Aggiunto UI test `MoneyTrackerUITests/FutureTransactionPlannedUITests.swift`.
-  - **Nota su `ProjectionMonthTests.swift`:** con l'estensione di S-73c (opzione B di Matteo), i due vecchi assert S-41 in `everythingElseAlwaysCounts()` per `Stipendio` (entrata singola pianificata a dicembre) e `Cena` (spesa non fissa pianificata a dicembre) erano incompatibili con la nuova regola: sono stati spostati nel nuovo `@Test` `singlePlannedCountsOnlyInItsMonth()` dove verificano il comportamento corretto S-73c, più il test `futureDateAutoPlannedRule()`.
-- **S-73d (`90e76a3`, Android):** esteso `HomeProjection.countsInMonth` a tutti i singoli pianificati; aggiornato `SwipeRules.canToggleDone` (con parametro opzionale `isFutureDate: Boolean = false`) e `TransactionRow.kt` per consentire lo swipe anche sui movimenti fatti con data futura; in `AddTransactionForm.kt` mostrato `Già effettuato` anche quando `date > today`. Nuovi test JVM in `FuturePlannedRulesTest.kt`.
-- **S-73e (iOS + Android):** risolto in `AddTransactionView.swift` sostituendo `.onChange(of: isFixed)` con il `Binding` sul `Toggle` così `load()` non resetta `isDone` aprendo una fissa già effettuata; aggiunto `testEditingDoneFixedExpenseKeepsItDone()` in `FutureTransactionPlannedUITests.swift`; verificato `AddTransactionForm.kt` su Android (inizializza `done = existing?.isDone ?: true` e lo modifica solo al tocco).
 
-## Verifiche eseguite
-- **iOS unit test (`xcodebuild -scheme MoneyTracker -destination 'platform=iOS Simulator,id=37445D1E-DEF7-4A32-9A39-EA9EACCA3E48' -parallel-testing-enabled NO -only-testing:MoneyTrackerTests test`):**
-  - `MoneyTrackerTests`: **255/255** test Swift Testing passati in 55 suite (`TEST SUCCEEDED`), 1 XCTest (`TwoDeviceLiveSyncTests/testLiveSync`) skipped perché richiede lo script a due dispositivi. (In una corsa precedente con Runner appesantito si era verificato un crash intermittente su `SyncLostTransactionTests.initialE2ELoginDownloadsThenSchedulesUploadForDirtyTransaction`; al rilancio pulito tutto `MoneyTrackerTests` è passato 255/255.)
-- **iOS UI test (`FutureTransactionPlannedUITests`):**
-  - `testFutureNonFixedExpenseBehaviorAndYesterdayDone`: **1/1** passato (`TEST SUCCEEDED`).
-  - `testEditingDoneFixedExpenseKeepsItDone`: **1/1** passato (`TEST SUCCEEDED`).
-- **Screenshot Conti in demo (`.cantiere/tmp/s73/`):**
-  - `prima-light.png`, `dopo-light.png`, `dopo-dark.png` generati e controllati visivamente (layout, «A conti fatti» e «→» invariati nella struttura, chiari e leggibili).
-- **Android (`ANDROID_HOME=~/Library/Android/sdk 03_CODICE/bucktrail-android/gradlew -p 03_CODICE/bucktrail-android assembleDebug lintDebug testDebugUnitTest --rerun`):**
-  - `assembleDebug` verde, `lintDebug` verde, `testDebugUnitTest`: **366/366** passati su 63 file XML (`failures=0`, `errors=0`, `skipped=0`).
+- **S-70h (`3014da4`, iOS + Android):**
+  - Segnaposto importo in «E se…?»: cambiato `"0,00"` → `"0"` su iOS (`MoneyTracker/Views/WhatIf/WhatIfView.swift`) e Android (`WhatIfSheet.kt`) in linea con gli altri form importo dell'app.
+  - Conteggio leggero conti in apertura modulo movimento (`MoneyTracker/Views/AddTransactionView.swift`): aggiunto `fetchAccountUsageCounts(for:context:)` con `FetchDescriptor<Transaction>` filtrato per `accountID` + `context.fetchCount(descriptor)` per i conti non archiviati invece del fetch dell'intera tabella `Transaction`; aggiunto test unitario `MoneyTrackerTests/AccountUsageCountTests.swift`.
+- **S-73f (iOS + Android, opzione B):**
+  - Calcoli invariati: i movimenti pianificati di mesi passati non confermati restano fuori da Home e Conti.
+  - Segnalazione «Da confermare» riusando componenti e token ambrati Sentiero (`DS.plannedText`, `DS.plannedSoft`, `DS.planned` / `c.plannedText`, `c.plannedSoft`, `c.planned`, icone `clock` / `checkmark.circle.fill`) in **Home** (sopra «Ultimi movimenti») e in **Movimenti** (in cima al mese corrente, coerente coi filtri attivi), con conferma rapida a un tocco (`btn_confirmOverdue_<nome>`) e swipe «Conferma» / «Elimina».
+  - Nuovi file UI: `MoneyTracker/Views/OverduePlannedMovements.swift`, `03_CODICE/bucktrail-android/app/src/main/java/com/bucktrail/android/ui/OverduePlannedMovements.kt`; aggiornati `DashboardView.swift`, `TransactionsView.swift`, `HomeScreen.kt`, `MovementsScreen.kt`, `BucktrailApp.kt`.
+  - Traduzioni in tutte e 7 le lingue (`it`, `en`, `de`, `es`, `fr`, `ja`, `zh-Hans`) su `Localizable.strings` e `strings.xml`.
+  - Test nuovi: iOS unit `MoneyTrackerTests/OverduePlannedMovementsTests.swift`, iOS UI `MoneyTrackerUITests/OverduePlannedUITests.swift` (pianificato mese scorso → compare «Da confermare» → conferma rapida → sparisce e saldo attuale scala), Android JVM `OverduePlannedMovementsTest.kt`, Android Compose UI `OverduePlannedUiTest.kt`.
+
+## Verifiche eseguite dopo l'ultima modifica
+
+- **iOS (`MoneyTrackerTests`, senza `-only-testing` su singole suite):** `257/257` test Swift Testing passati su 57 suite (`** TEST SUCCEEDED **`, 1 XCTest `TwoDeviceLiveSyncTests` skipped).
+- **iOS (`MoneyTrackerUITests/OverduePlannedUITests`):** passato `1/1` in light mode e `1/1` in dark mode (`iPhone 18 Pro`).
+- **Android (`./gradlew assembleDebug lintDebug testDebugUnitTest --rerun`):** `BUILD SUCCESSFUL` (`assembleDebug` verde, `lintDebug` verde, `367/367` test unitari passati su 64 file XML con `failures=0`, `errors=0`, `skipped=0`).
+- **Android (`OverduePlannedUiTest` su emulatore `Bucktrail_API_36`):** passato `1/1` in light e `1/1` in dark.
+- **Screenshot light/dark (`S-73f`, per approvazione grafica di Matteo):**
+  - `.cantiere/tmp/s73f/ios-home-light.png`
+  - `.cantiere/tmp/s73f/ios-home-dark.png`
+  - `.cantiere/tmp/s73f/ios-movimenti-light.png`
+  - `.cantiere/tmp/s73f/ios-movimenti-dark.png`
+  - `.cantiere/tmp/s73f/android-home-light.png`
+  - `.cantiere/tmp/s73f/android-home-dark.png`
+  - `.cantiere/tmp/s73f/android-movimenti-light.png`
+  - `.cantiere/tmp/s73f/android-movimenti-dark.png`
 
 ## Aperto / note per il collaudo
-- `MoneyTracker.xcscheme` era già modificato in locale prima del turno: lasciato fuori da tutti i commit come richiesto.
-- Collaudo indipendente su `S-73a..S-73e` (+ `S-70k`). Restano in carico a Matteo la prova reale su telefono `S-70d` e l'eventuale verifica visiva di Conti.
+
+- `MoneyTracker.xcscheme` era già modificato in locale prima del turno: lasciato fuori da tutti i commit.
+- Su `android-home-light.png` lo scroll iniziale si è fermato sull'intestazione «To confirm 1» (la card completa light è comunque visibile in `android-movimenti-light.png`, e su Home in `android-home-dark.png`).
+- Serve collaudo indipendente su `S-70h` e `S-73f` più approvazione grafica degli screenshot `.cantiere/tmp/s73f/` da parte di Matteo.

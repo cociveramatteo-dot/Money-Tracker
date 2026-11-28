@@ -177,7 +177,8 @@ fun BucktrailApp(vm: AppViewModel = viewModel()) {
             Tab.Home -> HomeScreen(data, today, zone, { vm.setHideBalance(!data.prefs.hideBalance) }, edit, requestDelete,
                 onSeeAllMovements = { tab = Tab.Movements }, onManageAccounts = { tab = Tab.Accounts },
                 onOpenSettings = { settingsOpen = true }, onOpenAccountOrder = { homeOrderOpen = true },
-                onOpenWhatIf = { whatIfOpen = true })
+                onOpenWhatIf = { whatIfOpen = true },
+                onToggleDone = toggleDone)
             Tab.Movements -> MovementsScreen(
                 data, today, zone, MovementActions(edit, requestDelete, toggleDone, vm::setTxFilters, { settingsOpen = true }, openRecurrence, { recurrence = it }), { searching = it },
             )
