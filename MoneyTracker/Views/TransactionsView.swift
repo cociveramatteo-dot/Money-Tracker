@@ -535,7 +535,7 @@ struct TransactionsView: View {
                 .filter { !$0.isEmpty }.joined(separator: " · "),
             amount: t.amount.currencyFormatted,
             categoryName: t.category,
-            categorySymbol: t.categoryIcon.isEmpty ? DS.categoryIcon(for: t.category) : t.categoryIcon,
+            categorySymbol: OverduePlannedMovements.resolvedCategorySymbol(for: t),
             kind: t.isTransfer ? .transfer : t.transactionType == .entrata ? .income : .expense,
             isPlanned: !t.isDone,
             compact: true,

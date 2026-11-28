@@ -513,7 +513,7 @@ struct DashboardView: View {
             metadata: metadata,
             amount: money(t.amount),
             categoryName: t.category,
-            categorySymbol: t.categoryIcon.isEmpty ? "circle.dotted" : t.categoryIcon,
+            categorySymbol: OverduePlannedMovements.resolvedCategorySymbol(for: t),
             kind: t.transactionType == .entrata ? .income : .expense,
             isPlanned: !t.isDone
         )

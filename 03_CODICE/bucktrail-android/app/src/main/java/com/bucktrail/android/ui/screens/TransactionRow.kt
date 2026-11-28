@@ -24,6 +24,7 @@ import com.bucktrail.android.data.AccountEntity
 import com.bucktrail.android.data.TransactionEntity
 import com.bucktrail.android.domain.SwipeRules
 import com.bucktrail.android.ui.Fmt
+import com.bucktrail.android.ui.OverduePlannedMovements
 import com.bucktrail.android.ui.categoryLabel
 import com.bucktrail.android.ui.components.MovementRow
 import com.bucktrail.android.ui.components.SfIcons
@@ -70,7 +71,7 @@ fun TransactionRow(
         Box {
             MovementRow(
                 title = t.name, meta = meta, amount = money(t.amountValue(), currency, hidden), kind = t.kind(), categoryName = t.category,
-                categoryIcon = t.categoryIcon, planned = planned, recurring = recurring, compact = compact,
+                categoryIcon = OverduePlannedMovements.resolvedCategoryIcon(t), planned = planned, recurring = recurring, compact = compact,
                 onClick = { onEdit(t) }, onLongClick = { menu = true },
                 modifier = Modifier.semantics {
                     contentDescription = "${t.name}, " + (if (planned) res.getString(R.string.pianificato) else res.getString(R.string.fatto))
