@@ -60,7 +60,7 @@ abbonamenti condivisi), widget, Siri/App Intents che creano spese divise, access
 | A14 | **Compatibilità in avanti:** ogni `Split` ha `schemaVersion` (v1 = 1) e `direction` (`credit` in v1). Un client che trova `schemaVersion` maggiore o una `direction` sconosciuta mostra lo split in sola lettura, non lo modifica, non lo conta. | Quando arriveranno debiti e ricorrente+diviso, i client v1 non devono rovinare i dati. | Nessuna versione. |
 | A15 | **Server senza tabelle nuove:** se Supabase risponde «tabella inesistente» per `mt_splits`/`mt_split_payments` (o il vault rifiuta il `kind`), la sync **salta solo quelle due tabelle**, tiene i dati in locale e riprova alla sync successiva; le altre tabelle si sincronizzano normalmente. | L'app può uscire prima che Matteo esegua l'SQL senza bloccare tutto. | Legare la release all'SQL. |
 
-### 2.3 Da confermare con Matteo (S-80q) — con raccomandazione
+### 2.3 Confermate da Matteo il 2026-11-28 (S-80q): tutte come da raccomandazione
 - **Q1 Totali in Movimenti e «Fisse del mese» in Home:** contano la quota (come le statistiche) — **consigliato**, coerente con D2 — oppure l'importo pieno pagato? La riga del singolo movimento mostra comunque l'importo pieno.
 - **Q2 Eccedenza (A5):** conferma che i soldi in più ricevuti contano come entrata normale.
 - **Q3 Promemoria:** notifica predefinita spenta; scelte 7 / 14 / 30 giorni. Consigliato così.

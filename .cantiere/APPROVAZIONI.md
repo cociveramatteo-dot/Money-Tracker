@@ -6,6 +6,7 @@ Si aggiorna, non si cancella: quando cambia lo stato si aggiorna la riga e si an
 
 | ID | Cosa | Dove (file/sezione) | Chi deve approvare | Stato | Data | Note |
 |---|---|---|---|---|---|---|
+| S-80q | Progetto «Spese divise e crediti da recuperare» + zone §8 + Q1–Q4 come consigliato | .cantiere/progetto-split-rimborsi.md §2, §8 | Matteo | ✅ approvato | 2026-11-28 | «tutto come consigliato» in chat; esecuzione rinviata a dopo Sentiero |
 
 | S-19 | Revisione traduzioni ricorrenze (23 chiavi, blocco S-13g) in 7 lingue: de «Termin/Reihe», zh «项目/结束/系列», ja «シリーズ», fr «Sauter ce mois» | MoneyTracker/*.lproj/Localizable.strings | Matteo (+ madrelingua de/ja/zh/fr/es se possibile) | ✅ | 2026-11-16 | Approvato da Matteo in chat 2026-11-16 (senza rilettura di madrelingua); termini da far rileggere elencati in CONSEGNA |
 | S-18 | Serie programmate: card Sentiero, icona categoria 38×38, nome/importo, frequenza/stato, prossima data. Virtuali: riga Movimenti, icona tratteggiata e importo ambra, data e avviso esclusa dai totali; adattivo light/dark/XL/tedesco | ProgrammedRuleCard.swift | Matteo | ✅ approvato | 2026-11-16 | Proposta approvata in chat prima di implementare; risultato da collaudare |
