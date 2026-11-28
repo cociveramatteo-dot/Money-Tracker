@@ -244,7 +244,8 @@ struct DashboardView: View {
             .map { acc in
                 WhatIfBaseline(
                     id: acc.id.uuidString, name: acc.name,
-                    today: acc.currentBalance, endOfMonth: acc.futureBalance,
+                    today: acc.currentBalance,
+                    endOfMonth: MonthlyPlannedBalance.expected(for: acc, day: projectionDay),
                     isExcludedFromTotal: true
                 )
             }

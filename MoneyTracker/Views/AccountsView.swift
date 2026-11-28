@@ -4,12 +4,14 @@ import SwiftData
 struct AccountsView: View {
     @Query private var accounts: [Account]
     @Environment(\.modelContext) private var context
+    @Environment(\.scenePhase) private var scenePhase
     @Binding var showAdd: Bool
     @AppStorage("hideBalance") private var hideBalance: Bool = false
     @State private var editing: Account?           = nil
     @State private var showSettings               = false
     @State private var accountToDelete: Account?  = nil
     @State private var showArchived = false
+    @State private var projectionDay = Calendar.current.startOfDay(for: Date())
     private var partitioned: (active: [Account], archived: [Account]) {
         var active:   [Account] = []
         var archived: [Account] = []
@@ -26,7 +28,10 @@ struct AccountsView: View {
     private var excluded: [Account] { active.filter {  $0.isExcludedFromTotal } }
 
     private var totalCurrent: Decimal { included.reduce(0) { $0 + $1.currentBalance } }
-    private var totalFuture:  Decimal { included.reduce(0) { $0 + $1.futureBalance } }
+
+    private func refreshProjectionDay() {
+        projectionDay = Calendar.current.startOfDay(for: Date())
+    }
 
     // Raggruppamento esclusivamente di presentazione, senza modificare ordine o modelli.
     private func isSavings(_ account: Account) -> Bool {
@@ -37,6 +42,8 @@ struct AccountsView: View {
     }
 
     var body: some View {
+        let expectedByID = MonthlyPlannedBalance.expectedByAccountID(for: accounts, day: projectionDay)
+        let totalFuture = included.reduce(Decimal(0)) { $0 + (expectedByID[$1.persistentModelID] ?? $1.currentBalance) }
         NavigationStack {
             List {
                 HStack {
@@ -97,7 +104,11 @@ struct AccountsView: View {
                             .listRowBackground(DS.paper).listRowSeparator(.hidden)
                             .listRowInsets(EdgeInsets(top: 18, leading: 20, bottom: 8, trailing: 20))
                             ForEach(Array(groupAccounts.enumerated()), id: \.element.id) { index, acc in
-                                AccountRow(account: acc, hidden: hideBalance)
+                                AccountRow(
+                                    account: acc,
+                                    expectedBalance: expectedByID[acc.persistentModelID],
+                                    hidden: hideBalance
+                                )
                                     .contentShape(Rectangle())
                                     .accessibilityIdentifier("accountRow_\(acc.name)")
                                     .onTapGesture { editing = acc }
@@ -179,7 +190,11 @@ struct AccountsView: View {
                     if showArchived {
                         Section {
                             ForEach(archived) { acc in
-                                AccountRow(account: acc, hidden: hideBalance)
+                                AccountRow(
+                                    account: acc,
+                                    expectedBalance: expectedByID[acc.persistentModelID],
+                                    hidden: hideBalance
+                                )
                                     .contextMenu {
                                         Button {
                                             acc.isArchived = false
@@ -218,6 +233,15 @@ struct AccountsView: View {
             .sheet(isPresented: $showAdd) { AddAccountView() }
             .sheet(item: $editing)        { AddAccountView(editing: $0) }
             .themedNavBar()
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .active { refreshProjectionDay() }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+                refreshProjectionDay()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                refreshProjectionDay()
+            }
             .sheet(isPresented: $showSettings) { SettingsView() }
             .alert(
                 accountToDelete.map { String(format: NSLocalizedString("Eliminare \"%@\"?", comment: "Delete account alert title"), $0.name) } ?? "",
@@ -244,11 +268,13 @@ struct AccountsView: View {
 
 struct AccountRow: View {
     let account: Account
+    var expectedBalance: Decimal? = nil
     var hidden: Bool = false
     @AppStorage private var thresholdString: String
 
-    init(account: Account, hidden: Bool = false) {
+    init(account: Account, expectedBalance: Decimal? = nil, hidden: Bool = false) {
         self.account = account
+        self.expectedBalance = expectedBalance
         self.hidden = hidden
         _thresholdString = AppStorage(wrappedValue: "0", "balanceThreshold_\(account.id.uuidString)")
     }
@@ -297,8 +323,9 @@ struct AccountRow: View {
                     .accessibilityLabel(hidden ? String(localized: "Saldo nascosto") : account.currentBalance.currencyFormatted)
                     .foregroundStyle(account.isExcludedFromTotal || account.isArchived ? DS.smoke : DS.ink)
                     .lineLimit(1).minimumScaleFactor(0.7)
-                if !hidden, abs(account.futureBalance - account.currentBalance) > 0.001 {
-                    Text("→ " + account.futureBalance.currencyFormatted)
+                let expected = expectedBalance ?? account.currentBalance
+                if !hidden, abs(expected - account.currentBalance) > 0.001 {
+                    Text("→ " + expected.currencyFormatted)
                         .font(DS.Typo.caption).foregroundStyle(account.isArchived ? DS.smoke : DS.plannedText)
                         .lineLimit(1).minimumScaleFactor(0.7)
                 }
