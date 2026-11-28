@@ -31,6 +31,125 @@ enum OverduePlannedMovements {
         }
         return DS.categoryIcon(for: transaction.category)
     }
+
+    /// Cache della scansione «Da confermare»: evita di ri-filtrare e ri-ordinare tutti i movimenti
+    /// a ogni render non legato ai dati o al giorno di riferimento. Non è @Observable:
+    /// si aggiorna solo la scatola interna senza mutare stato osservato durante il render.
+    final class ListCache {
+        private var fingerprint: Int?
+        private var cached: [Transaction] = []
+
+        func list(from transactions: [Transaction], relativeTo day: Date, calendar: Calendar = .current) -> [Transaction] {
+            let fp = Self.fingerprint(transactions: transactions, day: day)
+            if fingerprint == fp { return cached }
+            let result = OverduePlannedMovements.list(from: transactions, relativeTo: day, calendar: calendar)
+            fingerprint = fp
+            cached = result
+            return result
+        }
+
+        private static func fingerprint(transactions: [Transaction], day: Date) -> Int {
+            var hasher = Hasher()
+            hasher.combine(day)
+            hasher.combine(transactions.count)
+            for t in transactions {
+                hasher.combine(t.persistentModelID)
+                hasher.combine(t.id)
+                hasher.combine(t.isDone)
+                hasher.combine(t.isTransfer)
+                hasher.combine(t.account?.persistentModelID)
+                hasher.combine(t.account?.isArchived)
+                hasher.combine(t.date)
+                hasher.combine(t.createdAt)
+            }
+            return hasher.finalize()
+        }
+    }
+
+    /// Cache della sezione «Da confermare» in Movimenti: combina la scansione base memoizzata
+    /// e i filtri attivi nella tab Movimenti.
+    final class FilteredCache {
+        private let baseCache = ListCache()
+        private var fingerprint: Int?
+        private var cached: [Transaction] = []
+
+        func list(
+            from transactions: [Transaction],
+            relativeTo day: Date,
+            selectedMonth: Date,
+            searchQuery: String,
+            useCustomDates: Bool,
+            filter: TxFilter,
+            selectedCategory: String,
+            minAmountText: String,
+            maxAmountText: String,
+            rules: [RecurringRule],
+            calendar: Calendar = .current
+        ) -> [Transaction] {
+            let trimmedQuery = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard calendar.isDate(selectedMonth, equalTo: day, toGranularity: .month),
+                  trimmedQuery.isEmpty,
+                  !useCustomDates else {
+                fingerprint = nil
+                cached = []
+                return []
+            }
+            let base = baseCache.list(from: transactions, relativeTo: day, calendar: calendar)
+            let fp = Self.fingerprint(
+                base: base,
+                day: day,
+                filter: filter,
+                selectedCategory: selectedCategory,
+                minAmountText: minAmountText,
+                maxAmountText: maxAmountText,
+                rules: rules
+            )
+            if fingerprint == fp { return cached }
+            let ruleIDs = Set(rules.map { $0.id.uuidString })
+            let minAmt = Decimal.parseAmount(minAmountText)
+            let maxAmt = Decimal.parseAmount(maxAmountText)
+            let filtered = OverduePlannedMovements.matchingFilter(base, filter: filter, ruleIDs: ruleIDs)
+                .filter { t in
+                    (selectedCategory.isEmpty || t.category == selectedCategory)
+                        && (minAmt.map { t.amount >= $0 } ?? true)
+                        && (maxAmt.map { t.amount <= $0 } ?? true)
+                }
+            fingerprint = fp
+            cached = filtered
+            return filtered
+        }
+
+        private static func fingerprint(
+            base: [Transaction],
+            day: Date,
+            filter: TxFilter,
+            selectedCategory: String,
+            minAmountText: String,
+            maxAmountText: String,
+            rules: [RecurringRule]
+        ) -> Int {
+            var hasher = Hasher()
+            hasher.combine(day)
+            hasher.combine(filter)
+            hasher.combine(selectedCategory)
+            hasher.combine(minAmountText)
+            hasher.combine(maxAmountText)
+            hasher.combine(rules.count)
+            for r in rules {
+                hasher.combine(r.id)
+            }
+            hasher.combine(base.count)
+            for t in base {
+                hasher.combine(t.persistentModelID)
+                hasher.combine(t.isFixed)
+                hasher.combine(t.templateId)
+                hasher.combine(t.type)
+                hasher.combine(t.category)
+                hasher.combine(t.amount)
+            }
+            return hasher.finalize()
+        }
+    }
 }
 
 struct OverduePlannedHeader: View {

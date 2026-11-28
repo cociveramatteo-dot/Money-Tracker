@@ -89,6 +89,7 @@ struct DashboardView: View {
         var value: (trailInput: TrailInput, plannedByAccount: [PersistentIdentifier: Decimal])?
     }
     @State private var projectionCache = ProjectionCache()
+    @State private var overdueCache = OverduePlannedMovements.ListCache()
 
     /// Impronta di TUTTO ciò che `buildMonthlyProjection` legge: se non cambia, il risultato è identico.
     private func projectionFingerprint() -> Int {
@@ -152,7 +153,7 @@ struct DashboardView: View {
     // MARK: - Body
     var body: some View {
         let projection = monthlyProjection()
-        let overduePlanned = OverduePlannedMovements.list(from: transactions, relativeTo: projectionDay)
+        let overduePlanned = overdueCache.list(from: transactions, relativeTo: projectionDay)
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {

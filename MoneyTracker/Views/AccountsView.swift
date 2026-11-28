@@ -12,6 +12,7 @@ struct AccountsView: View {
     @State private var accountToDelete: Account?  = nil
     @State private var showArchived = false
     @State private var projectionDay = Calendar.current.startOfDay(for: Date())
+    @State private var expectedBalanceCache = MonthlyPlannedBalance.Cache()
     private var partitioned: (active: [Account], archived: [Account]) {
         var active:   [Account] = []
         var archived: [Account] = []
@@ -42,7 +43,7 @@ struct AccountsView: View {
     }
 
     var body: some View {
-        let expectedByID = MonthlyPlannedBalance.expectedByAccountID(for: accounts, day: projectionDay)
+        let expectedByID = expectedBalanceCache.expectedByAccountID(for: accounts, day: projectionDay)
         let totalFuture = included.reduce(Decimal(0)) { $0 + (expectedByID[$1.persistentModelID] ?? $1.currentBalance) }
         NavigationStack {
             List {

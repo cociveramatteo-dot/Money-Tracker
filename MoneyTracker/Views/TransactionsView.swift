@@ -15,6 +15,9 @@ struct TransactionsView: View {
     @State private var recurrenceSelection: RecurrenceSelection?
 
     @State private var occurrenceCache = RecurrencePresentationCache()
+    @State private var overdueCache = OverduePlannedMovements.FilteredCache()
+    @State private var projectionDay = Calendar.current.startOfDay(for: Date())
+    @Environment(\.scenePhase) private var scenePhase
     @AppStorage("hideBalance") private var hideBalance: Bool = false
 
     private var isFutureMonth: Bool {
@@ -255,6 +258,15 @@ struct TransactionsView: View {
             .themedNavBar()
             .sheet(isPresented: $showSettings) { SettingsView() }
             .transferDeleteConfirmation(pending: $transferToDelete, onConfirm: deleteTransactionOrPair)
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .active { projectionDay = Calendar.current.startOfDay(for: Date()) }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+                projectionDay = Calendar.current.startOfDay(for: Date())
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                projectionDay = Calendar.current.startOfDay(for: Date())
+            }
         }
     }
 
@@ -321,23 +333,18 @@ struct TransactionsView: View {
     }
 
     private var overduePlanned: [Transaction] {
-        let cal = Calendar.current
-        guard cal.isDate(selectedMonth, equalTo: Date(), toGranularity: .month),
-              hubSearchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              !filterUseCustomDates else { return [] }
-        let ruleIDs = Set(rules.map { $0.id.uuidString })
-        let minAmt = Decimal.parseAmount(filterMinAmount)
-        let maxAmt = Decimal.parseAmount(filterMaxAmount)
-        let base = OverduePlannedMovements.matchingFilter(
-            OverduePlannedMovements.list(from: all, relativeTo: Date(), calendar: cal),
+        overdueCache.list(
+            from: all,
+            relativeTo: projectionDay,
+            selectedMonth: selectedMonth,
+            searchQuery: hubSearchQuery,
+            useCustomDates: filterUseCustomDates,
             filter: selectedType,
-            ruleIDs: ruleIDs
+            selectedCategory: selectedCat,
+            minAmountText: filterMinAmount,
+            maxAmountText: filterMaxAmount,
+            rules: rules
         )
-        return base.filter { t in
-            (selectedCat.isEmpty || t.category == selectedCat)
-                && (minAmt.map { t.amount >= $0 } ?? true)
-                && (maxAmt.map { t.amount <= $0 } ?? true)
-        }
     }
 
     private func movementList(_ snapshot: [Transaction], virtual: [Occurrence], overdue: [Transaction]) -> some View {
